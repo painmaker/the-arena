@@ -1,0 +1,90 @@
+"DOTAUnits"
+{
+	"npc_boss_timbersaw"
+	{
+
+		// General
+		"vscripts"					    "ai/bosses/timbersaw/ai_npc_boss_timbersaw.lua"
+		"BaseClass"         		"npc_dota_creature"
+		"Model"           			"models/heroes/shredder/shredder.vmdl"
+		"SoundSet"		          "Hero_Shredder"
+		"IdleSoundLoop"		      "Hero_Shredder.IdleLoop"
+    "ModelScale"				    "2.0"
+		"Level"           			"1"
+    "CanRespawn"            "1"
+		"ConsideredHero"			  "1"
+
+    "precache"
+		{
+			"model"			          "models/heroes/shredder/shredder.vmdl"
+			"soundevents"			      "soundevents/game_sounds_heroes/game_sounds_shredder.vsndevts"
+		}
+        
+		// Abilities
+		//----------------------------------------------------------------
+    "Ability1"		          "npc_boss_timbersaw_bomb"
+
+		// Protection
+		//----------------------------------------------------------------
+		"ArmorPhysical"       		  "10"
+		"MagicalResistance"       	"30"
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"     		"5"
+		"AttackDamageMax"     		"15"
+		"AttackRate"        		  "1.5"
+		"AttackAnimationPoint"    "0.5"
+		"AttackAcquisitionRange"  "1200"
+		"AttackRange"       		  "350"
+		
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"          		  "500"
+		"BountyGoldMin"       		"500"
+		"BountyGoldMax"       		"500"
+
+		// Bounds
+		//----------------------------------------------------------------
+    "RingRadius"                "125"
+    "HealthBarOffset"           "475"
+		"BoundsHullName"      		  "DOTA_HULL_SIZE_HUGE"
+		
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"    	"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"       		  "350"
+		"MovementTurnRate"      	  "2.0"
+		
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"        		  "3000"
+		"StatusHealthRegen"     	  "5.0"
+		"StatusMana"        		    "3000"
+		"StatusManaRegen"     		  "7.5"
+
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"    	  "1200"
+		"VisionNighttimeRange"    	"1200"
+
+    "Creature"
+    {
+      "AttachWearables"
+      {
+        "0" { "ItemDef" "388" } // offhand weapn
+        "1" { "ItemDef" "402" } // weapon
+        "2" { "ItemDef" "386" } // head
+        "3" { "ItemDef" "389" } // shoulder 
+        "4" { "ItemDef" "390" } // back
+        "5" { "ItemDef" "401" } // armor
+        "6" { "ItemDef" "400" } // belt
+        // "8" { "ItemDef" "" } // taunt
+        "9" { "ItemDef" "537" } // ambient_effects
+      }
+    }
+		
+	}
+
+}

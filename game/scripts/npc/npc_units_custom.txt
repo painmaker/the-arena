@@ -1,0 +1,6 @@
+#base "bosses/timbersaw/npc_boss_timbersaw.kv"
+
+"DOTAUnits"
+{
+	"Version" 	"1"
+}

@@ -1,4 +1,5 @@
-#base "heroes/meepo.kv"
+
+#base "bosses/timbersaw/abilities/npc_boss_timbersaw_bomb.kv"
 
 "DOTAAbilities"
 {
