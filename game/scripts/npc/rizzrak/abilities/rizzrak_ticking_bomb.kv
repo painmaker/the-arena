@@ -1,21 +1,27 @@
 "DOTAAbilities"
 {
    
-    "npc_boss_timbersaw_bomb"
+    "rizzrak_ticking_bomb"
     {
         // General
         //-------------------------------------------------------------------------------------------------------------
         "BaseClass"                     "ability_lua"
-        "ScriptFile"                    "abilities/bosses/timbersaw/npc_boss_timbersaw_bomb.lua"
-        "AbilityTextureName"            "npc_boss_timbersaw_bomb"
+        "ScriptFile"                    "abilities/bosses/rizzrak/rizzrak_ticking_bomb.lua"
+        "AbilityTextureName"            "rizzrak_ticking_bomb"
         "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_POINT"
         "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
         "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_2"
         
+        "precache"
+        {
+          "particle"		"particles/units/heroes/hero_ogre_magi/ogre_magi_ignite.vpcf"
+          "soundfile"   "sounds/weapons/hero/techies/remote_mine_plant.vsnd"
+        }
+
         // Casting
         //-------------------------------------------------------------------------------------------------------------
         "AbilityCastRange"              "1250"
-        "AbilityCastPoint"              "0.3"
+        "AbilityCastPoint"              "0.5"
 
         // Time
         //-------------------------------------------------------------------------------------------------------------

@@ -7,7 +7,6 @@
   \****************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 65:0-14 */
 /***/ ((module) => {
 
 "use strict";
@@ -442,7 +441,6 @@ function clearTimer(handle) {
   \************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: __webpack_require__, module */
-/*! CommonJS bailout: module.exports is used directly at 25:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var hasMap = typeof Map === 'function' && Map.prototype;
@@ -21691,7 +21689,7 @@ __webpack_require__.r(__webpack_exports__);
 function Counter() {
     const [count, setCount] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     const increment = () => setCount(count + 1);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: "down" } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: "down", marginTop: '150px', marginLeft: '10px' } },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: `Count: ${count}` }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(TextButton, { className: "ButtonBevel", text: "Increment", onactivate: increment })));
 }

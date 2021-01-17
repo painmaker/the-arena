@@ -13,6 +13,7 @@ export class GameMode {
   public static Precache(this: void, context: CScriptPrecacheContext) {
     PrecacheResource("particle", "particles/units/heroes/hero_meepo/meepo_earthbind_projectile_fx.vpcf", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts", context);
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_techies.vsndevts", context);
   }
 
   public static Activate(this: void) {
@@ -39,7 +40,7 @@ export class GameMode {
     GameRules.SetUseUniversalShopMode(true);
 
     const gameMode = GameRules.GetGameModeEntity();
-    gameMode.SetCustomGameForceHero('npc_dota_hero_phantom_assassin');
+    gameMode.SetCustomGameForceHero('npc_dota_hero_techies');
     gameMode.SetUnseenFogOfWarEnabled(true);
     gameMode.SetCameraDistanceOverride(1600);
     gameMode.SetDaynightCycleDisabled(false);
@@ -61,7 +62,7 @@ export class GameMode {
 
     const spawnEntity = Entities.FindByName(undefined, "npc_boss_spawner_1");
     if (spawnEntity !== undefined) {
-      const unit = CreateUnitByName("npc_boss_timbersaw", spawnEntity.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_BADGUYS);
+      CreateUnitByName("rizzrak", spawnEntity.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_BADGUYS);
     }
 
   }

@@ -6,7 +6,7 @@ function Counter() {
     const increment = () => setCount(count + 1);
 
     return (
-        <Panel style={{ flowChildren: "down" }}>
+        <Panel style={{ flowChildren: "down", marginTop: '150px', marginLeft: '10px' }}>
             <Label text={`Count: ${count}`} />
             <TextButton className="ButtonBevel" text="Increment" onactivate={increment} />
         </Panel>

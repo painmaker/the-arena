@@ -1,12 +1,19 @@
 import Behaviors from "../../Behaviors";
-import FallbackBehavior from "../../FallbackBehavior";
+import Wander from "../../shared/Wander";
+import CastTickingBomb from "./CastTickingBomb";
 
 declare var thisEntity: CDOTA_BaseNPC;
 
 function Spawn(entityKeyValues: any) {
 
+  const bombAbility = thisEntity.FindAbilityByName("rizzrak_ticking_bomb");
+  if (bombAbility === undefined) {
+    return;
+  }
+
   const behaviors = new Behaviors(thisEntity, [
-    new FallbackBehavior(thisEntity)
+    new Wander(thisEntity),
+    new CastTickingBomb(thisEntity, bombAbility)
   ]);
 
   thisEntity.SetContextThink("AIThink", () => {

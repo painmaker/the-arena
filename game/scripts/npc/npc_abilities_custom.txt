@@ -1,5 +1,5 @@
 
-#base "bosses/timbersaw/abilities/npc_boss_timbersaw_bomb.kv"
+#base "rizzrak/abilities/rizzrak_ticking_bomb.kv"
 
 "DOTAAbilities"
 {

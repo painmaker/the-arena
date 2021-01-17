@@ -1,18 +1,17 @@
-import { IBehavior } from "./IBehavior";
+import BaseBehavior from "./abstracts/BaseBehavior";
 
-class FallbackBehavior implements IBehavior {
+export default class Wander extends BaseBehavior {
 
   entity: CDOTA_BaseNPC;
-  endTime: number | undefined;
 
   constructor(entity: CDOTA_BaseNPC) {
+    super();
     this.entity = entity;
-    this.endTime = undefined;
   }
 
   getInitiative(): number {
 
-    const unit = FindUnitsInRadius(
+    const units = FindUnitsInRadius(
       this.entity.GetTeam(),
       this.entity.GetAbsOrigin(),
       undefined,
@@ -24,7 +23,7 @@ class FallbackBehavior implements IBehavior {
       false
     )
 
-    if (unit.length === 0) {
+    if (units.length === 0) {
       return 1;
     }
 
@@ -37,7 +36,6 @@ class FallbackBehavior implements IBehavior {
   }
 
   getOrder(): ExecuteOrderOptions {
-    this.endTime = GameRules.GetGameTime();
     if (this.entity.HasAttackCapability()) {
       return {
         UnitIndex: this.entity.entindex(),
@@ -52,10 +50,8 @@ class FallbackBehavior implements IBehavior {
     }
   }
 
-  getEndTime(): number {
-    return (this.endTime || GameRules.GetGameTime()) + math.random(0.5, 3.5);
+  getDuration(): number {
+    return math.random(0.5, 3.5);
   }
-
+  
 }
-
-export default FallbackBehavior;

@@ -6,8 +6,8 @@
 
     "addon_game_name" "EXP"
 
-    // Timbersaw
-    "npc_boss_timbersaw" "Timbersaw"
+    // Rizzrak
+    "rizzrak" "Rizzrak"
 
   }
 }

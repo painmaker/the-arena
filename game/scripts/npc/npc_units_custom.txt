@@ -1,4 +1,4 @@
-#base "bosses/timbersaw/npc_boss_timbersaw.kv"
+#base "rizzrak/rizzrak.kv"
 
 "DOTAUnits"
 {
