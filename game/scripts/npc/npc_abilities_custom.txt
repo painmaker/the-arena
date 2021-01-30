@@ -1,5 +1,6 @@
 
 #base "rizzrak/abilities/rizzrak_ticking_bomb.kv"
+#base "rizzrak/abilities/rizzrak_ticking_bomb_intrinsic.kv"
 
 "DOTAAbilities"
 {

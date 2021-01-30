@@ -34,8 +34,7 @@ module.exports = {
     new PanoramaTargetPlugin(),
     new PanoramaManifestPlugin({
       entries: [
-        { import: "./loading-screen/layout.xml", filename: "custom_loading_screen.xml" },
-        { import: "./hud/layout.xml", type: "Hud" },
+        { import: "./hud/app.xml", type: "Hud" },
       ],
     }),
     new ForkTsCheckerWebpackPlugin({

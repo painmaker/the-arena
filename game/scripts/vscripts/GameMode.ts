@@ -40,10 +40,13 @@ export class GameMode {
     GameRules.SetUseUniversalShopMode(true);
 
     const gameMode = GameRules.GetGameModeEntity();
-    gameMode.SetCustomGameForceHero('npc_dota_hero_techies');
+    gameMode.SetCustomGameForceHero('npc_dota_hero_windrunner');
     gameMode.SetUnseenFogOfWarEnabled(true);
-    gameMode.SetCameraDistanceOverride(1600);
-    gameMode.SetDaynightCycleDisabled(false);
+    gameMode.SetDaynightCycleDisabled(true);
+
+    Timers.CreateTimer(0.1, () => {
+      GameRules.SetTimeOfDay(0.5);
+    });
 
   }
 
@@ -54,11 +57,13 @@ export class GameMode {
     if (state == DOTA_GameState.DOTA_GAMERULES_STATE_PRE_GAME) {
       Timers.CreateTimer(0.2, () => this.StartGame());
     }
- 
+
   }
 
   private StartGame(): void {
+
     print("Game starting!");
+
 
     const spawnEntity = Entities.FindByName(undefined, "npc_boss_spawner_1");
     if (spawnEntity !== undefined) {
@@ -72,6 +77,11 @@ export class GameMode {
   }
 
   private OnNpcSpawned(event: NpcSpawnedEvent) {
+
+    const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
+    if (unit.IsRealHero()) {
+      CustomGameEventManager.Send_ServerToAllClients("lock_camera", {} as never);
+    }
 
   }
 

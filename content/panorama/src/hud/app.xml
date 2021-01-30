@@ -1,0 +1,10 @@
+<root>
+    <scripts>
+        <include src="./App.tsx" />
+    </scripts>
+    <styles>
+        <include src="s2r://panorama/styles/dotastyles.vcss_c" />
+        <include src="./app.css" />
+    </styles>
+    <Panel class="root" hittest="false" />
+</root>

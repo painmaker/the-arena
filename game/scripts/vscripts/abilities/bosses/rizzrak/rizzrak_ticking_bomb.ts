@@ -5,63 +5,91 @@ export class rizzrak_ticking_bomb extends BaseAbility {
 
   particle?: ParticleID;
 
-  OnAbilityPhaseStart() {
-    // Do nothing
-    return true;
-  }
-
-  OnAbilityPhaseInterrupted() {
-    // Do nothing
-  }
-
   OnSpellStart() {
-
-    const thinker = CreateModifierThinker(
-      this.GetCaster(),
-      this,
-      "",
-      { duration: -1 },
-      this.GetCursorPosition(),
-      this.GetCaster().GetTeam(),
-      false,
-    ) as CDOTA_BaseNPC;
-
-    if (thinker === undefined) {
-      return
-    }
 
     EmitSoundOn("Hero_Techies.RemoteMine.Toss", this.GetCaster());
 
-    ProjectileManager.CreateTrackingProjectile({
-      EffectName: "particles/units/heroes/hero_ogre_magi/ogre_magi_ignite.vpcf",
-      Ability: this,
-      Source: this.GetCaster(),
-      bProvidesVision: true,
-      iVisionRadius: 100,
-      iVisionTeamNumber: this.GetCaster().GetTeam(),
-      vSourceLoc: (this.GetCaster().GetAbsOrigin() + Vector(0, 0, 200) + this.GetCaster().GetForwardVector() * 500) as Vector,
-      Target: thinker ,
-      iMoveSpeed: 1000,
-      flExpireTime: GameRules.GetGameTime() + 10,
-      bDodgeable: false,
-      bIsAttack: false,
-      bReplaceExisting: false,
-      bIgnoreObstructions: false,
-      bSuppressTargetCheck: false,
-      iSourceAttachment: DOTAProjectileAttachment_t.DOTA_PROJECTILE_ATTACHMENT_ATTACK_1,
-      bDrawsOnMinimap: true,
-      bVisibleToEnemies: true,
-    })
+    const explosionDelay = 2.5;
 
-    DebugDrawCircle(thinker.GetAbsOrigin(), Vector(255,0,0), 5, 250, true, 3);
+    const cursorPosition = this.GetCursorPosition();
+    const speed = 1250;
+    const distance = ((cursorPosition - this.GetCaster().GetAbsOrigin()) as Vector).Length2D() + 250;
+    const time = distance / speed;
 
-  }
+    const projectileParticleId = ParticleManager.CreateParticle(
+      "particles/bosses/rizzrak/rizzrak_ticking_bomb/rizzrak_ticking_bomb_projectile.vpcf",
+      ParticleAttachment_t.PATTACH_CUSTOMORIGIN,
+      this.GetCaster(),
+    );
+    ParticleManager.SetParticleControl(projectileParticleId, 0, (this.GetCaster().GetAbsOrigin() + Vector(0, 0, 250)) as Vector);
+    ParticleManager.SetParticleControl(projectileParticleId, 1, cursorPosition);
+    ParticleManager.SetParticleControl(projectileParticleId, 2, Vector(speed, 0, 0));
+    ParticleManager.SetParticleControl(projectileParticleId, 3, Vector(time, 0, 0));
 
-  OnProjectileHit(target: CDOTA_BaseNPC, location: Vector) {
-    if (target) {
-      EmitSoundOn("Hero_Techies.RemoteMine.Plant", target);
-      UTIL_Remove(target);
-    }
+    // this.GetCaster().EmitSound("shredder_timb_kill_15");
+
+    Timers.CreateTimer(time, () => {
+
+      // DebugDrawCircle(cursorPosition, Vector(255,0,0), 25, 100, true, time);
+
+      ParticleManager.DestroyParticle(projectileParticleId, false);
+      ParticleManager.ReleaseParticleIndex(projectileParticleId);
+
+      EmitSoundOnLocationWithCaster(cursorPosition, "Hero_Techies.RemoteMine.Plant", this.GetCaster());
+
+      const bomb = CreateUnitByName(
+        "rizzrak_ticking_bomb",
+        cursorPosition,
+        false,
+        this.GetCaster(),
+        this.GetCaster(),
+        this.GetCaster().GetTeam(),
+      );
+
+      const bombParticleId = ParticleManager.CreateParticle(
+        "particles/bosses/rizzrak/rizzrak_ticking_bomb/rizzrak_ticking_bomb_model_oscilate_circle.vpcf",
+        ParticleAttachment_t.PATTACH_CUSTOMORIGIN,
+        bomb
+      );
+      ParticleManager.SetParticleControl(bombParticleId, 0, bomb.GetAbsOrigin())
+
+      const damageRadiusParticleId = ParticleManager.CreateParticle(
+        "particles/bosses/rizzrak/rizzrak_ticking_bomb/rizzrak_ticking_bomb_explosion_warning.vpcf",
+        ParticleAttachment_t.PATTACH_CUSTOMORIGIN,
+        bomb,
+      );
+      ParticleManager.SetParticleControl(damageRadiusParticleId, 0, bomb.GetAbsOrigin());
+      ParticleManager.ReleaseParticleIndex(damageRadiusParticleId); 
+
+      let counter = explosionDelay;
+      Timers.CreateTimer(0, () => {
+        if (counter == 0) {
+          return undefined;
+        }
+        const timerParticleId = ParticleManager.CreateParticle(
+          "particles/units/heroes/hero_alchemist/alchemist_unstable_concoction_timer.vpcf",
+          ParticleAttachment_t.PATTACH_OVERHEAD_FOLLOW,
+          bomb,
+        );
+        ParticleManager.SetParticleControl(timerParticleId, 0, bomb.GetAbsOrigin());
+        ParticleManager.SetParticleControl(timerParticleId, 1, Vector(0, math.floor(counter), counter % 1 !== 0 ? 8 : 1));
+        ParticleManager.SetParticleControl(timerParticleId, 2, Vector(2, 0, 0));
+        ParticleManager.ReleaseParticleIndex(timerParticleId);
+        counter = counter - 0.5;
+        return 0.5;
+      });
+
+      Timers.CreateTimer(explosionDelay, () => {
+
+        bomb.ForceKill(false);
+
+        ParticleManager.DestroyParticle(bombParticleId, false);
+        ParticleManager.ReleaseParticleIndex(bombParticleId);
+
+      });
+
+    });
+
   }
 
 }

@@ -35,7 +35,7 @@ export default class CastTickingBomb extends PositionTargetBehavior {
   }
 
   getDuration() : number {
-    return 2.0;
+    return 1.0;
   }
 
   getTargetedPosition() : Vector | undefined {

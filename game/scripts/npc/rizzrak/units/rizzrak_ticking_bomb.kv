@@ -1,0 +1,92 @@
+"DOTAUnits"
+{
+  "rizzrak_ticking_bomb"
+	{
+		// General
+		//----------------------------------------------------------------
+		"BaseClass"					  "npc_dota_creature"
+		"Model"						    "models/heroes/techies/fx_techiesfx_mine.vmdl"
+		"SoundSet"					  "0"
+		"Level"						    "1"
+		"ModelScale" 				  "1.0"
+		"SelectionGroup"			"Techies_LandMines"
+    
+    "precache"
+    {
+      "model"		    "models/heroes/techies/fx_techiesfx_mine.vmdl"
+      "particle"		"particles/units/heroes/hero_alchemist/alchemist_unstable_concoction_timer.vpcf"
+    }
+
+		// Abilities
+		//----------------------------------------------------------------
+		"Ability1"					"rizzrak_ticking_bomb_intrinsic"
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				        "20"
+		"MagicalResistance"			      "0"
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		      "DOTA_UNIT_CAP_NO_ATTACK"
+		"AttackDamageMin"			        "0"
+		"AttackDamageMax"			        "0"
+		"AttackDamageType"			      "DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"				          "0"
+		"AttackAnimationPoint"		    "0"
+		"AttackAcquisitionRange"	    "0"
+		"AttackRange"				          "0"
+		"ProjectileModel"			        ""
+		"ProjectileSpeed"			        "0"
+
+		// Attributes
+		//----------------------------------------------------------------
+		"AttributePrimary"			        "DOTA_ATTRIBUTE_STRENGTH"
+		"AttributeBaseStrength"		      "0"
+		"AttributeStrengthGain"		      "0"
+		"AttributeBaseIntelligence"	    "0"
+		"AttributeIntelligenceGain"	    "0"
+		"AttributeBaseAgility"		      "0"
+		"AttributeAgilityGain"		      "0"
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"					  "0"
+		"BountyGoldMin"				"0"
+		"BountyGoldMax"				"0"
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			    "DOTA_HULL_SIZE_SMALL"
+		"RingRadius"				      "45"
+		"HealthBarOffset"			    "110"
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"
+		"MovementSpeed"				    "0"
+		"MovementTurnRate"			  "1.0"
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				  "1000"
+		"StatusHealthRegen"			"3"
+		"StatusMana"				    "500"
+		"StatusStartingMana"		"0"
+		"StatusManaRegen"		  	"0"
+
+		// Team
+		//----------------------------------------------------------------
+		"TeamName"					      "DOTA_TEAM_BADGUYS"
+		"CombatClassAttack"			  "DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			  "DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD"
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		  "1"
+		"VisionNighttimeRange"		"1"
+
+	}
+
+}

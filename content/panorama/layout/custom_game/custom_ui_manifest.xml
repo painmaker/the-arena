@@ -2,6 +2,6 @@
   <scripts>
   </scripts>
   <Panel>
-    <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud/layout.xml" />
+    <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud/app.xml" />
   </Panel>
 </root>

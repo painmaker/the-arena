@@ -23,6 +23,10 @@ export default class Wander extends BaseBehavior {
       false
     )
 
+    if (!this.entity.HasMovementCapability()) {
+      return -1;
+    }
+
     if (units.length === 0) {
       return 1;
     }

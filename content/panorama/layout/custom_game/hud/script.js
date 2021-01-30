@@ -21687,6 +21687,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Counter() {
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        $.Msg("Test");
+        GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+    }, []);
     const [count, setCount] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     const increment = () => setCount(count + 1);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: "down", marginTop: '150px', marginLeft: '10px' } },

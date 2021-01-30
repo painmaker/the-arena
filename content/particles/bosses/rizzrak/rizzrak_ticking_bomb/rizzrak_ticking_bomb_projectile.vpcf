@@ -1,0 +1,192 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf31:version{593cd181-a1d6-4c6f-9a8c-0534e8d44db0} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_bShouldHitboxesFallbackToRenderBounds = false
+	m_nMaxParticles = 16
+	m_flConstantRadius = 1.0
+	m_flNoDrawTimeToGoToSleep = 100000.0
+	m_bShouldSort = false
+	m_nBehaviorVersion = 10
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+			m_drivers = 
+			[
+				{
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+				{
+					m_iControlPoint = 1
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+				{
+					m_iControlPoint = 2
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 1.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+				{
+					m_iControlPoint = 3
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+				{
+					m_iControlPoint = 4
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+			]
+		},
+	]
+	m_Emitters = 
+	[
+		{
+			_class = "C_OP_InstantaneousEmitter"
+			m_nParticlesToEmit = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 1.0
+			}
+		},
+	]
+	m_Initializers = 
+	[
+		{
+			_class = "C_INIT_CreateWithinSphere"
+		},
+	]
+	m_Operators = 
+	[
+		{
+			_class = "C_OP_BasicMovement"
+		},
+		{
+			_class = "C_OP_MaxVelocity"
+			m_flMaxVelocity = 600.0
+			m_nOverrideCP = 2
+		},
+		{
+			_class = "C_OP_CPOffsetToPercentageBetweenCPs"
+			m_flInputBias = 0.25
+			m_vecOffset = [ 0.0, 0.0, 1250.0 ]
+			m_nOffsetCP = 1
+			m_flInputMax = 0.0
+			m_flInputMin = 1.0
+		},
+		{
+			_class = "C_OP_SetControlPointsToParticle"
+			m_bSetOrientation = true
+			m_nFirstControlPoint = 3
+		},
+		{
+			_class = "C_OP_RampScalarLinearSimple"
+			m_flEndTime = 999999.0
+			m_Rate = -4.0
+			m_nOpEndCapState = "PARTICLE_ENDCAP_ENDCAP_ON"
+		},
+		{
+			_class = "C_OP_RampScalarLinearSimple"
+			m_Rate = -400.0
+			m_flEndTime = 999999.0
+			m_nOpEndCapState = "PARTICLE_ENDCAP_ENDCAP_ON"
+		},
+		{
+			_class = "C_OP_RampScalarLinear"
+			m_RateMin = -4.0
+			m_RateMax = 4.0
+			m_nField = "20"
+		},
+		{
+			_class = "C_OP_RampScalarLinear"
+			m_RateMin = -4.0
+			m_RateMax = 4.0
+			m_nField = "12"
+		},
+		{
+			_class = "C_OP_RadiusDecay"
+			m_flMinRadius = 0.1
+			m_nOpEndCapState = "PARTICLE_ENDCAP_ENDCAP_ON"
+		},
+	]
+	m_ForceGenerators = 
+	[
+		{
+			_class = "C_OP_AttractToControlPoint"
+			m_nControlPointNumber = 4
+			m_fFalloffPower = 0.0
+			m_fForceAmount = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 1000000.0
+			}
+		},
+	]
+	m_Renderers = 
+	[
+		{
+			_class = "C_OP_RenderDeferredLight"
+			m_flRadiusScale = 200.0
+			m_flAlphaScale = 2.0
+			m_vecColorScale = 
+			{
+				m_nType = "PVEC_TYPE_LITERAL_COLOR"
+				m_LiteralColor = [ 255, 129, 60 ]
+			}
+		},
+		{
+			_class = "C_OP_RenderModels"
+			m_ModelList = 
+			[
+				{
+					m_model = resource:"models/heroes/techies/fx_techiesfx_mine.vmdl"
+				},
+			]
+		},
+	]
+	m_Children = 
+	[
+		{
+			m_ChildRef = resource:"particles/bosses/rizzrak/rizzrak_ticking_bomb/rizzrak_ticking_bomb_projectile_glow.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/bosses/rizzrak/rizzrak_ticking_bomb/rizzrak_ticking_bomb_projectile_impact_smoke.vpcf"
+			m_bEndCap = true
+		},
+		{
+			m_ChildRef = resource:"particles/bosses/rizzrak/rizzrak_ticking_bomb/rizzrak_ticking_bomb_projectile_impact_rocks.vpcf"
+			m_bEndCap = true
+		},
+		{
+			m_ChildRef = resource:"particles/bosses/rizzrak/rizzrak_ticking_bomb/rizzrak_ticking_bomb_projectile_impact_fleks.vpcf"
+			m_bEndCap = true
+		},
+		{
+			m_ChildRef = resource:"particles/bosses/rizzrak/rizzrak_ticking_bomb/rizzrak_ticking_bomb_projectile_impact_ground_dirt.vpcf"
+			m_bEndCap = true
+		},
+		{
+			m_ChildRef = resource:"particles/bosses/rizzrak/rizzrak_ticking_bomb/rizzrak_ticking_bomb_projectile_impact_dust_shockwave.vpcf"
+			m_bEndCap = true
+		},
+		{
+			m_ChildRef = resource:"particles/bosses/rizzrak/rizzrak_ticking_bomb/rizzrak_ticking_bomb_projectile_impact_dust.vpcf"
+			m_bEndCap = true
+		},
+		{
+			m_ChildRef = resource:"particles/bosses/rizzrak/rizzrak_ticking_bomb/rizzrak_ticking_bomb_projectile_impact_ground_warp.vpcf"
+			m_bEndCap = true
+		},
+	]
+}

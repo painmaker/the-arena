@@ -1,4 +1,5 @@
 #base "rizzrak/rizzrak.kv"
+#base "rizzrak/units/rizzrak_ticking_bomb.kv"
 
 "DOTAUnits"
 {
