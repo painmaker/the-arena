@@ -5,6 +5,9 @@
     <styles>
         <include src="s2r://panorama/styles/dotastyles.vcss_c" />
         <include src="./app.css" />
-    </styles>
+        <include src="./components/Minimap/minimap.css" />
+        <include src="./components/ButtonGroup/buttonGroup.css" />
+        <include src="./components/Settings/settings.css" />
+    </styles> 
     <Panel class="root" hittest="false" />
-</root>
+</root> 

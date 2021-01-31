@@ -1,5 +1,6 @@
 import Behaviors from "../../Behaviors";
-import Wander from "../../shared/Wander";
+import Walk from "../../shared/Walk";
+import Attack from "../../shared/Attack";
 import CastTickingBomb from "./CastTickingBomb";
 
 declare var thisEntity: CDOTA_BaseNPC;
@@ -12,7 +13,8 @@ function Spawn(entityKeyValues: any) {
   }
 
   const behaviors = new Behaviors(thisEntity, [
-    new Wander(thisEntity),
+    new Walk(thisEntity),
+    new Attack(thisEntity),
     new CastTickingBomb(thisEntity, bombAbility)
   ]);
 

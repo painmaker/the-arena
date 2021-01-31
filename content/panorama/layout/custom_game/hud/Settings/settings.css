@@ -1,0 +1,16 @@
+.settingsContainer {
+  vertical-align: bottom;
+  horizontal-align: right;
+  margin-top: 50px;
+  margin-right: 10px;
+  width: 36px;
+  height: 36px;
+  background-image: url("s2r://panorama/images/settings.png");	
+	background-position: center;
+  background-size: contain;	
+  wash-color: rgb(255, 255, 255);
+} 
+
+.settingsContainer:hover {
+  transform: scale3d(1.1, 1.1, 1);
+}

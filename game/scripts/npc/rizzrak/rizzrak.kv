@@ -13,12 +13,13 @@
 		"Level"           			"1"
     "CanRespawn"            "1"
 		"ConsideredHero"			  "1"
-
+		"IsAncient"					    "1"
+		"IsBossMonster"			  	"1"
+ 
     "precache"
 		{
 			"model"			          "models/heroes/shredder/shredder.vmdl"
-			"soundevents"			    "soundevents/game_sounds_heroes/game_sounds_shredder.vsndevts"
-		}
+    }
         
 		// Abilities
 		//----------------------------------------------------------------
@@ -54,7 +55,7 @@
 		// Movement
 		//----------------------------------------------------------------
 		"MovementCapabilities"    	"DOTA_UNIT_CAP_MOVE_NONE"
-		"MovementSpeed"       		  "0"
+		"MovementSpeed"       		  "350"
 		"MovementTurnRate"      	  "2.0"
 		
 		// Status
@@ -62,13 +63,20 @@
 		"StatusHealth"        		  "3000"
 		"StatusHealthRegen"     	  "500.0"
 		"StatusMana"        		    "3000"
-		"StatusManaRegen"     		  "750.0"
+		"StatusManaRegen"     		  "500.0"
 
 		// Vision
 		//----------------------------------------------------------------
 		"VisionDaytimeRange"    	  "1200"
 		"VisionNighttimeRange"    	"1200"
 
+    // Minimap
+		//----------------------------------------------------------------
+    "MinimapIcon"				        "minimap_roshancamp"
+		"MinimapIconSize"			      "250"
+
+    // Wearables
+		//----------------------------------------------------------------
     "Creature"
     {
       "AttachWearables"

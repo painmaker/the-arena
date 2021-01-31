@@ -1,36 +1,65 @@
 import React from "react";
 import { render } from "react-panorama";
-import CameraZoomSlider from "./CameraZoonSlider/CameraZoomSlider";
-import LockCameraBtn from "./LockCameraBtn/LockCameraBtn";
+import Minimap from "./components/Minimap/Minimap";
+import { Provider } from "react-redux";
+import configureStore from "./store/configureStore";
+import Settings from "./components/Settings/Settings";
 
-interface IProps {}
-interface IState {}
+const store = configureStore();
 
-export default class App extends React.Component<IProps, IState> {
+export default class App extends React.Component<{}, {}> {
 
-  constructor(props : IProps) {
-    super(props);
-  }
+    componentDidMount() {
+        GameUI.SetDefaultUIEnabled(
+            DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL,
+            true
+        );
+        GameUI.SetDefaultUIEnabled(
+            DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP,
+            false
+        );
+        GameUI.SetDefaultUIEnabled(
+            DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL,
+            true
+        );
+        GameUI.SetDefaultUIEnabled(
+            DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP,
+            true
+        );
+        GameUI.SetDefaultUIEnabled(
+            DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD,
+            true
+        );
+        GameUI.SetDefaultUIEnabled(
+            DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND,
+            false
+        );
+        GameUI.SetDefaultUIEnabled(
+            DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES,
+            false
+        );
+        GameUI.SetDefaultUIEnabled(
+            DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY,
+            false
+        );
+    }
 
-  componentDidMount() {
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, true);
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, false);
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, true);
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, true);
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, true);
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, false);
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, false);
-  }
-
-  render() {
-    return (
-      <Panel style={{ flowChildren: "down", marginTop: '150px', marginLeft: '10px' }}>
-        <LockCameraBtn />
-        <CameraZoomSlider /> 
-      </Panel>
-    )
-  }
+    render() {
+        return (
+            <Panel hittest={false} className={"appContainer"}>
+                <Settings />
+                {/* <ButtonGroup /> */}
+                <Minimap />
+            </Panel>
+        );
+    }
 
 }
 
-render(<App />, $.GetContextPanel());  
+render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    $.GetContextPanel()
+);
+ 

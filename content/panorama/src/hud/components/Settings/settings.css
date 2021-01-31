@@ -1,0 +1,33 @@
+.settingsContainer {
+  vertical-align: bottom;
+  horizontal-align: right;
+  margin-top: 150px;
+  margin-right: 10px;
+  min-width: 400px;
+  min-height: 100px;
+  background-color: rgba(25, 25, 25, 0.8);
+  border-radius: 5%;
+  padding: 15px;
+  flow-children: down;
+} 
+
+.settingsTitle {
+  width: 100%;
+  text-align: center;
+  font-size: 28px;
+  color: orange;
+  padding-bottom: 2.5px;
+}
+
+.settingsEntry {
+  width: 100%;
+  min-height: 15px;
+  vertical-align: center;
+}
+
+.settingsDivider {
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

@@ -2,3 +2,19 @@
   width: 100%;
   height: 100%;
 }
+
+.appContainer {
+  width: 100%;
+  height: 100%;
+  flow-children: down;
+}
+
+Slider {
+  margin-bottom: 0px;
+}
+
+Slider.HorizontalSlider {
+  width: 420px;
+  height: 30px;
+  vertical-align: center;
+}

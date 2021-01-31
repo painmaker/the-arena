@@ -35,7 +35,7 @@ export default class CastTickingBomb extends PositionTargetBehavior {
   }
 
   getDuration() : number {
-    return 1.0;
+    return math.max(1.0, this.ability.GetCastPoint());
   }
 
   getTargetedPosition() : Vector | undefined {
@@ -45,8 +45,8 @@ export default class CastTickingBomb extends PositionTargetBehavior {
       undefined,
       this.ability.GetCastRange(this.entity.GetAbsOrigin(), undefined) || this.entity.GetAcquisitionRange(),
       DOTA_UNIT_TARGET_TEAM.DOTA_UNIT_TARGET_TEAM_ENEMY,
-      DOTA_UNIT_TARGET_TYPE.DOTA_UNIT_TARGET_CREEP + DOTA_UNIT_TARGET_TYPE.DOTA_UNIT_TARGET_HERO,
-      DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_NONE,
+      DOTA_UNIT_TARGET_TYPE.DOTA_UNIT_TARGET_HERO,
+      DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE + DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_NO_INVIS + DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_INVULNERABLE,
       FindOrder.FIND_ANY_ORDER,
       false
     );

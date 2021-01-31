@@ -1,5 +1,6 @@
 import { reloadable } from "./lib/tstl-utils";
 import "./modifiers/modifier_panic";
+import "./modifiers/modifier_not_on_minimap";
 
 declare global {
   interface CDOTAGamerules {
@@ -14,6 +15,8 @@ export class GameMode {
     PrecacheResource("particle", "particles/units/heroes/hero_meepo/meepo_earthbind_projectile_fx.vpcf", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_techies.vsndevts", context);
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_shredder.vsndevts", context);
+    PrecacheResource("soundfile", "soundevents/voscripts/game_sounds_vo_shredder.vsndevts", context);
   }
 
   public static Activate(this: void) {
@@ -79,7 +82,9 @@ export class GameMode {
   private OnNpcSpawned(event: NpcSpawnedEvent) {
 
     const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
+
     if (unit.IsRealHero()) {
+      // Temp hack 
       CustomGameEventManager.Send_ServerToAllClients("lock_camera", {} as never);
     }
 

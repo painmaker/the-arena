@@ -5,7 +5,7 @@ export class rizzrak_ticking_bomb extends BaseAbility {
 
   particle?: ParticleID;
 
-  OnSpellStart() {
+  OnSpellStart(): void {
 
     EmitSoundOn("Hero_Techies.RemoteMine.Toss", this.GetCaster());
 
@@ -26,16 +26,19 @@ export class rizzrak_ticking_bomb extends BaseAbility {
     ParticleManager.SetParticleControl(projectileParticleId, 2, Vector(speed, 0, 0));
     ParticleManager.SetParticleControl(projectileParticleId, 3, Vector(time, 0, 0));
 
-    // this.GetCaster().EmitSound("shredder_timb_kill_15");
+    if (math.random(1, 4) === 1) {
+      const suffix = math.random(1,2) === 1 ? '15' : '16';
+      this.GetCaster().EmitSound("shredder_timb_kill_" + suffix);
+    }
 
     Timers.CreateTimer(time, () => {
-
-      // DebugDrawCircle(cursorPosition, Vector(255,0,0), 25, 100, true, time);
 
       ParticleManager.DestroyParticle(projectileParticleId, false);
       ParticleManager.ReleaseParticleIndex(projectileParticleId);
 
       EmitSoundOnLocationWithCaster(cursorPosition, "Hero_Techies.RemoteMine.Plant", this.GetCaster());
+
+      // DebugDrawCircle(cursorPosition, Vector(255,0,0), 25, 100, true, 5.0);
 
       const bomb = CreateUnitByName(
         "rizzrak_ticking_bomb",

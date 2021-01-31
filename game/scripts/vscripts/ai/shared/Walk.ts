@@ -1,6 +1,6 @@
 import BaseBehavior from "./abstracts/BaseBehavior";
 
-export default class Wander extends BaseBehavior {
+export default class Walk extends BaseBehavior {
 
   entity: CDOTA_BaseNPC;
 
@@ -24,18 +24,18 @@ export default class Wander extends BaseBehavior {
     )
 
     if (!this.entity.HasMovementCapability()) {
-      return -1;
-    }
-
-    if (units.length === 0) {
-      return 1;
+      return 0;
     }
 
     if (!this.entity.HasAttackCapability()) {
       return 1;
     }
 
-    return 0;
+    if (units.length !== 0) {
+      return 0;
+    }
+
+    return 1;
 
   }
 

@@ -5,6 +5,9 @@
     <styles>
         <include src="s2r://panorama/styles/dotastyles.vcss_c"></include>
         <include src="file://{resources}/layout/custom_game/hud/app.css"></include>
-    </styles>
+        <include src="file://{resources}/layout/custom_game/hud/components/Minimap/minimap.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/ButtonGroup/buttonGroup.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/Settings/settings.css"></include>
+    </styles> 
     <Panel class="root" hittest="false"></Panel>
-</root>
+</root> 

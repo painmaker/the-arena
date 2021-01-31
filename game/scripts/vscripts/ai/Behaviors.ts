@@ -34,9 +34,9 @@ export default class BehaviorSystem {
     if (this.currentBehavior.end !== undefined) {
       this.currentBehavior.end();
     }
-    
+
     newBehavior.setEndTime(GameRules.GetGameTime() + newBehavior.getDuration());
-    
+
     ExecuteOrderFromTable(newBehavior.getOrder());
     
     this.currentBehavior = newBehavior;
@@ -52,7 +52,7 @@ export default class BehaviorSystem {
     if (this.entity.IsSilenced()) {
       return false;
     }
-    return GameRules.GetGameTime() >= this.currentBehavior.getEndTime()
+    return GameRules.GetGameTime() >= this.currentBehavior.getEndTime();
   }
 
   ChooseNextBehavior(): BaseBehavior | undefined {
