@@ -2,10 +2,6 @@ import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../reducers/rootReducer";
 
-interface StateProps {
-    zoom: number;
-}
-
 const mapStateToProps = (state: RootState) => ({
     zoom: state.minimapReducer.zoom,
 });
@@ -15,7 +11,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {};
 
-const Minimap = (props: StateProps) => {
+const Minimap = (props: Props) => {
     return (
         <Panel hittest={false} className={"minimapContainer"}>
             <DOTAHUDOverlayMap

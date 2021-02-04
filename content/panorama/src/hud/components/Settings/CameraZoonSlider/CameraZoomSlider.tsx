@@ -25,7 +25,7 @@ export default function CameraZoomSlider() {
             }}
         >
             <Label
-                style={{ width: "35%", marginTop: "5px", color: "orange" }}
+                style={{ width: "40%", marginTop: "5px", color: "orange" }}
                 text={"Camera Zoom: "}
             />
             <Panel style={{ width: "40%" }}>
@@ -41,7 +41,7 @@ export default function CameraZoomSlider() {
             </Panel>
             <Label
                 style={{
-                    width: "25%",
+                    width: "20%",
                     marginTop: "5px",
                     marginLeft: "10px",
                     color: "orange",

@@ -48588,6 +48588,202 @@ function warning(message) {
 
 /***/ }),
 
+/***/ "../../../node_modules/react-timeout/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js":
+/*!********************************************************************************************************************!*\
+  !*** ../../../node_modules/react-timeout/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js ***!
+  \********************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Copyright 2015, Yahoo! Inc.
+ * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+ */
+var REACT_STATICS = {
+    childContextTypes: true,
+    contextTypes: true,
+    defaultProps: true,
+    displayName: true,
+    getDefaultProps: true,
+    getDerivedStateFromProps: true,
+    mixins: true,
+    propTypes: true,
+    type: true
+};
+
+var KNOWN_STATICS = {
+    name: true,
+    length: true,
+    prototype: true,
+    caller: true,
+    callee: true,
+    arguments: true,
+    arity: true
+};
+
+var defineProperty = Object.defineProperty;
+var getOwnPropertyNames = Object.getOwnPropertyNames;
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+var getPrototypeOf = Object.getPrototypeOf;
+var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
+
+function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
+    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
+
+        if (objectPrototype) {
+            var inheritedComponent = getPrototypeOf(sourceComponent);
+            if (inheritedComponent && inheritedComponent !== objectPrototype) {
+                hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
+            }
+        }
+
+        var keys = getOwnPropertyNames(sourceComponent);
+
+        if (getOwnPropertySymbols) {
+            keys = keys.concat(getOwnPropertySymbols(sourceComponent));
+        }
+
+        for (var i = 0; i < keys.length; ++i) {
+            var key = keys[i];
+            if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
+                var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+                try { // Avoid failures from read-only properties
+                    defineProperty(targetComponent, key, descriptor);
+                } catch (e) {}
+            }
+        }
+
+        return targetComponent;
+    }
+
+    return targetComponent;
+}
+
+module.exports = hoistNonReactStatics;
+
+
+/***/ }),
+
+/***/ "../../../node_modules/react-timeout/src/index.js":
+/*!********************************************************!*\
+  !*** ../../../node_modules/react-timeout/src/index.js ***!
+  \********************************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module, __webpack_require__, __webpack_require__.g, __webpack_require__.* */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var React = __webpack_require__(/*! react */ "../../../node_modules/react/index.js")
+
+var objectAssign = __webpack_require__(/*! object-assign */ "../../../node_modules/object-assign/index.js")
+var hoistNonReactStatics = __webpack_require__(/*! hoist-non-react-statics */ "../../../node_modules/react-timeout/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js")
+
+var GLOBAL = typeof window === 'undefined' ? __webpack_require__.g : window
+
+var setter = function (_setter, _clearer, arrayKey, timerState) {
+  return function (callback, delta) {
+    var optionalArguments = Array.prototype.slice.call(arguments, 2)
+    var id = _setter(function () {
+      if (_clearer) {
+        _clearer.call(this, id)
+      }
+      if (typeof callback === 'function') {
+        callback.apply(this, optionalArguments)
+      }
+    }.bind(this), delta)
+
+    if (!timerState[arrayKey]) {
+      timerState[arrayKey] = [id]
+    } else {
+      timerState[arrayKey].push(id)
+    }
+    return id
+  }
+}
+
+var clearer = function (_clearer, array, timerState) {
+  return function (id) {
+    if (timerState[array]) {
+      var index = timerState[array].indexOf(id)
+      if (index !== -1) {
+        timerState[array].splice(index, 1)
+      }
+    }
+    _clearer(id)
+  }
+}
+
+var cloneArray = function (a) {
+  return (!a || typeof a.slice !== 'function') ? [] : a.slice(0)
+}
+
+function getDisplayName (WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component'
+}
+
+var _timeouts = '_ReactTimeout_timeouts'
+var _intervals = '_ReactTimeout_intervals'
+var _immediates = '_ReactTimeout_immediates'
+var _rafs = '_ReactTimeout_rafs'
+
+function withReactTimeout (WrappedComponent) {
+  var ReactTimeout = hoistNonReactStatics(React.forwardRef(function (props, ref) {
+    var timerState = {}
+
+    var clearTimeout = React.useCallback(clearer(GLOBAL.clearTimeout, _timeouts, timerState), [])
+    var setTimeout = React.useCallback(setter(GLOBAL.setTimeout, clearTimeout, _timeouts, timerState), [])
+
+    var clearInterval = React.useCallback(clearer(GLOBAL.clearInterval, _intervals, timerState), [])
+    var setInterval = React.useCallback(setter(GLOBAL.setInterval, null, _intervals, timerState), [])
+
+    var clearImmediate = React.useCallback(clearer(GLOBAL.clearImmediate, _immediates, timerState), [])
+    var setImmediate = React.useCallback(setter(GLOBAL.setImmediate, clearImmediate, _immediates, timerState), [])
+
+    var cancelAnimationFrame = React.useCallback(clearer(GLOBAL.cancelAnimationFrame, _rafs, timerState), [])
+    var requestAnimationFrame = React.useCallback(setter(GLOBAL.requestAnimationFrame, cancelAnimationFrame, _rafs, timerState), [])
+
+    React.useEffect(function () {
+      return function cleanUp () {
+        cloneArray(timerState[_timeouts]).forEach(clearTimeout)
+        cloneArray(timerState[_intervals]).forEach(clearInterval)
+        cloneArray(timerState[_immediates]).forEach(clearImmediate)
+        cloneArray(timerState[_rafs]).forEach(cancelAnimationFrame)
+      }
+    }, [])
+    var newProps = objectAssign(
+      {},
+      props,
+      {
+        ref: ref,
+
+        setTimeout: setTimeout,
+        clearTimeout: clearTimeout,
+
+        setInterval: setInterval,
+        clearInterval: clearInterval,
+
+        setImmediate: setImmediate,
+        clearImmediate: clearImmediate,
+
+        requestAnimationFrame: requestAnimationFrame,
+        cancelAnimationFrame: cancelAnimationFrame
+      }
+    )
+    return React.createElement(WrappedComponent, newProps)
+  }), WrappedComponent)
+  ReactTimeout.displayName = 'ReactTimeout(' + getDisplayName(WrappedComponent) + ')'
+  return ReactTimeout
+}
+
+module.exports = withReactTimeout
+
+
+/***/ }),
+
 /***/ "../../../node_modules/react/cjs/react.development.js":
 /*!************************************************************!*\
   !*** ../../../node_modules/react/cjs/react.development.js ***!
@@ -53112,6 +53308,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_configureStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/configureStore */ "./hud/store/configureStore.tsx");
 /* harmony import */ var _components_Settings_Settings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Settings/Settings */ "./hud/components/Settings/Settings.tsx");
+/* harmony import */ var _components_ButtonGroup_ButtonGroup__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/ButtonGroup/ButtonGroup */ "./hud/components/ButtonGroup/ButtonGroup.tsx");
+/* harmony import */ var _components_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Heroes/Heroes */ "./hud/components/Heroes/Heroes.tsx");
+
+
 
 
 
@@ -53124,7 +53324,7 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, true);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, true);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, true);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, true);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, false);
@@ -53132,7 +53332,9 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     }
     render() {
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "appContainer" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_7__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Settings_Settings__WEBPACK_IMPORTED_MODULE_5__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ButtonGroup_ButtonGroup__WEBPACK_IMPORTED_MODULE_6__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Minimap_Minimap__WEBPACK_IMPORTED_MODULE_2__.default, null)));
     }
 }
@@ -53174,7 +53376,7 @@ function setMinimapZoom(zoom) {
   !*** ./hud/actions/settingsAction.tsx ***!
   \****************************************/
 /*! namespace exports */
-/*! export setVisible [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export setSettingsVisible [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -53182,16 +53384,339 @@ function setMinimapZoom(zoom) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "setVisible": () => /* binding */ setVisible
+/* harmony export */   "setSettingsVisible": () => /* binding */ setSettingsVisible
 /* harmony export */ });
 /* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
 
-function setVisible(visible) {
+function setSettingsVisible(visible) {
     return {
         type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_SETTINGS_VISIBLE,
         payload: visible
     };
 }
+
+
+/***/ }),
+
+/***/ "./hud/components/ButtonGroup/ButtonGroup.tsx":
+/*!****************************************************!*\
+  !*** ./hud/components/ButtonGroup/ButtonGroup.tsx ***!
+  \****************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SettingsButton/SettingsButton */ "./hud/components/ButtonGroup/SettingsButton/SettingsButton.tsx");
+/* harmony import */ var _ShoppingButton_ShoppingButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ShoppingButton/ShoppingButton */ "./hud/components/ButtonGroup/ShoppingButton/ShoppingButton.tsx");
+
+
+
+const ButtonGroup = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "buttonGroupContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "buttonGroupEntry" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_1__.default, null)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "buttonGroupEntry" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ShoppingButton_ShoppingButton__WEBPACK_IMPORTED_MODULE_2__.default, null))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ButtonGroup);
+
+
+/***/ }),
+
+/***/ "./hud/components/ButtonGroup/SettingsButton/SettingsButton.tsx":
+/*!**********************************************************************!*\
+  !*** ./hud/components/ButtonGroup/SettingsButton/SettingsButton.tsx ***!
+  \**********************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
+
+
+
+const mapStateToProps = (state) => ({
+    visible: state.settingsReducer.visible,
+});
+const mapDispatchToProps = (dispatch) => ({
+    setSettingsVisible: (visible) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__.setSettingsVisible)(visible)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
+const SettingsButton = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: { washColor: props.visible ? 'white' : 'grey' }, onactivate: () => {
+                    props.setSettingsVisible(!props.visible);
+                    Game.EmitSound("ui_topmenu_select");
+                }, src: "s2r://panorama/images/settings_btn_white_png.vtex" }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(SettingsButton));
+
+
+/***/ }),
+
+/***/ "./hud/components/ButtonGroup/ShoppingButton/ShoppingButton.tsx":
+/*!**********************************************************************!*\
+  !*** ./hud/components/ButtonGroup/ShoppingButton/ShoppingButton.tsx ***!
+  \**********************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const ShoppingButton = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: { washColor: 'grey' }, onactivate: () => $.Msg("Shopping clicked!"), src: "s2r://panorama/images/shop_btn_white_png.vtex" }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ShoppingButton);
+
+
+/***/ }),
+
+/***/ "./hud/components/Heroes/Health/Health.tsx":
+/*!*************************************************!*\
+  !*** ./hud/components/Heroes/Health/Health.tsx ***!
+  \*************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const Health = (props) => {
+    const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(props.entIndex));
+    const [maxHealth, setMaxHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxHealth(props.entIndex));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        props.setInterval(() => {
+            setHealth(Entities.GetHealth(props.entIndex));
+            setMaxHealth(Entities.GetMaxHealth(props.entIndex));
+        }, 100);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroesHealthContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'heroesHealthProgressBar' })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Health));
+
+
+/***/ }),
+
+/***/ "./hud/components/Heroes/HeroImage/HeroImage.tsx":
+/*!*******************************************************!*\
+  !*** ./hud/components/Heroes/HeroImage/HeroImage.tsx ***!
+  \*******************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const onHeroImageClicked = (entIndex) => {
+    const isAlive = Entities.IsAlive(entIndex);
+    const issSelectable = Entities.IsSelectable(entIndex);
+    const clickbehaviors = GameUI.GetClickBehaviors();
+    if (!isAlive || !issSelectable) {
+        Game.EmitSound("General.InvalidTarget_Invulnerable");
+        return;
+    }
+    if (clickbehaviors === CLICK_BEHAVIORS.DOTA_CLICK_BEHAVIOR_CAST) {
+        if (DOTA_ABILITY_BEHAVIOR.DOTA_ABILITY_BEHAVIOR_UNIT_TARGET) {
+            const order = {
+                AbilityIndex: Abilities.GetLocalPlayerActiveAbility(),
+                QueueBehavior: OrderQueueBehavior_t.DOTA_ORDER_QUEUE_NEVER,
+                ShowEffects: true,
+                OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TARGET,
+                TargetIndex: entIndex,
+            };
+            Game.PrepareUnitOrders(order);
+        }
+    }
+    else {
+        GameUI.SetCameraTargetPosition(Entities.GetAbsOrigin(entIndex), 0.1);
+        GameUI.SelectUnit(entIndex, false);
+    }
+};
+const HeroImage = (props) => {
+    const [washColor, setWashColor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("none");
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const handle = GameEvents.Subscribe("entity_killed", (event) => {
+            if (event.entindex_killed === props.entIndex) {
+                setWashColor("grey");
+            }
+        });
+        return () => GameEvents.Unsubscribe(handle);
+    }, []);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const handle = GameEvents.Subscribe("npc_spawned", (event) => {
+            if (event.entindex === props.entIndex) {
+                setWashColor("none");
+            }
+        });
+        return () => GameEvents.Unsubscribe(handle);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroesHeroImage" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroname: Players.GetPlayerSelectedHero(props.playerId), heroimagestyle: "landscape", onactivate: () => onHeroImageClicked(props.entIndex), style: { washColor: washColor } })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HeroImage);
+
+
+/***/ }),
+
+/***/ "./hud/components/Heroes/Heroes.tsx":
+/*!******************************************!*\
+  !*** ./hud/components/Heroes/Heroes.tsx ***!
+  \******************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _Health_Health__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Health/Health */ "./hud/components/Heroes/Health/Health.tsx");
+/* harmony import */ var _HeroImage_HeroImage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HeroImage/HeroImage */ "./hud/components/Heroes/HeroImage/HeroImage.tsx");
+/* harmony import */ var _Mana_Mana__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Mana/Mana */ "./hud/components/Heroes/Mana/Mana.tsx");
+/* harmony import */ var _Playername_Playername__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Playername/Playername */ "./hud/components/Heroes/Playername/Playername.tsx");
+
+
+
+
+
+
+const Heroes = () => {
+    const [playerIds, setPlayerIds] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(new Set([0, 1, 2, 3]));
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("create_hero_image_for_player", (event) => {
+        setPlayerIds(prevPlayerIds => new Set([...prevPlayerIds, event.playerId]));
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroesContainer" }, Array.from(playerIds).map((playerId) => {
+        const entIndex = Players.GetPlayerHeroEntityIndex(playerId);
+        if (entIndex === -1) {
+            return null;
+        }
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroContainer", key: entIndex },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HeroImage_HeroImage__WEBPACK_IMPORTED_MODULE_3__.default, { playerId: playerId, entIndex: entIndex }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Health_Health__WEBPACK_IMPORTED_MODULE_2__.default, { entIndex: entIndex }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Mana_Mana__WEBPACK_IMPORTED_MODULE_4__.default, { entIndex: entIndex }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Playername_Playername__WEBPACK_IMPORTED_MODULE_5__.default, { playerId: playerId })));
+    })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Heroes);
+
+
+/***/ }),
+
+/***/ "./hud/components/Heroes/Mana/Mana.tsx":
+/*!*********************************************!*\
+  !*** ./hud/components/Heroes/Mana/Mana.tsx ***!
+  \*********************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const Mana = (props) => {
+    const [mana, setMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMana(props.entIndex));
+    const [maxMana, setMaxMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxMana(props.entIndex));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        props.setInterval(() => {
+            setMana(Entities.GetMana(props.entIndex));
+            setMaxMana(Entities.GetMaxMana(props.entIndex));
+        }, 100);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroesManaContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'heroesManaProgressBar' })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Mana));
+
+
+/***/ }),
+
+/***/ "./hud/components/Heroes/Playername/Playername.tsx":
+/*!*********************************************************!*\
+  !*** ./hud/components/Heroes/Playername/Playername.tsx ***!
+  \*********************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const playerColorToARGB = (i) => "#" +
+    ("00" + (i & 0xff).toString(16)).substr(-2) +
+    ("00" + ((i >> 8) & 0xff).toString(16)).substr(-2) +
+    ("00" + ((i >> 16) & 0xff).toString(16)).substr(-2) +
+    ("00" + ((i >> 24) & 0xff).toString(16)).substr(-2);
+const Playername = (props) => {
+    const color = Players.GetPlayerColor(props.playerId);
+    const name = Players.GetPlayerName(props.playerId);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: '100%' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: "heroesPlayernameLabel", text: name, style: { color: playerColorToARGB(color) } })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Playername);
 
 
 /***/ }),
@@ -53263,16 +53788,86 @@ function CameraZoomSlider() {
             width: "100%",
             marginTop: "0px",
         } },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { width: "35%", marginTop: "5px", color: "orange" }, text: "Camera Zoom: " }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { width: "40%", marginTop: "5px", color: "orange" }, text: "Camera Zoom: " }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: "40%" } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Slider, { id: "camera_zoom_slider", className: "HorizontalSlider", direction: "horizontal", value: value, min: 800, max: 2000, onvaluechanged: (e) => onValueChanged(Math.round(e.value)) })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: {
-                width: "25%",
+                width: "20%",
                 marginTop: "5px",
                 marginLeft: "10px",
                 color: "orange",
             }, text: value })));
 }
+
+
+/***/ }),
+
+/***/ "./hud/components/Settings/CloseBtn/CloseBtn.tsx":
+/*!*******************************************************!*\
+  !*** ./hud/components/Settings/CloseBtn/CloseBtn.tsx ***!
+  \*******************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
+
+
+
+const mapStateToProps = (state) => ({
+    visible: state.settingsReducer.visible,
+});
+const mapDispatchToProps = (dispatch) => ({
+    setSettingsVisible: (visible) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__.setSettingsVisible)(visible)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
+const CloseBtn = (props) => {
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const panel = $("#settingsCloseBtn");
+        panel.SetHasClass("settingsFadeIn", props.visible);
+    }, [props.visible]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: "settingsCloseBtn", className: "settingsCloseBtnContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: "settingsCloseBtn", onactivate: () => {
+                props.setSettingsVisible(!props.visible);
+                Game.EmitSound("ui_topmenu_select");
+            } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CloseBtn));
+
+
+/***/ }),
+
+/***/ "./hud/components/Settings/Divider/Divider.tsx":
+/*!*****************************************************!*\
+  !*** ./hud/components/Settings/Divider/Divider.tsx ***!
+  \*****************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const Divider = () => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "settingsDivider" }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Divider);
 
 
 /***/ }),
@@ -53284,19 +53879,19 @@ function CameraZoomSlider() {
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ LockCameraBtn
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 
 
-function LockCameraBtn() {
+const LockCameraBtn = () => {
     const [toggled, onToggled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         if (toggled) {
@@ -53309,16 +53904,18 @@ function LockCameraBtn() {
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("lock_camera", () => {
         onToggled((toggled) => !toggled);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: {
-            flowChildren: "right",
-            width: "100%",
-            verticalAlign: "center",
-        } },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { width: "50%", color: "orange" }, text: "Lock Camera:" }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: "25%" }, hittest: false },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "settingsItem" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { width: "40%", color: "orange" }, text: "Lock Camera:" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: "8%", marginLeft: "-4px" }, hittest: false },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(ToggleButton, { selected: toggled, onactivate: () => onToggled((toggled) => !toggled) })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { width: '25%', marginLeft: "10px", color: "orange" }, text: toggled ? "Locked" : "Unlocked" })));
-}
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: {
+                width: "52%",
+                color: "orange",
+                fontSize: "16px",
+                marginTop: "0.5px",
+            }, text: toggled ? "Locked" : "Unlocked" })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LockCameraBtn);
 
 
 /***/ }),
@@ -53357,15 +53954,12 @@ const MapZoomSlider = (props, {}) => {
         const panel = $("#map_zoom_slider");
         panel.value = props.zoom || 6;
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: {
-            flowChildren: "right",
-            width: "100%",
-        } },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { width: "35%", marginTop: "5px", color: "orange" }, text: "Minimap Zoom: " }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: "40%" } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsItem' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { width: "40%", marginTop: "5px", color: "orange" }, text: "Minimap Zoom: " }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "40%" } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Slider, { id: "map_zoom_slider", className: "HorizontalSlider", direction: "horizontal", value: props.zoom, min: 3, max: 10, onvaluechanged: (e) => props.setMinimapZoom(Math.round(e.value)) })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: {
-                width: "25%",
+                width: "20%",
                 marginTop: "5px",
                 marginLeft: "10px",
                 color: "orange",
@@ -53393,10 +53987,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
-/* harmony import */ var _CameraZoonSlider_CameraZoomSlider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CameraZoonSlider/CameraZoomSlider */ "./hud/components/Settings/CameraZoonSlider/CameraZoomSlider.tsx");
-/* harmony import */ var _LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./LockCameraBtn/LockCameraBtn */ "./hud/components/Settings/LockCameraBtn/LockCameraBtn.tsx");
-/* harmony import */ var _MapZoomSlider_MapZoomSlider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MapZoomSlider/MapZoomSlider */ "./hud/components/Settings/MapZoomSlider/MapZoomSlider.tsx");
+/* harmony import */ var _CameraZoonSlider_CameraZoomSlider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CameraZoonSlider/CameraZoomSlider */ "./hud/components/Settings/CameraZoonSlider/CameraZoomSlider.tsx");
+/* harmony import */ var _LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./LockCameraBtn/LockCameraBtn */ "./hud/components/Settings/LockCameraBtn/LockCameraBtn.tsx");
+/* harmony import */ var _MapZoomSlider_MapZoomSlider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MapZoomSlider/MapZoomSlider */ "./hud/components/Settings/MapZoomSlider/MapZoomSlider.tsx");
+/* harmony import */ var _Divider_Divider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Divider/Divider */ "./hud/components/Settings/Divider/Divider.tsx");
+/* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/Settings/Title/Title.tsx");
+/* harmony import */ var _CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CloseBtn/CloseBtn */ "./hud/components/Settings/CloseBtn/CloseBtn.tsx");
+
+
 
 
 
@@ -53406,27 +54004,80 @@ __webpack_require__.r(__webpack_exports__);
 const mapStateToProps = (state) => ({
     visible: state.settingsReducer.visible,
 });
-const mapDispatchToProps = (dispatch) => ({
-    setVisible: (visible) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__.setVisible)(visible)),
-});
-const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
 const Settings = (props) => {
-    if (!props.visible) {
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, null);
-    }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, className: "settingsContainer" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Settings", className: "settingsTitle" }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "settingsDivider" }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "settingsEntry" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_4__.default, null)),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "settingsDivider" }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "settingsEntry" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CameraZoonSlider_CameraZoomSlider__WEBPACK_IMPORTED_MODULE_3__.default, null)),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "settingsDivider" }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "settingsEntry" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MapZoomSlider_MapZoomSlider__WEBPACK_IMPORTED_MODULE_5__.default, null))));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const panel = $("#settings");
+        panel.SetHasClass("settingsFadeIn", props.visible);
+    }, [props.visible]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", height: "100%" } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_7__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: "settings", className: "settingsWindow" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CameraZoonSlider_CameraZoomSlider__WEBPACK_IMPORTED_MODULE_2__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MapZoomSlider_MapZoomSlider__WEBPACK_IMPORTED_MODULE_4__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_3__.default, null))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Settings));
+
+
+/***/ }),
+
+/***/ "./hud/components/Settings/Title/Title.tsx":
+/*!*************************************************!*\
+  !*** ./hud/components/Settings/Title/Title.tsx ***!
+  \*************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const Title = () => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Settings", className: "settingsTitle" }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Title);
+
+
+/***/ }),
+
+/***/ "./hud/hoc/ReactTimeout.tsx":
+/*!**********************************!*\
+  !*** ./hud/hoc/ReactTimeout.tsx ***!
+  \**********************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ withReactTimeout
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
+/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function withReactTimeout(WrappedComponent) {
+    const ReactTimeoutComponent = react_timeout__WEBPACK_IMPORTED_MODULE_1___default()(WrappedComponent);
+    const ComponentWithExtendedProps = (props) => {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(ReactTimeoutComponent, Object.assign({}, props));
+    };
+    return ComponentWithExtendedProps;
+}
 
 
 /***/ }),
@@ -53511,12 +54162,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
 
 const initialState = {
-    visible: 6,
+    visible: false,
 };
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(state = initialState, action) {
     switch (action.type) {
         case _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_SETTINGS_VISIBLE: {
-            return Object.assign(Object.assign({}, state), { zoom: action.payload });
+            return Object.assign(Object.assign({}, state), { visible: action.payload });
         }
         default:
             return state;

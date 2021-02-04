@@ -1,0 +1,19 @@
+.heroesManaContainer {
+  width: 100%;
+  height: 6.5px;
+}
+
+.heroesManaProgressBar {
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;
+  horizontal-align: center;
+}
+
+.heroesManaProgressBar .ProgressBarLeft {
+    background-color: gradient( linear, 0% 0%, 0% 100%, from( #2b4287 ), color-stop(0.2, #4165ce ), color-stop(.5, #4a73ea), to(#2b4287) );
+    border-radius: 1px;
+    transition-property: width;
+    transition-duration: 0.0s;
+    transition-timing-function: linear;
+} 

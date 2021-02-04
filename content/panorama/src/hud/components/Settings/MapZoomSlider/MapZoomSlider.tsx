@@ -31,17 +31,12 @@ const MapZoomSlider = (props: Props, {}) => {
     }, []);
 
     return (
-        <Panel
-            style={{
-                flowChildren: "right",
-                width: "100%",
-            }}
-        >
+        <Panel className='settingsItem'>
             <Label
-                style={{ width: "35%", marginTop: "5px", color: "orange" }}
+                style={{ width: "40%", marginTop: "5px", color: "orange" }}
                 text={"Minimap Zoom: "}
             />
-            <Panel style={{ width: "40%" }}>
+            <Panel hittest={false} style={{ width: "40%" }}>
                 <Slider
                     id={"map_zoom_slider"}
                     className={"HorizontalSlider"}
@@ -56,7 +51,7 @@ const MapZoomSlider = (props: Props, {}) => {
             </Panel>
             <Label
                 style={{
-                    width: "25%", 
+                    width: "20%", 
                     marginTop: "5px",
                     marginLeft: "10px",
                     color: "orange",

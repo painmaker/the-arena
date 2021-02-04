@@ -1,0 +1,13 @@
+.heroesContainer {
+  vertical-align: top;
+  horizontal-align: middle;
+  flow-children: right;
+  margin-top: 5px;
+}
+
+.heroContainer {
+  width: 73.6px;
+  flow-children: down;
+  margin-right: 15px;
+}
+

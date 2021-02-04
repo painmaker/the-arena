@@ -1,50 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
 
-export default function LockCameraBtn() {
-    const [toggled, onToggled] = useState(false);
+const LockCameraBtn = () => {
 
-    useEffect(() => {
-        if (toggled) {
-            GameUI.SetCameraTarget(
-                Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())
-            );
-        } else {
-            GameUI.SetCameraTarget(-1 as EntityIndex);
-        }
-    }, [toggled]);
+  const [toggled, onToggled] = useState(false);
 
-    useGameEvent(
-        "lock_camera",
-        () => {
-            onToggled((toggled) => !toggled);
-        },
-        []
-    );
+  useEffect(() => {
+    if (toggled) {
+      GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+    } else {
+      GameUI.SetCameraTarget(-1 as EntityIndex);
+    }
+  }, [toggled]);
 
-    return (
-        <Panel
-            style={{
-                flowChildren: "right",
-                width: "100%",
-                verticalAlign: "center",
-            }}
-        >
-            <Label
-                style={{ width: "50%", color: "orange" }}
-                text={"Lock Camera:"}
-            />
-            <Panel style={{ width: "25%" }} hittest={false}>
-                <ToggleButton
-                    selected={toggled}
-                    onactivate={() => onToggled((toggled) => !toggled)}
-                />
-            </Panel>
+  useGameEvent("lock_camera", () => {
+    onToggled((toggled) => !toggled);
+  }, []);
 
-            <Label
-                style={{ width: '25%', marginLeft: "10px", color: "orange" }}
-                text={toggled ? "Locked" : "Unlocked"}
-            />
-        </Panel>
-    );
+  return (
+    <Panel className="settingsItem">
+      <Label
+        style={{ width: "40%", color: "orange" }}
+        text={"Lock Camera:"}
+      />
+      <Panel style={{ width: "8%", marginLeft: "-4px" }} hittest={false}>
+        <ToggleButton
+          selected={toggled}
+          onactivate={() => onToggled((toggled) => !toggled)}
+        />
+      </Panel>
+      <Label
+        style={{
+          width: "52%",
+          color: "orange",
+          fontSize: "16px",
+          marginTop: "0.5px",
+        }}
+        text={toggled ? "Locked" : "Unlocked"}
+      />
+    </Panel>
+  );
+
 }
+
+export default LockCameraBtn;

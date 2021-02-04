@@ -1,50 +1,39 @@
-import React, { Dispatch } from "react";
-import { render } from "react-panorama";
+import React, { useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { setVisible } from "../../actions/settingsAction";
 import { RootState } from "../../reducers/rootReducer";
-import { SettingsActionTypes } from "../../types/settingsTypes";
 import CameraZoomSlider from "./CameraZoonSlider/CameraZoomSlider";
 import LockCameraBtn from "./LockCameraBtn/LockCameraBtn";
 import MapZoomSlider from "./MapZoomSlider/MapZoomSlider";
-
-interface StateProps {
-    visible: false;
-}
+import Divider from "./Divider/Divider";
+import Title from "./Title/Title";
+import CloseBtn from "./CloseBtn/CloseBtn";
 
 const mapStateToProps = (state: RootState) => ({
     visible: state.settingsReducer.visible,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
-    setVisible: (visible: boolean) => dispatch(setVisible(visible)),
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & {
-    // ownProps
-};
+type Props = PropsFromRedux & {};
 
 const Settings = (props: Props) => {
-    if (!props.visible) {
-        return <Panel />;
-    }
+    useEffect(() => {
+        const panel = $("#settings") as any;
+        panel.SetHasClass("settingsFadeIn", props.visible);
+    }, [props.visible]);
+
     return (
-        <Panel hittest={true} className={"settingsContainer"}>
-            <Label text={"Settings"} className={"settingsTitle"} />
-            <Panel className={"settingsDivider"} />
-            <Panel className={"settingsEntry"}>
-                <LockCameraBtn />
-            </Panel>
-            <Panel className={"settingsDivider"} />
-            <Panel className={"settingsEntry"}>
+        <Panel hittest={false} style={{ width: "100%", height: "100%" }}>
+            <CloseBtn />
+            <Panel id={"settings"} className={"settingsWindow"}>
+                <Title />
+                <Divider />
                 <CameraZoomSlider />
-            </Panel>
-            <Panel className={"settingsDivider"} />
-            <Panel className={"settingsEntry"}>
+                <Divider />
                 <MapZoomSlider />
+                <Divider />
+                <LockCameraBtn />
             </Panel>
         </Panel>
     );

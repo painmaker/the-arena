@@ -1,6 +1,7 @@
 import { reloadable } from "./lib/tstl-utils";
 import "./modifiers/modifier_panic";
 import "./modifiers/modifier_not_on_minimap";
+import { $CombinedState } from "redux";
 
 declare global {
   interface CDOTAGamerules {
@@ -36,7 +37,7 @@ export class GameMode {
     GameRules.SetSameHeroSelectionEnabled(true);
     GameRules.SetHeroSelectionTime(60);
     GameRules.SetCustomGameSetupAutoLaunchDelay(0);
-    GameRules.SetPreGameTime(0);
+    GameRules.SetPreGameTime(10.0);
     GameRules.SetStrategyTime(0);
     GameRules.SetShowcaseTime(0);
     GameRules.SetPostGameTime(0);
@@ -58,20 +59,31 @@ export class GameMode {
     const state = GameRules.State_Get();
 
     if (state == DOTA_GameState.DOTA_GAMERULES_STATE_PRE_GAME) {
-      Timers.CreateTimer(0.2, () => this.StartGame());
+      // Do nothing
+    }
+
+    if (state == DOTA_GameState.DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) {
+      Timers.CreateTimer(0.1, () => this.onGameInProgress());
     }
 
   }
 
-  private StartGame(): void {
-
-    print("Game starting!");
-
+  private onGameInProgress() {
 
     const spawnEntity = Entities.FindByName(undefined, "npc_boss_spawner_1");
     if (spawnEntity !== undefined) {
       CreateUnitByName("rizzrak", spawnEntity.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_BADGUYS);
     }
+
+    [
+      GameRules.AddBotPlayerWithEntityScript("npc_dota_hero_dragon_knight", "Dragon Knight", DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false),
+      GameRules.AddBotPlayerWithEntityScript("npc_dota_hero_crystal_maiden", "Crystal Maiden", DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false),
+      GameRules.AddBotPlayerWithEntityScript("npc_dota_hero_lina", "Lina", DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false),
+    ].forEach(bot => {
+      if (bot !== undefined) {
+        bot.RespawnHero(false, false);
+      }
+    });
 
   }
 
@@ -80,14 +92,20 @@ export class GameMode {
   }
 
   private OnNpcSpawned(event: NpcSpawnedEvent) {
-
     const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
-
     if (unit.IsRealHero()) {
-      // Temp hack 
-      CustomGameEventManager.Send_ServerToAllClients("lock_camera", {} as never);
+      const hero = unit as any;
+      print("hero.hasSpawnedBefore: " + hero.hasSpawnedBefore);
+      if (hero.hasSpawnedBefore !== true) {
+        hero.hasSpawnedBefore = true;
+        const playerId = hero.GetPlayerID();
+        const player = PlayerResource.GetPlayer(playerId);
+        if (player) {
+          CustomGameEventManager.Send_ServerToPlayer(player, "lock_camera", {} as never);
+          CustomGameEventManager.Send_ServerToAllClients("create_hero_image_for_player", { playerId: playerId } as never);
+        }
+      }
     }
-
   }
 
 }

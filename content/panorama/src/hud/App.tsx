@@ -4,6 +4,8 @@ import Minimap from "./components/Minimap/Minimap";
 import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
 import Settings from "./components/Settings/Settings";
+import ButtonGroup from "./components/ButtonGroup/ButtonGroup";
+import Heroes from "./components/Heroes/Heroes";
 
 const store = configureStore();
 
@@ -24,7 +26,7 @@ export default class App extends React.Component<{}, {}> {
         );
         GameUI.SetDefaultUIEnabled(
             DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP,
-            true
+            false
         );
         GameUI.SetDefaultUIEnabled(
             DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD,
@@ -47,11 +49,12 @@ export default class App extends React.Component<{}, {}> {
     render() {
         return (
             <Panel hittest={false} className={"appContainer"}>
+                <Heroes />
                 <Settings />
-                {/* <ButtonGroup /> */}
+                <ButtonGroup />
                 <Minimap />
             </Panel>
-        );
+        ); 
     }
 
 }

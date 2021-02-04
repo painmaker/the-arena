@@ -8,6 +8,16 @@
         <include src="./components/Minimap/minimap.css" />
         <include src="./components/ButtonGroup/buttonGroup.css" />
         <include src="./components/Settings/settings.css" />
+        <include src="./components/Settings/Divider/divider.css" />
+        <include src="./components/Settings/Title/title.css" />
+        <include src="./components/Settings/CloseBtn/closeBtn.css" />
+        <include src="./components/Heroes/heroes.css" />
+        <include src="./components/Heroes/Playername/playername.css" />
+        <include src="./components/Heroes/HeroImage/heroImage.css" />
+        <include src="./components/Heroes/Health/health.css" />
+        <include src="./components/Heroes/Mana/mana.css" />
     </styles> 
-    <Panel class="root" hittest="false" />
-</root> 
+    <Panel class="root" hittest="false">
+      <!-- <Image src="file://panorama/images/close_btn_white.png" />  -->
+    </Panel> 
+</root>       

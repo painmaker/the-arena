@@ -1,22 +1,20 @@
 import React from "react";
+import SettingsButton from "./SettingsButton/SettingsButton";
+import ShoppingButton from "./ShoppingButton/ShoppingButton";
 
-interface IProps {}
-interface IState {}
+interface Props {}
 
-export default class ButtonGroup extends React.Component<IProps, IState> {
-
-    constructor(props: IProps) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <Panel hittest={false} className={"buttonGroupContainer"}>
-                {/* <LockCameraBtn />
-                <CameraZoomSlider />
-                <MapZoomSlider onMapZoomChanged={this.props.onMapZoomChanged} /> */}
+const ButtonGroup = (props: Props) => {
+    return (
+        <Panel hittest={false} className={"buttonGroupContainer"}>
+            <Panel hittest={false} className="buttonGroupEntry">
+                <SettingsButton />
             </Panel>
-        );
-    }
+            <Panel hittest={false} className="buttonGroupEntry">
+                <ShoppingButton />
+            </Panel>
+        </Panel>
+    );
+};
 
-}
+export default ButtonGroup;

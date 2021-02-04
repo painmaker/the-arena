@@ -1,9 +1,24 @@
 .buttonGroupContainer {
   vertical-align: bottom;
   horizontal-align: right;
-  margin-top: 50px;
-  margin-right: 10px;
   width: 200px;
-  height: 36px;
-  background-color: white;
+  margin-bottom: 25px;
+  margin-right: 25px;
+  flow-children: left;
 } 
+
+.buttonGroupEntry {
+  vertical-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 36px;
+  height: 36px;
+  padding: 2.5px;
+}
+ 
+.buttonGroupEntry:hover {
+  transform: scale3d(1.1, 1.1, 1.1);
+} 
+   
