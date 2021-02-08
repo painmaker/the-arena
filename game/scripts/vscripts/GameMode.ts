@@ -1,7 +1,7 @@
 import { reloadable } from "./lib/tstl-utils";
 import "./modifiers/modifier_panic";
 import "./modifiers/modifier_not_on_minimap";
-import { $CombinedState } from "redux";
+import "./modifiers/modifier_fow_visible";
 
 declare global {
   interface CDOTAGamerules {
@@ -37,16 +37,17 @@ export class GameMode {
     GameRules.SetSameHeroSelectionEnabled(true);
     GameRules.SetHeroSelectionTime(60);
     GameRules.SetCustomGameSetupAutoLaunchDelay(0);
-    GameRules.SetPreGameTime(10.0);
+    GameRules.SetPreGameTime(3.0);
     GameRules.SetStrategyTime(0);
     GameRules.SetShowcaseTime(0);
     GameRules.SetPostGameTime(0);
     GameRules.SetUseUniversalShopMode(true);
 
     const gameMode = GameRules.GetGameModeEntity();
-    gameMode.SetCustomGameForceHero('npc_dota_hero_windrunner');
+    gameMode.SetCustomGameForceHero('npc_dota_hero_drow_ranger');
     gameMode.SetUnseenFogOfWarEnabled(true);
     gameMode.SetDaynightCycleDisabled(true);
+    // gameMode.SetFogOfWarDisabled(true);
 
     Timers.CreateTimer(0.1, () => {
       GameRules.SetTimeOfDay(0.5);
@@ -72,17 +73,21 @@ export class GameMode {
 
     const spawnEntity = Entities.FindByName(undefined, "npc_boss_spawner_1");
     if (spawnEntity !== undefined) {
-      CreateUnitByName("rizzrak", spawnEntity.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_BADGUYS);
+      const boss = CreateUnitByName("rizzrak", spawnEntity.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_BADGUYS);
+      // boss.AddNewModifier(undefined, undefined, "modifier_fow_visible", undefined);
     }
 
+    let delay = 1.0;
     [
-      GameRules.AddBotPlayerWithEntityScript("npc_dota_hero_dragon_knight", "Dragon Knight", DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false),
-      GameRules.AddBotPlayerWithEntityScript("npc_dota_hero_crystal_maiden", "Crystal Maiden", DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false),
-      GameRules.AddBotPlayerWithEntityScript("npc_dota_hero_lina", "Lina", DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false),
+      { hero: "npc_dota_hero_dazzle", name: "Dazzle" },
+      { hero: "npc_dota_hero_crystal_maiden", name: "Crystal Maiden" },
+      { hero: "npc_dota_hero_lina", name: "Lina" }
     ].forEach(bot => {
-      if (bot !== undefined) {
-        bot.RespawnHero(false, false);
-      }
+      Timers.CreateTimer(delay, () => {
+        const unit = GameRules.AddBotPlayerWithEntityScript(bot.hero, bot.name, DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false) as CDOTA_BaseNPC_Hero;
+        unit.RespawnHero(false, false);
+      });
+      delay += 1.0;
     });
 
   }
@@ -95,17 +100,21 @@ export class GameMode {
     const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
     if (unit.IsRealHero()) {
       const hero = unit as any;
-      print("hero.hasSpawnedBefore: " + hero.hasSpawnedBefore);
       if (hero.hasSpawnedBefore !== true) {
         hero.hasSpawnedBefore = true;
+        // Minimap hack for disapparing icons 
+        hero.SetDayTimeVisionRange(99999);
+        hero.SetNightTimeVisionRange(99999);
         const playerId = hero.GetPlayerID();
         const player = PlayerResource.GetPlayer(playerId);
         if (player) {
-          CustomGameEventManager.Send_ServerToPlayer(player, "lock_camera", {} as never);
-          CustomGameEventManager.Send_ServerToAllClients("create_hero_image_for_player", { playerId: playerId } as never);
+          CustomGameEventManager.Send_ServerToPlayer(player, "lock_camera", {});
+          CustomGameEventManager.Send_ServerToPlayer(player, "show_ability_bar", {});
+          CustomGameEventManager.Send_ServerToAllClients("create_hero_image_for_player", { playerId: playerId });
         }
       }
     }
   }
 
 }
+

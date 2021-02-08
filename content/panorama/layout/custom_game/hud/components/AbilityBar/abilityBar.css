@@ -1,0 +1,9 @@
+.abilityBarContainer {
+  /* width: 200px; */
+  height: 100px;
+  vertical-align: bottom;
+  horizontal-align: center;
+  flow-children: right;
+  margin-bottom: 200px; 
+  margin-left: 15px;
+}

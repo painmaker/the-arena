@@ -1,0 +1,19 @@
+.dateTimeContainer {
+  horizontal-align: right;
+  margin-right: -10px;
+  margin-top: 45px;
+  min-width: 170px;
+  flow-children: right;
+}
+
+.dateTimeContainer:hover .dateTimeLabel {
+  color: white;
+}
+
+.dateTimeLabel {
+  color: rgba(195, 216, 252, 0.75);
+  /* color: rgba(202, 202, 202, 0.616); */
+  font-size: 15px;
+  text-shadow: 0px 0px 2px 2.0 rgba(0, 0, 0, 0.5);
+}
+

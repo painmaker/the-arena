@@ -3,11 +3,12 @@
   horizontal-align: middle;
   flow-children: right;
   margin-top: 5px;
+  margin-left: 30px;
 }
 
 .heroContainer {
   width: 73.6px;
   flow-children: down;
-  margin-right: 15px;
+  margin-right: 25px;
 }
 

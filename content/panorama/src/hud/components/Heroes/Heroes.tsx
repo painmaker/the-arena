@@ -9,7 +9,7 @@ const Heroes = () => {
 
   const [playerIds, setPlayerIds] = useState<Set<PlayerID>>(new Set([0, 1, 2, 3]));
 
-  useGameEvent("create_hero_image_for_player", (event: any) => {
+  useGameEvent("create_hero_image_for_player", (event) => {
     setPlayerIds(prevPlayerIds => new Set([...prevPlayerIds, event.playerId]));
   }, []);
 
@@ -21,11 +21,7 @@ const Heroes = () => {
           return null;
         }
         return (
-          <Panel
-            hittest={false}
-            className="heroContainer"
-            key={entIndex}
-          >
+          <Panel hittest={false} className="heroContainer" key={entIndex} >
             <HeroImage playerId={playerId} entIndex={entIndex} />
             <Health entIndex={entIndex} />
             <Mana entIndex={entIndex} />

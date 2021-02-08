@@ -28,8 +28,9 @@ const onHeroImageClicked = (entIndex: EntityIndex) => {
       Game.PrepareUnitOrders(order);
     }
   } else {
-    GameUI.SetCameraTargetPosition(Entities.GetAbsOrigin(entIndex), 0.1);
-    GameUI.SelectUnit(entIndex, false);
+    GameUI.SetCameraTargetPosition(Entities.GetAbsOrigin(entIndex), 0.3);
+    // GameUI.SelectUnit(entIndex, false);
+    // Game.EmitSound("ui_topmenu_select");
   }
 
 };

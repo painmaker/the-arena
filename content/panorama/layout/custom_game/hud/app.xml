@@ -16,6 +16,10 @@
         <include src="file://{resources}/layout/custom_game/hud/components/Heroes/HeroImage/heroImage.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Heroes/Health/health.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Heroes/Mana/mana.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/DateTime/dateTime.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/GameTime/gameTime.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/AbilityBar/abilityBar.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/AbilityBar/AbilityBarItem/abilityBarItem.css"></include>
     </styles> 
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/close_btn_white.png" />  -->

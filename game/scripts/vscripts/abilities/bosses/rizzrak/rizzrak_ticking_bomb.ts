@@ -27,7 +27,7 @@ export class rizzrak_ticking_bomb extends BaseAbility {
     ParticleManager.SetParticleControl(projectileParticleId, 3, Vector(time, 0, 0));
 
     if (math.random(1, 4) === 1) {
-      const suffix = math.random(1,2) === 1 ? '15' : '16';
+      const suffix = math.random(1, 2) === 1 ? '15' : '16';
       this.GetCaster().EmitSound("shredder_timb_kill_" + suffix);
     }
 
@@ -43,9 +43,9 @@ export class rizzrak_ticking_bomb extends BaseAbility {
       const bomb = CreateUnitByName(
         "rizzrak_ticking_bomb",
         cursorPosition,
-        false,
-        this.GetCaster(),
-        this.GetCaster(),
+        true,
+        undefined,
+        undefined,
         this.GetCaster().GetTeam(),
       );
 
@@ -62,7 +62,7 @@ export class rizzrak_ticking_bomb extends BaseAbility {
         bomb,
       );
       ParticleManager.SetParticleControl(damageRadiusParticleId, 0, bomb.GetAbsOrigin());
-      ParticleManager.ReleaseParticleIndex(damageRadiusParticleId); 
+      ParticleManager.ReleaseParticleIndex(damageRadiusParticleId);
 
       let counter = explosionDelay;
       Timers.CreateTimer(0, () => {

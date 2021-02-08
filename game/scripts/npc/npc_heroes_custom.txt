@@ -1,0 +1,70 @@
+"DOTAHeroes"
+{
+
+
+	"npc_dota_hero_dragon_knight"
+	{
+
+		"override_hero"			                "npc_dota_hero_dragon_knight"
+  
+		"Ability1"		                      "dragon_knight_breathe_fire"
+		"Ability2"		                      "dragon_knight_dragon_tail"
+		"Ability3"		                      "dragon_knight_dragon_blood"
+		"Ability4"		                      "generic_hidden"
+		"Ability5"		                      "generic_hidden"
+		"Ability6"		                      "dragon_knight_elder_dragon_form"
+		"Ability10"		                      "generic_hidden"
+		"Ability11"		                      "generic_hidden"
+		"Ability12"		                      "generic_hidden"
+		"Ability13"		                      "generic_hidden"
+		"Ability14"		                      "generic_hidden"
+		"Ability15"		                      "generic_hidden"
+		"Ability16"		                      "generic_hidden"
+		"Ability17"		                      "generic_hidden"
+		"Ability18"		                      "generic_hidden"
+		"Ability19"		                      "generic_hidden"
+		"Ability20"		                      "generic_hidden"
+		"Ability21"		                      "generic_hidden"
+		"Ability22"		                      "generic_hidden"
+		"Ability23"		                      "generic_hidden"
+		"Ability24"		                      "generic_hidden"
+		"Ability25"		                      "generic_hidden"
+		"Ability26"		                      "generic_hidden"
+		"Ability27"		                      "generic_hidden"
+		"Ability28"		                      "generic_hidden"
+		"Ability29"		                      "generic_hidden"
+		"Ability30"		                      "generic_hidden"
+		"Ability31"		                      "generic_hidden"
+		"Ability32"		                      "generic_hidden"
+
+		"ArmorPhysical"		                  "0"
+		"AttackCapabilities"		            "DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"		                "1"
+		"AttackDamageMax"		                "1"
+		"AttackRate"		                    "1.700000"
+		"AttackAnimationPoint"		          "0.500000"
+		"AttackAcquisitionRange"	    	    "600"
+		"AttackRange"		                    "150"
+		"AttributePrimary"		              "DOTA_ATTRIBUTE_STRENGTH"
+		"AttributeBaseStrength"		          "0"
+		"AttributeStrengthGain"		          "0"
+		"AttributeBaseAgility"		          "0"
+		"AttributeAgilityGain"		          "0"
+		"AttributeBaseIntelligence"		      "0"
+		"AttributeIntelligenceGain"		      "0"
+		"MovementSpeed"		                  "310"
+		"MovementTurnRate"		              "1.0"
+		"BoundsHullName"		                "DOTA_HULL_SIZE_HERO"
+
+    "StatusHealth"		                  "15"
+    "StatusHealthRegen"		              "1.0"
+		"StatusManaRegen"	                  "1.0"
+		"StatusMana"		                    "5"
+
+		"VisionDaytimeRange"		            "99999"
+		"VisionNighttimeRange"		          "99999"
+
+	}
+
+
+}

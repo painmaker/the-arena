@@ -16,6 +16,10 @@
         <include src="./components/Heroes/HeroImage/heroImage.css" />
         <include src="./components/Heroes/Health/health.css" />
         <include src="./components/Heroes/Mana/mana.css" />
+        <include src="./components/DateTime/dateTime.css" />
+        <include src="./components/GameTime/gameTime.css" />
+        <include src="./components/AbilityBar/abilityBar.css" />
+        <include src="./components/AbilityBar/AbilityBarItem/abilityBarItem.css" />
     </styles> 
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/close_btn_white.png" />  -->
