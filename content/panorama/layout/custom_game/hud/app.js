@@ -53313,6 +53313,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_DateTime_DateTime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/DateTime/DateTime */ "./hud/components/DateTime/DateTime.tsx");
 /* harmony import */ var _components_GameTime_GameTime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/GameTime/GameTime */ "./hud/components/GameTime/GameTime.tsx");
 /* harmony import */ var _components_AbilityBar_AbilityBar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/AbilityBar/AbilityBar */ "./hud/components/AbilityBar/AbilityBar.tsx");
+/* harmony import */ var _components_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/HealthBar/HealthBar */ "./hud/components/HealthBar/HealthBar.tsx");
+/* harmony import */ var _components_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/ManaBar/ManaBar */ "./hud/components/ManaBar/ManaBar.tsx");
+/* harmony import */ var _components_LevelUp_LevelUp__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/LevelUp/LevelUp */ "./hud/components/LevelUp/LevelUp.tsx");
+/* harmony import */ var _components_StatsPanel_StatsPanel__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/StatsPanel/StatsPanel */ "./hud/components/StatsPanel/StatsPanel.tsx");
+/* harmony import */ var _components_CharacterPanel_CharacterPanel__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/CharacterPanel/CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+
+
 
 
 
@@ -53342,13 +53352,45 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_7__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_GameTime_GameTime__WEBPACK_IMPORTED_MODULE_9__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Settings_Settings__WEBPACK_IMPORTED_MODULE_5__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_CharacterPanel_CharacterPanel__WEBPACK_IMPORTED_MODULE_15__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_LevelUp_LevelUp__WEBPACK_IMPORTED_MODULE_13__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilityBar_AbilityBar__WEBPACK_IMPORTED_MODULE_10__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_11__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_12__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ButtonGroup_ButtonGroup__WEBPACK_IMPORTED_MODULE_6__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Minimap_Minimap__WEBPACK_IMPORTED_MODULE_2__.default, null)));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Minimap_Minimap__WEBPACK_IMPORTED_MODULE_2__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_StatsPanel_StatsPanel__WEBPACK_IMPORTED_MODULE_14__.default, null)));
     }
 }
 (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.render)(react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__.Provider, { store: store },
     react__WEBPACK_IMPORTED_MODULE_0__.createElement(App, null)), $.GetContextPanel());
+
+
+/***/ }),
+
+/***/ "./hud/actions/characterPanelActions.tsx":
+/*!***********************************************!*\
+  !*** ./hud/actions/characterPanelActions.tsx ***!
+  \***********************************************/
+/*! namespace exports */
+/*! export setCharacterPanelVisible [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "setCharacterPanelVisible": () => /* binding */ setCharacterPanelVisible
+/* harmony export */ });
+/* harmony import */ var _types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/characterPanelTypes */ "./hud/types/characterPanelTypes.tsx");
+
+function setCharacterPanelVisible(visible) {
+    return {
+        type: _types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_0__.SET_CHARACTER_PANEL_VISIBLE,
+        payload: visible
+    };
+}
 
 
 /***/ }),
@@ -53461,9 +53503,10 @@ const AbilityBar = (props) => {
         }
     }, []);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        props.setInterval(() => {
+        const id = props.setInterval(() => {
             setIsInLearningMode(Game.IsInAbilityLearnMode());
         }, 100);
+        return () => props.clearInterval(id);
     }, []);
     if (entindex === undefined || entindex === -1) {
         return null;
@@ -53504,101 +53547,140 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
 
 
-function getBorder(isTrainable, isAutoCastEnabled, isToggled) {
-    if (isTrainable) {
-        return '2px solid rgba(255, 165, 25, 0.9)';
+class AbilityBarItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
+    constructor(props) {
+        super(props);
+        this.getSaturation = this.getSaturation.bind(this);
+        this.getWashColor = this.getWashColor.bind(this);
+        this.getBorder = this.getBorder.bind(this);
+        this.onLeftClick = this.onLeftClick.bind(this);
+        this.onRightClick = this.onRightClick.bind(this);
+        this.onMouseOver = this.onMouseOver.bind(this);
+        this.onMouseOut = this.onMouseOut.bind(this);
+        this.state = {
+            level: Abilities.GetLevel(props.ability),
+            manaCost: Abilities.GetManaCost(props.ability),
+            unitMana: Entities.GetMana(props.unit),
+            keybind: Abilities.GetKeybind(props.ability),
+            isPassive: Abilities.IsPassive(props.ability),
+            isUpgradeable: Abilities.CanAbilityBeUpgraded(props.ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED,
+            isControllable: Entities.IsControllableByPlayer(props.unit, Players.GetLocalPlayer()),
+            isAutoCastEnabled: Abilities.GetAutoCastState(props.ability),
+            isToggled: Abilities.GetToggleState(props.ability),
+            totalCooldown: Abilities.GetCooldownLength(props.ability),
+            remainingCooldown: Abilities.GetCooldownTimeRemaining(props.ability)
+        };
     }
-    if (isAutoCastEnabled || isToggled) {
-        return '2px solid rgba(165, 75, 0, 0.5)';
+    componentDidMount() {
+        this.props.setInterval(() => {
+            this.setState({
+                level: Abilities.GetLevel(this.props.ability),
+                manaCost: Abilities.GetManaCost(this.props.ability),
+                unitMana: Entities.GetMana(this.props.unit),
+                keybind: Abilities.GetKeybind(this.props.ability),
+                isPassive: Abilities.IsPassive(this.props.ability),
+                isUpgradeable: Abilities.CanAbilityBeUpgraded(this.props.ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED,
+                isControllable: Entities.IsControllableByPlayer(this.props.unit, Players.GetLocalPlayer()),
+                isAutoCastEnabled: Abilities.GetAutoCastState(this.props.ability),
+                isToggled: Abilities.GetToggleState(this.props.ability),
+                totalCooldown: Abilities.GetCooldownLength(this.props.ability),
+                remainingCooldown: Abilities.GetCooldownTimeRemaining(this.props.ability)
+            });
+        }, 100);
     }
-    return '1px solid rgba(25, 25, 25, 0.9)';
-}
-const getWashColor = (level, isTrainable, hasEnoughMana) => {
-    if (isTrainable) {
-        return 'none';
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.ability !== this.props.ability ||
+            nextProps.unit !== this.props.unit ||
+            nextProps.isInLearningMode !== this.props.isInLearningMode ||
+            nextState.level !== this.state.level ||
+            nextState.manaCost !== this.state.manaCost ||
+            nextState.unitMana !== this.state.unitMana ||
+            nextState.keybind !== this.state.keybind ||
+            nextState.isPassive !== this.state.isPassive ||
+            nextState.isUpgradeable !== this.state.isUpgradeable ||
+            nextState.isControllable !== this.state.isControllable ||
+            nextState.isAutoCastEnabled !== this.state.isAutoCastEnabled ||
+            nextState.isToggled !== this.state.isToggled ||
+            nextState.totalCooldown !== this.state.totalCooldown ||
+            nextState.remainingCooldown !== this.state.remainingCooldown;
     }
-    if (level === 0) {
-        return '#303030';
-    }
-    if (!hasEnoughMana) {
-        return '#1569be';
-    }
-    return 'none';
-};
-const getSaturation = (level, isTrainable, hasEnoughMana) => {
-    if (isTrainable) {
+    getSaturation(isTrainable) {
+        if (isTrainable) {
+            return '1.0';
+        }
+        if (this.state.level === 0) {
+            return '0.0';
+        }
+        if (this.state.manaCost > this.state.unitMana) {
+            return '0.0';
+        }
         return '1.0';
     }
-    if (level === 0) {
-        return '0.0';
+    getWashColor(isTrainable) {
+        if (isTrainable) {
+            return 'none';
+        }
+        if (this.state.level === 0) {
+            return '#303030';
+        }
+        if (this.state.manaCost > this.state.unitMana) {
+            return '#1569be';
+        }
+        return 'none';
     }
-    if (!hasEnoughMana) {
-        return '0.0';
+    getBorder(isTrainable) {
+        if (isTrainable) {
+            return '2px solid rgba(255, 165, 0, 1.0)';
+        }
+        if (this.state.isAutoCastEnabled || this.state.isToggled) {
+            return '2px solid dodgerblue';
+        }
+        return '1px solid rgba(25, 25, 25, 0.9)';
     }
-    return '1.0';
-};
-const AbilityBarItem = (props) => {
-    const [level, setLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetLevel(props.ability));
-    const [manaCost, setManaCost] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetManaCost(props.ability));
-    const [unitMana, setUnitMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMana(props.unit));
-    const [keybind, setKeybind] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetKeybind(props.ability));
-    const [isPassive, setIsPassive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsPassive(props.ability));
-    const [isUpgradeable, setIsUpgradeable] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    const [isControllable, setIsControllable] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    const [isAutoCastEnabled, setIsAutoCastEnabled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetAutoCastState(props.ability));
-    const [isToggled, setIsToggled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetToggleState(props.ability));
-    const [totalCooldown, setTotalCooldown] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetCooldownLength(props.ability));
-    const [remainingCooldown, setRemainingCooldown] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetCooldownTimeRemaining(props.ability));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        props.setInterval(() => {
-            setLevel(Abilities.GetLevel(props.ability));
-            setManaCost(Abilities.GetManaCost(props.ability));
-            setUnitMana(Entities.GetMana(props.unit));
-            setKeybind(Abilities.GetKeybind(props.ability));
-            setIsPassive(Abilities.IsPassive(props.ability));
-            setIsControllable(Entities.IsControllableByPlayer(props.unit, Players.GetLocalPlayer()));
-            setIsUpgradeable(Abilities.CanAbilityBeUpgraded(props.ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED);
-            setIsAutoCastEnabled(Abilities.GetAutoCastState(props.ability));
-            setIsToggled(Abilities.GetToggleState(props.ability));
-            setTotalCooldown(Abilities.GetCooldownLength(props.ability));
-            setRemainingCooldown(Abilities.GetCooldownTimeRemaining(props.ability));
-        }, 100);
-    }, [props.isInLearningMode]);
-    const isTrainable = props.isInLearningMode && isUpgradeable && isControllable;
-    const hasEnoughMana = unitMana > manaCost;
-    const cooldownPercent = Math.min(Math.round(100 * remainingCooldown / totalCooldown), 100);
-    // Abilities.CanLearn( integer nEntityIndex )	TODO : Check if you can use this instead 
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, className: 'abilityBarItemContainer', id: 'ability_' + props.ability, onactivate: () => {
-            if (props.isInLearningMode) {
-                Abilities.AttemptToUpgrade(props.ability);
-                return;
-            }
-            Abilities.ExecuteAbility(props.ability, props.unit, false);
-        }, oncontextmenu: () => {
-            if (props.isInLearningMode) {
-                return;
-            }
-            if (Abilities.IsAutocast(props.ability)) {
-                Game.PrepareUnitOrders({
-                    OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TOGGLE_AUTO,
-                    AbilityIndex: props.ability
-                });
-            }
-        }, onmouseover: () => $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_" + props.ability), Abilities.GetAbilityName(props.ability), props.unit), onmouseout: () => $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_" + props.ability)) },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: {
-                border: getBorder(isTrainable, isAutoCastEnabled, isToggled),
-                washColor: getWashColor(level, isTrainable, hasEnoughMana),
-                saturation: getSaturation(level, isTrainable, hasEnoughMana),
-            }, contextEntityIndex: props.ability }),
-        (isTrainable || !isPassive) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'abilityBarItemKeybindLabel', text: keybind })),
-        (manaCost !== 0) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'abilityBarItemManacostLabel', text: manaCost })),
-        cooldownPercent > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'abilityBarItemCooldownContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'abilityBarItemCooldownOverlay', style: {
-                    width: cooldownPercent + "%",
-                    margin: isTrainable ? '2px' : '0px'
-                } }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'abilityBarItemCooldownLabel', text: Math.round(remainingCooldown) })))));
-};
+    onLeftClick() {
+        if (this.props.isInLearningMode) {
+            Abilities.AttemptToUpgrade(this.props.ability);
+            return;
+        }
+        Abilities.ExecuteAbility(this.props.ability, this.props.unit, false);
+    }
+    onRightClick() {
+        if (this.props.isInLearningMode) {
+            return;
+        }
+        if (Abilities.IsAutocast(this.props.ability)) {
+            Game.PrepareUnitOrders({
+                OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TOGGLE_AUTO,
+                AbilityIndex: this.props.ability
+            });
+        }
+    }
+    onMouseOver() {
+        $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_" + this.props.ability), Abilities.GetAbilityName(this.props.ability), this.props.unit);
+    }
+    onMouseOut() {
+        $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_" + this.props.ability));
+    }
+    render() {
+        const isTrainable = this.props.isInLearningMode && this.state.isUpgradeable && this.state.isControllable;
+        const cooldownPercent = Math.min(Math.round(100 * this.state.remainingCooldown / this.state.totalCooldown), 100);
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, className: 'abilityBarItemContainer', id: 'ability_' + this.props.ability, onactivate: () => this.onLeftClick(), oncontextmenu: () => this.onRightClick(), onmouseover: () => this.onMouseOver(), onmouseout: () => this.onMouseOut() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: {
+                    border: this.getBorder(isTrainable),
+                    washColor: this.getWashColor(isTrainable),
+                    saturation: this.getSaturation(isTrainable),
+                }, contextEntityIndex: this.props.ability }),
+            (isTrainable || !this.state.isPassive) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'abilityBarItemKeybindLabel', text: this.state.keybind })),
+            (this.state.manaCost !== 0) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'abilityBarItemManacostLabel', text: this.state.manaCost })),
+            cooldownPercent > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'abilityBarItemCooldownContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'abilityBarItemCooldownOverlay', style: {
+                        width: cooldownPercent + "%",
+                        margin: isTrainable ? '2px' : '0px'
+                    } }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'abilityBarItemCooldownLabel', text: Math.round(this.state.remainingCooldown) })))));
+    }
+}
+;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AbilityBarItem));
 
 
@@ -53620,19 +53702,64 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SettingsButton/SettingsButton */ "./hud/components/ButtonGroup/SettingsButton/SettingsButton.tsx");
-/* harmony import */ var _ShoppingButton_ShoppingButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ShoppingButton/ShoppingButton */ "./hud/components/ButtonGroup/ShoppingButton/ShoppingButton.tsx");
+/* harmony import */ var _CharacterPanelButton_CharaterPanelButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CharacterPanelButton/CharaterPanelButton */ "./hud/components/ButtonGroup/CharacterPanelButton/CharaterPanelButton.tsx");
+/* harmony import */ var _SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SettingsButton/SettingsButton */ "./hud/components/ButtonGroup/SettingsButton/SettingsButton.tsx");
+/* harmony import */ var _ShoppingButton_ShoppingButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ShoppingButton/ShoppingButton */ "./hud/components/ButtonGroup/ShoppingButton/ShoppingButton.tsx");
 
 
 
-const ButtonGroup = (props) => {
+
+const ButtonGroup = () => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "buttonGroupContainer" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "buttonGroupEntry" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_1__.default, null)),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_2__.default, null)),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "buttonGroupEntry" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ShoppingButton_ShoppingButton__WEBPACK_IMPORTED_MODULE_2__.default, null))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ShoppingButton_ShoppingButton__WEBPACK_IMPORTED_MODULE_3__.default, null)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "buttonGroupEntry" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CharacterPanelButton_CharaterPanelButton__WEBPACK_IMPORTED_MODULE_1__.default, null))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ButtonGroup);
+
+
+/***/ }),
+
+/***/ "./hud/components/ButtonGroup/CharacterPanelButton/CharaterPanelButton.tsx":
+/*!*********************************************************************************!*\
+  !*** ./hud/components/ButtonGroup/CharacterPanelButton/CharaterPanelButton.tsx ***!
+  \*********************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_characterPanelActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/characterPanelActions */ "./hud/actions/characterPanelActions.tsx");
+
+
+
+const mapStateToProps = (state) => ({
+    visible: state.characterPanelReducer.visible,
+});
+const mapDispatchToProps = (dispatch) => ({
+    setCharacterPanelVisible: (visible) => dispatch((0,_actions_characterPanelActions__WEBPACK_IMPORTED_MODULE_2__.setCharacterPanelVisible)(visible)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
+const CharaterPanelButton = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: { washColor: props.visible ? 'orange' : 'white' }, onactivate: () => {
+                    props.setCharacterPanelVisible(!props.visible);
+                    Game.EmitSound("ui_topmenu_select");
+                }, src: "s2r://panorama/images/character_btn_white_png.vtex" }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CharaterPanelButton));
 
 
 /***/ }),
@@ -53709,6 +53836,802 @@ const ShoppingButton = (props) => {
 
 /***/ }),
 
+/***/ "./hud/components/CharacterPanel/AttackPanel/AttackPanel.tsx":
+/*!*******************************************************************!*\
+  !*** ./hud/components/CharacterPanel/AttackPanel/AttackPanel.tsx ***!
+  \*******************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _Damage_Damage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Damage/Damage */ "./hud/components/CharacterPanel/AttackPanel/Damage/Damage.tsx");
+/* harmony import */ var _AttackSpeed_AttackSpeed__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AttackSpeed/AttackSpeed */ "./hud/components/CharacterPanel/AttackPanel/AttackSpeed/AttackSpeed.tsx");
+/* harmony import */ var _AttackRange_AttackRange__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AttackRange/AttackRange */ "./hud/components/CharacterPanel/AttackPanel/AttackRange/AttackRange.tsx");
+/* harmony import */ var _MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MoveSpeed/MoveSpeed */ "./hud/components/CharacterPanel/AttackPanel/MoveSpeed/MoveSpeed.tsx");
+/* harmony import */ var _ManaRegen_ManaRegen__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ManaRegen/ManaRegen */ "./hud/components/CharacterPanel/AttackPanel/ManaRegen/ManaRegen.tsx");
+/* harmony import */ var _SpellAmplification_SpellAmplification__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SpellAmplification/SpellAmplification */ "./hud/components/CharacterPanel/AttackPanel/SpellAmplification/SpellAmplification.tsx");
+/* harmony import */ var _Divider_Divider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Divider/Divider */ "./hud/components/CharacterPanel/Divider/Divider.tsx");
+
+
+
+
+
+
+
+
+const AttackPanel = () => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: 'attackPanelContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelBackground' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'ATTACK', className: 'characterPanelTitleLabel attackPanelTitle' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_7__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelLabelContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AttackSpeed_AttackSpeed__WEBPACK_IMPORTED_MODULE_2__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Damage_Damage__WEBPACK_IMPORTED_MODULE_1__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AttackRange_AttackRange__WEBPACK_IMPORTED_MODULE_3__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_4__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpellAmplification_SpellAmplification__WEBPACK_IMPORTED_MODULE_6__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaRegen_ManaRegen__WEBPACK_IMPORTED_MODULE_5__.default, null)))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AttackPanel);
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/AttackPanel/AttackRange/AttackRange.tsx":
+/*!*******************************************************************************!*\
+  !*** ./hud/components/CharacterPanel/AttackPanel/AttackRange/AttackRange.tsx ***!
+  \*******************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+const AttackSpeed = (props) => {
+    const [attackRange, setAttackRange] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackRange(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setAttackRange(Entities.GetAttackRange(Players.GetLocalPlayerPortraitUnit()));
+        }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Range:', className: 'characterPanelLabel characterPanelStatsLabel' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: attackRange.toFixed(0), className: 'characterPanelLabel characterPanelStatsLabel' }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AttackSpeed));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/AttackPanel/AttackSpeed/AttackSpeed.tsx":
+/*!*******************************************************************************!*\
+  !*** ./hud/components/CharacterPanel/AttackPanel/AttackSpeed/AttackSpeed.tsx ***!
+  \*******************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+const AttackSpeed = (props) => {
+    const [attackSpeed, setAttackSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackSpeed(Players.GetLocalPlayerPortraitUnit()));
+    const [secondsPerAttack, setSecondsPerAttack] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetSecondsPerAttack(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setAttackSpeed(Entities.GetAttackSpeed(Players.GetLocalPlayerPortraitUnit()));
+            setSecondsPerAttack(Entities.GetSecondsPerAttack(Players.GetLocalPlayerPortraitUnit()));
+        }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Speed:', className: 'characterPanelLabel characterPanelStatsLabel' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)', className: 'characterPanelLabel characterPanelStatsLabel' }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AttackSpeed));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/AttackPanel/Damage/Damage.tsx":
+/*!*********************************************************************!*\
+  !*** ./hud/components/CharacterPanel/AttackPanel/Damage/Damage.tsx ***!
+  \*********************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+const Damage = (props) => {
+    const [minDamage, setMinDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageMin(Players.GetLocalPlayerPortraitUnit()));
+    const [maxDamage, setMaxDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageMax(Players.GetLocalPlayerPortraitUnit()));
+    const [bonusDamage, setBonusDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageBonus(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setMinDamage(Entities.GetDamageMin(Players.GetLocalPlayerPortraitUnit()));
+            setMaxDamage(Entities.GetDamageMax(Players.GetLocalPlayerPortraitUnit()));
+            setBonusDamage(Entities.GetDamageBonus(Players.GetLocalPlayerPortraitUnit()));
+        }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Damage:', className: 'characterPanelLabel characterPanelStatsLabel' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry', style: { flowChildren: 'right' } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: minDamage.toFixed(0) + " - " + maxDamage.toFixed(0), className: 'characterPanelLabel characterPanelStatsLabel' }),
+            bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: '+' + bonusDamage, className: 'characterPanelLabel characterPanelStatsLabel', style: { color: bonusDamage > 0 ? 'green' : 'red' } })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Damage));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/AttackPanel/ManaRegen/ManaRegen.tsx":
+/*!***************************************************************************!*\
+  !*** ./hud/components/CharacterPanel/AttackPanel/ManaRegen/ManaRegen.tsx ***!
+  \***************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+const AttackSpeed = (props) => {
+    const [manaRegen, setManaRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetManaThinkRegen(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setManaRegen(Entities.GetManaThinkRegen(Players.GetLocalPlayerPortraitUnit()));
+        }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Mana Regen:', className: 'characterPanelLabel characterPanelStatsLabel' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: manaRegen.toFixed(2), className: 'characterPanelLabel characterPanelStatsLabel' }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AttackSpeed));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/AttackPanel/MoveSpeed/MoveSpeed.tsx":
+/*!***************************************************************************!*\
+  !*** ./hud/components/CharacterPanel/AttackPanel/MoveSpeed/MoveSpeed.tsx ***!
+  \***************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+const MoveSpeed = (props) => {
+    const [baseMoveSpeed, setBaseMoveSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit()));
+    const [increasedMoveSpeed, setIncreasedMoveSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMoveSpeedModifier(Players.GetLocalPlayerPortraitUnit(), baseMoveSpeed));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setBaseMoveSpeed(Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit()));
+            setIncreasedMoveSpeed(Entities.GetMoveSpeedModifier(Players.GetLocalPlayerPortraitUnit(), baseMoveSpeed));
+        }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Move Speed:', className: 'characterPanelLabel characterPanelStatsLabel' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry', style: { flowChildren: 'right' } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseMoveSpeed.toFixed(0), className: 'characterPanelLabel characterPanelStatsLabel' }),
+            (increasedMoveSpeed - baseMoveSpeed) !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: '+' + (increasedMoveSpeed - baseMoveSpeed).toFixed(0), className: 'characterPanelLabel characterPanelStatsLabel', style: { color: increasedMoveSpeed > 0 ? 'green' : 'red' } })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(MoveSpeed));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/AttackPanel/SpellAmplification/SpellAmplification.tsx":
+/*!*********************************************************************************************!*\
+  !*** ./hud/components/CharacterPanel/AttackPanel/SpellAmplification/SpellAmplification.tsx ***!
+  \*********************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+const SpellAmplification = (props) => {
+    const [spellAmp, settSpellAmp] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackRange(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            settSpellAmp(Entities.GetAttackRange(Players.GetLocalPlayerPortraitUnit()));
+        }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Spell Amp:', className: 'characterPanelLabel characterPanelStatsLabel' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: '???', className: 'characterPanelLabel characterPanelStatsLabel' }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(SpellAmplification));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/CharacterPanel.tsx":
+/*!**********************************************************!*\
+  !*** ./hud/components/CharacterPanel/CharacterPanel.tsx ***!
+  \**********************************************************/
+/*! namespace exports */
+/*! export REFRESH_RATE [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "REFRESH_RATE": () => /* binding */ REFRESH_RATE,
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _ModelPanel_ModelPanel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ModelPanel/ModelPanel */ "./hud/components/CharacterPanel/ModelPanel/ModelPanel.tsx");
+/* harmony import */ var _AttackPanel_AttackPanel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AttackPanel/AttackPanel */ "./hud/components/CharacterPanel/AttackPanel/AttackPanel.tsx");
+/* harmony import */ var _DefensePanel_DefensePanel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DefensePanel/DefensePanel */ "./hud/components/CharacterPanel/DefensePanel/DefensePanel.tsx");
+
+
+
+
+
+
+const REFRESH_RATE = 250;
+const mapStateToProps = (state) => ({
+    visible: state.characterPanelReducer.visible,
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
+const CharacterPanel = (props) => {
+    const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let timer = -1;
+        if (props.visible === false) {
+            timer = props.setTimeout(() => {
+                setRenderComponent(false);
+            }, 1000);
+        }
+        else {
+            setRenderComponent(true);
+        }
+        return () => props.clearInterval(timer);
+    }, [props.visible]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", height: "100%" } }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: "characterPanelContainer", hittest: true },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '50%', height: '100%', flowChildren: 'down' } },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ModelPanel_ModelPanel__WEBPACK_IMPORTED_MODULE_3__.default, null)),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '50%', height: '100%', flowChildren: 'down' } },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AttackPanel_AttackPanel__WEBPACK_IMPORTED_MODULE_4__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_DefensePanel_DefensePanel__WEBPACK_IMPORTED_MODULE_5__.default, null)))))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(CharacterPanel)));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/DefensePanel/Armor/Armor.tsx":
+/*!********************************************************************!*\
+  !*** ./hud/components/CharacterPanel/DefensePanel/Armor/Armor.tsx ***!
+  \********************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+const Armor = (props) => {
+    const [armor, setArmor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetPhysicalArmorValue(Players.GetLocalPlayerPortraitUnit()));
+    const [bonusArmor, setBonusArmor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetBonusPhysicalArmor(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setArmor(Entities.GetPhysicalArmorValue(Players.GetLocalPlayerPortraitUnit()));
+            setBonusArmor(Entities.GetBonusPhysicalArmor(Players.GetLocalPlayerPortraitUnit()));
+        }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Armor:', className: 'characterPanelLabel characterPanelStatsLabel' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (armor - bonusArmor).toFixed(0), className: 'characterPanelLabel characterPanelStatsLabel' }),
+            bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusArmor > 0 ? '+' : '') + bonusArmor.toFixed(0), className: 'characterPanelLabel characterPanelStatsLabel', style: { color: bonusArmor > 0 ? 'green' : 'red' } })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Armor));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/DefensePanel/DefensePanel.tsx":
+/*!*********************************************************************!*\
+  !*** ./hud/components/CharacterPanel/DefensePanel/DefensePanel.tsx ***!
+  \*********************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _Divider_Divider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Divider/Divider */ "./hud/components/CharacterPanel/Divider/Divider.tsx");
+/* harmony import */ var _Armor_Armor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Armor/Armor */ "./hud/components/CharacterPanel/DefensePanel/Armor/Armor.tsx");
+/* harmony import */ var _Evasion_Evasion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Evasion/Evasion */ "./hud/components/CharacterPanel/DefensePanel/Evasion/Evasion.tsx");
+/* harmony import */ var _HealthRegen_HealthRegen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./HealthRegen/HealthRegen */ "./hud/components/CharacterPanel/DefensePanel/HealthRegen/HealthRegen.tsx");
+/* harmony import */ var _MagicalResistance_MagicalResistance__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MagicalResistance/MagicalResistance */ "./hud/components/CharacterPanel/DefensePanel/MagicalResistance/MagicalResistance.tsx");
+/* harmony import */ var _PyshicalResistance_PyshicalResistance__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./PyshicalResistance/PyshicalResistance */ "./hud/components/CharacterPanel/DefensePanel/PyshicalResistance/PyshicalResistance.tsx");
+/* harmony import */ var _StatusResistance_StatusResistance__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./StatusResistance/StatusResistance */ "./hud/components/CharacterPanel/DefensePanel/StatusResistance/StatusResistance.tsx");
+
+
+
+
+
+
+
+
+const DefensePanel = () => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: 'defensePanelContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelBackground' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'DEFENSE', className: 'characterPanelTitleLabel defensePanelTitle' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_1__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelLabelContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Armor_Armor__WEBPACK_IMPORTED_MODULE_2__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PyshicalResistance_PyshicalResistance__WEBPACK_IMPORTED_MODULE_6__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MagicalResistance_MagicalResistance__WEBPACK_IMPORTED_MODULE_5__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StatusResistance_StatusResistance__WEBPACK_IMPORTED_MODULE_7__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Evasion_Evasion__WEBPACK_IMPORTED_MODULE_3__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HealthRegen_HealthRegen__WEBPACK_IMPORTED_MODULE_4__.default, null)))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DefensePanel);
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/DefensePanel/Evasion/Evasion.tsx":
+/*!************************************************************************!*\
+  !*** ./hud/components/CharacterPanel/DefensePanel/Evasion/Evasion.tsx ***!
+  \************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+const Evasion = (props) => {
+    const [evasion, setEvasion] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            const entindex = Players.GetLocalPlayerPortraitUnit();
+            const numberOfBuffs = Entities.GetNumBuffs(entindex);
+            for (let i = 0; i < numberOfBuffs; i++) {
+                const buff = Entities.GetBuff(entindex, i);
+                const name = Buffs.GetName(entindex, buff);
+                if (name === 'modifier_ui_evasion') {
+                    setEvasion(Buffs.GetStackCount(entindex, buff));
+                }
+            }
+        }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Evasion:', className: 'characterPanelLabel characterPanelStatsLabel' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (evasion > 0 ? (evasion / 100).toFixed(0) : 0) + ' %', className: 'characterPanelLabel characterPanelStatsLabel' }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Evasion));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/DefensePanel/HealthRegen/HealthRegen.tsx":
+/*!********************************************************************************!*\
+  !*** ./hud/components/CharacterPanel/DefensePanel/HealthRegen/HealthRegen.tsx ***!
+  \********************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+const HealthRegen = (props) => {
+    const [regen, setRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+    const [baseRegen, setBaseRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            // Hack because panorama API method for health regen is bugged
+            const entindex = Players.GetLocalPlayerPortraitUnit();
+            const numberOfBuffs = Entities.GetNumBuffs(entindex);
+            for (let i = 0; i < numberOfBuffs; i++) {
+                const buff = Entities.GetBuff(entindex, i);
+                const name = Buffs.GetName(entindex, buff);
+                if (name === 'modifier_ui_health_regen') {
+                    setRegen(Buffs.GetStackCount(entindex, buff) / 100);
+                }
+                if (name === 'modifier_ui_base_health_regen') {
+                    setBaseRegen(Buffs.GetStackCount(entindex, buff) / 100);
+                }
+            }
+        }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
+        return () => props.clearInterval(id);
+    }, []);
+    const increasedRegen = regen - baseRegen;
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Health Regen:', className: 'characterPanelLabel characterPanelStatsLabel' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseRegen.toFixed(2), className: 'characterPanelLabel characterPanelStatsLabel' }),
+            increasedRegen !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedRegen > 0 ? '+' : '') + increasedRegen.toFixed(2), className: 'characterPanelLabel characterPanelStatsLabel', style: { color: increasedRegen > 0 ? 'green' : 'red' } })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(HealthRegen));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/DefensePanel/MagicalResistance/MagicalResistance.tsx":
+/*!********************************************************************************************!*\
+  !*** ./hud/components/CharacterPanel/DefensePanel/MagicalResistance/MagicalResistance.tsx ***!
+  \********************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+const MagicalResistance = (props) => {
+    const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetArmorReductionForDamageType(Players.GetLocalPlayerPortraitUnit(), DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setResistance(Entities.GetArmorReductionForDamageType(Players.GetLocalPlayerPortraitUnit(), DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
+        }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Magical Resistance:', className: 'characterPanelLabel characterPanelStatsLabel' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", className: 'characterPanelLabel characterPanelStatsLabel' }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(MagicalResistance));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/DefensePanel/PyshicalResistance/PyshicalResistance.tsx":
+/*!**********************************************************************************************!*\
+  !*** ./hud/components/CharacterPanel/DefensePanel/PyshicalResistance/PyshicalResistance.tsx ***!
+  \**********************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+const PyshicalResistance = (props) => {
+    const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetArmorReductionForDamageType(Players.GetLocalPlayerPortraitUnit(), DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setResistance(Entities.GetArmorReductionForDamageType(Players.GetLocalPlayerPortraitUnit(), DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
+        }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Pyshical Resistance:', className: 'characterPanelLabel characterPanelStatsLabel' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", className: 'characterPanelLabel characterPanelStatsLabel' }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(PyshicalResistance));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/DefensePanel/StatusResistance/StatusResistance.tsx":
+/*!******************************************************************************************!*\
+  !*** ./hud/components/CharacterPanel/DefensePanel/StatusResistance/StatusResistance.tsx ***!
+  \******************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+
+
+
+const StatusResistance = (props) => {
+    const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            const entindex = Players.GetLocalPlayerPortraitUnit();
+            const numberOfBuffs = Entities.GetNumBuffs(entindex);
+            for (let i = 0; i < numberOfBuffs; i++) {
+                const buff = Entities.GetBuff(entindex, i);
+                const name = Buffs.GetName(entindex, buff);
+                if (name === 'modifier_ui_status_resistance') {
+                    setResistance(Buffs.GetStackCount(entindex, buff));
+                }
+            }
+        }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Status Resistance:', className: 'characterPanelLabel characterPanelStatsLabel' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance !== 0 ? (resistance / 100).toFixed(2) : 0) + ' %', className: 'characterPanelLabel characterPanelStatsLabel' }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(StatusResistance));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/Divider/Divider.tsx":
+/*!***********************************************************!*\
+  !*** ./hud/components/CharacterPanel/Divider/Divider.tsx ***!
+  \***********************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const Divider = () => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelDivider" }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Divider);
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/ModelPanel/ModelPanel.tsx":
+/*!*****************************************************************!*\
+  !*** ./hud/components/CharacterPanel/ModelPanel/ModelPanel.tsx ***!
+  \*****************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Player_Player__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Player/Player */ "./hud/components/CharacterPanel/ModelPanel/Player/Player.tsx");
+
+
+
+
+const ModelPanel = (props) => {
+    const [entindex, setEntindex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
+        setEntindex(Players.GetLocalPlayerPortraitUnit());
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", () => {
+        setEntindex(Players.GetLocalPlayerPortraitUnit());
+    }, []);
+    const unitname = Entities.GetUnitName(entindex);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modelPanelContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modelPanelBackground' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: unitname, className: 'characterPanelTitleLabel modelPanelHeroNameLabel' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { key: unitname, hittest: true, unit: unitname, className: 'modelPanelHeroScreen', particleonly: false, allowrotation: true }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Player_Player__WEBPACK_IMPORTED_MODULE_3__.default, null))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(ModelPanel));
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/ModelPanel/Player/Player.tsx":
+/*!********************************************************************!*\
+  !*** ./hud/components/CharacterPanel/ModelPanel/Player/Player.tsx ***!
+  \********************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+
+
+const PlayerPanel = () => {
+    const [entindex, setEntindex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
+        setEntindex(Players.GetLocalPlayerPortraitUnit());
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", () => {
+        setEntindex(Players.GetLocalPlayerPortraitUnit());
+    }, []);
+    if (!Entities.IsRealHero(entindex)) {
+        return null;
+    }
+    const playerId = Entities.GetPlayerOwnerID(entindex);
+    const playerInfo = Game.GetPlayerInfo(playerId);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'playerContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { steamid: playerInfo.player_steamid, style: {
+                width: '64px',
+                height: '64px',
+            } }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'playerLabelContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAUserName, { className: 'playerLabel', steamid: playerInfo.player_steamid }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerPanel);
+
+
+/***/ }),
+
 /***/ "./hud/components/DateTime/DateTime.tsx":
 /*!**********************************************!*\
   !*** ./hud/components/DateTime/DateTime.tsx ***!
@@ -53739,9 +54662,10 @@ const formatDate = (date) => {
 const DateTime = (props) => {
     const [date, setDate] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(new Date());
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        props.setInterval(() => {
+        const id = props.setInterval(() => {
             setDate(new Date());
         }, 1000);
+        return () => props.clearInterval(id);
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: 'dateTimeContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'dateTimeLabel', text: date.toDateString() }),
@@ -53785,14 +54709,65 @@ const formatGameTime = (dotaTime) => {
 const GameTime = (props) => {
     const [gameTime, setGameTime] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Game.GetDOTATime(false, false));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        props.setInterval(() => {
+        const id = props.setInterval(() => {
             setGameTime(Game.GetDOTATime(false, false));
         }, 1000);
+        return () => props.clearInterval(id);
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'gameTimeContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'gameTimeLabel', text: formatGameTime(gameTime) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(GameTime));
+
+
+/***/ }),
+
+/***/ "./hud/components/HealthBar/HealthBar.tsx":
+/*!************************************************!*\
+  !*** ./hud/components/HealthBar/HealthBar.tsx ***!
+  \************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const HealthBar = (props) => {
+    const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(Players.GetLocalPlayerPortraitUnit()));
+    const [maxHealth, setMaxHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxHealth(Players.GetLocalPlayerPortraitUnit()));
+    const [healthRegen, setHealthRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealthThinkRegen(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setHealth(Entities.GetHealth(Players.GetLocalPlayerPortraitUnit()));
+            setMaxHealth(Entities.GetMaxHealth(Players.GetLocalPlayerPortraitUnit()));
+            // Hack because panorama API method for health regen is bugged
+            const entindex = Players.GetLocalPlayerPortraitUnit();
+            const numberOfBuffs = Entities.GetNumBuffs(entindex);
+            for (let i = 0; i < numberOfBuffs; i++) {
+                const buff = Entities.GetBuff(entindex, i);
+                const name = Buffs.GetName(entindex, buff);
+                if (name === 'modifier_ui_health_regen') {
+                    setHealthRegen(Buffs.GetStackCount(entindex, buff) / 100);
+                }
+            }
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "healthBarContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthBarProgressBar' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'healthBarHealthLabel', text: health + "/" + maxHealth }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'healthBarRegenLabel', text: '+' + healthRegen.toFixed(1) })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(HealthBar));
 
 
 /***/ }),
@@ -53820,10 +54795,11 @@ const Health = (props) => {
     const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(props.entIndex));
     const [maxHealth, setMaxHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxHealth(props.entIndex));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        props.setInterval(() => {
+        const id = props.setInterval(() => {
             setHealth(Entities.GetHealth(props.entIndex));
             setMaxHealth(Entities.GetMaxHealth(props.entIndex));
         }, 100);
+        return () => props.clearInterval(id);
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroesHealthContainer" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'heroesHealthProgressBar' })));
@@ -53974,10 +54950,11 @@ const Mana = (props) => {
     const [mana, setMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMana(props.entIndex));
     const [maxMana, setMaxMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxMana(props.entIndex));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        props.setInterval(() => {
+        const id = props.setInterval(() => {
             setMana(Entities.GetMana(props.entIndex));
             setMaxMana(Entities.GetMaxMana(props.entIndex));
         }, 100);
+        return () => props.clearInterval(id);
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroesManaContainer" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'heroesManaProgressBar' })));
@@ -54016,6 +54993,94 @@ const Playername = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: "heroesPlayernameLabel", text: name, style: { color: playerColorToARGB(color) } })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Playername);
+
+
+/***/ }),
+
+/***/ "./hud/components/LevelUp/LevelUp.tsx":
+/*!********************************************!*\
+  !*** ./hud/components/LevelUp/LevelUp.tsx ***!
+  \********************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const LevelUp = (props) => {
+    const [isInLearnMode, setisInLearnMode] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Game.IsInAbilityLearnMode());
+    const [abilityPoints, setAbilityPoints] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAbilityPoints(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        props.setInterval(() => {
+            setisInLearnMode(Game.IsInAbilityLearnMode());
+            setAbilityPoints(Entities.GetAbilityPoints(Players.GetLocalPlayerPortraitUnit()));
+        }, 100);
+    }, []);
+    if (abilityPoints <= 0) {
+        Game.EndAbilityLearnMode();
+        return null;
+    }
+    if (isInLearnMode) {
+        return null;
+    }
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, onactivate: () => Game.EnterAbilityLearnMode(), className: "levelUpContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'levelUpLabel', text: 'Lvl. up!' })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(LevelUp));
+
+
+/***/ }),
+
+/***/ "./hud/components/ManaBar/ManaBar.tsx":
+/*!********************************************!*\
+  !*** ./hud/components/ManaBar/ManaBar.tsx ***!
+  \********************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const ManaBar = (props) => {
+    const [mana, setMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMana(Players.GetLocalPlayerPortraitUnit()));
+    const [maxMana, setMaxMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxMana(Players.GetLocalPlayerPortraitUnit()));
+    const [manaRegen, setManaRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetManaThinkRegen(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setMana(Entities.GetMana(Players.GetLocalPlayerPortraitUnit()));
+            setMaxMana(Entities.GetMaxMana(Players.GetLocalPlayerPortraitUnit()));
+            setManaRegen(Entities.GetManaThinkRegen(Players.GetLocalPlayerPortraitUnit()));
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    $.Msg("maxMana: " + maxMana);
+    if (maxMana <= 300) {
+        return null;
+    }
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "manaBarContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaBarProgressBar' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'manaBarManaLabel', text: mana + "/" + maxMana }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'manaBarRegenLabel', text: '+' + manaRegen.toFixed(1) })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(ManaBar));
 
 
 /***/ }),
@@ -54138,11 +55203,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const CloseBtn = (props) => {
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const panel = $("#settingsCloseBtn");
-        panel.SetHasClass("settingsFadeIn", props.visible);
-    }, [props.visible]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: "settingsCloseBtn", className: "settingsCloseBtnContainer" },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: "settingsCloseBtnContainer" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: "settingsCloseBtn", onactivate: () => {
                 props.setSettingsVisible(!props.visible);
                 Game.EmitSound("ui_topmenu_select");
@@ -54300,6 +55361,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Divider_Divider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Divider/Divider */ "./hud/components/Settings/Divider/Divider.tsx");
 /* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/Settings/Title/Title.tsx");
 /* harmony import */ var _CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CloseBtn/CloseBtn */ "./hud/components/Settings/CloseBtn/CloseBtn.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
 
 
 
@@ -54313,22 +55376,31 @@ const mapStateToProps = (state) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
 const Settings = (props) => {
+    const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const panel = $("#settings");
-        panel.SetHasClass("settingsFadeIn", props.visible);
+        let timer = -1;
+        if (props.visible === false) {
+            timer = props.setTimeout(() => {
+                setRenderComponent(false);
+            }, 1000);
+        }
+        else {
+            setRenderComponent(true);
+        }
+        return () => props.clearInterval(timer);
     }, [props.visible]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", height: "100%" } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", height: "100%" } }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_7__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: "settings", className: "settingsWindow" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: "settingsWindow" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CameraZoonSlider_CameraZoomSlider__WEBPACK_IMPORTED_MODULE_2__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MapZoomSlider_MapZoomSlider__WEBPACK_IMPORTED_MODULE_4__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_3__.default, null))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_3__.default, null))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Settings));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_8__.default)(Settings)));
 
 
 /***/ }),
@@ -54354,6 +55426,267 @@ const Title = () => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Settings", className: "settingsTitle" }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Title);
+
+
+/***/ }),
+
+/***/ "./hud/components/StatsPanel/Armor/Armor.tsx":
+/*!***************************************************!*\
+  !*** ./hud/components/StatsPanel/Armor/Armor.tsx ***!
+  \***************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const Armor = (props) => {
+    const [armor, setArmor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetPhysicalArmorValue(Players.GetLocalPlayerPortraitUnit()));
+    const [bonusArmor, setBonusArmor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetBonusPhysicalArmor(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setArmor(Entities.GetPhysicalArmorValue(Players.GetLocalPlayerPortraitUnit()));
+            setBonusArmor(Entities.GetBonusPhysicalArmor(Players.GetLocalPlayerPortraitUnit()));
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelArmorImage' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel', text: (armor - bonusArmor).toFixed(1) }),
+            bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusArmor > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusArmor > 0 ? "+" : "") + "(" + bonusArmor + ")" })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Armor));
+
+
+/***/ }),
+
+/***/ "./hud/components/StatsPanel/Damage/Damage.tsx":
+/*!*****************************************************!*\
+  !*** ./hud/components/StatsPanel/Damage/Damage.tsx ***!
+  \*****************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const Damage = (props) => {
+    const [minDamage, setMinDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageMin(Players.GetLocalPlayerPortraitUnit()));
+    const [maxDamage, setMaxDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageMax(Players.GetLocalPlayerPortraitUnit()));
+    const [bonusDamage, setBonusDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageBonus(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setMinDamage(Entities.GetDamageMin(Players.GetLocalPlayerPortraitUnit()));
+            setMaxDamage(Entities.GetDamageMax(Players.GetLocalPlayerPortraitUnit()));
+            setBonusDamage(Entities.GetDamageBonus(Players.GetLocalPlayerPortraitUnit()));
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelAttackImage' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel', text: minDamage + "-" + maxDamage }),
+            bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusDamage > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusDamage > 0 ? '+' : '') + "(" + bonusDamage + ")" })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Damage));
+
+
+/***/ }),
+
+/***/ "./hud/components/StatsPanel/Level/Level.tsx":
+/*!***************************************************!*\
+  !*** ./hud/components/StatsPanel/Level/Level.tsx ***!
+  \***************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const EXPERIENCE_PER_LEVEL_TABLE = {
+    1: 0,
+    2: 100,
+    3: 200,
+    4: 300,
+    5: 400,
+    6: 500,
+    7: 600,
+    8: 700,
+    9: 800,
+    10: 900,
+    11: 1000,
+    12: 1100,
+    13: 1200,
+    14: 1300,
+    15: 1400,
+};
+const Level = (props) => {
+    const [level, setLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(Players.GetLocalPlayerPortraitUnit()));
+    const [totalExperienceGained, setTotalExperienceGained] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetCurrentXP(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setLevel(Entities.GetLevel(Players.GetLocalPlayerPortraitUnit()));
+            setTotalExperienceGained(Entities.GetCurrentXP(Players.GetLocalPlayerPortraitUnit()));
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    const maxLevel = Object.keys(EXPERIENCE_PER_LEVEL_TABLE).length;
+    const xpGainedThisLevel = totalExperienceGained - EXPERIENCE_PER_LEVEL_TABLE[level];
+    const xpRequiredToLevel = EXPERIENCE_PER_LEVEL_TABLE[level === maxLevel ? level : level + 1] - EXPERIENCE_PER_LEVEL_TABLE[level];
+    const pct = (xpGainedThisLevel / xpRequiredToLevel) * 100;
+    if (isNaN(pct)) {
+        return null;
+    }
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel', text: 'Lvl. ' + level }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelLevelBarContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelLevelBar', style: { width: pct + '%' } })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel statsPanelLeveLabel', text: pct + "%" }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Level));
+
+
+/***/ }),
+
+/***/ "./hud/components/StatsPanel/MagicResistance/MagicResistance.tsx":
+/*!***********************************************************************!*\
+  !*** ./hud/components/StatsPanel/MagicResistance/MagicResistance.tsx ***!
+  \***********************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const MagicResistance = (props) => {
+    const [magicResistance, setMagicResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMagicalArmorValue(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setMagicResistance(Entities.GetMagicalArmorValue(Players.GetLocalPlayerPortraitUnit()));
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "statsPanelEntryOuterContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "statsPanelMagicResistImage" }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: "statsPanelLabel", text: (magicResistance * 100).toFixed(1) + "%" }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(MagicResistance));
+
+
+/***/ }),
+
+/***/ "./hud/components/StatsPanel/MoveSpeed/MoveSpeed.tsx":
+/*!***********************************************************!*\
+  !*** ./hud/components/StatsPanel/MoveSpeed/MoveSpeed.tsx ***!
+  \***********************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const MoveSpeed = (props) => {
+    const [moveSpeed, setMoveSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMoveSpeedModifier(Players.GetLocalPlayerPortraitUnit(), Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit())));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setMoveSpeed(Entities.GetMoveSpeedModifier(Players.GetLocalPlayerPortraitUnit(), Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit())));
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer', style: { marginRight: '0px', minWidth: '0px' } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelMoveSpeedImage' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel', text: moveSpeed.toFixed(0) }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(MoveSpeed));
+
+
+/***/ }),
+
+/***/ "./hud/components/StatsPanel/StatsPanel.tsx":
+/*!**************************************************!*\
+  !*** ./hud/components/StatsPanel/StatsPanel.tsx ***!
+  \**************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _Level_Level__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Level/Level */ "./hud/components/StatsPanel/Level/Level.tsx");
+/* harmony import */ var _Armor_Armor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Armor/Armor */ "./hud/components/StatsPanel/Armor/Armor.tsx");
+/* harmony import */ var _Damage_Damage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Damage/Damage */ "./hud/components/StatsPanel/Damage/Damage.tsx");
+/* harmony import */ var _MagicResistance_MagicResistance__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MagicResistance/MagicResistance */ "./hud/components/StatsPanel/MagicResistance/MagicResistance.tsx");
+/* harmony import */ var _MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MoveSpeed/MoveSpeed */ "./hud/components/StatsPanel/MoveSpeed/MoveSpeed.tsx");
+
+
+
+
+
+
+const StatsPanel = () => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "statsPanelContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Level_Level__WEBPACK_IMPORTED_MODULE_1__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Armor_Armor__WEBPACK_IMPORTED_MODULE_2__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MagicResistance_MagicResistance__WEBPACK_IMPORTED_MODULE_4__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Damage_Damage__WEBPACK_IMPORTED_MODULE_3__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_5__.default, null)));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StatsPanel);
 
 
 /***/ }),
@@ -54384,6 +55717,44 @@ function withReactTimeout(WrappedComponent) {
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement(ReactTimeoutComponent, Object.assign({}, props));
     };
     return ComponentWithExtendedProps;
+}
+
+
+/***/ }),
+
+/***/ "./hud/reducers/characterPanelReducer.tsx":
+/*!************************************************!*\
+  !*** ./hud/reducers/characterPanelReducer.tsx ***!
+  \************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* export default binding */ __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/characterPanelTypes */ "./hud/types/characterPanelTypes.tsx");
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+
+
+const initialState = {
+    visible: true,
+};
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(state = initialState, action) {
+    switch (action.type) {
+        case _types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_0__.SET_CHARACTER_PANEL_VISIBLE: {
+            return Object.assign(Object.assign({}, state), { visible: action.payload });
+        }
+        case _types_settingsTypes__WEBPACK_IMPORTED_MODULE_1__.SET_SETTINGS_VISIBLE: {
+            return Object.assign(Object.assign({}, state), { visible: false });
+        }
+        default:
+            return state;
+    }
 }
 
 
@@ -54437,15 +55808,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "rootReducer": () => /* binding */ rootReducer
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "../../../node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "../../../node_modules/redux/es/redux.js");
 /* harmony import */ var _minimapReducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./minimapReducer */ "./hud/reducers/minimapReducer.tsx");
 /* harmony import */ var _settingsReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./settingsReducer */ "./hud/reducers/settingsReducer.tsx");
+/* harmony import */ var _characterPanelReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./characterPanelReducer */ "./hud/reducers/characterPanelReducer.tsx");
 
 
 
-const rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_2__.combineReducers)({
+
+const rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
     minimapReducer: _minimapReducer__WEBPACK_IMPORTED_MODULE_0__.default,
     settingsReducer: _settingsReducer__WEBPACK_IMPORTED_MODULE_1__.default,
+    characterPanelReducer: _characterPanelReducer__WEBPACK_IMPORTED_MODULE_2__.default
 });
 
 
@@ -54466,7 +55840,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* export default binding */ __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var _types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/characterPanelTypes */ "./hud/types/characterPanelTypes.tsx");
 /* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+
 
 const initialState = {
     visible: false,
@@ -54475,6 +55851,9 @@ const initialState = {
     switch (action.type) {
         case _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_SETTINGS_VISIBLE: {
             return Object.assign(Object.assign({}, state), { visible: action.payload });
+        }
+        case _types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_1__.SET_CHARACTER_PANEL_VISIBLE: {
+            return Object.assign(Object.assign({}, state), { visible: false });
         }
         default:
             return state;
@@ -54507,6 +55886,26 @@ function configureStore() {
     const store = (0,redux__WEBPACK_IMPORTED_MODULE_1__.createStore)(_reducers_rootReducer__WEBPACK_IMPORTED_MODULE_0__.rootReducer, undefined, undefined);
     return store;
 }
+
+
+/***/ }),
+
+/***/ "./hud/types/characterPanelTypes.tsx":
+/*!*******************************************!*\
+  !*** ./hud/types/characterPanelTypes.tsx ***!
+  \*******************************************/
+/*! namespace exports */
+/*! export SET_CHARACTER_PANEL_VISIBLE [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SET_CHARACTER_PANEL_VISIBLE": () => /* binding */ SET_CHARACTER_PANEL_VISIBLE
+/* harmony export */ });
+const SET_CHARACTER_PANEL_VISIBLE = 'SET_CHARACTER_PANEL_VISIBLE';
 
 
 /***/ }),

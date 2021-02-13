@@ -2,6 +2,11 @@ import { reloadable } from "./lib/tstl-utils";
 import "./modifiers/modifier_panic";
 import "./modifiers/modifier_not_on_minimap";
 import "./modifiers/modifier_fow_visible";
+import "./modifiers/ui/modifier_ui_status_resistance";
+import "./modifiers/ui/modifier_ui_evasion";
+import "./modifiers/ui/modifier_ui_health_regen";
+import "./modifiers/ui/modifier_ui_base_health_regen";
+import { EXPERIENCE_PER_LEVEL_TABLE } from "./settings";
 
 declare global {
   interface CDOTAGamerules {
@@ -42,6 +47,7 @@ export class GameMode {
     GameRules.SetShowcaseTime(0);
     GameRules.SetPostGameTime(0);
     GameRules.SetUseUniversalShopMode(true);
+    GameRules.SetUseCustomHeroXPValues(true);
 
     const gameMode = GameRules.GetGameModeEntity();
     gameMode.SetCustomGameForceHero('npc_dota_hero_drow_ranger');
@@ -52,6 +58,11 @@ export class GameMode {
     Timers.CreateTimer(0.1, () => {
       GameRules.SetTimeOfDay(0.5);
     });
+
+    gameMode.SetUseCustomHeroLevels(true);
+    gameMode.SetCustomHeroMaxLevel(15);
+    gameMode.SetCustomXPRequiredToReachNextLevel(EXPERIENCE_PER_LEVEL_TABLE);
+    gameMode.SetFixedRespawnTime(1.0);
 
   }
 
@@ -84,8 +95,8 @@ export class GameMode {
       { hero: "npc_dota_hero_lina", name: "Lina" }
     ].forEach(bot => {
       Timers.CreateTimer(delay, () => {
-        const unit = GameRules.AddBotPlayerWithEntityScript(bot.hero, bot.name, DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false) as CDOTA_BaseNPC_Hero;
-        unit.RespawnHero(false, false);
+        // const unit = GameRules.AddBotPlayerWithEntityScript(bot.hero, bot.name, DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false) as CDOTA_BaseNPC_Hero;
+        // unit.RespawnHero(false, false);
       });
       delay += 1.0;
     });
@@ -98,9 +109,14 @@ export class GameMode {
 
   private OnNpcSpawned(event: NpcSpawnedEvent) {
     const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
+    unit.AddNewModifier(unit, undefined, "modifier_ui_status_resistance", { duration: -1 });
+    unit.AddNewModifier(unit, undefined, "modifier_ui_evasion", { duration: -1 });
+    unit.AddNewModifier(unit, undefined, "modifier_ui_health_regen", { duration: -1 });
+    unit.AddNewModifier(unit, undefined, "modifier_ui_base_health_regen", { duration: -1 });
     if (unit.IsRealHero()) {
       const hero = unit as any;
       if (hero.hasSpawnedBefore !== true) {
+        hero.SetCustomDeathXP(10);
         hero.hasSpawnedBefore = true;
         // Minimap hack for disapparing icons 
         hero.SetDayTimeVisionRange(99999);

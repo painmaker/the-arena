@@ -11,10 +11,11 @@ const Health = (props: Props) => {
   const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(props.entIndex));
 
   useEffect(() => {
-    props.setInterval(() => {
+    const id = props.setInterval(() => {
       setHealth(Entities.GetHealth(props.entIndex));
       setMaxHealth(Entities.GetMaxHealth(props.entIndex));
-    }, 100)
+    }, 100);
+    return () => props.clearInterval(id);
   }, []);
 
   return (

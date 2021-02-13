@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 
 type Props = ReactTimeoutProps & {
@@ -7,150 +7,207 @@ type Props = ReactTimeoutProps & {
   isInLearningMode: boolean
 }
 
-function getBorder(isTrainable: boolean, isAutoCastEnabled: boolean, isToggled: boolean): string {
-  if (isTrainable) {
-    return '2px solid rgba(255, 165, 25, 0.9)';
-  }
-  if (isAutoCastEnabled || isToggled) {
-    return '2px solid rgba(165, 75, 0, 0.5)';
-  }
-  return '1px solid rgba(25, 25, 25, 0.9)'
+interface State {
+  level: number,
+  manaCost: number,
+  unitMana: number,
+  keybind: string,
+  isPassive: boolean,
+  isUpgradeable: boolean,
+  isControllable: boolean,
+  isAutoCastEnabled: boolean,
+  isToggled: boolean,
+  totalCooldown: number,
+  remainingCooldown: number,
 }
 
-const getWashColor = (level: number, isTrainable: boolean, hasEnoughMana: boolean): string => {
-  if (isTrainable) {
-    return 'none';
-  }
-  if (level === 0) {
-    return '#303030';
-  }
-  if (!hasEnoughMana) {
-    return '#1569be';
-  }
-  return 'none';
+class AbilityBarItem extends React.Component<Props, State> {
 
-}
+  constructor(props: Props) {
+    super(props);
+    this.getSaturation = this.getSaturation.bind(this);
+    this.getWashColor = this.getWashColor.bind(this);
+    this.getBorder = this.getBorder.bind(this);
+    this.onLeftClick = this.onLeftClick.bind(this);
+    this.onRightClick = this.onRightClick.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
+    this.state = {
+      level: Abilities.GetLevel(props.ability),
+      manaCost: Abilities.GetManaCost(props.ability),
+      unitMana: Entities.GetMana(props.unit),
+      keybind: Abilities.GetKeybind(props.ability),
+      isPassive: Abilities.IsPassive(props.ability),
+      isUpgradeable: Abilities.CanAbilityBeUpgraded(props.ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED,
+      isControllable: Entities.IsControllableByPlayer(props.unit, Players.GetLocalPlayer()),
+      isAutoCastEnabled: Abilities.GetAutoCastState(props.ability),
+      isToggled: Abilities.GetToggleState(props.ability),
+      totalCooldown: Abilities.GetCooldownLength(props.ability),
+      remainingCooldown: Abilities.GetCooldownTimeRemaining(props.ability)
+    }
+  }
 
-const getSaturation = (level: number, isTrainable: boolean, hasEnoughMana: boolean): string => {
-  if (isTrainable) {
+  componentDidMount() {
+    this.props.setInterval(() => {
+      this.setState({
+        level: Abilities.GetLevel(this.props.ability),
+        manaCost: Abilities.GetManaCost(this.props.ability),
+        unitMana: Entities.GetMana(this.props.unit),
+        keybind: Abilities.GetKeybind(this.props.ability),
+        isPassive: Abilities.IsPassive(this.props.ability),
+        isUpgradeable: Abilities.CanAbilityBeUpgraded(this.props.ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED,
+        isControllable: Entities.IsControllableByPlayer(this.props.unit, Players.GetLocalPlayer()),
+        isAutoCastEnabled: Abilities.GetAutoCastState(this.props.ability),
+        isToggled: Abilities.GetToggleState(this.props.ability),
+        totalCooldown: Abilities.GetCooldownLength(this.props.ability),
+        remainingCooldown: Abilities.GetCooldownTimeRemaining(this.props.ability)
+      })
+    }, 100);
+  }
+
+  shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
+    return nextProps.ability !== this.props.ability ||
+      nextProps.unit !== this.props.unit ||
+      nextProps.isInLearningMode !== this.props.isInLearningMode ||
+      nextState.level !== this.state.level ||
+      nextState.manaCost !== this.state.manaCost ||
+      nextState.unitMana !== this.state.unitMana ||
+      nextState.keybind !== this.state.keybind ||
+      nextState.isPassive !== this.state.isPassive ||
+      nextState.isUpgradeable !== this.state.isUpgradeable ||
+      nextState.isControllable !== this.state.isControllable ||
+      nextState.isAutoCastEnabled !== this.state.isAutoCastEnabled ||
+      nextState.isToggled !== this.state.isToggled ||
+      nextState.totalCooldown !== this.state.totalCooldown ||
+      nextState.remainingCooldown !== this.state.remainingCooldown;
+  }
+
+  getSaturation(isTrainable: boolean): string {
+    if (isTrainable) {
+      return '1.0';
+    }
+    if (this.state.level === 0) {
+      return '0.0';
+    }
+    if (this.state.manaCost > this.state.unitMana) {
+      return '0.0';
+    }
     return '1.0';
   }
-  if (level === 0) {
-    return '0.0';
+
+  getWashColor(isTrainable: boolean): string {
+    if (isTrainable) {
+      return 'none';
+    }
+    if (this.state.level === 0) {
+      return '#303030';
+    }
+    if (this.state.manaCost > this.state.unitMana) {
+      return '#1569be';
+    }
+    return 'none';
   }
-  if (!hasEnoughMana) {
-    return '0.0';
+
+  getBorder(isTrainable: boolean): string {
+    if (isTrainable) {
+      return '2px solid rgba(255, 165, 0, 1.0)';
+    }
+    if (this.state.isAutoCastEnabled || this.state.isToggled) {
+      return '2px solid dodgerblue';
+    }
+    return '1px solid rgba(25, 25, 25, 0.9)'
   }
-  return '1.0';
-}
 
-const AbilityBarItem = (props: Props) => {
+  onLeftClick() {
+    if (this.props.isInLearningMode) {
+      Abilities.AttemptToUpgrade(this.props.ability);
+      return;
+    }
+    Abilities.ExecuteAbility(this.props.ability, this.props.unit, false);
+  }
 
-  const [level, setLevel] = useState(Abilities.GetLevel(props.ability));
-  const [manaCost, setManaCost] = useState(Abilities.GetManaCost(props.ability));
-  const [unitMana, setUnitMana] = useState(Entities.GetMana(props.unit));
-  const [keybind, setKeybind] = useState(Abilities.GetKeybind(props.ability));
-  const [isPassive, setIsPassive] = useState(Abilities.IsPassive(props.ability));
-  const [isUpgradeable, setIsUpgradeable] = useState(false);
-  const [isControllable, setIsControllable] = useState(false);
-  const [isAutoCastEnabled, setIsAutoCastEnabled] = useState(Abilities.GetAutoCastState(props.ability));
-  const [isToggled, setIsToggled] = useState(Abilities.GetToggleState(props.ability));
-  const [totalCooldown, setTotalCooldown] = useState(Abilities.GetCooldownLength(props.ability));
-  const [remainingCooldown, setRemainingCooldown] = useState(Abilities.GetCooldownTimeRemaining(props.ability));
+  onRightClick() {
+    if (this.props.isInLearningMode) {
+      return;
+    }
+    if (Abilities.IsAutocast(this.props.ability)) {
+      Game.PrepareUnitOrders({
+        OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TOGGLE_AUTO,
+        AbilityIndex: this.props.ability
+      });
+    }
+  }
 
-  useEffect(() => {
-    props.setInterval(() => {
-      setLevel(Abilities.GetLevel(props.ability));
-      setManaCost(Abilities.GetManaCost(props.ability));
-      setUnitMana(Entities.GetMana(props.unit));
-      setKeybind(Abilities.GetKeybind(props.ability));
-      setIsPassive(Abilities.IsPassive(props.ability));
-      setIsControllable(Entities.IsControllableByPlayer(props.unit, Players.GetLocalPlayer()));
-      setIsUpgradeable(Abilities.CanAbilityBeUpgraded(props.ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED);
-      setIsAutoCastEnabled(Abilities.GetAutoCastState(props.ability));
-      setIsToggled(Abilities.GetToggleState(props.ability));
-      setTotalCooldown(Abilities.GetCooldownLength(props.ability));
-      setRemainingCooldown(Abilities.GetCooldownTimeRemaining(props.ability));
-    }, 100)
-  }, [props.isInLearningMode]);
+  onMouseOver() {
+    $.DispatchEvent(
+      "DOTAShowAbilityTooltipForEntityIndex",
+      $("#ability_" + this.props.ability),
+      Abilities.GetAbilityName(this.props.ability),
+      this.props.unit
+    )
+  }
 
-  const isTrainable = props.isInLearningMode && isUpgradeable && isControllable;
-  const hasEnoughMana = unitMana > manaCost;
-  const cooldownPercent = Math.min(Math.round(100 * remainingCooldown / totalCooldown), 100);
+  onMouseOut() {
+    $.DispatchEvent(
+      "DOTAHideAbilityTooltip",
+      $("#ability_" + this.props.ability)
+    )
+  }
 
-  // Abilities.CanLearn( integer nEntityIndex )	TODO : Check if you can use this instead 
+  render() {
 
-  return (
-    <Panel
-      hittest={true}
-      className={'abilityBarItemContainer'}
-      id={'ability_' + props.ability}
-      onactivate={() => {
-        if (props.isInLearningMode) {
-          Abilities.AttemptToUpgrade(props.ability);
-          return;
-        }
-        Abilities.ExecuteAbility(props.ability, props.unit, false);
-      }}
-      oncontextmenu={() => {
-        if (props.isInLearningMode) {
-          return;
-        }
-        if (Abilities.IsAutocast(props.ability)) {
-          Game.PrepareUnitOrders({
-            OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TOGGLE_AUTO,
-            AbilityIndex: props.ability
-          });
-        }
-      }}
-      onmouseover={() => $.DispatchEvent(
-        "DOTAShowAbilityTooltipForEntityIndex",
-        $("#ability_" + props.ability),
-        Abilities.GetAbilityName(props.ability),
-        props.unit
-      )}
-      onmouseout={() => $.DispatchEvent(
-        "DOTAHideAbilityTooltip",
-        $("#ability_" + props.ability)
-      )}
-    >
-      <DOTAAbilityImage
-        style={{
-          border: getBorder(isTrainable, isAutoCastEnabled, isToggled),
-          washColor: getWashColor(level, isTrainable, hasEnoughMana),
-          saturation: getSaturation(level, isTrainable, hasEnoughMana),
-        }}
-        contextEntityIndex={props.ability}
-      />
-      { (isTrainable || !isPassive) && (
-        <Label
-          className={'abilityBarItemKeybindLabel'}
-          text={keybind}
+    const isTrainable = this.props.isInLearningMode && this.state.isUpgradeable && this.state.isControllable;
+    const cooldownPercent = Math.min(Math.round(100 * this.state.remainingCooldown / this.state.totalCooldown), 100);
+
+    return (
+      <Panel
+        hittest={true}
+        className={'abilityBarItemContainer'}
+        id={'ability_' + this.props.ability}
+        onactivate={() => this.onLeftClick()}
+        oncontextmenu={() => this.onRightClick()}
+        onmouseover={() => this.onMouseOver()}
+        onmouseout={() => this.onMouseOut()}
+      >
+        <DOTAAbilityImage
+          style={{
+            border: this.getBorder(isTrainable),
+            washColor: this.getWashColor(isTrainable),
+            saturation: this.getSaturation(isTrainable),
+          }}
+          contextEntityIndex={this.props.ability}
         />
-      )}
-      { (manaCost !== 0) && (
-        <Label
-          className={'abilityBarItemManacostLabel'}
-          text={manaCost}
-        />
-      )}
-      { cooldownPercent > 0 && (
-        <Panel className={'abilityBarItemCooldownContainer'}>
-          <Panel
-            className={'abilityBarItemCooldownOverlay'}
-            style={{
-              width: cooldownPercent + "%",
-              margin: isTrainable ? '2px' : '0px'
-            }}
-          />
+        { (isTrainable || !this.state.isPassive) && (
           <Label
-            className={'abilityBarItemCooldownLabel'}
-            text={Math.round(remainingCooldown)}
+            className={'abilityBarItemKeybindLabel'}
+            text={this.state.keybind}
           />
-        </Panel>
-      )}
-    </Panel>
-  );
+        )}
+        { (this.state.manaCost !== 0) && (
+          <Label
+            className={'abilityBarItemManacostLabel'}
+            text={this.state.manaCost}
+          />
+        )}
+        { cooldownPercent > 0 && (
+          <Panel className={'abilityBarItemCooldownContainer'}>
+            <Panel
+              className={'abilityBarItemCooldownOverlay'}
+              style={{
+                width: cooldownPercent + "%",
+                margin: isTrainable ? '2px' : '0px'
+              }}
+            />
+            <Label
+              className={'abilityBarItemCooldownLabel'}
+              text={Math.round(this.state.remainingCooldown)}
+            />
+          </Panel>
+        )}
+      </Panel>
+    );
+
+  }
 
 };
 

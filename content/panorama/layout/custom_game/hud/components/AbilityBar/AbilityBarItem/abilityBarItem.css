@@ -4,6 +4,12 @@
   margin-right: 15px;
   padding: 1px;
   background-color: rgba(25, 25, 25, 0.75);
+  /* background-image: url("s2r://panorama/images/hud/reborn/ability_bevel_psd.vtex");
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #00FF0000 ), to( #00FF0000 ) );
+  padding: 2px; */
 }
 
 .abilityBarItemKeybindLabel {

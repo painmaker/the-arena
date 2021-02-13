@@ -19,9 +19,10 @@ const GameTime = (props: Props) => {
   const [gameTime, setGameTime] = useState(Game.GetDOTATime(false, false));
 
   useEffect(() => {
-    props.setInterval(() => {
+    const id = props.setInterval(() => {
       setGameTime(Game.GetDOTATime(false, false));
-    }, 1000)
+    }, 1000);
+    return () => props.clearInterval(id);
   }, []);
 
   return (

@@ -16,9 +16,10 @@ const DateTime = (props: Props) => {
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    props.setInterval(() => {
+    const id = props.setInterval(() => {
       setDate(new Date());
-    }, 1000)
+    }, 1000);
+    return () => props.clearInterval(id);
   }, []);
 
   return (

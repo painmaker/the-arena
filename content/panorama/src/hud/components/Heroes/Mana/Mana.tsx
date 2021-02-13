@@ -11,10 +11,11 @@ const Mana = (props: Props) => {
   const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(props.entIndex));
 
   useEffect(() => {
-    props.setInterval(() => {
+    const id = props.setInterval(() => {
       setMana(Entities.GetMana(props.entIndex));
       setMaxMana(Entities.GetMaxMana(props.entIndex));
-    }, 100)
+    }, 100);
+    return () => props.clearInterval(id);
   }, []);
 
   return (

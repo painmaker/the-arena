@@ -9,6 +9,12 @@ import Heroes from "./components/Heroes/Heroes";
 import DateTime from "./components/DateTime/DateTime";
 import GameTime from "./components/GameTime/GameTime";
 import AbilityBar from "./components/AbilityBar/AbilityBar";
+import HealthBar from "./components/HealthBar/HealthBar";
+import ManaBar from "./components/ManaBar/ManaBar";
+import Level from "./components/Level/Level";
+import LevelUp from "./components/LevelUp/LevelUp";
+import StatsPanel from "./components/StatsPanel/StatsPanel";
+import CharacterPanel from "./components/CharacterPanel/CharacterPanel";
 
 const store = configureStore();
 
@@ -32,9 +38,15 @@ export default class App extends React.Component<{}, {}> {
         <Heroes />
         <GameTime />
         <Settings />
+        <CharacterPanel />
+        {/* <Level /> */}
+        <LevelUp />
         <AbilityBar />
+        <HealthBar />
+        <ManaBar />
         <ButtonGroup />
         <Minimap />
+        <StatsPanel />
       </Panel>
     );
   }

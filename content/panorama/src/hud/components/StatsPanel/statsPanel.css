@@ -1,0 +1,76 @@
+.statsPanelContainer {
+  vertical-align: bottom;
+  horizontal-align: center;
+  height: 30px;
+  flow-children: right;
+  border-radius: 7px;
+  background-color: rgba(25, 25, 25, 0.75);
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-bottom: 5px;
+}
+
+.statsPanelEntryOuterContainer {
+  flow-children: right;
+  vertical-align: center;
+  margin-right: 25px;
+  min-width: 75px;
+}
+
+.statsPanelEntryInnerContainer {
+  flow-children: right;
+  vertical-align: center;
+  horizontal-align: center;
+}
+
+.statsPanelLabel {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.statsPanelArmorImage {
+  width: 15px;
+  height: 15px;
+  background-image: url("s2r://panorama/images/hud/reborn/icon_armor_psd.vtex");
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  margin-right: 2px;
+  horizontal-align: center;
+} 
+
+.statsPanelMagicResistImage {
+  width: 15px;
+  height: 15px;
+  background-image: url("s2r://panorama/images/magic_resist_stat_png.vtex");
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  margin-right: 2px;
+  horizontal-align: center;
+} 
+
+.statsPanelAttackImage {
+  width: 15px;
+  height: 15px;
+  background-image: url("s2r://panorama/images/hud/reborn/icon_damage_psd.vtex");
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  margin-right: 2px;
+  horizontal-align: middle;
+}
+
+.statsPanelMoveSpeedImage {
+  width: 15px;
+  height: 15px;
+  background-image: url("s2r://panorama/images/hud/reborn/icon_speed_psd.vtex");
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  margin-right: 2px;
+  horizontal-align: middle;
+}

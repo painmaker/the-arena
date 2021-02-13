@@ -45,9 +45,10 @@ const AbilityBar = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    props.setInterval(() => {
+    const id = props.setInterval(() => {
       setIsInLearningMode(Game.IsInAbilityLearnMode());
-    }, 100)
+    }, 100);
+    return () => props.clearInterval(id);
   }, []);
 
   if (entindex === undefined || entindex === -1) {
