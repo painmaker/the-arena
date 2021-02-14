@@ -128,7 +128,7 @@ export class GameMode {
         const playerId = hero.GetPlayerID();
         const player = PlayerResource.GetPlayer(playerId);
         if (player) {
-          CustomGameEventManager.Send_ServerToPlayer(player, "lock_camera", {});
+          CustomGameEventManager.Send_ServerToPlayer(player, "initialize_camera", {});
           CustomGameEventManager.Send_ServerToPlayer(player, "show_ability_bar", {});
           CustomGameEventManager.Send_ServerToAllClients("create_hero_image_for_player", { playerId: playerId });
         }

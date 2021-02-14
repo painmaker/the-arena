@@ -34,7 +34,7 @@ module.exports = {
     new PanoramaTargetPlugin(),
     new PanoramaManifestPlugin({
       entries: [
-        { import: "./hud/app.xml", type: "Hud" },
+        { import: "./hud/index.xml", type: "Hud" },
       ],
     }),
     new ForkTsCheckerWebpackPlugin({

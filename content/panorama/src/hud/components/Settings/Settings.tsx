@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../reducers/rootReducer";
 import CameraZoomSlider from "./CameraZoomSlider/CameraZoomSlider";
@@ -8,19 +8,34 @@ import Divider from "./Divider/Divider";
 import Title from "./Title/Title";
 import CloseBtn from "./CloseBtn/CloseBtn";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { useGameEvent } from "react-panorama";
+import { setCameraLocked, setCameraZoom } from "../../actions/settingsAction";
+import { SettingsActionTypes } from "../../types/settingsTypes";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,
 });
 
-const connector = connect(mapStateToProps);
+const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
+  setCameraLocked: (locked: boolean) => dispatch(setCameraLocked(locked)),
+  setCameraZoom: (zoom: number) => dispatch(setCameraZoom(zoom)),
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {};
+type Props = PropsFromRedux & ReactTimeoutProps & {
+  // ownProps
+};
 
 const Settings = (props: Props) => {
 
   const [renderComponent, setRenderComponent] = useState(false);
+
+  useGameEvent("initialize_camera", () => {
+    props.setCameraLocked(true);
+    props.setCameraZoom(1600);
+  }, []);
 
   useEffect(() => {
     let timer = -1;

@@ -21,11 +21,6 @@ type Props = PropsFromRedux & {
 };
 
 const LockCameraBtn = (props: Props) => {
-
-  useGameEvent("lock_camera", () => {
-    props.setCameraLocked(true);
-  }, []);
-
   return (
     <Panel className="settingsItem">
       <Label
@@ -49,7 +44,6 @@ const LockCameraBtn = (props: Props) => {
       />
     </Panel>
   );
-
 }
 
 export default connector(LockCameraBtn);

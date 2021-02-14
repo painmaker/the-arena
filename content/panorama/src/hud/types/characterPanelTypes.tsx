@@ -5,4 +5,4 @@ export interface SetCharacterPanelVisibleAction {
   payload: boolean
 }
 
-export type CharacterPanelActionTypes = SetCharacterPanelVisibleAction;
+export type CharacterPanelActionTypes = SetCharacterPanelVisibleAction; 
