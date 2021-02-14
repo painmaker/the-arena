@@ -35,7 +35,7 @@ const ModelPanel = () => {
     <Panel className={'modelPanelContainer'}>
       <Panel className={'modelPanelBackground'}>
         <Label
-          text={$.Localize(Entities.GetUnitName(entindex))}
+          text={$.Localize(Entities.GetUnitName(entindex)).toUpperCase()}
           className={'characterPanelComponentTitleLabel modelPanelHeroNameLabel'}
         />
         <DOTAScenePanel

@@ -2,7 +2,7 @@ import { CharacterPanelActionTypes, SET_CHARACTER_PANEL_VISIBLE } from "../types
 import { SetSettingsVisibleAction, SET_SETTINGS_VISIBLE } from "../types/settingsTypes";
 
 const initialState = {
-  visible: true,
+  visible: false,
 };
 
 export default function (state = initialState, action: CharacterPanelActionTypes | SetSettingsVisibleAction) {

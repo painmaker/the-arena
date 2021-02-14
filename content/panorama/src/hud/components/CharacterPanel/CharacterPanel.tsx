@@ -31,11 +31,11 @@ const CharacterPanel = (props: Props) => {
     } else {
       setRenderComponent(true);
     }
-    return () => props.clearInterval(timer);
+    return () => props.clearTimeout(timer);
   }, [props.visible]);
 
   return (
-    <Panel hittest={false} style={{ width: "100%", height: "100%" }}>
+    <Panel hittest={false} style={{ width: "100%", height: "100%" }} >
       { renderComponent && (
         <React.Fragment>
           <CloseBtn />
@@ -43,6 +43,7 @@ const CharacterPanel = (props: Props) => {
             style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}
             className={"characterPanelContainer"}
             hittest={true}
+            oncancel={() => $.Msg("test")}
           >
             <Label className={'characterPanelMainTitleLabel'} text={'CHARACTER'} />
             <Panel style={{ width: '100%', height: '100%', flowChildren: 'right' }}>

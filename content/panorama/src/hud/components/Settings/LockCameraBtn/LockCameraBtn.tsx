@@ -1,20 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
+import { connect, ConnectedProps } from "react-redux";
+import { setCameraLocked } from "../../../actions/settingsAction";
+import { RootState } from "../../../reducers/rootReducer";
+import { SettingsActionTypes } from "../../../types/settingsTypes";
 
-const LockCameraBtn = () => {
+const mapStateToProps = (state: RootState) => ({
+  locked: state.settingsReducer.cameraLocked,
+});
 
-  const [toggled, onToggled] = useState(false);
+const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
+  setCameraLocked: (locked: boolean) => dispatch(setCameraLocked(locked)),
+});
 
-  useEffect(() => {
-    if (toggled) {
-      GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
-    } else {
-      GameUI.SetCameraTarget(-1 as EntityIndex);
-    }
-  }, [toggled]);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  // ownProps
+};
+
+const LockCameraBtn = (props: Props) => {
 
   useGameEvent("lock_camera", () => {
-    onToggled((toggled) => !toggled);
+    props.setCameraLocked(true);
   }, []);
 
   return (
@@ -25,8 +34,8 @@ const LockCameraBtn = () => {
       />
       <Panel style={{ width: "8%", marginLeft: "-4px" }} hittest={false}>
         <ToggleButton
-          selected={toggled}
-          onactivate={() => onToggled((toggled) => !toggled)}
+          selected={props.locked}
+          onactivate={() => props.setCameraLocked(!props.locked)}
         />
       </Panel>
       <Label
@@ -36,11 +45,11 @@ const LockCameraBtn = () => {
           fontSize: "16px",
           marginTop: "0.5px",
         }}
-        text={toggled ? "Locked" : "Unlocked"}
+        text={props.locked ? "Locked" : "Unlocked"}
       />
     </Panel>
   );
 
 }
 
-export default LockCameraBtn;
+export default connector(LockCameraBtn);

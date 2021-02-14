@@ -11,7 +11,6 @@ import GameTime from "./components/GameTime/GameTime";
 import AbilityBar from "./components/AbilityBar/AbilityBar";
 import HealthBar from "./components/HealthBar/HealthBar";
 import ManaBar from "./components/ManaBar/ManaBar";
-import Level from "./components/CharacterPanel/ModelPanel/Level/Level";
 import LevelUp from "./components/LevelUp/LevelUp";
 import StatsPanel from "./components/StatsPanel/StatsPanel";
 import CharacterPanel from "./components/CharacterPanel/CharacterPanel";
@@ -21,6 +20,7 @@ const store = configureStore();
 export default class App extends React.Component<{}, {}> {
 
   componentDidMount() {
+
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, false);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, false);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, false);
@@ -29,6 +29,12 @@ export default class App extends React.Component<{}, {}> {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, false);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, false);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, false);
+
+    const onEscapeClicked = () => $.Msg("onEscapeClicked")
+    Game.AddCommand("OnEscapeClicked", onEscapeClicked, '', 0);
+    const keybind = Game.GetKeybindForCommand(DOTAKeybindCommand_t.DOTA_KEYBIND_ABILITY_PRIMARY1);
+    Game.CreateCustomKeyBind(keybind, "OnEscapeClicked");
+
   }
 
   render() {

@@ -1,8 +1,22 @@
-import { SettingsActionTypes, SET_SETTINGS_VISIBLE } from "../types/settingsTypes";
+import { SettingsActionTypes, SET_CAMERA_LOCKED, SET_CAMERA_ZOOM, SET_SETTINGS_VISIBLE } from "../types/settingsTypes";
 
 export function setSettingsVisible(visible: boolean): SettingsActionTypes {
   return {
     type: SET_SETTINGS_VISIBLE,
     payload: visible
+  }
+}
+
+export function setCameraLocked(locked: boolean): SettingsActionTypes {
+  return {
+    type: SET_CAMERA_LOCKED,
+    payload: locked
+  }
+}
+
+export function setCameraZoom(zoom: number): SettingsActionTypes {
+  return {
+    type: SET_CAMERA_ZOOM,
+    payload: zoom
   }
 }

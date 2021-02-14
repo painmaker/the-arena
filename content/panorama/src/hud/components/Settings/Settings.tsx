@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../reducers/rootReducer";
-import CameraZoomSlider from "./CameraZoonSlider/CameraZoomSlider";
+import CameraZoomSlider from "./CameraZoomSlider/CameraZoomSlider";
 import LockCameraBtn from "./LockCameraBtn/LockCameraBtn";
 import MapZoomSlider from "./MapZoomSlider/MapZoomSlider";
 import Divider from "./Divider/Divider";
@@ -31,7 +31,7 @@ const Settings = (props: Props) => {
     } else {
       setRenderComponent(true);
     }
-    return () => props.clearInterval(timer);
+    return () => props.clearTimeout(timer);
   }, [props.visible]);
 
   return (
