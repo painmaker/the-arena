@@ -39,18 +39,14 @@ const Level = (props: Props) => {
   const xpRequiredToLevel = EXPERIENCE_PER_LEVEL_TABLE[level === maxLevel ? level : level + 1] - EXPERIENCE_PER_LEVEL_TABLE[level];
   const pct = (xpGainedThisLevel / xpRequiredToLevel) * 100;
 
-  if (isNaN(pct)) {
-    return null;
-  }
-
   return (
     <Panel className={'statsPanelEntryOuterContainer'}>
       <Panel className={'statsPanelEntryInnerContainer'}>
         <Label className={'statsPanelLabel'} text={'Lvl. ' + level} />
         <Panel className={'statsPanelLevelBarContainer'}>
-          <Panel className={'statsPanelLevelBar'} style={{ width: pct + '%' }} />
+          <Panel className={'statsPanelLevelBar'} style={{ width: Number.isFinite(pct) ? pct + '%' : '100%' }} />
         </Panel>
-        <Label className={'statsPanelLabel statsPanelLeveLabel'} text={pct + "%"} />
+        <Label className={'statsPanelLabel statsPanelLeveLabel'} text={Number.isFinite(pct) ? pct + "%" : '100%'} />
       </Panel>
     </Panel>
   );

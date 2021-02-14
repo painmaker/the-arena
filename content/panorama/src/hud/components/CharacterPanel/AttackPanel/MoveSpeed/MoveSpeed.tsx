@@ -7,15 +7,17 @@ type Props = ReactTimeoutProps & {};
 const MoveSpeed = (props: Props) => {
 
   const [baseMoveSpeed, setBaseMoveSpeed] = useState(Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit()));
-  const [increasedMoveSpeed, setIncreasedMoveSpeed] = useState(Entities.GetMoveSpeedModifier(Players.GetLocalPlayerPortraitUnit(), baseMoveSpeed));
+  const [totalMoveSpeed, setTotalMoveSpeed] = useState(Entities.GetMoveSpeedModifier(Players.GetLocalPlayerPortraitUnit(), Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit())));
 
   useEffect(() => {
     const id = props.setInterval(() => {
       setBaseMoveSpeed(Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit()))
-      setIncreasedMoveSpeed(Entities.GetMoveSpeedModifier(Players.GetLocalPlayerPortraitUnit(), baseMoveSpeed));
+      setTotalMoveSpeed(Entities.GetMoveSpeedModifier(Players.GetLocalPlayerPortraitUnit(), Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit())));
     }, REFRESH_RATE);
     return () => props.clearInterval(id);
   }, []);
+
+  const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
 
   return (
     <Panel hittest={false} style={{ width: "100%", flowChildren: 'right' }}>
@@ -30,9 +32,9 @@ const MoveSpeed = (props: Props) => {
           text={baseMoveSpeed.toFixed(0)}
           className={'characterPanelLabel characterPanelStatsLabel'}
         />
-        {(increasedMoveSpeed - baseMoveSpeed) !== 0 && (
+        {increasedMoveSpeed !== 0 && (
           <Label
-            text={'+' + (increasedMoveSpeed - baseMoveSpeed).toFixed(0)}
+            text={(increasedMoveSpeed > 0 ? '+' : '') + increasedMoveSpeed.toFixed(0)}
             className={'characterPanelLabel characterPanelStatsLabel'}
             style={{ color: increasedMoveSpeed > 0 ? 'green' : 'red' }}
           />

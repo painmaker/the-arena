@@ -5,7 +5,7 @@ import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import ModelPanel from "./ModelPanel/ModelPanel";
 import AttackPanel from "./AttackPanel/AttackPanel";
 import DefensePanel from "./DefensePanel/DefensePanel";
-import PlayerPanel from "./ModelPanel/Player/Player";
+import CloseBtn from "./CloseBtn/CloseBtn";
 
 export const REFRESH_RATE = 250;
 
@@ -38,17 +38,21 @@ const CharacterPanel = (props: Props) => {
     <Panel hittest={false} style={{ width: "100%", height: "100%" }}>
       { renderComponent && (
         <React.Fragment>
+          <CloseBtn />
           <Panel
             style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}
             className={"characterPanelContainer"}
             hittest={true}
           >
-            <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
-              <ModelPanel />
-            </Panel>
-            <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
-              <AttackPanel />
-              <DefensePanel />
+            <Label className={'characterPanelMainTitleLabel'} text={'CHARACTER'} />
+            <Panel style={{ width: '100%', height: '100%', flowChildren: 'right' }}>
+              <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
+                <ModelPanel />
+              </Panel>
+              <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
+                <AttackPanel />
+                <DefensePanel />
+              </Panel>
             </Panel>
           </Panel>
         </React.Fragment>

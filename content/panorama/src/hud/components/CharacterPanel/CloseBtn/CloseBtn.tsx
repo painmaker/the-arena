@@ -1,15 +1,15 @@
-import React, { Dispatch, useEffect } from "react";
+import React, { Dispatch } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { setSettingsVisible } from "../../../actions/settingsAction";
+import { setCharacterPanelVisible } from "../../../actions/characterPanelActions";
 import { RootState } from "../../../reducers/rootReducer";
-import { SettingsActionTypes } from "../../../types/settingsTypes";
+import { CharacterPanelActionTypes } from "../../../types/characterPanelTypes";
 
 const mapStateToProps = (state: RootState) => ({
-  visible: state.settingsReducer.visible,
+  visible: state.characterPanelReducer.visible,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
-  setSettingsVisible: (visible: boolean) => dispatch(setSettingsVisible(visible)),
+const mapDispatchToProps = (dispatch: Dispatch<CharacterPanelActionTypes>) => ({
+  setCharacterPanelVisible: (visible: boolean) => dispatch(setCharacterPanelVisible(visible)),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -24,12 +24,12 @@ const CloseBtn = (props: Props) => {
   return (
     <Panel
       style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}
-      className="settingsCloseBtnContainer"
+      className="characterPanelCloseBtnContainer"
     >
       <Button
-        className="settingsCloseBtn"
+        className="characterPanelCloseBtn"
         onactivate={() => {
-          props.setSettingsVisible(!props.visible);
+          props.setCharacterPanelVisible(!props.visible);
           Game.EmitSound("ui_topmenu_select");
         }}
       >

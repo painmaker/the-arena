@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 
 const EXPERIENCE_PER_LEVEL_TABLE: Record<number, number> = {
   1: 0,
@@ -44,11 +44,15 @@ const Level = (props: Props) => {
   }
 
   return (
-    <Panel hittest={false} className={"levelContainer"}>
-      <Panel className={'levelBackground'} />
-      <Panel className={'levelForeground'} style={{ clip: 'radial(50% 50%, 0.0deg, ' + degree + 'deg)' }} />
-      <Label className={'levelLabel'} text={level} />
+    <Panel className={'levelContainer'}>
+      <Panel className={"levelCircleContainer"}>
+        <Panel className={'levelBackground'} />
+        <Panel className={'levelForeground'} style={{ clip: 'radial(50% 50%, 0.0deg, ' + degree + 'deg)' }} />
+        <Label className={'levelLabel'} text={level} />
+      </Panel>
+      <Label className={'levelLabelSubtext'} text={'level'} />
     </Panel>
+
   );
 
 };

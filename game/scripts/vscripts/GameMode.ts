@@ -6,6 +6,8 @@ import "./modifiers/ui/modifier_ui_status_resistance";
 import "./modifiers/ui/modifier_ui_evasion";
 import "./modifiers/ui/modifier_ui_health_regen";
 import "./modifiers/ui/modifier_ui_base_health_regen";
+import "./modifiers/ui/modifier_ui_spell_amp";
+import "./modifiers/ui/modifier_ui_hero_id";
 import { EXPERIENCE_PER_LEVEL_TABLE } from "./settings";
 
 declare global {
@@ -113,6 +115,8 @@ export class GameMode {
     unit.AddNewModifier(unit, undefined, "modifier_ui_evasion", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_ui_health_regen", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_ui_base_health_regen", { duration: -1 });
+    unit.AddNewModifier(unit, undefined, "modifier_ui_spell_amp", { duration: -1 });
+    unit.AddNewModifier(unit, undefined, "modifier_ui_hero_id", { duration: -1 });
     if (unit.IsRealHero()) {
       const hero = unit as any;
       if (hero.hasSpawnedBefore !== true) {

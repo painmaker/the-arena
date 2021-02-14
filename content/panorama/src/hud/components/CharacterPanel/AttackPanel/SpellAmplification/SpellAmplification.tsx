@@ -6,11 +6,19 @@ type Props = ReactTimeoutProps & {};
 
 const SpellAmplification = (props: Props) => {
 
-  const [spellAmp, settSpellAmp] = useState(Entities.GetAttackRange(Players.GetLocalPlayerPortraitUnit()))
+  const [spellAmp, setSpellAmp] = useState(Entities.GetAttackRange(Players.GetLocalPlayerPortraitUnit()))
 
   useEffect(() => {
     const id = props.setInterval(() => {
-      settSpellAmp(Entities.GetAttackRange(Players.GetLocalPlayerPortraitUnit()));
+      const entindex = Players.GetLocalPlayerPortraitUnit();
+      const numberOfBuffs = Entities.GetNumBuffs(entindex);
+      for (let i = 0; i < numberOfBuffs; i++) {
+        const buff = Entities.GetBuff(entindex, i);
+        const name = Buffs.GetName(entindex, buff);
+        if (name === 'modifier_ui_spell_amp') {
+          setSpellAmp(Buffs.GetStackCount(entindex, buff) / 100);
+        }
+      }
     }, REFRESH_RATE);
     return () => props.clearInterval(id);
   }, []);
@@ -25,7 +33,7 @@ const SpellAmplification = (props: Props) => {
       </Panel>
       <Panel className={'characterPanelStatsEntry'}>
         <Label
-          text={'???'}
+          text={spellAmp + ' %'}
           className={'characterPanelLabel characterPanelStatsLabel'} />
       </Panel>
     </Panel>

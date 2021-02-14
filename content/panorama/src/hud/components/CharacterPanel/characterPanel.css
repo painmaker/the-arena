@@ -7,15 +7,31 @@
   transition: transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s;
   opacity: 0.0;
   border-radius: 5px;
-  min-width: 800px;
-  min-height: 500px;
-  height: fit-children;
-  flow-children: right;
+  min-width: 750px;
+  min-height: 550px;
+  flow-children: down;
 }
 
-.characterPanelTitleLabel {
+
+.characterPanelMainTitleLabel {
+  color: rgba(255, 165, 0, 0.5);
+  text-align: center;
+  width: 100%;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding: 5px;
+  font-size: 25px;
+  font-weight: bolder;
+  background-color: rgba(35, 35, 35, 0.75);
+  border-radius: 5px;
+}
+
+.characterPanelComponentTitleLabel {
   /* color: rgba(128, 128, 128, 0.8); */
   color: rgba(255, 165, 0, 0.5);
+  text-align: center;
+  width: 100%;
 }
 
 .characterPanelStatsEntry {

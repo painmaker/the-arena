@@ -11,7 +11,7 @@ import GameTime from "./components/GameTime/GameTime";
 import AbilityBar from "./components/AbilityBar/AbilityBar";
 import HealthBar from "./components/HealthBar/HealthBar";
 import ManaBar from "./components/ManaBar/ManaBar";
-import Level from "./components/Level/Level";
+import Level from "./components/CharacterPanel/ModelPanel/Level/Level";
 import LevelUp from "./components/LevelUp/LevelUp";
 import StatsPanel from "./components/StatsPanel/StatsPanel";
 import CharacterPanel from "./components/CharacterPanel/CharacterPanel";
@@ -21,9 +21,9 @@ const store = configureStore();
 export default class App extends React.Component<{}, {}> {
 
   componentDidMount() {
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, true);
+    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, false);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, false);
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, true);
+    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, false);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, false);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, true);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, false);
@@ -39,7 +39,6 @@ export default class App extends React.Component<{}, {}> {
         <GameTime />
         <Settings />
         <CharacterPanel />
-        {/* <Level /> */}
         <LevelUp />
         <AbilityBar />
         <HealthBar />

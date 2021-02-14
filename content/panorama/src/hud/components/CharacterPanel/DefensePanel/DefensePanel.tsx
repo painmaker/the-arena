@@ -11,7 +11,7 @@ const DefensePanel = () => {
   return (
     <Panel hittest={false} className={'defensePanelContainer'}>
       <Panel className={'defensePanelBackground'}>
-        <Label text={'DEFENSE'} className={'characterPanelTitleLabel defensePanelTitle'} />
+        <Label text={'DEFENSE'} className={'characterPanelComponentTitleLabel defensePanelTitle'} />
         <Divider />
         <Panel className={'defensePanelLabelContainer'}>
           <Armor />
