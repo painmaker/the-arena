@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useGameEvent } from "react-panorama";
-import SharedBuff from "../SharedBuff/SharedBuff";
+import ModifierItem from "../ModifierItem/ModifierItem";
 
 const getDebuffs = (unit: EntityIndex) => {
   const debuffs = [];
@@ -26,14 +26,12 @@ const Debuffs = () => {
   const [debuffs, setDebuffs] = useState<BuffID[]>([]);
 
   useGameEvent("dota_portrait_unit_modifiers_changed", () => {
-    $.Msg("dota_portrait_unit_modifiers_changed")
     const unit = Players.GetLocalPlayerPortraitUnit();
     setSelectedUnit(unit);
     setDebuffs(getDebuffs(unit));
   }, []);
 
   useGameEvent("dota_player_update_selected_unit", () => {
-    $.Msg("dota_player_update_selected_unit")
     const unit = Players.GetLocalPlayerPortraitUnit();
     setSelectedUnit(unit);
     setDebuffs(getDebuffs(unit));
@@ -42,7 +40,7 @@ const Debuffs = () => {
   return (
     <Panel className={'debuffsContainer'}>
       {debuffs.map((debuff) =>
-        <SharedBuff
+        <ModifierItem
           key={debuff}
           buffId={debuff}
           selectedUnit={selectedUnit}

@@ -33,10 +33,10 @@
         <include src="file://{resources}/layout/custom_game/hud/components/CharacterPanel/DefensePanel/defensePanel.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/CharacterPanel/Divider/divider.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/CharacterPanel/CloseBtn/closeBtn.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Buffs/buffs.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Debuffs/debuffs.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/SharedBuff/sharedBuff.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/SharedBuff/Background/background.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/Buffs/buffs.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/Debuffs/debuffs.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/ModifierItem/modifierItem.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/ModifierItem/ModifierAuraBackground/modifierAuraBackground.css"></include>
     </styles> 
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/magic_resist_stat.png" />  -->

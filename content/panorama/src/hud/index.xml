@@ -33,10 +33,10 @@
         <include src="./components/CharacterPanel/DefensePanel/defensePanel.css" />
         <include src="./components/CharacterPanel/Divider/divider.css" />
         <include src="./components/CharacterPanel/CloseBtn/closeBtn.css" />
-        <include src="./components/Buffs/buffs.css" />
-        <include src="./components/Debuffs/debuffs.css" />
-        <include src="./components/SharedBuff/sharedBuff.css" />
-        <include src="./components/SharedBuff/Background/background.css" />
+        <include src="./components/Modifiers/Buffs/buffs.css" />
+        <include src="./components/Modifiers/Debuffs/debuffs.css" />
+        <include src="./components/Modifiers/ModifierItem/modifierItem.css" />
+        <include src="./components/Modifiers/ModifierItem/ModifierAuraBackground/modifierAuraBackground.css" />
     </styles> 
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/magic_resist_stat.png" />  -->

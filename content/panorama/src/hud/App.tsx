@@ -11,8 +11,8 @@ import ManaBar from "./components/ManaBar/ManaBar";
 import LevelUp from "./components/LevelUp/LevelUp";
 import StatsPanel from "./components/StatsPanel/StatsPanel";
 import CharacterPanel from "./components/CharacterPanel/CharacterPanel";
-import Debuffs from "./components/Debuffs/Debuffs";
-import Buffs from "./components/Buffs/Buffs";
+import Debuffs from "./components/Modifiers/Debuffs/Debuffs";
+import Buffs from "./components/Modifiers/Buffs/Buffs";
 
 const App = () => {
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
+import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 
 type Props = ReactTimeoutProps & {
   buffId: BuffID,
@@ -7,7 +7,7 @@ type Props = ReactTimeoutProps & {
   isDebuff: boolean,
 }
 
-const Background = (props: Props) => {
+const ModifierAuraBackground = (props: Props) => {
 
   const [remaining, setRemaining] = useState(Math.max(0, Buffs.GetRemainingTime(props.selectedUnit, props.buffId)));
   const [duration, setDuration] = useState(Math.max(0, Buffs.GetDuration(props.selectedUnit, props.buffId)));
@@ -16,7 +16,7 @@ const Background = (props: Props) => {
     const id = props.setInterval(() => {
       setRemaining(Math.max(0, Buffs.GetRemainingTime(props.selectedUnit, props.buffId)));
       setDuration(Math.max(0, Buffs.GetDuration(props.selectedUnit, props.buffId)));
-    }, 100);
+    }, 50);
     return () => props.clearInterval(id);
   }, []);
 
@@ -24,7 +24,7 @@ const Background = (props: Props) => {
 
   return (
     <Panel
-      className={'sharedBuffAuraBackground'}
+      className={'modifierItemAuraBackground'}
       style={{
         backgroundColor: props.isDebuff ? 'red' : 'greenyellow',
         clip: Number.isNaN(degree) ? null : 'radial(50% 50%, 0deg, ' + degree + 'deg)'
@@ -34,4 +34,4 @@ const Background = (props: Props) => {
 
 };
 
-export default withReactTimeout(Background);
+export default withReactTimeout(ModifierAuraBackground);

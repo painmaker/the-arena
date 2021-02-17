@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
-import Background from "./Background/Background";
+import ModifierAuraBackground from "./ModifierAuraBackground/ModifierAuraBackground";
 
 interface Props {
   buffId: BuffID,
@@ -27,7 +27,7 @@ const hideAbility = (panelId: string) => {
   }
 }
 
-const SharedBuff = (props: Props) => {
+const ModifierItem = (props: Props) => {
 
   const [isAura, setIsAura] = useState(true);
 
@@ -59,26 +59,26 @@ const SharedBuff = (props: Props) => {
   }, []);
 
   return (
-    <Panel className={'sharedBuffContainer'} style={{ opacity: '1.0' }}>
+    <Panel className={'modifierItemContainer'} style={{ opacity: '1.0' }}>
       { isAura && (
         <Panel
-          className={'sharedBuffBackground'}
+          className={'modifierItemBackground'}
           style={{ backgroundColor: props.isDebuff ? 'red' : 'greenyellow' }}
         />
       )}
       { !isAura && (
-        <Background
+        <ModifierAuraBackground
           buffId={props.buffId}
           selectedUnit={props.selectedUnit}
           isDebuff={props.isDebuff}
         />
       )}
-      <Panel className={'sharedBuffForeground'}>
+      <Panel className={'modifierItemForeground'}>
         {!isItem && (
           <DOTAAbilityImage
             key={panelId}
             id={panelId}
-            className={'sharedBuffImage'}
+            className={'modifierItemImage'}
             abilityname={Abilities.GetAbilityName(ability)}
             onmouseover={() => showAbility(ability, props.selectedUnit, panelId)}
             onmouseout={() => hideAbility(panelId)}
@@ -87,7 +87,7 @@ const SharedBuff = (props: Props) => {
         {isItem && (
           <DOTAItemImage
             key={panelId}
-            className={'sharedBuffImage sharedBuffItemImage'}
+            className={'modifierItemImageWithPadding'}
             itemname={texture}
           />
         )}
@@ -96,4 +96,4 @@ const SharedBuff = (props: Props) => {
   );
 };
 
-export default SharedBuff;
+export default ModifierItem;
