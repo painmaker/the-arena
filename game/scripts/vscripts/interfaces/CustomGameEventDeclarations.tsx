@@ -3,4 +3,6 @@ interface CustomGameEventDeclarations {
   create_hero_image_for_player: { playerId: PlayerID };
   set_zone_name: { zoneName: string };
   show_ability_bar: {};
+  is_modifier_aura: { entindex: EntityIndex, modifierName: string };
+  is_modifier_aura_success: { modifierName: string, isAura: boolean }
 }

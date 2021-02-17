@@ -56549,6 +56549,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_LevelUp_LevelUp__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/LevelUp/LevelUp */ "./hud/components/LevelUp/LevelUp.tsx");
 /* harmony import */ var _components_StatsPanel_StatsPanel__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/StatsPanel/StatsPanel */ "./hud/components/StatsPanel/StatsPanel.tsx");
 /* harmony import */ var _components_CharacterPanel_CharacterPanel__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/CharacterPanel/CharacterPanel */ "./hud/components/CharacterPanel/CharacterPanel.tsx");
+/* harmony import */ var _components_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Debuffs/Debuffs */ "./hud/components/Debuffs/Debuffs.tsx");
+/* harmony import */ var _components_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Buffs/Buffs */ "./hud/components/Buffs/Buffs.tsx");
+
+
 
 
 
@@ -56564,9 +56568,9 @@ __webpack_require__.r(__webpack_exports__);
 
 const App = () => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, false);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, true);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, true);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, false);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, true);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, false);
@@ -56585,6 +56589,8 @@ const App = () => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_9__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ButtonGroup_ButtonGroup__WEBPACK_IMPORTED_MODULE_3__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Minimap_Minimap__WEBPACK_IMPORTED_MODULE_1__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_14__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_13__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_StatsPanel_StatsPanel__WEBPACK_IMPORTED_MODULE_11__.default, null)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
@@ -56922,6 +56928,66 @@ class AbilityBarItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 }
 ;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AbilityBarItem));
+
+
+/***/ }),
+
+/***/ "./hud/components/Buffs/Buffs.tsx":
+/*!****************************************!*\
+  !*** ./hud/components/Buffs/Buffs.tsx ***!
+  \****************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _SharedBuff_SharedBuff__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../SharedBuff/SharedBuff */ "./hud/components/SharedBuff/SharedBuff.tsx");
+
+
+
+const getBuffs = (unit) => {
+    const buffs = [];
+    for (let i = 0; i < Entities.GetNumBuffs(unit); i++) {
+        const buff = Entities.GetBuff(unit, i);
+        if (buff == -1) {
+            continue;
+        }
+        if (Buffs.IsHidden(unit, buff)) {
+            continue;
+        }
+        if (Buffs.IsDebuff(unit, buff)) {
+            continue;
+        }
+        buffs.push(buff);
+    }
+    return buffs;
+};
+const BuffsPanel = () => {
+    const [selectedUnit, setSelectedUnit] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
+    const [buffs, setBuffs] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_portrait_unit_modifiers_changed", () => {
+        $.Msg("dota_portrait_unit_modifiers_changed");
+        const unit = Players.GetLocalPlayerPortraitUnit();
+        setSelectedUnit(unit);
+        setBuffs(getBuffs(unit));
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", () => {
+        $.Msg("dota_player_update_selected_unit");
+        const unit = Players.GetLocalPlayerPortraitUnit();
+        setSelectedUnit(unit);
+        setBuffs(getBuffs(unit));
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'buffsContainer' }, buffs.map((buff) => react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SharedBuff_SharedBuff__WEBPACK_IMPORTED_MODULE_2__.default, { key: buff, buffId: buff, selectedUnit: selectedUnit, isDebuff: false }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BuffsPanel);
 
 
 /***/ }),
@@ -58056,6 +58122,66 @@ const DateTime = (props) => {
 
 /***/ }),
 
+/***/ "./hud/components/Debuffs/Debuffs.tsx":
+/*!********************************************!*\
+  !*** ./hud/components/Debuffs/Debuffs.tsx ***!
+  \********************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _SharedBuff_SharedBuff__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../SharedBuff/SharedBuff */ "./hud/components/SharedBuff/SharedBuff.tsx");
+
+
+
+const getDebuffs = (unit) => {
+    const debuffs = [];
+    for (let i = 0; i < Entities.GetNumBuffs(unit); i++) {
+        const buff = Entities.GetBuff(unit, i);
+        if (buff == -1) {
+            continue;
+        }
+        if (Buffs.IsHidden(unit, buff)) {
+            continue;
+        }
+        if (!Buffs.IsDebuff(unit, buff)) {
+            continue;
+        }
+        debuffs.push(buff);
+    }
+    return debuffs;
+};
+const Debuffs = () => {
+    const [selectedUnit, setSelectedUnit] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
+    const [debuffs, setDebuffs] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_portrait_unit_modifiers_changed", () => {
+        $.Msg("dota_portrait_unit_modifiers_changed");
+        const unit = Players.GetLocalPlayerPortraitUnit();
+        setSelectedUnit(unit);
+        setDebuffs(getDebuffs(unit));
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", () => {
+        $.Msg("dota_player_update_selected_unit");
+        const unit = Players.GetLocalPlayerPortraitUnit();
+        setSelectedUnit(unit);
+        setDebuffs(getDebuffs(unit));
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'debuffsContainer' }, debuffs.map((debuff) => react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SharedBuff_SharedBuff__WEBPACK_IMPORTED_MODULE_2__.default, { key: debuff, buffId: debuff, selectedUnit: selectedUnit, isDebuff: true }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Debuffs);
+
+
+/***/ }),
+
 /***/ "./hud/components/GameTime/GameTime.tsx":
 /*!**********************************************!*\
   !*** ./hud/components/GameTime/GameTime.tsx ***!
@@ -58822,6 +58948,116 @@ const Title = () => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Settings", className: "settingsTitle" }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Title);
+
+
+/***/ }),
+
+/***/ "./hud/components/SharedBuff/Background/Background.tsx":
+/*!*************************************************************!*\
+  !*** ./hud/components/SharedBuff/Background/Background.tsx ***!
+  \*************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const Background = (props) => {
+    const [remaining, setRemaining] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Math.max(0, Buffs.GetRemainingTime(props.selectedUnit, props.buffId)));
+    const [duration, setDuration] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Math.max(0, Buffs.GetDuration(props.selectedUnit, props.buffId)));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setRemaining(Math.max(0, Buffs.GetRemainingTime(props.selectedUnit, props.buffId)));
+            setDuration(Math.max(0, Buffs.GetDuration(props.selectedUnit, props.buffId)));
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    const degree = Math.max(0, (remaining / duration) * 360);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'sharedBuffAuraBackground', style: {
+            backgroundColor: props.isDebuff ? 'red' : 'greenyellow',
+            clip: Number.isNaN(degree) ? null : 'radial(50% 50%, 0deg, ' + degree + 'deg)'
+        } }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Background));
+
+
+/***/ }),
+
+/***/ "./hud/components/SharedBuff/SharedBuff.tsx":
+/*!**************************************************!*\
+  !*** ./hud/components/SharedBuff/SharedBuff.tsx ***!
+  \**************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _Background_Background__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Background/Background */ "./hud/components/SharedBuff/Background/Background.tsx");
+
+
+
+const showAbility = (ability, selectedUnit, panelId) => {
+    const panel = $("#" + panelId);
+    if (panel) {
+        $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", panel, Abilities.GetAbilityName(ability), selectedUnit);
+    }
+};
+const hideAbility = (panelId) => {
+    const panel = $("#" + panelId);
+    if (panel) {
+        $.DispatchEvent("DOTAHideAbilityTooltip", panel);
+    }
+};
+const SharedBuff = (props) => {
+    const [isAura, setIsAura] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+    const texture = Buffs.GetTexture(props.selectedUnit, props.buffId);
+    const ability = Buffs.GetAbility(props.selectedUnit, props.buffId);
+    const panelId = props.isDebuff ? "debuff_" + props.buffId : "buff_" + props.buffId;
+    const isItem = Abilities.IsItem(ability);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        return () => {
+            const panel = $("#" + panelId);
+            if (panel) {
+                $.DispatchEvent("DOTAHideAbilityTooltip", panel);
+            }
+        };
+    }, []);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        GameEvents.SendCustomGameEventToServer("is_modifier_aura", {
+            entindex: props.selectedUnit,
+            modifierName: Buffs.GetName(props.selectedUnit, props.buffId),
+        });
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("is_modifier_aura_success", (event) => {
+        if (event.modifierName === Buffs.GetName(props.selectedUnit, props.buffId)) {
+            setIsAura(event.isAura === 1);
+        }
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'sharedBuffContainer', style: { opacity: '1.0' } },
+        isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'sharedBuffBackground', style: { backgroundColor: props.isDebuff ? 'red' : 'greenyellow' } })),
+        !isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Background_Background__WEBPACK_IMPORTED_MODULE_2__.default, { buffId: props.buffId, selectedUnit: props.selectedUnit, isDebuff: props.isDebuff })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'sharedBuffForeground' },
+            !isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { key: panelId, id: panelId, className: 'sharedBuffImage', abilityname: Abilities.GetAbilityName(ability), onmouseover: () => showAbility(ability, props.selectedUnit, panelId), onmouseout: () => hideAbility(panelId) })),
+            isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { key: panelId, className: 'sharedBuffImage sharedBuffItemImage', itemname: texture })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SharedBuff);
 
 
 /***/ }),

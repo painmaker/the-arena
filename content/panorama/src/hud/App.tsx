@@ -11,13 +11,15 @@ import ManaBar from "./components/ManaBar/ManaBar";
 import LevelUp from "./components/LevelUp/LevelUp";
 import StatsPanel from "./components/StatsPanel/StatsPanel";
 import CharacterPanel from "./components/CharacterPanel/CharacterPanel";
+import Debuffs from "./components/Debuffs/Debuffs";
+import Buffs from "./components/Buffs/Buffs";
 
 const App = () => {
 
   useEffect(() => {
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, false);
+    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, true);
+    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, true);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, false);
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, false);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, false);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, true);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, false);
@@ -38,6 +40,8 @@ const App = () => {
       <ManaBar />
       <ButtonGroup />
       <Minimap />
+      <Buffs />
+      <Debuffs />
       <StatsPanel />
     </Panel>
   );

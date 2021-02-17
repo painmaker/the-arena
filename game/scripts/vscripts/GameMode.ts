@@ -9,6 +9,7 @@ import "./modifiers/ui/modifier_ui_base_health_regen";
 import "./modifiers/ui/modifier_ui_spell_amp";
 import "./modifiers/ui/modifier_ui_hero_id";
 import { EXPERIENCE_PER_LEVEL_TABLE } from "./settings";
+import { $CombinedState } from "redux";
 
 declare global {
   interface CDOTAGamerules {
@@ -20,11 +21,15 @@ declare global {
 export class GameMode {
 
   public static Precache(this: void, context: CScriptPrecacheContext) {
+    PrecacheResource("model", "particles/units/heroes/hero_meepo/meepo_earthbind_projectile_fx.vpcf", context);
     PrecacheResource("particle", "particles/units/heroes/hero_meepo/meepo_earthbind_projectile_fx.vpcf", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_techies.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_shredder.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/voscripts/game_sounds_vo_shredder.vsndevts", context);
+
+    PrecacheUnitByNameSync("npc_dota_crystal_maiden", context)
+
   }
 
   public static Activate(this: void) {
@@ -35,12 +40,14 @@ export class GameMode {
     this.configure();
     ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
     ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
+    ListenToGameEvent("modifier_event", event => print("event: " + event), undefined);
+    CustomGameEventManager.RegisterListener("is_modifier_aura", (entindex, event) => { this.OnIsModifierAura(entindex, event) })
   }
 
   private configure(): void {
 
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, 4);
-    GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, 0);
+    GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, 4);
     GameRules.SetSameHeroSelectionEnabled(true);
     GameRules.SetHeroSelectionTime(60);
     GameRules.SetCustomGameSetupAutoLaunchDelay(0);
@@ -52,7 +59,7 @@ export class GameMode {
     GameRules.SetUseCustomHeroXPValues(true);
 
     const gameMode = GameRules.GetGameModeEntity();
-    gameMode.SetCustomGameForceHero('npc_dota_hero_queenofpain');
+    gameMode.SetCustomGameForceHero('npc_dota_hero_crystal_maiden');
     gameMode.SetUnseenFogOfWarEnabled(true);
     gameMode.SetDaynightCycleDisabled(true);
     // gameMode.SetFogOfWarDisabled(true);
@@ -134,6 +141,17 @@ export class GameMode {
         }
       }
     }
+  }
+
+  private OnIsModifierAura(entindex: EntityIndex, event: { entindex: EntityIndex, modifierName: string; PlayerID: PlayerID; }) {
+    const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
+    const modifier = unit.FindModifierByName(event.modifierName);
+    const player = PlayerResource.GetPlayer(event.PlayerID);
+    if (player) {
+      const isAura = modifier?.GetAuraOwner() !== undefined ? true : false;
+      CustomGameEventManager.Send_ServerToPlayer(player, "is_modifier_aura_success", { modifierName: event.modifierName, isAura: isAura });
+    }
+
   }
 
 }

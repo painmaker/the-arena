@@ -1,0 +1,33 @@
+.sharedBuffContainer {
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  opacity: 0.0;
+  transition-property: opacity;
+	transition-duration: 0.25s;
+}
+
+.sharedBuffBackground {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  clip: radial(50% 50%, 0deg, 360deg);
+}
+
+.sharedBuffForeground {
+  width: 30px;
+  height: 30px;
+  horizontal-align: center;
+  vertical-align: center;
+  border-radius: 50%; 
+  border: 2px solid black;
+}
+
+.sharedBuffImage {
+  width: 100%;
+  height: 100%;
+}
+
+.sharedBuffItemImage {
+  padding: -5px;
+}

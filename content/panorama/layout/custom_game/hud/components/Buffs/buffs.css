@@ -1,0 +1,8 @@
+.buffsContainer {
+  position: 22.5% 80% 0px;
+  /* position: 50% 50% 0px; */
+  flow-children: left-wrap;
+  max-width: 300px;
+  height: fit-children;
+  width: 300px;
+}
