@@ -31,7 +31,7 @@
         <include src="./components/StatsPanel/Level/level.css" />
         <include src="./components/CharacterPanel/characterPanel.css" />
         <include src="./components/CharacterPanel/ModelPanel/modelPanel.css" />
-        <include src="./components/CharacterPanel/ModelPanel/Player/player.css" />
+        <include src="./components/CharacterPanel/ModelPanel/Avatar/avatar.css" />
         <include src="./components/CharacterPanel/AttackPanel/attackPanel.css" />
         <include src="./components/CharacterPanel/DefensePanel/defensePanel.css" />
         <include src="./components/CharacterPanel/Divider/divider.css" />

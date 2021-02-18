@@ -18,7 +18,7 @@ const Armor = (props: Props) => {
   }, []);
 
   return (
-    <Panel hittest={false} style={{ width: "100%", flowChildren: 'right' }}>
+    <Panel className={'defensePanelEntryContainer'}>
       <Panel className={'characterPanelStatsEntry'}>
         <Label
           text={'Armor:'}

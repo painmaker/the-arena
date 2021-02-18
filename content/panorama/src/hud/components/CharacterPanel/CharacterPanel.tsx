@@ -35,14 +35,11 @@ const CharacterPanel = (props: Props) => {
   }, [props.visible]);
 
   return (
-    <Panel hittest={false} style={{ width: "100%", height: "100%" }} >
+    <React.Fragment>
       { renderComponent && (
         <React.Fragment>
           <CloseBtn />
-          <Panel
-            style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}
-            className={"characterPanelContainer"}
-          >
+          <Panel className={"characterPanelContainer"} style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}>
             <Label className={'characterPanelMainTitleLabel'} text={'CHARACTER'} />
             <Panel style={{ width: '100%', height: '100%', flowChildren: 'right' }}>
               <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
@@ -56,7 +53,7 @@ const CharacterPanel = (props: Props) => {
           </Panel>
         </React.Fragment>
       )}
-    </Panel>
+    </React.Fragment>
   );
 
 };

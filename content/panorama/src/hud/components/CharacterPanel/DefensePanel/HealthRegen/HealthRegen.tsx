@@ -31,7 +31,7 @@ const HealthRegen = (props: Props) => {
   const increasedRegen = regen - baseRegen;
 
   return (
-    <Panel hittest={false} style={{ width: "100%", flowChildren: 'right' }}>
+    <Panel className={'defensePanelEntryContainer'}>
       <Panel className={'characterPanelStatsEntry'}>
         <Label
           text={'Health Regen:'}

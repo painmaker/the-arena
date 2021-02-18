@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useGameEvent } from "react-panorama";
-import Level from "../Level/Level";
 
 const PlayerPanel = () => {
 
@@ -23,18 +22,11 @@ const PlayerPanel = () => {
     return null;
   }
 
-  const playerInfo = Game.GetPlayerInfo(playerId);
-  const steamid = playerInfo.player_steamid;
+  const steamid = Game.GetPlayerInfo(playerId).player_steamid;
 
   return (
     <Panel className={'playerContainer'}>
-      <DOTAAvatarImage
-        steamid={steamid}
-        style={{
-          width: '64px',
-          height: '64px',
-        }}
-      />
+      <DOTAAvatarImage steamid={steamid} style={{ width: '64px', height: '64px' }} />
       <Panel className={'playerLabelContainer'}>
         <DOTAUserName className={'playerLabel'} steamid={steamid} />
       </Panel>

@@ -11,7 +11,6 @@
   background-color: rgba(35, 35, 35, 0.75);
 }
 
-
 .defensePanelTitle {
   font-size: 20px;
   text-align: center;
@@ -28,4 +27,9 @@
   margin-bottom: 25px;
   margin-top: 15px;
   vertical-align: center;
+}
+
+.defensePanelEntryContainer {
+  width: 100%;
+  flow-children: right;
 }

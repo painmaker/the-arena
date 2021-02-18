@@ -57156,7 +57156,7 @@ const AttackSpeed = (props) => {
         }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelEntryContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Range:', className: 'characterPanelLabel characterPanelStatsLabel' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
@@ -57198,7 +57198,7 @@ const AttackSpeed = (props) => {
         }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelEntryContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Speed:', className: 'characterPanelLabel characterPanelStatsLabel' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
@@ -57242,7 +57242,7 @@ const Damage = (props) => {
         }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelEntryContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Damage:', className: 'characterPanelLabel characterPanelStatsLabel' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry', style: { flowChildren: 'right' } },
@@ -57283,7 +57283,7 @@ const AttackSpeed = (props) => {
         }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelEntryContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Mana Regen:', className: 'characterPanelLabel characterPanelStatsLabel' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
@@ -57326,7 +57326,7 @@ const MoveSpeed = (props) => {
         return () => props.clearInterval(id);
     }, []);
     const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelEntryContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Move Speed:', className: 'characterPanelLabel characterPanelStatsLabel' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry', style: { flowChildren: 'right' } },
@@ -57375,7 +57375,7 @@ const SpellAmplification = (props) => {
         }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelEntryContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Spell Amp:', className: 'characterPanelLabel characterPanelStatsLabel' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
@@ -57436,9 +57436,9 @@ const CharacterPanel = (props) => {
         }
         return () => props.clearTimeout(timer);
     }, [props.visible]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", height: "100%" } }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_6__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: "characterPanelContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelContainer", style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {} },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'characterPanelMainTitleLabel', text: 'CHARACTER' }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '100%', height: '100%', flowChildren: 'right' } },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '50%', height: '100%', flowChildren: 'down' } },
@@ -57524,7 +57524,7 @@ const Armor = (props) => {
         }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelEntryContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Armor:', className: 'characterPanelLabel characterPanelStatsLabel' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
@@ -57622,7 +57622,7 @@ const Evasion = (props) => {
         }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelEntryContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Evasion:', className: 'characterPanelLabel characterPanelStatsLabel' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
@@ -57676,7 +57676,7 @@ const HealthRegen = (props) => {
         return () => props.clearInterval(id);
     }, []);
     const increasedRegen = regen - baseRegen;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelEntryContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Health Regen:', className: 'characterPanelLabel characterPanelStatsLabel' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
@@ -57717,7 +57717,7 @@ const MagicalResistance = (props) => {
         }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelEntryContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Magical Resistance:', className: 'characterPanelLabel characterPanelStatsLabel' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
@@ -57757,7 +57757,7 @@ const PyshicalResistance = (props) => {
         }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelEntryContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Pyshical Resistance:', className: 'characterPanelLabel characterPanelStatsLabel' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
@@ -57805,7 +57805,7 @@ const StatusResistance = (props) => {
         }, _CharacterPanel__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", flowChildren: 'right' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelEntryContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Status Resistance:', className: 'characterPanelLabel characterPanelStatsLabel' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
@@ -57837,6 +57837,51 @@ const Divider = () => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelDivider" }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Divider);
+
+
+/***/ }),
+
+/***/ "./hud/components/CharacterPanel/ModelPanel/Avatar/Avatar.tsx":
+/*!********************************************************************!*\
+  !*** ./hud/components/CharacterPanel/ModelPanel/Avatar/Avatar.tsx ***!
+  \********************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+
+
+const PlayerPanel = () => {
+    const [entindex, setEntindex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
+        setEntindex(Players.GetLocalPlayerPortraitUnit());
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", () => {
+        setEntindex(Players.GetLocalPlayerPortraitUnit());
+    }, []);
+    if (!Entities.IsRealHero(entindex)) {
+        return null;
+    }
+    const playerId = Entities.GetPlayerOwnerID(entindex);
+    if (!Players.IsValidPlayerID(playerId)) {
+        return null;
+    }
+    const steamid = Game.GetPlayerInfo(playerId).player_steamid;
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'playerContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { steamid: steamid, style: { width: '64px', height: '64px' } }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'playerLabelContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAUserName, { className: 'playerLabel', steamid: steamid }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerPanel);
 
 
 /***/ }),
@@ -57924,7 +57969,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 /* harmony import */ var _Level_Level__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Level/Level */ "./hud/components/CharacterPanel/ModelPanel/Level/Level.tsx");
-/* harmony import */ var _Player_Player__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Player/Player */ "./hud/components/CharacterPanel/ModelPanel/Player/Player.tsx");
+/* harmony import */ var _Avatar_Avatar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Avatar/Avatar */ "./hud/components/CharacterPanel/ModelPanel/Avatar/Avatar.tsx");
 
 
 
@@ -57954,62 +57999,12 @@ const ModelPanel = () => {
         scenePanel.SetPostProcessFade(100);
     }, [entindex]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modelPanelContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modelPanelBackground' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(entindex)).toUpperCase(), className: 'characterPanelComponentTitleLabel modelPanelHeroNameLabel' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'modelPanelScene', key: Entities.GetUnitName(entindex), hittest: true, className: 'modelPanelHeroScreen', particleonly: false, allowrotation: true }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Player_Player__WEBPACK_IMPORTED_MODULE_3__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Level_Level__WEBPACK_IMPORTED_MODULE_2__.default, null))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(entindex)).toUpperCase(), className: 'characterPanelComponentTitleLabel modelPanelHeroNameLabel' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'modelPanelScene', key: Entities.GetUnitName(entindex), className: 'modelPanelHeroScreen', allowrotation: true }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Avatar_Avatar__WEBPACK_IMPORTED_MODULE_3__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Level_Level__WEBPACK_IMPORTED_MODULE_2__.default, null)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModelPanel);
-
-
-/***/ }),
-
-/***/ "./hud/components/CharacterPanel/ModelPanel/Player/Player.tsx":
-/*!********************************************************************!*\
-  !*** ./hud/components/CharacterPanel/ModelPanel/Player/Player.tsx ***!
-  \********************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
-
-
-const PlayerPanel = () => {
-    const [entindex, setEntindex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
-        setEntindex(Players.GetLocalPlayerPortraitUnit());
-    }, []);
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", () => {
-        setEntindex(Players.GetLocalPlayerPortraitUnit());
-    }, []);
-    if (!Entities.IsRealHero(entindex)) {
-        return null;
-    }
-    const playerId = Entities.GetPlayerOwnerID(entindex);
-    if (!Players.IsValidPlayerID(playerId)) {
-        return null;
-    }
-    const playerInfo = Game.GetPlayerInfo(playerId);
-    const steamid = playerInfo.player_steamid;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'playerContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { steamid: steamid, style: {
-                width: '64px',
-                height: '64px',
-            } }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'playerLabelContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAUserName, { className: 'playerLabel', steamid: steamid }))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerPanel);
 
 
 /***/ }),

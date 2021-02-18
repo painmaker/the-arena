@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import Level from "./Level/Level";
-import Player from "./Player/Player";
+import Avatar from "./Avatar/Avatar";
 
 const ModelPanel = () => {
 
@@ -33,22 +33,18 @@ const ModelPanel = () => {
 
   return (
     <Panel className={'modelPanelContainer'}>
-      <Panel className={'modelPanelBackground'}>
-        <Label
-          text={$.Localize(Entities.GetUnitName(entindex)).toUpperCase()}
-          className={'characterPanelComponentTitleLabel modelPanelHeroNameLabel'}
-        />
-        <DOTAScenePanel
-          id={'modelPanelScene'}
-          key={Entities.GetUnitName(entindex)}
-          hittest={true}
-          className={'modelPanelHeroScreen'}
-          particleonly={false}
-          allowrotation={true}
-        />
-        <Player />
-        <Level />
-      </Panel>
+      <Label
+        text={$.Localize(Entities.GetUnitName(entindex)).toUpperCase()}
+        className={'characterPanelComponentTitleLabel modelPanelHeroNameLabel'}
+      />
+      <DOTAScenePanel
+        id={'modelPanelScene'}
+        key={Entities.GetUnitName(entindex)}
+        className={'modelPanelHeroScreen'}
+        allowrotation={true}
+      />
+      <Avatar />
+      <Level />
     </Panel>
   );
 

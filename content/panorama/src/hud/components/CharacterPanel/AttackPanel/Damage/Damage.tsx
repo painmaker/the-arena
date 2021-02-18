@@ -20,7 +20,7 @@ const Damage = (props: Props) => {
   }, []);
 
   return (
-    <Panel hittest={false} style={{ width: "100%", flowChildren: 'right' }}>
+    <Panel className={'attackPanelEntryContainer'}>
       <Panel className={'characterPanelStatsEntry'}>
         <Label
           text={'Damage:'}
