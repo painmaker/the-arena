@@ -42,8 +42,6 @@ const CharacterPanel = (props: Props) => {
           <Panel
             style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}
             className={"characterPanelContainer"}
-            hittest={true}
-            oncancel={() => $.Msg("test")}
           >
             <Label className={'characterPanelMainTitleLabel'} text={'CHARACTER'} />
             <Panel style={{ width: '100%', height: '100%', flowChildren: 'right' }}>

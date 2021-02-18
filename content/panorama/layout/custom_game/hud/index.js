@@ -56568,8 +56568,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const App = () => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, true);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, true);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, false);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, true);
@@ -57041,11 +57041,7 @@ const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateT
 const SettingsButton = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image
-            // style={{ washColor: props.visible ? 'white' : 'rgba(175, 175, 175, 0.75)' }}
-            , { 
-                // style={{ washColor: props.visible ? 'white' : 'rgba(175, 175, 175, 0.75)' }}
-                style: { washColor: props.visible ? 'orange' : 'white' }, onactivate: () => {
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: { washColor: props.visible ? 'orange' : 'white' }, onactivate: () => {
                     props.setSettingsVisible(!props.visible);
                     Game.EmitSound("ui_topmenu_select");
                 }, src: "s2r://panorama/images/settings_btn_white_png.vtex" }))));
@@ -57072,7 +57068,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 
-const ShoppingButton = (props) => {
+const ShoppingButton = () => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: { washColor: 'white' }, onactivate: () => $.Msg("Shopping clicked!"), src: "s2r://panorama/images/shop_btn_white_png.vtex" }))));
@@ -57442,7 +57438,7 @@ const CharacterPanel = (props) => {
     }, [props.visible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", height: "100%" } }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_6__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: "characterPanelContainer", hittest: true, oncancel: () => $.Msg("test") },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: "characterPanelContainer" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'characterPanelMainTitleLabel', text: 'CHARACTER' }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '100%', height: '100%', flowChildren: 'right' } },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '50%', height: '100%', flowChildren: 'down' } },
@@ -58373,10 +58369,8 @@ const playerColorToARGB = (i) => "#" +
     ("00" + ((i >> 16) & 0xff).toString(16)).substr(-2) +
     ("00" + ((i >> 24) & 0xff).toString(16)).substr(-2);
 const Playername = (props) => {
-    const color = Players.GetPlayerColor(props.playerId);
-    const name = Players.GetPlayerName(props.playerId);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: '100%' } },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: "heroesPlayernameLabel", text: name, style: { color: playerColorToARGB(color) } })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: "heroesPlayernameLabel", text: Players.GetPlayerName(props.playerId), style: { color: playerColorToARGB(Players.GetPlayerColor(props.playerId)) } })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Playername);
 
@@ -58556,6 +58550,11 @@ const BuffsPanel = () => {
         setSelectedUnit(unit);
         setBuffs(getBuffs(unit));
     }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
+        const unit = Players.GetLocalPlayerPortraitUnit();
+        setSelectedUnit(unit);
+        setBuffs(getBuffs(unit));
+    }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", () => {
         const unit = Players.GetLocalPlayerPortraitUnit();
         setSelectedUnit(unit);
@@ -58610,6 +58609,11 @@ const Debuffs = () => {
     const [selectedUnit, setSelectedUnit] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
     const [debuffs, setDebuffs] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_portrait_unit_modifiers_changed", () => {
+        const unit = Players.GetLocalPlayerPortraitUnit();
+        setSelectedUnit(unit);
+        setDebuffs(getDebuffs(unit));
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
         const unit = Players.GetLocalPlayerPortraitUnit();
         setSelectedUnit(unit);
         setDebuffs(getDebuffs(unit));
@@ -58724,7 +58728,7 @@ const ModifierItem = (props) => {
             setIsAura(event.isAura === 1);
         }
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modifierItemContainer', style: { opacity: '1.0' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modifierItemContainer', style: { opacity: '1.0', preTransformScale2d: '1.0' } },
         isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modifierItemBackground', style: { backgroundColor: props.isDebuff ? 'red' : 'greenyellow' } })),
         !isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ModifierAuraBackground_ModifierAuraBackground__WEBPACK_IMPORTED_MODULE_2__.default, { buffId: props.buffId, selectedUnit: props.selectedUnit, isDebuff: props.isDebuff })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modifierItemForeground' },
@@ -58773,20 +58777,11 @@ const CameraZoomSlider = (props) => {
         const panel = $("#camera_zoom_slider");
         panel.value = props.zoom;
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: {
-            flowChildren: "right",
-            width: "100%",
-            marginTop: "0px",
-        } },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { width: "40%", marginTop: "5px", color: "orange" }, text: "Camera Zoom: " }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: "40%" } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsItem' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'cameraZoomSliderLeftLabel', text: "Camera Zoom:" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'cameraZoomSliderPanel' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Slider, { id: "camera_zoom_slider", className: "HorizontalSlider", direction: "horizontal", value: props.zoom, min: 800, max: 2000, onvaluechanged: (e) => props.setCameraZoom(Math.round(e.value)) })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: {
-                width: "20%",
-                marginTop: "5px",
-                marginLeft: "10px",
-                color: "orange",
-            }, text: props.zoom })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'cameraZoomSliderRightLabel', text: props.zoom })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CameraZoomSlider));
 
@@ -58822,7 +58817,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const CloseBtn = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: "settingsCloseBtnContainer" },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: 'settingsCloseBtnContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: "settingsCloseBtn", onactivate: () => {
                 props.setSettingsVisible(!props.visible);
                 Game.EmitSound("ui_topmenu_select");
@@ -58888,16 +58883,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const LockCameraBtn = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "settingsItem" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { width: "40%", color: "orange" }, text: "Lock Camera:" }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: "8%", marginLeft: "-4px" }, hittest: false },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsItem' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'lockCameraBtnLeftLabel', text: "Lock Camera:" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'lockCameraBtnPanel' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(ToggleButton, { selected: props.locked, onactivate: () => props.setCameraLocked(!props.locked) })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: {
-                width: "52%",
-                color: "orange",
-                fontSize: "16px",
-                marginTop: "0.5px",
-            }, text: props.locked ? "Locked" : "Unlocked" })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'lockCameraBtnRightLabel', text: props.locked ? "Locked" : "Unlocked" })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(LockCameraBtn));
 
@@ -58932,22 +58922,17 @@ const mapDispatchToProps = (dispatch) => ({
     setMinimapZoom: (zoom) => dispatch((0,_actions_minimapActions__WEBPACK_IMPORTED_MODULE_2__.setMinimapZoom)(zoom)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
-const MapZoomSlider = (props, {}) => {
+const MapZoomSlider = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         // Hack to initalize the slider caret correctly
         const panel = $("#map_zoom_slider");
-        panel.value = props.zoom || 6;
+        panel.value = props.zoom;
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsItem' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { width: "40%", marginTop: "5px", color: "orange" }, text: "Minimap Zoom: " }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "40%" } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'mapZoomSliderLeftLabel', text: "Minimap Zoom:" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'mapZoomSliderPanel' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Slider, { id: "map_zoom_slider", className: "HorizontalSlider", direction: "horizontal", value: props.zoom, min: 3, max: 10, onvaluechanged: (e) => props.setMinimapZoom(Math.round(e.value)) })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: {
-                width: "20%",
-                marginTop: "5px",
-                marginLeft: "10px",
-                color: "orange",
-            }, text: props.zoom })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'mapZoomSliderRightLabel', text: props.zoom })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(MapZoomSlider));
 

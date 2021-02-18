@@ -1,5 +1,4 @@
-import React, { Dispatch, useEffect, useState } from "react";
-import { useGameEvent } from "react-panorama";
+import React, { Dispatch } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { setCameraLocked } from "../../../actions/settingsAction";
 import { RootState } from "../../../reducers/rootReducer";
@@ -22,26 +21,15 @@ type Props = PropsFromRedux & {
 
 const LockCameraBtn = (props: Props) => {
   return (
-    <Panel className="settingsItem">
-      <Label
-        style={{ width: "40%", color: "orange" }}
-        text={"Lock Camera:"}
-      />
-      <Panel style={{ width: "8%", marginLeft: "-4px" }} hittest={false}>
+    <Panel className={'settingsItem'}>
+      <Label className={'lockCameraBtnLeftLabel'} text={"Lock Camera:"} />
+      <Panel className={'lockCameraBtnPanel'}>
         <ToggleButton
           selected={props.locked}
           onactivate={() => props.setCameraLocked(!props.locked)}
         />
       </Panel>
-      <Label
-        style={{
-          width: "52%",
-          color: "orange",
-          fontSize: "16px",
-          marginTop: "0.5px",
-        }}
-        text={props.locked ? "Locked" : "Unlocked"}
-      />
+      <Label className={'lockCameraBtnRightLabel'} text={props.locked ? "Locked" : "Unlocked"} />
     </Panel>
   );
 }

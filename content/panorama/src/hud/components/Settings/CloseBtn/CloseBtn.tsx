@@ -24,7 +24,7 @@ const CloseBtn = (props: Props) => {
   return (
     <Panel
       style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}
-      className="settingsCloseBtnContainer"
+      className={'settingsCloseBtnContainer'}
     >
       <Button
         className="settingsCloseBtn"

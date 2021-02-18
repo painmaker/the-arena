@@ -31,6 +31,12 @@ const Debuffs = () => {
     setDebuffs(getDebuffs(unit));
   }, []);
 
+  useGameEvent("dota_player_update_query_unit", () => {
+    const unit = Players.GetLocalPlayerPortraitUnit();
+    setSelectedUnit(unit);
+    setDebuffs(getDebuffs(unit));
+  }, []);
+
   useGameEvent("dota_player_update_selected_unit", () => {
     const unit = Players.GetLocalPlayerPortraitUnit();
     setSelectedUnit(unit);

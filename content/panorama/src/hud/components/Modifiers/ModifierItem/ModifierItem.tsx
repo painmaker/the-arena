@@ -58,8 +58,9 @@ const ModifierItem = (props: Props) => {
     }
   }, []);
 
+
   return (
-    <Panel className={'modifierItemContainer'} style={{ opacity: '1.0' }}>
+    <Panel className={'modifierItemContainer'} style={{ opacity: '1.0', preTransformScale2d: '1.0' }}>
       { isAura && (
         <Panel
           className={'modifierItemBackground'}

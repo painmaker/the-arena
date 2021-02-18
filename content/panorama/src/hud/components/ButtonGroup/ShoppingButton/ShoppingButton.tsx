@@ -1,8 +1,6 @@
 import React from "react";
 
-interface Props { }
-
-const ShoppingButton = (props: Props) => {
+const ShoppingButton = () => {
   return (
     <Panel hittest={false}>
       <Button>

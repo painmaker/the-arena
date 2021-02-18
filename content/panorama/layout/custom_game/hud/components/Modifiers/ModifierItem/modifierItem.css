@@ -3,10 +3,11 @@
   height: 32px;
   margin-right: 5px;
   opacity: 0.0;
-  transition-property: opacity;
+  transition-property: pre-transform-scale2d, opacity;
 	transition-duration: 0.25s;
+  pre-transform-scale2d: 0.0;
 }
-
+ 
 .modifierItemBackground {
   width: 100%;
   height: 100%;

@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useState } from "react";
+import React, { Dispatch, useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { setMinimapZoom } from "../../../actions/minimapActions";
 import { RootState } from "../../../reducers/rootReducer";
@@ -19,20 +19,18 @@ type Props = PropsFromRedux & {
   // ownProps
 };
 
-const MapZoomSlider = (props: Props, { }) => {
+const MapZoomSlider = (props: Props) => {
+
   useEffect(() => {
     // Hack to initalize the slider caret correctly
     const panel = $("#map_zoom_slider") as any;
-    panel.value = props.zoom || 6;
+    panel.value = props.zoom;
   }, []);
 
   return (
     <Panel className='settingsItem'>
-      <Label
-        style={{ width: "40%", marginTop: "5px", color: "orange" }}
-        text={"Minimap Zoom: "}
-      />
-      <Panel hittest={false} style={{ width: "40%" }}>
+      <Label className={'mapZoomSliderLeftLabel'} text={"Minimap Zoom:"} />
+      <Panel className={'mapZoomSliderPanel'}>
         <Slider
           id={"map_zoom_slider"}
           className={"HorizontalSlider"}
@@ -40,22 +38,13 @@ const MapZoomSlider = (props: Props, { }) => {
           value={props.zoom}
           min={3}
           max={10}
-          onvaluechanged={(e) =>
-            props.setMinimapZoom(Math.round(e.value))
-          }
+          onvaluechanged={(e) => props.setMinimapZoom(Math.round(e.value))}
         />
       </Panel>
-      <Label
-        style={{
-          width: "20%",
-          marginTop: "5px",
-          marginLeft: "10px",
-          color: "orange",
-        }}
-        text={props.zoom}
-      />
+      <Label className={'mapZoomSliderRightLabel'} text={props.zoom} />
     </Panel>
   );
+
 };
 
 export default connector(MapZoomSlider);

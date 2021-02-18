@@ -31,6 +31,12 @@ const BuffsPanel = () => {
     setBuffs(getBuffs(unit));
   }, []);
 
+  useGameEvent("dota_player_update_query_unit", () => {
+    const unit = Players.GetLocalPlayerPortraitUnit();
+    setSelectedUnit(unit);
+    setBuffs(getBuffs(unit));
+  }, []);
+
   useGameEvent("dota_player_update_selected_unit", () => {
     const unit = Players.GetLocalPlayerPortraitUnit();
     setSelectedUnit(unit);

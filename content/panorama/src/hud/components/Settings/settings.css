@@ -5,16 +5,12 @@
   margin-right: -500px;
   min-width: 450px;
   min-height: 100px;
-  /* background-color: rgba(25, 25, 25, 0.95); */
-  /* background-color: gradient( linear, 0% 0%, 0% 100%, from( rgba(75, 75, 75, 1.0) ), to(rgba(0, 0, 0, 0.9))); */
   background-color: rgba(50, 50, 50, 0.9);
-
   border-radius: 5px;
   padding: 15px;
   flow-children: down;
   transition: transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s;
   opacity: 0.1;
-  /* border: 1px solid rgba(255, 165, 0, 0.1); */
 } 
 
 .settingsItem {

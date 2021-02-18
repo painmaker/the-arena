@@ -4,8 +4,6 @@ import { setSettingsVisible } from "../../../actions/settingsAction";
 import { RootState } from "../../../reducers/rootReducer";
 import { SettingsActionTypes } from "../../../types/settingsTypes";
 
-interface StateProps { }
-
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,
 });
@@ -26,7 +24,6 @@ const SettingsButton = (props: Props) => {
     <Panel hittest={false}>
       <Button>
         <Image
-          // style={{ washColor: props.visible ? 'white' : 'rgba(175, 175, 175, 0.75)' }}
           style={{ washColor: props.visible ? 'orange' : 'white' }}
           onactivate={() => {
             props.setSettingsVisible(!props.visible);

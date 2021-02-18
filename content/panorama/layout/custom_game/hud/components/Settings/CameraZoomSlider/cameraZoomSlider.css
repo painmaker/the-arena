@@ -1,0 +1,16 @@
+.cameraZoomSliderLeftLabel {
+  width: 40%;
+  margin-top: 5px;
+  color: orange;
+}
+
+.cameraZoomSliderRightLabel {
+  width: 20%;
+  margin-top: 5px;
+  margin-left: 10px;
+  color: orange;
+}
+
+.cameraZoomSliderPanel {
+  width: 40%;
+}

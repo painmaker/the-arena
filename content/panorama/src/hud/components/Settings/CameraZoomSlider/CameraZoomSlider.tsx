@@ -31,18 +31,9 @@ const CameraZoomSlider = (props: Props) => {
   }, []);
 
   return (
-    <Panel
-      style={{
-        flowChildren: "right",
-        width: "100%",
-        marginTop: "0px",
-      }}
-    >
-      <Label
-        style={{ width: "40%", marginTop: "5px", color: "orange" }}
-        text={"Camera Zoom: "}
-      />
-      <Panel style={{ width: "40%" }}>
+    <Panel className={'settingsItem'}>
+      <Label className={'cameraZoomSliderLeftLabel'} text={"Camera Zoom:"} />
+      <Panel className={'cameraZoomSliderPanel'}>
         <Slider
           id={"camera_zoom_slider"}
           className={"HorizontalSlider"}
@@ -53,15 +44,7 @@ const CameraZoomSlider = (props: Props) => {
           onvaluechanged={(e) => props.setCameraZoom(Math.round(e.value))}
         />
       </Panel>
-      <Label
-        style={{
-          width: "20%",
-          marginTop: "5px",
-          marginLeft: "10px",
-          color: "orange",
-        }}
-        text={props.zoom}
-      />
+      <Label className={'cameraZoomSliderRightLabel'} text={props.zoom} />
     </Panel>
   );
 }
