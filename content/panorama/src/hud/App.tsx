@@ -10,9 +10,10 @@ import HealthBar from "./components/HealthBar/HealthBar";
 import ManaBar from "./components/ManaBar/ManaBar";
 import LevelUp from "./components/LevelUp/LevelUp";
 import StatsPanel from "./components/StatsPanel/StatsPanel";
-import CharacterPanel from "./components/CharacterPanel/CharacterPanel";
+import Character from "./components/Character/Character";
 import Debuffs from "./components/Modifiers/Debuffs/Debuffs";
 import Buffs from "./components/Modifiers/Buffs/Buffs";
+import Inventory from "./components/Inventory/Inventory";
 
 const App = () => {
 
@@ -33,7 +34,7 @@ const App = () => {
       <Heroes />
       <GameTime />
       <Settings />
-      <CharacterPanel />
+      <Character />
       <LevelUp />
       <AbilityBar />
       <HealthBar />
@@ -42,6 +43,7 @@ const App = () => {
       <Minimap />
       <Buffs />
       <Debuffs />
+      <Inventory />
       <StatsPanel />
     </Panel>
   );

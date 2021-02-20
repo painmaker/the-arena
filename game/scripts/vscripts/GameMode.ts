@@ -59,7 +59,7 @@ export class GameMode {
     GameRules.SetUseCustomHeroXPValues(true);
 
     const gameMode = GameRules.GetGameModeEntity();
-    gameMode.SetCustomGameForceHero('npc_dota_hero_crystal_maiden');
+    gameMode.SetCustomGameForceHero('npc_dota_hero_dragon_knight');
     gameMode.SetUnseenFogOfWarEnabled(true);
     gameMode.SetDaynightCycleDisabled(true);
     // gameMode.SetFogOfWarDisabled(true);
@@ -72,6 +72,16 @@ export class GameMode {
     gameMode.SetCustomHeroMaxLevel(15);
     gameMode.SetCustomXPRequiredToReachNextLevel(EXPERIENCE_PER_LEVEL_TABLE);
     gameMode.SetFixedRespawnTime(1.0);
+
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 0.0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_DAMAGE, 0.0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_INTELLIGENCE_DAMAGE, 0.0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_INTELLIGENCE_MANA, 0.0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_INTELLIGENCE_MANA_REGEN, 0.0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_STRENGTH_DAMAGE, 0.0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_STRENGTH_HP, 0.0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_STRENGTH_HP_REGEN, 0.0);
 
   }
 

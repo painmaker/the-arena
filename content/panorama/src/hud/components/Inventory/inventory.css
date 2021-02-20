@@ -1,0 +1,16 @@
+.inventoryContainer {
+  vertical-align: bottom;
+  horizontal-align: center;
+  margin-bottom: 470px;
+  margin-left: 500px;
+  flow-children: down;
+}
+
+.inventoryFirstRowContainer {
+  flow-children: right;
+}
+
+.inventorySecondRowContainer {
+  margin-top: 2px;
+  flow-children: right;
+}

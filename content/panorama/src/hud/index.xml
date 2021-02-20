@@ -25,23 +25,25 @@
         <include src="./components/AbilityBar/AbilityBarItem/abilityBarItem.css" />
         <include src="./components/HealthBar/healthBar.css" />
         <include src="./components/ManaBar/manaBar.css" />
-        <include src="./components/CharacterPanel/ModelPanel/Level/level.css" />
         <include src="./components/LevelUp/levelUp.css" />
         <include src="./components/StatsPanel/statsPanel.css" />
         <include src="./components/StatsPanel/Level/level.css" />
-        <include src="./components/CharacterPanel/characterPanel.css" />
-        <include src="./components/CharacterPanel/ModelPanel/modelPanel.css" />
-        <include src="./components/CharacterPanel/ModelPanel/Avatar/avatar.css" />
-        <include src="./components/CharacterPanel/AttackPanel/attackPanel.css" />
-        <include src="./components/CharacterPanel/DefensePanel/defensePanel.css" />
-        <include src="./components/CharacterPanel/Divider/divider.css" />
-        <include src="./components/CharacterPanel/CloseBtn/closeBtn.css" />
+        <include src="./components/Character/character.css" />
+        <include src="./components/Character/HeroModel/heroModel.css" />
+        <include src="./components/Character/HeroModel/PlayerAvatar/playerAvatar.css" />
+        <include src="./components/Character/HeroModel/HeroLevel/heroLevel.css" />
+        <include src="./components/Character/Attack/attack.css" />
+        <include src="./components/Character/Defense/defense.css" />
+        <include src="./components/Character/Divider/divider.css" />
+        <include src="./components/Character/CloseBtn/closeBtn.css" />
         <include src="./components/Modifiers/Buffs/buffs.css" />
         <include src="./components/Modifiers/Debuffs/debuffs.css" />
         <include src="./components/Modifiers/ModifierItem/modifierItem.css" />
         <include src="./components/Modifiers/ModifierItem/ModifierAuraBackground/modifierAuraBackground.css" />
+        <include src="./components/Inventory/inventory.css" />
+        <include src="./components/Inventory/InventoryItem/inventoryItem.css" />
     </styles> 
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/magic_resist_stat.png" />  -->
     </Panel> 
-</root>       
+</root>        
