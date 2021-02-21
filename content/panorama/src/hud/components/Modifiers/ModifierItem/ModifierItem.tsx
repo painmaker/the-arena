@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
-import ModifierAuraBackground from "./ModifierAuraBackground/ModifierAuraBackground";
+import Background from "./Background/Background";
 
 interface Props {
   buffId: BuffID,
@@ -68,7 +68,7 @@ const ModifierItem = (props: Props) => {
         />
       )}
       { !isAura && (
-        <ModifierAuraBackground
+        <Background
           buffId={props.buffId}
           selectedUnit={props.selectedUnit}
           isDebuff={props.isDebuff}

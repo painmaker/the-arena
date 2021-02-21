@@ -6,6 +6,7 @@ import HeroModel from "./HeroModel/HeroModel";
 import Attack from "./Attack/Attack";
 import Defense from "./Defense/Defense";
 import CloseBtn from "./CloseBtn/CloseBtn";
+import { Timer } from "react-timeout";
 
 export const REFRESH_RATE = 250;
 
@@ -23,7 +24,7 @@ const Character = (props: Props) => {
   const [renderComponent, setRenderComponent] = useState(true);
 
   useEffect(() => {
-    let timer = -1;
+    let timer = -1 as Timer;
     if (props.visible === false) {
       timer = props.setTimeout(() => {
         setRenderComponent(false);

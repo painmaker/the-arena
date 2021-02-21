@@ -1,8 +1,8 @@
-import { SettingsActionTypes, SET_CAMERA_LOCKED, SET_CAMERA_ZOOM, SET_SETTINGS_VISIBLE } from "../types/settingsTypes";
+import { InventoryActionTypes, SET_INVENTORY_MENU_POSITION } from "../types/inventoryTypes";
 
-export function setDraggableItemVisible(visible: boolean): SettingsActionTypes {
+export function setInventoryMenuPosition(x: number, y: number): InventoryActionTypes {
   return {
-    type: SET_SETTINGS_VISIBLE,
-    payload: visible
+    type: SET_INVENTORY_MENU_POSITION,
+    payload: { x, y }
   }
 }

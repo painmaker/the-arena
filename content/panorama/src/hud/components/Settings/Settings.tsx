@@ -11,6 +11,7 @@ import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import { useGameEvent } from "react-panorama";
 import { setCameraLocked, setCameraZoom } from "../../actions/settingsAction";
 import { SettingsActionTypes } from "../../types/settingsTypes";
+import { Timer } from "react-timeout";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,
@@ -38,7 +39,7 @@ const Settings = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    let timer = -1;
+    let timer = -1 as Timer;
     if (props.visible === false) {
       timer = props.setTimeout(() => {
         setRenderComponent(false);

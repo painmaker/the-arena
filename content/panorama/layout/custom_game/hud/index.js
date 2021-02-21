@@ -56570,8 +56570,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const App = () => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, false);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, false);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, true);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, true);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, true);
@@ -58392,7 +58392,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _InventoryItem_InventoryItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InventoryItem/InventoryItem */ "./hud/components/Inventory/InventoryItem/InventoryItem.tsx");
+/* harmony import */ var _Item_Item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Item/Item */ "./hud/components/Inventory/Item/Item.tsx");
+/* harmony import */ var _Item_Menu_Menu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Item/Menu/Menu */ "./hud/components/Inventory/Item/Menu/Menu.tsx");
+
 
 
 
@@ -58415,25 +58417,331 @@ const Inventory = (props) => {
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "inventoryContainer" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryFirstRowContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InventoryItem_InventoryItem__WEBPACK_IMPORTED_MODULE_2__.default, { index: 0, item: firstItem }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InventoryItem_InventoryItem__WEBPACK_IMPORTED_MODULE_2__.default, { index: 1, item: secondItem }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InventoryItem_InventoryItem__WEBPACK_IMPORTED_MODULE_2__.default, { index: 2, item: thirdItem })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventorySecondRowContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InventoryItem_InventoryItem__WEBPACK_IMPORTED_MODULE_2__.default, { index: 3, item: fourthItem }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InventoryItem_InventoryItem__WEBPACK_IMPORTED_MODULE_2__.default, { index: 4, item: fifthItem }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InventoryItem_InventoryItem__WEBPACK_IMPORTED_MODULE_2__.default, { index: 5, item: sixthItem }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Menu_Menu__WEBPACK_IMPORTED_MODULE_3__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "inventoryContainer" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryFirstRowContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { index: 0, item: firstItem }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { index: 1, item: secondItem }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { index: 2, item: thirdItem })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventorySecondRowContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { index: 3, item: fourthItem }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { index: 4, item: fifthItem }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { index: 5, item: sixthItem })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Inventory));
 
 
 /***/ }),
 
-/***/ "./hud/components/Inventory/InventoryItem/InventoryItem.tsx":
-/*!******************************************************************!*\
-  !*** ./hud/components/Inventory/InventoryItem/InventoryItem.tsx ***!
-  \******************************************************************/
+/***/ "./hud/components/Inventory/Item/Charges/Charges.tsx":
+/*!***********************************************************!*\
+  !*** ./hud/components/Inventory/Item/Charges/Charges.tsx ***!
+  \***********************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const Charges = (props) => {
+    const [shouldDisplayCharges, setShouldDisplayCharges] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Items.ShouldDisplayCharges(props.item));
+    const [charges, setCharges] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Items.GetCurrentCharges(props.item));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setShouldDisplayCharges(Items.ShouldDisplayCharges(props.item));
+            setCharges(Items.GetCurrentCharges(props.item));
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, shouldDisplayCharges && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryItemChargesLabel', text: charges }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Charges));
+
+
+/***/ }),
+
+/***/ "./hud/components/Inventory/Item/Cooldown/Cooldown.tsx":
+/*!*************************************************************!*\
+  !*** ./hud/components/Inventory/Item/Cooldown/Cooldown.tsx ***!
+  \*************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const Cooldown = (props) => {
+    const [totalCooldown, setTotalCooldown] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetCooldownLength(props.item));
+    const [remainingCooldown, setRemainingCooldown] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetCooldownTimeRemaining(props.item));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setTotalCooldown(Abilities.GetCooldownLength(props.item));
+            setRemainingCooldown(Abilities.GetCooldownTimeRemaining(props.item));
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    let degree = Math.min(0, -(remainingCooldown / totalCooldown) * 360);
+    if (Number.isNaN(degree) || !Number.isFinite(degree)) {
+        degree = 0;
+    }
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryItemCooldownOverlay', style: { clip: 'radial(50% 50%, 0deg, ' + degree + 'deg)' } }),
+        remainingCooldown > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryItemCooldownLabel', text: Math.round(remainingCooldown) }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Cooldown));
+
+
+/***/ }),
+
+/***/ "./hud/components/Inventory/Item/Hotkey/Hotkey.tsx":
+/*!*********************************************************!*\
+  !*** ./hud/components/Inventory/Item/Hotkey/Hotkey.tsx ***!
+  \*********************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const Hotkey = (props) => {
+    const [hotkey, setHotkey] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetKeybind(props.item));
+    const [isPassive, setIsPassive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsPassive(props.item));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setHotkey(Abilities.GetKeybind(props.item));
+            setIsPassive(Abilities.IsPassive(props.item));
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryHotKeyLabel', text: isPassive ? '' : hotkey }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Hotkey));
+
+
+/***/ }),
+
+/***/ "./hud/components/Inventory/Item/Image/Image.tsx":
+/*!*******************************************************!*\
+  !*** ./hud/components/Inventory/Item/Image/Image.tsx ***!
+  \*******************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const Image = (props) => {
+    const [isCooldownReady, setIsCooldownReady] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsCooldownReady(props.item));
+    const [hasEnoughMana, setHasEnoughMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsOwnersManaEnough(props.item));
+    const [isMuted, setIsMuted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsMuted(Players.GetLocalPlayerPortraitUnit()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setIsCooldownReady(Abilities.IsCooldownReady(props.item));
+            setHasEnoughMana(Abilities.IsOwnersManaEnough(props.item));
+            setIsMuted(Entities.IsMuted(Players.GetLocalPlayerPortraitUnit()));
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { className: 'inventoryItemImage', itemname: Abilities.GetAbilityName(props.item), style: {
+            saturation: isMuted ? '0.0' : !isCooldownReady ? '0.5' : '1.0',
+            border: !isCooldownReady ? '2px solid rgb(75, 75, 75)' : '0px solid black',
+            washColor: hasEnoughMana ? 'none' : '#1569be',
+        } }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Image));
+
+
+/***/ }),
+
+/***/ "./hud/components/Inventory/Item/Item.tsx":
+/*!************************************************!*\
+  !*** ./hud/components/Inventory/Item/Item.tsx ***!
+  \************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _Hotkey_Hotkey__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Hotkey/Hotkey */ "./hud/components/Inventory/Item/Hotkey/Hotkey.tsx");
+/* harmony import */ var _Cooldown_Cooldown__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Cooldown/Cooldown */ "./hud/components/Inventory/Item/Cooldown/Cooldown.tsx");
+/* harmony import */ var _Image_Image__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Image/Image */ "./hud/components/Inventory/Item/Image/Image.tsx");
+/* harmony import */ var _Charges_Charges__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Charges/Charges */ "./hud/components/Inventory/Item/Charges/Charges.tsx");
+
+
+
+
+
+class InventoryItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
+    constructor(props) {
+        super(props);
+        this.onDragStart = this.onDragStart.bind(this);
+        this.OnDragEnd = this.OnDragEnd.bind(this);
+        this.OnDragEnter = this.OnDragEnter.bind(this);
+        this.OnDragLeave = this.OnDragLeave.bind(this);
+        this.OnDragDrop = this.OnDragDrop.bind(this);
+        this.onItemLeftClicked = this.onItemLeftClicked.bind(this);
+        this.onItemRightClicked = this.onItemRightClicked.bind(this);
+        this.onMouseOver = this.onMouseOver.bind(this);
+        this.onMouseOut = this.onMouseOut.bind(this);
+        this.state = {
+            isItemDragged: false,
+            isItemDropTarget: false,
+        };
+    }
+    componentDidMount() {
+        const panel = $("#inventory_item_container_" + this.props.index);
+        $.RegisterEventHandler('DragEnter', panel, this.OnDragEnter);
+        $.RegisterEventHandler('DragDrop', panel, this.OnDragDrop);
+        $.RegisterEventHandler('DragLeave', panel, this.OnDragLeave);
+        $.RegisterEventHandler('DragStart', panel, this.onDragStart);
+        $.RegisterEventHandler('DragEnd', panel, this.OnDragEnd);
+        panel.SetAcceptsFocus(false);
+    }
+    onDragStart(thisPanel, draggedPanel) {
+        if (this.props.item === -1) {
+            return;
+        }
+        $.DispatchEvent("DOTAHideAbilityTooltip", thisPanel);
+        this.setState({ isItemDragged: true });
+        draggedPanel.displayPanel = $.CreatePanel("DOTAItemImage", $.GetContextPanel(), "inventoryItemDraggedItem");
+        draggedPanel.displayPanel.itemname = Abilities.GetAbilityName(this.props.item);
+        draggedPanel.displayPanel.contextEntityIndex = this.props.item;
+        draggedPanel.displayPanel.Data().item = this.props.item;
+        draggedPanel.displayPanel.Data().dragCompleted = false;
+        draggedPanel.offsetX = 0;
+        draggedPanel.offsetY = 0;
+    }
+    OnDragEnd(thisPanel, draggedPanel) {
+        if (!draggedPanel.Data().dragCompleted) {
+            Game.DropItemAtCursor(Players.GetLocalPlayerPortraitUnit(), this.props.item);
+        }
+        draggedPanel.DeleteAsync(0);
+        this.setState({ isItemDragged: false });
+    }
+    OnDragLeave(thisPanel, draggedPanel) {
+        const draggedItem = draggedPanel.Data().item;
+        if (this.props.item === -1 || draggedItem === null || draggedItem == this.props.item) {
+            return;
+        }
+        this.setState({ isItemDropTarget: false });
+    }
+    OnDragEnter(thisPanel, draggedPanel) {
+        const draggedItem = draggedPanel.Data().item;
+        if (this.props.item === -1 || draggedItem === null || draggedItem == this.props.item) {
+            return;
+        }
+        this.setState({ isItemDropTarget: true });
+    }
+    OnDragDrop(thisPanel, draggedPanel) {
+        const draggedItem = draggedPanel.Data().item;
+        if (draggedItem === null) {
+            return;
+        }
+        draggedPanel.Data().dragCompleted = true;
+        if (draggedItem == this.props.item) {
+            return;
+        }
+        Game.PrepareUnitOrders({
+            OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_MOVE_ITEM,
+            TargetIndex: this.props.index,
+            AbilityIndex: draggedItem
+        });
+    }
+    onItemLeftClicked() {
+        if (this.props.item == -1) {
+            return;
+        }
+        if (GameUI.IsAltDown()) {
+            Items.LocalPlayerItemAlertAllies(this.props.item);
+            return;
+        }
+        Abilities.ExecuteAbility(this.props.item, Players.GetLocalPlayerPortraitUnit(), false);
+    }
+    onItemRightClicked() {
+        const panel = $("#inventory_item_container_" + this.props.index);
+        $.DispatchEvent("DOTAHideAbilityTooltip", panel);
+        $.Msg(panel.GetPositionWithinWindow());
+        // panel.SetPositionInPixels(890, 490, 0);
+        panel.SetFocus();
+    }
+    onMouseOver() {
+        if (this.props.item === -1) {
+            return;
+        }
+        const panel = $("#inventory_item_container_" + this.props.index);
+        const ability = Abilities.GetAbilityName(this.props.item);
+        const unit = Players.GetLocalPlayerPortraitUnit();
+        $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", panel, ability, unit);
+    }
+    onMouseOut() {
+        const panel = $("#inventory_item_container_" + this.props.index);
+        $.DispatchEvent("DOTAHideAbilityTooltip", panel);
+    }
+    render() {
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: "inventory_item_container_" + this.props.index, onmouseover: this.onMouseOver, onmouseout: this.onMouseOut, onactivate: this.onItemLeftClicked, oncontextmenu: this.onItemRightClicked, className: 'inventoryItemContainer', draggable: true, style: {
+                saturation: (this.state.isItemDragged || this.state.isItemDropTarget) ? '0.5' : '1.0',
+                washColor: (this.state.isItemDragged || this.state.isItemDropTarget) ? '#808080' : 'none',
+            } }, this.props.item !== -1 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Cooldown_Cooldown__WEBPACK_IMPORTED_MODULE_2__.default, { key: 'cooldown_' + this.props.item, item: this.props.item }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Hotkey_Hotkey__WEBPACK_IMPORTED_MODULE_1__.default, { key: 'hotkey_' + this.props.item, item: this.props.item }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Charges_Charges__WEBPACK_IMPORTED_MODULE_4__.default, { key: 'charges_' + this.props.item, item: this.props.item }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Image_Image__WEBPACK_IMPORTED_MODULE_3__.default, { key: 'image_' + this.props.item, item: this.props.item })))));
+    }
+}
+;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InventoryItem);
+
+
+/***/ }),
+
+/***/ "./hud/components/Inventory/Item/Menu/Menu.tsx":
+/*!*****************************************************!*\
+  !*** ./hud/components/Inventory/Item/Menu/Menu.tsx ***!
+  \*****************************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -58447,97 +58755,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 
-class InventoryItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
-    constructor(props) {
-        super(props);
-        this.onDragStart = this.onDragStart.bind(this);
-        this.OnDragEnd = this.OnDragEnd.bind(this);
-        this.OnDragEnter = this.OnDragEnter.bind(this);
-        this.OnDragLeave = this.OnDragLeave.bind(this);
-        this.OnDragDrop = this.OnDragDrop.bind(this);
-        this.state = {
-            isItemDragged: false,
-            isItemDropTarget: false,
-        };
-    }
-    componentDidMount() {
-        const panel = $("#inventory_item_panel_" + this.props.index);
-        $.RegisterEventHandler('DragEnter', panel, this.OnDragEnter);
-        $.RegisterEventHandler('DragDrop', panel, this.OnDragDrop);
-        $.RegisterEventHandler('DragLeave', panel, this.OnDragLeave);
-        $.RegisterEventHandler('DragStart', panel, this.onDragStart);
-        $.RegisterEventHandler('DragEnd', panel, this.OnDragEnd);
-    }
-    onDragStart(thisPanel, draggedPanel) {
-        $.DispatchEvent("DOTAHideAbilityTooltip", thisPanel);
-        if (this.props.item === -1) {
-            return true;
-        }
-        const displayPanel = $.CreatePanel("DOTAItemImage", $.GetContextPanel(), "inventoryItemDraggedItem");
-        displayPanel.itemname = Abilities.GetAbilityName(this.props.item);
-        displayPanel.contextEntityIndex = this.props.item;
-        //@ts-ignore
-        displayPanel.Data().m_DragItem = this.props.item;
-        //@ts-ignore
-        displayPanel.Data().m_DragCompleted = false;
-        draggedPanel.displayPanel = displayPanel;
-        draggedPanel.offsetX = 0;
-        draggedPanel.offsetY = 0;
-        this.setState({ isItemDragged: true });
-        return true;
-    }
-    OnDragEnd(thisPanel, draggedPanel) {
-        if (!draggedPanel.Data().m_DragCompleted) {
-            Game.DropItemAtCursor(Players.GetLocalPlayerPortraitUnit(), this.props.item);
-        }
-        draggedPanel.DeleteAsync(0);
-        this.setState({ isItemDragged: false });
-        return true;
-    }
-    OnDragLeave(thisPanel, draggedPanel) {
-        const draggedItem = draggedPanel.Data().m_DragItem;
-        if (this.props.item === -1 || draggedItem === null || draggedItem == this.props.item) {
-            return false;
-        }
-        this.setState({ isItemDropTarget: false });
-        return true;
-    }
-    OnDragEnter(thisPanel, draggedPanel) {
-        const draggedItem = draggedPanel.Data().m_DragItem;
-        if (this.props.item === -1 || draggedItem === null || draggedItem == this.props.item) {
-            return true;
-        }
-        this.setState({ isItemDropTarget: true });
-        return true;
-    }
-    OnDragDrop(thisPanel, draggedPanel) {
-        const draggedItem = draggedPanel.Data().m_DragItem;
-        if (draggedItem === null) {
-            return true;
-        }
-        draggedPanel.Data().m_DragCompleted = true;
-        if (draggedItem == this.props.item) {
-            return true;
-        }
-        Game.PrepareUnitOrders({
-            OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_MOVE_ITEM,
-            TargetIndex: this.props.index,
-            AbilityIndex: draggedItem
-        });
-        return true;
-    }
-    render() {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: "inventory_item_panel_" + this.props.index, draggable: true, className: "inventoryItemContainer", style: {
-                saturation: this.state.isItemDragged ? '0.5' : '1.0',
-                washColor: this.state.isItemDragged ? '#808080' : 'none',
-                opacity: this.state.isItemDropTarget ? '0.3' : '1.0',
-            } },
-            this.props.item === -1 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryItemEmptyContainer' })),
-            this.props.item !== -1 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { itemname: Abilities.GetAbilityName(this.props.item) }))));
-    }
-}
-;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InventoryItem);
+const Menu = () => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, id: 'menu', className: 'inventoryMenuContainer' }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Menu);
 
 
 /***/ }),
@@ -58795,10 +59016,10 @@ const Debuffs = () => {
 
 /***/ }),
 
-/***/ "./hud/components/Modifiers/ModifierItem/ModifierAuraBackground/ModifierAuraBackground.tsx":
-/*!*************************************************************************************************!*\
-  !*** ./hud/components/Modifiers/ModifierItem/ModifierAuraBackground/ModifierAuraBackground.tsx ***!
-  \*************************************************************************************************/
+/***/ "./hud/components/Modifiers/ModifierItem/Background/Background.tsx":
+/*!*************************************************************************!*\
+  !*** ./hud/components/Modifiers/ModifierItem/Background/Background.tsx ***!
+  \*************************************************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -58824,10 +59045,13 @@ const ModifierAuraBackground = (props) => {
         }, 50);
         return () => props.clearInterval(id);
     }, []);
-    const degree = Math.max(0, (remaining / duration) * 360);
+    let degree = Math.max(0, (remaining / duration) * 360);
+    if (Number.isNaN(degree) || !Number.isFinite(degree)) {
+        degree = 0;
+    }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modifierItemAuraBackground', style: {
             backgroundColor: props.isDebuff ? 'red' : 'greenyellow',
-            clip: Number.isNaN(degree) ? null : 'radial(50% 50%, 0deg, ' + degree + 'deg)'
+            clip: Number.isNaN(degree) ? null : 'radial(50% 50%, 0deg, ' + -degree + 'deg)'
         } }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(ModifierAuraBackground));
@@ -58852,7 +59076,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
-/* harmony import */ var _ModifierAuraBackground_ModifierAuraBackground__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ModifierAuraBackground/ModifierAuraBackground */ "./hud/components/Modifiers/ModifierItem/ModifierAuraBackground/ModifierAuraBackground.tsx");
+/* harmony import */ var _Background_Background__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Background/Background */ "./hud/components/Modifiers/ModifierItem/Background/Background.tsx");
 
 
 
@@ -58895,7 +59119,7 @@ const ModifierItem = (props) => {
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modifierItemContainer', style: { opacity: '1.0', preTransformScale2d: '1.0' } },
         isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modifierItemBackground', style: { backgroundColor: props.isDebuff ? 'red' : 'greenyellow' } })),
-        !isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ModifierAuraBackground_ModifierAuraBackground__WEBPACK_IMPORTED_MODULE_2__.default, { buffId: props.buffId, selectedUnit: props.selectedUnit, isDebuff: props.isDebuff })),
+        !isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Background_Background__WEBPACK_IMPORTED_MODULE_2__.default, { buffId: props.buffId, selectedUnit: props.selectedUnit, isDebuff: props.isDebuff })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modifierItemForeground' },
             !isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { key: panelId, id: panelId, className: 'modifierItemImage', abilityname: Abilities.GetAbilityName(ability), onmouseover: () => showAbility(ability, props.selectedUnit, panelId), onmouseout: () => hideAbility(panelId) })),
             isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { key: panelId, className: 'modifierItemImageWithPadding', itemname: texture })))));
@@ -59558,39 +59782,6 @@ const initialState = {
 
 /***/ }),
 
-/***/ "./hud/reducers/inventoryReducer.tsx":
-/*!*******************************************!*\
-  !*** ./hud/reducers/inventoryReducer.tsx ***!
-  \*******************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* export default binding */ __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _types_inventoryTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/inventoryTypes */ "./hud/types/inventoryTypes.tsx");
-
-const initialState = {
-    visible: false,
-};
-/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(state = initialState, action) {
-    switch (action.type) {
-        case _types_inventoryTypes__WEBPACK_IMPORTED_MODULE_0__.SET_DRAGGABLE_ITEM_VISIBLE: {
-            return Object.assign(Object.assign({}, state), { visible: action.payload });
-        }
-        default:
-            return state;
-    }
-}
-
-
-/***/ }),
-
 /***/ "./hud/reducers/minimapReducer.tsx":
 /*!*****************************************!*\
   !*** ./hud/reducers/minimapReducer.tsx ***!
@@ -59639,21 +59830,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "rootReducer": () => /* binding */ rootReducer
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "../../../node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "../../../node_modules/redux/es/redux.js");
 /* harmony import */ var _minimapReducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./minimapReducer */ "./hud/reducers/minimapReducer.tsx");
 /* harmony import */ var _settingsReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./settingsReducer */ "./hud/reducers/settingsReducer.tsx");
 /* harmony import */ var _characterPanelReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./characterPanelReducer */ "./hud/reducers/characterPanelReducer.tsx");
-/* harmony import */ var _inventoryReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./inventoryReducer */ "./hud/reducers/inventoryReducer.tsx");
 
 
 
 
-
-const rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
+const rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
     minimapReducer: _minimapReducer__WEBPACK_IMPORTED_MODULE_0__.default,
     settingsReducer: _settingsReducer__WEBPACK_IMPORTED_MODULE_1__.default,
     characterPanelReducer: _characterPanelReducer__WEBPACK_IMPORTED_MODULE_2__.default,
-    inventoryReducer: _inventoryReducer__WEBPACK_IMPORTED_MODULE_3__.default,
 });
 
 
@@ -59859,26 +60047,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "SET_CHARACTER_PANEL_VISIBLE": () => /* binding */ SET_CHARACTER_PANEL_VISIBLE
 /* harmony export */ });
 const SET_CHARACTER_PANEL_VISIBLE = 'SET_CHARACTER_PANEL_VISIBLE';
-
-
-/***/ }),
-
-/***/ "./hud/types/inventoryTypes.tsx":
-/*!**************************************!*\
-  !*** ./hud/types/inventoryTypes.tsx ***!
-  \**************************************/
-/*! namespace exports */
-/*! export SET_DRAGGABLE_ITEM_VISIBLE [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SET_DRAGGABLE_ITEM_VISIBLE": () => /* binding */ SET_DRAGGABLE_ITEM_VISIBLE
-/* harmony export */ });
-const SET_DRAGGABLE_ITEM_VISIBLE = 'SET_DRAGGABLE_ITEM_VISIBLE';
 
 
 /***/ }),

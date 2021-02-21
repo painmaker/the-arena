@@ -1,8 +1,8 @@
-export const SET_DRAGGABLE_ITEM_VISIBLE = 'SET_DRAGGABLE_ITEM_VISIBLE'
+export const SET_INVENTORY_MENU_POSITION = 'SET_INVENTORY_MENU_POSITION'
 
-export interface SetDraggableItemVisibleAction {
-  type: typeof SET_DRAGGABLE_ITEM_VISIBLE
-  payload: boolean
+interface SetInventoryMenuPosition {
+  type: typeof SET_INVENTORY_MENU_POSITION
+  payload: { x: number, y: number }
 }
 
-export type InventoryActionTypes = SetDraggableItemVisibleAction; 
+export type InventoryActionTypes = SetInventoryMenuPosition;

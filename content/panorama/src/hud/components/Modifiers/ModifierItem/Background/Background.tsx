@@ -20,14 +20,17 @@ const ModifierAuraBackground = (props: Props) => {
     return () => props.clearInterval(id);
   }, []);
 
-  const degree = Math.max(0, (remaining / duration) * 360);
+  let degree = Math.max(0, (remaining / duration) * 360);
+  if (Number.isNaN(degree) || !Number.isFinite(degree)) {
+    degree = 0;
+  }
 
   return (
     <Panel
       className={'modifierItemAuraBackground'}
       style={{
         backgroundColor: props.isDebuff ? 'red' : 'greenyellow',
-        clip: Number.isNaN(degree) ? null : 'radial(50% 50%, 0deg, ' + degree + 'deg)'
+        clip: Number.isNaN(degree) ? null : 'radial(50% 50%, 0deg, ' + -degree + 'deg)'
       }}
     />
   );

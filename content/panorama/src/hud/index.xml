@@ -39,10 +39,15 @@
         <include src="./components/Modifiers/Buffs/buffs.css" />
         <include src="./components/Modifiers/Debuffs/debuffs.css" />
         <include src="./components/Modifiers/ModifierItem/modifierItem.css" />
-        <include src="./components/Modifiers/ModifierItem/ModifierAuraBackground/modifierAuraBackground.css" />
+        <include src="./components/Modifiers/ModifierItem/Background/background.css" />
         <include src="./components/Inventory/inventory.css" />
-        <include src="./components/Inventory/InventoryItem/inventoryItem.css" />
-    </styles> 
+        <include src="./components/Inventory/Item/item.css" />
+        <include src="./components/Inventory/Item/Hotkey/hotkey.css" />
+        <include src="./components/Inventory/Item/Cooldown/cooldown.css" /> 
+        <include src="./components/Inventory/Item/Image/image.css" />  
+        <include src="./components/Inventory/Item/Charges/charges.css" />  
+        <include src="./components/Inventory/Item/Menu/menu.css" />  
+    </styles>  
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/magic_resist_stat.png" />  -->
     </Panel> 

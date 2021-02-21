@@ -10,6 +10,7 @@
   min-width: 750px;
   min-height: 550px;
   flow-children: down;
+  z-index: 999;
 }
 
 .characterPanelMainTitleLabel {

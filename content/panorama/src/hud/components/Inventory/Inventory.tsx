@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
-import InventoryItem from "./InventoryItem/InventoryItem";
+import Item from "./Item/Item";
+import Menu from "./Item/Menu/Menu";
 
 type Props = ReactTimeoutProps & {
   // ownProps
@@ -29,18 +30,21 @@ const Inventory = (props: Props) => {
   }, []);
 
   return (
-    <Panel className={"inventoryContainer"}>
-      <Panel className={'inventoryFirstRowContainer'}>
-        <InventoryItem index={0} item={firstItem} />
-        <InventoryItem index={1} item={secondItem} />
-        <InventoryItem index={2} item={thirdItem} />
+    <React.Fragment>
+      <Menu />
+      <Panel className={"inventoryContainer"}>
+        <Panel className={'inventoryFirstRowContainer'}>
+          <Item index={0} item={firstItem} />
+          <Item index={1} item={secondItem} />
+          <Item index={2} item={thirdItem} />
+        </Panel>
+        <Panel className={'inventorySecondRowContainer'}>
+          <Item index={3} item={fourthItem} />
+          <Item index={4} item={fifthItem} />
+          <Item index={5} item={sixthItem} />
+        </Panel>
       </Panel>
-      <Panel className={'inventorySecondRowContainer'}>
-        <InventoryItem index={3} item={fourthItem} />
-        <InventoryItem index={4} item={fifthItem} />
-        <InventoryItem index={5} item={sixthItem} />
-      </Panel>
-    </Panel>
+    </React.Fragment>
   );
 
 };

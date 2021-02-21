@@ -39,10 +39,15 @@
         <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/Buffs/buffs.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/Debuffs/debuffs.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/ModifierItem/modifierItem.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/ModifierItem/ModifierAuraBackground/modifierAuraBackground.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/ModifierItem/Background/background.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Inventory/inventory.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/InventoryItem/inventoryItem.css"></include>
-    </styles> 
+        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/item.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/Hotkey/hotkey.css"></include>
+        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/Cooldown/cooldown.css"></include> 
+        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/Image/image.css"></include>  
+        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/Charges/charges.css"></include>  
+        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/Menu/menu.css"></include>  
+    </styles>  
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/magic_resist_stat.png" />  -->
     </Panel> 

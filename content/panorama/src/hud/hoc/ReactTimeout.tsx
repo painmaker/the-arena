@@ -1,15 +1,15 @@
 import React from "react";
-import ReactTimeout from "react-timeout";
+import ReactTimeout, { Id, Timer } from "react-timeout";
 
 export interface ReactTimeoutProps {
-  setTimeout: Function;
-  clearTimeout: Function;
-  setInterval: Function;
-  clearInterval: Function;
-  setImmediate: Function;
-  clearImmediate: Function;
-  requestAnimationFrame: Function;
-  cancelAnimationFrame: Function;
+  setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timer;
+  clearTimeout: (timer: Timer) => void;
+  setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Id;
+  clearInterval: (id: Id) => void;
+  setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => Id;
+  clearImmediate: (id: Id) => void;
+  requestAnimationFrame: (callback: (...args: any[]) => void) => Id;
+  cancelAnimationFrame: (id: Id) => void;
 }
 
 export default function withReactTimeout<T extends ReactTimeoutProps = ReactTimeoutProps>(WrappedComponent: React.ComponentType<T>) {
