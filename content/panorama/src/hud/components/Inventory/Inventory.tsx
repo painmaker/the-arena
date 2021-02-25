@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useGameEvent } from "react-panorama";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import Item from "./Item/Item";
 import Menu from "./Item/Menu/Menu";
@@ -9,6 +10,7 @@ type Props = ReactTimeoutProps & {
 
 const Inventory = (props: Props) => {
 
+  const [selectedUnit, setSelectedUnit] = useState(Players.GetLocalPlayerPortraitUnit());
   const [firstItem, setFirstItem] = useState(-1 as ItemEntityIndex);
   const [secondItem, setSecondItem] = useState(-1 as ItemEntityIndex);
   const [thirdItem, setThirdItem] = useState(-1 as ItemEntityIndex);
@@ -19,6 +21,7 @@ const Inventory = (props: Props) => {
   useEffect(() => {
     const id = props.setInterval(() => {
       const unit = Players.GetLocalPlayerPortraitUnit();
+      setSelectedUnit(unit);
       setFirstItem(Entities.GetItemInSlot(unit, 0));
       setSecondItem(Entities.GetItemInSlot(unit, 1));
       setThirdItem(Entities.GetItemInSlot(unit, 2));
@@ -28,6 +31,10 @@ const Inventory = (props: Props) => {
     }, 100);
     return () => props.clearInterval(id);
   }, []);
+
+  if (!Entities.IsInventoryEnabled(selectedUnit)) {
+    return null;
+  }
 
   return (
     <React.Fragment>

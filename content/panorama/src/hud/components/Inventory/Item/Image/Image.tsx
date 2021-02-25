@@ -26,7 +26,7 @@ const Image = (props: Props) => {
       itemname={Abilities.GetAbilityName(props.item)}
       style={{
         saturation: isMuted ? '0.0' : !isCooldownReady ? '0.5' : '1.0',
-        border: !isCooldownReady ? '2px solid rgb(75, 75, 75)' : '0px solid black',
+        border: !isCooldownReady ? '3px solid rgba(50, 50, 50, 0.75)' : '0px solid black',
         washColor: hasEnoughMana ? 'none' : '#1569be',
       }}
     />

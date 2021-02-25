@@ -1,8 +1,15 @@
-import { InventoryActionTypes, SET_INVENTORY_MENU_POSITION } from "../types/inventoryTypes";
+import { ADD_LOCKED_INVENTORY_ITEM, InventoryActionTypes, REMOVE_LOCKED_INVENTORY_ITEM } from "../types/inventoryTypes";
 
-export function setInventoryMenuPosition(x: number, y: number): InventoryActionTypes {
+export function addLockedInventoryItem(item: ItemEntityIndex): InventoryActionTypes {
   return {
-    type: SET_INVENTORY_MENU_POSITION,
-    payload: { x, y }
+    type: ADD_LOCKED_INVENTORY_ITEM,
+    payload: { item }
+  }
+}
+
+export function removeLockedInventoryItem(item: ItemEntityIndex): InventoryActionTypes {
+  return {
+    type: REMOVE_LOCKED_INVENTORY_ITEM,
+    payload: { item }
   }
 }

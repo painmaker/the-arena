@@ -1,0 +1,36 @@
+.modifierContainer {
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  opacity: 0.0;
+  transition-property: pre-transform-scale2d, opacity;
+	transition-duration: 0.25s;
+  pre-transform-scale2d: 0.0;
+}
+ 
+.modifierBackground {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  clip: radial(50% 50%, 0deg, 360deg);
+}
+
+.modifierForeground {
+  width: 30px;
+  height: 30px;
+  horizontal-align: center;
+  vertical-align: center;
+  border-radius: 50%; 
+  border: 2px solid black;
+}
+
+.modifierImage {
+  width: 100%;
+  height: 100%;
+}
+
+.modifierImageWithPadding {
+  width: 100%;
+  height: 100%;
+  padding: -5px;
+}

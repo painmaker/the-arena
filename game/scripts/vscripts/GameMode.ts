@@ -40,8 +40,6 @@ export class GameMode {
     this.configure();
     ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
     ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
-    ListenToGameEvent("modifier_event", event => print("event: " + event), undefined);
-    CustomGameEventManager.RegisterListener("is_modifier_aura", (entindex, event) => { this.OnIsModifierAura(entindex, event) })
   }
 
   private configure(): void {
@@ -73,6 +71,9 @@ export class GameMode {
     gameMode.SetCustomXPRequiredToReachNextLevel(EXPERIENCE_PER_LEVEL_TABLE);
     gameMode.SetFixedRespawnTime(1.0);
 
+    gameMode.SetExecuteOrderFilter(event => this.OrderFilter(event), {});
+    gameMode.SetItemAddedToInventoryFilter(event => this.InventoryFilter(event), {});
+
     // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.0);
     // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 0.0);
     // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_DAMAGE, 0.0);
@@ -83,6 +84,16 @@ export class GameMode {
     // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_STRENGTH_HP, 0.0);
     // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_STRENGTH_HP_REGEN, 0.0);
 
+  }
+
+  public InventoryFilter(event: ItemAddedToInventoryFilterEvent): boolean {
+    // DeepPrintTable(event);
+    return true;
+  }
+
+  public OrderFilter(event: ExecuteOrderFilterEvent): boolean {
+    // DeepPrintTable(event);
+    return true;
   }
 
   public OnStateChange(): void {
@@ -138,6 +149,9 @@ export class GameMode {
       const hero = unit as any;
       if (hero.hasSpawnedBefore !== true) {
         hero.SetCustomDeathXP(10);
+        hero.AddItemByName("item_pipe");
+        hero.AddItemByName("item_sange_and_yasha");
+        hero.AddItemByName("item_assault");
         hero.hasSpawnedBefore = true;
         // Minimap hack for disapparing icons 
         hero.SetDayTimeVisionRange(99999);
@@ -151,17 +165,6 @@ export class GameMode {
         }
       }
     }
-  }
-
-  private OnIsModifierAura(entindex: EntityIndex, event: { entindex: EntityIndex, modifierName: string; PlayerID: PlayerID; }) {
-    const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
-    const modifier = unit.FindModifierByName(event.modifierName);
-    const player = PlayerResource.GetPlayer(event.PlayerID);
-    if (player) {
-      const isAura = modifier?.GetAuraOwner() !== undefined ? true : false;
-      CustomGameEventManager.Send_ServerToPlayer(player, "is_modifier_aura_success", { modifierName: event.modifierName, isAura: isAura });
-    }
-
   }
 
 }

@@ -1,20 +1,28 @@
-import { InventoryActionTypes, SET_INVENTORY_MENU_POSITION } from "../types/inventoryTypes";
+import { ADD_LOCKED_INVENTORY_ITEM, InventoryActionTypes, REMOVE_LOCKED_INVENTORY_ITEM } from "../types/inventoryTypes";
 
-const initialState = {
-  x: 0,
-  y: 0,
+interface IventoryState {
+  lockedItems: ItemEntityIndex[],
+}
+
+const initialState: IventoryState = {
+  lockedItems: [],
 };
 
 export default function (state = initialState, action: InventoryActionTypes) {
   switch (action.type) {
-    case SET_INVENTORY_MENU_POSITION: {
+    case ADD_LOCKED_INVENTORY_ITEM: {
       return {
         ...state,
-        x: action.payload.x,
-        y: action.payload.y
+        lockedItems: state.lockedItems.concat(action.payload.item),
+      };
+    }
+    case REMOVE_LOCKED_INVENTORY_ITEM: {
+      return {
+        ...state,
+        lockedItems: state.lockedItems.filter(item => item !== action.payload.item),
       };
     }
     default:
       return state;
   }
-}
+} 

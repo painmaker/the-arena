@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { useGameEvent } from "react-panorama";
-import ModifierItem from "../ModifierItem/ModifierItem";
+import Modifier from "../Modifier/Modifier";
 
 const getBuffs = (unit: EntityIndex) => {
   const buffs = [];
   for (let i = 0; i < Entities.GetNumBuffs(unit); i++) {
     const buff = Entities.GetBuff(unit, i);
     if (buff == -1) {
-      continue;
-    }
-    if (Buffs.IsHidden(unit, buff)) {
       continue;
     }
     if (Buffs.IsDebuff(unit, buff)) {
@@ -46,7 +43,7 @@ const BuffsPanel = () => {
   return (
     <Panel className={'buffsContainer'}>
       {buffs.map((buff) =>
-        <ModifierItem
+        <Modifier
           key={buff}
           buffId={buff}
           selectedUnit={selectedUnit}

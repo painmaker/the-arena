@@ -1,10 +1,23 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import Hotkey from "./Hotkey/Hotkey";
 import Cooldown from "./Cooldown/Cooldown";
 import Image from "./Image/Image";
 import Charges from "./Charges/Charges";
+import ManaCost from "./ManaCost/ManaCost";
+import { ItemOptionsActionTypes } from "../../../types/itemOptionsTypes";
+import { resetItemOptions, setItemOptionsItem, setItemOptionsVisible } from "../../../actions/itemOptionsActions";
+import { connect, ConnectedProps } from "react-redux";
 
-type Props = {
+const mapDispatchToProps = (dispatch: Dispatch<ItemOptionsActionTypes>) => ({
+  setItemOptionsItem: (item: ItemEntityIndex) => dispatch(setItemOptionsItem(item)),
+  setItemOptionsVisible: (visible: boolean) => dispatch(setItemOptionsVisible(visible)),
+  resetItemOptions: () => dispatch(resetItemOptions()),
+});
+
+const connector = connect(null, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
   item: ItemEntityIndex,
   index: number,
 };
@@ -41,6 +54,10 @@ class InventoryItem extends React.Component<Props, State> {
     $.RegisterEventHandler('DragStart', panel, this.onDragStart);
     $.RegisterEventHandler('DragEnd', panel, this.OnDragEnd);
     panel.SetAcceptsFocus(false);
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    // $.Msg("this.props.item: " + this.props.item)
   }
 
   onDragStart(thisPanel: Panel, draggedPanel: any): void {
@@ -123,12 +140,21 @@ class InventoryItem extends React.Component<Props, State> {
   onItemRightClicked(): void {
 
     const panel = $("#inventory_item_container_" + this.props.index);
-
     $.DispatchEvent("DOTAHideAbilityTooltip", panel);
 
-    $.Msg(panel.GetPositionWithinWindow());
-    // panel.SetPositionInPixels(890, 490, 0);
-    panel.SetFocus();
+    if (this.props.item === -1) {
+      this.props.resetItemOptions();
+      return;
+    }
+
+    const selectedUnit = Players.GetLocalPlayerPortraitUnit();
+    const playerId = Entities.GetPlayerOwnerID(selectedUnit);
+    const isControllable = Entities.IsControllableByPlayer(selectedUnit, playerId);
+
+    if (isControllable) {
+      this.props.setItemOptionsVisible(true);
+      this.props.setItemOptionsItem(this.props.item);
+    }
 
   }
 
@@ -146,7 +172,6 @@ class InventoryItem extends React.Component<Props, State> {
     const panel = $("#inventory_item_container_" + this.props.index);
     $.DispatchEvent("DOTAHideAbilityTooltip", panel)
   }
-
 
   render() {
     return (
@@ -169,6 +194,7 @@ class InventoryItem extends React.Component<Props, State> {
             <Hotkey key={'hotkey_' + this.props.item} item={this.props.item} />
             <Charges key={'charges_' + this.props.item} item={this.props.item} />
             <Image key={'image_' + this.props.item} item={this.props.item} />
+            <ManaCost key={'mana_cost_' + this.props.item} item={this.props.item} />
           </React.Fragment>
         )}
       </Panel>
@@ -177,4 +203,4 @@ class InventoryItem extends React.Component<Props, State> {
 
 };
 
-export default InventoryItem;
+export default connector(InventoryItem);
