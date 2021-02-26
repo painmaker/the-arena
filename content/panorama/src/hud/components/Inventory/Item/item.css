@@ -6,6 +6,11 @@
   border-radius: 5px;
   border: 1px solid black;
   background-color: rgba(0, 0, 0, 0.85);
+  transition: transform 0.1s ease-in-out 0s;
+}
+
+.inventoryItemContainer:hover {
+  transform: scale3d(1.05, 1.05, 0);
 }
 
 #inventoryItemDraggedItem {

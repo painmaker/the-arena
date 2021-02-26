@@ -57,7 +57,7 @@ export class GameMode {
     GameRules.SetUseCustomHeroXPValues(true);
 
     const gameMode = GameRules.GetGameModeEntity();
-    gameMode.SetCustomGameForceHero('npc_dota_hero_dragon_knight');
+    gameMode.SetCustomGameForceHero('npc_dota_hero_shredder');
     gameMode.SetUnseenFogOfWarEnabled(true);
     gameMode.SetDaynightCycleDisabled(true);
     // gameMode.SetFogOfWarDisabled(true);

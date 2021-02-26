@@ -9,6 +9,9 @@ const getDebuffs = (unit: EntityIndex) => {
     if (buff == -1) {
       continue;
     }
+    if (Buffs.IsHidden(unit, buff)) {
+      continue;
+    }
     if (!Buffs.IsDebuff(unit, buff)) {
       continue;
     }
@@ -20,7 +23,7 @@ const getDebuffs = (unit: EntityIndex) => {
 const Debuffs = () => {
 
   const [selectedUnit, setSelectedUnit] = useState(Players.GetLocalPlayerPortraitUnit());
-  const [debuffs, setDebuffs] = useState<BuffID[]>([]);
+  const [debuffs, setDebuffs] = useState<BuffID[]>(getDebuffs(Players.GetLocalPlayerPortraitUnit()));
 
   useGameEvent("dota_portrait_unit_modifiers_changed", () => {
     const unit = Players.GetLocalPlayerPortraitUnit();

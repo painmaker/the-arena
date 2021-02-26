@@ -13,9 +13,3 @@ export function setItemOptionsVisible(visible: boolean): ItemOptionsActionTypes 
     payload: { visible }
   }
 }
-
-export function resetItemOptions(): ItemOptionsActionTypes {
-  return {
-    type: RESET_ITEM_OPTIONS,
-  }
-}

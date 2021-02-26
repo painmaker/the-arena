@@ -4,9 +4,12 @@ import Modifier from "../Modifier/Modifier";
 
 const getBuffs = (unit: EntityIndex) => {
   const buffs = [];
-  for (let i = 0; i < Entities.GetNumBuffs(unit); i++) {
+  for (let i = 0; i < Entities.GetNumBuffs(unit) + 1; i++) {
     const buff = Entities.GetBuff(unit, i);
     if (buff == -1) {
+      continue;
+    }
+    if (Buffs.IsHidden(unit, buff)) {
       continue;
     }
     if (Buffs.IsDebuff(unit, buff)) {
@@ -20,7 +23,7 @@ const getBuffs = (unit: EntityIndex) => {
 const BuffsPanel = () => {
 
   const [selectedUnit, setSelectedUnit] = useState(Players.GetLocalPlayerPortraitUnit());
-  const [buffs, setBuffs] = useState<BuffID[]>([]);
+  const [buffs, setBuffs] = useState<BuffID[]>(getBuffs(Players.GetLocalPlayerPortraitUnit()));
 
   useGameEvent("dota_portrait_unit_modifiers_changed", () => {
     const unit = Players.GetLocalPlayerPortraitUnit();

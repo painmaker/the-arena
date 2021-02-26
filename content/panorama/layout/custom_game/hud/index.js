@@ -3187,7 +3187,6 @@ createSymbol('LOCATION');
   \*****************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 103:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -3304,7 +3303,6 @@ module.exports = hoistNonReactStatics;
   \****************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 65:0-14 */
 /***/ ((module) => {
 
 "use strict";
@@ -3739,7 +3737,6 @@ function clearTimer(handle) {
   \************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: __webpack_require__, module */
-/*! CommonJS bailout: module.exports is used directly at 25:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var hasMap = typeof Map === 'function' && Map.prototype;
@@ -4151,7 +4148,6 @@ function arrObjKeys(obj, inspect) {
   \**********************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 102:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -4267,7 +4263,6 @@ module.exports = checkPropTypes;
   \*******************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 38:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -4872,7 +4867,6 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
   \*************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 14:2-16 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 /**
@@ -4900,7 +4894,6 @@ if (true) {
   \********************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 12:0-14 */
 /***/ ((module) => {
 
 "use strict";
@@ -51714,7 +51707,6 @@ function warning(message) {
   \********************************************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 68:0-14 */
 /***/ ((module) => {
 
 "use strict";
@@ -51796,7 +51788,6 @@ module.exports = hoistNonReactStatics;
   \********************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, __webpack_require__, __webpack_require__.g, __webpack_require__.* */
-/*! CommonJS bailout: module.exports is used directly at 103:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var React = __webpack_require__(/*! react */ "../../../node_modules/react/index.js")
@@ -55539,16 +55530,6 @@ exports.unstable_wrap = unstable_wrap;
 /*! export unstable_wrapCallback [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__ */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 52:26-46 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 125:13-33 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 149:24-44 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 193:15-35 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 548:28-48 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 565:25-45 */
-/*! CommonJS bailout: exports.unstable_shouldYield(...) prevents optimization as exports is passed as call context at 578:74-102 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 591:20-40 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 695:20-40 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 804:24-44 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -56589,7 +56570,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const App = () => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, true);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, false);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, false);
@@ -56647,47 +56628,11 @@ function setCharacterPanelVisible(visible) {
 
 /***/ }),
 
-/***/ "./hud/actions/inventoryActions.tsx":
-/*!******************************************!*\
-  !*** ./hud/actions/inventoryActions.tsx ***!
-  \******************************************/
-/*! namespace exports */
-/*! export addLockedInventoryItem [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export removeLockedInventoryItem [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addLockedInventoryItem": () => /* binding */ addLockedInventoryItem,
-/* harmony export */   "removeLockedInventoryItem": () => /* binding */ removeLockedInventoryItem
-/* harmony export */ });
-/* harmony import */ var _types_inventoryTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/inventoryTypes */ "./hud/types/inventoryTypes.tsx");
-
-function addLockedInventoryItem(item) {
-    return {
-        type: _types_inventoryTypes__WEBPACK_IMPORTED_MODULE_0__.ADD_LOCKED_INVENTORY_ITEM,
-        payload: { item }
-    };
-}
-function removeLockedInventoryItem(item) {
-    return {
-        type: _types_inventoryTypes__WEBPACK_IMPORTED_MODULE_0__.REMOVE_LOCKED_INVENTORY_ITEM,
-        payload: { item }
-    };
-}
-
-
-/***/ }),
-
 /***/ "./hud/actions/itemOptionsActions.tsx":
 /*!********************************************!*\
   !*** ./hud/actions/itemOptionsActions.tsx ***!
   \********************************************/
 /*! namespace exports */
-/*! export resetItemOptions [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setItemOptionsItem [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setItemOptionsVisible [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -56698,8 +56643,7 @@ function removeLockedInventoryItem(item) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setItemOptionsItem": () => /* binding */ setItemOptionsItem,
-/* harmony export */   "setItemOptionsVisible": () => /* binding */ setItemOptionsVisible,
-/* harmony export */   "resetItemOptions": () => /* binding */ resetItemOptions
+/* harmony export */   "setItemOptionsVisible": () => /* binding */ setItemOptionsVisible
 /* harmony export */ });
 /* harmony import */ var _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/itemOptionsTypes */ "./hud/types/itemOptionsTypes.tsx");
 
@@ -56713,11 +56657,6 @@ function setItemOptionsVisible(visible) {
     return {
         type: _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_ITEM_OPTIONS_VISIBLE,
         payload: { visible }
-    };
-}
-function resetItemOptions() {
-    return {
-        type: _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_0__.RESET_ITEM_OPTIONS,
     };
 }
 
@@ -58672,15 +58611,17 @@ const Image = (props) => {
     const [isCooldownReady, setIsCooldownReady] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsCooldownReady(props.item));
     const [hasEnoughMana, setHasEnoughMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsOwnersManaEnough(props.item));
     const [isMuted, setIsMuted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsMuted(Players.GetLocalPlayerPortraitUnit()));
+    const [texture, setTexutre] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetAbilityTextureName(props.item));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = props.setInterval(() => {
             setIsCooldownReady(Abilities.IsCooldownReady(props.item));
             setHasEnoughMana(Abilities.IsOwnersManaEnough(props.item));
             setIsMuted(Entities.IsMuted(Players.GetLocalPlayerPortraitUnit()));
+            setTexutre(Abilities.GetAbilityTextureName(props.item));
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { className: 'inventoryItemImage', itemname: Abilities.GetAbilityName(props.item), style: {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { className: 'inventoryItemImage', itemname: texture, style: {
             saturation: isMuted ? '0.0' : !isCooldownReady ? '0.5' : '1.0',
             border: !isCooldownReady ? '3px solid rgba(50, 50, 50, 0.75)' : '0px solid black',
             washColor: hasEnoughMana ? 'none' : '#1569be',
@@ -58722,12 +58663,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const mapStateToProps = (state) => ({
+    itemOptionsVisible: state.itemOptionsReducer.visible,
+    itemOptionsItem: state.itemOptionsReducer.item,
+});
 const mapDispatchToProps = (dispatch) => ({
     setItemOptionsItem: (item) => dispatch((0,_actions_itemOptionsActions__WEBPACK_IMPORTED_MODULE_6__.setItemOptionsItem)(item)),
     setItemOptionsVisible: (visible) => dispatch((0,_actions_itemOptionsActions__WEBPACK_IMPORTED_MODULE_6__.setItemOptionsVisible)(visible)),
-    resetItemOptions: () => dispatch((0,_actions_itemOptionsActions__WEBPACK_IMPORTED_MODULE_6__.resetItemOptions)()),
 });
-const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_7__.connect)(null, mapDispatchToProps);
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_7__.connect)(mapStateToProps, mapDispatchToProps);
 class InventoryItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     constructor(props) {
         super(props);
@@ -58821,15 +58765,22 @@ class InventoryItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         const panel = $("#inventory_item_container_" + this.props.index);
         $.DispatchEvent("DOTAHideAbilityTooltip", panel);
         if (this.props.item === -1) {
-            this.props.resetItemOptions();
+            this.props.setItemOptionsVisible(false);
+            this.props.setItemOptionsItem(this.props.item);
             return;
         }
         const selectedUnit = Players.GetLocalPlayerPortraitUnit();
         const playerId = Entities.GetPlayerOwnerID(selectedUnit);
         const isControllable = Entities.IsControllableByPlayer(selectedUnit, playerId);
         if (isControllable) {
-            this.props.setItemOptionsVisible(true);
-            this.props.setItemOptionsItem(this.props.item);
+            if (this.props.itemOptionsVisible && this.props.itemOptionsItem === this.props.item) {
+                this.props.setItemOptionsVisible(false);
+            }
+            else {
+                this.props.setItemOptionsVisible(true);
+                this.props.setItemOptionsItem(this.props.item);
+            }
+            Game.EmitSound("ui_topmenu_select");
         }
     }
     onMouseOver() {
@@ -58915,8 +58866,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_inventoryActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../actions/inventoryActions */ "./hud/actions/inventoryActions.tsx");
-/* harmony import */ var _actions_itemOptionsActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../actions/itemOptionsActions */ "./hud/actions/itemOptionsActions.tsx");
+/* harmony import */ var _actions_itemOptionsActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../actions/itemOptionsActions */ "./hud/actions/itemOptionsActions.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
 
 
 
@@ -58925,78 +58876,59 @@ __webpack_require__.r(__webpack_exports__);
 const mapStateToProps = (state) => ({
     item: state.itemOptionsReducer.item,
     visible: state.itemOptionsReducer.visible,
-    lockedItems: state.inventoryReducer.lockedItems,
 });
 const mapDispatchToProps = (dispatch) => ({
-    resetInventoryMenu: () => dispatch((0,_actions_itemOptionsActions__WEBPACK_IMPORTED_MODULE_4__.resetItemOptions)()),
-    addLockedInventoryItem: (item) => dispatch((0,_actions_inventoryActions__WEBPACK_IMPORTED_MODULE_3__.addLockedInventoryItem)(item)),
-    removeLockedInventoryItem: (item) => dispatch((0,_actions_inventoryActions__WEBPACK_IMPORTED_MODULE_3__.removeLockedInventoryItem)(item)),
+    setItemOptionsVisible: (visible) => dispatch((0,_actions_itemOptionsActions__WEBPACK_IMPORTED_MODULE_3__.setItemOptionsVisible)(visible)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps, mapDispatchToProps);
 const Menu = (props) => {
+    const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let timer = -1;
+        if (props.visible === false) {
+            timer = props.setTimeout(() => {
+                setRenderComponent(false);
+            }, 1000);
+        }
+        else {
+            setRenderComponent(true);
+        }
+        return () => props.clearTimeout(timer);
+    }, [props.visible]);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
-        props.resetInventoryMenu();
+        props.setItemOptionsVisible(false);
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", () => {
-        props.resetInventoryMenu();
+        props.setItemOptionsVisible(false);
     }, []);
     if (props.item === -1) {
         return null;
     }
-    const isSellable = Items.IsSellable(props.item);
-    const isDisassemblable = Items.IsDisassemblable(props.item);
-    const isAlertable = Items.IsAlertableItem(props.item);
-    const isPurchasble = Items.IsPurchasable(props.item);
-    const isLocked = props.lockedItems.includes(props.item);
-    // TODO : Stash
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, props.visible && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuItemContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryMenuItemLabel', text: $.Localize("DOTA_Tooltip_ability_" + Abilities.GetAbilityName(props.item)) }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuItemImageContainer' },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { className: 'inventoryMenuItemImage', itemname: Abilities.GetAbilityName(props.item) }))),
-        isPurchasble && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'inventoryMenuButton', onactivate: () => {
-                GameEvents.SendEventClientSide("dota_link_clicked", {
-                    link: ("dota.item." + Abilities.GetAbilityName(props.item)),
-                    shop: 0,
-                    recipe: 0,
-                    nav: 0,
-                    nav_back: 0,
-                });
-                props.resetInventoryMenu();
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuOuterContainer', style: props.visible ? { opacity: '1.0', preTransformScale2d: '1.0' } : {} },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'inventoryMenuCloseBtn', onactivate: () => {
+                props.setItemOptionsVisible(false);
+                Game.EmitSound("ui_topmenu_select");
             } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryMenuButtonLabel', text: 'Show In Shop' }))),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'inventoryMenuButton', onactivate: () => {
-                Game.PrepareUnitOrders({
-                    OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_SET_ITEM_COMBINE_LOCK,
-                    AbilityIndex: props.item,
-                    TargetIndex: isLocked ? 0 : 1
-                });
-                props.resetInventoryMenu();
-                if (isLocked) {
-                    props.removeLockedInventoryItem(props.item);
-                }
-                else {
-                    props.addLockedInventoryItem(props.item);
-                }
-            } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryMenuButtonLabel', text: isLocked ? 'Unlock' : 'Lock' })),
-        isSellable && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'inventoryMenuButton', onactivate: () => {
-                Items.LocalPlayerSellItem(props.item);
-                props.resetInventoryMenu();
-            } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryMenuButtonLabel', text: 'Sell Item' }))),
-        isAlertable && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'inventoryMenuButton', onactivate: () => {
-                Items.LocalPlayerItemAlertAllies(props.item);
-                props.resetInventoryMenu();
-            } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryMenuButtonLabel', text: 'Alert Allies' }))),
-        isDisassemblable && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'inventoryMenuButton', onactivate: () => {
-                Items.LocalPlayerDisassembleItem(props.item);
-                props.resetInventoryMenu();
-            } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryMenuButtonLabel', text: 'Disassemble Item' })))))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { className: 'inventoryMenuCloseBtnImage', src: "s2r://panorama/images/close_btn_white_png.vtex" })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuInnerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuItemContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryMenuItemLabel', text: $.Localize("DOTA_Tooltip_ability_" + Abilities.GetAbilityName(props.item)) }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuItemImageContainer' },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { className: 'inventoryMenuItemImage', itemname: Abilities.GetAbilityName(props.item) }))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuButtonContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'inventoryMenuButton inventoryMenuCancelButton', onactivate: () => {
+                        props.setItemOptionsVisible(false);
+                        Game.EmitSound("ui_topmenu_select");
+                    } },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryMenuButtonLabel', text: 'Cancel' })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'inventoryMenuButton inventoryMenuSellButton', onactivate: () => {
+                        Items.LocalPlayerSellItem(props.item);
+                        props.setItemOptionsVisible(false);
+                        Game.EmitSound("ui_topmenu_select");
+                    } },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryMenuButtonLabel', text: 'Sell' }))))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Menu));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_4__.default)(Menu)));
 
 
 /***/ }),
@@ -59151,9 +59083,12 @@ __webpack_require__.r(__webpack_exports__);
 
 const getBuffs = (unit) => {
     const buffs = [];
-    for (let i = 0; i < Entities.GetNumBuffs(unit); i++) {
+    for (let i = 0; i < Entities.GetNumBuffs(unit) + 1; i++) {
         const buff = Entities.GetBuff(unit, i);
         if (buff == -1) {
+            continue;
+        }
+        if (Buffs.IsHidden(unit, buff)) {
             continue;
         }
         if (Buffs.IsDebuff(unit, buff)) {
@@ -59165,7 +59100,7 @@ const getBuffs = (unit) => {
 };
 const BuffsPanel = () => {
     const [selectedUnit, setSelectedUnit] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
-    const [buffs, setBuffs] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+    const [buffs, setBuffs] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getBuffs(Players.GetLocalPlayerPortraitUnit()));
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_portrait_unit_modifiers_changed", () => {
         const unit = Players.GetLocalPlayerPortraitUnit();
         setSelectedUnit(unit);
@@ -59216,6 +59151,9 @@ const getDebuffs = (unit) => {
         if (buff == -1) {
             continue;
         }
+        if (Buffs.IsHidden(unit, buff)) {
+            continue;
+        }
         if (!Buffs.IsDebuff(unit, buff)) {
             continue;
         }
@@ -59225,7 +59163,7 @@ const getDebuffs = (unit) => {
 };
 const Debuffs = () => {
     const [selectedUnit, setSelectedUnit] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
-    const [debuffs, setDebuffs] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+    const [debuffs, setDebuffs] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getDebuffs(Players.GetLocalPlayerPortraitUnit()));
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_portrait_unit_modifiers_changed", () => {
         const unit = Players.GetLocalPlayerPortraitUnit();
         setSelectedUnit(unit);
@@ -59265,34 +59203,84 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _data_auras__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../data/auras */ "./hud/data/auras.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Stacks_Stacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Stacks/Stacks */ "./hud/components/Modifiers/Modifier/Stacks/Stacks.tsx");
 /* harmony import */ var _TimedBackground_TimedBackground__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TimedBackground/TimedBackground */ "./hud/components/Modifiers/Modifier/TimedBackground/TimedBackground.tsx");
 
 
 
 
 const Modifier = (props) => {
-    const [isHidden, setIsHidden] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Buffs.IsHidden(props.selectedUnit, props.buffId));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
-            setIsHidden(Buffs.IsHidden(props.selectedUnit, props.buffId));
-        }, 100);
-        return () => props.clearInterval(id);
+        return () => {
+            const panel = $("#" + panelId);
+            if (panel) {
+                $.DispatchEvent("DOTAHideBuffTooltip", panel);
+            }
+        };
     }, []);
     const panelId = props.isDebuff ? "debuff_" + props.buffId : "buff_" + props.buffId;
     const ability = Buffs.GetAbility(props.selectedUnit, props.buffId);
     const isItem = Abilities.IsItem(ability);
     const isAura = _data_auras__WEBPACK_IMPORTED_MODULE_3__.aura_modifiers.includes(Buffs.GetName(props.selectedUnit, props.buffId));
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, !isHidden && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modifierContainer', style: { opacity: '1.0', preTransformScale2d: '1.0' } },
+    const isEnemy = Entities.IsEnemy(props.selectedUnit);
+    // TODO : Stacks 
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: panelId, className: 'modifierContainer', hittest: true, style: { opacity: '1.0', preTransformScale2d: '1.0' }, onactivate: () => Players.BuffClicked(props.selectedUnit, props.buffId, GameUI.IsAltDown()), onmouseout: () => {
+            const thisPanel = $("#" + panelId);
+            if (thisPanel) {
+                $.DispatchEvent("DOTAHideBuffTooltip", thisPanel);
+            }
+        }, onmouseover: () => {
+            const thisPanel = $("#" + panelId);
+            if (thisPanel) {
+                $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, props.selectedUnit, props.buffId, isEnemy);
+            }
+        } },
         isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modifierBackground', style: { backgroundColor: props.isDebuff ? 'red' : 'greenyellow' } })),
         !isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_TimedBackground_TimedBackground__WEBPACK_IMPORTED_MODULE_2__.default, { buffId: props.buffId, selectedUnit: props.selectedUnit, isDebuff: props.isDebuff })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modifierForeground' },
-            !isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { key: panelId, id: panelId, className: 'modifierImage', abilityname: Abilities.GetAbilityName(ability), onmouseout: () => $.DispatchEvent("DOTAHideAbilityTooltip", $("#" + panelId)), onmouseover: () => {
-                    $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#" + panelId), Abilities.GetAbilityName(ability), props.selectedUnit);
-                } })),
-            isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { key: panelId, className: 'modifierImageWithPadding', itemname: Buffs.GetTexture(props.selectedUnit, props.buffId) })))))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Stacks_Stacks__WEBPACK_IMPORTED_MODULE_1__.default, { unit: props.selectedUnit, buff: props.buffId }),
+            !isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { key: panelId, className: 'modifierImage', abilityname: Abilities.GetAbilityName(ability) })),
+            isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { key: panelId, className: 'modifierImageWithPadding', itemname: Buffs.GetTexture(props.selectedUnit, props.buffId), showtooltip: false })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Modifier));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Modifier);
+
+
+/***/ }),
+
+/***/ "./hud/components/Modifiers/Modifier/Stacks/Stacks.tsx":
+/*!*************************************************************!*\
+  !*** ./hud/components/Modifiers/Modifier/Stacks/Stacks.tsx ***!
+  \*************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const Stacks = (props) => {
+    const [stacks, setStacks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Buffs.GetStackCount(props.unit, props.buff));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setStacks(Buffs.GetStackCount(props.unit, props.buff));
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    if (stacks === 0) {
+        return null;
+    }
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modifierStackContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'modifierStackLabel', text: stacks })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Stacks));
 
 
 /***/ }),
@@ -59920,6 +59908,8 @@ const aura_modifiers = [
     "modifier_item_pipe_aura",
     "modifier_item_assault_negative_armor",
     "modifier_item_assault_positive",
+    "modifier_item_radiance_debuff",
+    "modifier_shredder_reactive_armor",
 ];
 
 
@@ -60017,42 +60007,6 @@ const initialState = {
 
 /***/ }),
 
-/***/ "./hud/reducers/inventoryReducer.tsx":
-/*!*******************************************!*\
-  !*** ./hud/reducers/inventoryReducer.tsx ***!
-  \*******************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* export default binding */ __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _types_inventoryTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/inventoryTypes */ "./hud/types/inventoryTypes.tsx");
-
-const initialState = {
-    lockedItems: [],
-};
-/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(state = initialState, action) {
-    switch (action.type) {
-        case _types_inventoryTypes__WEBPACK_IMPORTED_MODULE_0__.ADD_LOCKED_INVENTORY_ITEM: {
-            return Object.assign(Object.assign({}, state), { lockedItems: state.lockedItems.concat(action.payload.item) });
-        }
-        case _types_inventoryTypes__WEBPACK_IMPORTED_MODULE_0__.REMOVE_LOCKED_INVENTORY_ITEM: {
-            return Object.assign(Object.assign({}, state), { lockedItems: state.lockedItems.filter(item => item !== action.payload.item) });
-        }
-        default:
-            return state;
-    }
-}
-
-
-/***/ }),
-
 /***/ "./hud/reducers/itemOptionsReducer.tsx":
 /*!*********************************************!*\
   !*** ./hud/reducers/itemOptionsReducer.tsx ***!
@@ -60081,9 +60035,6 @@ const initialState = {
         }
         case _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_ITEM_OPTIONS_VISIBLE: {
             return Object.assign(Object.assign({}, state), { visible: action.payload.visible });
-        }
-        case _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_0__.RESET_ITEM_OPTIONS: {
-            return initialState;
         }
         default:
             return state;
@@ -60141,24 +60092,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "rootReducer": () => /* binding */ rootReducer
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! redux */ "../../../node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "../../../node_modules/redux/es/redux.js");
 /* harmony import */ var _minimapReducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./minimapReducer */ "./hud/reducers/minimapReducer.tsx");
 /* harmony import */ var _settingsReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./settingsReducer */ "./hud/reducers/settingsReducer.tsx");
 /* harmony import */ var _characterPanelReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./characterPanelReducer */ "./hud/reducers/characterPanelReducer.tsx");
 /* harmony import */ var _itemOptionsReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./itemOptionsReducer */ "./hud/reducers/itemOptionsReducer.tsx");
-/* harmony import */ var _inventoryReducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./inventoryReducer */ "./hud/reducers/inventoryReducer.tsx");
 
 
 
 
 
-
-const rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_5__.combineReducers)({
+const rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
     minimapReducer: _minimapReducer__WEBPACK_IMPORTED_MODULE_0__.default,
     settingsReducer: _settingsReducer__WEBPACK_IMPORTED_MODULE_1__.default,
     characterPanelReducer: _characterPanelReducer__WEBPACK_IMPORTED_MODULE_2__.default,
     itemOptionsReducer: _itemOptionsReducer__WEBPACK_IMPORTED_MODULE_3__.default,
-    inventoryReducer: _inventoryReducer__WEBPACK_IMPORTED_MODULE_4__.default,
 });
 
 
@@ -60221,20 +60169,60 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
-/* harmony import */ var _types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/characterPanelTypes */ "./hud/types/characterPanelTypes.tsx");
+/* harmony import */ var _types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/characterPanelTypes */ "./hud/types/characterPanelTypes.tsx");
+/* harmony import */ var _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/itemOptionsTypes */ "./hud/types/itemOptionsTypes.tsx");
 /* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+
 
 
 
 function* characterPanelVisible({ payload: visible }) {
     if (visible === true) {
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_1__.SET_SETTINGS_VISIBLE, visible: false });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
     }
 }
 function* characterPanelSaga() {
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CHARACTER_PANEL_VISIBLE, characterPanelVisible);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_3__.SET_CHARACTER_PANEL_VISIBLE, characterPanelVisible);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (characterPanelSaga);
+
+
+/***/ }),
+
+/***/ "./hud/sagas/itemOptionsSaga.tsx":
+/*!***************************************!*\
+  !*** ./hud/sagas/itemOptionsSaga.tsx ***!
+  \***************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
+/* harmony import */ var _types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/characterPanelTypes */ "./hud/types/characterPanelTypes.tsx");
+/* harmony import */ var _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/itemOptionsTypes */ "./hud/types/itemOptionsTypes.tsx");
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+
+
+
+
+function* itemOptionsVisible({ payload }) {
+    if (payload.visible === true) {
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_1__.SET_CHARACTER_PANEL_VISIBLE, visible: false });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SETTINGS_VISIBLE, visible: false });
+    }
+}
+function* itemOptionsSaga() {
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_ITEM_OPTIONS_VISIBLE, itemOptionsVisible);
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (itemOptionsSaga);
 
 
 /***/ }),
@@ -60257,12 +60245,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
 /* harmony import */ var _characterPanelSaga__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./characterPanelSaga */ "./hud/sagas/characterPanelSaga.tsx");
 /* harmony import */ var _settingsSaga__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./settingsSaga */ "./hud/sagas/settingsSaga.tsx");
+/* harmony import */ var _itemOptionsSaga__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./itemOptionsSaga */ "./hud/sagas/itemOptionsSaga.tsx");
+
 
 
 
 const rootSaga = function* root() {
     yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.fork)(_settingsSaga__WEBPACK_IMPORTED_MODULE_2__.default);
     yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.fork)(_characterPanelSaga__WEBPACK_IMPORTED_MODULE_1__.default);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.fork)(_itemOptionsSaga__WEBPACK_IMPORTED_MODULE_3__.default);
 };
 
 
@@ -60285,7 +60276,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
 /* harmony import */ var _types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/characterPanelTypes */ "./hud/types/characterPanelTypes.tsx");
-/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+/* harmony import */ var _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/itemOptionsTypes */ "./hud/types/itemOptionsTypes.tsx");
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+
 
 
 
@@ -60303,12 +60296,13 @@ function* zoomCamera({ payload: zoom }) {
 function* settingsVisible({ payload: visible }) {
     if (visible === true) {
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterPanelTypes__WEBPACK_IMPORTED_MODULE_1__.SET_CHARACTER_PANEL_VISIBLE, visible: false });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
     }
 }
 function* settingsSaga() {
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CAMERA_LOCKED, lockCamera);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CAMERA_ZOOM, zoomCamera);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SETTINGS_VISIBLE, settingsVisible);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_CAMERA_LOCKED, lockCamera);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_CAMERA_ZOOM, zoomCamera);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, settingsVisible);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (settingsSaga);
 
@@ -60364,32 +60358,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "SET_CHARACTER_PANEL_VISIBLE": () => /* binding */ SET_CHARACTER_PANEL_VISIBLE
 /* harmony export */ });
 const SET_CHARACTER_PANEL_VISIBLE = 'SET_CHARACTER_PANEL_VISIBLE';
-
-
-/***/ }),
-
-/***/ "./hud/types/inventoryTypes.tsx":
-/*!**************************************!*\
-  !*** ./hud/types/inventoryTypes.tsx ***!
-  \**************************************/
-/*! namespace exports */
-/*! export ADD_LOCKED_INVENTORY_ITEM [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export REMOVE_LOCKED_INVENTORY_ITEM [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export RESET_ITEM_OPTIONS [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ADD_LOCKED_INVENTORY_ITEM": () => /* binding */ ADD_LOCKED_INVENTORY_ITEM,
-/* harmony export */   "REMOVE_LOCKED_INVENTORY_ITEM": () => /* binding */ REMOVE_LOCKED_INVENTORY_ITEM,
-/* harmony export */   "RESET_ITEM_OPTIONS": () => /* binding */ RESET_ITEM_OPTIONS
-/* harmony export */ });
-const ADD_LOCKED_INVENTORY_ITEM = 'ADD_LOCKED_INVENTORY_ITEM';
-const REMOVE_LOCKED_INVENTORY_ITEM = 'REMOVE_LOCKED_INVENTORY_ITEM';
-const RESET_ITEM_OPTIONS = 'RESET_ITEM_OPTIONS';
 
 
 /***/ }),

@@ -24,9 +24,6 @@ export default function (state = initialState, action: ItemOptionsActionTypes) {
         visible: action.payload.visible,
       };
     }
-    case RESET_ITEM_OPTIONS: {
-      return initialState;
-    }
     default:
       return state;
   }

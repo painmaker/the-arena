@@ -40,6 +40,7 @@
         <include src="./components/Modifiers/Debuffs/debuffs.css" />
         <include src="./components/Modifiers/Modifier/modifier.css" />
         <include src="./components/Modifiers/Modifier/TimedBackground/timedBackground.css" />
+        <include src="./components/Modifiers/Modifier/Stacks/stacks.css" />
         <include src="./components/Inventory/inventory.css" />
         <include src="./components/Inventory/Item/item.css" />
         <include src="./components/Inventory/Item/Hotkey/hotkey.css" />

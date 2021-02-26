@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { aura_modifiers } from "../../../data/auras";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
+import Stacks from "./Stacks/Stacks";
 import TimedBackground from "./TimedBackground/TimedBackground";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   buffId: BuffID,
   selectedUnit: EntityIndex,
   isDebuff: boolean,
@@ -11,67 +11,79 @@ type Props = ReactTimeoutProps & {
 
 const Modifier = (props: Props) => {
 
-  const [isHidden, setIsHidden] = useState(Buffs.IsHidden(props.selectedUnit, props.buffId));
-
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setIsHidden(Buffs.IsHidden(props.selectedUnit, props.buffId));
-    }, 100);
-    return () => props.clearInterval(id);
+    return () => {
+      const panel = $("#" + panelId);
+      if (panel) {
+        $.DispatchEvent("DOTAHideBuffTooltip", panel);
+      }
+    }
   }, []);
 
   const panelId = props.isDebuff ? "debuff_" + props.buffId : "buff_" + props.buffId;
   const ability = Buffs.GetAbility(props.selectedUnit, props.buffId);
   const isItem = Abilities.IsItem(ability);
   const isAura = aura_modifiers.includes(Buffs.GetName(props.selectedUnit, props.buffId));
+  const isEnemy = Entities.IsEnemy(props.selectedUnit);
+  // TODO : Stacks 
 
   return (
-    <React.Fragment>
-      { !isHidden && (
-        <Panel className={'modifierContainer'} style={{ opacity: '1.0', preTransformScale2d: '1.0' }}>
-          { isAura && (
-            <Panel
-              className={'modifierBackground'}
-              style={{ backgroundColor: props.isDebuff ? 'red' : 'greenyellow' }}
-            />
-          )}
-          { !isAura && (
-            <TimedBackground
-              buffId={props.buffId}
-              selectedUnit={props.selectedUnit}
-              isDebuff={props.isDebuff}
-            />
-          )}
-          <Panel className={'modifierForeground'}>
-            {!isItem && (
-              <DOTAAbilityImage
-                key={panelId}
-                id={panelId}
-                className={'modifierImage'}
-                abilityname={Abilities.GetAbilityName(ability)}
-                onmouseout={() => $.DispatchEvent("DOTAHideAbilityTooltip", $("#" + panelId))}
-                onmouseover={() => {
-                  $.DispatchEvent(
-                    "DOTAShowAbilityTooltipForEntityIndex",
-                    $("#" + panelId),
-                    Abilities.GetAbilityName(ability),
-                    props.selectedUnit
-                  );
-                }}
-              />
-            )}
-            {isItem && (
-              <DOTAItemImage
-                key={panelId}
-                className={'modifierImageWithPadding'}
-                itemname={Buffs.GetTexture(props.selectedUnit, props.buffId)}
-              />
-            )}
-          </Panel>
-        </Panel>
+    <Panel
+      id={panelId}
+      className={'modifierContainer'}
+      hittest={true}
+      style={{ opacity: '1.0', preTransformScale2d: '1.0' }}
+      onactivate={() => Players.BuffClicked(props.selectedUnit, props.buffId, GameUI.IsAltDown())}
+      onmouseout={() => {
+        const thisPanel = $("#" + panelId);
+        if (thisPanel) {
+          $.DispatchEvent("DOTAHideBuffTooltip", thisPanel)
+        }
+      }}
+      onmouseover={() => {
+        const thisPanel = $("#" + panelId);
+        if (thisPanel) {
+          $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, props.selectedUnit, props.buffId, isEnemy)
+        }
+      }}
+    >
+      { isAura && (
+        <Panel
+          className={'modifierBackground'}
+          style={{ backgroundColor: props.isDebuff ? 'red' : 'greenyellow' }}
+        />
       )}
-    </React.Fragment>
+      { !isAura && (
+        <TimedBackground
+          buffId={props.buffId}
+          selectedUnit={props.selectedUnit}
+          isDebuff={props.isDebuff}
+        />
+      )}
+      <Panel className={'modifierForeground'}>
+        <Stacks
+          unit={props.selectedUnit}
+          buff={props.buffId}
+        />
+        {!isItem && (
+          <DOTAAbilityImage
+            key={panelId}
+            className={'modifierImage'}
+            abilityname={Abilities.GetAbilityName(ability)}
+          />
+        )}
+        {isItem && (
+          <DOTAItemImage
+            key={panelId}
+            className={'modifierImageWithPadding'}
+            itemname={Buffs.GetTexture(props.selectedUnit, props.buffId)}
+            showtooltip={false}
+          />
+        )}
+      </Panel>
+    </Panel>
   );
+
 };
 
-export default withReactTimeout(Modifier);
+export default Modifier;

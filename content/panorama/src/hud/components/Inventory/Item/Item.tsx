@@ -5,16 +5,21 @@ import Image from "./Image/Image";
 import Charges from "./Charges/Charges";
 import ManaCost from "./ManaCost/ManaCost";
 import { ItemOptionsActionTypes } from "../../../types/itemOptionsTypes";
-import { resetItemOptions, setItemOptionsItem, setItemOptionsVisible } from "../../../actions/itemOptionsActions";
+import { setItemOptionsItem, setItemOptionsVisible } from "../../../actions/itemOptionsActions";
 import { connect, ConnectedProps } from "react-redux";
+import { RootState } from "../../../reducers/rootReducer";
+
+const mapStateToProps = (state: RootState) => ({
+  itemOptionsVisible: state.itemOptionsReducer.visible,
+  itemOptionsItem: state.itemOptionsReducer.item,
+});
 
 const mapDispatchToProps = (dispatch: Dispatch<ItemOptionsActionTypes>) => ({
   setItemOptionsItem: (item: ItemEntityIndex) => dispatch(setItemOptionsItem(item)),
   setItemOptionsVisible: (visible: boolean) => dispatch(setItemOptionsVisible(visible)),
-  resetItemOptions: () => dispatch(resetItemOptions()),
 });
 
-const connector = connect(null, mapDispatchToProps);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
@@ -143,7 +148,8 @@ class InventoryItem extends React.Component<Props, State> {
     $.DispatchEvent("DOTAHideAbilityTooltip", panel);
 
     if (this.props.item === -1) {
-      this.props.resetItemOptions();
+      this.props.setItemOptionsVisible(false);
+      this.props.setItemOptionsItem(this.props.item);
       return;
     }
 
@@ -152,8 +158,13 @@ class InventoryItem extends React.Component<Props, State> {
     const isControllable = Entities.IsControllableByPlayer(selectedUnit, playerId);
 
     if (isControllable) {
-      this.props.setItemOptionsVisible(true);
-      this.props.setItemOptionsItem(this.props.item);
+      if (this.props.itemOptionsVisible && this.props.itemOptionsItem === this.props.item) {
+        this.props.setItemOptionsVisible(false);
+      } else {
+        this.props.setItemOptionsVisible(true);
+        this.props.setItemOptionsItem(this.props.item);
+      }
+      Game.EmitSound("ui_topmenu_select");
     }
 
   }

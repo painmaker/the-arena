@@ -10,12 +10,14 @@ const Image = (props: Props) => {
   const [isCooldownReady, setIsCooldownReady] = useState(Abilities.IsCooldownReady(props.item));
   const [hasEnoughMana, setHasEnoughMana] = useState(Abilities.IsOwnersManaEnough(props.item));
   const [isMuted, setIsMuted] = useState(Entities.IsMuted(Players.GetLocalPlayerPortraitUnit()));
+  const [texture, setTexutre] = useState(Abilities.GetAbilityTextureName(props.item));
 
   useEffect(() => {
     const id = props.setInterval(() => {
       setIsCooldownReady(Abilities.IsCooldownReady(props.item));
       setHasEnoughMana(Abilities.IsOwnersManaEnough(props.item));
       setIsMuted(Entities.IsMuted(Players.GetLocalPlayerPortraitUnit()));
+      setTexutre(Abilities.GetAbilityTextureName(props.item));
     }, 100);
     return () => props.clearInterval(id);
   }, []);
@@ -23,7 +25,7 @@ const Image = (props: Props) => {
   return (
     <DOTAItemImage
       className={'inventoryItemImage'}
-      itemname={Abilities.GetAbilityName(props.item)}
+      itemname={texture}
       style={{
         saturation: isMuted ? '0.0' : !isCooldownReady ? '0.5' : '1.0',
         border: !isCooldownReady ? '3px solid rgba(50, 50, 50, 0.75)' : '0px solid black',
