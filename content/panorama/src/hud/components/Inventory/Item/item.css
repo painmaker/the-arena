@@ -6,6 +6,8 @@
   border-radius: 5px;
   border: 1px solid black;
   background-color: rgba(0, 0, 0, 0.85);
+  background-image: url("s2r://panorama/images/hud/reborn/inventory_item_well_psd.vtex");
+  background-size: 100%;
   transition: transform 0.1s ease-in-out 0s;
 }
 

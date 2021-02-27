@@ -25,7 +25,6 @@ const Modifier = (props: Props) => {
   const isItem = Abilities.IsItem(ability);
   const isAura = aura_modifiers.includes(Buffs.GetName(props.selectedUnit, props.buffId));
   const isEnemy = Entities.IsEnemy(props.selectedUnit);
-  // TODO : Stacks 
 
   return (
     <Panel

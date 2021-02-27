@@ -41,7 +41,6 @@ const Character = (props: Props) => {
         <React.Fragment>
           <CloseBtn />
           <Panel className={"characterPanelContainer"} style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}>
-            <Label className={'characterPanelMainTitleLabel'} text={'CHARACTER'} />
             <Panel style={{ width: '100%', height: '100%', flowChildren: 'right' }}>
               <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
                 <HeroModel />

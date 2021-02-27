@@ -56579,14 +56579,36 @@ const mapDispatchToProps = (dispatch) => ({
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_15__.connect)(mapStateToProps, mapDispatchToProps);
 const App = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, !props.useCustomUI);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, !props.useCustomUI);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, !props.useCustomUI);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, !props.useCustomUI);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, !props.useCustomUI);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, !props.useCustomUI);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, !props.useCustomUI);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, true);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_ITEMS, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_QUICKBUY, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_COURIER, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PROTECT, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_GOLD, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_SHOP_SUGGESTEDITEMS, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_SHOP_COMMONITEMS, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_TEAMS, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_GAME_NAME, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_CLOCK, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_MENU_BUTTONS, true);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_RADIANT_TEAM, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_DIRE_TEAM, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_SCORE, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ENDGAME, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ENDGAME_CHAT, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_QUICK_STATS, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_PREGAME_STRATEGYUI, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_KILLCAM, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_CUSTOMUI_BEHIND_HUD_ELEMENTS, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !props.useCustomUI);
     }, [props.useCustomUI]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: 'root', hittest: false, className: "appContainer" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(ToggleButton, { className: 'useCustomUIBtn', selected: props.useCustomUI, onactivate: () => props.setUseCustomUI(!props.useCustomUI) },
@@ -57128,7 +57150,8 @@ __webpack_require__.r(__webpack_exports__);
 const ShoppingButton = () => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: { washColor: 'white' }, onactivate: () => $.Msg("Shopping clicked!"), src: "s2r://panorama/images/shop_btn_white_png.vtex" }))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: { washColor: 'white' }, onactivate: () => {
+                }, src: "s2r://panorama/images/shop_btn_white_png.vtex" }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ShoppingButton);
 
@@ -57496,7 +57519,6 @@ const Character = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_6__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelContainer", style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {} },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'characterPanelMainTitleLabel', text: 'CHARACTER' }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '100%', height: '100%', flowChildren: 'right' } },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '50%', height: '100%', flowChildren: 'down' } },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HeroModel_HeroModel__WEBPACK_IMPORTED_MODULE_3__.default, null)),
@@ -57538,12 +57560,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const CloseBtn = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: "characterPanelCloseBtnContainer" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: "characterPanelCloseBtn", onactivate: () => {
-                props.setCharacterPanelVisible(!props.visible);
-                Game.EmitSound("ui_topmenu_select");
-            } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: 'characterPanelCloseBtnOuterContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelCloseBtnInnerContainer" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: "characterPanelCloseBtn", onactivate: () => {
+                    props.setCharacterPanelVisible(!props.visible);
+                    Game.EmitSound("ui_topmenu_select");
+                } },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CloseBtn));
 
@@ -58002,6 +58025,7 @@ const ModelPanel = () => {
                 if (Buffs.GetName(entindex, buff) === 'modifier_ui_hero_id') {
                     const heroId = Buffs.GetStackCount(entindex, buff);
                     scenePanel.SetScenePanelToLocalHero(heroId);
+                    scenePanel.SetCustomPostProcessMaterial("materials/dev/deferred_post_process_graphic_ui.vmat");
                 }
             }
         }
@@ -58012,7 +58036,7 @@ const ModelPanel = () => {
     }, [entindex]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modelPanelContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(entindex)).toUpperCase(), className: 'characterPanelComponentTitleLabel modelPanelHeroNameLabel' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'modelPanelScene', key: Entities.GetUnitName(entindex), className: 'modelPanelHeroScreen', allowrotation: true }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'modelPanelScene', key: Entities.GetUnitName(entindex), unit: Entities.GetUnitName(entindex), className: 'modelPanelHeroScreen', allowrotation: true }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HeroLevel_HeroLevel__WEBPACK_IMPORTED_MODULE_2__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerAvatar_PlayerAvatar__WEBPACK_IMPORTED_MODULE_3__.default, null)));
 };
@@ -58057,7 +58081,12 @@ const PlayerAvatar = () => {
     }
     const steamid = Game.GetPlayerInfo(playerId).player_steamid;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'playerContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { steamid: steamid, style: { width: '64px', height: '64px' } }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { steamid: steamid, style: {
+                width: '64px',
+                height: '64px',
+                border: '1px solid rgba(0, 0, 0, 0.5)',
+                borderRadius: '5px',
+            } }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'playerLabelContainer' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAUserName, { className: 'playerLabel', steamid: steamid }))));
 };
@@ -59198,7 +59227,6 @@ const Modifier = (props) => {
     const isItem = Abilities.IsItem(ability);
     const isAura = _data_auras__WEBPACK_IMPORTED_MODULE_3__.aura_modifiers.includes(Buffs.GetName(props.selectedUnit, props.buffId));
     const isEnemy = Entities.IsEnemy(props.selectedUnit);
-    // TODO : Stacks 
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: panelId, className: 'modifierContainer', hittest: true, style: { opacity: '1.0', preTransformScale2d: '1.0' }, onactivate: () => Players.BuffClicked(props.selectedUnit, props.buffId, GameUI.IsAltDown()), onmouseout: () => {
             const thisPanel = $("#" + panelId);
             if (thisPanel) {
@@ -59885,6 +59913,7 @@ const aura_modifiers = [
     "modifier_item_assault_positive",
     "modifier_item_radiance_debuff",
     "modifier_shredder_reactive_armor",
+    "modifier_item_buckler_effect"
 ];
 
 

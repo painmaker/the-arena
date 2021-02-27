@@ -6,7 +6,9 @@ const ShoppingButton = () => {
       <Button>
         <Image
           style={{ washColor: 'white' }}
-          onactivate={() => $.Msg("Shopping clicked!")}
+          onactivate={() => {
+
+          }}
           src="s2r://panorama/images/shop_btn_white_png.vtex"
         />
       </Button>

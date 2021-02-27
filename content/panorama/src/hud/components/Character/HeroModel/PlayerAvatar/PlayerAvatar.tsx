@@ -26,7 +26,15 @@ const PlayerAvatar = () => {
 
   return (
     <Panel className={'playerContainer'}>
-      <DOTAAvatarImage steamid={steamid} style={{ width: '64px', height: '64px' }} />
+      <DOTAAvatarImage
+        steamid={steamid}
+        style={{
+          width: '64px',
+          height: '64px',
+          border: '1px solid rgba(0, 0, 0, 0.5)',
+          borderRadius: '5px',
+        }}
+      />
       <Panel className={'playerLabelContainer'}>
         <DOTAUserName className={'playerLabel'} steamid={steamid} />
       </Panel>

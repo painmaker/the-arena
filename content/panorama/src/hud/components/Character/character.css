@@ -1,9 +1,8 @@
 .characterPanelContainer {
   horizontal-align: right;
   vertical-align: top;
-  margin-right: -500px;
+  margin-right: -490px;
   margin-top: 150px;
-  background-color: gradient( linear, 0% 0%, 0% 100%, from( rgba(75, 75, 75, 1.0) ), to(rgba(0, 0, 0, 0.9)));
   transition: transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s;
   opacity: 0.0;
   border-radius: 5px;
@@ -11,26 +10,18 @@
   min-height: 550px;
   flow-children: down;
   z-index: 999;
-}
-
-.characterPanelMainTitleLabel {
-  color: rgba(255, 165, 0, 0.5);
-  text-align: center;
-  width: 100%;
-  margin-top: 10px;
-  margin-left: 15px;
-  margin-right: 15px;
-  padding: 5px;
-  font-size: 22px;
-  font-weight: bolder;
-  background-color: rgba(35, 35, 35, 0.75);
-  border-radius: 5px;
+  /* background-image: url("s2r://panorama/images/hud/reborn/bg_scoreboard_psd.vtex"); */
+  /* background-size: cover; */
+  background-color: rgba(0, 0, 0, 0.9);
+  background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+  background-size: 100%;
 }
 
 .characterPanelComponentTitleLabel {
-  color: rgba(255, 165, 0, 0.5);
+  color: rgba(255, 165, 0, 0.9);
   text-align: center;
   width: 100%;
+  font-size: 20px;
 }
 
 .characterPanelStatsEntry {
@@ -39,6 +30,6 @@
 }
 
 .characterPanelStatsLabel {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 16px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 18px;
 }

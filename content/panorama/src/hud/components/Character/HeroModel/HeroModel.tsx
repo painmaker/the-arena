@@ -23,6 +23,7 @@ const ModelPanel = () => {
         if (Buffs.GetName(entindex, buff) === 'modifier_ui_hero_id') {
           const heroId = Buffs.GetStackCount(entindex, buff) as HeroID;
           scenePanel.SetScenePanelToLocalHero(heroId);
+          scenePanel.SetCustomPostProcessMaterial("materials/dev/deferred_post_process_graphic_ui.vmat")
         }
       }
     } else {
@@ -40,6 +41,7 @@ const ModelPanel = () => {
       <DOTAScenePanel
         id={'modelPanelScene'}
         key={Entities.GetUnitName(entindex)}
+        unit={Entities.GetUnitName(entindex)}
         className={'modelPanelHeroScreen'}
         allowrotation={true}
       />

@@ -6,11 +6,21 @@
 .attackPanelBackground {
   height: 100%;
   width: 100%;
-  margin: 15px;
-  background-color: rgba(35, 35, 35, 0.75);
   flow-children: down;
+  margin-top: 15px;
+  margin-right: 15px;
+  margin-bottom: 7.5px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.5);
+  background-image: url("s2r://panorama/images/hud/reborn/inventory_item_well_psd.vtex");
+  background-size: 100%;
+}
+
+.attackPanelTitle {
+  text-align: center;
+  width: 100%;
+  padding-top: 15px;
+  font-weight: bolder;
 }
 
 .attackPanelLabelContainer{
@@ -22,17 +32,6 @@
   margin-top: 15px;
   vertical-align: center;
 }
-
-.attackPanelTitle {
-  font-size: 20px;
-  text-align: center;
-  width: 100%;
-  padding-top: 15px;
-  font-weight: bolder;
-  margin-right: 25px;
-  margin-left: 25px;
-}
-
 
 .attackPanelEntryContainer {
   width: 100%;
