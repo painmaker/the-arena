@@ -56541,17 +56541,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Settings_Settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Settings/Settings */ "./hud/components/Settings/Settings.tsx");
 /* harmony import */ var _components_ButtonGroup_ButtonGroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/ButtonGroup/ButtonGroup */ "./hud/components/ButtonGroup/ButtonGroup.tsx");
 /* harmony import */ var _components_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Heroes/Heroes */ "./hud/components/Heroes/Heroes.tsx");
-/* harmony import */ var _components_DateTime_DateTime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/DateTime/DateTime */ "./hud/components/DateTime/DateTime.tsx");
-/* harmony import */ var _components_GameTime_GameTime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/GameTime/GameTime */ "./hud/components/GameTime/GameTime.tsx");
-/* harmony import */ var _components_AbilityBar_AbilityBar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/AbilityBar/AbilityBar */ "./hud/components/AbilityBar/AbilityBar.tsx");
-/* harmony import */ var _components_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/HealthBar/HealthBar */ "./hud/components/HealthBar/HealthBar.tsx");
-/* harmony import */ var _components_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/ManaBar/ManaBar */ "./hud/components/ManaBar/ManaBar.tsx");
-/* harmony import */ var _components_LevelUp_LevelUp__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/LevelUp/LevelUp */ "./hud/components/LevelUp/LevelUp.tsx");
-/* harmony import */ var _components_StatsPanel_StatsPanel__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/StatsPanel/StatsPanel */ "./hud/components/StatsPanel/StatsPanel.tsx");
-/* harmony import */ var _components_Character_Character__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Character/Character */ "./hud/components/Character/Character.tsx");
-/* harmony import */ var _components_Modifiers_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Modifiers/Debuffs/Debuffs */ "./hud/components/Modifiers/Debuffs/Debuffs.tsx");
-/* harmony import */ var _components_Modifiers_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Modifiers/Buffs/Buffs */ "./hud/components/Modifiers/Buffs/Buffs.tsx");
-/* harmony import */ var _components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Inventory/Inventory */ "./hud/components/Inventory/Inventory.tsx");
+/* harmony import */ var _components_GameTime_GameTime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/GameTime/GameTime */ "./hud/components/GameTime/GameTime.tsx");
+/* harmony import */ var _components_AbilityBar_AbilityBar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/AbilityBar/AbilityBar */ "./hud/components/AbilityBar/AbilityBar.tsx");
+/* harmony import */ var _components_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/HealthBar/HealthBar */ "./hud/components/HealthBar/HealthBar.tsx");
+/* harmony import */ var _components_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/ManaBar/ManaBar */ "./hud/components/ManaBar/ManaBar.tsx");
+/* harmony import */ var _components_LevelUp_LevelUp__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/LevelUp/LevelUp */ "./hud/components/LevelUp/LevelUp.tsx");
+/* harmony import */ var _components_StatsPanel_StatsPanel__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/StatsPanel/StatsPanel */ "./hud/components/StatsPanel/StatsPanel.tsx");
+/* harmony import */ var _components_Character_Character__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Character/Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _components_Modifiers_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Modifiers/Debuffs/Debuffs */ "./hud/components/Modifiers/Debuffs/Debuffs.tsx");
+/* harmony import */ var _components_Modifiers_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Modifiers/Buffs/Buffs */ "./hud/components/Modifiers/Buffs/Buffs.tsx");
+/* harmony import */ var _components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Inventory/Inventory */ "./hud/components/Inventory/Inventory.tsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./actions/settingsAction */ "./hud/actions/settingsAction.tsx");
 
 
 
@@ -56568,35 +56569,45 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const App = () => {
+
+const mapStateToProps = (state) => ({
+    useCustomUI: state.settingsReducer.useCustomUI,
+});
+const mapDispatchToProps = (dispatch) => ({
+    setUseCustomUI: (useCustomUI) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_16__.setUseCustomUI)(useCustomUI)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_15__.connect)(mapStateToProps, mapDispatchToProps);
+const App = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, false);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, false);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, false);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, false);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, true);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, false);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, false);
-        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, false);
-    }, []);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, !props.useCustomUI);
+        GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !props.useCustomUI);
+    }, [props.useCustomUI]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: 'root', hittest: false, className: "appContainer" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_DateTime_DateTime__WEBPACK_IMPORTED_MODULE_5__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_4__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_GameTime_GameTime__WEBPACK_IMPORTED_MODULE_6__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Settings_Settings__WEBPACK_IMPORTED_MODULE_2__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Character_Character__WEBPACK_IMPORTED_MODULE_12__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_LevelUp_LevelUp__WEBPACK_IMPORTED_MODULE_10__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilityBar_AbilityBar__WEBPACK_IMPORTED_MODULE_7__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_8__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_9__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ButtonGroup_ButtonGroup__WEBPACK_IMPORTED_MODULE_3__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Minimap_Minimap__WEBPACK_IMPORTED_MODULE_1__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_14__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_13__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_15__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_StatsPanel_StatsPanel__WEBPACK_IMPORTED_MODULE_11__.default, null)));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ToggleButton, { className: 'useCustomUIBtn', selected: props.useCustomUI, onactivate: () => props.setUseCustomUI(!props.useCustomUI) },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'useCustomUILabel', text: 'Use Custom UI' })),
+        props.useCustomUI && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_4__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_GameTime_GameTime__WEBPACK_IMPORTED_MODULE_5__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Settings_Settings__WEBPACK_IMPORTED_MODULE_2__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Character_Character__WEBPACK_IMPORTED_MODULE_11__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_LevelUp_LevelUp__WEBPACK_IMPORTED_MODULE_9__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilityBar_AbilityBar__WEBPACK_IMPORTED_MODULE_6__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_7__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_8__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ButtonGroup_ButtonGroup__WEBPACK_IMPORTED_MODULE_3__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Minimap_Minimap__WEBPACK_IMPORTED_MODULE_1__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_13__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_12__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_14__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_StatsPanel_StatsPanel__WEBPACK_IMPORTED_MODULE_10__.default, null)))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(App));
 
 
 /***/ }),
@@ -56698,6 +56709,7 @@ function setMinimapZoom(zoom) {
 /*! export setCameraLocked [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setCameraZoom [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setSettingsVisible [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export setUseCustomUI [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -56707,7 +56719,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setSettingsVisible": () => /* binding */ setSettingsVisible,
 /* harmony export */   "setCameraLocked": () => /* binding */ setCameraLocked,
-/* harmony export */   "setCameraZoom": () => /* binding */ setCameraZoom
+/* harmony export */   "setCameraZoom": () => /* binding */ setCameraZoom,
+/* harmony export */   "setUseCustomUI": () => /* binding */ setUseCustomUI
 /* harmony export */ });
 /* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
 
@@ -56727,6 +56740,12 @@ function setCameraZoom(zoom) {
     return {
         type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_CAMERA_ZOOM,
         payload: zoom
+    };
+}
+function setUseCustomUI(useCustomUI) {
+    return {
+        type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_USE_CUSTOM_UI,
+        payload: { useCustomUI }
     };
 }
 
@@ -58043,50 +58062,6 @@ const PlayerAvatar = () => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAUserName, { className: 'playerLabel', steamid: steamid }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerAvatar);
-
-
-/***/ }),
-
-/***/ "./hud/components/DateTime/DateTime.tsx":
-/*!**********************************************!*\
-  !*** ./hud/components/DateTime/DateTime.tsx ***!
-  \**********************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils */ "./utils.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-
-
-
-const formatDate = (date) => {
-    const hours = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.formatTime)(date.getHours());
-    const minutes = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.formatTime)(date.getMinutes());
-    const seconds = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.formatTime)(date.getSeconds());
-    return hours + ":" + minutes + ":" + seconds;
-};
-const DateTime = (props) => {
-    const [date, setDate] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(new Date());
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
-            setDate(new Date());
-        }, 1000);
-        return () => props.clearInterval(id);
-    }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: 'dateTimeContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'dateTimeLabel', text: date.toDateString() }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'dateTimeLabel', text: formatDate(date) })));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(DateTime));
 
 
 /***/ }),
@@ -59664,7 +59639,7 @@ const Armor = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelArmorImage' }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel', text: (armor - bonusArmor).toFixed(1) }),
-            bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusArmor > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusArmor > 0 ? "+" : "") + "(" + bonusArmor + ")" })))));
+            bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusArmor > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusArmor > 0 ? "+" : "") + "(" + bonusArmor.toFixed(1) + ")" })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Armor));
 
@@ -59705,8 +59680,8 @@ const Damage = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelAttackImage' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel', text: minDamage + "-" + maxDamage }),
-            bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusDamage > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusDamage > 0 ? '+' : '') + "(" + bonusDamage + ")" })))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel', text: minDamage.toFixed(0) + "-" + maxDamage.toFixed(0) }),
+            bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusDamage > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusDamage > 0 ? '+' : '') + "(" + bonusDamage.toFixed(0) + ")" })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Damage));
 
@@ -59763,12 +59738,12 @@ const Level = (props) => {
     const xpGainedThisLevel = totalExperienceGained - EXPERIENCE_PER_LEVEL_TABLE[level];
     const xpRequiredToLevel = EXPERIENCE_PER_LEVEL_TABLE[level === maxLevel ? level : level + 1] - EXPERIENCE_PER_LEVEL_TABLE[level];
     const pct = (xpGainedThisLevel / xpRequiredToLevel) * 100;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer' },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer statsPanelLevelContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel', text: 'Lvl. ' + level }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel statsPanelLevelLabel', text: 'Lvl. ' + level }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelLevelBarContainer' },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelLevelBar', style: { width: Number.isFinite(pct) ? pct + '%' : '100%' } })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel statsPanelLeveLabel', text: Number.isFinite(pct) ? pct + "%" : '100%' }))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel statsPanelLevelPctLabel', text: Number.isFinite(pct) ? pct + "%" : '100%' }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Level));
 
@@ -59839,7 +59814,7 @@ const MoveSpeed = (props) => {
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer', style: { marginRight: '0px', minWidth: '0px' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer', style: { marginRight: '0px' } },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelMoveSpeedImage' }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel', text: moveSpeed.toFixed(0) }))));
@@ -60133,6 +60108,7 @@ const initialState = {
     visible: false,
     cameraLocked: true,
     cameraZoom: 1600,
+    useCustomUI: true,
 };
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(state = initialState, action) {
     switch (action.type) {
@@ -60144,6 +60120,9 @@ const initialState = {
         }
         case _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_CAMERA_ZOOM: {
             return Object.assign(Object.assign({}, state), { cameraZoom: action.payload });
+        }
+        case _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_USE_CUSTOM_UI: {
+            return Object.assign(Object.assign({}, state), { useCustomUI: action.payload.useCustomUI });
         }
         default:
             return state;
@@ -60299,10 +60278,20 @@ function* settingsVisible({ payload: visible }) {
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
     }
 }
+function* useCustomUI({ payload }) {
+    // if (payload.useCustomUI === false) {
+    //   yield put({ type: SET_CAMERA_LOCKED, payload: false })
+    //   yield put({ type: SET_CAMERA_ZOOM, payload: 1164 })
+    // } else {
+    //   yield put({ type: SET_CAMERA_LOCKED, payload: true })
+    //   yield put({ type: SET_CAMERA_ZOOM, payload: 1600 })
+    // }
+}
 function* settingsSaga() {
     yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_CAMERA_LOCKED, lockCamera);
     yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_CAMERA_ZOOM, zoomCamera);
     yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, settingsVisible);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_USE_CUSTOM_UI, useCustomUI);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (settingsSaga);
 
@@ -60416,6 +60405,7 @@ const SET_MINIMAP_ZOOM = 'SET_MINIMAP_ZOOM';
 /*! export SET_CAMERA_LOCKED [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export SET_CAMERA_ZOOM [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export SET_SETTINGS_VISIBLE [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export SET_USE_CUSTOM_UI [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -60425,11 +60415,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SET_SETTINGS_VISIBLE": () => /* binding */ SET_SETTINGS_VISIBLE,
 /* harmony export */   "SET_CAMERA_LOCKED": () => /* binding */ SET_CAMERA_LOCKED,
-/* harmony export */   "SET_CAMERA_ZOOM": () => /* binding */ SET_CAMERA_ZOOM
+/* harmony export */   "SET_CAMERA_ZOOM": () => /* binding */ SET_CAMERA_ZOOM,
+/* harmony export */   "SET_USE_CUSTOM_UI": () => /* binding */ SET_USE_CUSTOM_UI
 /* harmony export */ });
 const SET_SETTINGS_VISIBLE = 'SET_SETTINGS_VISIBLE';
 const SET_CAMERA_LOCKED = 'SET_CAMERA_LOCKED';
 const SET_CAMERA_ZOOM = 'SET_CAMERA_ZOOM';
+const SET_USE_CUSTOM_UI = 'SET_USE_CUSTOM_UI';
 
 
 /***/ }),

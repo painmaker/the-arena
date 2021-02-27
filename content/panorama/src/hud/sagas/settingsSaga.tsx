@@ -3,7 +3,7 @@
 import { put, takeLatest } from 'redux-saga/effects'
 import { SET_CHARACTER_PANEL_VISIBLE } from '../types/characterPanelTypes';
 import { SET_ITEM_OPTIONS_VISIBLE } from '../types/itemOptionsTypes';
-import { SetCameraLockedAction, SetCameraZoomAction, SetSettingsVisibleAction, SET_CAMERA_LOCKED, SET_CAMERA_ZOOM, SET_SETTINGS_VISIBLE } from '../types/settingsTypes';
+import { SetCameraLockedAction, SetCameraZoomAction, SetSettingsVisibleAction, SetUseCustomUIAction, SET_CAMERA_LOCKED, SET_CAMERA_ZOOM, SET_SETTINGS_VISIBLE, SET_USE_CUSTOM_UI } from '../types/settingsTypes';
 
 function* lockCamera({ payload: locked }: SetCameraLockedAction) {
   if (locked) {
@@ -24,10 +24,21 @@ function* settingsVisible({ payload: visible }: SetSettingsVisibleAction) {
   }
 }
 
+function* useCustomUI({ payload }: SetUseCustomUIAction) {
+  // if (payload.useCustomUI === false) {
+  //   yield put({ type: SET_CAMERA_LOCKED, payload: false })
+  //   yield put({ type: SET_CAMERA_ZOOM, payload: 1164 })
+  // } else {
+  //   yield put({ type: SET_CAMERA_LOCKED, payload: true })
+  //   yield put({ type: SET_CAMERA_ZOOM, payload: 1600 })
+  // }
+}
+
 function* settingsSaga() {
   yield takeLatest(SET_CAMERA_LOCKED, lockCamera);
   yield takeLatest(SET_CAMERA_ZOOM, zoomCamera);
   yield takeLatest(SET_SETTINGS_VISIBLE, settingsVisible);
+  yield takeLatest(SET_USE_CUSTOM_UI, useCustomUI);
 }
 
 export default settingsSaga;

@@ -17,24 +17,25 @@
   height: 100%;
   border-radius: 50%;
   clip: radial(50% 50%, 0deg, 360deg);
+  horizontal-align: center;
+  vertical-align: center;
 }
 
 .modifierForeground {
-  width: 30px;
-  height: 30px;
-  horizontal-align: center;
-  vertical-align: center;
-  border-radius: 50%; 
-  border: 2px solid black;
+  width: 100%;
+  height: 100%;
+  padding: 1px;
 }
 
 .modifierImage {
   width: 100%;
   height: 100%;
+  border-radius: 50%; 
 }
 
 .modifierImageWithPadding {
   width: 100%;
   height: 100%;
+  border-radius: 50%; 
   padding: -5px;
 }

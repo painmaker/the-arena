@@ -13,7 +13,5 @@
 .heroesHealthProgressBar .ProgressBarLeft {
     background-color: gradient( linear, 0% 0%, 0% 100%, from( #00ff00 ), to( #004c00 ) );
     border-radius: 1px;
-    transition-property: width;
-    transition-duration: 0.0s;
-    transition-timing-function: linear;
+    transition: width 0.0s linear 0.0s;
 }

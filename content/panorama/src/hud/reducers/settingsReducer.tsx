@@ -1,9 +1,10 @@
-import { SettingsActionTypes, SET_CAMERA_LOCKED, SET_CAMERA_ZOOM, SET_SETTINGS_VISIBLE } from "../types/settingsTypes";
+import { SettingsActionTypes, SET_CAMERA_LOCKED, SET_CAMERA_ZOOM, SET_USE_CUSTOM_UI, SET_SETTINGS_VISIBLE } from "../types/settingsTypes";
 
 const initialState = {
   visible: false,
   cameraLocked: true,
   cameraZoom: 1600,
+  useCustomUI: true,
 };
 
 export default function (state = initialState, action: SettingsActionTypes) {
@@ -24,6 +25,12 @@ export default function (state = initialState, action: SettingsActionTypes) {
       return {
         ...state,
         cameraZoom: action.payload
+      };
+    }
+    case SET_USE_CUSTOM_UI: {
+      return {
+        ...state,
+        useCustomUI: action.payload.useCustomUI
       };
     }
     default:

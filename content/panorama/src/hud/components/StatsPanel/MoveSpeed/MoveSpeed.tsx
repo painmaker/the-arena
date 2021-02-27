@@ -15,7 +15,7 @@ const MoveSpeed = (props: Props) => {
   }, []);
 
   return (
-    <Panel className={'statsPanelEntryOuterContainer'} style={{ marginRight: '0px', minWidth: '0px' }}>
+    <Panel className={'statsPanelEntryOuterContainer'} style={{ marginRight: '0px' }}>
       <Panel className={'statsPanelEntryInnerContainer'}>
         <Panel className={'statsPanelMoveSpeedImage'} />
         <Label className={'statsPanelLabel'} text={moveSpeed.toFixed(0)} />

@@ -12,6 +12,7 @@ import { useGameEvent } from "react-panorama";
 import { setCameraLocked, setCameraZoom } from "../../actions/settingsAction";
 import { SettingsActionTypes } from "../../types/settingsTypes";
 import { Timer } from "react-timeout";
+import UseCustomUIBtn from "./UseCustomUIBtn/UseCustomUIBtn";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,

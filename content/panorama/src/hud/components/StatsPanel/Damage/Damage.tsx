@@ -22,11 +22,11 @@ const Damage = (props: Props) => {
     <Panel className={'statsPanelEntryOuterContainer'}>
       <Panel className={'statsPanelEntryInnerContainer'}>
         <Panel className={'statsPanelAttackImage'} />
-        <Label className={'statsPanelLabel'} text={minDamage + "-" + maxDamage} />
+        <Label className={'statsPanelLabel'} text={minDamage.toFixed(0) + "-" + maxDamage.toFixed(0)} />
         {bonusDamage !== 0 && (
           <Label
             style={{ color: bonusDamage > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }}
-            text={(bonusDamage > 0 ? '+' : '') + "(" + bonusDamage + ")"}
+            text={(bonusDamage > 0 ? '+' : '') + "(" + bonusDamage.toFixed(0) + ")"}
           />
         )}
       </Panel>

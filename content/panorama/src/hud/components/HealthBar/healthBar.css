@@ -1,9 +1,9 @@
 .healthBarContainer {
-  width: 235px;
+  width: 405px;
   height: 18.5px;
   vertical-align: bottom;
   horizontal-align: center;
-  margin-bottom: 200px; 
+  margin-bottom: 145px; 
   border-radius: 4px;
 }
 

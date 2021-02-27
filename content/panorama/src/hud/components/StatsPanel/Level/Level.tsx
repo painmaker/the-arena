@@ -40,13 +40,13 @@ const Level = (props: Props) => {
   const pct = (xpGainedThisLevel / xpRequiredToLevel) * 100;
 
   return (
-    <Panel className={'statsPanelEntryOuterContainer'}>
+    <Panel className={'statsPanelEntryOuterContainer statsPanelLevelContainer'}>
       <Panel className={'statsPanelEntryInnerContainer'}>
-        <Label className={'statsPanelLabel'} text={'Lvl. ' + level} />
+        <Label className={'statsPanelLabel statsPanelLevelLabel'} text={'Lvl. ' + level} />
         <Panel className={'statsPanelLevelBarContainer'}>
           <Panel className={'statsPanelLevelBar'} style={{ width: Number.isFinite(pct) ? pct + '%' : '100%' }} />
         </Panel>
-        <Label className={'statsPanelLabel statsPanelLeveLabel'} text={Number.isFinite(pct) ? pct + "%" : '100%'} />
+        <Label className={'statsPanelLabel statsPanelLevelPctLabel'} text={Number.isFinite(pct) ? pct + "%" : '100%'} />
       </Panel>
     </Panel>
   );

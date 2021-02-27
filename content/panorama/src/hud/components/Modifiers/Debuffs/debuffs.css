@@ -1,8 +1,11 @@
 .debuffsContainer {
-  position: 60% 80% 0px;
-  /* position: 50% 50% 0px; */
+  vertical-align: bottom;
+  horizontal-align: center;
   flow-children: right-wrap; 
   max-width: 300px;
   height: fit-children;
   width: 300px;
+  padding: 2px;
+  margin-bottom: 125px;
+  margin-left: 750px;
 }

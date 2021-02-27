@@ -3,7 +3,8 @@
   horizontal-align: center;
   margin-bottom: 75px;
   margin-left: 0px;
-  flow-children: down;
+  flow-children: right;
+  
 }
 
 .inventoryFirstRowContainer {
@@ -11,6 +12,5 @@
 }
 
 .inventorySecondRowContainer {
-  margin-top: 2px;
   flow-children: right;
 }
