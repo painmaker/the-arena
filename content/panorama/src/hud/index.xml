@@ -10,7 +10,7 @@
         <include src="./components/Settings/settings.css" />
         <include src="./components/Settings/Divider/divider.css" />
         <include src="./components/Settings/Title/title.css" />
-        <include src="./components/Settings/CloseBtn/closeBtn.css" />
+        <include src="./components/Settings/Title/CloseBtn/closeBtn.css" />
         <include src="./components/Settings/MapZoomSlider/mapZoomSlider.css" />
         <include src="./components/Settings/CameraZoomSlider/cameraZoomSlider.css" />
         <include src="./components/Settings/LockCameraBtn/lockCameraBtn.css" />

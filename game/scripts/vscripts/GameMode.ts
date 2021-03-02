@@ -57,7 +57,7 @@ export class GameMode {
     GameRules.SetUseCustomHeroXPValues(true);
 
     const gameMode = GameRules.GetGameModeEntity();
-    gameMode.SetCustomGameForceHero('npc_dota_hero_queenofpain');
+    gameMode.SetCustomGameForceHero('npc_dota_hero_windrunner');
     gameMode.SetUnseenFogOfWarEnabled(true);
     gameMode.SetDaynightCycleDisabled(true);
     // gameMode.SetFogOfWarDisabled(true);
@@ -67,7 +67,7 @@ export class GameMode {
     });
 
     gameMode.SetUseCustomHeroLevels(true);
-    gameMode.SetCustomHeroMaxLevel(15);
+    gameMode.SetCustomHeroMaxLevel(30);
     gameMode.SetCustomXPRequiredToReachNextLevel(EXPERIENCE_PER_LEVEL_TABLE);
     gameMode.SetFixedRespawnTime(1.0);
 

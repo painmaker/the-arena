@@ -1,7 +1,7 @@
 import { SettingsActionTypes, SET_CAMERA_LOCKED, SET_CAMERA_ZOOM, SET_USE_CUSTOM_UI, SET_SETTINGS_VISIBLE } from "../types/settingsTypes";
 
 const initialState = {
-  visible: false,
+  visible: true,
   cameraLocked: true,
   cameraZoom: 1600,
   useCustomUI: true,

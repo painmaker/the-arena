@@ -148,8 +148,7 @@ class InventoryItem extends React.Component<Props, State> {
     $.DispatchEvent("DOTAHideAbilityTooltip", panel);
 
     if (this.props.item === -1) {
-      this.props.setItemOptionsVisible(false);
-      this.props.setItemOptionsItem(this.props.item);
+      GameUI.SendCustomHUDError("No Item In Slot", "General.InvalidTarget_Invulnerable")
       return;
     }
 

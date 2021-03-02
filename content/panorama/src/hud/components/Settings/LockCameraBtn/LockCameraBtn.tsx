@@ -21,7 +21,7 @@ type Props = PropsFromRedux & {
 
 const LockCameraBtn = (props: Props) => {
   return (
-    <Panel className={'settingsItem'}>
+    <Panel className={'settingsItem settingsLockCameraBtnContainer'}>
       <Label className={'lockCameraBtnLeftLabel'} text={"Lock Camera:"} />
       <Panel className={'lockCameraBtnPanel'}>
         <ToggleButton

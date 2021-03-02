@@ -57958,6 +57958,21 @@ const EXPERIENCE_PER_LEVEL_TABLE = {
     13: 1200,
     14: 1300,
     15: 1400,
+    16: 1500,
+    17: 1600,
+    18: 1700,
+    19: 1800,
+    20: 1900,
+    21: 2000,
+    22: 2100,
+    23: 2200,
+    24: 2300,
+    25: 2400,
+    26: 2500,
+    27: 2600,
+    28: 2700,
+    29: 2800,
+    30: 2900,
 };
 const HeroLevel = (props) => {
     const [level, setLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(Players.GetLocalPlayerPortraitUnit()));
@@ -58784,8 +58799,7 @@ class InventoryItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         const panel = $("#inventory_item_container_" + this.props.index);
         $.DispatchEvent("DOTAHideAbilityTooltip", panel);
         if (this.props.item === -1) {
-            this.props.setItemOptionsVisible(false);
-            this.props.setItemOptionsItem(this.props.item);
+            GameUI.SendCustomHUDError("No Item In Slot", "General.InvalidTarget_Invulnerable");
             return;
         }
         const selectedUnit = Players.GetLocalPlayerPortraitUnit();
@@ -59396,47 +59410,6 @@ const CameraZoomSlider = (props) => {
 
 /***/ }),
 
-/***/ "./hud/components/Settings/CloseBtn/CloseBtn.tsx":
-/*!*******************************************************!*\
-  !*** ./hud/components/Settings/CloseBtn/CloseBtn.tsx ***!
-  \*******************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
-
-
-
-const mapStateToProps = (state) => ({
-    visible: state.settingsReducer.visible,
-});
-const mapDispatchToProps = (dispatch) => ({
-    setSettingsVisible: (visible) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__.setSettingsVisible)(visible)),
-});
-const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
-const CloseBtn = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: 'settingsCloseBtnContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: "settingsCloseBtn", onactivate: () => {
-                props.setSettingsVisible(!props.visible);
-                Game.EmitSound("ui_topmenu_select");
-            } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CloseBtn));
-
-
-/***/ }),
-
 /***/ "./hud/components/Settings/Divider/Divider.tsx":
 /*!*****************************************************!*\
   !*** ./hud/components/Settings/Divider/Divider.tsx ***!
@@ -59491,7 +59464,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const LockCameraBtn = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsItem' },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsItem settingsLockCameraBtnContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'lockCameraBtnLeftLabel', text: "Lock Camera:" }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'lockCameraBtnPanel' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(ToggleButton, { selected: props.locked, onactivate: () => props.setCameraLocked(!props.locked) })),
@@ -59569,11 +59542,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MapZoomSlider_MapZoomSlider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MapZoomSlider/MapZoomSlider */ "./hud/components/Settings/MapZoomSlider/MapZoomSlider.tsx");
 /* harmony import */ var _Divider_Divider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Divider/Divider */ "./hud/components/Settings/Divider/Divider.tsx");
 /* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/Settings/Title/Title.tsx");
-/* harmony import */ var _CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CloseBtn/CloseBtn */ "./hud/components/Settings/CloseBtn/CloseBtn.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
-/* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
-
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
 
 
 
@@ -59588,13 +59559,13 @@ const mapStateToProps = (state) => ({
     visible: state.settingsReducer.visible,
 });
 const mapDispatchToProps = (dispatch) => ({
-    setCameraLocked: (locked) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_10__.setCameraLocked)(locked)),
-    setCameraZoom: (zoom) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_10__.setCameraZoom)(zoom)),
+    setCameraLocked: (locked) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_9__.setCameraLocked)(locked)),
+    setCameraZoom: (zoom) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_9__.setCameraZoom)(zoom)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const Settings = (props) => {
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_9__.useGameEvent)("initialize_camera", () => {
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_8__.useGameEvent)("initialize_camera", () => {
         props.setCameraLocked(true);
         props.setCameraZoom(1600);
     }, []);
@@ -59611,7 +59582,6 @@ const Settings = (props) => {
         return () => props.clearTimeout(timer);
     }, [props.visible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", height: "100%" } }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_7__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: "settingsWindow" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
@@ -59619,9 +59589,51 @@ const Settings = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MapZoomSlider_MapZoomSlider__WEBPACK_IMPORTED_MODULE_4__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_3__.default, null))))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_3__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_8__.default)(Settings)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_7__.default)(Settings)));
+
+
+/***/ }),
+
+/***/ "./hud/components/Settings/Title/CloseBtn/CloseBtn.tsx":
+/*!*************************************************************!*\
+  !*** ./hud/components/Settings/Title/CloseBtn/CloseBtn.tsx ***!
+  \*************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
+
+
+
+const mapStateToProps = (state) => ({
+    visible: state.settingsReducer.visible,
+});
+const mapDispatchToProps = (dispatch) => ({
+    setSettingsVisible: (visible) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__.setSettingsVisible)(visible)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
+const CloseBtn = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsCloseBtnContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: "settingsCloseBtn", onactivate: () => {
+                props.setSettingsVisible(!props.visible);
+                Game.EmitSound("ui_topmenu_select");
+            } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CloseBtn));
 
 
 /***/ }),
@@ -59642,9 +59654,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CloseBtn/CloseBtn */ "./hud/components/Settings/Title/CloseBtn/CloseBtn.tsx");
+
 
 const Title = () => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Settings", className: "settingsTitle" }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsTitleContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "SETTINGS", className: "settingsTitleLabel" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_1__.default, null)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Title);
 
@@ -59768,6 +59784,21 @@ const EXPERIENCE_PER_LEVEL_TABLE = {
     13: 1200,
     14: 1300,
     15: 1400,
+    16: 1500,
+    17: 1600,
+    18: 1700,
+    19: 1800,
+    20: 1900,
+    21: 2000,
+    22: 2100,
+    23: 2200,
+    24: 2300,
+    25: 2400,
+    26: 2500,
+    27: 2600,
+    28: 2700,
+    29: 2800,
+    30: 2900,
 };
 const Level = (props) => {
     const [level, setLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(Players.GetLocalPlayerPortraitUnit()));
@@ -60151,7 +60182,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
 
 const initialState = {
-    visible: false,
+    visible: true,
     cameraLocked: true,
     cameraZoom: 1600,
     useCustomUI: true,

@@ -1,8 +1,8 @@
-import React, { Dispatch, useEffect } from "react";
+import React, { Dispatch } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { setSettingsVisible } from "../../../actions/settingsAction";
-import { RootState } from "../../../reducers/rootReducer";
-import { SettingsActionTypes } from "../../../types/settingsTypes";
+import { setSettingsVisible } from "../../../../actions/settingsAction";
+import { RootState } from "../../../../reducers/rootReducer";
+import { SettingsActionTypes } from "../../../../types/settingsTypes";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,
@@ -22,10 +22,7 @@ type Props = PropsFromRedux & {
 const CloseBtn = (props: Props) => {
 
   return (
-    <Panel
-      style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}
-      className={'settingsCloseBtnContainer'}
-    >
+    <Panel className={'settingsCloseBtnContainer'}>
       <Button
         className="settingsCloseBtn"
         onactivate={() => {

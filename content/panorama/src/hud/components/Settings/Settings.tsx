@@ -6,7 +6,7 @@ import LockCameraBtn from "./LockCameraBtn/LockCameraBtn";
 import MapZoomSlider from "./MapZoomSlider/MapZoomSlider";
 import Divider from "./Divider/Divider";
 import Title from "./Title/Title";
-import CloseBtn from "./CloseBtn/CloseBtn";
+import CloseBtn from "./Title/CloseBtn/CloseBtn";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import { useGameEvent } from "react-panorama";
 import { setCameraLocked, setCameraZoom } from "../../actions/settingsAction";
@@ -54,7 +54,6 @@ const Settings = (props: Props) => {
     <Panel hittest={false} style={{ width: "100%", height: "100%" }}>
       { renderComponent && (
         <React.Fragment>
-          <CloseBtn />
           <Panel
             style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}
             className={"settingsWindow"}
@@ -66,6 +65,7 @@ const Settings = (props: Props) => {
             <MapZoomSlider />
             <Divider />
             <LockCameraBtn />
+            <Divider />
           </Panel>
         </React.Fragment>
       )}
