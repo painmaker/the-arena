@@ -10,45 +10,30 @@
   height: 175px;
 }
 
-.inventoryMenuCloseBtn {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  z-index: 9999;
-  vertical-align: top;
-  horizontal-align: right;
-  margin-top: 26.5px;
-  margin-right: 44px;
-  padding: 2px;
-  transition: transform 0.1s ease-in-out 0s;
-  background-color: rgba(50, 50, 50, 1.0);
-  border: 2px solid rgba(60, 60, 60, 1.0);
-}
-
-.inventoryMenuCloseBtn:hover {
-  background-color: rgba(60, 60, 60, 1.0);
-  border: 1px solid rgba(70, 70, 70, 1.0);
-  transform: scale3d(1.1, 1.1, 0);
-}
-
-.inventoryMenuCloseBtnImage {
-  vertical-align: center;
-  horizontal-align: center;
-}
-
 .inventoryMenuInnerContainer {
   vertical-align: bottom;
   horizontal-align: center;
   border-radius: 5px;
   flow-children: down;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 20px;
-  padding-bottom: 12.5px;
   min-width: 400px;
-  background-color: rgba(0, 0, 0, 0.9);
-  background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+  background-image: url("s2r://panorama/images/hud/reborn/bg_scoreboard_psd.vtex");
   background-size: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.inventoryMenuTitleContainer {
+  width: 100%;
+  padding-left: 10px;
+  background-color: rgba(30, 30, 30, 0.925);
+}
+
+.inventoryMenuTitleLabel {
+  color: rgba(200, 200, 200, 0.45);
+  font-size: 14px;
+  vertical-align: center;
+  font-weight: lighter;
+  letter-spacing: 1.5px;
+  padding-top: 3.5px;
 }
 
 .inventoryMenuItemContainer {
@@ -56,12 +41,14 @@
   flow-children: right;
   background-image: url("s2r://panorama/images/hud/reborn/inventory_item_well_psd.vtex");
   background-size: cover;
+  background-color: rgba(65, 65, 65, 0.5);
+  border: 2px solid black;
   border-radius: 5px;
-  border: 2px solid back;
   padding-top: 5px;
   padding-bottom: 5px;
-  margin-right: 5px;
-  margin-left: 5px;
+  margin-right: 7.5px;
+  margin-left: 7.5px;
+  margin-top: 5px;
 }
 
 .inventoryMenuItemLabel {
@@ -87,7 +74,6 @@
   vertical-align: center;
   horizontal-align: center;
   border-radius: 5px;
-  /* border: 1px solid rgba(222, 184, 135, 0.25); */
   border: 1px solid black;
 }
 
@@ -95,13 +81,14 @@
   width: 100%;
   flow-children: right;
   padding: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .inventoryMenuButton {
   width: fill-parent-flow(1);
   vertical-align: center;
   horizontal-align: center;
-  margin-top: 10px;
   height: 35px;
   border-radius: 5px;
   border-bottom: 2px solid rgba(0, 0, 0, 0.5);
@@ -123,19 +110,49 @@
 }
 
 .inventoryMenuCancelButton {
-  background-color: rgba(75, 75, 75, 0.75);
+  background-color: rgba(75, 75, 75, 0.5);
+  background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  brightness: 2;
+  saturation: 1.2;
   margin-right: 5px;
 }
 
 .inventoryMenuCancelButton:hover {
-  background-color: rgba(75, 75, 75, 0.95);
+  brightness: 3;
+  saturation: 1.5;
 }
 
 .inventoryMenuSellButton {
-  background-color: rgba(255, 0, 0, 0.25);
+  background-color: rgba(255, 0, 0, 0.5);
+  background-image: url("s2r://panorama/images/red_large_off_png.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  brightness: 2;
+  saturation: 1.3;
   margin-left: 5px;
 }
 
 .inventoryMenuSellButton:hover {
-  background-color: rgba(255, 0, 0, 0.5);
+  brightness: 3;
+  saturation: 1.5;
+}
+
+.inventoryMenuCloseBtn {
+  vertical-align: center;
+  horizontal-align: right;
+  height: 20px;
+  width: 20px;
+  wash-color:  rgba(100, 100, 100, 0.5);
+  transition: transform 0.25s ease-in-out 0.0s;
+  padding: 1.0px;
+  margin-right: 2px;
+}
+
+.inventoryMenuCloseBtn:hover {
+  wash-color:  rgba(100, 100, 100, 0.25);
+  transform: scale3d(1.1, 1.1, 0);
 }

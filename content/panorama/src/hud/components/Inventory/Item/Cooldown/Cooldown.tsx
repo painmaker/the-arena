@@ -32,7 +32,7 @@ const Cooldown = (props: Props) => {
       { remainingCooldown > 0 && (
         <Label
           className={'inventoryItemCooldownLabel'}
-          text={Math.round(remainingCooldown)}
+          text={remainingCooldown > 1.0 ? Math.round(remainingCooldown) : remainingCooldown.toFixed(1)}
         />
       )}
     </React.Fragment>

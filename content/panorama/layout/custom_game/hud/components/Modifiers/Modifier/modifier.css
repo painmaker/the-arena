@@ -1,6 +1,6 @@
 .modifierContainer {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   margin-right: 5px;
   opacity: 0.0;
   transition-property: pre-transform-scale2d, opacity, transform;
@@ -24,7 +24,7 @@
 .modifierForeground {
   width: 100%;
   height: 100%;
-  padding: 1px;
+  padding: 1.5px;
 }
 
 .modifierImage {

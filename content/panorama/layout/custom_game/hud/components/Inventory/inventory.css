@@ -1,10 +1,8 @@
 .inventoryContainer {
   vertical-align: bottom;
   horizontal-align: center;
-  margin-bottom: 75px;
-  margin-left: 0px;
+  margin-bottom: 135px;
   flow-children: right;
-  
 }
 
 .inventoryFirstRowContainer {

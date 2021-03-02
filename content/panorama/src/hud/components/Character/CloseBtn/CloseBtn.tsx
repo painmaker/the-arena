@@ -22,10 +22,7 @@ type Props = PropsFromRedux & {
 const CloseBtn = (props: Props) => {
 
   return (
-    <Panel
-      style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}
-      className={'characterPanelCloseBtnOuterContainer'}
-    >
+    <Panel className={'characterPanelCloseBtnOuterContainer'} >
       <Panel className="characterPanelCloseBtnInnerContainer">
         <Button
           className="characterPanelCloseBtn"

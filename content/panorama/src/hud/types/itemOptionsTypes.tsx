@@ -1,6 +1,5 @@
 export const SET_ITEM_OPTIONS_ITEM = 'SET_ITEM_OPTIONS_ITEM'
 export const SET_ITEM_OPTIONS_VISIBLE = 'SET_ITEM_OPTIONS_VISIBLE'
-export const RESET_ITEM_OPTIONS = 'RESET_ITEM_OPTIONS'
 
 export interface SetItemOptionsItem {
   type: typeof SET_ITEM_OPTIONS_ITEM

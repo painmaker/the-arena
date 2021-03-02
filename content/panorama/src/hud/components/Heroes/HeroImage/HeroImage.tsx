@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from "react";
+import { connect, ConnectedProps } from "react-redux";
+import { ReactTimeoutProps } from "react-timeout";
+import { RootState } from "../../../reducers/rootReducer";
 
-interface Props {
+const mapStateToProps = (state: RootState) => ({
+  cameraLocked: state.settingsReducer.cameraLocked,
+});
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & ReactTimeoutProps & {
   playerId: PlayerID;
   entIndex: EntityIndex;
-}
+};
 
-const onHeroImageClicked = (entIndex: EntityIndex) => {
+const onHeroImageClicked = (entIndex: EntityIndex, cameraLocked: boolean) => {
 
   const isAlive = Entities.IsAlive(entIndex);
   const issSelectable = Entities.IsSelectable(entIndex);
   const clickbehaviors = GameUI.GetClickBehaviors();
 
-  if (!isAlive || !issSelectable) {
-    Game.EmitSound("General.InvalidTarget_Invulnerable");
+  if (!isAlive) {
+    GameUI.SendCustomHUDError("Target Is Dead", "General.InvalidTarget_Invulnerable")
+    return;
+  }
+
+  if (!issSelectable) {
+    GameUI.SendCustomHUDError("Target Is Unselectable", "General.InvalidTarget_Invulnerable")
     return;
   }
 
@@ -28,9 +43,12 @@ const onHeroImageClicked = (entIndex: EntityIndex) => {
       Game.PrepareUnitOrders(order);
     }
   } else {
+    if (cameraLocked) {
+      GameUI.SendCustomHUDError("Camera Is Locked", "General.InvalidTarget_Invulnerable")
+      return;
+    }
     GameUI.SetCameraTargetPosition(Entities.GetAbsOrigin(entIndex), 0.3);
-    // GameUI.SelectUnit(entIndex, false);
-    // Game.EmitSound("ui_topmenu_select");
+    Game.EmitSound("ui_topmenu_select");
   }
 
 };
@@ -62,7 +80,8 @@ const HeroImage = (props: Props) => {
       <DOTAHeroImage
         heroname={Players.GetPlayerSelectedHero(props.playerId)}
         heroimagestyle="landscape"
-        onactivate={() => onHeroImageClicked(props.entIndex)}
+        onactivate={() => onHeroImageClicked(props.entIndex, props.cameraLocked)}
+        oncontextmenu={() => onHeroImageClicked(props.entIndex, props.cameraLocked)}
         style={{ washColor: washColor }}
       />
     </Panel>
@@ -70,4 +89,4 @@ const HeroImage = (props: Props) => {
 
 };
 
-export default HeroImage;
+export default connector(HeroImage);

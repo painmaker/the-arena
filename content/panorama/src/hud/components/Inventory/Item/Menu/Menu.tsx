@@ -56,19 +56,19 @@ const Menu = (props: Props) => {
           className={'inventoryMenuOuterContainer'}
           style={props.visible ? { opacity: '1.0', preTransformScale2d: '1.0' } : {}}
         >
-          <Button
-            className={'inventoryMenuCloseBtn'}
-            onactivate={() => {
-              props.setItemOptionsVisible(false);
-              Game.EmitSound("ui_topmenu_select");
-            }}
-          >
-            <Image
-              className={'inventoryMenuCloseBtnImage'}
-              src="s2r://panorama/images/close_btn_white_png.vtex"
-            />
-          </Button>
           <Panel className={'inventoryMenuInnerContainer'}>
+            <Panel className={'inventoryMenuTitleContainer'}>
+              <Label className={'inventoryMenuTitleLabel'} text={'ITEM'} />
+              <Button
+                className={'inventoryMenuCloseBtn'}
+                onactivate={() => {
+                  props.setItemOptionsVisible(false);
+                  Game.EmitSound("ui_topmenu_select");
+                }}
+              >
+                <Image src="s2r://panorama/images/close_btn_white_png.vtex" />
+              </Button>
+            </Panel>
             <Panel className={'inventoryMenuItemContainer'}>
               <Label
                 className={'inventoryMenuItemLabel'}

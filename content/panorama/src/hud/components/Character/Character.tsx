@@ -39,8 +39,11 @@ const Character = (props: Props) => {
     <React.Fragment>
       { renderComponent && (
         <React.Fragment>
-          <CloseBtn />
           <Panel className={"characterPanelContainer"} style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}>
+            <Panel className={'characterTitleContainer'}>
+              <Label className={'characterTitleLabel'} text={'CHARACTER'} />
+              <CloseBtn />
+            </Panel>
             <Panel style={{ width: '100%', height: '100%', flowChildren: 'right' }}>
               <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
                 <HeroModel />

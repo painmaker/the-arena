@@ -12,9 +12,25 @@
   z-index: 999;
   /* background-image: url("s2r://panorama/images/hud/reborn/bg_scoreboard_psd.vtex"); */
   /* background-size: cover; */
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.85);
   background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
   background-size: 100%;
+}
+
+.characterTitleContainer {
+  width: 100%;
+  background-color: rgba(30, 30, 30, 0.525);
+}
+
+.characterTitleLabel {
+  color: rgba(200, 200, 200, 0.45);
+  font-size: 14px;
+  vertical-align: center;
+  horizontal-align: left;
+  font-weight: lighter;
+  letter-spacing: 1.5px;
+  padding-top: 2.5px;
+  padding-left: 10px;
 }
 
 .characterPanelComponentTitleLabel {

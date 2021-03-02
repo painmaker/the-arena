@@ -15,7 +15,7 @@
   /* border-radius: 5px; */
   background-image: url("s2r://panorama/images/hud/reborn/inventory_item_well_psd.vtex");
   background-size: 100%;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: #111920bb;
 }
 
 .playerLabel {

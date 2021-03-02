@@ -57517,8 +57517,10 @@ const Character = (props) => {
         return () => props.clearTimeout(timer);
     }, [props.visible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_6__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelContainer", style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {} },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterTitleContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'characterTitleLabel', text: 'CHARACTER' }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_6__.default, null)),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '100%', height: '100%', flowChildren: 'right' } },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '50%', height: '100%', flowChildren: 'down' } },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HeroModel_HeroModel__WEBPACK_IMPORTED_MODULE_3__.default, null)),
@@ -57560,7 +57562,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const CloseBtn = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: 'characterPanelCloseBtnOuterContainer' },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelCloseBtnOuterContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelCloseBtnInnerContainer" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: "characterPanelCloseBtn", onactivate: () => {
                     props.setCharacterPanelVisible(!props.visible);
@@ -58244,13 +58246,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 
-const onHeroImageClicked = (entIndex) => {
+
+const mapStateToProps = (state) => ({
+    cameraLocked: state.settingsReducer.cameraLocked,
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
+const onHeroImageClicked = (entIndex, cameraLocked) => {
     const isAlive = Entities.IsAlive(entIndex);
     const issSelectable = Entities.IsSelectable(entIndex);
     const clickbehaviors = GameUI.GetClickBehaviors();
-    if (!isAlive || !issSelectable) {
-        Game.EmitSound("General.InvalidTarget_Invulnerable");
+    if (!isAlive) {
+        GameUI.SendCustomHUDError("Target Is Dead", "General.InvalidTarget_Invulnerable");
+        return;
+    }
+    if (!issSelectable) {
+        GameUI.SendCustomHUDError("Target Is Unselectable", "General.InvalidTarget_Invulnerable");
         return;
     }
     if (clickbehaviors === CLICK_BEHAVIORS.DOTA_CLICK_BEHAVIOR_CAST) {
@@ -58266,9 +58278,12 @@ const onHeroImageClicked = (entIndex) => {
         }
     }
     else {
+        if (cameraLocked) {
+            GameUI.SendCustomHUDError("Camera Is Locked", "General.InvalidTarget_Invulnerable");
+            return;
+        }
         GameUI.SetCameraTargetPosition(Entities.GetAbsOrigin(entIndex), 0.3);
-        // GameUI.SelectUnit(entIndex, false);
-        // Game.EmitSound("ui_topmenu_select");
+        Game.EmitSound("ui_topmenu_select");
     }
 };
 const HeroImage = (props) => {
@@ -58290,9 +58305,9 @@ const HeroImage = (props) => {
         return () => GameEvents.Unsubscribe(handle);
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroesHeroImage" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroname: Players.GetPlayerSelectedHero(props.playerId), heroimagestyle: "landscape", onactivate: () => onHeroImageClicked(props.entIndex), style: { washColor: washColor } })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroname: Players.GetPlayerSelectedHero(props.playerId), heroimagestyle: "landscape", onactivate: () => onHeroImageClicked(props.entIndex, props.cameraLocked), oncontextmenu: () => onHeroImageClicked(props.entIndex, props.cameraLocked), style: { washColor: washColor } })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HeroImage);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(HeroImage));
 
 
 /***/ }),
@@ -58549,7 +58564,7 @@ const Cooldown = (props) => {
     }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryItemCooldownOverlay', style: { clip: 'radial(50% 50%, 0deg, ' + degree + 'deg)' } }),
-        remainingCooldown > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryItemCooldownLabel', text: Math.round(remainingCooldown) }))));
+        remainingCooldown > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryItemCooldownLabel', text: remainingCooldown > 1.0 ? Math.round(remainingCooldown) : remainingCooldown.toFixed(1) }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Cooldown));
 
@@ -58909,12 +58924,14 @@ const Menu = (props) => {
         return null;
     }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuOuterContainer', style: props.visible ? { opacity: '1.0', preTransformScale2d: '1.0' } : {} },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'inventoryMenuCloseBtn', onactivate: () => {
-                props.setItemOptionsVisible(false);
-                Game.EmitSound("ui_topmenu_select");
-            } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { className: 'inventoryMenuCloseBtnImage', src: "s2r://panorama/images/close_btn_white_png.vtex" })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuInnerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuTitleContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryMenuTitleLabel', text: 'ITEM' }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'inventoryMenuCloseBtn', onactivate: () => {
+                        props.setItemOptionsVisible(false);
+                        Game.EmitSound("ui_topmenu_select");
+                    } },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuItemContainer' },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'inventoryMenuItemLabel', text: $.Localize("DOTA_Tooltip_ability_" + Abilities.GetAbilityName(props.item)) }),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'inventoryMenuItemImageContainer' },
@@ -60385,7 +60402,6 @@ const SET_CHARACTER_PANEL_VISIBLE = 'SET_CHARACTER_PANEL_VISIBLE';
   !*** ./hud/types/itemOptionsTypes.tsx ***!
   \****************************************/
 /*! namespace exports */
-/*! export RESET_ITEM_OPTIONS [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export SET_ITEM_OPTIONS_ITEM [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export SET_ITEM_OPTIONS_VISIBLE [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -60396,12 +60412,10 @@ const SET_CHARACTER_PANEL_VISIBLE = 'SET_CHARACTER_PANEL_VISIBLE';
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SET_ITEM_OPTIONS_ITEM": () => /* binding */ SET_ITEM_OPTIONS_ITEM,
-/* harmony export */   "SET_ITEM_OPTIONS_VISIBLE": () => /* binding */ SET_ITEM_OPTIONS_VISIBLE,
-/* harmony export */   "RESET_ITEM_OPTIONS": () => /* binding */ RESET_ITEM_OPTIONS
+/* harmony export */   "SET_ITEM_OPTIONS_VISIBLE": () => /* binding */ SET_ITEM_OPTIONS_VISIBLE
 /* harmony export */ });
 const SET_ITEM_OPTIONS_ITEM = 'SET_ITEM_OPTIONS_ITEM';
 const SET_ITEM_OPTIONS_VISIBLE = 'SET_ITEM_OPTIONS_VISIBLE';
-const RESET_ITEM_OPTIONS = 'RESET_ITEM_OPTIONS';
 
 
 /***/ }),
