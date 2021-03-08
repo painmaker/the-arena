@@ -9,7 +9,7 @@ import "./modifiers/ui/modifier_ui_base_health_regen";
 import "./modifiers/ui/modifier_ui_spell_amp";
 import "./modifiers/ui/modifier_ui_hero_id";
 import { EXPERIENCE_PER_LEVEL_TABLE } from "./settings";
-import { $CombinedState } from "redux";
+import { EventHandler } from "react";
 
 declare global {
   interface CDOTAGamerules {
@@ -27,9 +27,7 @@ export class GameMode {
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_techies.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_shredder.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/voscripts/game_sounds_vo_shredder.vsndevts", context);
-
     PrecacheUnitByNameSync("npc_dota_crystal_maiden", context)
-
   }
 
   public static Activate(this: void) {
@@ -38,16 +36,19 @@ export class GameMode {
 
   constructor() {
     this.configure();
-    ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
-    ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
   }
 
   private configure(): void {
 
+    ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
+    ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
+    CustomGameEventManager.RegisterListener("attempt_item_purchase", (_, event) => this.onItemPurchaseAttempt(event));
+    CustomGameEventManager.RegisterListener("alert_shop_item", (_, event) => this.onAltertShopItem(event));
+
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, 4);
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, 4);
-    GameRules.SetSameHeroSelectionEnabled(true);
-    GameRules.SetHeroSelectionTime(60);
+    GameRules.SetSameHeroSelectionEnabled(false);
+    GameRules.SetHeroSelectionTime(0);
     GameRules.SetCustomGameSetupAutoLaunchDelay(0);
     GameRules.SetPreGameTime(3.0);
     GameRules.SetStrategyTime(0);
@@ -57,10 +58,12 @@ export class GameMode {
     GameRules.SetUseCustomHeroXPValues(true);
 
     const gameMode = GameRules.GetGameModeEntity();
-    gameMode.SetCustomGameForceHero('npc_dota_hero_windrunner');
+    // gameMode.SetCustomGameForceHero('npc_dota_hero_windrunner');
     gameMode.SetUnseenFogOfWarEnabled(true);
     gameMode.SetDaynightCycleDisabled(true);
     // gameMode.SetFogOfWarDisabled(true);
+    gameMode.SetCustomGameForceHero("npc_dota_hero_wisp");
+    gameMode.SetAnnouncerDisabled(true);
 
     Timers.CreateTimer(0.1, () => {
       GameRules.SetTimeOfDay(0.5);
@@ -74,16 +77,6 @@ export class GameMode {
     gameMode.SetExecuteOrderFilter(event => this.OrderFilter(event), {});
     gameMode.SetItemAddedToInventoryFilter(event => this.InventoryFilter(event), {});
 
-    // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.0);
-    // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 0.0);
-    // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_DAMAGE, 0.0);
-    // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_INTELLIGENCE_DAMAGE, 0.0);
-    // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_INTELLIGENCE_MANA, 0.0);
-    // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_INTELLIGENCE_MANA_REGEN, 0.0);
-    // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_STRENGTH_DAMAGE, 0.0);
-    // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_STRENGTH_HP, 0.0);
-    // gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_STRENGTH_HP_REGEN, 0.0);
-
   }
 
   public InventoryFilter(event: ItemAddedToInventoryFilterEvent): boolean {
@@ -94,6 +87,32 @@ export class GameMode {
   public OrderFilter(event: ExecuteOrderFilterEvent): boolean {
     // DeepPrintTable(event);
     return true;
+  }
+
+  public onAltertShopItem(event: { PlayerID: PlayerID, itemname: string, cost: number }): void {
+    const player = PlayerResource.GetPlayer(event.PlayerID);
+    if (player) {
+      const goldDifference = event.cost - PlayerResource.GetGold(event.PlayerID);
+      print("I will purchase " + event.itemname + ". Gold difference: " + goldDifference);
+    }
+  }
+
+  public onItemPurchaseAttempt(event: { PlayerID: PlayerID, itemname: string, cost: number }): void {
+
+    const player = PlayerResource.GetPlayer(event.PlayerID);
+    if (!player) {
+      return;
+    }
+
+    if (PlayerResource.GetGold(event.PlayerID) >= event.cost) {
+      const hero = player.GetAssignedHero();
+      hero.AddItemByName(event.itemname);
+      hero.ModifyGold(-event.cost, true, EDOTA_ModifyGold_Reason.DOTA_ModifyGold_PurchaseItem);
+      CustomGameEventManager.Send_ServerToPlayer(player, "attempt_item_purchase_success", {});
+    } else {
+      CustomGameEventManager.Send_ServerToPlayer(player, "attempt_item_purchase_error", {});
+    }
+
   }
 
   public OnStateChange(): void {
@@ -152,6 +171,7 @@ export class GameMode {
         hero.AddItemByName("item_pipe");
         hero.AddItemByName("item_sange_and_yasha");
         hero.AddItemByName("item_assault");
+        hero.AddItemByName("item_blink");
         hero.hasSpawnedBefore = true;
         // Minimap hack for disapparing icons 
         hero.SetDayTimeVisionRange(99999);

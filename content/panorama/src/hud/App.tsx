@@ -18,6 +18,8 @@ import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "./reducers/rootReducer";
 import { setUseCustomUI } from "./actions/settingsAction";
 import { SettingsActionTypes } from "./types/settingsTypes";
+import Shop from "./components/Shop/Shop";
+import HeroSelection from "./components/HeroSelection/HeroSelection";
 
 const mapStateToProps = (state: RootState) => ({
   useCustomUI: state.settingsReducer.useCustomUI,
@@ -51,9 +53,6 @@ const App = (props: Props) => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_GOLD, !props.useCustomUI);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_SHOP_SUGGESTEDITEMS, !props.useCustomUI);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_SHOP_COMMONITEMS, !props.useCustomUI);
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_TEAMS, !props.useCustomUI);
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_GAME_NAME, !props.useCustomUI);
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_CLOCK, !props.useCustomUI);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_MENU_BUTTONS, true);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, !props.useCustomUI);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_RADIANT_TEAM, !props.useCustomUI);
@@ -70,38 +69,44 @@ const App = (props: Props) => {
   }, [props.useCustomUI]);
 
   return (
-    <Panel id={'root'} hittest={false} className={"appContainer"} >
-      <ToggleButton
-        className={'useCustomUIBtn'}
-        selected={props.useCustomUI}
-        onactivate={() => props.setUseCustomUI(!props.useCustomUI)}
-      >
-        <Label
-          className={'useCustomUILabel'}
-          text={'Use Custom UI'}
-        />
-      </ToggleButton>
-      { props.useCustomUI && (
-        <React.Fragment>
-          {/* <DateTime /> */}
-          <Heroes />
-          <GameTime />
-          <Settings />
-          <Character />
-          <LevelUp />
-          <AbilityBar />
-          <HealthBar />
-          <ManaBar />
-          <ButtonGroup />
-          <Minimap />
-          <Buffs />
-          <Debuffs />
-          <Inventory />
-          <StatsPanel />
-        </React.Fragment>
-      )}
-    </Panel>
-  );
+    <HeroSelection />
+  )
+
+  // return (
+  //   <Panel id={'root'} hittest={false} className={"appContainer"} >
+  //     <ToggleButton
+  //       className={'useCustomUIBtn'}
+  //       selected={props.useCustomUI}
+  //       onactivate={() => props.setUseCustomUI(!props.useCustomUI)}
+  //     >
+  //       <Label
+  //         className={'useCustomUILabel'}
+  //         text={'Use Custom UI'}
+  //       />
+  //     </ToggleButton>
+  //     { props.useCustomUI && (
+  //       <React.Fragment>
+  //         {/* <DateTime /> */}
+  //         <HeroSelection />
+  //         <Heroes />
+  //         <GameTime />
+  //         <Settings />
+  //         <Character />
+  //         <Shop />
+  //         <LevelUp />
+  //         <AbilityBar />
+  //         <HealthBar />
+  //         <ManaBar />
+  //         <ButtonGroup />
+  //         <Minimap />
+  //         <Buffs />
+  //         <Debuffs />
+  //         <Inventory />
+  //         <StatsPanel />
+  //       </React.Fragment>
+  //     )}
+  //   </Panel>
+  // );
 
 }
 

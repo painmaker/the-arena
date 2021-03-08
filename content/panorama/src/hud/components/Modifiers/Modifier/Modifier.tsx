@@ -32,7 +32,10 @@ const Modifier = (props: Props) => {
       className={'modifierContainer'}
       hittest={true}
       style={{ opacity: '1.0', preTransformScale2d: '1.0' }}
-      onactivate={() => Players.BuffClicked(props.selectedUnit, props.buffId, GameUI.IsAltDown())}
+      onactivate={() => {
+        $.Msg("Modifier clicked: " + Buffs.GetName(props.selectedUnit, props.buffId));
+        Players.BuffClicked(props.selectedUnit, props.buffId, GameUI.IsAltDown());
+      }}
       onmouseout={() => {
         const thisPanel = $("#" + panelId);
         if (thisPanel) {

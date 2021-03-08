@@ -1,0 +1,49 @@
+.shopSearchContainer {
+  width: 600px;
+  margin-top: 10px;
+  margin-left: 15px;
+  flow-children: right;
+  background-color: black;
+  border-radius: 5px;
+  border: 1px solid #3d464c;
+}
+
+.shopSearchIcon {
+  background-image: url("s2r://panorama/images/control_icons/icon_search_shadow_psd.vtex");
+  background-size: 100% 100%;
+  background-position: center;
+  height: 24px;
+  width: 24px;
+  wash-color: #8da1b1;
+  vertical-align: center;
+  margin-top: -1.5px;
+  margin-left: 4px;
+}
+
+.shopSearchField {
+  height: 36px;
+  color: white;
+  font-size: 20px;
+  text-overflow: clip;
+  white-space: nowrap;
+  border: 0px solid black;
+  width: 540px;
+  background-color: black;
+}
+
+.shopSearchClearBtn {
+  background-image: url("s2r://panorama/images/control_icons/x_close_grey_psd.vtex");
+  background-size: contain;
+  height: 18px;
+  width: 18px;
+  wash-color: rgba(100, 100, 100, 0.5);
+  vertical-align: center;
+  transition-property: wash-color, transform;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+.shopSearchClearBtn:hover {
+  wash-color: rgba(100, 100, 100, 0.25);
+  transform: scale3d(1.1, 1.1, 0);
+}

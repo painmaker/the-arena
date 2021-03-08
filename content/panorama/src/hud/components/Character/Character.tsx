@@ -11,7 +11,7 @@ import { Timer } from "react-timeout";
 export const REFRESH_RATE = 250;
 
 const mapStateToProps = (state: RootState) => ({
-  visible: state.characterPanelReducer.visible,
+  visible: state.characterReducer.visible,
 });
 
 const connector = connect(mapStateToProps);

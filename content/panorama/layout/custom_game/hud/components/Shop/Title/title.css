@@ -1,0 +1,34 @@
+.shopTitleContainer {
+  width: 100%;
+  background-color: rgba(30, 30, 30, 0.525);
+}
+
+.shopTitleLabel {
+  color: rgba(200, 200, 200, 0.45);
+  font-size: 15px;
+  vertical-align: center;
+  horizontal-align: left;
+  font-weight: lighter;
+  letter-spacing: 1.5px;
+  padding-top: 2.5px;
+  padding-left: 10px;
+}
+
+.shopTitleCloseBtn {
+  vertical-align: center;
+  horizontal-align: right;
+  height: 24px;
+  width: 24px;
+  padding: 2px;
+  margin-right: 2.5px;
+  opacity: 0.75;
+  transition: transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s;
+  wash-color:  rgba(100, 100, 100, 0.5);
+}
+
+.shopTitleCloseBtn:hover {
+  wash-color: rgba(100, 100, 100, 0.25);
+  transform: scale3d(1.1, 1.1, 0);
+}
+
+

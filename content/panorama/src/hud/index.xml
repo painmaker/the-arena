@@ -50,6 +50,15 @@
         <include src="./components/Inventory/Item/Charges/charges.css" />  
         <include src="./components/Inventory/Item/Menu/menu.css" />  
         <include src="./components/Inventory/Item/ManaCost/manaCost.css" />  
+        <include src="./components/Shop/shop.css" />  
+        <include src="./components/Shop/Title/title.css" />  
+        <include src="./components/Shop/Item/item.css" />  
+        <include src="./components/Shop/Gold/gold.css" />  
+        <include src="./components/Shop/Search/search.css" />  
+        <include src="./components/HeroSelection/heroSelection.css" />  
+        <include src="./components/HeroSelection/Heroes/heroes.css" />  
+        <include src="./components/HeroSelection/Heroes/Hero/hero.css" />  
+        <include src="./components/HeroSelection/HeroDescription/heroDescription.css" />  
     </styles>  
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/magic_resist_stat.png" />  -->

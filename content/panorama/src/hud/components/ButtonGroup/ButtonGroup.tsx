@@ -1,5 +1,5 @@
 import React from "react";
-import CharaterPanelButton from "./CharacterPanelButton/CharaterPanelButton";
+import CharaterButton from "./CharacterButton/CharaterButton";
 import SettingsButton from "./SettingsButton/SettingsButton";
 import ShoppingButton from "./ShoppingButton/ShoppingButton";
 
@@ -13,7 +13,7 @@ const ButtonGroup = () => {
         <ShoppingButton />
       </Panel>
       <Panel hittest={false} className="buttonGroupEntry">
-        <CharaterPanelButton />
+        <CharaterButton />
       </Panel>
     </Panel>
   );

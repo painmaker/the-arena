@@ -1,3 +1,5 @@
+#base "heroes\wisp.txt"
+
 "DOTAHeroes"
 {
 

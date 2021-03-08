@@ -1,0 +1,17 @@
+.heroSelectionHeroContainer {
+  width: 70px;
+  height: 84px;
+  border: 2px solid black;
+  margin: 5px;
+  /* padding: 1px; */
+}
+
+.heroSelectionHeroImage {
+  transition-property: transform;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+}
+
+.heroSelectionHeroImage:hover {
+  transform: scale3d(1.05, 1.05, 1);
+}

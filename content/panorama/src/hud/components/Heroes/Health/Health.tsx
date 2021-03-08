@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useGameEvent } from "react-panorama";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 
 type Props = ReactTimeoutProps & {

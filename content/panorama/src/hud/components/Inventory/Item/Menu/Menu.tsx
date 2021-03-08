@@ -96,7 +96,6 @@ const Menu = (props: Props) => {
                 onactivate={() => {
                   Items.LocalPlayerSellItem(props.item);
                   props.setItemOptionsVisible(false);
-                  Game.EmitSound("ui_topmenu_select");
                 }}
               >
                 <Label className={'inventoryMenuButtonLabel'} text={'Sell'} />

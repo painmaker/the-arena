@@ -3,6 +3,8 @@ interface CustomGameEventDeclarations {
   create_hero_image_for_player: { playerId: PlayerID };
   set_zone_name: { zoneName: string };
   show_ability_bar: {};
-  is_modifier_aura: { entindex: EntityIndex, modifierName: string };
-  is_modifier_aura_success: { modifierName: string, isAura: boolean };
+  attempt_item_purchase: { itemname: string, cost: number };
+  attempt_item_purchase_success: {};
+  attempt_item_purchase_error: {};
+  alert_shop_item: { itemname: string, cost: number };
 }  

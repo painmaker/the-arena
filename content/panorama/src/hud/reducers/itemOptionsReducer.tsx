@@ -10,7 +10,7 @@ const initialState: ItemMenuState = {
   visible: false,
 };
 
-export default function (state = initialState, action: ItemOptionsActionTypes) {
+export default function (state = initialState, action: ItemOptionsActionTypes): ItemMenuState {
   switch (action.type) {
     case SET_ITEM_OPTIONS_ITEM: {
       return {

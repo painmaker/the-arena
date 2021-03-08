@@ -1,7 +1,0 @@
-"CustomEvents"
-{
-	"is_modifier_aura"
-	{
-		"buffname"				"string"
-	}
-}
