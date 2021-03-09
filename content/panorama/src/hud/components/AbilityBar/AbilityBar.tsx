@@ -10,11 +10,6 @@ const AbilityBar = (props: Props) => {
   const [entindex, setEntindex] = useState(Players.GetLocalPlayerPortraitUnit());
   const [isInLearningMode, setIsInLearningMode] = useState(Game.IsInAbilityLearnMode());
 
-  useGameEvent("show_ability_bar", () => {
-    // $.Msg("show_ability_bar")
-    setEntindex(Players.GetLocalPlayerPortraitUnit());
-  }, []);
-
   useGameEvent("dota_player_update_query_unit", () => {
     // $.Msg("dota_player_update_query_unit")
     setEntindex(Players.GetLocalPlayerPortraitUnit());
@@ -42,6 +37,10 @@ const AbilityBar = (props: Props) => {
     if (Entities.GetAbilityPoints(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())) <= 0) {
       Game.EndAbilityLearnMode();
     }
+  }, []);
+
+  useEffect(() => {
+    setEntindex(Players.GetLocalPlayerPortraitUnit());
   }, []);
 
   useEffect(() => {

@@ -33,7 +33,7 @@ const Settings = (props: Props) => {
 
   const [renderComponent, setRenderComponent] = useState(false);
 
-  useGameEvent("initialize_camera", () => {
+  useEffect(() => {
     props.setCameraLocked(true);
     props.setCameraZoom(1600);
   }, []);

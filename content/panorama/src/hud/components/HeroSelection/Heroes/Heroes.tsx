@@ -4,10 +4,10 @@ import { Dispatch } from "redux";
 import { HeroSelectionActionTypes } from "../../../types/heroSelectionTypes";
 import Hero from "./Hero/Hero";
 import { selectableHeroes } from "../../../data/heroes";
-import { resetSelectedHero } from "../../../actions/heroSelectionActions";
+import { resetFocusedHero } from "../../../actions/heroSelectionActions";
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
-  resetSelectedHero: () => dispatch(resetSelectedHero()),
+  resetSelectedHero: () => dispatch(resetFocusedHero()),
 });
 
 const connector = connect(null, mapDispatchToProps);

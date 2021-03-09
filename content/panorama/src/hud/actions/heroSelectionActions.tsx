@@ -1,14 +1,21 @@
-import { HeroSelectionActionTypes, RESET_SELECTED_HERO, SelectedHero, SET_SELECTED_HERO } from "../types/heroSelectionTypes";
+import { HeroSelectionActionTypes, RESET_FOCUSED_HERO, FocusedHero, SET_FOCUS_HERO, SET_HERO_SELECTION_VISIBLE } from "../types/heroSelectionTypes";
 
-export function setSelectedHero(hero: SelectedHero): HeroSelectionActionTypes {
+export function setFocusedHero(hero: FocusedHero): HeroSelectionActionTypes {
   return {
-    type: SET_SELECTED_HERO,
+    type: SET_FOCUS_HERO,
     payload: { hero }
   }
 }
 
-export function resetSelectedHero(): HeroSelectionActionTypes {
+export function resetFocusedHero(): HeroSelectionActionTypes {
   return {
-    type: RESET_SELECTED_HERO,
+    type: RESET_FOCUSED_HERO,
+  }
+}
+
+export function setHeroSelectionVisible(visible: boolean): HeroSelectionActionTypes {
+  return {
+    type: SET_HERO_SELECTION_VISIBLE,
+    payload: { visible }
   }
 }

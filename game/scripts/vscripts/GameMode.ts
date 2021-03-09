@@ -8,12 +8,13 @@ import "./modifiers/ui/modifier_ui_health_regen";
 import "./modifiers/ui/modifier_ui_base_health_regen";
 import "./modifiers/ui/modifier_ui_spell_amp";
 import "./modifiers/ui/modifier_ui_hero_id";
-import { EXPERIENCE_PER_LEVEL_TABLE } from "./settings";
-import { EventHandler } from "react";
+import { EXPERIENCE_PER_LEVEL_TABLE, MAX_PLAYERS } from "./settings";
+import { HeroSelectionHandler } from "./HeroSelectionHandler";
 
 declare global {
   interface CDOTAGamerules {
     Addon: GameMode;
+    HeroSelectionHandler: HeroSelectionHandler;
   }
 }
 
@@ -27,11 +28,17 @@ export class GameMode {
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_techies.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_shredder.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/voscripts/game_sounds_vo_shredder.vsndevts", context);
-    PrecacheUnitByNameSync("npc_dota_crystal_maiden", context)
+    PrecacheUnitByNameSync("npc_dota_hero_crystal_maiden", context)
+    PrecacheUnitByNameSync("npc_dota_hero_lina", context)
+    PrecacheUnitByNameSync("npc_dota_hero_dragon_knight", context)
+    PrecacheUnitByNameSync("npc_dota_hero_phantom_assassin", context)
+    PrecacheUnitByNameSync("npc_dota_hero_dazzle", context)
+    PrecacheUnitByNameSync("npc_dota_hero_windrunner", context)
   }
 
   public static Activate(this: void) {
     GameRules.Addon = new GameMode();
+    GameRules.HeroSelectionHandler = new HeroSelectionHandler();
   }
 
   constructor() {
@@ -45,8 +52,8 @@ export class GameMode {
     CustomGameEventManager.RegisterListener("attempt_item_purchase", (_, event) => this.onItemPurchaseAttempt(event));
     CustomGameEventManager.RegisterListener("alert_shop_item", (_, event) => this.onAltertShopItem(event));
 
-    GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, 4);
-    GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, 4);
+    GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, MAX_PLAYERS);
+    GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, MAX_PLAYERS);
     GameRules.SetSameHeroSelectionEnabled(false);
     GameRules.SetHeroSelectionTime(0);
     GameRules.SetCustomGameSetupAutoLaunchDelay(0);
@@ -164,27 +171,6 @@ export class GameMode {
     unit.AddNewModifier(unit, undefined, "modifier_ui_base_health_regen", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_ui_spell_amp", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_ui_hero_id", { duration: -1 });
-    if (unit.IsRealHero()) {
-      const hero = unit as any;
-      if (hero.hasSpawnedBefore !== true) {
-        hero.SetCustomDeathXP(10);
-        hero.AddItemByName("item_pipe");
-        hero.AddItemByName("item_sange_and_yasha");
-        hero.AddItemByName("item_assault");
-        hero.AddItemByName("item_blink");
-        hero.hasSpawnedBefore = true;
-        // Minimap hack for disapparing icons 
-        hero.SetDayTimeVisionRange(99999);
-        hero.SetNightTimeVisionRange(99999);
-        const playerId = hero.GetPlayerID();
-        const player = PlayerResource.GetPlayer(playerId);
-        if (player) {
-          CustomGameEventManager.Send_ServerToPlayer(player, "initialize_camera", {});
-          CustomGameEventManager.Send_ServerToPlayer(player, "show_ability_bar", {});
-          CustomGameEventManager.Send_ServerToAllClients("create_hero_image_for_player", { playerId: playerId });
-        }
-      }
-    }
   }
 
 }

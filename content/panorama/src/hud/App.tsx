@@ -23,6 +23,7 @@ import HeroSelection from "./components/HeroSelection/HeroSelection";
 
 const mapStateToProps = (state: RootState) => ({
   useCustomUI: state.settingsReducer.useCustomUI,
+  heroSelectionVisible: state.heroSelectionReducer.visible,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
@@ -68,45 +69,46 @@ const App = (props: Props) => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !props.useCustomUI);
   }, [props.useCustomUI]);
 
-  return (
-    <HeroSelection />
-  )
+  if (props.heroSelectionVisible) {
+    return (
+      <HeroSelection />
+    )
+  }
 
-  // return (
-  //   <Panel id={'root'} hittest={false} className={"appContainer"} >
-  //     <ToggleButton
-  //       className={'useCustomUIBtn'}
-  //       selected={props.useCustomUI}
-  //       onactivate={() => props.setUseCustomUI(!props.useCustomUI)}
-  //     >
-  //       <Label
-  //         className={'useCustomUILabel'}
-  //         text={'Use Custom UI'}
-  //       />
-  //     </ToggleButton>
-  //     { props.useCustomUI && (
-  //       <React.Fragment>
-  //         {/* <DateTime /> */}
-  //         <HeroSelection />
-  //         <Heroes />
-  //         <GameTime />
-  //         <Settings />
-  //         <Character />
-  //         <Shop />
-  //         <LevelUp />
-  //         <AbilityBar />
-  //         <HealthBar />
-  //         <ManaBar />
-  //         <ButtonGroup />
-  //         <Minimap />
-  //         <Buffs />
-  //         <Debuffs />
-  //         <Inventory />
-  //         <StatsPanel />
-  //       </React.Fragment>
-  //     )}
-  //   </Panel>
-  // );
+  return (
+    <Panel id={'root'} hittest={false} className={"appContainer"} >
+      <ToggleButton
+        className={'useCustomUIBtn'}
+        selected={props.useCustomUI}
+        onactivate={() => props.setUseCustomUI(!props.useCustomUI)}
+      >
+        <Label
+          className={'useCustomUILabel'}
+          text={'Use Custom UI'}
+        />
+      </ToggleButton>
+      { props.useCustomUI && (
+        <React.Fragment>
+          {/* <DateTime /> */}
+          <Heroes />
+          <GameTime />
+          <Settings />
+          <Character />
+          <Shop />
+          <LevelUp />
+          <AbilityBar />
+          <HealthBar />
+          <ManaBar />
+          <ButtonGroup />
+          <Minimap />
+          <Buffs />
+          <Debuffs />
+          <Inventory />
+          <StatsPanel />
+        </React.Fragment>
+      )}
+    </Panel>
+  );
 
 }
 

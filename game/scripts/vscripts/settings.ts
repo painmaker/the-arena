@@ -29,4 +29,6 @@ export const EXPERIENCE_PER_LEVEL_TABLE: Record<number, number> = {
   28: 2700,
   29: 2800,
   30: 2900,
-}; 
+};
+
+export const MAX_PLAYERS = 4;

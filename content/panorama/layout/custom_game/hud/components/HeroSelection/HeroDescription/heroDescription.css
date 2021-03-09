@@ -22,3 +22,11 @@
   color: rgb(206, 200, 192);
   /* font-weight: lighter; */
 }
+
+.heroSelectionHeroDescriptionSelectHeroBtn {
+  background-color: olivedrab;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  padding: 15px;
+}

@@ -1,20 +1,30 @@
-export const SET_SELECTED_HERO = 'SET_SELECTED_HERO'
-export const RESET_SELECTED_HERO = 'RESET_SELECTED_HERO'
+export const SET_FOCUS_HERO = 'SET_FOCUS_HERO'
+export const RESET_FOCUSED_HERO = 'RESET_FOCUSED_HERO'
+export const SET_HERO_SELECTION_VISIBLE = 'SET_HERO_SELECTION_VISIBLE'
 
-export interface SetSelectedHero {
-  type: typeof SET_SELECTED_HERO
-  payload: { hero: SelectedHero }
+export interface SetFocusedHero {
+  type: typeof SET_FOCUS_HERO
+  payload: { hero: FocusedHero }
 }
 
-export interface ResetSelectedHero {
-  type: typeof RESET_SELECTED_HERO
+export interface ResetFocusedHero {
+  type: typeof RESET_FOCUSED_HERO
 }
 
-export type HeroSelectionActionTypes = SetSelectedHero | ResetSelectedHero;
+export interface SerHeroSelectionVisible {
+  type: typeof SET_HERO_SELECTION_VISIBLE
+  payload: { visible: boolean }
+}
 
-export interface SelectedHero {
+export type HeroSelectionActionTypes = SetFocusedHero | ResetFocusedHero | SerHeroSelectionVisible;
+
+export interface FocusedHero {
   name: string,
   camera: string,
   sounds: string[],
   lore: string,
+}
+
+export interface SelectedHero {
+  heroname: string,
 }

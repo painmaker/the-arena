@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useNetTableValues } from "react-panorama";
 import { Timer } from "react-timeout";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
-import { SelectedHero } from "../../../types/heroSelectionTypes";
+import { FocusedHero } from "../../../types/heroSelectionTypes";
 
 type Props = ReactTimeoutProps & {
-  hero: SelectedHero | undefined
+  hero: FocusedHero | undefined
 }
 
 const HeroDescription = (props: Props) => {
 
   const [renderComponent, setRenderComponent] = useState(false);
+  const selectedHeroes = useNetTableValues('SelectedHero');
 
   useEffect(() => {
     let timer = -1 as Timer;
@@ -22,6 +24,8 @@ const HeroDescription = (props: Props) => {
     }
     return () => props.clearTimeout(timer);
   }, [props.hero]);
+
+  const isSelected = Object.values(selectedHeroes).some(hero => props.hero && props.hero.name === hero.heroname);
 
   return (
     <React.Fragment>
@@ -37,11 +41,22 @@ const HeroDescription = (props: Props) => {
             <React.Fragment>
               <Label text={$.Localize(props.hero.name)} />
               <Label className={'heroSelectionHeroDescriptionLore'} text={props.hero.lore} />
+              { !isSelected && (
+                <Button
+                  className={'heroSelectionHeroDescriptionSelectHeroBtn'}
+                  onactivate={() => {
+                    GameEvents.SendCustomGameEventToServer("on_select_hero", { heroname: props.hero!.name });
+                  }}
+                >
+                  <Label text={'Select Hero'} />
+                </Button>
+              )}
             </React.Fragment>
           )}
         </Panel>
-      )}
-    </React.Fragment>
+      )
+      }
+    </React.Fragment >
 
   );
 }
