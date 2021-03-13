@@ -58300,9 +58300,9 @@ const HealthBar = (props) => {
 
 /***/ }),
 
-/***/ "./hud/components/HeroSelection/HeroDescription/HeroDescription.tsx":
+/***/ "./hud/components/HeroSelection/Description/Abilities/Abilities.tsx":
 /*!**************************************************************************!*\
-  !*** ./hud/components/HeroSelection/HeroDescription/HeroDescription.tsx ***!
+  !*** ./hud/components/HeroSelection/Description/Abilities/Abilities.tsx ***!
   \**************************************************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
@@ -58316,17 +58316,268 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const Abilities = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAbilitiesOuterContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionAbilitiesTitleLabel', text: "ABILITIES" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAbilitiesInnerContainer' }, Object.values(props.focusedHero.abilities).map((ability) => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: ability, key: ability, className: 'heroSelectionDescriptionAbilityImage', abilityname: ability, onmouseover: () => $.DispatchEvent("DOTAShowAbilityTooltip", $("#" + ability), ability), onmouseout: () => $.DispatchEvent("DOTAHideAbilityTooltip", $("#" + ability)) }))))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Abilities);
+
+
+/***/ }),
+
+/***/ "./hud/components/HeroSelection/Description/Buttons/Buttons.tsx":
+/*!**********************************************************************!*\
+  !*** ./hud/components/HeroSelection/Description/Buttons/Buttons.tsx ***!
+  \**********************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../actions/heroSelectionActions */ "./hud/actions/heroSelectionActions.tsx");
 
 
 
-const HeroDescription = (props) => {
-    const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+const mapDispatchToProps = (dispatch) => ({
+    resetFocusedHero: () => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__.resetFocusedHero)()),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(null, mapDispatchToProps);
+const Buttons = (props) => {
     const selectedHeroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('SelectedHero');
+    const isSelected = Object.values(selectedHeroes).some(hero => props.focusedHero && props.focusedHero.heroname === hero.heroname);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionButtonsContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionDescriptionSelectHeroBtn', onactivate: () => GameEvents.SendCustomGameEventToServer("on_select_hero", { heroname: props.focusedHero.heroname }), style: { backgroundColor: isSelected ? 'grey' : 'olivedrab' } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionSelectHeroBtnLabel', text: 'Select Hero' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionDescriptionCancelHeroBtn', onactivate: () => props.resetFocusedHero() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionCancelHeroBtnLabel', text: 'Cancel' }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Buttons));
+
+
+/***/ }),
+
+/***/ "./hud/components/HeroSelection/Description/HealthAndMana/HealthAndMana.tsx":
+/*!**********************************************************************************!*\
+  !*** ./hud/components/HeroSelection/Description/HealthAndMana/HealthAndMana.tsx ***!
+  \**********************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const HealthAndMana = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionHealthAndManaOuterContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionHealthAndManaTitleLabel', text: "HEALTH & MANA" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionHealthAndManaInnerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionHealthContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionHealthAndManaLabel', text: props.focusedHero.health + ' / ' + props.focusedHero.health }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionRegenLabel', text: '+ ' + props.focusedHero.healthRegen.toFixed(2) })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionManaContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionHealthAndManaLabel', text: props.focusedHero.mana + ' / ' + props.focusedHero.mana }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionRegenLabel', text: '+ ' + props.focusedHero.manaRegen.toFixed(2) })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HealthAndMana);
+
+
+/***/ }),
+
+/***/ "./hud/components/HeroSelection/Description/Lore/Lore.tsx":
+/*!****************************************************************!*\
+  !*** ./hud/components/HeroSelection/Description/Lore/Lore.tsx ***!
+  \****************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const Lore = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionLoreOuterContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionLoreTitleLabel', text: "LORE" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionLoreInnerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionLoreLabel', text: $.Localize(props.focusedHero.lore) }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Lore);
+
+
+/***/ }),
+
+/***/ "./hud/components/HeroSelection/Description/Name/Name.tsx":
+/*!****************************************************************!*\
+  !*** ./hud/components/HeroSelection/Description/Name/Name.tsx ***!
+  \****************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const attributeToImage = (attribute) => {
+    if (attribute === 'DOTA_ATTRIBUTE_AGILITY') {
+        return 'url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_agility_psd.vtex")';
+    }
+    if (attribute === 'DOTA_ATTRIBUTE_INTELLECT') {
+        return 'url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_intelligence_psd.vtex")';
+    }
+    if (attribute === 'DOTA_ATTRIBUTE_STRENGTH') {
+        return 'url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_strength_psd.vtex")';
+    }
+    return '';
+};
+const Name = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionNameContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionNameAttributeImage', style: { backgroundImage: attributeToImage(props.focusedHero.attribute) } }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionNameLabel', text: $.Localize(props.focusedHero.heroname) })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Name);
+
+
+/***/ }),
+
+/***/ "./hud/components/HeroSelection/Description/Stats/Stats.tsx":
+/*!******************************************************************!*\
+  !*** ./hud/components/HeroSelection/Description/Stats/Stats.tsx ***!
+  \******************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const Stats = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsContainer' }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Stats);
+
+
+/***/ }),
+
+/***/ "./hud/components/HeroSelection/Description/Title/Title.tsx":
+/*!******************************************************************!*\
+  !*** ./hud/components/HeroSelection/Description/Title/Title.tsx ***!
+  \******************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../actions/heroSelectionActions */ "./hud/actions/heroSelectionActions.tsx");
+
+
+
+const mapDispatchToProps = (dispatch) => ({
+    resetFocusedHero: () => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_2__.resetFocusedHero)()),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
+const Title = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionDescriptionTitleContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: "heroSelectionDescriptionTitleLabel", text: "HERO DESCRIPTION" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: "heroSelectionDescriptionTitleCloseBtn", onactivate: () => {
+                props.resetFocusedHero();
+                Game.EmitSound("ui_topmenu_select");
+            } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Title));
+
+
+/***/ }),
+
+/***/ "./hud/components/HeroSelection/Description/description.tsx":
+/*!******************************************************************!*\
+  !*** ./hud/components/HeroSelection/Description/description.tsx ***!
+  \******************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/heroSelectionActions */ "./hud/actions/heroSelectionActions.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Buttons_Buttons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Buttons/Buttons */ "./hud/components/HeroSelection/Description/Buttons/Buttons.tsx");
+/* harmony import */ var _Lore_Lore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Lore/Lore */ "./hud/components/HeroSelection/Description/Lore/Lore.tsx");
+/* harmony import */ var _Name_Name__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Name/Name */ "./hud/components/HeroSelection/Description/Name/Name.tsx");
+/* harmony import */ var _Stats_Stats__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Stats/Stats */ "./hud/components/HeroSelection/Description/Stats/Stats.tsx");
+/* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/HeroSelection/Description/Title/Title.tsx");
+/* harmony import */ var _Abilities_Abilities__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Abilities/Abilities */ "./hud/components/HeroSelection/Description/Abilities/Abilities.tsx");
+/* harmony import */ var _HealthAndMana_HealthAndMana__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./HealthAndMana/HealthAndMana */ "./hud/components/HeroSelection/Description/HealthAndMana/HealthAndMana.tsx");
+
+
+
+
+
+
+
+
+
+
+
+const mapDispatchToProps = (dispatch) => ({
+    resetFocusedHero: () => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_2__.resetFocusedHero)()),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
+const Description = (props) => {
+    const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let timer = -1;
-        if (props.hero === undefined) {
+        if (props.focusedHero === undefined) {
             timer = props.setTimeout(() => {
                 setRenderComponent(false);
             }, 1000);
@@ -58335,20 +58586,21 @@ const HeroDescription = (props) => {
             setRenderComponent(true);
         }
         return () => props.clearTimeout(timer);
-    }, [props.hero]);
-    const isSelected = Object.values(selectedHeroes).some(hero => props.hero && props.hero.name === hero.heroname);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionHeroDescriptionContainer", style: {
-            opacity: props.hero ? '1.0' : '0.0',
-            preTransformScale2d: props.hero ? '1.0' : '0.5',
-        } }, props.hero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(props.hero.name) }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionHeroDescriptionLore', text: props.hero.lore }),
-        !isSelected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionHeroDescriptionSelectHeroBtn', onactivate: () => {
-                GameEvents.SendCustomGameEventToServer("on_select_hero", { heroname: props.hero.name });
-            } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Select Hero' })))))))));
+    }, [props.focusedHero]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionDescriptionContainer", style: {
+            opacity: props.focusedHero ? '1.0' : '0.0',
+            preTransformScale2d: props.focusedHero ? '1.0' : '0.5',
+        } }, props.focusedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_8__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Name_Name__WEBPACK_IMPORTED_MODULE_6__.default, { focusedHero: props.focusedHero }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Stats_Stats__WEBPACK_IMPORTED_MODULE_7__.default, { focusedHero: props.focusedHero }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: 'right', width: '100%' } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Abilities_Abilities__WEBPACK_IMPORTED_MODULE_9__.default, { focusedHero: props.focusedHero }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HealthAndMana_HealthAndMana__WEBPACK_IMPORTED_MODULE_10__.default, { focusedHero: props.focusedHero })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Lore_Lore__WEBPACK_IMPORTED_MODULE_5__.default, { focusedHero: props.focusedHero }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Buttons_Buttons__WEBPACK_IMPORTED_MODULE_4__.default, { focusedHero: props.focusedHero })))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(HeroDescription));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(Description)));
 
 
 /***/ }),
@@ -58372,7 +58624,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/heroSelectionActions */ "./hud/actions/heroSelectionActions.tsx");
-/* harmony import */ var _HeroDescription_HeroDescription__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./HeroDescription/HeroDescription */ "./hud/components/HeroSelection/HeroDescription/HeroDescription.tsx");
+/* harmony import */ var _Description_description__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Description/description */ "./hud/components/HeroSelection/Description/description.tsx");
 /* harmony import */ var _Heroes_Heroes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Heroes/Heroes */ "./hud/components/HeroSelection/Heroes/Heroes.tsx");
 
 
@@ -58381,23 +58633,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const mapStateToProps = (state) => ({
-    hero: state.heroSelectionReducer.hero,
+    focusedHero: state.heroSelectionReducer.focusedHero,
     visible: state.heroSelectionReducer.visible,
 });
 const mapDispatchToProps = (dispatch) => ({
     setHeroSelectionVisible: (visible) => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__.setHeroSelectionVisible)(visible)),
+    setFocusedHero: (hero) => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__.setFocusedHero)(hero)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps, mapDispatchToProps);
 const HeroSelection = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const scene = $("#heroSelectionScene");
-        if (props.hero) {
-            scene.LerpToCameraEntity(props.hero.camera, 1.0);
+        if (props.focusedHero) {
+            scene.LerpToCameraEntity(props.focusedHero.camera, 1.0);
         }
         else {
             scene.LerpToCameraEntity('camera_main', 1.0);
         }
-    }, [props.hero]);
+    }, [props.focusedHero]);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)('on_focus_hero_success', (event) => {
+        props.setFocusedHero(event);
+        Game.EmitSound(event.sound);
+    }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_select_hero_success", () => {
         Game.EmitSound("HeroPicker.Selected");
         props.setHeroSelectionVisible(false);
@@ -58408,7 +58665,7 @@ const HeroSelection = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionContainer" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'heroSelectionScene', className: 'heroSelectionBackground', map: "heroSelection", particleonly: false, light: 'light', camera: 'camera_main' }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_5__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HeroDescription_HeroDescription__WEBPACK_IMPORTED_MODULE_4__.default, { hero: props.hero })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Description_description__WEBPACK_IMPORTED_MODULE_4__.default, { focusedHero: props.focusedHero })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(HeroSelection));
 
@@ -58433,38 +58690,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../actions/heroSelectionActions */ "./hud/actions/heroSelectionActions.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
 
 
 
 
 const mapStateToProps = (state) => ({
-    focusedHero: state.heroSelectionReducer.hero,
+    focusedHero: state.heroSelectionReducer.focusedHero,
 });
-const mapDispatchToProps = (dispatch) => ({
-    setSelectedHero: (hero) => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__.setFocusedHero)(hero)),
-});
-const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps, mapDispatchToProps);
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps);
 const Hero = (props) => {
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const selectedHeroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('SelectedHero');
-    const isFocused = props.focusedHero === props.hero;
-    const isSelected = Object.values(selectedHeroes).some(hero => hero.heroname === props.hero.name);
+    const isFocused = props.focusedHero && props.focusedHero.heroname === props.heroname;
+    const isSelected = Object.values(selectedHeroes).some(hero => hero.heroname === props.heroname);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionHeroContainer" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionSelectedHeroBorder', style: { visibility: isFocused ? 'visible' : 'collapse' } }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { className: 'heroSelectionHeroImage', heroname: props.hero.name, heroimagestyle: 'portrait', onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), onactivate: () => {
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { className: 'heroSelectionHeroImage', heroname: props.heroname, heroimagestyle: 'portrait', onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), onactivate: () => {
                 if (!isFocused) {
-                    props.setSelectedHero(props.hero);
-                    Game.EmitSound(props.hero.sounds[Math.floor(Math.random() * props.hero.sounds.length)]);
+                    GameEvents.SendCustomGameEventToServer("on_focus_hero", { heroname: props.heroname });
                 }
             }, style: {
                 transform: (isFocused || isHovering) ? 'scaleX(1.025) scaleY(1.025)' : 'scaleX(1) scaleY(1)',
                 washColor: isSelected ? 'rgba(0, 0, 0, 0.975)' : (isFocused || isHovering) ? 'none' : 'rgba(0, 0, 0, 0.15)',
             } })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_4__.default)(Hero)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(Hero)));
 
 
 /***/ }),
@@ -58487,22 +58738,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _Hero_Hero__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Hero/Hero */ "./hud/components/HeroSelection/Heroes/Hero/Hero.tsx");
-/* harmony import */ var _data_heroes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../data/heroes */ "./hud/data/heroes.tsx");
-/* harmony import */ var _actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/heroSelectionActions */ "./hud/actions/heroSelectionActions.tsx");
+/* harmony import */ var _actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/heroSelectionActions */ "./hud/actions/heroSelectionActions.tsx");
 
 
 
 
-
+const selectableHeronames = [
+    'npc_dota_hero_dragon_knight',
+    'npc_dota_hero_windrunner',
+    'npc_dota_hero_phantom_assassin',
+    'npc_dota_hero_crystal_maiden',
+    'npc_dota_hero_dazzle',
+    'npc_dota_hero_lina',
+];
 const mapDispatchToProps = (dispatch) => ({
-    resetSelectedHero: () => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_4__.resetFocusedHero)()),
+    resetFocusedHero: () => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__.resetFocusedHero)()),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
 const Heroes = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionHeroesContainer" },
-        _data_heroes__WEBPACK_IMPORTED_MODULE_3__.selectableHeroes.map(hero => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Hero_Hero__WEBPACK_IMPORTED_MODULE_2__.default, { key: hero.name, hero: hero }))),
+        selectableHeronames.map(heroname => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Hero_Hero__WEBPACK_IMPORTED_MODULE_2__.default, { key: heroname, heroname: heroname }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionHeroesRandomBtnContainer', onactivate: () => {
-                props.resetSelectedHero();
+                props.resetFocusedHero();
                 Game.EmitSound("ui_topmenu_select");
             } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { className: 'heroSelectionHeroesRandomBtnImage' }))));
@@ -60664,108 +60921,6 @@ const aura_modifiers = [
 
 /***/ }),
 
-/***/ "./hud/data/heroes.tsx":
-/*!*****************************!*\
-  !*** ./hud/data/heroes.tsx ***!
-  \*****************************/
-/*! namespace exports */
-/*! export selectableHeroes [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "selectableHeroes": () => /* binding */ selectableHeroes
-/* harmony export */ });
-const selectableHeroes = [
-    {
-        name: "npc_dota_hero_dragon_knight",
-        camera: 'camera_dragon_knight',
-        sounds: [
-            'dragon_knight_drag_spawn_01',
-            'dragon_knight_drag_spawn_02',
-            'dragon_knight_drag_spawn_03',
-            'dragon_knight_drag_spawn_04',
-        ],
-        lore: "After years on the trail of a legendary Eldwurm, the skilled dragon-slayer found himself facing a disappointing foe: the dreaded Slyrak had grown ancient and frail, its wings tattered, its few remaining scales stricken with scale-rot, its fangs ground to nubs, and its fire-gouts no more threatening than a pack of wet matchsticks. Seeing no honor to be gained in dragon-murder, the young knight prepared to turn away and leave his old foe to die in peace. But a voice crept into his thoughts, and Slyrak gave a whispered plea that the knight might honor him with death in combat. The knight agreed, and found himself rewarded beyond expectation for his act of mercy: As he sank his blade in Slyrak's breast, the dragon sank a claw into his throat. As their blood mingled, Slyrak sent his power out along the Blood Route, offering all its strength and centuries of wisdom to the knight. The dragon's death sealed their bond, and Dragon Knight was born. The ancient power slumbers in the knight, waking when he calls it; or perhaps it is the Dragon that calls the Knight..."
-    },
-    {
-        name: "npc_dota_hero_windrunner",
-        camera: 'camera_windrunner',
-        sounds: [
-            'windrunner_wind_spawn_01',
-            'windrunner_wind_spawn_02',
-            'windrunner_wind_spawn_03',
-            'windrunner_wind_spawn_04',
-            'windrunner_wind_spawn_05',
-            'windrunner_wind_spawn_06',
-            'windrunner_wind_spawn_07',
-            'windrunner_wind_spawn_08',
-        ],
-        lore: "The western forests guard their secrets well. One of these is Lyralei, master archer of the wood, and favored godchild of the wind. Known now as Windranger, Lyralei's family was killed in a storm on the night of her birth--their house blown down by the gale, contents scattered to the winds. Only the newborn survived among the debris field of death and destruction. In the quiet after the storm, the wind itself took notice of the lucky infant crying in the grass. The wind pitied the child and so lifted her into the sky and deposited her on a doorstep in a neighboring village. In the years that followed, the wind returned occasionally to the child's life, watching from a distance while she honed her skills. Now, after many years of training, Windranger fires her arrows true to their targets. She moves with blinding speed, as if hastened by a wind ever at her back. With a flurry of arrows, she slaughters her enemies, having become, nearly, a force of nature herself."
-    },
-    {
-        name: "npc_dota_hero_phantom_assassin",
-        camera: 'camera_phantom_assassin',
-        sounds: [
-            'phantom_assassin_phass_spawn_01',
-            'phantom_assassin_phass_spawn_02',
-            'phantom_assassin_phass_spawn_03',
-            'phantom_assassin_phass_spawn_04',
-            'phantom_assassin_phass_spawn_05',
-        ],
-        lore: "Through a process of divination, children are selected for upbringing by the Sisters of the Veil, an order that considers assassination a sacred part of the natural order. The Veiled Sisters identify targets through meditation and oracular utterances. They accept no contracts, and never seem to pursue targets for political or mercenary reasons. Their killings bear no relation to any recognizable agenda, and can seem to be completely random: A figure of great power is no more likely to be eliminated than a peasant or a well digger. Whatever pattern the killings may contain, it is known only to them. They treat their victims as sacrifices, and death at their hand is considered an honor. Raised with no identity except that of their order, any Phantom Assassin can take the place of any other; their number is not known. Perhaps there are many, perhaps there are few. Nothing is known of what lies under the Phantom Veil. Except that this one, from time to time, when none are near enough to hear, is known to stir her veils with the forbidden whisper of her own name: Mortred."
-    },
-    {
-        name: "npc_dota_hero_crystal_maiden",
-        camera: 'camera_crystal_maiden',
-        sounds: [
-            'crystalmaiden_cm_spawn_01',
-            'crystalmaiden_cm_spawn_02',
-            'crystalmaiden_cm_spawn_03',
-            'crystalmaiden_cm_spawn_04',
-            'crystalmaiden_cm_spawn_05',
-            'crystalmaiden_cm_spawn_06',
-            'crystalmaiden_cm_spawn_07',
-            'crystalmaiden_cm_spawn_08',
-        ],
-        lore: "Born in a temperate realm, raised with her fiery older sister Lina, Rylai the Crystal Maiden soon found that her innate elemental affinity to ice created trouble for all those around her. Wellsprings and mountain rivers froze in moments if she stopped to rest nearby; ripening crops were bitten by frost, and fruiting orchards turned to mazes of ice and came crashing down, spoiled. When their exasperated parents packed Lina off to the equator, Rylai found herself banished to the cold northern realm of Icewrack, where she was taken in by an Ice Wizard who had carved himself a hermitage at the crown of the Blueheart Glacier. After long study, the wizard pronounced her ready for solitary practice and left her to take his place, descending into the glacier to hibernate for a thousand years. Her mastery of the Frozen Arts has only deepened since that time, and now her skills are unmatched."
-    },
-    {
-        name: "npc_dota_hero_dazzle",
-        camera: 'camera_dazzle',
-        sounds: [
-            'dazzle_dazz_spawn_01',
-            'dazzle_dazz_spawn_02',
-            'dazzle_dazz_spawn_03',
-            'dazzle_dazz_spawn_04',
-            'dazzle_dazz_spawn_05',
-        ],
-        lore: "Each young acolyte to the Dezun order must complete a series of rites before becoming a shadow priest. The final rite, the rite of shades, is a harrowing spiritual journey through the Nothl Realm, an unpredictable domain from which not all visitants return. Of those who do, some return mad. Others return with strange aptitudes. But all who go there are changed by their experiences. Driven by the need for enlightenment, Dazzle was the youngest of his tribe ever to request the sacred ritual. At first the order refused him, saying he was too young. But Dazzle was not to be dissuaded. Sensing something special in the headstrong young acolyte, the elders relented. Dazzle drank down the sacred potion and sat by the fire while the rest of his tribe danced through the night. In this ethereal dimension of the Nothl Realm, the properties of light and dark are inverted. Thus his brilliant healing light, beautiful to our eye, is actually a sinister kind of evil; and the darkest deeds are done in a dazzling glow. The elders' intuition was prophetic: Dazzle returned to his people as a Shadow Priest like none seen before, with the power to heal as well as to destroy. Now he uses his gift to fight his enemies and help his friends."
-    },
-    {
-        name: "npc_dota_hero_lina",
-        camera: 'camera_lina',
-        sounds: [
-            'lina_lina_spawn_01',
-            'lina_lina_spawn_02',
-            'lina_lina_spawn_03',
-            'lina_lina_spawn_04',
-            'lina_lina_spawn_05',
-            'lina_lina_spawn_06',
-            'lina_lina_spawn_07',
-            'lina_lina_spawn_08',
-            'lina_lina_spawn_09',
-        ],
-        lore: "The sibling rivalries between Lina the Slayer, and her younger sister Rylai, the Crystal Maiden, were the stuff of legend in the temperate region where they spent their quarrelsome childhoods together. Lina always had the advantage, however, for while Crystal was guileless and naive, Lina's fiery ardor was tempered by cleverness and conniving. The exasperated parents of these incompatible offspring went through half a dozen homesteads, losing one to fire, the next to ice, before they realized life would be simpler if the children were separated. As the oldest, Lina was sent far south to live with a patient aunt in the blazing Desert of Misrule, a climate that proved more than comfortable for the fiery Slayer. Her arrival made quite an impression on the somnolent locals, and more than one would-be suitor scorched his fingers or went away with singed eyebrows, his advances spurned. Lina is proud and confident, and nothing can dampen her flame."
-    },
-];
-
-
-/***/ }),
-
 /***/ "./hud/data/shop.tsx":
 /*!***************************!*\
   !*** ./hud/data/shop.tsx ***!
@@ -61266,15 +61421,15 @@ __webpack_require__.r(__webpack_exports__);
 
 const initialState = {
     visible: true,
-    hero: undefined,
+    focusedHero: undefined,
 };
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(state = initialState, action) {
     switch (action.type) {
         case _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__.SET_FOCUS_HERO: {
-            return Object.assign(Object.assign({}, state), { hero: action.payload.hero });
+            return Object.assign(Object.assign({}, state), { focusedHero: action.payload.hero });
         }
         case _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__.RESET_FOCUSED_HERO: {
-            return Object.assign(Object.assign({}, state), { hero: undefined });
+            return Object.assign(Object.assign({}, state), { focusedHero: undefined });
         }
         case _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__.SET_HERO_SELECTION_VISIBLE: {
             return Object.assign(Object.assign({}, state), { visible: action.payload.visible });

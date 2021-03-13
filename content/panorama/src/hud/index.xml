@@ -58,7 +58,14 @@
         <include src="./components/HeroSelection/heroSelection.css" />  
         <include src="./components/HeroSelection/Heroes/heroes.css" />  
         <include src="./components/HeroSelection/Heroes/Hero/hero.css" />  
-        <include src="./components/HeroSelection/HeroDescription/heroDescription.css" />  
+        <include src="./components/HeroSelection/Description/description.css" />  
+        <include src="./components/HeroSelection/Description/Title/title.css" />  
+        <include src="./components/HeroSelection/Description/Stats/stats.css" />  
+        <include src="./components/HeroSelection/Description/Lore/lore.css" />  
+        <include src="./components/HeroSelection/Description/Buttons/buttons.css" />  
+        <include src="./components/HeroSelection/Description/Name/name.css" />  
+        <include src="./components/HeroSelection/Description/Abilities/abilities.css" />  
+        <include src="./components/HeroSelection/Description/HealthAndMana/healthAndMana.css" />  
     </styles>  
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/magic_resist_stat.png" />  -->

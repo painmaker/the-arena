@@ -55,7 +55,7 @@ export class GameMode {
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, MAX_PLAYERS);
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, MAX_PLAYERS);
     GameRules.SetSameHeroSelectionEnabled(false);
-    GameRules.SetHeroSelectionTime(0);
+    GameRules.SetHeroSelectionTime(6000);
     GameRules.SetCustomGameSetupAutoLaunchDelay(0);
     GameRules.SetPreGameTime(3.0);
     GameRules.SetStrategyTime(0);
@@ -65,11 +65,9 @@ export class GameMode {
     GameRules.SetUseCustomHeroXPValues(true);
 
     const gameMode = GameRules.GetGameModeEntity();
-    // gameMode.SetCustomGameForceHero('npc_dota_hero_windrunner');
+    // gameMode.SetCustomGameForceHero("npc_dota_hero_wisp");
     gameMode.SetUnseenFogOfWarEnabled(true);
     gameMode.SetDaynightCycleDisabled(true);
-    // gameMode.SetFogOfWarDisabled(true);
-    gameMode.SetCustomGameForceHero("npc_dota_hero_wisp");
     gameMode.SetAnnouncerDisabled(true);
 
     Timers.CreateTimer(0.1, () => {

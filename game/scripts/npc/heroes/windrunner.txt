@@ -1,0 +1,59 @@
+"DOTAHeroes" {
+
+  "npc_dota_hero_windrunner"
+	{
+
+		"override_hero"			                "npc_dota_hero_windrunner"
+  
+		"Ability1"		                      "windrunner_shackleshot"
+		"Ability2"		                      "windrunner_powershot"
+		"Ability3"		                      "windrunner_windrun"
+		"Ability4"		                      "windrunner_focusfire"
+		"Ability5"		                      "generic_hidden"
+		"Ability6"		                      "generic_hidden"
+		"Ability7"		                      "generic_hidden"
+		"Ability8"		                      "generic_hidden"
+		"Ability9"		                      "generic_hidden"
+		"Ability10"		                      "generic_hidden"
+		"Ability11"		                      "generic_hidden"
+		"Ability12"		                      "generic_hidden"
+		"Ability13"		                      "generic_hidden"
+		"Ability14"		                      "generic_hidden"
+		"Ability15"		                      "generic_hidden"
+		"Ability16"		                      "generic_hidden"
+		"Ability17"		                      "generic_hidden"
+		"Ability18"		                      "generic_hidden"
+		"Ability19"		                      "generic_hidden"
+		"Ability20"		                      "generic_hidden"
+		"Ability21"		                      "generic_hidden"
+		"Ability22"		                      "generic_hidden"
+		"Ability23"		                      "generic_hidden"
+		"Ability24"		                      "generic_hidden"
+		"Ability25"		                      "generic_hidden"
+		"Ability26"		                      "generic_hidden"
+		"Ability27"		                      "generic_hidden"
+		"Ability28"		                      "generic_hidden"
+		"Ability29"		                      "generic_hidden"
+		"Ability30"		                      "generic_hidden"
+		"Ability31"		                      "generic_hidden"
+		"Ability32"		                      "generic_hidden"
+
+    "HeroSelectionCamera"               "camera_windrunner"
+    "HeroSelectionSound1"               "windrunner_wind_spawn_01"
+    "HeroSelectionSound2"               "windrunner_wind_spawn_02"
+    "HeroSelectionSound3"               "windrunner_wind_spawn_03"
+    "HeroSelectionSound4"               "windrunner_wind_spawn_04"
+    "HeroSelectionSound5"               "windrunner_wind_spawn_05"
+    "HeroSelectionSound6"               "windrunner_wind_spawn_06"
+    "HeroSelectionSound7"               "windrunner_wind_spawn_07"
+    "HeroSelectionSound8"               "windrunner_wind_spawn_08"
+    "HeroSelectionSound9"               ""
+    "HeroSelectionSound10"              ""
+
+		"VisionDaytimeRange"		            "99999"
+		"VisionNighttimeRange"		          "99999"
+
+	}
+
+}
+

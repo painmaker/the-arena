@@ -2,12 +2,12 @@ import { HeroSelectionActionTypes, RESET_FOCUSED_HERO, FocusedHero, SET_FOCUS_HE
 
 interface HeroSelectionState {
   visible: boolean,
-  hero: FocusedHero | undefined,
+  focusedHero: FocusedHero | undefined,
 }
 
 const initialState: HeroSelectionState = {
   visible: true,
-  hero: undefined,
+  focusedHero: undefined,
 };
 
 export default function (state = initialState, action: HeroSelectionActionTypes): HeroSelectionState {
@@ -15,13 +15,13 @@ export default function (state = initialState, action: HeroSelectionActionTypes)
     case SET_FOCUS_HERO: {
       return {
         ...state,
-        hero: action.payload.hero,
+        focusedHero: action.payload.hero,
       };
     }
     case RESET_FOCUSED_HERO: {
       return {
         ...state,
-        hero: undefined
+        focusedHero: undefined
       };
     }
     case SET_HERO_SELECTION_VISIBLE: {

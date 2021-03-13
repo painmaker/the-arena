@@ -1,25 +1,18 @@
 import React, { useState } from "react";
 import { useNetTableValues } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
-import { Dispatch } from "redux";
-import { setFocusedHero } from "../../../../actions/heroSelectionActions";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 import { RootState } from "../../../../reducers/rootReducer";
-import { HeroSelectionActionTypes, FocusedHero } from "../../../../types/heroSelectionTypes";
 
 const mapStateToProps = (state: RootState) => ({
-  focusedHero: state.heroSelectionReducer.hero,
+  focusedHero: state.heroSelectionReducer.focusedHero,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
-  setSelectedHero: (hero: FocusedHero) => dispatch(setFocusedHero(hero)),
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = ReactTimeoutProps & PropsFromRedux & {
-  hero: FocusedHero
+  heroname: string
 };
 
 const Hero = (props: Props) => {
@@ -27,8 +20,8 @@ const Hero = (props: Props) => {
   const [isHovering, setIsHovering] = useState(false);
   const selectedHeroes = useNetTableValues('SelectedHero');
 
-  const isFocused = props.focusedHero === props.hero;
-  const isSelected = Object.values(selectedHeroes).some(hero => hero.heroname === props.hero.name);
+  const isFocused = props.focusedHero && props.focusedHero.heroname === props.heroname;
+  const isSelected = Object.values(selectedHeroes).some(hero => hero.heroname === props.heroname);
 
   return (
     <Panel className={"heroSelectionHeroContainer"}>
@@ -38,14 +31,13 @@ const Hero = (props: Props) => {
       />
       <DOTAHeroImage
         className={'heroSelectionHeroImage'}
-        heroname={props.hero.name}
+        heroname={props.heroname}
         heroimagestyle={'portrait'}
         onmouseover={() => setIsHovering(true)}
         onmouseout={() => setIsHovering(false)}
         onactivate={() => {
           if (!isFocused) {
-            props.setSelectedHero(props.hero);
-            Game.EmitSound(props.hero.sounds[Math.floor(Math.random() * props.hero.sounds.length)]);
+            GameEvents.SendCustomGameEventToServer("on_focus_hero", { heroname: props.heroname })
           }
         }}
         style={{

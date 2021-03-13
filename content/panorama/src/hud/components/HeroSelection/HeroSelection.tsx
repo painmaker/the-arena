@@ -1,39 +1,45 @@
 import React, { Dispatch, useEffect } from "react";
 import { useGameEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
-import { setHeroSelectionVisible } from "../../actions/heroSelectionActions";
+import { setFocusedHero, setHeroSelectionVisible } from "../../actions/heroSelectionActions";
 import { RootState } from "../../reducers/rootReducer";
-import { HeroSelectionActionTypes } from "../../types/heroSelectionTypes";
-import HeroDescription from "./HeroDescription/HeroDescription";
+import { FocusedHero, HeroSelectionActionTypes } from "../../types/heroSelectionTypes";
+import Description from "./Description/description";
 import Heroes from "./Heroes/Heroes";
 
 
 const mapStateToProps = (state: RootState) => ({
-  hero: state.heroSelectionReducer.hero,
+  focusedHero: state.heroSelectionReducer.focusedHero,
   visible: state.heroSelectionReducer.visible,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
   setHeroSelectionVisible: (visible: boolean) => dispatch(setHeroSelectionVisible(visible)),
+  setFocusedHero: (hero: FocusedHero) => dispatch(setFocusedHero(hero)),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-
+  // ownProps
 };
 
 const HeroSelection = (props: Props) => {
 
   useEffect(() => {
     const scene = $("#heroSelectionScene") as ScenePanel;
-    if (props.hero) {
-      scene.LerpToCameraEntity(props.hero.camera, 1.0);
+    if (props.focusedHero) {
+      scene.LerpToCameraEntity(props.focusedHero.camera, 1.0);
     } else {
       scene.LerpToCameraEntity('camera_main', 1.0);
     }
-  }, [props.hero]);
+  }, [props.focusedHero]);
+
+  useGameEvent('on_focus_hero_success', (event) => {
+    props.setFocusedHero(event as FocusedHero);
+    Game.EmitSound(event.sound);
+  }, []);
 
   useGameEvent("on_select_hero_success", () => {
     Game.EmitSound("HeroPicker.Selected");
@@ -55,7 +61,7 @@ const HeroSelection = (props: Props) => {
         camera={'camera_main'}
       />
       <Heroes />
-      <HeroDescription hero={props.hero} />
+      <Description focusedHero={props.focusedHero} />
     </Panel>
   );
 

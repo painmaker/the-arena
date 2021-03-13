@@ -1,0 +1,59 @@
+"DOTAHeroes" {
+
+  "npc_dota_hero_phantom_assassin"
+	{
+
+		"override_hero"			                "npc_dota_hero_phantom_assassin"
+  
+		"Ability1"		                      "phantom_assassin_stifling_dagger"
+		"Ability2"		                      "phantom_assassin_phantom_strike"
+		"Ability3"		                      "phantom_assassin_blur"
+		"Ability4"		                      "phantom_assassin_coup_de_grace"
+		"Ability5"		                      "generic_hidden"
+		"Ability6"		                      "generic_hidden"
+		"Ability7"		                      "generic_hidden"
+		"Ability8"		                      "generic_hidden"
+		"Ability9"		                      "generic_hidden"
+		"Ability10"		                      "generic_hidden"
+		"Ability11"		                      "generic_hidden"
+		"Ability12"		                      "generic_hidden"
+		"Ability13"		                      "generic_hidden"
+		"Ability14"		                      "generic_hidden"
+		"Ability15"		                      "generic_hidden"
+		"Ability16"		                      "generic_hidden"
+		"Ability17"		                      "generic_hidden"
+		"Ability18"		                      "generic_hidden"
+		"Ability19"		                      "generic_hidden"
+		"Ability20"		                      "generic_hidden"
+		"Ability21"		                      "generic_hidden"
+		"Ability22"		                      "generic_hidden"
+		"Ability23"		                      "generic_hidden"
+		"Ability24"		                      "generic_hidden"
+		"Ability25"		                      "generic_hidden"
+		"Ability26"		                      "generic_hidden"
+		"Ability27"		                      "generic_hidden"
+		"Ability28"		                      "generic_hidden"
+		"Ability29"		                      "generic_hidden"
+		"Ability30"		                      "generic_hidden"
+		"Ability31"		                      "generic_hidden"
+		"Ability32"		                      "generic_hidden"
+
+    "HeroSelectionCamera"               "camera_phantom_assassin"
+    "HeroSelectionSound1"               "phantom_assassin_phass_spawn_01"
+    "HeroSelectionSound2"               "phantom_assassin_phass_spawn_02"
+    "HeroSelectionSound3"               "phantom_assassin_phass_spawn_03"
+    "HeroSelectionSound4"               "phantom_assassin_phass_spawn_04"
+    "HeroSelectionSound5"               "phantom_assassin_phass_spawn_05"
+    "HeroSelectionSound6"               ""
+    "HeroSelectionSound7"               ""
+    "HeroSelectionSound8"               ""
+    "HeroSelectionSound9"               ""
+    "HeroSelectionSound10"              ""
+
+		"VisionDaytimeRange"		            "99999"
+		"VisionNighttimeRange"		          "99999"
+
+	}
+
+}
+

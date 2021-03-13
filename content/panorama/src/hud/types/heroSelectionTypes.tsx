@@ -19,10 +19,16 @@ export interface SerHeroSelectionVisible {
 export type HeroSelectionActionTypes = SetFocusedHero | ResetFocusedHero | SerHeroSelectionVisible;
 
 export interface FocusedHero {
-  name: string,
+  heroname: string,
   camera: string,
-  sounds: string[],
+  sound: string,
   lore: string,
+  attribute: string,
+  abilities: string[],
+  health: number,
+  healthRegen: number,
+  mana: number,
+  manaRegen: number,
 }
 
 export interface SelectedHero {

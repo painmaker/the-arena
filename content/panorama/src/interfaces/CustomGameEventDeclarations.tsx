@@ -8,4 +8,17 @@ interface CustomGameEventDeclarations {
   on_select_hero: { heroname: string };
   on_select_hero_error: {};
   on_select_hero_success: {};
+  on_focus_hero: { heroname: string };
+  on_focus_hero_success: {
+    heroname: string,
+    abilities: string[],
+    sound: string,
+    camera: string,
+    attribute: string,
+    lore: string,
+    health: number,
+    healthRegen: number,
+    mana: number,
+    manaRegen: number,
+  };
 }

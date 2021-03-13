@@ -1,0 +1,59 @@
+"DOTAHeroes" {
+
+  "npc_dota_hero_lina"
+	{
+
+		"override_hero"			                "npc_dota_hero_lina"
+  
+		"Ability1"		                      "lina_dragon_slave"
+		"Ability2"		                      "lina_light_strike_array"
+		"Ability3"		                      "lina_fiery_soul"
+		"Ability4"		                      "lina_laguna_blade"
+		"Ability5"		                      "generic_hidden"
+		"Ability6"		                      "generic_hidden"
+		"Ability7"		                      "generic_hidden"
+		"Ability8"		                      "generic_hidden"
+		"Ability9"		                      "generic_hidden"
+		"Ability10"		                      "generic_hidden"
+		"Ability11"		                      "generic_hidden"
+		"Ability12"		                      "generic_hidden"
+		"Ability13"		                      "generic_hidden"
+		"Ability14"		                      "generic_hidden"
+		"Ability15"		                      "generic_hidden"
+		"Ability16"		                      "generic_hidden"
+		"Ability17"		                      "generic_hidden"
+		"Ability18"		                      "generic_hidden"
+		"Ability19"		                      "generic_hidden"
+		"Ability20"		                      "generic_hidden"
+		"Ability21"		                      "generic_hidden"
+		"Ability22"		                      "generic_hidden"
+		"Ability23"		                      "generic_hidden"
+		"Ability24"		                      "generic_hidden"
+		"Ability25"		                      "generic_hidden"
+		"Ability26"		                      "generic_hidden"
+		"Ability27"		                      "generic_hidden"
+		"Ability28"		                      "generic_hidden"
+		"Ability29"		                      "generic_hidden"
+		"Ability30"		                      "generic_hidden"
+		"Ability31"		                      "generic_hidden"
+		"Ability32"		                      "generic_hidden"
+
+    "HeroSelectionCamera"               "camera_lina"
+    "HeroSelectionSound1"               "lina_lina_spawn_01"
+    "HeroSelectionSound2"               "lina_lina_spawn_02"
+    "HeroSelectionSound3"               "lina_lina_spawn_03"
+    "HeroSelectionSound4"               "lina_lina_spawn_04"
+    "HeroSelectionSound5"               "lina_lina_spawn_05"
+    "HeroSelectionSound6"               "lina_lina_spawn_06"
+    "HeroSelectionSound7"               "lina_lina_spawn_07"
+    "HeroSelectionSound8"               "lina_lina_spawn_08"
+    "HeroSelectionSound9"               "lina_lina_spawn_09"
+    "HeroSelectionSound10"              ""
+
+		"VisionDaytimeRange"		            "99999"
+		"VisionNighttimeRange"		          "99999"
+
+	}
+
+}
+

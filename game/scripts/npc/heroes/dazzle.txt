@@ -1,0 +1,59 @@
+"DOTAHeroes" {
+
+  "npc_dota_hero_dazzle"
+	{
+
+		"override_hero"			                "npc_dota_hero_dazzle"
+
+		"Ability1"		                      "dazzle_poison_touch"
+		"Ability2"		                      "dazzle_shallow_grave"
+		"Ability3"		                      "dazzle_shadow_wave"
+		"Ability4"		                      "dazzle_weave"
+		"Ability5"		                      "generic_hidden"
+		"Ability6"		                      "generic_hidden"
+		"Ability7"		                      "generic_hidden"
+		"Ability8"		                      "generic_hidden"
+		"Ability9"		                      "generic_hidden"
+		"Ability10"		                      "generic_hidden"
+		"Ability11"		                      "generic_hidden"
+		"Ability12"		                      "generic_hidden"
+		"Ability13"		                      "generic_hidden"
+		"Ability14"		                      "generic_hidden"
+		"Ability15"		                      "generic_hidden"
+		"Ability16"		                      "generic_hidden"
+		"Ability17"		                      "generic_hidden"
+		"Ability18"		                      "generic_hidden"
+		"Ability19"		                      "generic_hidden"
+		"Ability20"		                      "generic_hidden"
+		"Ability21"		                      "generic_hidden"
+		"Ability22"		                      "generic_hidden"
+		"Ability23"		                      "generic_hidden"
+		"Ability24"		                      "generic_hidden"
+		"Ability25"		                      "generic_hidden"
+		"Ability26"		                      "generic_hidden"
+		"Ability27"		                      "generic_hidden"
+		"Ability28"		                      "generic_hidden"
+		"Ability29"		                      "generic_hidden"
+		"Ability30"		                      "generic_hidden"
+		"Ability31"		                      "generic_hidden"
+		"Ability32"		                      "generic_hidden"
+
+    "HeroSelectionCamera"               "camera_dazzle"
+    "HeroSelectionSound1"               "dazzle_dazz_spawn_01"
+    "HeroSelectionSound2"               "dazzle_dazz_spawn_02"
+    "HeroSelectionSound3"               "dazzle_dazz_spawn_03"
+    "HeroSelectionSound4"               "dazzle_dazz_spawn_04"
+    "HeroSelectionSound5"               "dazzle_dazz_spawn_05"
+    "HeroSelectionSound6"               ""
+    "HeroSelectionSound7"               ""
+    "HeroSelectionSound8"               ""
+    "HeroSelectionSound9"               ""
+    "HeroSelectionSound10"              ""
+
+		"VisionDaytimeRange"		            "99999"
+		"VisionNighttimeRange"		          "99999"
+
+	}
+
+}
+

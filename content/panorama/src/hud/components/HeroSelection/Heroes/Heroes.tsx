@@ -3,11 +3,19 @@ import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
 import { HeroSelectionActionTypes } from "../../../types/heroSelectionTypes";
 import Hero from "./Hero/Hero";
-import { selectableHeroes } from "../../../data/heroes";
 import { resetFocusedHero } from "../../../actions/heroSelectionActions";
 
+const selectableHeronames = [
+  'npc_dota_hero_dragon_knight',
+  'npc_dota_hero_windrunner',
+  'npc_dota_hero_phantom_assassin',
+  'npc_dota_hero_crystal_maiden',
+  'npc_dota_hero_dazzle',
+  'npc_dota_hero_lina',
+];
+
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
-  resetSelectedHero: () => dispatch(resetFocusedHero()),
+  resetFocusedHero: () => dispatch(resetFocusedHero()),
 });
 
 const connector = connect(null, mapDispatchToProps);
@@ -20,16 +28,16 @@ type Props = PropsFromRedux & {
 const Heroes = (props: Props) => {
   return (
     <Panel className={"heroSelectionHeroesContainer"} >
-      { selectableHeroes.map(hero => (
+      { selectableHeronames.map(heroname => (
         <Hero
-          key={hero.name}
-          hero={hero}
+          key={heroname}
+          heroname={heroname}
         />
       ))}
       <Button
         className={'heroSelectionHeroesRandomBtnContainer'}
         onactivate={() => {
-          props.resetSelectedHero();
+          props.resetFocusedHero();
           Game.EmitSound("ui_topmenu_select");
         }}
       >
