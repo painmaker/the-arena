@@ -1,10 +1,11 @@
+import { STRENGTH_GAIN_HP_BONUS, STRENGTH_GAIN_HP_REGEN_BONUS, INTELLIGENCE_GAIN_MANA_BONUS, INTELLIGENCE_GAIN_MANA_REGEN_BONUS, PRIMARY_ATTRIBUTE_DAMAGE_BONUS, AGILITY_GAIN_MOVE_SPEED_BONUS } from "./CustomAttributeBonuses";
 import { MAX_PLAYERS } from "./settings";
 
 interface SelectedHero {
   heroname: string,
 }
 
-export class HeroSelectionHandler {
+export class HeroSelectionService {
 
   constructor() {
     this.configure();
@@ -42,9 +43,9 @@ export class HeroSelectionHandler {
 
     const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, event.heroname, 0, 0);
     hero.SetCustomDeathXP(10);
-    hero.AddItemByName("item_pipe");
-    hero.AddItemByName("item_sange_and_yasha");
-    hero.AddItemByName("item_assault");
+    hero.AddItemByName("item_ogre_axe");
+    hero.AddItemByName("item_staff_of_wizardry");
+    hero.AddItemByName("item_blade_of_alacrity");
     hero.AddItemByName("item_blink");
 
     CustomGameEventManager.Send_ServerToAllClients("create_hero_image_for_player", { playerId: event.PlayerID });
@@ -86,12 +87,39 @@ export class HeroSelectionHandler {
       camera: hero['HeroSelectionCamera'],
       attribute: hero['AttributePrimary'],
       lore: 'HeroSelectionLore_' + event.heroname,
-      health: hero['StatusHealth'],
-      healthRegen: hero['StatusHealthRegen'],
-      mana: hero['StatusMana'],
-      manaRegen: hero['StatusManaRegen'],
-    });;
+      health: hero['StatusHealth'] + hero['CustomBaseStrength'] * STRENGTH_GAIN_HP_BONUS,
+      healthRegen: hero['StatusHealthRegen'] + hero['CustomStrengthGain'] * STRENGTH_GAIN_HP_REGEN_BONUS,
+      mana: hero['StatusMana'] + hero['CustomBaseIntelligence'] * INTELLIGENCE_GAIN_MANA_BONUS,
+      manaRegen: hero['StatusManaRegen'] + hero['CustomIntelligenceGain'] * INTELLIGENCE_GAIN_MANA_REGEN_BONUS,
+      damage: this.caclulateAverageDamage(hero),
+      armor: hero['ArmorPhysical'],
+      movespeed: hero['MovementSpeed'] + (hero['CustomBaseAgility'] + hero['CustomAgilityGain']) * AGILITY_GAIN_MOVE_SPEED_BONUS,
+      attackRange: hero['AttackRange'],
+      attackSpeed: hero['BaseAttackSpeed'],
+      attackRate: hero['AttackRate'],
+      agility: hero['CustomBaseAgility'],
+      agilityGain: hero['CustomAgilityGain'],
+      strength: hero['CustomBaseStrength'],
+      strengthGain: hero['CustomStrengthGain'],
+      intelligence: hero['CustomBaseIntelligence'],
+      intelligenceGain: hero['CustomIntelligenceGain'],
+    });
 
+  }
+
+  private caclulateAverageDamage(hero: any): number {
+    const primaryAttribute = hero['AttributePrimary'];
+    let damage = ((hero['AttackDamageMin'] + hero['AttackDamageMax']) / 2);
+    if (primaryAttribute === 'DOTA_ATTRIBUTE_STRENGTH') {
+      return damage + (hero['CustomBaseStrength'] + hero['CustomStrengthGain']) * PRIMARY_ATTRIBUTE_DAMAGE_BONUS;
+    }
+    if (primaryAttribute === 'DOTA_ATTRIBUTE_AGILITY') {
+      return damage + (hero['CustomBaseAgility'] + hero['CustomAgilityGain']) * PRIMARY_ATTRIBUTE_DAMAGE_BONUS;
+    }
+    if (primaryAttribute === 'DOTA_ATTRIBUTE_INTELLECT') {
+      return damage + (hero['CustomBaseIntelligence'] + hero['CustomIntelligenceGain']) * PRIMARY_ATTRIBUTE_DAMAGE_BONUS;
+    }
+    return damage;
   }
 
 }

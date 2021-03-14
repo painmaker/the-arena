@@ -2,7 +2,7 @@
   width: fill-parent-flow(1);
   margin-left: 6.25px;
   margin-right: 12.5px;
-  margin-top: 20px;
+  margin-top: 10px;
   flow-children: down;
   min-width: 200px;
 }

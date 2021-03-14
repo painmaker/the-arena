@@ -9,12 +9,12 @@ import "./modifiers/ui/modifier_ui_base_health_regen";
 import "./modifiers/ui/modifier_ui_spell_amp";
 import "./modifiers/ui/modifier_ui_hero_id";
 import { EXPERIENCE_PER_LEVEL_TABLE, MAX_PLAYERS } from "./settings";
-import { HeroSelectionHandler } from "./HeroSelectionHandler";
+import { HeroSelectionService } from "./HeroSelectionService";
 
 declare global {
   interface CDOTAGamerules {
     Addon: GameMode;
-    HeroSelectionHandler: HeroSelectionHandler;
+    HeroSelectionService: HeroSelectionService;
   }
 }
 
@@ -38,7 +38,7 @@ export class GameMode {
 
   public static Activate(this: void) {
     GameRules.Addon = new GameMode();
-    GameRules.HeroSelectionHandler = new HeroSelectionHandler();
+    GameRules.HeroSelectionService = new HeroSelectionService();
   }
 
   constructor() {
@@ -55,7 +55,7 @@ export class GameMode {
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, MAX_PLAYERS);
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, MAX_PLAYERS);
     GameRules.SetSameHeroSelectionEnabled(false);
-    GameRules.SetHeroSelectionTime(6000);
+    GameRules.SetHeroSelectionTime(0);
     GameRules.SetCustomGameSetupAutoLaunchDelay(0);
     GameRules.SetPreGameTime(3.0);
     GameRules.SetStrategyTime(0);
@@ -65,7 +65,7 @@ export class GameMode {
     GameRules.SetUseCustomHeroXPValues(true);
 
     const gameMode = GameRules.GetGameModeEntity();
-    // gameMode.SetCustomGameForceHero("npc_dota_hero_wisp");
+    gameMode.SetCustomGameForceHero("npc_dota_hero_wisp");
     gameMode.SetUnseenFogOfWarEnabled(true);
     gameMode.SetDaynightCycleDisabled(true);
     gameMode.SetAnnouncerDisabled(true);
@@ -81,6 +81,16 @@ export class GameMode {
 
     gameMode.SetExecuteOrderFilter(event => this.OrderFilter(event), {});
     gameMode.SetItemAddedToInventoryFilter(event => this.InventoryFilter(event), {});
+
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_ARMOR, 0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_DAMAGE, 0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_DAMAGE, 0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_STRENGTH_DAMAGE, 0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_STRENGTH_HP, 0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_STRENGTH_HP_REGEN, 0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_INTELLIGENCE_DAMAGE, 0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_INTELLIGENCE_MANA, 0);
+    gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_INTELLIGENCE_MANA_REGEN, 0);
 
   }
 

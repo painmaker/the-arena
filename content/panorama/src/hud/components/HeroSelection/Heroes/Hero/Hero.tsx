@@ -29,6 +29,12 @@ const Hero = (props: Props) => {
         className={'heroSelectionSelectedHeroBorder'}
         style={{ visibility: isFocused ? 'visible' : 'collapse' }}
       />
+      { isSelected && (
+        <Image
+          className={'heroSelectionSelectedHeroLock'}
+          src="s2r://panorama/images/lock_white_png.vtex"
+        />
+      )}
       <DOTAHeroImage
         className={'heroSelectionHeroImage'}
         heroname={props.heroname}
@@ -42,7 +48,7 @@ const Hero = (props: Props) => {
         }}
         style={{
           transform: (isFocused || isHovering) ? 'scaleX(1.025) scaleY(1.025)' : 'scaleX(1) scaleY(1)',
-          washColor: isSelected ? 'rgba(0, 0, 0, 0.975)' : (isFocused || isHovering) ? 'none' : 'rgba(0, 0, 0, 0.15)',
+          washColor: isSelected ? 'rgba(0, 0, 0, 0.925)' : (isFocused || isHovering) ? 'none' : 'rgba(0, 0, 0, 0.15)',
         }}
       />
     </Panel>

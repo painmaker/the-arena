@@ -65,7 +65,9 @@
         <include src="./components/HeroSelection/Description/Buttons/buttons.css" />  
         <include src="./components/HeroSelection/Description/Name/name.css" />  
         <include src="./components/HeroSelection/Description/Abilities/abilities.css" />  
+        <include src="./components/HeroSelection/Description/Abilities/Ability/ability.css" />  
         <include src="./components/HeroSelection/Description/HealthAndMana/healthAndMana.css" />  
+        <include src="./components/HeroSelection/Description/Attributes/attributes.css" />  
     </styles>  
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/magic_resist_stat.png" />  -->

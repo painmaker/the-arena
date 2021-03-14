@@ -12,6 +12,7 @@ import Stats from "./Stats/Stats";
 import Title from "./Title/Title";
 import Abilities from "./Abilities/Abilities";
 import HealthAndMana from "./HealthAndMana/HealthAndMana";
+import Attributes from "./Attributes/Attributes";
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
   resetFocusedHero: () => dispatch(resetFocusedHero()),
@@ -32,14 +33,13 @@ const Description = (props: Props) => {
     let timer = -1 as Timer;
     if (props.focusedHero === undefined) {
       timer = props.setTimeout(() => {
-        setRenderComponent(false);
+        setRenderComponent(true);
       }, 1000);
     } else {
       setRenderComponent(true);
     }
     return () => props.clearTimeout(timer);
   }, [props.focusedHero]);
-
 
   return (
     <React.Fragment>
@@ -55,7 +55,10 @@ const Description = (props: Props) => {
             <React.Fragment>
               <Title />
               <Name focusedHero={props.focusedHero} />
-              <Stats focusedHero={props.focusedHero} />
+              <Panel style={{ flowChildren: 'right', width: '100%' }}>
+                <Attributes focusedHero={props.focusedHero} />
+                <Stats focusedHero={props.focusedHero} />
+              </Panel>
               <Panel style={{ flowChildren: 'right', width: '100%' }}>
                 <Abilities focusedHero={props.focusedHero} />
                 <HealthAndMana focusedHero={props.focusedHero} />

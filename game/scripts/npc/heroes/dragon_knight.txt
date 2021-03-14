@@ -58,21 +58,33 @@
 		"AttackAnimationPoint"		          "0.500000"
 		"AttackAcquisitionRange"	    	    "600"
 		"AttackRange"		                    "150"
-		"AttributePrimary"		              "DOTA_ATTRIBUTE_STRENGTH"
-		// "AttributeBaseStrength"		          "1"
-		// "AttributeStrengthGain"		          "1"
-		// "AttributeBaseAgility"		          "1"
-		// "AttributeAgilityGain"		          "1"
-		// "AttributeBaseIntelligence"		      "1"
-		// "AttributeIntelligenceGain"		      "1"
 		"MovementSpeed"		                  "310"
 		"MovementTurnRate"		              "1.0"
 		"BoundsHullName"		                "DOTA_HULL_SIZE_HERO"
 
-    "StatusHealth"		                  "15"
-    "StatusHealthRegen"		              "1.0"
-		"StatusManaRegen"	                  "1.0"
-		"StatusMana"		                    "5"
+    "StatusHealth"		                  "14"
+    "StatusHealthRegen"		              "0.75"
+		"StatusManaRegen"	                  "0.25"
+		"StatusMana"		                    "4"
+
+		"AttributePrimary"		              "DOTA_ATTRIBUTE_STRENGTH"
+
+    // Total 10 points
+		"CustomBaseStrength"		            "6"
+		"CustomBaseAgility"		              "3"
+		"CustomBaseIntelligence"	  	      "1"
+
+    // Total 3 points
+		"CustomStrengthGain"		            "2.0"
+		"CustomAgilityGain"		              "0.5"
+		"CustomIntelligenceGain"		        "0.5"
+
+		"AttributeBaseStrength"		          "0"
+		"AttributeStrengthGain"		          "0"
+		"AttributeBaseAgility"		          "0"
+		"AttributeAgilityGain"		          "0"
+		"AttributeBaseIntelligence"		      "0"
+		"AttributeIntelligenceGain"		      "0"
 
 		"VisionDaytimeRange"		            "99999"
 		"VisionNighttimeRange"		          "99999"

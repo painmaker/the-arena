@@ -25,17 +25,31 @@ const Buttons = (props: Props) => {
     <Panel className={'heroSelectionDescriptionButtonsContainer'}>
       <Button
         className={'heroSelectionDescriptionSelectHeroBtn'}
-        onactivate={() => GameEvents.SendCustomGameEventToServer("on_select_hero", { heroname: props.focusedHero.heroname })}
-        style={{ backgroundColor: isSelected ? 'grey' : 'olivedrab' }}
+        onactivate={() => {
+          Game.EmitSound("ui_topmenu_select");
+          GameEvents.SendCustomGameEventToServer("on_select_hero", { heroname: props.focusedHero.heroname })
+        }}
+        style={{ backgroundColor: isSelected ? 'rgb(50, 50, 50)' : 'gradient( linear, 0% 0%, 0% 100%, from( #5Aa15E ), to( #87d69533 ) )' }}
       >
-        <Label
-          className={'heroSelectionDescriptionSelectHeroBtnLabel'}
-          text={'Select Hero'}
-        />
+        {!isSelected && (
+          <Label
+            className={'heroSelectionDescriptionSelectHeroBtnLabel'}
+            text={'Select Hero'}
+          />
+        )}
+        {isSelected && (
+          <Image
+            className={'heroSelectionDescriptionSelectHeroBtnLocked'}
+            src="s2r://panorama/images/lock_white_png.vtex"
+          />
+        )}
       </Button>
       <Button
         className={'heroSelectionDescriptionCancelHeroBtn'}
-        onactivate={() => props.resetFocusedHero()}
+        onactivate={() => {
+          Game.EmitSound("ui_topmenu_select");
+          props.resetFocusedHero();
+        }}
       >
         <Label
           className={'heroSelectionDescriptionCancelHeroBtnLabel'}

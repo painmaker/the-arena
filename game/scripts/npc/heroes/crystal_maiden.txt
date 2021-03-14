@@ -53,6 +53,30 @@
 		"VisionDaytimeRange"		            "99999"
 		"VisionNighttimeRange"		          "99999"
 
+    "StatusHealth"		                  "2"
+    "StatusHealthRegen"		              "0.25"
+		"StatusManaRegen"	                  "0.75"
+		"StatusMana"		                    "9"
+    
+		"AttributePrimary"		              "DOTA_ATTRIBUTE_INTELLECT"
+
+    // Total 10 points
+		"CustomBaseStrength"		            "3"
+		"CustomBaseAgility"		              "1"
+		"CustomBaseIntelligence"	  	      "6"
+
+    // Total 3 points
+		"CustomStrengthGain"		            "0.5"
+		"CustomAgilityGain"		              "0.5"
+		"CustomIntelligenceGain"		        "2.0"
+
+		"AttributeBaseStrength"		          "0"
+		"AttributeStrengthGain"		          "0"
+		"AttributeBaseAgility"		          "0"
+		"AttributeAgilityGain"		          "0"
+		"AttributeBaseIntelligence"		      "0"
+		"AttributeIntelligenceGain"		      "0"
+
 	}
 
 }

@@ -65,7 +65,9 @@
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Buttons/buttons.css"></include>  
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Name/name.css"></include>  
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Abilities/abilities.css"></include>  
+        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Abilities/Ability/ability.css"></include>  
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/HealthAndMana/healthAndMana.css"></include>  
+        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Attributes/attributes.css"></include>  
     </styles>  
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/magic_resist_stat.png" />  -->

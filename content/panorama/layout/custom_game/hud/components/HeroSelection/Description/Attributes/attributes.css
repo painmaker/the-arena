@@ -1,0 +1,99 @@
+.heroSelectionDescriptionAttributesOuterContainer {
+  width: fill-parent-flow(1.75);
+  margin-left: 12.5px;
+  margin-top: 10px;
+  flow-children: down;
+}
+
+.heroSelectionDescriptionAttributesTitleLabel {
+  color: rgba(160, 160, 160, 0.35);
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin-bottom: 2.5px;
+  margin-left: 7.5px;
+  text-transform: uppercase;
+}
+
+.heroSelectionDescriptionAttributesInnerContainer {
+  width: 100%;
+  background-color: rgba(50, 50, 50, 0.75);
+  border-radius: 5px;
+  padding: 2px;
+  flow-children: right;
+}
+
+.heroSelectionDescriptionAttributesLeftColumn {
+  flow-children: down;
+  width: fill-parent-flow(1);  
+}
+
+.heroSelectionDescriptionAttributesRightColumn {
+  flow-children: down;
+  width: fill-parent-flow(2.5);
+}
+
+.heroSelectionDescriptionAttributesColumnEntryContainer {
+  flow-children: right;
+  horizontal-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 2.5px;
+  padding: 5px;
+  border-radius: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.heroSelectionDescriptionAttributesColumnEntry {
+  width: fill-parent-flow(1);
+  vertical-align: center;
+}
+
+.heroSelectionDescriptionAttributesIcon {
+  width: 22px;
+  height: 22px;
+  vertical-align: center;
+  background-size: contain;
+}
+
+.heroSelectionDescriptionAttributesIconAgility {
+  background-image: url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_agility_psd.vtex");
+}
+
+.heroSelectionDescriptionAttributesIconStrength {
+  background-image: url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_strength_psd.vtex");
+}
+
+.heroSelectionDescriptionAttributesIconIntelligence {
+  background-image: url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_intelligence_psd.vtex");
+}
+
+.heroSelectionDescriptionAttributesLabelContainer {
+  flow-children: right;
+  height: 100%;
+}
+
+.heroSelectionDescriptionAttributesBaseLabel {
+  color: white;
+  padding-left: 10px;
+  vertical-align: center;
+  horizontal-align: left;
+  font-size: 16px;  
+}
+
+.heroSelectionDescriptionAttributesGainLabel {
+  color: green;
+  padding-left: 1px;
+  vertical-align: center;
+  horizontal-align: left;
+  font-size: 16px;  
+}
+
+.heroSelectionDescriptionAttributesAdditionInformationLabel {
+  width: fill-parent-flow(1);
+  text-align: center;
+  padding-top: 2px;
+  font-size: 14px;
+  height: 22px;
+}

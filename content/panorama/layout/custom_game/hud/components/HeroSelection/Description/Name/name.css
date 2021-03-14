@@ -1,13 +1,12 @@
 .heroSelectionDescriptionNameContainer {
   width: 100%;
-  /* background-color: rgba(0, 0, 0, 0.75); */
-  background-color: rgba(50, 50, 50, 0.75);
   margin-left: 12.5px;
   margin-right: 12.5px;
-  margin-top: 12.5px;
+  margin-top: 10px;
   padding: 5px;
   flow-children: right;
   border-radius: 5px;
+  background-color: rgba(50, 50, 50, 0.5);
 }
 
 .heroSelectionDescriptionNameAttributeImage {
@@ -26,3 +25,14 @@
   padding-bottom: 1.5px;
 }
 
+.heroSelectionDescriptionHeroIconContainer {
+  width: fill-parent-flow(1);
+  height: 100%;
+}
+.heroSelectionDescriptionHeroIcon {
+  width: 20px;
+  height: 20px;
+  vertical-align: center;
+  horizontal-align: right;
+  margin-right: 20px;
+}

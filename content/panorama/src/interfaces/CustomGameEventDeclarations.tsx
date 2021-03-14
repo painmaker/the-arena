@@ -20,5 +20,17 @@ interface CustomGameEventDeclarations {
     healthRegen: number,
     mana: number,
     manaRegen: number,
+    damage: number,
+    armor: number,
+    movespeed: number,
+    attackRange: number,
+    attackSpeed: number,
+    attackRate: number,
+    agility: number,
+    agilityGain: number,
+    strength: number,
+    strengthGain: number,
+    intelligence: number,
+    intelligenceGain: number,
   };
 }

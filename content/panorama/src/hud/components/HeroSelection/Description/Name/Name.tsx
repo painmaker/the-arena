@@ -28,6 +28,13 @@ const Name = (props: Props) => {
         className={'heroSelectionDescriptionNameLabel'}
         text={$.Localize(props.focusedHero.heroname)}
       />
+      <Panel className={'heroSelectionDescriptionHeroIconContainer'}>
+        <DOTAHeroImage
+          className={'heroSelectionDescriptionHeroIcon'}
+          heroname={props.focusedHero.heroname}
+          heroimagestyle={'icon'}
+        />
+      </Panel>
     </Panel>
   );
 };

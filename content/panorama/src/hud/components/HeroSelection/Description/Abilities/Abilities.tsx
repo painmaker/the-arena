@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { FocusedHero } from "../../../../types/heroSelectionTypes";
+import Ability from "./Ability/Ability";
 
 type Props = {
   focusedHero: FocusedHero,
@@ -11,13 +12,9 @@ const Abilities = (props: Props) => {
       <Label className={'heroSelectionDescriptionAbilitiesTitleLabel'} text={"ABILITIES"} />
       <Panel className={'heroSelectionDescriptionAbilitiesInnerContainer'}>
         {Object.values(props.focusedHero.abilities).map((ability) => (
-          <DOTAAbilityImage
-            id={ability}
+          <Ability
             key={ability}
-            className={'heroSelectionDescriptionAbilityImage'}
-            abilityname={ability}
-            onmouseover={() => $.DispatchEvent("DOTAShowAbilityTooltip", $("#" + ability), ability)}
-            onmouseout={() => $.DispatchEvent("DOTAHideAbilityTooltip", $("#" + ability))}
+            ability={ability}
           />
         ))}
       </Panel>

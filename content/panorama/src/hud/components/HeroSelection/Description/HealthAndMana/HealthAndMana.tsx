@@ -18,7 +18,7 @@ const HealthAndMana = (props: Props) => {
           />
           <Label
             className={'heroSelectionDescriptionRegenLabel'}
-            text={'+ ' + props.focusedHero.healthRegen.toFixed(2)}
+            text={'+ ' + props.focusedHero.healthRegen}
           />
         </Panel>
         <Panel className={'heroSelectionDescriptionManaContainer'}>
@@ -28,7 +28,7 @@ const HealthAndMana = (props: Props) => {
           />
           <Label
             className={'heroSelectionDescriptionRegenLabel'}
-            text={'+ ' + props.focusedHero.manaRegen.toFixed(2)}
+            text={'+ ' + props.focusedHero.manaRegen}
           />
         </Panel>
       </Panel>

@@ -1,0 +1,17 @@
+
+.heroSelectionDescriptionAbilityImage {
+  width: 48px;
+  height: 48px;
+  margin: 2.5px;
+  border: 1px solid black;
+  brightness: 1.0;
+  transition-property: transform;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  transform: scaleX(1) scaleY(1);
+}
+
+.heroSelectionDescriptionAbilityImage:hover {
+  brightness: 1.25;
+  transform: scaleX(1.025) scaleY(1.025);
+}

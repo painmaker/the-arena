@@ -58316,13 +58316,96 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _Ability_Ability__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Ability/Ability */ "./hud/components/HeroSelection/Description/Abilities/Ability/Ability.tsx");
+
 
 const Abilities = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAbilitiesOuterContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionAbilitiesTitleLabel', text: "ABILITIES" }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAbilitiesInnerContainer' }, Object.values(props.focusedHero.abilities).map((ability) => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: ability, key: ability, className: 'heroSelectionDescriptionAbilityImage', abilityname: ability, onmouseover: () => $.DispatchEvent("DOTAShowAbilityTooltip", $("#" + ability), ability), onmouseout: () => $.DispatchEvent("DOTAHideAbilityTooltip", $("#" + ability)) }))))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAbilitiesInnerContainer' }, Object.values(props.focusedHero.abilities).map((ability) => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Ability_Ability__WEBPACK_IMPORTED_MODULE_1__.default, { key: ability, ability: ability }))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Abilities);
+
+
+/***/ }),
+
+/***/ "./hud/components/HeroSelection/Description/Abilities/Ability/Ability.tsx":
+/*!********************************************************************************!*\
+  !*** ./hud/components/HeroSelection/Description/Abilities/Ability/Ability.tsx ***!
+  \********************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const Ability = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: props.ability, className: 'heroSelectionDescriptionAbilityImage', abilityname: props.ability, onmouseover: () => $.DispatchEvent("DOTAShowAbilityTooltip", $("#" + props.ability), props.ability), onmouseout: () => $.DispatchEvent("DOTAHideAbilityTooltip", $("#" + props.ability)) }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Ability);
+
+
+/***/ }),
+
+/***/ "./hud/components/HeroSelection/Description/Attributes/Attributes.tsx":
+/*!****************************************************************************!*\
+  !*** ./hud/components/HeroSelection/Description/Attributes/Attributes.tsx ***!
+  \****************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const Attributes = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesOuterContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionAttributesTitleLabel', text: "Attributes" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesInnerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesLeftColumn' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntryContainer' },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntry' },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesIcon heroSelectionDescriptionAttributesIconAgility' })),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntry' },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionAttributesBaseLabel', text: props.focusedHero.agility })),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntry' },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionAttributesGainLabel', text: '+' + props.focusedHero.agilityGain.toFixed(1) }))),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntryContainer' },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntry' },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesIcon heroSelectionDescriptionAttributesIconStrength' })),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntry' },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionAttributesBaseLabel', text: props.focusedHero.strength })),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntry' },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionAttributesGainLabel', text: '+' + props.focusedHero.strengthGain.toFixed(1) }))),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntryContainer' },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntry' },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesIcon heroSelectionDescriptionAttributesIconIntelligence' })),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntry' },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionAttributesBaseLabel', text: props.focusedHero.intelligence })),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntry' },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionAttributesGainLabel', text: '+' + props.focusedHero.intelligenceGain.toFixed(1) })))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesRightColumn' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntryContainer' },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionAttributesAdditionInformationLabel', text: props.focusedHero.attribute === 'DOTA_ATTRIBUTE_AGILITY' ? '+ 0.5 move speed. + 0.5 attack speed. + 1.0 damage.' : '+ 0.5 move speed. + 0.5 attack speed.' })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntryContainer' },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionAttributesAdditionInformationLabel', text: props.focusedHero.attribute === 'DOTA_ATTRIBUTE_STRENGTH' ? '+ 1.0 health. + 0.5 health regen. + 1.0 damage.' : '+ 1.0 health. + 0.5 health regen.' })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionAttributesColumnEntryContainer' },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionAttributesAdditionInformationLabel', text: props.focusedHero.attribute === 'DOTA_ATTRIBUTE_INTELLECT' ? '+ 1.0 mana. + 0.5 mana regen. + 1.0 damage.' : '+ 1.0 mana. + 0.5 mana regen.' }))))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Attributes);
 
 
 /***/ }),
@@ -58358,9 +58441,16 @@ const Buttons = (props) => {
     const selectedHeroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('SelectedHero');
     const isSelected = Object.values(selectedHeroes).some(hero => props.focusedHero && props.focusedHero.heroname === hero.heroname);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionButtonsContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionDescriptionSelectHeroBtn', onactivate: () => GameEvents.SendCustomGameEventToServer("on_select_hero", { heroname: props.focusedHero.heroname }), style: { backgroundColor: isSelected ? 'grey' : 'olivedrab' } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionSelectHeroBtnLabel', text: 'Select Hero' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionDescriptionCancelHeroBtn', onactivate: () => props.resetFocusedHero() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionDescriptionSelectHeroBtn', onactivate: () => {
+                Game.EmitSound("ui_topmenu_select");
+                GameEvents.SendCustomGameEventToServer("on_select_hero", { heroname: props.focusedHero.heroname });
+            }, style: { backgroundColor: isSelected ? 'rgb(50, 50, 50)' : 'gradient( linear, 0% 0%, 0% 100%, from( #5Aa15E ), to( #87d69533 ) )' } },
+            !isSelected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionSelectHeroBtnLabel', text: 'Select Hero' })),
+            isSelected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { className: 'heroSelectionDescriptionSelectHeroBtnLocked', src: "s2r://panorama/images/lock_white_png.vtex" }))),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionDescriptionCancelHeroBtn', onactivate: () => {
+                Game.EmitSound("ui_topmenu_select");
+                props.resetFocusedHero();
+            } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionCancelHeroBtnLabel', text: 'Cancel' }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Buttons));
@@ -58391,10 +58481,10 @@ const HealthAndMana = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionHealthAndManaInnerContainer' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionHealthContainer' },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionHealthAndManaLabel', text: props.focusedHero.health + ' / ' + props.focusedHero.health }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionRegenLabel', text: '+ ' + props.focusedHero.healthRegen.toFixed(2) })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionRegenLabel', text: '+ ' + props.focusedHero.healthRegen })),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionManaContainer' },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionHealthAndManaLabel', text: props.focusedHero.mana + ' / ' + props.focusedHero.mana }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionRegenLabel', text: '+ ' + props.focusedHero.manaRegen.toFixed(2) })))));
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionRegenLabel', text: '+ ' + props.focusedHero.manaRegen })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HealthAndMana);
 
@@ -58461,7 +58551,9 @@ const attributeToImage = (attribute) => {
 const Name = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionNameContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionNameAttributeImage', style: { backgroundImage: attributeToImage(props.focusedHero.attribute) } }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionNameLabel', text: $.Localize(props.focusedHero.heroname) })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionNameLabel', text: $.Localize(props.focusedHero.heroname) }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionHeroIconContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { className: 'heroSelectionDescriptionHeroIcon', heroname: props.focusedHero.heroname, heroimagestyle: 'icon' }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Name);
 
@@ -58486,7 +58578,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 
 const Stats = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsContainer' }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsOuterContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionStatsTitleLabel', text: "Stats" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsInnerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsColumn' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsColumnEntry', style: { marginTop: '1px' } },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: 'right', horizontalAlign: 'center' } },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsImage heroSelectionDescriptionStatsDamageImage' }),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionStatsLabel', text: props.focusedHero.damage }))),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsColumnEntry' },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: 'right', horizontalAlign: 'center' } },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsImage heroSelectionDescriptionStatsArmorImage' }),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionStatsLabel ', text: props.focusedHero.armor }))),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsColumnEntry' },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: 'right', horizontalAlign: 'center' } },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsImage heroSelectionDescriptionStatsMoveSpeedImage' }),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionStatsLabel', text: props.focusedHero.movespeed.toFixed(0) })))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsColumn' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsColumnEntry', style: { marginTop: '0px' } },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: 'right', horizontalAlign: 'center' } },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsImage heroSelectionDescriptionStatsAttackRateImage' }),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionStatsLabel', text: props.focusedHero.attackRate.toFixed(1) }))),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsColumnEntry' },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: 'right', horizontalAlign: 'center' } },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsImage heroSelectionDescriptionStatsAttackSpeedImage' }),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionStatsLabel', text: props.focusedHero.attackSpeed.toFixed(0) }))),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsColumnEntry' },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: 'right', horizontalAlign: 'center' } },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionStatsImage heroSelectionDescriptionStatsAttackRangeImage' }),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionStatsLabel', text: props.focusedHero.attackRange.toFixed(0) })))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Stats);
 
@@ -58558,6 +58678,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/HeroSelection/Description/Title/Title.tsx");
 /* harmony import */ var _Abilities_Abilities__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Abilities/Abilities */ "./hud/components/HeroSelection/Description/Abilities/Abilities.tsx");
 /* harmony import */ var _HealthAndMana_HealthAndMana__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./HealthAndMana/HealthAndMana */ "./hud/components/HeroSelection/Description/HealthAndMana/HealthAndMana.tsx");
+/* harmony import */ var _Attributes_Attributes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Attributes/Attributes */ "./hud/components/HeroSelection/Description/Attributes/Attributes.tsx");
+
 
 
 
@@ -58579,7 +58701,7 @@ const Description = (props) => {
         let timer = -1;
         if (props.focusedHero === undefined) {
             timer = props.setTimeout(() => {
-                setRenderComponent(false);
+                setRenderComponent(true);
             }, 1000);
         }
         else {
@@ -58593,7 +58715,9 @@ const Description = (props) => {
         } }, props.focusedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_8__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Name_Name__WEBPACK_IMPORTED_MODULE_6__.default, { focusedHero: props.focusedHero }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Stats_Stats__WEBPACK_IMPORTED_MODULE_7__.default, { focusedHero: props.focusedHero }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: 'right', width: '100%' } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Attributes_Attributes__WEBPACK_IMPORTED_MODULE_11__.default, { focusedHero: props.focusedHero }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Stats_Stats__WEBPACK_IMPORTED_MODULE_7__.default, { focusedHero: props.focusedHero })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: 'right', width: '100%' } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Abilities_Abilities__WEBPACK_IMPORTED_MODULE_9__.default, { focusedHero: props.focusedHero }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HealthAndMana_HealthAndMana__WEBPACK_IMPORTED_MODULE_10__.default, { focusedHero: props.focusedHero })),
@@ -58706,13 +58830,14 @@ const Hero = (props) => {
     const isSelected = Object.values(selectedHeroes).some(hero => hero.heroname === props.heroname);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionHeroContainer" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionSelectedHeroBorder', style: { visibility: isFocused ? 'visible' : 'collapse' } }),
+        isSelected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { className: 'heroSelectionSelectedHeroLock', src: "s2r://panorama/images/lock_white_png.vtex" })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { className: 'heroSelectionHeroImage', heroname: props.heroname, heroimagestyle: 'portrait', onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), onactivate: () => {
                 if (!isFocused) {
                     GameEvents.SendCustomGameEventToServer("on_focus_hero", { heroname: props.heroname });
                 }
             }, style: {
                 transform: (isFocused || isHovering) ? 'scaleX(1.025) scaleY(1.025)' : 'scaleX(1) scaleY(1)',
-                washColor: isSelected ? 'rgba(0, 0, 0, 0.975)' : (isFocused || isHovering) ? 'none' : 'rgba(0, 0, 0, 0.15)',
+                washColor: isSelected ? 'rgba(0, 0, 0, 0.925)' : (isFocused || isHovering) ? 'none' : 'rgba(0, 0, 0, 0.15)',
             } })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(Hero)));
