@@ -56576,7 +56576,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const mapStateToProps = (state) => ({
     useCustomUI: state.settingsReducer.useCustomUI,
-    heroSelectionVisible: state.heroSelectionReducer.visible,
+    heroSelectionVisible: state.heroSelectionReducer.heroSelectionVisible,
 });
 const mapDispatchToProps = (dispatch) => ({
     setUseCustomUI: (useCustomUI) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_16__.setUseCustomUI)(useCustomUI)),
@@ -56675,6 +56675,7 @@ function setCharacterVisible(visible) {
 /*! export resetFocusedHero [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setFocusedHero [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setHeroSelectionVisible [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export setRandomHeroDialogVisible [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -56684,7 +56685,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setFocusedHero": () => /* binding */ setFocusedHero,
 /* harmony export */   "resetFocusedHero": () => /* binding */ resetFocusedHero,
-/* harmony export */   "setHeroSelectionVisible": () => /* binding */ setHeroSelectionVisible
+/* harmony export */   "setHeroSelectionVisible": () => /* binding */ setHeroSelectionVisible,
+/* harmony export */   "setRandomHeroDialogVisible": () => /* binding */ setRandomHeroDialogVisible
 /* harmony export */ });
 /* harmony import */ var _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/heroSelectionTypes */ "./hud/types/heroSelectionTypes.tsx");
 
@@ -56702,6 +56704,12 @@ function resetFocusedHero() {
 function setHeroSelectionVisible(visible) {
     return {
         type: _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__.SET_HERO_SELECTION_VISIBLE,
+        payload: { visible }
+    };
+}
+function setRandomHeroDialogVisible(visible) {
+    return {
+        type: _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__.SET_RANDOM_HERO_DIALOG_VISIBLE,
         payload: { visible }
     };
 }
@@ -58438,15 +58446,16 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(null, mapDispatchToProps);
 const Buttons = (props) => {
-    const selectedHeroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('SelectedHero');
-    const isSelected = Object.values(selectedHeroes).some(hero => props.focusedHero && props.focusedHero.heroname === hero.heroname);
+    var _a;
+    const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes;
+    const isPicked = ((_a = Object.values(heroes).find(hero => hero.heroname === props.focusedHero.heroname)) === null || _a === void 0 ? void 0 : _a.picked) === 1;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionButtonsContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionDescriptionSelectHeroBtn', onactivate: () => {
                 Game.EmitSound("ui_topmenu_select");
                 GameEvents.SendCustomGameEventToServer("on_select_hero", { heroname: props.focusedHero.heroname });
-            }, style: { backgroundColor: isSelected ? 'rgb(50, 50, 50)' : 'gradient( linear, 0% 0%, 0% 100%, from( #5Aa15E ), to( #87d69533 ) )' } },
-            !isSelected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionSelectHeroBtnLabel', text: 'Select Hero' })),
-            isSelected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { className: 'heroSelectionDescriptionSelectHeroBtnLocked', src: "s2r://panorama/images/lock_white_png.vtex" }))),
+            }, style: { backgroundColor: isPicked ? 'rgb(50, 50, 50)' : 'gradient( linear, 0% 0%, 0% 100%, from( #5Aa15E ), to( #87d69533 ) )' } },
+            !isPicked && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionSelectHeroBtnLabel', text: 'Select Hero' })),
+            isPicked && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { className: 'heroSelectionDescriptionSelectHeroBtnLocked', src: "s2r://panorama/images/lock_white_png.vtex" }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionDescriptionCancelHeroBtn', onactivate: () => {
                 Game.EmitSound("ui_topmenu_select");
                 props.resetFocusedHero();
@@ -58491,6 +58500,62 @@ const HealthAndMana = (props) => {
 
 /***/ }),
 
+/***/ "./hud/components/HeroSelection/Description/Heroname/Heroname.tsx":
+/*!************************************************************************!*\
+  !*** ./hud/components/HeroSelection/Description/Heroname/Heroname.tsx ***!
+  \************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+
+
+const attributeToImage = (attribute) => {
+    if (attribute === 'DOTA_ATTRIBUTE_AGILITY') {
+        return 'url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_agility_psd.vtex")';
+    }
+    if (attribute === 'DOTA_ATTRIBUTE_INTELLECT') {
+        return 'url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_intelligence_psd.vtex")';
+    }
+    if (attribute === 'DOTA_ATTRIBUTE_STRENGTH') {
+        return 'url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_strength_psd.vtex")';
+    }
+    return '';
+};
+const Heroname = (props) => {
+    const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes;
+    const steamIds = Object.values(heroes)
+        .filter(hero => hero.heroname === props.focusedHero.heroname)
+        .filter(hero => hero.picked === 1)
+        .map(hero => Game.GetPlayerInfo(hero.playerID).player_steamid);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionNameContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionNameAttributeImage', style: { backgroundImage: attributeToImage(props.focusedHero.attribute) } }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionNameLabel', text: $.Localize(props.focusedHero.heroname) }),
+        steamIds.length > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionPlayerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Selected by: ', style: { verticalAlign: 'center' } }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: 'right', marginLeft: '5px', height: '100%' } }, steamIds.map(steamid => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { key: steamid, steamid: steamid, style: {
+                    width: '24px',
+                    height: '24px',
+                    border: '1px solid rgba(0, 0, 0, 0.5)',
+                    borderRadius: '5px',
+                    verticalAlign: 'center',
+                    horizontalAlign: 'right',
+                } }))))))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Heroname);
+
+
+/***/ }),
+
 /***/ "./hud/components/HeroSelection/Description/Lore/Lore.tsx":
 /*!****************************************************************!*\
   !*** ./hud/components/HeroSelection/Description/Lore/Lore.tsx ***!
@@ -58515,47 +58580,6 @@ const Lore = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionLoreLabel', text: $.Localize(props.focusedHero.lore) }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Lore);
-
-
-/***/ }),
-
-/***/ "./hud/components/HeroSelection/Description/Name/Name.tsx":
-/*!****************************************************************!*\
-  !*** ./hud/components/HeroSelection/Description/Name/Name.tsx ***!
-  \****************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-
-const attributeToImage = (attribute) => {
-    if (attribute === 'DOTA_ATTRIBUTE_AGILITY') {
-        return 'url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_agility_psd.vtex")';
-    }
-    if (attribute === 'DOTA_ATTRIBUTE_INTELLECT') {
-        return 'url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_intelligence_psd.vtex")';
-    }
-    if (attribute === 'DOTA_ATTRIBUTE_STRENGTH') {
-        return 'url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_strength_psd.vtex")';
-    }
-    return '';
-};
-const Name = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionNameContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionNameAttributeImage', style: { backgroundImage: attributeToImage(props.focusedHero.attribute) } }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionDescriptionNameLabel', text: $.Localize(props.focusedHero.heroname) }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionDescriptionHeroIconContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { className: 'heroSelectionDescriptionHeroIcon', heroname: props.focusedHero.heroname, heroimagestyle: 'icon' }))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Name);
 
 
 /***/ }),
@@ -58673,7 +58697,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
 /* harmony import */ var _Buttons_Buttons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Buttons/Buttons */ "./hud/components/HeroSelection/Description/Buttons/Buttons.tsx");
 /* harmony import */ var _Lore_Lore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Lore/Lore */ "./hud/components/HeroSelection/Description/Lore/Lore.tsx");
-/* harmony import */ var _Name_Name__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Name/Name */ "./hud/components/HeroSelection/Description/Name/Name.tsx");
+/* harmony import */ var _Heroname_Heroname__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Heroname/Heroname */ "./hud/components/HeroSelection/Description/Heroname/Heroname.tsx");
 /* harmony import */ var _Stats_Stats__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Stats/Stats */ "./hud/components/HeroSelection/Description/Stats/Stats.tsx");
 /* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/HeroSelection/Description/Title/Title.tsx");
 /* harmony import */ var _Abilities_Abilities__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Abilities/Abilities */ "./hud/components/HeroSelection/Description/Abilities/Abilities.tsx");
@@ -58701,7 +58725,7 @@ const Description = (props) => {
         let timer = -1;
         if (props.focusedHero === undefined) {
             timer = props.setTimeout(() => {
-                setRenderComponent(true);
+                setRenderComponent(false);
             }, 1000);
         }
         else {
@@ -58714,7 +58738,7 @@ const Description = (props) => {
             preTransformScale2d: props.focusedHero ? '1.0' : '0.5',
         } }, props.focusedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_8__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Name_Name__WEBPACK_IMPORTED_MODULE_6__.default, { focusedHero: props.focusedHero }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Heroname_Heroname__WEBPACK_IMPORTED_MODULE_6__.default, { focusedHero: props.focusedHero }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { flowChildren: 'right', width: '100%' } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Attributes_Attributes__WEBPACK_IMPORTED_MODULE_11__.default, { focusedHero: props.focusedHero }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Stats_Stats__WEBPACK_IMPORTED_MODULE_7__.default, { focusedHero: props.focusedHero })),
@@ -58750,6 +58774,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/heroSelectionActions */ "./hud/actions/heroSelectionActions.tsx");
 /* harmony import */ var _Description_description__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Description/description */ "./hud/components/HeroSelection/Description/description.tsx");
 /* harmony import */ var _Heroes_Heroes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Heroes/Heroes */ "./hud/components/HeroSelection/Heroes/Heroes.tsx");
+/* harmony import */ var _RandomHeroDialog_RandomHeroDialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./RandomHeroDialog/RandomHeroDialog */ "./hud/components/HeroSelection/RandomHeroDialog/RandomHeroDialog.tsx");
+
 
 
 
@@ -58758,7 +58784,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const mapStateToProps = (state) => ({
     focusedHero: state.heroSelectionReducer.focusedHero,
-    visible: state.heroSelectionReducer.visible,
+    visible: state.heroSelectionReducer.heroSelectionVisible,
 });
 const mapDispatchToProps = (dispatch) => ({
     setHeroSelectionVisible: (visible) => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__.setHeroSelectionVisible)(visible)),
@@ -58783,12 +58809,20 @@ const HeroSelection = (props) => {
         Game.EmitSound("HeroPicker.Selected");
         props.setHeroSelectionVisible(false);
     }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_random_hero_success", () => {
+        Game.EmitSound("HeroPicker.Selected");
+        props.setHeroSelectionVisible(false);
+    }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_select_hero_error", () => {
         GameUI.SendCustomHUDError("Unable To Select Hero", "General.InvalidTarget_Invulnerable");
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_random_hero_error", () => {
+        GameUI.SendCustomHUDError("Unable To Random Hero", "General.InvalidTarget_Invulnerable");
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionContainer" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'heroSelectionScene', className: 'heroSelectionBackground', map: "heroSelection", particleonly: false, light: 'light', camera: 'camera_main' }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_5__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RandomHeroDialog_RandomHeroDialog__WEBPACK_IMPORTED_MODULE_6__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Description_description__WEBPACK_IMPORTED_MODULE_4__.default, { focusedHero: props.focusedHero })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(HeroSelection));
@@ -58824,20 +58858,34 @@ const mapStateToProps = (state) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps);
 const Hero = (props) => {
+    var _a;
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    const selectedHeroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('SelectedHero');
+    const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes;
     const isFocused = props.focusedHero && props.focusedHero.heroname === props.heroname;
-    const isSelected = Object.values(selectedHeroes).some(hero => hero.heroname === props.heroname);
+    const isPicked = ((_a = Object.values(heroes).find(hero => hero.heroname === props.heroname)) === null || _a === void 0 ? void 0 : _a.picked) === 1;
+    const steamIds = Object.values(heroes)
+        .filter(hero => hero.heroname === props.heroname)
+        .filter(hero => hero.picked === 1)
+        .map(hero => Game.GetPlayerInfo(hero.playerID).player_steamid);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionHeroContainer" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionSelectedHeroBorder', style: { visibility: isFocused ? 'visible' : 'collapse' } }),
-        isSelected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { className: 'heroSelectionSelectedHeroLock', src: "s2r://panorama/images/lock_white_png.vtex" })),
+        isPicked && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { className: 'heroSelectionSelectedHeroLock', src: "s2r://panorama/images/lock_white_png.vtex" })),
+        steamIds.length === 1 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '100%', height: '100%', zIndex: 10 } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { steamid: steamIds[0], style: {
+                    width: '24px',
+                    height: '24px',
+                    border: '1px solid rgba(0, 0, 0, 0.5)',
+                    borderRadius: '5px',
+                    verticalAlign: 'top',
+                    horizontalAlign: 'left',
+                } }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { className: 'heroSelectionHeroImage', heroname: props.heroname, heroimagestyle: 'portrait', onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), onactivate: () => {
                 if (!isFocused) {
                     GameEvents.SendCustomGameEventToServer("on_focus_hero", { heroname: props.heroname });
                 }
             }, style: {
                 transform: (isFocused || isHovering) ? 'scaleX(1.025) scaleY(1.025)' : 'scaleX(1) scaleY(1)',
-                washColor: isSelected ? 'rgba(0, 0, 0, 0.925)' : (isFocused || isHovering) ? 'none' : 'rgba(0, 0, 0, 0.15)',
+                washColor: isPicked ? 'rgba(0, 0, 0, 0.925)' : (isFocused || isHovering) ? 'none' : 'rgba(0, 0, 0, 0.15)',
             } })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(Hero)));
@@ -58877,19 +58925,89 @@ const selectableHeronames = [
     'npc_dota_hero_lina',
 ];
 const mapDispatchToProps = (dispatch) => ({
-    resetFocusedHero: () => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__.resetFocusedHero)()),
+    setRandomHeroDialogVisible: (visible) => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__.setRandomHeroDialogVisible)(visible)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
 const Heroes = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionHeroesContainer" },
         selectableHeronames.map(heroname => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Hero_Hero__WEBPACK_IMPORTED_MODULE_2__.default, { key: heroname, heroname: heroname }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionHeroesRandomBtnContainer', onactivate: () => {
-                props.resetFocusedHero();
                 Game.EmitSound("ui_topmenu_select");
+                props.setRandomHeroDialogVisible(true);
             } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { className: 'heroSelectionHeroesRandomBtnImage' }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Heroes));
+
+
+/***/ }),
+
+/***/ "./hud/components/HeroSelection/RandomHeroDialog/RandomHeroDialog.tsx":
+/*!****************************************************************************!*\
+  !*** ./hud/components/HeroSelection/RandomHeroDialog/RandomHeroDialog.tsx ***!
+  \****************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/heroSelectionActions */ "./hud/actions/heroSelectionActions.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+
+
+const mapStateToProps = (state) => ({
+    randomHeroDialogVisible: state.heroSelectionReducer.randomHeroDialogVisible
+});
+const mapDispatchToProps = (dispatch) => ({
+    setRandomHeroDialogVisible: (visible) => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_2__.setRandomHeroDialogVisible)(visible)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
+const RandomHeroDialog = (props) => {
+    const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let timer = -1;
+        if (props.randomHeroDialogVisible === false) {
+            timer = props.setTimeout(() => {
+                setRenderComponent(false);
+            }, 1000);
+        }
+        else {
+            setRenderComponent(true);
+        }
+        return () => props.clearTimeout(timer);
+    }, [props.randomHeroDialogVisible]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionRandomHeroDialogOuterContainer', style: {
+            opacity: props.randomHeroDialogVisible ? '1.0' : '0.0',
+            preTransformScale2d: props.randomHeroDialogVisible ? '1.0' : '0.5',
+        } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionRandomHeroDialogInnerContainer' },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionRandomHeroDialogCenterContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionRandomHeroDialogLabel', text: 'Random Hero?' })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionRandomHeroDialogButtonContainer' },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionRandomHeroDialogButton', onactivate: () => {
+                        GameEvents.SendCustomGameEventToServer("on_random_hero", {});
+                        props.setRandomHeroDialogVisible(false);
+                        Game.EmitSound("ui_topmenu_select");
+                    } },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionRandomHeroDialogButtonLabel', text: 'YES' })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionRandomHeroDialogButton', onactivate: () => {
+                        props.setRandomHeroDialogVisible(false);
+                        Game.EmitSound("ui_topmenu_select");
+                    } },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionRandomHeroDialogButtonLabel', text: 'NO' })))),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionRandomHeroDialogArrow' })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(RandomHeroDialog)));
 
 
 /***/ }),
@@ -61545,8 +61663,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/heroSelectionTypes */ "./hud/types/heroSelectionTypes.tsx");
 
 const initialState = {
-    visible: true,
+    heroSelectionVisible: true,
     focusedHero: undefined,
+    randomHeroDialogVisible: false,
 };
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(state = initialState, action) {
     switch (action.type) {
@@ -61557,7 +61676,10 @@ const initialState = {
             return Object.assign(Object.assign({}, state), { focusedHero: undefined });
         }
         case _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__.SET_HERO_SELECTION_VISIBLE: {
-            return Object.assign(Object.assign({}, state), { visible: action.payload.visible });
+            return Object.assign(Object.assign({}, state), { heroSelectionVisible: action.payload.visible });
+        }
+        case _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__.SET_RANDOM_HERO_DIALOG_VISIBLE: {
+            return Object.assign(Object.assign({}, state), { randomHeroDialogVisible: action.payload.visible });
         }
         default:
             return state;
@@ -61807,7 +61929,7 @@ function* characterSaga() {
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -61815,18 +61937,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-function* resetHeroSelectionCamera() {
-    // yield delay(1500);
-    // yield put({ type: RESET_HERO_SELECTION_CAMERA_SUCCESS });
+/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
+/* harmony import */ var _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/heroSelectionTypes */ "./hud/types/heroSelectionTypes.tsx");
+
+
+function* randomHeroDialogVisible({ payload }) {
+    if (payload.visible === true) {
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_1__.RESET_FOCUSED_HERO });
+    }
+}
+function* focusHero({ payload }) {
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_1__.SET_RANDOM_HERO_DIALOG_VISIBLE, payload: { visible: false } });
 }
 function* heroSelectionSaga() {
-    // // @ts-ignore
-    // while (yield take(RESET_HERO_SELECTION_CAMERA)) {
-    //   // @ts-ignore
-    //   const reset = yield fork(resetHeroSelectionCamera)
-    //   yield take(SET_HERO_SELECTION_CAMERA)
-    //   yield cancel(reset)
-    // }
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_1__.SET_RANDOM_HERO_DIALOG_VISIBLE, randomHeroDialogVisible);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_1__.SET_FOCUS_HERO, focusHero);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (heroSelectionSaga);
 
@@ -62069,6 +62194,7 @@ const SET_CHARACTER_VISIBLE = 'SET_CHARACTER_VISIBLE';
 /*! export RESET_FOCUSED_HERO [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export SET_FOCUS_HERO [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export SET_HERO_SELECTION_VISIBLE [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export SET_RANDOM_HERO_DIALOG_VISIBLE [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -62078,11 +62204,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SET_FOCUS_HERO": () => /* binding */ SET_FOCUS_HERO,
 /* harmony export */   "RESET_FOCUSED_HERO": () => /* binding */ RESET_FOCUSED_HERO,
-/* harmony export */   "SET_HERO_SELECTION_VISIBLE": () => /* binding */ SET_HERO_SELECTION_VISIBLE
+/* harmony export */   "SET_HERO_SELECTION_VISIBLE": () => /* binding */ SET_HERO_SELECTION_VISIBLE,
+/* harmony export */   "SET_RANDOM_HERO_DIALOG_VISIBLE": () => /* binding */ SET_RANDOM_HERO_DIALOG_VISIBLE
 /* harmony export */ });
 const SET_FOCUS_HERO = 'SET_FOCUS_HERO';
 const RESET_FOCUSED_HERO = 'RESET_FOCUSED_HERO';
 const SET_HERO_SELECTION_VISIBLE = 'SET_HERO_SELECTION_VISIBLE';
+const SET_RANDOM_HERO_DIALOG_VISIBLE = 'SET_RANDOM_HERO_DIALOG_VISIBLE';
 
 
 /***/ }),

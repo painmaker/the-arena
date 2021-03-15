@@ -1,0 +1,66 @@
+.heroSelectionRandomHeroDialogOuterContainer {
+  vertical-align: bottom;
+  margin-bottom: 175px;
+  margin-left: 420px;
+  opacity: 0.0;
+  pre-transform-scale2d: 0.5;
+  transition-property: opacity, pre-transform-scale2d;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  flow-children: down;
+}
+
+.heroSelectionRandomHeroDialogInnerContainer {
+  width: 400px;
+  height: 200px;
+  border: 1px solid black;
+  border-radius: 5px;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.95);
+}
+
+.heroSelectionRandomHeroDialogCenterContainer {
+  flow-children: down;
+  vertical-align: center;
+  horizontal-align: center;
+}
+
+.heroSelectionRandomHeroDialogLabel {
+  font-size: 18px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+}
+
+.heroSelectionRandomHeroDialogButtonContainer {
+  vertical-align: bottom;
+  horizontal-align: right;
+  flow-children: right;
+  margin: 10px;
+}
+
+.heroSelectionRandomHeroDialogButtonLabel {
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1.05px;
+}
+
+.heroSelectionRandomHeroDialogButton {
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+.heroSelectionRandomHeroDialogButtonLabel:hover {
+  color: wheat;
+}
+
+.heroSelectionRandomHeroDialogArrow {
+  background-image: url("s2r://panorama/images/tooltips/tooltip_arrow_top_png.vtex");
+  background-size: contain;
+  wash-color: rgb(30, 30, 30);
+  horizontal-align: center;
+  width: 30px;
+  height: 30px;
+  margin-top: -5px;
+  pre-transform-rotate2d: 180deg;
+}

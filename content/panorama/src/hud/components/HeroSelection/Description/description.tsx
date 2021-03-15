@@ -7,7 +7,7 @@ import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { FocusedHero, HeroSelectionActionTypes } from "../../../types/heroSelectionTypes";
 import Buttons from "./Buttons/Buttons";
 import Lore from "./Lore/Lore";
-import Name from "./Name/Name";
+import Heroname from "./Heroname/Heroname";
 import Stats from "./Stats/Stats";
 import Title from "./Title/Title";
 import Abilities from "./Abilities/Abilities";
@@ -33,7 +33,7 @@ const Description = (props: Props) => {
     let timer = -1 as Timer;
     if (props.focusedHero === undefined) {
       timer = props.setTimeout(() => {
-        setRenderComponent(true);
+        setRenderComponent(false);
       }, 1000);
     } else {
       setRenderComponent(true);
@@ -54,7 +54,7 @@ const Description = (props: Props) => {
           { props.focusedHero && (
             <React.Fragment>
               <Title />
-              <Name focusedHero={props.focusedHero} />
+              <Heroname focusedHero={props.focusedHero} />
               <Panel style={{ flowChildren: 'right', width: '100%' }}>
                 <Attributes focusedHero={props.focusedHero} />
                 <Stats focusedHero={props.focusedHero} />

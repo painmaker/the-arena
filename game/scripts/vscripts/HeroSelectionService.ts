@@ -1,9 +1,4 @@
 import { STRENGTH_GAIN_HP_BONUS, STRENGTH_GAIN_HP_REGEN_BONUS, INTELLIGENCE_GAIN_MANA_BONUS, INTELLIGENCE_GAIN_MANA_REGEN_BONUS, PRIMARY_ATTRIBUTE_DAMAGE_BONUS, AGILITY_GAIN_MOVE_SPEED_BONUS } from "./CustomAttributeBonuses";
-import { MAX_PLAYERS } from "./settings";
-
-interface SelectedHero {
-  heroname: string,
-}
 
 export class HeroSelectionService {
 
@@ -14,6 +9,54 @@ export class HeroSelectionService {
   private configure(): void {
     CustomGameEventManager.RegisterListener("on_select_hero", (_, event) => this.onHeroSelected(event));
     CustomGameEventManager.RegisterListener("on_focus_hero", (_, event) => this.onHeroFocused(event));
+    CustomGameEventManager.RegisterListener("on_random_hero", (_, event) => this.onHeroRandomed(event));
+    CustomNetTables.SetTableValue('HeroSelectionHeroes', 'heroes', [
+      { heroname: 'npc_dota_hero_dragon_knight', picked: 0, playerID: -1 },
+      { heroname: 'npc_dota_hero_windrunner', picked: 0, playerID: -1 },
+      { heroname: 'npc_dota_hero_phantom_assassin', picked: 0, playerID: -1 },
+      { heroname: 'npc_dota_hero_crystal_maiden', picked: 0, playerID: -1 },
+      { heroname: 'npc_dota_hero_dazzle', picked: 0, playerID: -1 },
+      { heroname: 'npc_dota_hero_lina', picked: 0, playerID: -1 },
+    ]);
+  }
+
+  private onHeroRandomed(event: { PlayerID: PlayerID }): void {
+
+    const player = PlayerResource.GetPlayer(event.PlayerID);
+    if (!player) {
+      return;
+    }
+
+    const heroes = CustomNetTables.GetTableValue('HeroSelectionHeroes', 'heroes');
+
+    const availableHeroes = Object.values(heroes).filter(hero => hero.picked === 0);
+
+    if (availableHeroes.length <= 0) {
+      CustomGameEventManager.Send_ServerToPlayer(player, "on_random_hero_error", {});
+      return;
+    }
+
+    const randomHero = availableHeroes[Math.floor(Math.random() * availableHeroes.length)];
+
+    const updatedHeroes = Object.values(heroes).map(hero => {
+      if (hero.heroname === randomHero.heroname) {
+        return { ...hero, picked: 1 as (0 | 1), playerID: event.PlayerID }
+      }
+      return hero;
+    });
+
+    CustomNetTables.SetTableValue('HeroSelectionHeroes', 'heroes', updatedHeroes);
+
+    const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, randomHero.heroname, 0, 0);
+    hero.SetCustomDeathXP(10);
+    hero.AddItemByName("item_ogre_axe");
+    hero.AddItemByName("item_staff_of_wizardry");
+    hero.AddItemByName("item_blade_of_alacrity");
+    hero.AddItemByName("item_blink");
+
+    CustomGameEventManager.Send_ServerToAllClients("create_hero_image_for_player", { playerId: event.PlayerID });
+    CustomGameEventManager.Send_ServerToPlayer(player, "on_random_hero_success", {});
+
   }
 
   private onHeroSelected(event: { PlayerID: PlayerID, heroname: string }): void {
@@ -23,23 +66,24 @@ export class HeroSelectionService {
       return;
     }
 
-    const selectedHeroes: SelectedHero[] = [];
+    const heroes = CustomNetTables.GetTableValue('HeroSelectionHeroes', 'heroes');
 
-    for (let i = 0; i < MAX_PLAYERS; i++) {
-      const selectedHero = CustomNetTables.GetTableValue('SelectedHero', event.PlayerID + '');
-      if (selectedHero !== undefined) {
-        selectedHeroes.push(selectedHero);
-      }
-    }
+    const heroIsPicked = Object.values(heroes).find(hero => hero.heroname === event.heroname)?.picked === 1;
 
-    const heroAlreadySelected = selectedHeroes.some(hero => hero.heroname === event.heroname);
-
-    if (heroAlreadySelected) {
+    if (heroIsPicked) {
       CustomGameEventManager.Send_ServerToPlayer(player, "on_select_hero_error", {});
       return;
     }
 
-    CustomNetTables.SetTableValue('SelectedHero', event.PlayerID + '', { heroname: event.heroname });
+    const updatedHeroes = Object.values(heroes)
+      .map(hero => {
+        if (hero.heroname === event.heroname) {
+          return { ...hero, picked: 1 as (0 | 1), playerID: event.PlayerID }
+        }
+        return hero;
+      });
+
+    CustomNetTables.SetTableValue('HeroSelectionHeroes', 'heroes', updatedHeroes);
 
     const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, event.heroname, 0, 0);
     hero.SetCustomDeathXP(10);
@@ -61,8 +105,6 @@ export class HeroSelectionService {
     }
 
     const hero = DOTAGameManager.GetHeroDataByName_Script(event.heroname) as any;
-
-    DeepPrintTable(hero);
 
     const abilities: string[] = [];
     for (let i = 1; i < 32; i++) {

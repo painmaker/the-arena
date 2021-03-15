@@ -3,7 +3,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
 import { HeroSelectionActionTypes } from "../../../types/heroSelectionTypes";
 import Hero from "./Hero/Hero";
-import { resetFocusedHero } from "../../../actions/heroSelectionActions";
+import { setRandomHeroDialogVisible } from "../../../actions/heroSelectionActions";
 
 const selectableHeronames = [
   'npc_dota_hero_dragon_knight',
@@ -15,7 +15,7 @@ const selectableHeronames = [
 ];
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
-  resetFocusedHero: () => dispatch(resetFocusedHero()),
+  setRandomHeroDialogVisible: (visible: boolean) => dispatch(setRandomHeroDialogVisible(visible)),
 });
 
 const connector = connect(null, mapDispatchToProps);
@@ -28,7 +28,7 @@ type Props = PropsFromRedux & {
 const Heroes = (props: Props) => {
   return (
     <Panel className={"heroSelectionHeroesContainer"} >
-      { selectableHeronames.map(heroname => (
+      {selectableHeronames.map(heroname => (
         <Hero
           key={heroname}
           heroname={heroname}
@@ -37,8 +37,8 @@ const Heroes = (props: Props) => {
       <Button
         className={'heroSelectionHeroesRandomBtnContainer'}
         onactivate={() => {
-          props.resetFocusedHero();
           Game.EmitSound("ui_topmenu_select");
+          props.setRandomHeroDialogVisible(true);
         }}
       >
         <Image className={'heroSelectionHeroesRandomBtnImage'} />

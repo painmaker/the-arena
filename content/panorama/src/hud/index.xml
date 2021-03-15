@@ -63,11 +63,12 @@
         <include src="./components/HeroSelection/Description/Stats/stats.css" />  
         <include src="./components/HeroSelection/Description/Lore/lore.css" />  
         <include src="./components/HeroSelection/Description/Buttons/buttons.css" />  
-        <include src="./components/HeroSelection/Description/Name/name.css" />  
+        <include src="./components/HeroSelection/Description/Heroname/heroname.css" />  
         <include src="./components/HeroSelection/Description/Abilities/abilities.css" />  
         <include src="./components/HeroSelection/Description/Abilities/Ability/ability.css" />  
         <include src="./components/HeroSelection/Description/HealthAndMana/healthAndMana.css" />  
         <include src="./components/HeroSelection/Description/Attributes/attributes.css" />  
+        <include src="./components/HeroSelection/RandomHeroDialog/randomHeroDialog.css" />  
     </styles>  
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/magic_resist_stat.png" />  -->

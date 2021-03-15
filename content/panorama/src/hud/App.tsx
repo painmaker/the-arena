@@ -23,7 +23,7 @@ import HeroSelection from "./components/HeroSelection/HeroSelection";
 
 const mapStateToProps = (state: RootState) => ({
   useCustomUI: state.settingsReducer.useCustomUI,
-  heroSelectionVisible: state.heroSelectionReducer.visible,
+  heroSelectionVisible: state.heroSelectionReducer.heroSelectionVisible,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({

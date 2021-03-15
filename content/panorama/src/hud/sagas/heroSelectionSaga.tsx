@@ -1,18 +1,20 @@
+import { put, takeLatest } from "redux-saga/effects";
+import { HeroSelectionActionTypes, RESET_FOCUSED_HERO, SetFocusedHero, SetRandomHeroDialogVisible, SET_FOCUS_HERO, SET_RANDOM_HERO_DIALOG_VISIBLE } from "../types/heroSelectionTypes";
 
 
-function* resetHeroSelectionCamera() {
-  // yield delay(1500);
-  // yield put({ type: RESET_HERO_SELECTION_CAMERA_SUCCESS });
+function* randomHeroDialogVisible({ payload }: SetRandomHeroDialogVisible) {
+  if (payload.visible === true) {
+    yield put({ type: RESET_FOCUSED_HERO });
+  }
+}
+
+function* focusHero({ payload }: SetFocusedHero) {
+  yield put({ type: SET_RANDOM_HERO_DIALOG_VISIBLE, payload: { visible: false } });
 }
 
 function* heroSelectionSaga() {
-  // // @ts-ignore
-  // while (yield take(RESET_HERO_SELECTION_CAMERA)) {
-  //   // @ts-ignore
-  //   const reset = yield fork(resetHeroSelectionCamera)
-  //   yield take(SET_HERO_SELECTION_CAMERA)
-  //   yield cancel(reset)
-  // }
+  yield takeLatest(SET_RANDOM_HERO_DIALOG_VISIBLE, randomHeroDialogVisible);
+  yield takeLatest(SET_FOCUS_HERO, focusHero);
 }
 
 export default heroSelectionSaga;

@@ -1,10 +1,11 @@
 .heroSelectionHeroesContainer {
+  background-color: rgba(0, 0, 0, 0.5);
+  flow-children: right;
   vertical-align: bottom;
   horizontal-align: left;
-  background-color: rgba(0, 0, 0, 0.5);
   margin-bottom: 65px;
   margin-left: 100px;
-  flow-children: right;
+  padding: 5px;
 }
 
 .heroSelectionHeroesRandomBtnContainer {

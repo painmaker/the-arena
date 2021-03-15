@@ -1,6 +1,7 @@
 export const SET_FOCUS_HERO = 'SET_FOCUS_HERO'
 export const RESET_FOCUSED_HERO = 'RESET_FOCUSED_HERO'
 export const SET_HERO_SELECTION_VISIBLE = 'SET_HERO_SELECTION_VISIBLE'
+export const SET_RANDOM_HERO_DIALOG_VISIBLE = 'SET_RANDOM_HERO_DIALOG_VISIBLE'
 
 export interface SetFocusedHero {
   type: typeof SET_FOCUS_HERO
@@ -11,12 +12,17 @@ export interface ResetFocusedHero {
   type: typeof RESET_FOCUSED_HERO
 }
 
-export interface SerHeroSelectionVisible {
+export interface SetHeroSelectionVisible {
   type: typeof SET_HERO_SELECTION_VISIBLE
   payload: { visible: boolean }
 }
 
-export type HeroSelectionActionTypes = SetFocusedHero | ResetFocusedHero | SerHeroSelectionVisible;
+export interface SetRandomHeroDialogVisible {
+  type: typeof SET_RANDOM_HERO_DIALOG_VISIBLE
+  payload: { visible: boolean }
+}
+
+export type HeroSelectionActionTypes = SetFocusedHero | ResetFocusedHero | SetHeroSelectionVisible | SetRandomHeroDialogVisible;
 
 export interface FocusedHero {
   heroname: string,

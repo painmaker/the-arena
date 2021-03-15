@@ -7,6 +7,7 @@
   flow-children: right;
   border-radius: 5px;
   background-color: rgba(50, 50, 50, 0.5);
+  box-shadow: fill black -2px -1px 3px 4px;
 }
 
 .heroSelectionDescriptionNameAttributeImage {
@@ -25,10 +26,17 @@
   padding-bottom: 1.5px;
 }
 
-.heroSelectionDescriptionHeroIconContainer {
-  width: fill-parent-flow(1);
-  height: 100%;
+.heroSelectionDescriptionPlayerContainer {
+  flow-children: right;
+  horizontal-align: right;
+  vertical-align: center;
+  margin-right: 5px;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 8px;
+  border-radius: 5px;
+  max-width: 400px;
 }
+
 .heroSelectionDescriptionHeroIcon {
   width: 20px;
   height: 20px;

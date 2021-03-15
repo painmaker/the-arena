@@ -17,9 +17,9 @@ type Props = PropsFromRedux & {
 
 const Buttons = (props: Props) => {
 
-  const selectedHeroes = useNetTableValues('SelectedHero');
+  const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
 
-  const isSelected = Object.values(selectedHeroes).some(hero => props.focusedHero && props.focusedHero.heroname === hero.heroname);
+  const isPicked = Object.values(heroes).find(hero => hero.heroname === props.focusedHero.heroname)?.picked === 1;
 
   return (
     <Panel className={'heroSelectionDescriptionButtonsContainer'}>
@@ -29,15 +29,15 @@ const Buttons = (props: Props) => {
           Game.EmitSound("ui_topmenu_select");
           GameEvents.SendCustomGameEventToServer("on_select_hero", { heroname: props.focusedHero.heroname })
         }}
-        style={{ backgroundColor: isSelected ? 'rgb(50, 50, 50)' : 'gradient( linear, 0% 0%, 0% 100%, from( #5Aa15E ), to( #87d69533 ) )' }}
+        style={{ backgroundColor: isPicked ? 'rgb(50, 50, 50)' : 'gradient( linear, 0% 0%, 0% 100%, from( #5Aa15E ), to( #87d69533 ) )' }}
       >
-        {!isSelected && (
+        {!isPicked && (
           <Label
             className={'heroSelectionDescriptionSelectHeroBtnLabel'}
             text={'Select Hero'}
           />
         )}
-        {isSelected && (
+        {isPicked && (
           <Image
             className={'heroSelectionDescriptionSelectHeroBtnLocked'}
             src="s2r://panorama/images/lock_white_png.vtex"

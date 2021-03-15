@@ -22,6 +22,7 @@
   background-color: gradient( linear, 0% 0%, 0% 100%, from( #5Aa15E ), to( #87d69533 ) );
   saturation: 1.0;
   brightness: 1.0; 
+  box-shadow: fill #000000 -2px -2px 4px 4px;
 }
 
 .heroSelectionDescriptionSelectHeroBtn:hover {
@@ -54,6 +55,7 @@
   background-color: red;
   saturation: 1.0;
   brightness: 0.5;
+  box-shadow: fill black -2px -2px 4px 4px;
 }
 
 .heroSelectionDescriptionCancelHeroBtn:hover {

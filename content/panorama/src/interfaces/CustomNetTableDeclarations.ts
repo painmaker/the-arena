@@ -1,3 +1,3 @@
 interface CustomNetTableDeclarations {
-  SelectedHero: { [playerID: string]: { heroname: string } };
+  HeroSelectionHeroes: { "heroes": { heroname: string, picked: 0 | 1, playerID: PlayerID }[] };
 }

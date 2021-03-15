@@ -33,4 +33,7 @@ interface CustomGameEventDeclarations {
     intelligence: number,
     intelligenceGain: number,
   };
+  on_random_hero: {},
+  on_random_hero_error: {},
+  on_random_hero_success: {},
 }

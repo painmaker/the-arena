@@ -1,13 +1,15 @@
-import { HeroSelectionActionTypes, RESET_FOCUSED_HERO, FocusedHero, SET_FOCUS_HERO, SET_HERO_SELECTION_VISIBLE } from "../types/heroSelectionTypes";
+import { HeroSelectionActionTypes, RESET_FOCUSED_HERO, FocusedHero, SET_FOCUS_HERO, SET_HERO_SELECTION_VISIBLE, SET_RANDOM_HERO_DIALOG_VISIBLE } from "../types/heroSelectionTypes";
 
 interface HeroSelectionState {
-  visible: boolean,
+  heroSelectionVisible: boolean,
   focusedHero: FocusedHero | undefined,
+  randomHeroDialogVisible: boolean,
 }
 
 const initialState: HeroSelectionState = {
-  visible: true,
+  heroSelectionVisible: true,
   focusedHero: undefined,
+  randomHeroDialogVisible: false,
 };
 
 export default function (state = initialState, action: HeroSelectionActionTypes): HeroSelectionState {
@@ -27,7 +29,13 @@ export default function (state = initialState, action: HeroSelectionActionTypes)
     case SET_HERO_SELECTION_VISIBLE: {
       return {
         ...state,
-        visible: action.payload.visible
+        heroSelectionVisible: action.payload.visible
+      };
+    }
+    case SET_RANDOM_HERO_DIALOG_VISIBLE: {
+      return {
+        ...state,
+        randomHeroDialogVisible: action.payload.visible
       };
     }
     default:

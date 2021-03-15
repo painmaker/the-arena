@@ -6,11 +6,12 @@ import { RootState } from "../../reducers/rootReducer";
 import { FocusedHero, HeroSelectionActionTypes } from "../../types/heroSelectionTypes";
 import Description from "./Description/description";
 import Heroes from "./Heroes/Heroes";
+import RandomHeroDialog from "./RandomHeroDialog/RandomHeroDialog";
 
 
 const mapStateToProps = (state: RootState) => ({
   focusedHero: state.heroSelectionReducer.focusedHero,
-  visible: state.heroSelectionReducer.visible,
+  visible: state.heroSelectionReducer.heroSelectionVisible,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
@@ -46,8 +47,17 @@ const HeroSelection = (props: Props) => {
     props.setHeroSelectionVisible(false);
   }, []);
 
+  useGameEvent("on_random_hero_success", () => {
+    Game.EmitSound("HeroPicker.Selected");
+    props.setHeroSelectionVisible(false);
+  }, []);
+
   useGameEvent("on_select_hero_error", () => {
     GameUI.SendCustomHUDError("Unable To Select Hero", "General.InvalidTarget_Invulnerable");
+  }, []);
+
+  useGameEvent("on_random_hero_error", () => {
+    GameUI.SendCustomHUDError("Unable To Random Hero", "General.InvalidTarget_Invulnerable");
   }, []);
 
   return (
@@ -61,6 +71,7 @@ const HeroSelection = (props: Props) => {
         camera={'camera_main'}
       />
       <Heroes />
+      <RandomHeroDialog />
       <Description focusedHero={props.focusedHero} />
     </Panel>
   );
