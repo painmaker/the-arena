@@ -1,21 +1,20 @@
 import React, { Dispatch, useEffect } from "react";
 import { useGameEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
-import { setFocusedHero, setHeroSelectionVisible } from "../../actions/heroSelectionActions";
+import { setFocusedHero } from "../../actions/heroSelectionActions";
 import { RootState } from "../../reducers/rootReducer";
 import { FocusedHero, HeroSelectionActionTypes } from "../../types/heroSelectionTypes";
 import Description from "./Description/description";
 import Heroes from "./Heroes/Heroes";
 import RandomHeroDialog from "./RandomHeroDialog/RandomHeroDialog";
+import RemainingPlayers from "./RemainingPlayers/RemainingPlayers";
 
 
 const mapStateToProps = (state: RootState) => ({
   focusedHero: state.heroSelectionReducer.focusedHero,
-  visible: state.heroSelectionReducer.heroSelectionVisible,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
-  setHeroSelectionVisible: (visible: boolean) => dispatch(setHeroSelectionVisible(visible)),
   setFocusedHero: (hero: FocusedHero) => dispatch(setFocusedHero(hero)),
 });
 
@@ -44,12 +43,10 @@ const HeroSelection = (props: Props) => {
 
   useGameEvent("on_select_hero_success", () => {
     Game.EmitSound("HeroPicker.Selected");
-    props.setHeroSelectionVisible(false);
   }, []);
 
   useGameEvent("on_random_hero_success", () => {
     Game.EmitSound("HeroPicker.Selected");
-    props.setHeroSelectionVisible(false);
   }, []);
 
   useGameEvent("on_select_hero_error", () => {
@@ -70,9 +67,10 @@ const HeroSelection = (props: Props) => {
         light={'light'}
         camera={'camera_main'}
       />
-      <Heroes />
-      <RandomHeroDialog />
       <Description focusedHero={props.focusedHero} />
+      <RandomHeroDialog />
+      <Heroes />
+      <RemainingPlayers />
     </Panel>
   );
 

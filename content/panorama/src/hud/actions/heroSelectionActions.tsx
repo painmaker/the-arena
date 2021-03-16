@@ -13,13 +13,6 @@ export function resetFocusedHero(): HeroSelectionActionTypes {
   }
 }
 
-export function setHeroSelectionVisible(visible: boolean): HeroSelectionActionTypes {
-  return {
-    type: SET_HERO_SELECTION_VISIBLE,
-    payload: { visible }
-  }
-}
-
 export function setRandomHeroDialogVisible(visible: boolean): HeroSelectionActionTypes {
   return {
     type: SET_RANDOM_HERO_DIALOG_VISIBLE,

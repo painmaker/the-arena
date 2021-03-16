@@ -56555,6 +56555,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./actions/settingsAction */ "./hud/actions/settingsAction.tsx");
 /* harmony import */ var _components_Shop_Shop__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Shop/Shop */ "./hud/components/Shop/Shop.tsx");
 /* harmony import */ var _components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/HeroSelection/HeroSelection */ "./hud/components/HeroSelection/HeroSelection.tsx");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
 
 
 
@@ -56576,13 +56580,23 @@ __webpack_require__.r(__webpack_exports__);
 
 const mapStateToProps = (state) => ({
     useCustomUI: state.settingsReducer.useCustomUI,
-    heroSelectionVisible: state.heroSelectionReducer.heroSelectionVisible,
 });
 const mapDispatchToProps = (dispatch) => ({
     setUseCustomUI: (useCustomUI) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_16__.setUseCustomUI)(useCustomUI)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_15__.connect)(mapStateToProps, mapDispatchToProps);
 const App = (props) => {
+    const [hasPickedHero, setHasPickedHero] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_19__.useNetTableValues)('HeroSelectionHeroes').heroes;
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        var _a;
+        const picked = ((_a = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())) === null || _a === void 0 ? void 0 : _a.picked) === 1;
+        if (picked === true) {
+            props.setTimeout(() => {
+                setHasPickedHero(true);
+            }, 300);
+        }
+    }, [heroes]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !props.useCustomUI);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, !props.useCustomUI);
@@ -56612,7 +56626,7 @@ const App = (props) => {
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_CUSTOMUI_BEHIND_HUD_ELEMENTS, !props.useCustomUI);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !props.useCustomUI);
     }, [props.useCustomUI]);
-    if (props.heroSelectionVisible) {
+    if (!hasPickedHero) {
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_18__.default, null));
     }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: 'root', hittest: false, className: "appContainer" },
@@ -56635,7 +56649,7 @@ const App = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_14__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_StatsPanel_StatsPanel__WEBPACK_IMPORTED_MODULE_10__.default, null)))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(App));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_20__.default)(App)));
 
 
 /***/ }),
@@ -56674,7 +56688,6 @@ function setCharacterVisible(visible) {
 /*! namespace exports */
 /*! export resetFocusedHero [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setFocusedHero [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export setHeroSelectionVisible [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setRandomHeroDialogVisible [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
@@ -56685,7 +56698,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setFocusedHero": () => /* binding */ setFocusedHero,
 /* harmony export */   "resetFocusedHero": () => /* binding */ resetFocusedHero,
-/* harmony export */   "setHeroSelectionVisible": () => /* binding */ setHeroSelectionVisible,
 /* harmony export */   "setRandomHeroDialogVisible": () => /* binding */ setRandomHeroDialogVisible
 /* harmony export */ });
 /* harmony import */ var _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/heroSelectionTypes */ "./hud/types/heroSelectionTypes.tsx");
@@ -56699,12 +56711,6 @@ function setFocusedHero(hero) {
 function resetFocusedHero() {
     return {
         type: _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__.RESET_FOCUSED_HERO,
-    };
-}
-function setHeroSelectionVisible(visible) {
-    return {
-        type: _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__.SET_HERO_SELECTION_VISIBLE,
-        payload: { visible }
     };
 }
 function setRandomHeroDialogVisible(visible) {
@@ -58775,6 +58781,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Description_description__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Description/description */ "./hud/components/HeroSelection/Description/description.tsx");
 /* harmony import */ var _Heroes_Heroes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Heroes/Heroes */ "./hud/components/HeroSelection/Heroes/Heroes.tsx");
 /* harmony import */ var _RandomHeroDialog_RandomHeroDialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./RandomHeroDialog/RandomHeroDialog */ "./hud/components/HeroSelection/RandomHeroDialog/RandomHeroDialog.tsx");
+/* harmony import */ var _RemainingPlayers_RemainingPlayers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./RemainingPlayers/RemainingPlayers */ "./hud/components/HeroSelection/RemainingPlayers/RemainingPlayers.tsx");
+
 
 
 
@@ -58784,10 +58792,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const mapStateToProps = (state) => ({
     focusedHero: state.heroSelectionReducer.focusedHero,
-    visible: state.heroSelectionReducer.heroSelectionVisible,
 });
 const mapDispatchToProps = (dispatch) => ({
-    setHeroSelectionVisible: (visible) => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__.setHeroSelectionVisible)(visible)),
     setFocusedHero: (hero) => dispatch((0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_3__.setFocusedHero)(hero)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps, mapDispatchToProps);
@@ -58807,11 +58813,9 @@ const HeroSelection = (props) => {
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_select_hero_success", () => {
         Game.EmitSound("HeroPicker.Selected");
-        props.setHeroSelectionVisible(false);
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_random_hero_success", () => {
         Game.EmitSound("HeroPicker.Selected");
-        props.setHeroSelectionVisible(false);
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_select_hero_error", () => {
         GameUI.SendCustomHUDError("Unable To Select Hero", "General.InvalidTarget_Invulnerable");
@@ -58821,9 +58825,10 @@ const HeroSelection = (props) => {
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionContainer" },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'heroSelectionScene', className: 'heroSelectionBackground', map: "heroSelection", particleonly: false, light: 'light', camera: 'camera_main' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_5__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Description_description__WEBPACK_IMPORTED_MODULE_4__.default, { focusedHero: props.focusedHero }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RandomHeroDialog_RandomHeroDialog__WEBPACK_IMPORTED_MODULE_6__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Description_description__WEBPACK_IMPORTED_MODULE_4__.default, { focusedHero: props.focusedHero })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_5__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RemainingPlayers_RemainingPlayers__WEBPACK_IMPORTED_MODULE_7__.default, null)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(HeroSelection));
 
@@ -59012,6 +59017,53 @@ const RandomHeroDialog = (props) => {
 
 /***/ }),
 
+/***/ "./hud/components/HeroSelection/RemainingPlayers/RemainingPlayers.tsx":
+/*!****************************************************************************!*\
+  !*** ./hud/components/HeroSelection/RemainingPlayers/RemainingPlayers.tsx ***!
+  \****************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+
+
+const RemainingPlayers = () => {
+    const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes;
+    const allPlayerIDs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+    const unpickedPlayerIDs = allPlayerIDs
+        .filter(id => !Object.values(heroes).some(hero => hero.playerID === id))
+        .filter(id => Players.IsValidPlayerID(id));
+    if (unpickedPlayerIDs.length === 0) {
+        return null;
+    }
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'remainingPlayersContainer' },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'remainingPlayersLabel', text: 'Remaining Players:' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'remainingPlayersImageContainer' }, unpickedPlayerIDs.map(id => {
+            const steamID = Game.GetPlayerInfo(id).player_steamid;
+            return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { key: id, steamid: steamID, style: {
+                    width: '24px',
+                    height: '24px',
+                    border: '1px solid rgba(0, 0, 0, 0.5)',
+                    borderRadius: '5px',
+                    verticalAlign: 'center',
+                    horizontalAlign: 'right',
+                } }));
+        }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RemainingPlayers);
+
+
+/***/ }),
+
 /***/ "./hud/components/Heroes/Health/Health.tsx":
 /*!*************************************************!*\
   !*** ./hud/components/Heroes/Health/Health.tsx ***!
@@ -59159,16 +59211,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Heroes = () => {
-    const [playerIds, setPlayerIds] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(new Set([0, 1, 2, 3]));
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("create_hero_image_for_player", (event) => {
-        setPlayerIds(prevPlayerIds => new Set([...prevPlayerIds, event.playerId]));
-    }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroesContainer" }, Array.from(playerIds).map((playerId) => {
+    const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes;
+    const playerIDs = Object.values(heroes).filter(hero => hero.picked === 1).map(hero => hero.playerID);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroesContainer" }, playerIDs.map((playerId) => {
         const entIndex = Players.GetPlayerHeroEntityIndex(playerId);
         if (entIndex === -1) {
             return null;
         }
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroContainer", key: entIndex },
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroContainer", key: entIndex },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HeroImage_HeroImage__WEBPACK_IMPORTED_MODULE_3__.default, { playerId: playerId, entIndex: entIndex }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Health_Health__WEBPACK_IMPORTED_MODULE_2__.default, { entIndex: entIndex }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Mana_Mana__WEBPACK_IMPORTED_MODULE_4__.default, { entIndex: entIndex }),
@@ -61663,7 +61713,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/heroSelectionTypes */ "./hud/types/heroSelectionTypes.tsx");
 
 const initialState = {
-    heroSelectionVisible: true,
     focusedHero: undefined,
     randomHeroDialogVisible: false,
 };
@@ -61674,9 +61723,6 @@ const initialState = {
         }
         case _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__.RESET_FOCUSED_HERO: {
             return Object.assign(Object.assign({}, state), { focusedHero: undefined });
-        }
-        case _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__.SET_HERO_SELECTION_VISIBLE: {
-            return Object.assign(Object.assign({}, state), { heroSelectionVisible: action.payload.visible });
         }
         case _types_heroSelectionTypes__WEBPACK_IMPORTED_MODULE_0__.SET_RANDOM_HERO_DIALOG_VISIBLE: {
             return Object.assign(Object.assign({}, state), { randomHeroDialogVisible: action.payload.visible });

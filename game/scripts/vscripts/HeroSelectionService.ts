@@ -92,7 +92,6 @@ export class HeroSelectionService {
     hero.AddItemByName("item_blade_of_alacrity");
     hero.AddItemByName("item_blink");
 
-    CustomGameEventManager.Send_ServerToAllClients("create_hero_image_for_player", { playerId: event.PlayerID });
     CustomGameEventManager.Send_ServerToPlayer(player, "on_select_hero_success", {});
 
   }

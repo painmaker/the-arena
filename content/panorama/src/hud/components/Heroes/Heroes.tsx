@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useGameEvent } from "react-panorama";
+import React from "react";
+import { useNetTableValues } from "react-panorama";
 import Health from "./Health/Health";
 import HeroImage from "./HeroImage/HeroImage";
 import Mana from "./Mana/Mana";
@@ -7,21 +7,18 @@ import Playername from "./Playername/Playername";
 
 const Heroes = () => {
 
-  const [playerIds, setPlayerIds] = useState<Set<PlayerID>>(new Set([0, 1, 2, 3]));
-
-  useGameEvent("create_hero_image_for_player", (event) => {
-    setPlayerIds(prevPlayerIds => new Set([...prevPlayerIds, event.playerId]));
-  }, []);
+  const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
+  const playerIDs = Object.values(heroes).filter(hero => hero.picked === 1).map(hero => hero.playerID);
 
   return (
-    <Panel hittest={false} className={"heroesContainer"}>
-      {Array.from(playerIds).map((playerId) => {
+    <Panel className={"heroesContainer"}>
+      {playerIDs.map((playerId) => {
         const entIndex = Players.GetPlayerHeroEntityIndex(playerId);
         if (entIndex === -1) {
           return null;
         }
         return (
-          <Panel hittest={false} className="heroContainer" key={entIndex} >
+          <Panel className="heroContainer" key={entIndex} >
             <HeroImage playerId={playerId} entIndex={entIndex} />
             <Health entIndex={entIndex} />
             <Mana entIndex={entIndex} />

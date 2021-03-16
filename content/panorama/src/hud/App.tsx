@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import Minimap from "./components/Minimap/Minimap";
 import Settings from "./components/Settings/Settings";
 import ButtonGroup from "./components/ButtonGroup/ButtonGroup";
@@ -20,10 +20,11 @@ import { setUseCustomUI } from "./actions/settingsAction";
 import { SettingsActionTypes } from "./types/settingsTypes";
 import Shop from "./components/Shop/Shop";
 import HeroSelection from "./components/HeroSelection/HeroSelection";
+import { useGameEvent, useNetTableValues } from "react-panorama";
+import withReactTimeout, { ReactTimeoutProps } from "./hoc/ReactTimeout";
 
 const mapStateToProps = (state: RootState) => ({
   useCustomUI: state.settingsReducer.useCustomUI,
-  heroSelectionVisible: state.heroSelectionReducer.heroSelectionVisible,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
@@ -33,11 +34,23 @@ const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & {
-
+type Props = PropsFromRedux & ReactTimeoutProps & {
+  // ownProps
 };
 
 const App = (props: Props) => {
+
+  const [hasPickedHero, setHasPickedHero] = useState(false);
+  const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
+
+  useEffect(() => {
+    const picked = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
+    if (picked === true) {
+      props.setTimeout(() => {
+        setHasPickedHero(true);
+      }, 300);
+    }
+  }, [heroes])
 
   useEffect(() => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !props.useCustomUI);
@@ -69,10 +82,10 @@ const App = (props: Props) => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !props.useCustomUI);
   }, [props.useCustomUI]);
 
-  if (props.heroSelectionVisible) {
+  if (!hasPickedHero) {
     return (
       <HeroSelection />
-    )
+    );
   }
 
   return (
@@ -112,4 +125,4 @@ const App = (props: Props) => {
 
 }
 
-export default connector(App);
+export default connector(withReactTimeout(App));
