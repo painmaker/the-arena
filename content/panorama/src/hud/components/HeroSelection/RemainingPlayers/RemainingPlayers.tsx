@@ -26,8 +26,8 @@ const RemainingPlayers = () => {
               key={id}
               steamid={steamID}
               style={{
-                width: '24px',
-                height: '24px',
+                width: '20px',
+                height: '20px',
                 border: '1px solid rgba(0, 0, 0, 0.5)',
                 borderRadius: '5px',
                 verticalAlign: 'center',

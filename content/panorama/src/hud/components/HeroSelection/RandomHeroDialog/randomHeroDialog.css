@@ -1,7 +1,7 @@
 .heroSelectionRandomHeroDialogOuterContainer {
   vertical-align: bottom;
   margin-bottom: 175px;
-  margin-left: 420px;
+  margin-left: 395px;
   opacity: 0.0;
   pre-transform-scale2d: 0.5;
   transition-property: opacity, pre-transform-scale2d;
@@ -57,7 +57,7 @@
 .heroSelectionRandomHeroDialogArrow {
   background-image: url("s2r://panorama/images/tooltips/tooltip_arrow_top_png.vtex");
   background-size: contain;
-  wash-color: rgb(30, 30, 30);
+  wash-color: rgb(0, 0, 0);
   horizontal-align: center;
   width: 30px;
   height: 30px;

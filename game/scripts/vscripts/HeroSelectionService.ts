@@ -54,7 +54,8 @@ export class HeroSelectionService {
     hero.AddItemByName("item_blade_of_alacrity");
     hero.AddItemByName("item_blink");
 
-    CustomGameEventManager.Send_ServerToAllClients("create_hero_image_for_player", { playerId: event.PlayerID });
+    EmitSoundOnClient("HeroPicker.Selected", player);
+
     CustomGameEventManager.Send_ServerToPlayer(player, "on_random_hero_success", {});
 
   }
@@ -91,6 +92,8 @@ export class HeroSelectionService {
     hero.AddItemByName("item_staff_of_wizardry");
     hero.AddItemByName("item_blade_of_alacrity");
     hero.AddItemByName("item_blink");
+
+    EmitSoundOnClient("HeroPicker.Selected", player);
 
     CustomGameEventManager.Send_ServerToPlayer(player, "on_select_hero_success", {});
 

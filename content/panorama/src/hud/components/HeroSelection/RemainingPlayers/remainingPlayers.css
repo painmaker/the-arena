@@ -3,14 +3,19 @@
   horizontal-align: left;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 5px 12px;
-  margin-bottom: 18px;
-  margin-left: 35px;
+  margin-bottom: 172.5px;
+  margin-left: 75px;
   /* border-radius: 5px; */
   flow-children: right;
 }
 
 .remainingPlayersLabel {
   color: rgb(200, 200, 200);
+  font-size: 14px;
+  vertical-align: center;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.9px;
+  text-shadow: 1px 1px 2px 2 #000000;   
 }
 
 .remainingPlayersImageContainer {

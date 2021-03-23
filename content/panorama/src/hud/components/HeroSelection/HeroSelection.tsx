@@ -41,14 +41,6 @@ const HeroSelection = (props: Props) => {
     Game.EmitSound(event.sound);
   }, []);
 
-  useGameEvent("on_select_hero_success", () => {
-    Game.EmitSound("HeroPicker.Selected");
-  }, []);
-
-  useGameEvent("on_random_hero_success", () => {
-    Game.EmitSound("HeroPicker.Selected");
-  }, []);
-
   useGameEvent("on_select_hero_error", () => {
     GameUI.SendCustomHUDError("Unable To Select Hero", "General.InvalidTarget_Invulnerable");
   }, []);

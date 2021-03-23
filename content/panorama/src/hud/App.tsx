@@ -40,17 +40,8 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const App = (props: Props) => {
 
-  const [hasPickedHero, setHasPickedHero] = useState(false);
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
-
-  useEffect(() => {
-    const picked = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
-    if (picked === true) {
-      props.setTimeout(() => {
-        setHasPickedHero(true);
-      }, 300);
-    }
-  }, [heroes])
+  const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
 
   useEffect(() => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !props.useCustomUI);

@@ -56586,17 +56586,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_15__.connect)(mapStateToProps, mapDispatchToProps);
 const App = (props) => {
-    const [hasPickedHero, setHasPickedHero] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    var _a;
     const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_19__.useNetTableValues)('HeroSelectionHeroes').heroes;
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        var _a;
-        const picked = ((_a = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())) === null || _a === void 0 ? void 0 : _a.picked) === 1;
-        if (picked === true) {
-            props.setTimeout(() => {
-                setHasPickedHero(true);
-            }, 300);
-        }
-    }, [heroes]);
+    const hasPickedHero = ((_a = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())) === null || _a === void 0 ? void 0 : _a.picked) === 1;
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !props.useCustomUI);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, !props.useCustomUI);
@@ -58811,12 +58803,6 @@ const HeroSelection = (props) => {
         props.setFocusedHero(event);
         Game.EmitSound(event.sound);
     }, []);
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_select_hero_success", () => {
-        Game.EmitSound("HeroPicker.Selected");
-    }, []);
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_random_hero_success", () => {
-        Game.EmitSound("HeroPicker.Selected");
-    }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_select_hero_error", () => {
         GameUI.SendCustomHUDError("Unable To Select Hero", "General.InvalidTarget_Invulnerable");
     }, []);
@@ -59050,8 +59036,8 @@ const RemainingPlayers = () => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'remainingPlayersImageContainer' }, unpickedPlayerIDs.map(id => {
             const steamID = Game.GetPlayerInfo(id).player_steamid;
             return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { key: id, steamid: steamID, style: {
-                    width: '24px',
-                    height: '24px',
+                    width: '20px',
+                    height: '20px',
                     border: '1px solid rgba(0, 0, 0, 0.5)',
                     borderRadius: '5px',
                     verticalAlign: 'center',
