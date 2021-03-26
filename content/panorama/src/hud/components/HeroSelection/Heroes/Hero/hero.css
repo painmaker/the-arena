@@ -20,6 +20,10 @@
   transition-timing-function: ease-in-out;
   vertical-align: center;
   horizontal-align: center;
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-color: rgba(65, 65, 65, 0.5);
 }
 
 .heroSelectionSelectedHeroLock {

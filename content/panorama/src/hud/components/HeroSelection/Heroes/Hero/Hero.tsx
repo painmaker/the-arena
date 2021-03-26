@@ -54,10 +54,7 @@ const Hero = (props: Props) => {
           />
         </Panel>
       )}
-      <DOTAHeroImage
-        className={'heroSelectionHeroImage'}
-        heroname={props.heroname}
-        heroimagestyle={'portrait'}
+      <Button
         onmouseover={() => setIsHovering(true)}
         onmouseout={() => setIsHovering(false)}
         onactivate={() => {
@@ -65,11 +62,18 @@ const Hero = (props: Props) => {
             GameEvents.SendCustomGameEventToServer("on_focus_hero", { heroname: props.heroname })
           }
         }}
-        style={{
-          transform: (isFocused || isHovering) ? 'scaleX(1.025) scaleY(1.025)' : 'scaleX(1) scaleY(1)',
-          washColor: isPicked ? 'rgba(0, 0, 0, 0.925)' : (isFocused || isHovering) ? 'none' : 'rgba(0, 0, 0, 0.15)',
-        }}
-      />
+      >
+        <DOTAHeroImage
+          className={'heroSelectionHeroImage'}
+          heroname={props.heroname}
+          heroimagestyle={'portrait'}
+          style={{
+            transform: (isFocused || isHovering) ? 'scaleX(1.025) scaleY(1.025)' : 'scaleX(1) scaleY(1)',
+            washColor: isPicked ? 'rgba(0, 0, 0, 0.925)' : (isFocused || isHovering) ? 'none' : 'rgba(0, 0, 0, 0.15)',
+          }}
+        />
+      </Button>
+
     </Panel>
   );
 

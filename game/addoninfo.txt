@@ -1,0 +1,9 @@
+"the_arena"
+{
+	"maps"			"the_arena"
+  "IsPlayable"	"1"
+	"the_arena1"
+	{
+		"MaxPlayers"	"4"
+	}
+}

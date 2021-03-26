@@ -36,3 +36,7 @@ ProgressBar {
   box-shadow: 0px 0px 0px 0 black;
 }
 
+#ChatTargetLabel {
+  visibility: collapse;
+  opacity: 0.0;
+}

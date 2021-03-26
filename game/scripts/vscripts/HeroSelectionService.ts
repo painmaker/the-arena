@@ -7,6 +7,7 @@ export class HeroSelectionService {
   }
 
   private configure(): void {
+    ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
     CustomGameEventManager.RegisterListener("on_select_hero", (_, event) => this.onHeroSelected(event));
     CustomGameEventManager.RegisterListener("on_focus_hero", (_, event) => this.onHeroFocused(event));
     CustomGameEventManager.RegisterListener("on_random_hero", (_, event) => this.onHeroRandomed(event));
@@ -18,6 +19,10 @@ export class HeroSelectionService {
       { heroname: 'npc_dota_hero_dazzle', picked: 0, playerID: -1 },
       { heroname: 'npc_dota_hero_lina', picked: 0, playerID: -1 },
     ]);
+  }
+
+  public OnStateChange(): void {
+    // TODO : Create timer ? 
   }
 
   private onHeroRandomed(event: { PlayerID: PlayerID }): void {
@@ -55,6 +60,9 @@ export class HeroSelectionService {
     hero.AddItemByName("item_blink");
 
     EmitSoundOnClient("HeroPicker.Selected", player);
+
+    ShowMessage("1231");
+    UTIL_MessageTextAll("t est", 255, 255, 255, 255)
 
     CustomGameEventManager.Send_ServerToPlayer(player, "on_random_hero_success", {});
 

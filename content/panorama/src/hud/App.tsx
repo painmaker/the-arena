@@ -20,7 +20,7 @@ import { setUseCustomUI } from "./actions/settingsAction";
 import { SettingsActionTypes } from "./types/settingsTypes";
 import Shop from "./components/Shop/Shop";
 import HeroSelection from "./components/HeroSelection/HeroSelection";
-import { useGameEvent, useNetTableValues } from "react-panorama";
+import { useNetTableValues } from "react-panorama";
 import withReactTimeout, { ReactTimeoutProps } from "./hoc/ReactTimeout";
 
 const mapStateToProps = (state: RootState) => ({
@@ -42,6 +42,36 @@ const App = (props: Props) => {
 
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
   const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
+
+  useEffect(() => {
+
+    const chat = $.GetContextPanel().GetParent()?.GetParent()?.GetParent()?.FindChildTraverse('HudChat');
+
+    const elements: (Panel | null | undefined)[] = [
+      chat?.FindChildTraverse('ChatTargetLabel'),
+      chat?.FindChildTraverse('ChatScrollUpButton'),
+      chat?.FindChildTraverse('ChatScrollDownButton'),
+      chat?.FindChildTraverse('ChatTabHelpButton'),
+      chat?.FindChildTraverse('ChatLinesArea'),
+      // chat?.FindChildTraverse('ChatEmoticonButton'),
+    ]
+
+    for (let element of elements) {
+      if (element) {
+        element.style.visibility = 'collapse';
+      }
+    }
+
+    const chatInput = chat?.FindChildTraverse('ChatInput');
+    if (chatInput) {
+      chatInput.style.paddingLeft = '10px';
+      const placeholderText = chatInput.FindChild('PlaceholderText');
+      if (placeholderText) {
+        placeholderText.style.visibility = 'collapse';
+      }
+    }
+
+  }, []);
 
   useEffect(() => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !props.useCustomUI);
