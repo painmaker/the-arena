@@ -18,7 +18,7 @@
 .heroSelectionHeroesRandomBtnImage {
   width: 100%;
   height: 100%;
-  background-image: url("s2r://panorama/images/control_icons/random_dice_psd.vtex");
+  background-image: url("file://panorama/images/random_dice.png");
   background-size: contain;
   background-size: 50% 50%;
   background-repeat: no-repeat;

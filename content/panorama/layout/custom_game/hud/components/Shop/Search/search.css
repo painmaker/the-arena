@@ -9,7 +9,7 @@
 }
 
 .shopSearchIcon {
-  background-image: url("s2r://panorama/images/control_icons/icon_search_shadow_psd.vtex");
+  background-image: url("file://panorama/images/icon_search_shadow.png");
   background-size: 100% 100%;
   background-position: center;
   height: 24px;
@@ -32,7 +32,7 @@
 }
 
 .shopSearchClearBtn {
-  background-image: url("s2r://panorama/images/control_icons/x_close_grey_psd.vtex");
+  background-image: url("file://panorama/images/x_close_grey.png");
   background-size: contain;
   height: 18px;
   width: 18px;

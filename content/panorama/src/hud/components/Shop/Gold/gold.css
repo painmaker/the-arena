@@ -19,7 +19,7 @@
 }
 
 .shopGoldImage {
-  background-image: url("s2r://panorama/images/hud/reborn/gold_small_psd.vtex");
+  background-image: url("file://panorama/images/gold_small.png");
   background-size: 100% 100%;
   width: 16px;
   height: 16px;

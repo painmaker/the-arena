@@ -1,0 +1,15 @@
+.chatMessageText {
+  color: white;
+  text-shadow: 1px 1px 3px 3.0 black;
+  font-size: 18px;
+  font-family: Radiance, FZLanTingHei-R-GBK, TH Sarabun New, YDYGO 540, Gulim, MingLiU;
+  vertical-align: top;
+}
+
+.chatMessageSystemText {
+  color: yellow;
+  text-shadow: 1px 1px 3px 3.0 black;
+  font-size: 18px;
+  font-family: Radiance, FZLanTingHei-R-GBK, TH Sarabun New, YDYGO 540, Gulim, MingLiU;
+  vertical-align: top;
+}

@@ -36,4 +36,12 @@ interface CustomGameEventDeclarations {
   on_random_hero: {},
   on_random_hero_error: {},
   on_random_hero_success: {},
+  on_chat_input_submit: { playerId: PlayerID, input: string },
+  custom_player_chat: {
+    playerid: PlayerID,
+    uuid: string,
+    text: string,
+    heroname: string | undefined,
+    playername: string | undefined,
+  },
 }

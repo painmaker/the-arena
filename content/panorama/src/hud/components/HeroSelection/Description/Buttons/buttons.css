@@ -1,81 +1,87 @@
 .heroSelectionDescriptionButtonsContainer {
-  flow-children: right;
-  horizontal-align: right;
-  margin-right: 12.5px;
-  margin-left: 12.5px;
-  margin-top: 10px;
-  margin-bottom: 15px;
+    flow-children: right;
+    horizontal-align: right;
+    margin-right: 12.5px;
+    margin-left: 12.5px;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 .heroSelectionDescriptionSelectHeroBtn {
-  width: 150px;
-  height: 35px;
-  border-radius: 5px;
-  margin-right: 7.5px;
-  padding: 6px 12px 6px 12px;
-  background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
-  background-size: 228px 50px;
-  border: 1px solid #30303088;
-  transition-property: brightness, saturation;
-  transition-duration: 0.25s;
-  transition-timing-function: ease-in-out;
-  background-color: gradient( linear, 0% 0%, 0% 100%, from( #5Aa15E ), to( #87d69533 ) );
-  saturation: 1.0;
-  brightness: 1.0; 
-  box-shadow: fill #000000 -2px -2px 4px 4px;
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+    margin-right: 7.5px;
+    padding: 6px 12px 6px 12px;
+    background-image: url("file://panorama/images/background_play_button_2x.png");
+    background-size: 228px 50px;
+    border: 1px solid #30303088;
+    transition-property: brightness, saturation;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out;
+    background-color: gradient(
+        linear,
+        0% 0%,
+        0% 100%,
+        from(#5aa15e),
+        to(#87d69533)
+    );
+    saturation: 1;
+    brightness: 1;
+    box-shadow: fill black 0px 0px 2px 2px;
 }
 
 .heroSelectionDescriptionSelectHeroBtn:hover {
-  saturation: 1.1;
-  brightness: 1.25;
+    saturation: 1.1;
+    brightness: 1.25;
 }
 
 .heroSelectionDescriptionSelectHeroBtnLabel {
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  color: white;
-  text-transform: uppercase;
-  font-weight: bold;
-  text-shadow: 1px 1px 1px 2 #000000;   
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px 2 #000000;
 }
 
 .heroSelectionDescriptionCancelHeroBtn {
-  width: 150px;
-  height: 35px;
-  border-radius: 5px;
-  margin-left: 7.5px;
-  padding: 6px 12px 6px 12px;
-  background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
-  background-size: 228px 50px;
-  border: 1px solid #6e3f3f88;
-  transition-property: brightness, saturation;
-  transition-duration: 0.25s;
-  transition-timing-function: ease-in-out;
-  background-color: red;
-  saturation: 1.0;
-  brightness: 0.5;
-  box-shadow: fill black -2px -2px 4px 4px;
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+    margin-left: 7.5px;
+    padding: 6px 12px 6px 12px;
+    background-image: url("file://panorama/images/background_play_button_2x.png");
+    background-size: 228px 50px;
+    border: 1px solid #6e3f3f88;
+    transition-property: brightness, saturation;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out;
+    background-color: red;
+    saturation: 1;
+    brightness: 0.5;
+    box-shadow: fill black 0px 0px 2px 2px;
 }
 
 .heroSelectionDescriptionCancelHeroBtn:hover {
-  saturation: 1.1;
-  brightness: 0.75;
+    saturation: 1.1;
+    brightness: 0.75;
 }
 
 .heroSelectionDescriptionCancelHeroBtnLabel {
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  color: white;
-  text-transform: uppercase;
-  font-weight: bold;
-  text-shadow: 1px 1px 1px 2 #000000;   
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px 2 #000000;
 }
 
 .heroSelectionDescriptionSelectHeroBtnLocked {
-  width: 23px;
-  height: 23px;
-  vertical-align: center;
-  horizontal-align: center;  
+    width: 23px;
+    height: 23px;
+    vertical-align: center;
+    horizontal-align: center;
 }

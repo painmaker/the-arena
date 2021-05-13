@@ -3,7 +3,7 @@
   height: 84px;
   margin: 5px;
   border: 2px solid black;
-  box-shadow: fill black -2px -1px 3px 4px;
+  box-shadow: fill black 0px 0px 1px 1px;
 }
 
 .heroSelectionSelectedHeroBorder {

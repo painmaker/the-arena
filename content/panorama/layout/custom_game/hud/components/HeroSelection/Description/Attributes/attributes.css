@@ -58,15 +58,15 @@
 }
 
 .heroSelectionDescriptionAttributesIconAgility {
-  background-image: url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_agility_psd.vtex");
+  background-image: url("file://panorama/images/primary_attribute_icon_agility.png");
 }
 
 .heroSelectionDescriptionAttributesIconStrength {
-  background-image: url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_strength_psd.vtex");
+  background-image: url("file://panorama/images/primary_attribute_icon_strength.png");
 }
 
 .heroSelectionDescriptionAttributesIconIntelligence {
-  background-image: url("s2r://panorama/images/primary_attribute_icons/primary_attribute_icon_intelligence_psd.vtex");
+  background-image: url("file://panorama/images/primary_attribute_icon_intelligence.png");
 }
 
 .heroSelectionDescriptionAttributesLabelContainer {

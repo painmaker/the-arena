@@ -1,9 +1,8 @@
-import React, { Dispatch, useEffect, useState } from "react";
+import React, { Dispatch, useEffect } from "react";
 import Minimap from "./components/Minimap/Minimap";
 import Settings from "./components/Settings/Settings";
 import ButtonGroup from "./components/ButtonGroup/ButtonGroup";
 import Heroes from "./components/Heroes/Heroes";
-import DateTime from "./components/DateTime/DateTime";
 import GameTime from "./components/GameTime/GameTime";
 import AbilityBar from "./components/AbilityBar/AbilityBar";
 import HealthBar from "./components/HealthBar/HealthBar";
@@ -21,7 +20,7 @@ import { SettingsActionTypes } from "./types/settingsTypes";
 import Shop from "./components/Shop/Shop";
 import HeroSelection from "./components/HeroSelection/HeroSelection";
 import { useNetTableValues } from "react-panorama";
-import withReactTimeout, { ReactTimeoutProps } from "./hoc/ReactTimeout";
+import Chat from "./components/Chat/Chat";
 
 const mapStateToProps = (state: RootState) => ({
   useCustomUI: state.settingsReducer.useCustomUI,
@@ -34,7 +33,7 @@ const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   // ownProps
 };
 
@@ -42,36 +41,6 @@ const App = (props: Props) => {
 
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
   const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
-
-  useEffect(() => {
-
-    const chat = $.GetContextPanel().GetParent()?.GetParent()?.GetParent()?.FindChildTraverse('HudChat');
-
-    const elements: (Panel | null | undefined)[] = [
-      chat?.FindChildTraverse('ChatTargetLabel'),
-      chat?.FindChildTraverse('ChatScrollUpButton'),
-      chat?.FindChildTraverse('ChatScrollDownButton'),
-      chat?.FindChildTraverse('ChatTabHelpButton'),
-      chat?.FindChildTraverse('ChatLinesArea'),
-      // chat?.FindChildTraverse('ChatEmoticonButton'),
-    ]
-
-    for (let element of elements) {
-      if (element) {
-        element.style.visibility = 'collapse';
-      }
-    }
-
-    const chatInput = chat?.FindChildTraverse('ChatInput');
-    if (chatInput) {
-      chatInput.style.paddingLeft = '10px';
-      const placeholderText = chatInput.FindChild('PlaceholderText');
-      if (placeholderText) {
-        placeholderText.style.visibility = 'collapse';
-      }
-    }
-
-  }, []);
 
   useEffect(() => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !props.useCustomUI);
@@ -103,42 +72,44 @@ const App = (props: Props) => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !props.useCustomUI);
   }, [props.useCustomUI]);
 
-  if (!hasPickedHero) {
-    return (
-      <HeroSelection />
-    );
-  }
-
   return (
     <Panel id={'root'} hittest={false} className={"appContainer"} >
-      <ToggleButton
-        className={'useCustomUIBtn'}
-        selected={props.useCustomUI}
-        onactivate={() => props.setUseCustomUI(!props.useCustomUI)}
-      >
-        <Label
-          className={'useCustomUILabel'}
-          text={'Use Custom UI'}
-        />
-      </ToggleButton>
-      { props.useCustomUI && (
+      <Chat hasPickedHero={hasPickedHero} />
+      { !hasPickedHero && (
+        <HeroSelection />
+      )}
+      { hasPickedHero && (
         <React.Fragment>
-          {/* <DateTime /> */}
-          <Heroes />
-          <GameTime />
-          <Settings />
-          <Character />
-          <Shop />
-          <LevelUp />
-          <AbilityBar />
-          <HealthBar />
-          <ManaBar />
-          <ButtonGroup />
-          <Minimap />
-          <Buffs />
-          <Debuffs />
-          <Inventory />
-          <StatsPanel />
+          <ToggleButton
+            className={'useCustomUIBtn'}
+            selected={props.useCustomUI}
+            onactivate={() => props.setUseCustomUI(!props.useCustomUI)}
+          >
+            <Label
+              className={'useCustomUILabel'}
+              text={'Use Custom UI'}
+            />
+          </ToggleButton>
+          { props.useCustomUI && (
+            <React.Fragment>
+              {/* <DateTime /> */}
+              <Heroes />
+              <GameTime />
+              <Settings />
+              <Character />
+              <Shop />
+              <LevelUp />
+              <AbilityBar />
+              <HealthBar />
+              <ManaBar />
+              <ButtonGroup />
+              <Minimap />
+              <Buffs />
+              <Debuffs />
+              <Inventory />
+              <StatsPanel />
+            </React.Fragment>
+          )}
         </React.Fragment>
       )}
     </Panel>
@@ -146,4 +117,4 @@ const App = (props: Props) => {
 
 }
 
-export default connector(withReactTimeout(App));
+export default connector(App);

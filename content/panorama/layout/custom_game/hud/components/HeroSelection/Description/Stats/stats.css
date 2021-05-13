@@ -62,27 +62,27 @@
 }
 
 .heroSelectionDescriptionStatsDamageImage {
-  background-image: url("s2r://panorama/images/hud/reborn/icon_damage_psd.vtex");
+  background-image: url("file://panorama/images/icon_damage_psd.png");
   margin-right: 2px;
 }
 
 .heroSelectionDescriptionStatsArmorImage {
-  background-image: url("s2r://panorama/images/hud/reborn/icon_armor_psd.vtex");
+  background-image: url("file://panorama/images/icon_armor_psd.png");
   horizontal-align: center;
 }
 
 .heroSelectionDescriptionStatsMoveSpeedImage {
-  background-image: url("s2r://panorama/images/hud/reborn/icon_speed_psd.vtex");
+  background-image: url("file://panorama/images/icon_speed_psd.png");
 }
 
 .heroSelectionDescriptionStatsAttackRateImage {
-  background-image: url("s2r://panorama/images/hud/reborn/icon_attack_speed2_psd.vtex");
+  background-image: url("file://panorama/images/icon_attack_speed2_psd.png");
 }
 
 .heroSelectionDescriptionStatsAttackSpeedImage {
-  background-image: url("s2r://panorama/images/hud/reborn/icon_attack_speed3_psd.vtex");
+  background-image: url("file://panorama/images/icon_attack_speed3_psd.png");
 }
 
 .heroSelectionDescriptionStatsAttackRangeImage {
-  background-image: url("s2r://panorama/images/hud/reborn/icon_attack_range_psd.vtex");
+  background-image: url("file://panorama/images/icon_attack_range_psd.png");
 }

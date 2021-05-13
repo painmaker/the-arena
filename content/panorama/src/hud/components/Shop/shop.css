@@ -10,8 +10,7 @@
   min-height: 550px;
   flow-children: down;
   z-index: 999;
-  /* background-image: url("s2r://panorama/images/hud/reborn/bg_scoreboard_psd.vtex"); */
-  background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+  background-image: url("file://panorama/images/ability_bg.png");
   background-color: rgba(0, 0, 0, 0.85);
   background-size: 100%;
 }
@@ -39,7 +38,7 @@
 
 .shopCategoryTitleContainer {
   width: 100%;
-  background-image: url("s2r://panorama/images/hud/reborn/inventory_item_well_psd.vtex");
+  background-image: url("file://panorama/images/inventory_item_well.png");
   background-size: 100%;
   background-color: rgba(0, 0, 0, 0.35);
   padding-top: 2.5px;
@@ -64,7 +63,7 @@
 .shopCategoryItems {
   width: 100%;
   flow-children: right-wrap;
-  background-image: url("s2r://panorama/images/hud/reborn/inventory_item_well_psd.vtex");
+  background-image: url("file://panorama/images/inventory_item_well.png");
   background-size: 100%;
   background-color: rgba(0, 0, 0, 0.35);
   padding: 10px;

@@ -4,7 +4,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { setFocusedHero } from "../../actions/heroSelectionActions";
 import { RootState } from "../../reducers/rootReducer";
 import { FocusedHero, HeroSelectionActionTypes } from "../../types/heroSelectionTypes";
-import Chat from "./Chat/Chat";
+import Chat from "../Chat/Chat";
 import Description from "./Description/description";
 import Heroes from "./Heroes/Heroes";
 import RandomHeroDialog from "./RandomHeroDialog/RandomHeroDialog";
@@ -51,7 +51,7 @@ const HeroSelection = (props: Props) => {
   }, []);
 
   return (
-    <Panel className={"heroSelectionContainer"} hittest={false} >
+    <Panel className={'heroSelectionContainer'} hittest={false} >
       <DOTAScenePanel
         hittest={false}
         id={'heroSelectionScene'}
@@ -62,7 +62,6 @@ const HeroSelection = (props: Props) => {
         camera={'camera_main'}
       >
         <Description focusedHero={props.focusedHero} />
-        <Chat />
         <RandomHeroDialog />
         <RemainingPlayers />
         <Heroes />

@@ -11,8 +11,6 @@
   transition-duration: 0.5s;
   transition-timing-function: ease-in-out;
   flow-children: down;
-  /* background-image: url("s2r://panorama/images/hud/reborn/quickbuy_bg_psd.vtex"); */
-  /* background-size: 100%; */
   background-color: rgba(0, 0, 0, 0.9);
 }
 

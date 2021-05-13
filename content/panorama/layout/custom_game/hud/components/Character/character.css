@@ -10,10 +10,8 @@
   min-height: 550px;
   flow-children: down;
   z-index: 999;
-  /* background-image: url("s2r://panorama/images/hud/reborn/bg_scoreboard_psd.vtex"); */
-  /* background-size: cover; */
   background-color: rgba(0, 0, 0, 0.85);
-  background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+  background-image: url("file://panorama/images/ability_bg.png");
   background-size: 100%;
 }
 

@@ -9,12 +9,14 @@ import "./modifiers/ui/modifier_ui_base_health_regen";
 import "./modifiers/ui/modifier_ui_spell_amp";
 import "./modifiers/ui/modifier_ui_hero_id";
 import { EXPERIENCE_PER_LEVEL_TABLE, MAX_PLAYERS } from "./settings";
-import { HeroSelectionService } from "./HeroSelectionService";
+import { HeroSelectionService } from "./services/HeroSelectionService";
+import { ChatService } from "./services/ChatService";
 
 declare global {
   interface CDOTAGamerules {
     Addon: GameMode;
     HeroSelectionService: HeroSelectionService;
+    ChatService: ChatService;
   }
 }
 
@@ -42,6 +44,7 @@ export class GameMode {
   public static Activate(this: void) {
     GameRules.Addon = new GameMode();
     GameRules.HeroSelectionService = new HeroSelectionService();
+    GameRules.ChatService = new ChatService();
   }
 
   constructor() {

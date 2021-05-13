@@ -1,15 +1,9 @@
 import React from "react";
+import { toColor } from "../../../utils/Color";
 
 interface Props {
   playerId: PlayerID;
 }
-
-const playerColorToARGB = (i: number) =>
-  "#" +
-  ("00" + (i & 0xff).toString(16)).substr(-2) +
-  ("00" + ((i >> 8) & 0xff).toString(16)).substr(-2) +
-  ("00" + ((i >> 16) & 0xff).toString(16)).substr(-2) +
-  ("00" + ((i >> 24) & 0xff).toString(16)).substr(-2);
 
 const Playername = (props: Props) => {
   return (
@@ -17,7 +11,7 @@ const Playername = (props: Props) => {
       <Label
         className="heroesPlayernameLabel"
         text={Players.GetPlayerName(props.playerId)}
-        style={{ color: playerColorToARGB(Players.GetPlayerColor(props.playerId)) }}
+        style={{ color: toColor(props.playerId) }}
       />
     </Panel>
   );

@@ -13,7 +13,7 @@
   margin-bottom: 7.5px;
   margin-left: 2.5px;
   /* border-radius: 5px; */
-  background-image: url("s2r://panorama/images/hud/reborn/inventory_item_well_psd.vtex");
+  background-image: url("file://panorama/images/inventory_item_well.png");
   background-size: 100%;
   background-color: #111920bb;
 }

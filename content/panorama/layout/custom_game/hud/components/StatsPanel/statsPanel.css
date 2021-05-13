@@ -31,7 +31,7 @@
 .statsPanelArmorImage {
   width: 15px;
   height: 15px;
-  background-image: url("s2r://panorama/images/hud/reborn/icon_armor_psd.vtex");
+  background-image: url("file://panorama/images/icon_armor.png");
   background-size: contain;
   background-position: 50% 50%;
   background-repeat: no-repeat;
@@ -43,7 +43,7 @@
 .statsPanelMagicResistImage {
   width: 15px;
   height: 15px;
-  background-image: url("s2r://panorama/images/magic_resist_stat_png.vtex");
+  background-image: url("file://panorama/images/icon_magic_resist.png");
   background-size: contain;
   background-position: 50% 50%;
   background-repeat: no-repeat;
@@ -55,7 +55,7 @@
 .statsPanelAttackImage {
   width: 15px;
   height: 15px;
-  background-image: url("s2r://panorama/images/hud/reborn/icon_damage_psd.vtex");
+  background-image: url("file://panorama/images/icon_damage.png");
   background-size: contain;
   background-position: 50% 50%;
   background-repeat: no-repeat;
@@ -67,11 +67,11 @@
 .statsPanelMoveSpeedImage {
   width: 15px;
   height: 15px;
-  background-image: url("s2r://panorama/images/hud/reborn/icon_speed_psd.vtex");
+  background-image: url("file://panorama/images/icon_speed.png");
   background-size: contain;
   background-position: 50% 50%;
   background-repeat: no-repeat;
-  vertical-align: middle;
+  vertical-align: middle; 
   margin-right: 2px;
   horizontal-align: middle;
 }

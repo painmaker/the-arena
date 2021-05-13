@@ -1,4 +1,4 @@
-import { STRENGTH_GAIN_HP_BONUS, STRENGTH_GAIN_HP_REGEN_BONUS, INTELLIGENCE_GAIN_MANA_BONUS, INTELLIGENCE_GAIN_MANA_REGEN_BONUS, PRIMARY_ATTRIBUTE_DAMAGE_BONUS, AGILITY_GAIN_MOVE_SPEED_BONUS } from "./CustomAttributeBonuses";
+import { STRENGTH_GAIN_HP_BONUS, STRENGTH_GAIN_HP_REGEN_BONUS, INTELLIGENCE_GAIN_MANA_BONUS, INTELLIGENCE_GAIN_MANA_REGEN_BONUS, PRIMARY_ATTRIBUTE_DAMAGE_BONUS, AGILITY_GAIN_MOVE_SPEED_BONUS } from "../CustomAttributeBonuses";
 
 export class HeroSelectionService {
 
@@ -66,6 +66,8 @@ export class HeroSelectionService {
 
     CustomGameEventManager.Send_ServerToPlayer(player, "on_random_hero_success", {});
 
+    GameRules.ChatService.sendSytemMessage('Player X randomed Y.');
+
   }
 
   private onHeroSelected(event: { PlayerID: PlayerID, heroname: string }): void {
@@ -104,6 +106,8 @@ export class HeroSelectionService {
     EmitSoundOnClient("HeroPicker.Selected", player);
 
     CustomGameEventManager.Send_ServerToPlayer(player, "on_select_hero_success", {});
+
+    GameRules.ChatService.sendSytemMessage('Player X picked Y.');
 
   }
 

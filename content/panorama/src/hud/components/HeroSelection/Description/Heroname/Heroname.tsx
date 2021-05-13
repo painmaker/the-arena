@@ -32,7 +32,9 @@ const Heroname = (props: Props) => {
     <Panel className={'heroSelectionDescriptionNameContainer'}>
       <Panel
         className={'heroSelectionDescriptionNameAttributeImage'}
-        style={{ backgroundImage: attributeToImage(props.focusedHero.attribute) }} />
+        style={{
+          backgroundImage: attributeToImage(props.focusedHero.attribute)
+        }} />
       <Label
         className={'heroSelectionDescriptionNameLabel'}
         text={$.Localize(props.focusedHero.heroname)}

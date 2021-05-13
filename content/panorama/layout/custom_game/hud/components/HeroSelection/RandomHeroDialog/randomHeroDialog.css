@@ -56,7 +56,7 @@
 }
 
 .heroSelectionRandomHeroDialogArrow {
-  background-image: url("s2r://panorama/images/tooltips/tooltip_arrow_top_png.vtex");
+  background-image: url("file://panorama/images/tooltip_arrow_top.png");
   background-size: contain;
   wash-color: rgb(0, 0, 0);
   horizontal-align: center;
