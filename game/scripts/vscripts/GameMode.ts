@@ -11,12 +11,14 @@ import "./modifiers/ui/modifier_ui_hero_id";
 import { EXPERIENCE_PER_LEVEL_TABLE, HERO_SELECTION_TIME, MAX_PLAYERS } from "./settings";
 import { HeroSelectionService } from "./services/HeroSelectionService";
 import { ChatService } from "./services/ChatService";
+import { ShopService } from "./services/ShopService";
 
 declare global {
   interface CDOTAGamerules {
     Addon: GameMode;
     HeroSelectionService: HeroSelectionService;
     ChatService: ChatService;
+    InventoryService: ShopService;
   }
 }
 
@@ -45,18 +47,13 @@ export class GameMode {
     GameRules.Addon = new GameMode();
     GameRules.HeroSelectionService = new HeroSelectionService();
     GameRules.ChatService = new ChatService();
+    GameRules.InventoryService = new ShopService();
   }
 
   constructor() {
-    this.configure();
-  }
-
-  private configure(): void {
 
     ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
     ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
-    CustomGameEventManager.RegisterListener("attempt_item_purchase", (_, event) => this.onItemPurchaseAttempt(event));
-    CustomGameEventManager.RegisterListener("alert_shop_item", (_, event) => this.onAltertShopItem(event));
 
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, MAX_PLAYERS);
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, MAX_PLAYERS);
@@ -85,9 +82,6 @@ export class GameMode {
     gameMode.SetCustomXPRequiredToReachNextLevel(EXPERIENCE_PER_LEVEL_TABLE);
     gameMode.SetFixedRespawnTime(1.0);
 
-    gameMode.SetExecuteOrderFilter(event => this.OrderFilter(event), {});
-    gameMode.SetItemAddedToInventoryFilter(event => this.InventoryFilter(event), {});
-
     gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_ARMOR, 0);
     gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_DAMAGE, 0);
     gameMode.SetCustomAttributeDerivedStatValue(AttributeDerivedStats.DOTA_ATTRIBUTE_AGILITY_DAMAGE, 0);
@@ -100,54 +94,14 @@ export class GameMode {
 
   }
 
-  public InventoryFilter(event: ItemAddedToInventoryFilterEvent): boolean {
-    // DeepPrintTable(event);
-    return true;
-  }
-
-  public OrderFilter(event: ExecuteOrderFilterEvent): boolean {
-    // DeepPrintTable(event);
-    return true;
-  }
-
-  public onAltertShopItem(event: { PlayerID: PlayerID, itemname: string, cost: number }): void {
-    const player = PlayerResource.GetPlayer(event.PlayerID);
-    if (player) {
-      const goldDifference = event.cost - PlayerResource.GetGold(event.PlayerID);
-      print("I will purchase " + event.itemname + ". Gold difference: " + goldDifference);
-    }
-  }
-
-  public onItemPurchaseAttempt(event: { PlayerID: PlayerID, itemname: string, cost: number }): void {
-
-    const player = PlayerResource.GetPlayer(event.PlayerID);
-    if (!player) {
-      return;
-    }
-
-    if (PlayerResource.GetGold(event.PlayerID) >= event.cost) {
-      const hero = player.GetAssignedHero();
-      hero.AddItemByName(event.itemname);
-      hero.ModifyGold(-event.cost, true, EDOTA_ModifyGold_Reason.DOTA_ModifyGold_PurchaseItem);
-      CustomGameEventManager.Send_ServerToPlayer(player, "attempt_item_purchase_success", {});
-    } else {
-      CustomGameEventManager.Send_ServerToPlayer(player, "attempt_item_purchase_error", {});
-    }
-
-  }
-
   public OnStateChange(): void {
-
     const state = GameRules.State_Get();
-
     if (state == DOTA_GameState.DOTA_GAMERULES_STATE_PRE_GAME) {
       // Do nothing
     }
-
     if (state == DOTA_GameState.DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) {
       Timers.CreateTimer(0.1, () => this.onGameInProgress());
     }
-
   }
 
   private onGameInProgress() {

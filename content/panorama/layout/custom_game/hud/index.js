@@ -56556,7 +56556,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Shop_Shop__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Shop/Shop */ "./hud/components/Shop/Shop.tsx");
 /* harmony import */ var _components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/HeroSelection/HeroSelection */ "./hud/components/HeroSelection/HeroSelection.tsx");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
-/* harmony import */ var _components_Loading_Loading__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Loading/Loading */ "./hud/components/Loading/Loading.tsx");
+/* harmony import */ var _components_Chat_Chat__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Chat/Chat */ "./hud/components/Chat/Chat.tsx");
+/* harmony import */ var _components_Loading_Loading__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/Loading/Loading */ "./hud/components/Loading/Loading.tsx");
+
 
 
 
@@ -56623,8 +56625,9 @@ const App = (props) => {
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !props.useCustomUI);
     }, [props.useCustomUI]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: 'root', hittest: false, className: "appContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Chat_Chat__WEBPACK_IMPORTED_MODULE_20__.default, { hasPickedHero: hasPickedHero }),
         !hasPickedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_18__.default, null)),
-        hasPickedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Loading_Loading__WEBPACK_IMPORTED_MODULE_20__.default, null,
+        hasPickedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Loading_Loading__WEBPACK_IMPORTED_MODULE_21__.default, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(ToggleButton, { className: 'useCustomUIBtn', selected: props.useCustomUI, onactivate: () => props.setUseCustomUI(!props.useCustomUI) },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'useCustomUILabel', text: 'Use Custom UI' })),
             props.useCustomUI && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
@@ -58209,6 +58212,237 @@ const PlayerAvatar = () => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAUserName, { className: 'playerLabel', steamid: steamid }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerAvatar);
+
+
+/***/ }),
+
+/***/ "./hud/components/Chat/Chat.tsx":
+/*!**************************************!*\
+  !*** ./hud/components/Chat/Chat.tsx ***!
+  \**************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _utils_HudElements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/HudElements */ "./hud/utils/HudElements.ts");
+/* harmony import */ var _ChatMessage_ChatMessage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ChatMessage/ChatMessage */ "./hud/components/Chat/ChatMessage/ChatMessage.tsx");
+/* harmony import */ var _Container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Container */ "./hud/components/Chat/Container.tsx");
+
+
+
+
+
+const MAX_MESSAGES = 15;
+const Chat = (props) => {
+    const [messages, setMessages] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+    const [isChatActive, setIsChatActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        if (!isChatActive) {
+            $.DispatchEvent("DropInputFocus", (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_4__.getHudElement)('ChatInput'));
+        }
+    }, [isChatActive]);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const chatControls = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_4__.getHudElement)("ChatControls");
+        const chatMainPanel = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_4__.getHudElement)("ChatMainPanel");
+        const chatInput = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_4__.getHudElement)("ChatInput");
+        const placeholderText = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_4__.getHudElement)('PlaceholderText');
+        chatInput.style.paddingLeft = '10px';
+        placeholderText.style.visibility = 'collapse';
+        for (let child of chatMainPanel.Children()) {
+            if (child != chatControls) {
+                child.style.visibility = "collapse";
+            }
+        }
+        for (let child of chatControls.Children()) {
+            if (child == chatInput) {
+                continue;
+            }
+            child.style.visibility = "collapse";
+        }
+        chatInput.SetPanelEvent("oninputsubmit", () => {
+            // @ts-ignore
+            GameEvents.SendCustomGameEventToServer("on_chat_input_submit", { playerId: Game.GetLocalPlayerID(), input: chatInput.text });
+            // @ts-ignore
+            chatInput.text = "";
+            setIsChatActive(prevState => !prevState);
+        });
+        return () => chatInput.ClearPanelEvent('oninputsubmit');
+    }, []);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const chat = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_4__.getHudElement)('HudChat');
+        if (props.hasPickedHero) {
+            chat.style.marginBottom = '380px';
+            chat.style.marginLeft = '10px';
+            chat.style.horizontalAlign = 'left';
+            chat.style.verticalAlign = 'bottom';
+            chat.style.height = 'fit-children';
+            chat.style.width = '465px';
+            chat.style.y = '0px';
+        }
+        else {
+            chat.style.marginBottom = '230px';
+            chat.style.marginLeft = '75px';
+            chat.style.horizontalAlign = 'left';
+            chat.style.verticalAlign = 'bottom';
+            chat.style.height = 'fit-children';
+            chat.style.width = '565px';
+            chat.style.y = '0px';
+        }
+    }, [props.hasPickedHero]);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)('custom_player_chat', (event) => {
+        const isMuted = Game.IsPlayerMuted(event.playerid);
+        if (!isMuted) {
+            setMessages(prevState => {
+                if (prevState.length > MAX_MESSAGES) {
+                    const newState = prevState.slice(0, prevState.length - 1);
+                    return [event, ...newState];
+                }
+                return [event, ...prevState];
+            });
+        }
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Container__WEBPACK_IMPORTED_MODULE_3__.default, null, messages.map(message => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ChatMessage_ChatMessage__WEBPACK_IMPORTED_MODULE_2__.default, { key: message.uuid, message: message })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Chat);
+
+
+/***/ }),
+
+/***/ "./hud/components/Chat/ChatMessage/ChatMessage.tsx":
+/*!*********************************************************!*\
+  !*** ./hud/components/Chat/ChatMessage/ChatMessage.tsx ***!
+  \*********************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _utils_Color__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/Color */ "./hud/utils/Color.ts");
+/* harmony import */ var _utils_HudElements__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/HudElements */ "./hud/utils/HudElements.ts");
+
+
+
+
+const ChatMessage = (props) => {
+    const [opacity, setOpacity] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('1');
+    const [isChatActive, setIsChatActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            var _a;
+            const isActive = (_a = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_2__.getHudElement)('HudChat')) === null || _a === void 0 ? void 0 : _a.BHasClass('Active');
+            setIsChatActive(isActive !== undefined ? isActive : false);
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const opacityTimeoutID = props.setTimeout(() => {
+            setOpacity('0');
+        }, 10000);
+        return () => props.clearTimeout(opacityTimeoutID);
+    }, []);
+    const formattetText = props.message.text.replace(/(^|\W)#(\w+)/g, (_, $1, $2) => $1 + $.Localize($2));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: {
+            transitionProperty: 'opacity',
+            transitionDuration: isChatActive ? '0s' : '0.25s',
+            transitionTimingFunction: 'ease-in-out',
+            opacity: isChatActive ? '1.0' : opacity,
+            width: '100%',
+            paddingTop: '4px',
+            flowChildren: 'right',
+            transform: 'scaleY(-1)'
+        } },
+        props.message.heroname && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroname: props.message.heroname, heroimagestyle: 'icon', style: {
+                width: '24px',
+                height: '24px',
+                marginRight: '2px',
+                verticalAlign: 'top',
+                horizontalAlign: 'center',
+            } })),
+        props.message.playername && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: props.message.playername + ': ', style: {
+                textShadow: '1px 1px 3px 3.0 black',
+                fontSize: '18px',
+                color: (0,_utils_Color__WEBPACK_IMPORTED_MODULE_3__.toColor)(props.message.playerid),
+                verticalAlign: 'top',
+                fontFamily: 'Radiance, FZLanTingHei-R-GBK, TH Sarabun New, YDYGO 540, Gulim, MingLiU',
+            } })),
+        props.message.playerid === -1 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'chatMessageSystemText', text: '[SYSTEM]:' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'chatMessageText', text: formattetText })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(ChatMessage));
+
+
+/***/ }),
+
+/***/ "./hud/components/Chat/Container.tsx":
+/*!*******************************************!*\
+  !*** ./hud/components/Chat/Container.tsx ***!
+  \*******************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _utils_HudElements__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/HudElements */ "./hud/utils/HudElements.ts");
+
+
+
+
+const Container = (props) => {
+    var _a;
+    const [isChatActive, setIsChatActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes;
+    const hasPickedHero = ((_a = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())) === null || _a === void 0 ? void 0 : _a.picked) === 1;
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            var _a;
+            const isActive = (_a = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_3__.getHudElement)('HudChat')) === null || _a === void 0 ? void 0 : _a.BHasClass('Active');
+            setIsChatActive(isActive !== undefined ? isActive : false);
+        }, 50);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: {
+            width: hasPickedHero ? '465px' : '565px',
+            height: '290px',
+            flowChildren: 'down',
+            verticalAlign: 'bottom',
+            horizontalAlign: 'left',
+            marginBottom: hasPickedHero ? '414px' : '264px',
+            marginLeft: hasPickedHero ? '10px' : '75px',
+            padding: '10px',
+            backgroundColor: isChatActive ? 'rgba(0, 0, 0, 0.7)' : 'none',
+            borderRadius: '0px 0px 5px 5px',
+            transform: 'scaleY(-1)',
+            overflow: 'clip',
+            zIndex: 10,
+        } }, props.children));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Container));
 
 
 /***/ }),
@@ -59984,7 +60218,7 @@ const Loading = props => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = props.setTimeout(() => {
             setHidden(false);
-        }, 2000);
+        }, 500);
         return () => props.clearTimeout(id);
     }, []);
     if (hidden) {
@@ -60826,7 +61060,8 @@ const Item = (props) => {
         return () => props.clearInterval(id);
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("attempt_item_purchase_success", () => {
-        Game.EmitSound("General.Buy");
+        Game.EmitSound("General.CourierGivesItem");
+        Game.EmitSound("Item.PickUpShop");
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("attempt_item_purchase_error", () => {
         GameUI.SendCustomHUDError("Unable To Purchase Item", "General.Item_CantPickUp");
@@ -61379,208 +61614,8 @@ const items = {
             cost: 50,
             aliases: ['clarity', 'mana', 'pot', 'flask', 'regen']
         },
-        {
-            itemname: 'item_flask',
-            cost: 110,
-            aliases: ['healing', 'salve', 'pot', 'flask', 'regen', 'healing salve']
-        },
-        {
-            itemname: 'item_clarity',
-            cost: 50,
-            aliases: ['clarity', 'mana', 'pot', 'flask', 'regen']
-        },
-        {
-            itemname: 'item_flask',
-            cost: 110,
-            aliases: ['healing', 'salve', 'pot', 'flask', 'regen', 'healing salve']
-        },
-        {
-            itemname: 'item_clarity',
-            cost: 50,
-            aliases: ['clarity', 'mana', 'pot', 'flask', 'regen']
-        },
-        {
-            itemname: 'item_flask',
-            cost: 110,
-            aliases: ['healing', 'salve', 'pot', 'flask', 'regen', 'healing salve']
-        },
-        {
-            itemname: 'item_clarity',
-            cost: 50,
-            aliases: ['clarity', 'mana', 'pot', 'flask', 'regen']
-        },
-        {
-            itemname: 'item_flask',
-            cost: 110,
-            aliases: ['healing', 'salve', 'pot', 'flask', 'regen', 'healing salve']
-        },
-        {
-            itemname: 'item_clarity',
-            cost: 50,
-            aliases: ['clarity', 'mana', 'pot', 'flask', 'regen']
-        },
-        {
-            itemname: 'item_flask',
-            cost: 110,
-            aliases: ['healing', 'salve', 'pot', 'flask', 'regen', 'healing salve']
-        },
-        {
-            itemname: 'item_clarity',
-            cost: 50,
-            aliases: ['clarity', 'mana', 'pot', 'flask', 'regen']
-        },
-        {
-            itemname: 'item_flask',
-            cost: 110,
-            aliases: ['healing', 'salve', 'pot', 'flask', 'regen', 'healing salve']
-        },
-        {
-            itemname: 'item_clarity',
-            cost: 50,
-            aliases: ['clarity', 'mana', 'pot', 'flask', 'regen']
-        },
-        {
-            itemname: 'item_flask',
-            cost: 110,
-            aliases: ['healing', 'salve', 'pot', 'flask', 'regen', 'healing salve']
-        },
-        {
-            itemname: 'item_clarity',
-            cost: 50,
-            aliases: ['clarity', 'mana', 'pot', 'flask', 'regen']
-        },
-        {
-            itemname: 'item_flask',
-            cost: 110,
-            aliases: ['healing', 'salve', 'pot', 'flask', 'regen', 'healing salve']
-        },
-        {
-            itemname: 'item_clarity',
-            cost: 50,
-            aliases: ['clarity', 'mana', 'pot', 'flask', 'regen']
-        },
-        {
-            itemname: 'item_flask',
-            cost: 110,
-            aliases: ['healing', 'salve', 'pot', 'flask', 'regen', 'healing salve']
-        },
-        {
-            itemname: 'item_clarity',
-            cost: 50,
-            aliases: ['clarity', 'mana', 'pot', 'flask', 'regen']
-        },
-        {
-            itemname: 'item_flask',
-            cost: 110,
-            aliases: ['healing', 'salve', 'pot', 'flask', 'regen', 'healing salve']
-        },
-        {
-            itemname: 'item_clarity',
-            cost: 50,
-            aliases: ['clarity', 'mana', 'pot', 'flask', 'regen']
-        },
-        {
-            itemname: 'item_flask',
-            cost: 110,
-            aliases: ['healing', 'salve', 'pot', 'flask', 'regen', 'healing salve']
-        },
-        {
-            itemname: 'item_clarity',
-            cost: 50,
-            aliases: ['clarity', 'mana', 'pot', 'flask', 'regen']
-        },
     ],
     armor: [
-        {
-            itemname: 'item_buckler',
-            cost: 375,
-            aliases: ['buckler']
-        },
-        {
-            itemname: 'item_headdress',
-            cost: 425,
-            aliases: ['headdress']
-        },
-        {
-            itemname: 'item_buckler',
-            cost: 375,
-            aliases: ['buckler']
-        },
-        {
-            itemname: 'item_headdress',
-            cost: 425,
-            aliases: ['headdress']
-        },
-        {
-            itemname: 'item_buckler',
-            cost: 375,
-            aliases: ['buckler']
-        },
-        {
-            itemname: 'item_headdress',
-            cost: 425,
-            aliases: ['headdress']
-        },
-        {
-            itemname: 'item_buckler',
-            cost: 375,
-            aliases: ['buckler']
-        },
-        {
-            itemname: 'item_headdress',
-            cost: 425,
-            aliases: ['headdress']
-        },
-        {
-            itemname: 'item_buckler',
-            cost: 375,
-            aliases: ['buckler']
-        },
-        {
-            itemname: 'item_headdress',
-            cost: 425,
-            aliases: ['headdress']
-        },
-        {
-            itemname: 'item_buckler',
-            cost: 375,
-            aliases: ['buckler']
-        },
-        {
-            itemname: 'item_headdress',
-            cost: 425,
-            aliases: ['headdress']
-        },
-        {
-            itemname: 'item_buckler',
-            cost: 375,
-            aliases: ['buckler']
-        },
-        {
-            itemname: 'item_headdress',
-            cost: 425,
-            aliases: ['headdress']
-        },
-        {
-            itemname: 'item_buckler',
-            cost: 375,
-            aliases: ['buckler']
-        },
-        {
-            itemname: 'item_headdress',
-            cost: 425,
-            aliases: ['headdress']
-        },
-        {
-            itemname: 'item_buckler',
-            cost: 375,
-            aliases: ['buckler']
-        },
-        {
-            itemname: 'item_headdress',
-            cost: 425,
-            aliases: ['headdress']
-        },
         {
             itemname: 'item_buckler',
             cost: 375,
@@ -61603,128 +61638,8 @@ const items = {
             cost: 2050,
             aliases: ['yasha']
         },
-        {
-            itemname: 'item_desolator',
-            cost: 3500,
-            aliases: ['desolator']
-        },
-        {
-            itemname: 'item_yasha',
-            cost: 2050,
-            aliases: ['yasha']
-        },
-        {
-            itemname: 'item_desolator',
-            cost: 3500,
-            aliases: ['desolator']
-        },
-        {
-            itemname: 'item_yasha',
-            cost: 2050,
-            aliases: ['yasha']
-        },
-        {
-            itemname: 'item_desolator',
-            cost: 3500,
-            aliases: ['desolator']
-        },
-        {
-            itemname: 'item_yasha',
-            cost: 2050,
-            aliases: ['yasha']
-        },
-        {
-            itemname: 'item_desolator',
-            cost: 3500,
-            aliases: ['desolator']
-        },
-        {
-            itemname: 'item_yasha',
-            cost: 2050,
-            aliases: ['yasha']
-        },
-        {
-            itemname: 'item_desolator',
-            cost: 3500,
-            aliases: ['desolator']
-        },
-        {
-            itemname: 'item_yasha',
-            cost: 2050,
-            aliases: ['yasha']
-        },
-        {
-            itemname: 'item_desolator',
-            cost: 3500,
-            aliases: ['desolator']
-        },
-        {
-            itemname: 'item_yasha',
-            cost: 2050,
-            aliases: ['yasha']
-        },
-        {
-            itemname: 'item_desolator',
-            cost: 3500,
-            aliases: ['desolator']
-        },
-        {
-            itemname: 'item_yasha',
-            cost: 2050,
-            aliases: ['yasha']
-        },
     ],
     artifacts: [
-        {
-            itemname: 'item_skadi',
-            cost: 5300,
-            aliases: ['skadi']
-        },
-        {
-            itemname: 'item_bloodstone',
-            cost: 5950,
-            aliases: ['bloodstone']
-        },
-        {
-            itemname: 'item_skadi',
-            cost: 5300,
-            aliases: ['skadi']
-        },
-        {
-            itemname: 'item_bloodstone',
-            cost: 5950,
-            aliases: ['bloodstone']
-        },
-        {
-            itemname: 'item_skadi',
-            cost: 5300,
-            aliases: ['skadi']
-        },
-        {
-            itemname: 'item_bloodstone',
-            cost: 5950,
-            aliases: ['bloodstone']
-        },
-        {
-            itemname: 'item_skadi',
-            cost: 5300,
-            aliases: ['skadi']
-        },
-        {
-            itemname: 'item_bloodstone',
-            cost: 5950,
-            aliases: ['bloodstone']
-        },
-        {
-            itemname: 'item_skadi',
-            cost: 5300,
-            aliases: ['skadi']
-        },
-        {
-            itemname: 'item_bloodstone',
-            cost: 5950,
-            aliases: ['bloodstone']
-        },
         {
             itemname: 'item_skadi',
             cost: 5300,
@@ -62519,6 +62434,28 @@ const toColor = (playerId) => {
         playerColor.substring(4, 6) +
         playerColor.substring(2, 4) +
         playerColor.substring(0, 2));
+};
+
+
+/***/ }),
+
+/***/ "./hud/utils/HudElements.ts":
+/*!**********************************!*\
+  !*** ./hud/utils/HudElements.ts ***!
+  \**********************************/
+/*! namespace exports */
+/*! export getHudElement [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getHudElement": () => /* binding */ getHudElement
+/* harmony export */ });
+const getHudElement = (elementName) => {
+    return $.GetContextPanel().GetParent().GetParent().GetParent().FindChildTraverse(elementName);
 };
 
 

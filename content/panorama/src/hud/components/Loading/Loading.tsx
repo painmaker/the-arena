@@ -10,7 +10,7 @@ const Loading: React.FunctionComponent<Props> = props => {
   useEffect(() => {
     const id = props.setTimeout(() => {
       setHidden(false);
-    }, 2000);
+    }, 500);
     return () => props.clearTimeout(id);
   }, []);
 

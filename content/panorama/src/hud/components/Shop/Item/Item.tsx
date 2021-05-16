@@ -30,7 +30,8 @@ const Item = (props: Props) => {
   }, []);
 
   useGameEvent("attempt_item_purchase_success", () => {
-    Game.EmitSound("General.Buy");
+    Game.EmitSound("General.CourierGivesItem");
+    Game.EmitSound("Item.PickUpShop");
   }, []);
 
   useGameEvent("attempt_item_purchase_error", () => {

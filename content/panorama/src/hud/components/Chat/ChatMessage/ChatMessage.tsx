@@ -28,6 +28,8 @@ const ChatMessage = (props: Props) => {
     return () => props.clearTimeout(opacityTimeoutID);
   }, []);
 
+  const formattetText = props.message.text.replace(/(^|\W)#(\w+)/g, (_, $1, $2) => $1 + $.Localize($2));
+
   return (
     <Panel
       style={{
@@ -72,7 +74,7 @@ const ChatMessage = (props: Props) => {
           text={'[SYSTEM]:'}
         />
       )}
-      <Label className={'chatMessageText'} text={props.message.text} />
+      <Label className={'chatMessageText'} text={formattetText} />
     </Panel>
   );
 

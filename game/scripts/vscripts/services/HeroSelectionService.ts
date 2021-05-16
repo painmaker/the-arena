@@ -1,5 +1,5 @@
 import { STRENGTH_GAIN_HP_BONUS, STRENGTH_GAIN_HP_REGEN_BONUS, INTELLIGENCE_GAIN_MANA_BONUS, INTELLIGENCE_GAIN_MANA_REGEN_BONUS, PRIMARY_ATTRIBUTE_DAMAGE_BONUS, AGILITY_GAIN_MOVE_SPEED_BONUS } from "../CustomAttributeBonuses";
-import { PLAYER_ID_ARRAY } from "../settings";
+import { PLAYER_ID_ARRAY, START_GOLD } from "../settings";
 
 export class HeroSelectionService {
 
@@ -60,6 +60,7 @@ export class HeroSelectionService {
 
       const hero = PlayerResource.ReplaceHeroWith(id, randomHero.heroname, 0, 0);
       hero.SetCustomDeathXP(10);
+      hero.SetGold(START_GOLD, true);
       hero.AddItemByName("item_ogre_axe");
       hero.AddItemByName("item_staff_of_wizardry");
       hero.AddItemByName("item_blade_of_alacrity");
@@ -113,6 +114,7 @@ export class HeroSelectionService {
 
     const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, randomHero.heroname, 0, 0);
     hero.SetCustomDeathXP(10);
+    hero.SetGold(START_GOLD, true);
     hero.AddItemByName("item_ogre_axe");
     hero.AddItemByName("item_staff_of_wizardry");
     hero.AddItemByName("item_blade_of_alacrity");
@@ -163,6 +165,7 @@ export class HeroSelectionService {
 
     const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, event.heroname, 0, 0);
     hero.SetCustomDeathXP(10);
+    hero.SetGold(START_GOLD, true);
     hero.AddItemByName("item_ogre_axe");
     hero.AddItemByName("item_staff_of_wizardry");
     hero.AddItemByName("item_blade_of_alacrity");

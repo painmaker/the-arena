@@ -36,3 +36,5 @@ export const MAX_PLAYERS = 4;
 export const HERO_SELECTION_TIME = 181.0;
 
 export const PLAYER_ID_ARRAY: PlayerID[] = [0, 1, 2, 3];
+
+export const START_GOLD = 10000;
