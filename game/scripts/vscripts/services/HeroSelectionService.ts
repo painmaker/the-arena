@@ -1,4 +1,5 @@
 import { STRENGTH_GAIN_HP_BONUS, STRENGTH_GAIN_HP_REGEN_BONUS, INTELLIGENCE_GAIN_MANA_BONUS, INTELLIGENCE_GAIN_MANA_REGEN_BONUS, PRIMARY_ATTRIBUTE_DAMAGE_BONUS, AGILITY_GAIN_MOVE_SPEED_BONUS } from "../CustomAttributeBonuses";
+import { PLAYER_ID_ARRAY } from "../settings";
 
 export class HeroSelectionService {
 
@@ -7,7 +8,6 @@ export class HeroSelectionService {
   }
 
   private configure(): void {
-    ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
     CustomGameEventManager.RegisterListener("on_select_hero", (_, event) => this.onHeroSelected(event));
     CustomGameEventManager.RegisterListener("on_focus_hero", (_, event) => this.onHeroFocused(event));
     CustomGameEventManager.RegisterListener("on_random_hero", (_, event) => this.onHeroRandomed(event));
@@ -21,18 +21,77 @@ export class HeroSelectionService {
     ]);
   }
 
-  public OnStateChange(): void {
-    // TODO : Create timer ? 
+  public AssignHeroesToHerolessPlayers(): void {
+
+    for (let id of PLAYER_ID_ARRAY) {
+
+      const heroes = CustomNetTables.GetTableValue('HeroSelectionHeroes', 'heroes');
+
+      const player = PlayerResource.GetPlayer(id);
+
+      if (!player) {
+        CustomGameEventManager.Send_ServerToAllClients("hero_select_generic_error", {});
+        return;
+      }
+
+      const playerHasPicked = Object.values(heroes).find(hero => hero.playerID === id);
+
+      if (playerHasPicked) {
+        return;
+      }
+
+      const availableHeroes = Object.values(heroes).filter(hero => hero.picked === 0);
+
+      if (availableHeroes.length <= 0) {
+        CustomGameEventManager.Send_ServerToPlayer(player, "hero_select_generic_error", {});
+        return;
+      }
+
+      const randomHero = availableHeroes[Math.floor(Math.random() * availableHeroes.length)];
+
+      const updatedHeroes = Object.values(heroes).map(hero => {
+        if (hero.heroname === randomHero.heroname) {
+          return { ...hero, picked: 1 as (0 | 1), playerID: id }
+        }
+        return hero;
+      });
+
+      CustomNetTables.SetTableValue('HeroSelectionHeroes', 'heroes', updatedHeroes);
+
+      const hero = PlayerResource.ReplaceHeroWith(id, randomHero.heroname, 0, 0);
+      hero.SetCustomDeathXP(10);
+      hero.AddItemByName("item_ogre_axe");
+      hero.AddItemByName("item_staff_of_wizardry");
+      hero.AddItemByName("item_blade_of_alacrity");
+      hero.AddItemByName("item_blink");
+
+      EmitSoundOnClient("HeroPicker.Selected", player);
+
+      CustomGameEventManager.Send_ServerToPlayer(player, "on_random_hero_success", {});
+
+      GameRules.ChatService.sendSytemMessage('Player X randomed Y.');
+
+    }
+
   }
 
   private onHeroRandomed(event: { PlayerID: PlayerID }): void {
 
     const player = PlayerResource.GetPlayer(event.PlayerID);
+
     if (!player) {
+      CustomGameEventManager.Send_ServerToAllClients("hero_select_generic_error", {});
       return;
     }
 
     const heroes = CustomNetTables.GetTableValue('HeroSelectionHeroes', 'heroes');
+
+    const playerHasPicked = Object.values(heroes).find(hero => hero.playerID === event.PlayerID);
+
+    if (playerHasPicked) {
+      CustomGameEventManager.Send_ServerToPlayer(player, "on_random_hero_error", {});
+      return;
+    }
 
     const availableHeroes = Object.values(heroes).filter(hero => hero.picked === 0);
 
@@ -61,9 +120,6 @@ export class HeroSelectionService {
 
     EmitSoundOnClient("HeroPicker.Selected", player);
 
-    ShowMessage("1231");
-    UTIL_MessageTextAll("t est", 255, 255, 255, 255)
-
     CustomGameEventManager.Send_ServerToPlayer(player, "on_random_hero_success", {});
 
     GameRules.ChatService.sendSytemMessage('Player X randomed Y.');
@@ -73,11 +129,20 @@ export class HeroSelectionService {
   private onHeroSelected(event: { PlayerID: PlayerID, heroname: string }): void {
 
     const player = PlayerResource.GetPlayer(event.PlayerID);
+
     if (!player) {
+      CustomGameEventManager.Send_ServerToAllClients("hero_select_generic_error", {});
       return;
     }
 
     const heroes = CustomNetTables.GetTableValue('HeroSelectionHeroes', 'heroes');
+
+    const playerHasPicked = Object.values(heroes).find(hero => hero.playerID === event.PlayerID);
+
+    if (playerHasPicked) {
+      CustomGameEventManager.Send_ServerToPlayer(player, "on_select_hero_error", {});
+      return;
+    }
 
     const heroIsPicked = Object.values(heroes).find(hero => hero.heroname === event.heroname)?.picked === 1;
 
@@ -114,7 +179,9 @@ export class HeroSelectionService {
   private onHeroFocused(event: { PlayerID: PlayerID, heroname: string }): void {
 
     const player = PlayerResource.GetPlayer(event.PlayerID);
+
     if (!player) {
+      CustomGameEventManager.Send_ServerToAllClients("on_random_hero_error", {});
       return;
     }
 

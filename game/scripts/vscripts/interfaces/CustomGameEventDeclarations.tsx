@@ -44,4 +44,6 @@ interface CustomGameEventDeclarations {
     heroname: string | undefined,
     playername: string | undefined,
   },
+  hero_select_generic_error: {},
+  hero_selection_timer_update: { time: number },
 }

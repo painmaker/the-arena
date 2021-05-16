@@ -9,6 +9,7 @@ import Description from "./Description/description";
 import Heroes from "./Heroes/Heroes";
 import RandomHeroDialog from "./RandomHeroDialog/RandomHeroDialog";
 import RemainingPlayers from "./RemainingPlayers/RemainingPlayers";
+import Timer from "./Timer/Timer";
 
 
 const mapStateToProps = (state: RootState) => ({
@@ -50,6 +51,10 @@ const HeroSelection = (props: Props) => {
     GameUI.SendCustomHUDError("Unable To Random Hero", "General.InvalidTarget_Invulnerable");
   }, []);
 
+  useGameEvent("hero_select_generic_error", () => {
+    GameUI.SendCustomHUDError("Unexpected error occured during hero select", "General.InvalidTarget_Invulnerable");
+  }, []);
+
   return (
     <Panel className={'heroSelectionContainer'} hittest={false} >
       <DOTAScenePanel
@@ -63,6 +68,7 @@ const HeroSelection = (props: Props) => {
       >
         <Description focusedHero={props.focusedHero} />
         <RandomHeroDialog />
+        <Timer />
         <RemainingPlayers />
         <Heroes />
       </DOTAScenePanel>

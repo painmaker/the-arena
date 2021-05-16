@@ -1,10 +1,26 @@
-.heroSelectionHeroesContainer {
-  background-color: rgba(0, 0, 0, 0.5);
-  flow-children: right;
+.heroSelectionHeroesOuterContainer {
   vertical-align: bottom;
   horizontal-align: left;
-  margin-bottom: 65px;
+  margin-bottom: 58px;
   margin-left: 75px;
+  flow-children: down;
+}
+
+.heroSelectionHeroesLabel {
+  font-size: 16px;
+  color: rgb(200, 200, 200);
+  vertical-align: center;
+  horizontal-align: left;
+  text-shadow: 1px 1px 2px 2 #000000;
+  letter-spacing: 0.9px;
+  margin-bottom: -8px;
+  z-index: 10;
+  padding-left: 5px;
+} 
+
+.heroSelectionHeroesInnerContainer {
+  background-color: rgba(0, 0, 0, 0.85);
+  flow-children: right;
   padding: 5px;
 }
 

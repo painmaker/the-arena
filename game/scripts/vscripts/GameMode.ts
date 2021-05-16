@@ -8,7 +8,7 @@ import "./modifiers/ui/modifier_ui_health_regen";
 import "./modifiers/ui/modifier_ui_base_health_regen";
 import "./modifiers/ui/modifier_ui_spell_amp";
 import "./modifiers/ui/modifier_ui_hero_id";
-import { EXPERIENCE_PER_LEVEL_TABLE, MAX_PLAYERS } from "./settings";
+import { EXPERIENCE_PER_LEVEL_TABLE, HERO_SELECTION_TIME, MAX_PLAYERS } from "./settings";
 import { HeroSelectionService } from "./services/HeroSelectionService";
 import { ChatService } from "./services/ChatService";
 
@@ -151,6 +151,17 @@ export class GameMode {
   }
 
   private onGameInProgress() {
+
+    let heroSelectionRemainingTime = HERO_SELECTION_TIME;
+    Timers.CreateTimer(0.0, () => {
+      heroSelectionRemainingTime -= 1;
+      CustomGameEventManager.Send_ServerToAllClients("hero_selection_timer_update", { time: heroSelectionRemainingTime });
+      if (heroSelectionRemainingTime <= 0) {
+        // GameRules.HeroSelectionService.AssignHeroesToHerolessPlayers();
+        return;
+      }
+      return 1;
+    });
 
     const spawnEntity = Entities.FindByName(undefined, "npc_boss_spawner_1");
     if (spawnEntity !== undefined) {

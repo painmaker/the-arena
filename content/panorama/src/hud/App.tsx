@@ -15,12 +15,13 @@ import Buffs from "./components/Modifiers/Buffs/Buffs";
 import Inventory from "./components/Inventory/Inventory";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "./reducers/rootReducer";
-import { setUseCustomUI } from "./actions/settingsAction";
+import { setCameraZoom, setUseCustomUI } from "./actions/settingsAction";
 import { SettingsActionTypes } from "./types/settingsTypes";
 import Shop from "./components/Shop/Shop";
 import HeroSelection from "./components/HeroSelection/HeroSelection";
 import { useNetTableValues } from "react-panorama";
 import Chat from "./components/Chat/Chat";
+import Loading from "./components/Loading/Loading";
 
 const mapStateToProps = (state: RootState) => ({
   useCustomUI: state.settingsReducer.useCustomUI,
@@ -28,6 +29,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
   setUseCustomUI: (useCustomUI: boolean) => dispatch(setUseCustomUI(useCustomUI)),
+  setCameraZoom: (zoom: number) => dispatch(setCameraZoom(zoom)),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -41,6 +43,10 @@ const App = (props: Props) => {
 
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
   const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
+
+  useEffect(() => {
+    props.setCameraZoom(1600);
+  }, []);
 
   useEffect(() => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !props.useCustomUI);
@@ -74,12 +80,12 @@ const App = (props: Props) => {
 
   return (
     <Panel id={'root'} hittest={false} className={"appContainer"} >
-      <Chat hasPickedHero={hasPickedHero} />
+      {/*<Chat hasPickedHero={hasPickedHero} /> */}
       { !hasPickedHero && (
         <HeroSelection />
       )}
       { hasPickedHero && (
-        <React.Fragment>
+        <Loading>
           <ToggleButton
             className={'useCustomUIBtn'}
             selected={props.useCustomUI}
@@ -110,7 +116,7 @@ const App = (props: Props) => {
               <StatsPanel />
             </React.Fragment>
           )}
-        </React.Fragment>
+        </Loading>
       )}
     </Panel>
   );

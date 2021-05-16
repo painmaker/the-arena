@@ -27,22 +27,25 @@ type Props = PropsFromRedux & {
 
 const Heroes = (props: Props) => {
   return (
-    <Panel className={"heroSelectionHeroesContainer"} >
-      {selectableHeronames.map(heroname => (
-        <Hero
-          key={heroname}
-          heroname={heroname}
-        />
-      ))}
-      <Button
-        className={'heroSelectionHeroesRandomBtnContainer'}
-        onactivate={() => {
-          Game.EmitSound("ui_topmenu_select");
-          props.setRandomHeroDialogVisible(true);
-        }}
-      >
-        <Image className={'heroSelectionHeroesRandomBtnImage'} />
-      </Button>
+    <Panel className={"heroSelectionHeroesOuterContainer"}>
+      <Label className={'heroSelectionHeroesLabel'} text={'Heroes'} />
+      <Panel className={"heroSelectionHeroesInnerContainer"}>
+        {selectableHeronames.map(heroname => (
+          <Hero
+            key={heroname}
+            heroname={heroname}
+          />
+        ))}
+        <Button
+          className={'heroSelectionHeroesRandomBtnContainer'}
+          onactivate={() => {
+            Game.EmitSound("ui_topmenu_select");
+            props.setRandomHeroDialogVisible(true);
+          }}
+        >
+          <Image className={'heroSelectionHeroesRandomBtnImage'} />
+        </Button>
+      </Panel>
     </Panel>
   );
 }

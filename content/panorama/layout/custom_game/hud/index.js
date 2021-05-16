@@ -56556,7 +56556,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Shop_Shop__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Shop/Shop */ "./hud/components/Shop/Shop.tsx");
 /* harmony import */ var _components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/HeroSelection/HeroSelection */ "./hud/components/HeroSelection/HeroSelection.tsx");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
-/* harmony import */ var _components_Chat_Chat__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Chat/Chat */ "./hud/components/Chat/Chat.tsx");
+/* harmony import */ var _components_Loading_Loading__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Loading/Loading */ "./hud/components/Loading/Loading.tsx");
 
 
 
@@ -56583,12 +56583,16 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
     setUseCustomUI: (useCustomUI) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_16__.setUseCustomUI)(useCustomUI)),
+    setCameraZoom: (zoom) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_16__.setCameraZoom)(zoom)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_15__.connect)(mapStateToProps, mapDispatchToProps);
 const App = (props) => {
     var _a;
     const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_19__.useNetTableValues)('HeroSelectionHeroes').heroes;
     const hasPickedHero = ((_a = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())) === null || _a === void 0 ? void 0 : _a.picked) === 1;
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        props.setCameraZoom(1600);
+    }, []);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !props.useCustomUI);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, !props.useCustomUI);
@@ -56619,9 +56623,8 @@ const App = (props) => {
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !props.useCustomUI);
     }, [props.useCustomUI]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: 'root', hittest: false, className: "appContainer" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Chat_Chat__WEBPACK_IMPORTED_MODULE_20__.default, { hasPickedHero: hasPickedHero }),
         !hasPickedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_18__.default, null)),
-        hasPickedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        hasPickedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Loading_Loading__WEBPACK_IMPORTED_MODULE_20__.default, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(ToggleButton, { className: 'useCustomUIBtn', selected: props.useCustomUI, onactivate: () => props.setUseCustomUI(!props.useCustomUI) },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'useCustomUILabel', text: 'Use Custom UI' })),
             props.useCustomUI && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
@@ -57618,7 +57621,7 @@ const Character = (props) => {
         return () => props.clearTimeout(timer);
     }, [props.visible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelContainer", style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {} },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelContainer", style: props.visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {} },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterTitleContainer' },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'characterTitleLabel', text: 'CHARACTER' }),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_6__.default, null)),
@@ -58210,236 +58213,6 @@ const PlayerAvatar = () => {
 
 /***/ }),
 
-/***/ "./hud/components/Chat/Chat.tsx":
-/*!**************************************!*\
-  !*** ./hud/components/Chat/Chat.tsx ***!
-  \**************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
-/* harmony import */ var _utils_HudElements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/HudElements */ "./hud/utils/HudElements.ts");
-/* harmony import */ var _ChatMessage_ChatMessage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ChatMessage/ChatMessage */ "./hud/components/Chat/ChatMessage/ChatMessage.tsx");
-/* harmony import */ var _Container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Container */ "./hud/components/Chat/Container.tsx");
-
-
-
-
-
-const MAX_MESSAGES = 15;
-const Chat = (props) => {
-    const [messages, setMessages] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-    const [isChatActive, setIsChatActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        if (!isChatActive) {
-            $.DispatchEvent("DropInputFocus", (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_4__.getHudElement)('ChatInput'));
-        }
-    }, [isChatActive]);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const chatControls = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_4__.getHudElement)("ChatControls");
-        const chatMainPanel = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_4__.getHudElement)("ChatMainPanel");
-        const chatInput = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_4__.getHudElement)("ChatInput");
-        const placeholderText = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_4__.getHudElement)('PlaceholderText');
-        chatInput.style.paddingLeft = '10px';
-        placeholderText.style.visibility = 'collapse';
-        for (let child of chatMainPanel.Children()) {
-            if (child != chatControls) {
-                child.style.visibility = "collapse";
-            }
-        }
-        for (let child of chatControls.Children()) {
-            if (child == chatInput) {
-                continue;
-            }
-            child.style.visibility = "collapse";
-        }
-        chatInput.SetPanelEvent("oninputsubmit", () => {
-            // @ts-ignore
-            GameEvents.SendCustomGameEventToServer("on_chat_input_submit", { playerId: Game.GetLocalPlayerID(), input: chatInput.text });
-            // @ts-ignore
-            chatInput.text = "";
-            setIsChatActive(prevState => !prevState);
-        });
-        return () => chatInput.ClearPanelEvent('oninputsubmit');
-    }, []);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const chat = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_4__.getHudElement)('HudChat');
-        if (props.hasPickedHero) {
-            chat.style.marginBottom = '380px';
-            chat.style.marginLeft = '10px';
-            chat.style.horizontalAlign = 'left';
-            chat.style.verticalAlign = 'bottom';
-            chat.style.height = 'fit-children';
-            chat.style.width = '465px';
-            chat.style.y = '0px';
-        }
-        else {
-            chat.style.marginBottom = '230px';
-            chat.style.marginLeft = '75px';
-            chat.style.horizontalAlign = 'left';
-            chat.style.verticalAlign = 'bottom';
-            chat.style.height = 'fit-children';
-            chat.style.width = '565px';
-            chat.style.y = '0px';
-        }
-    }, [props.hasPickedHero]);
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)('custom_player_chat', (event) => {
-        const isMuted = Game.IsPlayerMuted(event.playerid);
-        if (!isMuted) {
-            setMessages(prevState => {
-                if (prevState.length > MAX_MESSAGES) {
-                    const newState = prevState.slice(0, prevState.length - 1);
-                    return [event, ...newState];
-                }
-                return [event, ...prevState];
-            });
-        }
-    }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Container__WEBPACK_IMPORTED_MODULE_3__.default, null, messages.map(message => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ChatMessage_ChatMessage__WEBPACK_IMPORTED_MODULE_2__.default, { key: message.uuid, message: message })))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Chat);
-
-
-/***/ }),
-
-/***/ "./hud/components/Chat/ChatMessage/ChatMessage.tsx":
-/*!*********************************************************!*\
-  !*** ./hud/components/Chat/ChatMessage/ChatMessage.tsx ***!
-  \*********************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _utils_Color__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/Color */ "./hud/utils/Color.ts");
-/* harmony import */ var _utils_HudElements__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/HudElements */ "./hud/utils/HudElements.ts");
-
-
-
-
-const ChatMessage = (props) => {
-    const [opacity, setOpacity] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('1');
-    const [isChatActive, setIsChatActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
-            var _a;
-            const isActive = (_a = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_2__.getHudElement)('HudChat')) === null || _a === void 0 ? void 0 : _a.BHasClass('Active');
-            setIsChatActive(isActive !== undefined ? isActive : false);
-        }, 100);
-        return () => props.clearInterval(id);
-    }, []);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const opacityTimeoutID = props.setTimeout(() => {
-            setOpacity('0');
-        }, 10000);
-        return () => props.clearTimeout(opacityTimeoutID);
-    }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: {
-            transitionProperty: 'opacity',
-            transitionDuration: isChatActive ? '0s' : '0.25s',
-            transitionTimingFunction: 'ease-in-out',
-            opacity: isChatActive ? '1.0' : opacity,
-            width: '100%',
-            paddingTop: '4px',
-            flowChildren: 'right',
-            transform: 'scaleY(-1)'
-        } },
-        props.message.heroname && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroname: props.message.heroname, heroimagestyle: 'icon', style: {
-                width: '24px',
-                height: '24px',
-                marginRight: '2px',
-                verticalAlign: 'top',
-                horizontalAlign: 'center',
-            } })),
-        props.message.playername && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: props.message.playername + ': ', style: {
-                textShadow: '1px 1px 3px 3.0 black',
-                fontSize: '18px',
-                color: (0,_utils_Color__WEBPACK_IMPORTED_MODULE_3__.toColor)(props.message.playerid),
-                verticalAlign: 'top',
-                fontFamily: 'Radiance, FZLanTingHei-R-GBK, TH Sarabun New, YDYGO 540, Gulim, MingLiU',
-            } })),
-        props.message.playerid === -1 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'chatMessageSystemText', text: '[SYSTEM]:' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'chatMessageText', text: props.message.text })));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(ChatMessage));
-
-
-/***/ }),
-
-/***/ "./hud/components/Chat/Container.tsx":
-/*!*******************************************!*\
-  !*** ./hud/components/Chat/Container.tsx ***!
-  \*******************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _utils_HudElements__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/HudElements */ "./hud/utils/HudElements.ts");
-
-
-
-
-const Container = (props) => {
-    var _a;
-    const [isChatActive, setIsChatActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes;
-    const hasPickedHero = ((_a = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())) === null || _a === void 0 ? void 0 : _a.picked) === 1;
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
-            var _a;
-            const isActive = (_a = (0,_utils_HudElements__WEBPACK_IMPORTED_MODULE_3__.getHudElement)('HudChat')) === null || _a === void 0 ? void 0 : _a.BHasClass('Active');
-            setIsChatActive(isActive !== undefined ? isActive : false);
-        }, 50);
-        return () => props.clearInterval(id);
-    }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: {
-            width: hasPickedHero ? '465px' : '565px',
-            height: '290px',
-            flowChildren: 'down',
-            verticalAlign: 'bottom',
-            horizontalAlign: 'left',
-            marginBottom: hasPickedHero ? '414px' : '264px',
-            marginLeft: hasPickedHero ? '10px' : '75px',
-            padding: '10px',
-            backgroundColor: isChatActive ? 'rgba(0, 0, 0, 0.7)' : 'none',
-            borderRadius: '0px 0px 5px 5px',
-            transform: 'scaleY(-1)',
-            overflow: 'clip',
-            zIndex: 10,
-        } }, props.children));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Container));
-
-
-/***/ }),
-
 /***/ "./hud/components/GameTime/GameTime.tsx":
 /*!**********************************************!*\
   !*** ./hud/components/GameTime/GameTime.tsx ***!
@@ -59006,6 +58779,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Heroes_Heroes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Heroes/Heroes */ "./hud/components/HeroSelection/Heroes/Heroes.tsx");
 /* harmony import */ var _RandomHeroDialog_RandomHeroDialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./RandomHeroDialog/RandomHeroDialog */ "./hud/components/HeroSelection/RandomHeroDialog/RandomHeroDialog.tsx");
 /* harmony import */ var _RemainingPlayers_RemainingPlayers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./RemainingPlayers/RemainingPlayers */ "./hud/components/HeroSelection/RemainingPlayers/RemainingPlayers.tsx");
+/* harmony import */ var _Timer_Timer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Timer/Timer */ "./hud/components/HeroSelection/Timer/Timer.tsx");
+
 
 
 
@@ -59041,10 +58816,14 @@ const HeroSelection = (props) => {
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_random_hero_error", () => {
         GameUI.SendCustomHUDError("Unable To Random Hero", "General.InvalidTarget_Invulnerable");
     }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("hero_select_generic_error", () => {
+        GameUI.SendCustomHUDError("Unexpected error occured during hero select", "General.InvalidTarget_Invulnerable");
+    }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionContainer', hittest: false },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { hittest: false, id: 'heroSelectionScene', className: 'heroSelectionBackground', map: "heroSelection", particleonly: false, light: 'light', camera: 'camera_main' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Description_description__WEBPACK_IMPORTED_MODULE_4__.default, { focusedHero: props.focusedHero }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RandomHeroDialog_RandomHeroDialog__WEBPACK_IMPORTED_MODULE_6__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Timer_Timer__WEBPACK_IMPORTED_MODULE_8__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RemainingPlayers_RemainingPlayers__WEBPACK_IMPORTED_MODULE_7__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_5__.default, null))));
 };
@@ -59153,13 +58932,15 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
 const Heroes = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionHeroesContainer" },
-        selectableHeronames.map(heroname => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Hero_Hero__WEBPACK_IMPORTED_MODULE_2__.default, { key: heroname, heroname: heroname }))),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionHeroesRandomBtnContainer', onactivate: () => {
-                Game.EmitSound("ui_topmenu_select");
-                props.setRandomHeroDialogVisible(true);
-            } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { className: 'heroSelectionHeroesRandomBtnImage' }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionHeroesOuterContainer" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionHeroesLabel', text: 'Heroes' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionHeroesInnerContainer" },
+            selectableHeronames.map(heroname => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Hero_Hero__WEBPACK_IMPORTED_MODULE_2__.default, { key: heroname, heroname: heroname }))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionHeroesRandomBtnContainer', onactivate: () => {
+                    Game.EmitSound("ui_topmenu_select");
+                    props.setRandomHeroDialogVisible(true);
+                } },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { className: 'heroSelectionHeroesRandomBtnImage' })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Heroes));
 
@@ -59216,7 +58997,7 @@ const RandomHeroDialog = (props) => {
         } },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionRandomHeroDialogInnerContainer' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionRandomHeroDialogCenterContainer' },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionRandomHeroDialogLabel', text: 'Random Hero?' })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionRandomHeroDialogLabel', text: 'Select Random Hero?' })),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionRandomHeroDialogButtonContainer' },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionRandomHeroDialogButton', onactivate: () => {
                         GameEvents.SendCustomGameEventToServer("on_random_hero", {});
@@ -59255,6 +59036,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 
 
+const wrapper = {
+    verticalAlign: 'bottom',
+    horizontalAlign: 'left',
+    marginBottom: '173px',
+    marginLeft: '205px',
+    flowChildren: 'down',
+};
+const label = {
+    fontSize: '14px',
+    color: 'rgb(200, 200, 200)',
+    verticalAlign: 'center',
+    horizontalAlign: 'center',
+    textShadow: '1px 1px 2px 2 #000000',
+    letterSpacing: '0.9px',
+    marginBottom: '-10px',
+    zIndex: 10,
+};
+const imagesContainer = {
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+    minWidth: '150px',
+    height: '39px',
+    flowChildren: 'right',
+    paddingTop: '5px',
+    paddingLeft: '5px',
+    paddingRight: '5px',
+};
+const avatar = {
+    width: '20px',
+    height: '20px',
+    border: '1px solid rgba(0, 0, 0, 0.5)',
+    borderRadius: '5px',
+    verticalAlign: 'center',
+    horizontalAlign: 'left',
+    marginLeft: '5px',
+    marginRight: '5px',
+};
 const RemainingPlayers = () => {
     const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes;
     const allPlayerIDs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
@@ -59264,19 +59081,86 @@ const RemainingPlayers = () => {
     if (unpickedPlayerIDs.length === 0) {
         return null;
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'remainingPlayersContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'remainingPlayersLabel', text: 'Remaining Players:' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'remainingPlayersImageContainer' }, unpickedPlayerIDs.map(id => {
-            const steamID = Game.GetPlayerInfo(id).player_steamid;
-            return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { key: id, steamid: steamID, style: {
-                    width: '20px',
-                    height: '20px',
-                    border: '1px solid rgba(0, 0, 0, 0.5)',
-                    borderRadius: '5px',
-                    verticalAlign: 'center',
-                    horizontalAlign: 'right',
-                } }));
-        }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: wrapper },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: label, text: 'Players Remaining' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: imagesContainer }, unpickedPlayerIDs.map(id => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { key: id, steamid: Game.GetPlayerInfo(id).player_steamid, style: avatar }))))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RemainingPlayers);
+
+
+/***/ }),
+
+/***/ "./hud/components/HeroSelection/Timer/Timer.tsx":
+/*!******************************************************!*\
+  !*** ./hud/components/HeroSelection/Timer/Timer.tsx ***!
+  \******************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+
+
+const wrapper = {
+    verticalAlign: 'bottom',
+    horizontalAlign: 'left',
+    flowChildren: 'down',
+    marginLeft: '75px',
+    marginBottom: '173px',
+};
+const timeContainer = {
+    width: '125px',
+    height: '39px',
+    padding: '1px',
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+};
+const timeLabel = {
+    fontSize: '17px',
+    color: 'white',
+    verticalAlign: 'center',
+    horizontalAlign: 'center',
+    textShadow: '1px 1px 2px 2 #000000',
+    letterSpacing: '0.9px',
+    paddingTop: '6px',
+    fontFamily: 'ui-monospace',
+};
+const timeRemainingLabel = {
+    fontSize: '14px',
+    color: 'rgb(200, 200, 200)',
+    verticalAlign: 'center',
+    horizontalAlign: 'center',
+    textShadow: '1px 1px 2px 2 #000000',
+    letterSpacing: '0.9px',
+    marginBottom: '-10px',
+    zIndex: 10,
+};
+function formatTime(time) {
+    let minutes = Math.floor(time % 3600 / 60);
+    let seconds = Math.floor(time % 60);
+    let mDisplay = minutes > 0 ? minutes < 10 ? "0" + minutes : minutes : "00";
+    let sDisplay = seconds > 0 ? seconds < 10 ? "0" + seconds : seconds : "00";
+    return mDisplay + ":" + sDisplay;
+}
+const RemainingPlayers = () => {
+    const [time, setTime] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(180);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("hero_selection_timer_update", (event) => {
+        if (event.time <= 10) {
+            Game.EmitSound("ui.click_forward");
+        }
+        setTime(event.time);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: wrapper },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: timeRemainingLabel, text: 'Time Remaining' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: timeContainer },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: Object.assign(Object.assign({}, timeLabel), { color: time <= 30 ? time <= 10 ? 'red' : 'orange' : 'white' }), text: formatTime(time) }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RemainingPlayers);
 
@@ -59395,7 +59279,7 @@ const HeroImage = (props) => {
         return () => GameEvents.Unsubscribe(handle);
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroesHeroImage" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroname: Players.GetPlayerSelectedHero(props.playerId), heroimagestyle: "landscape", onactivate: () => onHeroImageClicked(props.entIndex, props.cameraLocked), oncontextmenu: () => onHeroImageClicked(props.entIndex, props.cameraLocked), style: { washColor: washColor } })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroname: props.heroname, heroimagestyle: "landscape", onactivate: () => onHeroImageClicked(props.entIndex, props.cameraLocked), oncontextmenu: () => onHeroImageClicked(props.entIndex, props.cameraLocked), style: { washColor: washColor } })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(HeroImage));
 
@@ -59430,18 +59314,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Heroes = () => {
-    const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes;
-    const playerIDs = Object.values(heroes).filter(hero => hero.picked === 1).map(hero => hero.playerID);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroesContainer" }, playerIDs.map((playerId) => {
-        const entIndex = Players.GetPlayerHeroEntityIndex(playerId);
-        if (entIndex === -1) {
-            return null;
-        }
+    const pickedHeroes = Object.values((0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes).filter(hero => hero.picked === 1);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroesContainer" }, pickedHeroes.map((pickedHero) => {
+        const entIndex = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroContainer", key: entIndex },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HeroImage_HeroImage__WEBPACK_IMPORTED_MODULE_3__.default, { playerId: playerId, entIndex: entIndex }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HeroImage_HeroImage__WEBPACK_IMPORTED_MODULE_3__.default, { heroname: pickedHero.heroname, entIndex: entIndex }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Health_Health__WEBPACK_IMPORTED_MODULE_2__.default, { entIndex: entIndex }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Mana_Mana__WEBPACK_IMPORTED_MODULE_4__.default, { entIndex: entIndex }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Playername_Playername__WEBPACK_IMPORTED_MODULE_5__.default, { playerId: playerId })));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Playername_Playername__WEBPACK_IMPORTED_MODULE_5__.default, { playerId: pickedHero.playerID })));
     })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Heroes);
@@ -60080,6 +59960,48 @@ const LevelUp = (props) => {
 
 /***/ }),
 
+/***/ "./hud/components/Loading/Loading.tsx":
+/*!********************************************!*\
+  !*** ./hud/components/Loading/Loading.tsx ***!
+  \********************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
+
+const Loading = props => {
+    const [hidden, setHidden] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setTimeout(() => {
+            setHidden(false);
+        }, 2000);
+        return () => props.clearTimeout(id);
+    }, []);
+    if (hidden) {
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '100%', height: '100%', backgroundColor: 'black' } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: {
+                    verticalAlign: 'center',
+                    horizontalAlign: 'center',
+                    fontSize: '25px',
+                }, text: 'LOADING...' })));
+    }
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, props.children));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Loading));
+
+
+/***/ }),
+
 /***/ "./hud/components/ManaBar/ManaBar.tsx":
 /*!********************************************!*\
   !*** ./hud/components/ManaBar/ManaBar.tsx ***!
@@ -60652,7 +60574,7 @@ const Settings = (props) => {
         return () => props.clearTimeout(timer);
     }, [props.visible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", height: "100%" } }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}, className: "settingsWindow" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}, className: "settingsWindow" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CameraZoomSlider_CameraZoomSlider__WEBPACK_IMPORTED_MODULE_2__.default, null),
@@ -61040,7 +60962,7 @@ const Shop = (props) => {
         return () => props.clearTimeout(timer);
     }, [props.visible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopContainer", style: props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {} },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopContainer", style: props.visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {} },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_3__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopTopBarContainer' },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_5__.default, null),
@@ -62597,28 +62519,6 @@ const toColor = (playerId) => {
         playerColor.substring(4, 6) +
         playerColor.substring(2, 4) +
         playerColor.substring(0, 2));
-};
-
-
-/***/ }),
-
-/***/ "./hud/utils/HudElements.ts":
-/*!**********************************!*\
-  !*** ./hud/utils/HudElements.ts ***!
-  \**********************************/
-/*! namespace exports */
-/*! export getHudElement [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getHudElement": () => /* binding */ getHudElement
-/* harmony export */ });
-const getHudElement = (elementName) => {
-    return $.GetContextPanel().GetParent().GetParent().GetParent().FindChildTraverse(elementName);
 };
 
 

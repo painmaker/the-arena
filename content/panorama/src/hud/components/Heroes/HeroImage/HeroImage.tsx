@@ -11,7 +11,7 @@ const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & ReactTimeoutProps & {
-  playerId: PlayerID;
+  heroname: string;
   entIndex: EntityIndex;
 };
 
@@ -78,7 +78,7 @@ const HeroImage = (props: Props) => {
   return (
     <Panel hittest={false} className="heroesHeroImage">
       <DOTAHeroImage
-        heroname={Players.GetPlayerSelectedHero(props.playerId)}
+        heroname={props.heroname}
         heroimagestyle="landscape"
         onactivate={() => onHeroImageClicked(props.entIndex, props.cameraLocked)}
         oncontextmenu={() => onHeroImageClicked(props.entIndex, props.cameraLocked)}

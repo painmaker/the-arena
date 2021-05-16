@@ -1,7 +1,7 @@
 .shopContainer {
   horizontal-align: right;
   vertical-align: top;
-  margin-right: -490px;
+  margin-right: 0px;
   margin-top: 150px;
   transition: transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s;
   opacity: 0.0;
@@ -13,6 +13,7 @@
   background-image: url("file://panorama/images/ability_bg.png");
   background-color: rgba(0, 0, 0, 0.85);
   background-size: 100%;
+  transform: translateX(490px);
 }
 
 .shopTopBarContainer {

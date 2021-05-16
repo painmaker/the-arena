@@ -50,7 +50,7 @@ const RandomHeroDialog = (props: Props) => {
         >
           <Panel className={'heroSelectionRandomHeroDialogInnerContainer'}>
             <Panel className={'heroSelectionRandomHeroDialogCenterContainer'}>
-              <Label className={'heroSelectionRandomHeroDialogLabel'} text={'Random Hero?'} />
+              <Label className={'heroSelectionRandomHeroDialogLabel'} text={'Select Random Hero?'} />
             </Panel>
             <Panel className={'heroSelectionRandomHeroDialogButtonContainer'}>
               <Button

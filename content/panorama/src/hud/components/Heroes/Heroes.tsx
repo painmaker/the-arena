@@ -7,22 +7,18 @@ import Playername from "./Playername/Playername";
 
 const Heroes = () => {
 
-  const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
-  const playerIDs = Object.values(heroes).filter(hero => hero.picked === 1).map(hero => hero.playerID);
+  const pickedHeroes = Object.values(useNetTableValues('HeroSelectionHeroes').heroes).filter(hero => hero.picked === 1)
 
   return (
     <Panel className={"heroesContainer"}>
-      {playerIDs.map((playerId) => {
-        const entIndex = Players.GetPlayerHeroEntityIndex(playerId);
-        if (entIndex === -1) {
-          return null;
-        }
+      {pickedHeroes.map((pickedHero) => {
+        const entIndex = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
         return (
           <Panel className="heroContainer" key={entIndex} >
-            <HeroImage playerId={playerId} entIndex={entIndex} />
+            <HeroImage heroname={pickedHero.heroname} entIndex={entIndex} />
             <Health entIndex={entIndex} />
             <Mana entIndex={entIndex} />
-            <Playername playerId={playerId} />
+            <Playername playerId={pickedHero.playerID} />
           </Panel>
         );
       })}

@@ -44,7 +44,7 @@ const Shop = (props: Props) => {
         <React.Fragment>
           <Panel
             className={"shopContainer"}
-            style={props.visible ? { transform: 'translateX(-510px)', opacity: '1.0' } : {}}
+            style={props.visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
           >
             <Title />
             <Panel className={'shopTopBarContainer'}>

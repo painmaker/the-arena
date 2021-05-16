@@ -2,7 +2,7 @@
   vertical-align: top;
   horizontal-align: right;
   margin-top: 200px;
-  margin-right: -500px;
+  margin-right: 0px;
   min-width: 450px;
   min-height: 100px;
   background-image: url("file://panorama/images/bg_scoreboard.png");
@@ -12,6 +12,7 @@
   flow-children: down;
   transition: transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s;
   opacity: 0.1;
+  transform: translateX(500px);
 } 
 
 .settingsItem {
