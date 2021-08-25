@@ -1,0 +1,56 @@
+"DOTAUnits"
+{
+  
+	"npc_shopkeeper"
+	{
+
+		// General
+		"vscripts"					    "ai/units/shopkeeper.lua"
+		"BaseClass"         		"npc_dota_creature"
+		"Model"           			"models/heroes/shopkeeper/shopkeeper.vmdl"
+    "SoundSet"		          "Hero_Shredder"
+		"IdleSoundLoop"		      "Hero_Shredder.IdleLoop"
+    "ModelScale"				    "1.5"
+		"Level"           			"1"
+ 
+    "precache"
+		{
+			"model"			          "models/heroes/shopkeeper/shopkeeper.vmdl"
+    }
+        
+		// Protection
+		//----------------------------------------------------------------
+		"ArmorPhysical"       		  "0"
+		"MagicalResistance"       	"0"
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+		"AttackDamageMin"     		"1"
+		"AttackDamageMax"     		"1"
+		"AttackRate"        		  "2.5"
+		"AttackAnimationPoint"    "1.0"
+		"AttackAcquisitionRange"  "100"
+		"AttackRange"       		  "100"
+		
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"          		  "0"
+		"BountyGoldMin"       		"0"
+		"BountyGoldMax"       		"0"
+
+		// Bounds
+		//----------------------------------------------------------------
+    "RingRadius"                "125"
+    "HealthBarOffset"           "475"
+		"BoundsHullName"      		  "DOTA_HULL_SIZE_HUGE"
+		
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"    	"DOTA_UNIT_CAP_MOVE_NONE"
+		"MovementSpeed"       		  "0"
+		"MovementTurnRate"      	  "0.0"
+		
+	}
+
+}

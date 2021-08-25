@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../reducers/rootReducer";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
@@ -10,12 +10,19 @@ import Consumables from "./Consumables/Consumables";
 import Armor from "./Armor/Armor";
 import Weapons from "./Weapons/Weapons";
 import Artifacts from "./Artifacts/Artifacts";
+import { useGameEvent } from "react-panorama";
+import { setShopVisible } from "../../actions/shopActions";
+import { ShopActionTypes } from "../../types/shopTypes";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.shopReducer.visible,
 });
 
-const connector = connect(mapStateToProps);
+const mapDispatchToProps = (dispatch: Dispatch<ShopActionTypes>) => ({
+  setShopVisible: (visible: boolean) => dispatch(setShopVisible(visible)),
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & ReactTimeoutProps & {
@@ -25,6 +32,13 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 const Shop = (props: Props) => {
 
   const [renderComponent, setRenderComponent] = useState(false);
+
+  useGameEvent("dota_player_update_query_unit", (event) => {
+    const name = Entities.GetUnitName(Players.GetLocalPlayerPortraitUnit());
+    if (name === 'npc_shopkeeper') {
+      props.setShopVisible(true);
+    }
+  }, []);
 
   useEffect(() => {
     let timer = -1 as Timer;

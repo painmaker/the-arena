@@ -35,8 +35,6 @@
 		"Ability28"		                      "generic_hidden"
 		"Ability29"		                      "generic_hidden"
 		"Ability30"		                      "generic_hidden"
-		"Ability31"		                      "generic_hidden"
-		"Ability32"		                      "generic_hidden"
 
     "HeroSelectionCamera"               "camera_crystal_maiden"
     "HeroSelectionSound1"               "crystalmaiden_cm_spawn_01"

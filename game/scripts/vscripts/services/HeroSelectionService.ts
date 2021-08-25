@@ -37,6 +37,7 @@ export class HeroSelectionService {
       const playerHasPicked = Object.values(heroes).find(hero => hero.playerID === id);
 
       if (playerHasPicked) {
+        CustomGameEventManager.Send_ServerToPlayer(player, "hero_select_generic_error", {});
         return;
       }
 
@@ -58,7 +59,8 @@ export class HeroSelectionService {
 
       CustomNetTables.SetTableValue('HeroSelectionHeroes', 'heroes', updatedHeroes);
 
-      const hero = PlayerResource.ReplaceHeroWith(id, randomHero.heroname, 0, 0);
+      // const hero = PlayerResource.ReplaceHeroWith(id, randomHero.heroname, 0, 0)
+      const hero = PlayerResource.ReplaceHeroWith(id, "npc_dota_hero_undying", 0, 0)
       hero.SetCustomDeathXP(10);
       hero.SetGold(START_GOLD, true);
       hero.AddItemByName("item_ogre_axe");
@@ -70,7 +72,7 @@ export class HeroSelectionService {
 
       CustomGameEventManager.Send_ServerToPlayer(player, "on_random_hero_success", {});
 
-      GameRules.ChatService.sendSytemMessage('Player X randomed Y.');
+      GameRules.ChatService.sendSytemMessage(PlayerResource.GetPlayerName(id) + ' randomed #' + randomHero.heroname + '.');
 
     }
 
@@ -112,7 +114,8 @@ export class HeroSelectionService {
 
     CustomNetTables.SetTableValue('HeroSelectionHeroes', 'heroes', updatedHeroes);
 
-    const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, randomHero.heroname, 0, 0);
+    // const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, randomHero.heroname, 0, 0);
+    const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, "npc_dota_hero_undying", 0, 0)
     hero.SetCustomDeathXP(10);
     hero.SetGold(START_GOLD, true);
     hero.AddItemByName("item_ogre_axe");
@@ -124,7 +127,7 @@ export class HeroSelectionService {
 
     CustomGameEventManager.Send_ServerToPlayer(player, "on_random_hero_success", {});
 
-    GameRules.ChatService.sendSytemMessage('Player X randomed Y.');
+    GameRules.ChatService.sendSytemMessage(PlayerResource.GetPlayerName(event.PlayerID) + ' randomed #' + randomHero.heroname + '.');
 
   }
 
@@ -164,6 +167,7 @@ export class HeroSelectionService {
     CustomNetTables.SetTableValue('HeroSelectionHeroes', 'heroes', updatedHeroes);
 
     const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, event.heroname, 0, 0);
+    // const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, "npc_dota_hero_undying", 0, 0);
     hero.SetCustomDeathXP(10);
     hero.SetGold(START_GOLD, true);
     hero.AddItemByName("item_ogre_axe");
@@ -175,7 +179,7 @@ export class HeroSelectionService {
 
     CustomGameEventManager.Send_ServerToPlayer(player, "on_select_hero_success", {});
 
-    GameRules.ChatService.sendSytemMessage('Player X picked Y.');
+    GameRules.ChatService.sendSytemMessage(PlayerResource.GetPlayerName(event.PlayerID) + ' picked #' + event.heroname + '.');
 
   }
 
@@ -188,7 +192,9 @@ export class HeroSelectionService {
       return;
     }
 
+    print(event.heroname)
     const hero = DOTAGameManager.GetHeroDataByName_Script(event.heroname) as any;
+    print(hero);
 
     const abilities: string[] = [];
     for (let i = 1; i < 32; i++) {

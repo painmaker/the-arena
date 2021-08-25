@@ -80,11 +80,11 @@ const App = (props: Props) => {
 
   return (
     <Panel id={'root'} hittest={false} className={"appContainer"} >
-      <Chat hasPickedHero={hasPickedHero} />
-      { !hasPickedHero && (
+      {/* <Chat hasPickedHero={hasPickedHero} /> */}
+      {!hasPickedHero && (
         <HeroSelection />
       )}
-      { hasPickedHero && (
+      {hasPickedHero && (
         <Loading>
           <ToggleButton
             className={'useCustomUIBtn'}
@@ -96,7 +96,7 @@ const App = (props: Props) => {
               text={'Use Custom UI'}
             />
           </ToggleButton>
-          { props.useCustomUI && (
+          {props.useCustomUI && (
             <React.Fragment>
               {/* <DateTime /> */}
               <Heroes />

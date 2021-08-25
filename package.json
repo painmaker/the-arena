@@ -11,30 +11,30 @@
         "dev:vscripts": "tstl --project game/scripts/vscripts/tsconfig.json --watch"
     },
     "devDependencies": {
-        "@moddota/panorama-types": "^1.5.0",
-        "@moddota/dota-lua-types": "^4.7.1",
-        "file-loader": "^6.1.0",
-        "find-steam-app": "^1.0.2",
-        "fork-ts-checker-webpack-plugin": "^5.1.0",
-        "fs-extra": "^9.0.0",
-        "ts-loader": "^8.0.3",
-        "typescript": "^3.9.3",
-        "webpack": "^5.0.0-beta.30",
-        "webpack-cli": "^3.3.12",
-        "webpack-panorama": "^0.2.0",
-        "typescript-to-lua": "^0.34.0",
-        "@types/react": "^17.0.0",
-        "react": "^17.0.1",
-        "react-panorama": "^0.1.2",
-        "npm-run-all": "^4.1.5"
+        "@moddota/dota-lua-types": "4.12.1",
+        "@moddota/panorama-types": "1.11.0",
+        "file-loader": "6.2.0",
+        "find-steam-app": "1.0.2",
+        "fork-ts-checker-webpack-plugin": "6.3.2",
+        "fs-extra": "10.0.0",
+        "ts-loader": "9.2.5",
+        "typescript": "4.3.5",
+        "webpack": "5.51.1",
+        "webpack-cli": "4.8.0",
+        "webpack-panorama": "0.2.0",
+        "typescript-to-lua": "1.0.0",
+        "@types/react": "17.0.19",
+        "react": "17.0.2",
+        "react-panorama": "0.1.2",
+        "npm-run-all": "4.1.5"
     },
     "dependencies": {
-        "@types/react-redux": "^7.1.16",
-        "@types/react-timeout": "^1.1.1",
-        "react-dom": "^17.0.1",
-        "react-redux": "^7.2.2",
-        "react-timeout": "^2.0.1",
-        "redux": "^4.0.5",
-        "redux-saga": "^1.1.3"
+        "@types/react-redux": "7.1.18",
+        "@types/react-timeout": "1.1.2",
+        "react-dom": "17.0.2",
+        "react-redux": "7.2.4",
+        "react-timeout": "2.0.1",
+        "redux": "4.1.1",
+        "redux-saga": "1.1.3"
     }
 }

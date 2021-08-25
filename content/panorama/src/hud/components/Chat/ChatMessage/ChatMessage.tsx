@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import withReactTimeout, { ReactTimeoutProps } from '../../../hoc/ReactTimeout';
 import { Message } from '../../../types/chatTypes';
-import { toColor } from '../../../utils/Color';
 import { getHudElement } from '../../../utils/HudElements';
+import { Styles } from './styles';
 
 type Props = ReactTimeoutProps & {
   message: Message,
@@ -28,56 +28,36 @@ const ChatMessage = (props: Props) => {
     return () => props.clearTimeout(opacityTimeoutID);
   }, []);
 
-  const formattetText = props.message.text.replace(/(^|\W)#(\w+)/g, (_, $1, $2) => $1 + $.Localize($2));
-
   return (
-    <Panel
-      style={{
-        transitionProperty: 'opacity',
-        transitionDuration: isChatActive ? '0s' : '0.25s',
-        transitionTimingFunction: 'ease-in-out',
-        opacity: isChatActive ? '1.0' : opacity,
-        width: '100%',
-        paddingTop: '4px',
-        flowChildren: 'right',
-        transform: 'scaleY(-1)'
-      }}
-    >
+    <Panel style={Styles.container(isChatActive, opacity)}>
       { props.message.heroname && (
         <DOTAHeroImage
           heroname={props.message.heroname}
           heroimagestyle={'icon'}
-          style={{
-            width: '24px',
-            height: '24px',
-            marginRight: '2px',
-            verticalAlign: 'top',
-            horizontalAlign: 'center',
-          }}
+          style={Styles.heroImage()}
         />
       )}
       { props.message.playername && (
         <Label
           text={props.message.playername + ': '}
-          style={{
-            textShadow: '1px 1px 3px 3.0 black',
-            fontSize: '18px',
-            color: toColor(props.message.playerid),
-            verticalAlign: 'top',
-            fontFamily: 'Radiance, FZLanTingHei-R-GBK, TH Sarabun New, YDYGO 540, Gulim, MingLiU',
-          }}
+          style={Styles.playernameLabel(props.message.playerid)}
         />
       )}
       {props.message.playerid === -1 && (
         <Label
-          className={'chatMessageSystemText'}
+          style={Styles.chatMessageSystemText()}
           text={'[SYSTEM]:'}
         />
       )}
-      <Label className={'chatMessageText'} text={formattetText} />
+      <Label
+        style={Styles.chatMessageText()}
+        text={props.message.text.replace(/(^|\W)#(\w+)/g, (_, $1, $2) => $1 + $.Localize($2))}
+      />
     </Panel>
   );
 
 }
+
+
 
 export default withReactTimeout(ChatMessage);

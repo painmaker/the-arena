@@ -69,7 +69,6 @@
         <include src="./components/HeroSelection/Description/HealthAndMana/healthAndMana.css" />  
         <include src="./components/HeroSelection/Description/Attributes/attributes.css" />  
         <include src="./components/HeroSelection/RandomHeroDialog/randomHeroDialog.css" />  
-        <include src="./components/Chat/ChatMessage/chatMessage.css" />   
     </styles>  
     <Panel class="root" hittest="false">
       <!-- <Image src="file://panorama/images/magic_resist_stat.png" />  -->

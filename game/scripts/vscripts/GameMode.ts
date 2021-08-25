@@ -2,6 +2,7 @@ import { reloadable } from "./lib/tstl-utils";
 import "./modifiers/modifier_panic";
 import "./modifiers/modifier_not_on_minimap";
 import "./modifiers/modifier_fow_visible";
+import "./modifiers/modifier_shopkeeper";
 import "./modifiers/ui/modifier_ui_status_resistance";
 import "./modifiers/ui/modifier_ui_evasion";
 import "./modifiers/ui/modifier_ui_health_regen";
@@ -41,6 +42,7 @@ export class GameMode {
     PrecacheUnitByNameSync("npc_dota_hero_phantom_assassin", context)
     PrecacheUnitByNameSync("npc_dota_hero_dazzle", context)
     PrecacheUnitByNameSync("npc_dota_hero_windrunner", context)
+    PrecacheUnitByNameSync("npc_shopkeeper", context)
   }
 
   public static Activate(this: void) {
@@ -54,13 +56,14 @@ export class GameMode {
 
     ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
     ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
+    ListenToGameEvent("player_connect_full", event => this.OnPlayerConnectFull(event), undefined);
 
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, MAX_PLAYERS);
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, MAX_PLAYERS);
     GameRules.SetSameHeroSelectionEnabled(false);
     GameRules.SetHeroSelectionTime(0);
     GameRules.SetCustomGameSetupAutoLaunchDelay(0);
-    GameRules.SetPreGameTime(3.0);
+    GameRules.SetPreGameTime(0.0);
     GameRules.SetStrategyTime(0);
     GameRules.SetShowcaseTime(0);
     GameRules.SetPostGameTime(0);
@@ -111,7 +114,7 @@ export class GameMode {
       heroSelectionRemainingTime -= 1;
       CustomGameEventManager.Send_ServerToAllClients("hero_selection_timer_update", { time: heroSelectionRemainingTime });
       if (heroSelectionRemainingTime <= 0) {
-        // GameRules.HeroSelectionService.AssignHeroesToHerolessPlayers();
+        GameRules.HeroSelectionService.AssignHeroesToHerolessPlayers();
         return;
       }
       return 1;
@@ -121,6 +124,18 @@ export class GameMode {
     if (spawnEntity !== undefined) {
       const boss = CreateUnitByName("rizzrak", spawnEntity.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_BADGUYS);
       // boss.AddNewModifier(undefined, undefined, "modifier_fow_visible", undefined);
+    }
+
+    const shopkeeperSpawner = Entities.FindByName(undefined, "shopkeeper_spawner");
+    if (shopkeeperSpawner !== undefined) {
+      // CreateUnitByName(
+      //   "npc_shopkeeper",
+      //   shopkeeperSpawner.GetAbsOrigin(),
+      //   true,
+      //   undefined,
+      //   undefined,
+      //   DOTATeam_t.DOTA_TEAM_GOODGUYS
+      // );
     }
 
     let delay = 1.0;
@@ -150,6 +165,10 @@ export class GameMode {
     unit.AddNewModifier(unit, undefined, "modifier_ui_base_health_regen", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_ui_spell_amp", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_ui_hero_id", { duration: -1 });
+  }
+
+  private OnPlayerConnectFull(event: PlayerConnectFullEvent) {
+    print(event);
   }
 
 }
