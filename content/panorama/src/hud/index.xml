@@ -37,11 +37,6 @@
         <include src="./components/Character/Defense/defense.css" />
         <include src="./components/Character/Divider/divider.css" />
         <include src="./components/Character/CloseBtn/closeBtn.css" />
-        <include src="./components/Modifiers/Buffs/buffs.css" />
-        <include src="./components/Modifiers/Debuffs/debuffs.css" />
-        <include src="./components/Modifiers/Modifier/modifier.css" />
-        <include src="./components/Modifiers/Modifier/TimedBackground/timedBackground.css" />
-        <include src="./components/Modifiers/Modifier/Stacks/stacks.css" />
         <include src="./components/Inventory/inventory.css" />
         <include src="./components/Inventory/Item/item.css" />
         <include src="./components/Inventory/Item/Hotkey/hotkey.css" />
@@ -62,7 +57,6 @@
         <include src="./components/HeroSelection/Description/Title/title.css" />  
         <include src="./components/HeroSelection/Description/Stats/stats.css" />  
         <include src="./components/HeroSelection/Description/Lore/lore.css" />  
-        <include src="./components/HeroSelection/Description/Buttons/buttons.css" />  
         <include src="./components/HeroSelection/Description/Heroname/heroname.css" />  
         <include src="./components/HeroSelection/Description/Abilities/abilities.css" />  
         <include src="./components/HeroSelection/Description/Abilities/Ability/ability.css" />  

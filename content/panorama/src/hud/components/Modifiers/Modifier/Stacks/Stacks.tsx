@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout"
+import { Styles } from "./Styles"
 
 type Props = ReactTimeoutProps & {
   unit: EntityIndex,
@@ -22,8 +23,8 @@ const Stacks = (props: Props) => {
   }
 
   return (
-    <Panel className={'modifierStackContainer'}>
-      <Label className={'modifierStackLabel'} text={stacks} />
+    <Panel style={Styles.Container()}>
+      <Label style={Styles.StackLabel()} text={stacks} />
     </Panel>
   );
 

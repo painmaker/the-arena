@@ -59,13 +59,10 @@ export class HeroSelectionService {
 
       CustomNetTables.SetTableValue('HeroSelectionHeroes', 'heroes', updatedHeroes);
 
-      // const hero = PlayerResource.ReplaceHeroWith(id, randomHero.heroname, 0, 0)
-      const hero = PlayerResource.ReplaceHeroWith(id, "npc_dota_hero_undying", 0, 0)
+      const hero = PlayerResource.ReplaceHeroWith(id, randomHero.heroname, 0, 0)
       hero.SetCustomDeathXP(10);
       hero.SetGold(START_GOLD, true);
-      hero.AddItemByName("item_ogre_axe");
-      hero.AddItemByName("item_staff_of_wizardry");
-      hero.AddItemByName("item_blade_of_alacrity");
+      hero.AddItemByName("item_ultimate_scepter");
       hero.AddItemByName("item_blink");
 
       EmitSoundOnClient("HeroPicker.Selected", player);
@@ -114,13 +111,10 @@ export class HeroSelectionService {
 
     CustomNetTables.SetTableValue('HeroSelectionHeroes', 'heroes', updatedHeroes);
 
-    // const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, randomHero.heroname, 0, 0);
-    const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, "npc_dota_hero_undying", 0, 0)
+    const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, randomHero.heroname, 0, 0);
     hero.SetCustomDeathXP(10);
     hero.SetGold(START_GOLD, true);
-    hero.AddItemByName("item_ogre_axe");
-    hero.AddItemByName("item_staff_of_wizardry");
-    hero.AddItemByName("item_blade_of_alacrity");
+    hero.AddItemByName("item_ultimate_scepter");
     hero.AddItemByName("item_blink");
 
     EmitSoundOnClient("HeroPicker.Selected", player);
@@ -167,12 +161,9 @@ export class HeroSelectionService {
     CustomNetTables.SetTableValue('HeroSelectionHeroes', 'heroes', updatedHeroes);
 
     const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, event.heroname, 0, 0);
-    // const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, "npc_dota_hero_undying", 0, 0);
     hero.SetCustomDeathXP(10);
     hero.SetGold(START_GOLD, true);
-    hero.AddItemByName("item_ogre_axe");
-    hero.AddItemByName("item_staff_of_wizardry");
-    hero.AddItemByName("item_blade_of_alacrity");
+    hero.AddItemByName("item_ultimate_scepter");
     hero.AddItemByName("item_blink");
 
     EmitSoundOnClient("HeroPicker.Selected", player);

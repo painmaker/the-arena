@@ -37,11 +37,6 @@
         <include src="file://{resources}/layout/custom_game/hud/components/Character/Defense/defense.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Character/Divider/divider.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Character/CloseBtn/closeBtn.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/Buffs/buffs.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/Debuffs/debuffs.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/Modifier/modifier.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/Modifier/TimedBackground/timedBackground.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Modifiers/Modifier/Stacks/stacks.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Inventory/inventory.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/item.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/Hotkey/hotkey.css"></include>
@@ -62,7 +57,6 @@
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Title/title.css"></include>  
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Stats/stats.css"></include>  
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Lore/lore.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Buttons/buttons.css"></include>  
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Heroname/heroname.css"></include>  
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Abilities/abilities.css"></include>  
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Abilities/Ability/ability.css"></include>  

@@ -81,7 +81,7 @@ const App = (props: Props) => {
   return (
     <Panel id={'root'} hittest={false} className={"appContainer"} >
       {/* <Chat hasPickedHero={hasPickedHero} /> */}
-      {!hasPickedHero && (
+      {(!hasPickedHero) && (
         <HeroSelection />
       )}
       {hasPickedHero && (

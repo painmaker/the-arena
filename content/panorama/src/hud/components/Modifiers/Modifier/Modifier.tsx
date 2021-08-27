@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { aura_modifiers } from "../../../data/auras";
 import Stacks from "./Stacks/Stacks";
+import { Styles } from "./Styles";
 import TimedBackground from "./TimedBackground/TimedBackground";
 
 type Props = {
@@ -11,7 +12,11 @@ type Props = {
 
 const Modifier = (props: Props) => {
 
+  const [isMounted, setIsMounted] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+
   useEffect(() => {
+    setIsMounted(true);
     return () => {
       const panel = $("#" + panelId);
       if (panel) {
@@ -29,9 +34,8 @@ const Modifier = (props: Props) => {
   return (
     <Panel
       id={panelId}
-      className={'modifierContainer'}
       hittest={true}
-      style={{ opacity: '1.0', preTransformScale2d: '1.0' }}
+      style={Styles.Container(isMounted, isHovering)}
       onactivate={() => {
         $.Msg("Modifier clicked: " + Buffs.GetName(props.selectedUnit, props.buffId));
         Players.BuffClicked(props.selectedUnit, props.buffId, GameUI.IsAltDown());
@@ -41,28 +45,27 @@ const Modifier = (props: Props) => {
         if (thisPanel) {
           $.DispatchEvent("DOTAHideBuffTooltip", thisPanel)
         }
+        setIsHovering(false)
       }}
       onmouseover={() => {
         const thisPanel = $("#" + panelId);
         if (thisPanel) {
           $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, props.selectedUnit, props.buffId, isEnemy)
         }
+        setIsHovering(true);
       }}
     >
-      { isAura && (
-        <Panel
-          className={'modifierBackground'}
-          style={{ backgroundColor: props.isDebuff ? 'red' : 'greenyellow' }}
-        />
+      {isAura && (
+        <Panel style={Styles.Background(props.isDebuff)} />
       )}
-      { !isAura && (
+      {!isAura && (
         <TimedBackground
           buffId={props.buffId}
           selectedUnit={props.selectedUnit}
           isDebuff={props.isDebuff}
         />
       )}
-      <Panel className={'modifierForeground'}>
+      <Panel style={Styles.Foreground()}>
         <Stacks
           unit={props.selectedUnit}
           buff={props.buffId}
@@ -70,14 +73,14 @@ const Modifier = (props: Props) => {
         {!isItem && (
           <DOTAAbilityImage
             key={panelId}
-            className={'modifierImage'}
+            style={Styles.Image()}
             abilityname={Abilities.GetAbilityName(ability)}
           />
         )}
         {isItem && (
           <DOTAItemImage
             key={panelId}
-            className={'modifierImageWithPadding'}
+            style={Styles.PaddedImage()}
             itemname={Buffs.GetTexture(props.selectedUnit, props.buffId)}
             showtooltip={false}
           />

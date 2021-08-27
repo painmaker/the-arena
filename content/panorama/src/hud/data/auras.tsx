@@ -6,5 +6,8 @@ export const aura_modifiers = [
   "modifier_shredder_reactive_armor",
   "modifier_item_buckler_effect",
   "modifier_item_moon_shard_consumed",
-  "modifier_item_headdress_aura"
+  "modifier_item_headdress_aura",
+  "modifier_item_mekansm_aura",
+  "modifier_crystal_maiden_brilliance_aura_effect",
+  "modifier_item_shivas_guard_aura",
 ];

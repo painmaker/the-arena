@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
   buffId: BuffID,
@@ -26,13 +27,7 @@ const TimedBackground = (props: Props) => {
   }
 
   return (
-    <Panel
-      className={'modifierTimedBackground'}
-      style={{
-        backgroundColor: props.isDebuff ? 'red' : 'greenyellow',
-        clip: Number.isNaN(degree) ? null : 'radial(50% 50%, 0deg, ' + -degree + 'deg)'
-      }}
-    />
+    <Panel style={Styles.Container(props.isDebuff, degree)} />
   );
 
 };
