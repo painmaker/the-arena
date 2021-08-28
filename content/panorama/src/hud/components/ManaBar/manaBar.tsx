@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {}
 
@@ -23,15 +24,22 @@ const ManaBar = (props: Props) => {
   }
 
   return (
-    <Panel hittest={false} className={"manaBarContainer"}>
+    <Panel hittest={false} style={Styles.Container()}>
       <ProgressBar
         min={0}
         max={maxMana}
         value={mana}
-        className='manaBarProgressBar'
-      />
-      <Label className={'manaBarManaLabel'} text={mana + "/" + maxMana} />
-      <Label className={'manaBarRegenLabel'} text={'+' + manaRegen.toFixed(1)} />
+        className={'manaProgressBar'}
+        style={Styles.Progressbar()}
+      >
+        <DOTAScenePanel
+          style={Styles.Scene(mana, maxMana)}
+          map={'scenes/hud/healthbarburner'}
+          camera={'camera_1'}
+        />
+      </ProgressBar>
+      <Label style={Styles.ManaLabel()} text={mana + " / " + maxMana} />
+      <Label style={Styles.RegenLabel()} text={'+ ' + manaRegen.toFixed(1)} />
     </Panel>
   );
 

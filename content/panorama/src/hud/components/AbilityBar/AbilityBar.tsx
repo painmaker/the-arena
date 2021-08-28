@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
+import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {}
 
@@ -34,13 +35,9 @@ const AbilityBar = (props: Props) => {
 
   useGameEvent("dota_player_learned_ability", () => {
     // $.Msg("dota_player_learned_ability")
-    if (Entities.GetAbilityPoints(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())) <= 0) {
+    if (Entities.GetAbilityPoints(entindex) <= 0) {
       Game.EndAbilityLearnMode();
     }
-  }, []);
-
-  useEffect(() => {
-    setEntindex(Players.GetLocalPlayerPortraitUnit());
   }, []);
 
   useEffect(() => {
@@ -56,13 +53,13 @@ const AbilityBar = (props: Props) => {
 
   const abilityCount = Entities.GetAbilityCount(entindex);
 
-  if (abilityCount === undefined || 1 > abilityCount) {
+  if (abilityCount === undefined || abilityCount <= 0) {
     return null;
   }
 
   return (
-    <Panel hittest={false} className={'abilityBarContainer'}>
-      { Array.from(Array(abilityCount).keys()).map(abilityNumber => {
+    <Panel hittest={false} style={Styles.Container()}>
+      {Array.from(Array(abilityCount).keys()).map(abilityNumber => {
         const abilityEntityIndex = Entities.GetAbility(entindex, abilityNumber);
         if (abilityEntityIndex == -1 || !Abilities.IsDisplayedAbility(abilityEntityIndex)) {
           return null;

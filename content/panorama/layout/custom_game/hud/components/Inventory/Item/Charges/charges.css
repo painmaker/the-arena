@@ -1,8 +1,9 @@
 .inventoryItemChargesLabel {
   vertical-align: bottom;
-  horizontal-align: right;
-  margin: 2px;
-  font-size: 16px;
+  horizontal-align: left;
+  margin-left: 5px;
+  margin-bottom: 2px;
+  font-size: 12px;
   color: white;
   z-index: 50;
   text-shadow: 1px 1px 2px 4 #000000;   

@@ -41,3 +41,19 @@ ProgressBar {
   opacity: 0.0;
 }
 
+
+.manaProgressBar .ProgressBarLeft {
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #2b4287 ), color-stop(0.2, #4165ce ), color-stop(.5, #314da0), to(#2b4287) );
+  border-radius: 1px;
+  transition-property: width;
+  transition-duration: 0.0s;
+  transition-timing-function: linear;
+}
+ 
+.healthProgressBar .ProgressBarLeft {
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #00ff00 ), to( #004c00 ) );
+  border-radius: 1px;
+  transition-property: width;
+  transition-duration: 0.0s;
+  transition-timing-function: linear;
+}

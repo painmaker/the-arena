@@ -29,7 +29,7 @@ export const Styles = {
   Foreground: (): Partial<VCSSStyleDeclaration> => ({
     width: "100%",
     height: "100%",
-    padding: "3.0px",
+    padding: "2.0px",
   }),
 
   Image: (): Partial<VCSSStyleDeclaration> => ({

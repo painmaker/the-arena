@@ -9,7 +9,7 @@ export const Styles = {
     width: "300px",
     padding: "2px",
     marginLeft: "665px",
-    marginBottom: "177.5px",
+    marginBottom: "117.5px",
   }),
 
 }

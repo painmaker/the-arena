@@ -104,10 +104,10 @@ const App = (props: Props) => {
               <Settings />
               <Character />
               <Shop />
-              <LevelUp />
+              {/* <LevelUp /> */}
               <AbilityBar />
-              <HealthBar />
               <ManaBar />
+              <HealthBar />
               <ButtonGroup />
               <Minimap />
               <Buffs />

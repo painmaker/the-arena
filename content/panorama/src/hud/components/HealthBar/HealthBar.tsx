@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {}
 
@@ -28,15 +29,22 @@ const HealthBar = (props: Props) => {
   }, []);
 
   return (
-    <Panel hittest={false} className={"healthBarContainer"}>
+    <Panel hittest={false} style={Styles.Container()}>
       <ProgressBar
         min={0}
         max={maxHealth}
         value={health}
-        className='healthBarProgressBar'
-      />
-      <Label className={'healthBarHealthLabel'} text={health + "/" + maxHealth} />
-      <Label className={'healthBarRegenLabel'} text={'+' + healthRegen.toFixed(1)} />
+        className={'healthProgressBar'}
+        style={Styles.Progressbar()}
+      >
+        <DOTAScenePanel
+          style={Styles.Scene(health, maxHealth)}
+          map={'scenes/hud/healthbarburner'}
+          camera={'camera_1'}
+        />
+      </ProgressBar>
+      <Label style={Styles.HealthLabel()} text={health + " / " + maxHealth} />
+      <Label style={Styles.RegenLabel()} text={'+ ' + healthRegen.toFixed(1)} />
     </Panel>
   );
 
