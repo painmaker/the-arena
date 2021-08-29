@@ -36,6 +36,7 @@ export class GameMode {
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_techies.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_shredder.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/voscripts/game_sounds_vo_shredder.vsndevts", context);
+    PrecacheResource("soundfile", "game_sounds_ui_imported.vsndevts", context);
     PrecacheUnitByNameSync("npc_dota_hero_crystal_maiden", context)
     PrecacheUnitByNameSync("npc_dota_hero_lina", context)
     PrecacheUnitByNameSync("npc_dota_hero_dragon_knight", context)

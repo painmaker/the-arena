@@ -22,7 +22,6 @@
         <include src="./components/Heroes/Mana/mana.css" />
         <include src="./components/DateTime/dateTime.css" />
         <include src="./components/GameTime/gameTime.css" />
-        <include src="./components/AbilityBar/AbilityBarItem/abilityBarItem.css" />
         <include src="./components/LevelUp/levelUp.css" />
         <include src="./components/StatsPanel/statsPanel.css" />
         <include src="./components/StatsPanel/Level/level.css" />
@@ -62,6 +61,6 @@
         <include src="./components/HeroSelection/RandomHeroDialog/randomHeroDialog.css" />  
     </styles>  
     <Panel class="root" hittest="false">
-      <!-- <Image src="file://panorama/images/magic_resist_stat.png" />  -->
+      <!-- <Image src="file://panorama/images/silence.png" />  -->
     </Panel> 
 </root>        

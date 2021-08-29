@@ -1,82 +1,84 @@
 import React, { useEffect, useState } from "react";
-import { useGameEvent } from "react-panorama";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
 import { Styles } from "./Styles";
 
+const equals = (a: any[], b: any[]) =>
+  a.length === b.length &&
+  a.every((v, i) => v === b[i]);
+
 type Props = ReactTimeoutProps & {}
 
-const AbilityBar = (props: Props) => {
+interface State {
+  entityUnitIndex: EntityIndex,
+  isInLearningMode: boolean,
+  abilityIndexes: AbilityEntityIndex[],
+}
 
-  const [entindex, setEntindex] = useState(Players.GetLocalPlayerPortraitUnit());
-  const [isInLearningMode, setIsInLearningMode] = useState(Game.IsInAbilityLearnMode());
+class AbilityBar extends React.Component<Props, State> {
 
-  useGameEvent("dota_player_update_query_unit", () => {
-    // $.Msg("dota_player_update_query_unit")
-    setEntindex(Players.GetLocalPlayerPortraitUnit());
-  }, []);
-
-  useGameEvent("dota_player_update_selected_unit", () => {
-    // $.Msg("dota_player_update_selected_unit")
-    setEntindex(Players.GetLocalPlayerPortraitUnit());
-  }, []);
-
-  useGameEvent("dota_portrait_ability_layout_changed", () => {
-    // $.Msg("dota_portrait_ability_layout_changed")
-  }, []);
-
-  useGameEvent("dota_ability_changed", () => {
-    // $.Msg("dota_ability_changed")
-  }, []);
-
-  useGameEvent("dota_hero_ability_points_changed", () => {
-    // $.Msg("dota_hero_ability_points_changed")
-  }, []);
-
-  useGameEvent("dota_player_learned_ability", () => {
-    // $.Msg("dota_player_learned_ability")
-    if (Entities.GetAbilityPoints(entindex) <= 0) {
-      Game.EndAbilityLearnMode();
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      entityUnitIndex: Players.GetLocalPlayerPortraitUnit(),
+      isInLearningMode: false,
+      abilityIndexes: [],
     }
-  }, []);
+  }
 
-  useEffect(() => {
-    const id = props.setInterval(() => {
-      setIsInLearningMode(Game.IsInAbilityLearnMode());
+  componentDidMount() {
+    this.props.setInterval(() => {
+
+      if (Entities.GetAbilityPoints(Players.GetLocalPlayerPortraitUnit()) <= 0) {
+        Game.EndAbilityLearnMode();
+      }
+
+      const indexes = Array
+        .from(Array(Entities.GetAbilityCount(Players.GetLocalPlayerPortraitUnit())).keys())
+        .map(abilityNumber => Entities.GetAbility(Players.GetLocalPlayerPortraitUnit(), abilityNumber))
+        .filter(index => index !== -1)
+        .filter(index => Abilities.IsDisplayedAbility(index));
+
+      this.setState({
+        entityUnitIndex: Players.GetLocalPlayerPortraitUnit(),
+        isInLearningMode: Game.IsInAbilityLearnMode(),
+        abilityIndexes: indexes,
+      })
+
     }, 100);
-    return () => props.clearInterval(id);
-  }, []);
-
-  if (entindex === undefined || entindex === -1) {
-    return null;
   }
 
-  const abilityCount = Entities.GetAbilityCount(entindex);
-
-  if (abilityCount === undefined || abilityCount <= 0) {
-    return null;
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
+    if (nextProps !== this.props) {
+      return true;
+    }
+    if (this.state.entityUnitIndex !== nextState.entityUnitIndex) {
+      return true;
+    }
+    if (this.state.isInLearningMode !== nextState.isInLearningMode) {
+      return true;
+    }
+    if (!equals(this.state.abilityIndexes, nextState.abilityIndexes)) {
+      return true;
+    }
+    return false;
   }
 
-  return (
-    <Panel hittest={false} style={Styles.Container()}>
-      {Array.from(Array(abilityCount).keys()).map(abilityNumber => {
-        const abilityEntityIndex = Entities.GetAbility(entindex, abilityNumber);
-        if (abilityEntityIndex == -1 || !Abilities.IsDisplayedAbility(abilityEntityIndex)) {
-          return null;
-        }
-        return (
+  render() {
+    return (
+      <Panel hittest={false} style={Styles.Container()}>
+        {this.state.abilityIndexes.map(abilityEntityIndex => (
           <AbilityBarItem
-            key={entindex + "_ability_" + abilityNumber}
+            key={this.state.entityUnitIndex + "_" + abilityEntityIndex}
             ability={abilityEntityIndex}
-            unit={entindex}
-            isInLearningMode={isInLearningMode}
+            unit={this.state.entityUnitIndex}
           />
-        );
-      })}
-    </Panel>
-  );
+        ))}
+      </Panel>
+    )
+  }
 
-};
+}
 
 export default withReactTimeout(AbilityBar);
 

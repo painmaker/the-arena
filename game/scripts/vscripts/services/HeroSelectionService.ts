@@ -48,7 +48,7 @@ export class HeroSelectionService {
         return;
       }
 
-      const randomHero = availableHeroes[Math.floor(Math.random() * availableHeroes.length)];
+      const randomHero = availableHeroes[RandomInt(0, availableHeroes.length - 1)];
 
       const updatedHeroes = Object.values(heroes).map(hero => {
         if (hero.heroname === randomHero.heroname) {
@@ -100,7 +100,7 @@ export class HeroSelectionService {
       return;
     }
 
-    const randomHero = availableHeroes[Math.floor(Math.random() * availableHeroes.length)];
+    const randomHero = availableHeroes[RandomInt(0, availableHeroes.length - 1)];
 
     const updatedHeroes = Object.values(heroes).map(hero => {
       if (hero.heroname === randomHero.heroname) {
@@ -206,7 +206,7 @@ export class HeroSelectionService {
     CustomGameEventManager.Send_ServerToPlayer(player, "on_focus_hero_success", {
       heroname: event.heroname,
       abilities: abilities,
-      sound: sounds[Math.floor(Math.random() * sounds.length)],
+      sound: sounds[RandomInt(0, sounds.length)],
       camera: hero['HeroSelectionCamera'],
       attribute: hero['AttributePrimary'],
       lore: 'HeroSelectionLore_' + event.heroname,
