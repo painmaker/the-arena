@@ -6,7 +6,6 @@
         <include src="s2r://panorama/styles/dotastyles.vcss_c" />
         <include src="./app.css" />
         <include src="./components/Minimap/minimap.css" />
-        <include src="./components/ButtonGroup/buttonGroup.css" />
         <include src="./components/Settings/settings.css" />
         <include src="./components/Settings/Divider/divider.css" />
         <include src="./components/Settings/Title/title.css" />

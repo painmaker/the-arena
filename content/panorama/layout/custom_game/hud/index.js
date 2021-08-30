@@ -57858,17 +57858,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CharacterButton_CharaterButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CharacterButton/CharaterButton */ "./hud/components/ButtonGroup/CharacterButton/CharaterButton.tsx");
 /* harmony import */ var _SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SettingsButton/SettingsButton */ "./hud/components/ButtonGroup/SettingsButton/SettingsButton.tsx");
 /* harmony import */ var _ShoppingButton_ShoppingButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ShoppingButton/ShoppingButton */ "./hud/components/ButtonGroup/ShoppingButton/ShoppingButton.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/ButtonGroup/Styles.tsx");
+
 
 
 
 
 const ButtonGroup = () => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "buttonGroupContainer" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "buttonGroupEntry" },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Entry() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_2__.default, null)),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "buttonGroupEntry" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Entry() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ShoppingButton_ShoppingButton__WEBPACK_IMPORTED_MODULE_3__.default, null)),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "buttonGroupEntry" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Entry() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CharacterButton_CharaterButton__WEBPACK_IMPORTED_MODULE_1__.default, null))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ButtonGroup);
@@ -57894,6 +57896,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_characterActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/characterActions */ "./hud/actions/characterActions.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/ButtonGroup/Styles.tsx");
+
 
 
 
@@ -57905,12 +57909,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const CharaterButton = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: { washColor: props.visible ? 'orange' : 'white' }, onactivate: () => {
-                    props.setCharacterPanelVisible(!props.visible);
-                    Game.EmitSound("ui_topmenu_select");
-                }, src: "s2r://panorama/images/character_btn_white_png.vtex" }))));
+    const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.EntryHover(props.visible, isHovering), onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), onactivate: () => {
+                props.setCharacterPanelVisible(!props.visible);
+                Game.EmitSound("ui_topmenu_select");
+            }, src: "s2r://panorama/images/character_btn_white_png.vtex" })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CharaterButton));
 
@@ -57935,6 +57939,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/ButtonGroup/Styles.tsx");
+
 
 
 
@@ -57946,12 +57952,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const SettingsButton = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: { washColor: props.visible ? 'orange' : 'white' }, onactivate: () => {
-                    props.setSettingsVisible(!props.visible);
-                    Game.EmitSound("ui_topmenu_select");
-                }, src: "s2r://panorama/images/settings_btn_white_png.vtex" }))));
+    const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.EntryHover(props.visible, isHovering), onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), onactivate: () => {
+                props.setSettingsVisible(!props.visible);
+                Game.EmitSound("ui_topmenu_select");
+            }, src: "s2r://panorama/images/settings_btn_white_png.vtex" })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(SettingsButton));
 
@@ -57976,6 +57982,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_shopActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/shopActions */ "./hud/actions/shopActions.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/ButtonGroup/Styles.tsx");
+
 
 
 
@@ -57987,14 +57995,58 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const ShoppingButton = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: { washColor: props.visible ? 'orange' : 'white' }, onactivate: () => {
-                    props.setShopVisible(!props.visible);
-                    Game.EmitSound("ui_topmenu_select");
-                }, src: "s2r://panorama/images/shop_btn_white_png.vtex" }))));
+    const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.EntryHover(props.visible, isHovering), onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), onactivate: () => {
+                props.setShopVisible(!props.visible);
+                Game.EmitSound("ui_topmenu_select");
+            }, src: "s2r://panorama/images/shop_btn_white_png.vtex" })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(ShoppingButton));
+
+
+/***/ }),
+
+/***/ "./hud/components/ButtonGroup/Styles.tsx":
+/*!***********************************************!*\
+  !*** ./hud/components/ButtonGroup/Styles.tsx ***!
+  \***********************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        verticalAlign: "bottom",
+        horizontalAlign: "right",
+        width: "200px",
+        marginBottom: "25px",
+        marginRight: "25px",
+        flowChildren: "left",
+        zIndex: 9999,
+    }),
+    Entry: () => ({
+        verticalAlign: "center",
+        marginTop: "5px",
+        marginBottom: "5px",
+        marginRight: "10px",
+        marginLeft: "10px",
+        width: "36px",
+        height: "36px",
+        padding: "2.5px",
+    }),
+    EntryHover: (isSelected, isHovering) => ({
+        washColor: isSelected ? 'orange' : 'white',
+        transform: isHovering ? "scale3d(1.05, 1.05, 1.0)" : "scale3d(1.0, 1.0, 1.0)"
+    }),
+};
 
 
 /***/ }),

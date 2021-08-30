@@ -1,8 +1,9 @@
-import React, { Dispatch } from "react";
+import React, { Dispatch, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { setSettingsVisible } from "../../../actions/settingsAction";
 import { RootState } from "../../../reducers/rootReducer";
 import { SettingsActionTypes } from "../../../types/settingsTypes";
+import { Styles } from "../Styles";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,
@@ -20,19 +21,20 @@ type Props = PropsFromRedux & {
 };
 
 const SettingsButton = (props: Props) => {
+  const [isHovering, setIsHovering] = useState(false);
   return (
-    <Panel hittest={false}>
-      <Button>
-        <Image
-          style={{ washColor: props.visible ? 'orange' : 'white' }}
-          onactivate={() => {
-            props.setSettingsVisible(!props.visible);
-            Game.EmitSound("ui_topmenu_select");
-          }}
-          src="s2r://panorama/images/settings_btn_white_png.vtex"
-        />
-      </Button>
-    </Panel>
+    <Button>
+      <Image
+        style={Styles.EntryHover(props.visible, isHovering)}
+        onmouseover={() => setIsHovering(true)}
+        onmouseout={() => setIsHovering(false)}
+        onactivate={() => {
+          props.setSettingsVisible(!props.visible);
+          Game.EmitSound("ui_topmenu_select");
+        }}
+        src="s2r://panorama/images/settings_btn_white_png.vtex"
+      />
+    </Button>
   );
 };
 
