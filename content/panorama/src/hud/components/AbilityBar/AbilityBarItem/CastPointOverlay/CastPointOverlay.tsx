@@ -23,7 +23,7 @@ const Cooldown = (props: Props) => {
   useEffect(() => {
     let id = -1;
     if (isInAbilityPhase) {
-      const offsetCastPoint = Math.max(0, castPoint - 0.1);
+      const offsetCastPoint = Math.max(0, castPoint > 0.1 ? castPoint - 0.1 : castPoint);
       const endtime = Game.GetGameTime() + offsetCastPoint;
       id = props.setInterval(() => {
         const gameTimeDifference = endtime - Game.GetGameTime();

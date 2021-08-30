@@ -30,7 +30,10 @@ const Cooldown = (props: Props) => {
   return (
     <Panel style={Styles.Container()}>
       <Panel style={Styles.Background(cooldownClipDegree)} />
-      <Label style={Styles.Label()} text={Math.ceil(props.cooldownTimeRemaining)} />
+      <Label
+        style={Styles.Label()}
+        text={Math.ceil(props.cooldownTimeRemaining)}
+      />
     </Panel>
   );
 

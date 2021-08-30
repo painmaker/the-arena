@@ -57073,7 +57073,7 @@ class AbilityBarItem extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaCost_ManaCost__WEBPACK_IMPORTED_MODULE_6__.default, { abilityEntityIndex: this.props.ability, manaCost: this.state.manaCost }),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Cooldown_Cooldown__WEBPACK_IMPORTED_MODULE_2__.default, { abilityEntityIndex: this.props.ability, cooldownTimeRemaining: this.state.cooldownTimeRemaining }),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Autocast_Autocast__WEBPACK_IMPORTED_MODULE_3__.default, { abilityEntityIndex: this.props.ability, enabled: this.state.isAutoCastEnabled }),
-                this.state.cooldownTimeRemaining === 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockoutIcon_LockoutIcon__WEBPACK_IMPORTED_MODULE_4__.default, { unitEntityIndex: this.props.unit })),
+                this.state.cooldownTimeRemaining === 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockoutIcon_LockoutIcon__WEBPACK_IMPORTED_MODULE_4__.default, { abilityEntityIndex: this.props.ability, unitEntityIndex: this.props.unit })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CastPointOverlay_CastPointOverlay__WEBPACK_IMPORTED_MODULE_11__.default, { abilityEntityIndex: this.props.ability })),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Skillpoints_Skillpoints__WEBPACK_IMPORTED_MODULE_5__.default, { abilityEntityIndex: this.props.ability })));
     }
@@ -57246,7 +57246,7 @@ const Cooldown = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let id = -1;
         if (isInAbilityPhase) {
-            const offsetCastPoint = Math.max(0, castPoint - 0.1);
+            const offsetCastPoint = Math.max(0, castPoint > 0.1 ? castPoint - 0.1 : castPoint);
             const endtime = Game.GetGameTime() + offsetCastPoint;
             id = props.setInterval(() => {
                 const gameTimeDifference = endtime - Game.GetGameTime();
@@ -57368,7 +57368,7 @@ const Styles = {
     }),
     Label: () => ({
         color: "white",
-        fontSize: "36px",
+        fontSize: "26px",
         textShadow: "0px 0px 6px 6 #000000",
         horizontalAlign: "center",
         verticalAlign: "center",
@@ -57561,15 +57561,19 @@ const LockoutIcon = (props) => {
     const [isStunned, setIsStunned] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsStunned(props.unitEntityIndex));
     const [isSilenced, setIsSilenced] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsSilenced(props.unitEntityIndex));
     const [isCommandRestricted, setIsCommandRestricted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsCommandRestricted(props.unitEntityIndex));
+    const [isNightmared, setIsNightmared] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsNightmared(props.unitEntityIndex));
+    const [isHexed, setIsHexed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsHexed(props.unitEntityIndex));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = props.setInterval(() => {
             setIsStunned(Entities.IsStunned(props.unitEntityIndex));
             setIsSilenced(Entities.IsSilenced(props.unitEntityIndex));
             setIsCommandRestricted(Entities.IsCommandRestricted(props.unitEntityIndex));
+            setIsNightmared(Entities.IsNightmared(props.unitEntityIndex));
+            setIsHexed(Entities.IsHexed(props.unitEntityIndex));
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    const showLock = isStunned || isSilenced || isCommandRestricted;
+    const showLock = (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(showLock) }, showLock && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Icon() }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(LockoutIcon));

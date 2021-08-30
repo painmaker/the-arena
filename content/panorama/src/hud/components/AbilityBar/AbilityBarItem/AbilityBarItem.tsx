@@ -212,7 +212,10 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
             enabled={this.state.isAutoCastEnabled}
           />
           {this.state.cooldownTimeRemaining === 0 && (
-            <LockoutIcon unitEntityIndex={this.props.unit} />
+            <LockoutIcon
+              abilityEntityIndex={this.props.ability}
+              unitEntityIndex={this.props.unit}
+            />
           )}
           <CastPointOverlay abilityEntityIndex={this.props.ability} />
         </Panel>

@@ -14,7 +14,7 @@ export const Styles = {
 
   Label: (): Partial<VCSSStyleDeclaration> => ({
     color: "white",
-    fontSize: "36px",
+    fontSize: "26px",
     textShadow: "0px 0px 6px 6 #000000",
     horizontalAlign: "center",
     verticalAlign: "center",
