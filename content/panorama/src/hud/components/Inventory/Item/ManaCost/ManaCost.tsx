@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
   item: ItemEntityIndex,
@@ -18,7 +19,7 @@ const ManaCost = (props: Props) => {
 
   return (
     <Label
-      className={'inventoryItemManaCostLabel'}
+      style={Styles.Label()}
       text={manaCost > 0 ? manaCost.toFixed(0) : ''}
     />
   );

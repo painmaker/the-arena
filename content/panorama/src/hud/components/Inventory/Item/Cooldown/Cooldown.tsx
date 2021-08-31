@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
   item: ItemEntityIndex
@@ -25,13 +26,10 @@ const Cooldown = (props: Props) => {
 
   return (
     <React.Fragment>
-      <Panel
-        className={'inventoryItemCooldownOverlay'}
-        style={{ clip: 'radial(50% 50%, 0deg, ' + degree + 'deg)' }}
-      />
-      { remainingCooldown > 0 && (
+      <Panel style={Styles.Container(degree)} />
+      {remainingCooldown > 0 && (
         <Label
-          className={'inventoryItemCooldownLabel'}
+          style={Styles.Label()}
           text={remainingCooldown > 1.0 ? Math.round(remainingCooldown) : remainingCooldown.toFixed(1)}
         />
       )}

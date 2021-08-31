@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
   item: ItemEntityIndex,
 };
 
-const Hotkey = (props: Props) => {
+const Keybind = (props: Props) => {
 
-  const [hotkey, setHotkey] = useState(Abilities.GetKeybind(props.item));
+  const [keybind, setKeybind] = useState(Abilities.GetKeybind(props.item));
   const [isPassive, setIsPassive] = useState(Abilities.IsPassive(props.item));
 
   useEffect(() => {
     const id = props.setInterval(() => {
-      setHotkey(Abilities.GetKeybind(props.item));
+      setKeybind(Abilities.GetKeybind(props.item));
       setIsPassive(Abilities.IsPassive(props.item));
     }, 100);
     return () => props.clearInterval(id);
   }, []);
 
   return (
-    <Label className={'inventoryHotKeyLabel'} text={isPassive ? '' : hotkey} />
+    <Label
+      style={Styles.Label()}
+      text={isPassive ? '' : keybind}
+    />
   );
 
 };
 
-export default withReactTimeout(Hotkey);
+export default withReactTimeout(Keybind);

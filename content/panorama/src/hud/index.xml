@@ -32,14 +32,6 @@
         <include src="./components/Character/Defense/defense.css" />
         <include src="./components/Character/Divider/divider.css" />
         <include src="./components/Character/CloseBtn/closeBtn.css" />
-        <include src="./components/Inventory/inventory.css" />
-        <include src="./components/Inventory/Item/item.css" />
-        <include src="./components/Inventory/Item/Hotkey/hotkey.css" />
-        <include src="./components/Inventory/Item/Cooldown/cooldown.css" /> 
-        <include src="./components/Inventory/Item/Image/image.css" />  
-        <include src="./components/Inventory/Item/Charges/charges.css" />  
-        <include src="./components/Inventory/Item/Menu/menu.css" />  
-        <include src="./components/Inventory/Item/ManaCost/manaCost.css" />  
         <include src="./components/Shop/shop.css" />  
         <include src="./components/Shop/Title/title.css" />  
         <include src="./components/Shop/Item/item.css" />  

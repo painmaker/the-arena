@@ -1,5 +1,5 @@
 import React, { Dispatch } from "react";
-import Hotkey from "./Hotkey/Hotkey";
+import Keybind from "./Keybind/Keybind";
 import Cooldown from "./Cooldown/Cooldown";
 import Image from "./Image/Image";
 import Charges from "./Charges/Charges";
@@ -8,6 +8,7 @@ import { ItemOptionsActionTypes } from "../../../types/itemOptionsTypes";
 import { setItemOptionsItem, setItemOptionsVisible } from "../../../actions/itemOptionsActions";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../../reducers/rootReducer";
+import { Styles } from "./Styles";
 
 const mapStateToProps = (state: RootState) => ({
   itemOptionsVisible: state.itemOptionsReducer.visible,
@@ -30,6 +31,7 @@ type Props = PropsFromRedux & {
 type State = {
   isItemDragged: boolean,
   isItemDropTarget: boolean,
+  isHovering: boolean,
 }
 
 class InventoryItem extends React.Component<Props, State> {
@@ -48,6 +50,7 @@ class InventoryItem extends React.Component<Props, State> {
     this.state = {
       isItemDragged: false,
       isItemDropTarget: false,
+      isHovering: false,
     }
   }
 
@@ -176,11 +179,13 @@ class InventoryItem extends React.Component<Props, State> {
     const ability = Abilities.GetAbilityName(this.props.item);
     const unit = Players.GetLocalPlayerPortraitUnit();
     $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", panel, ability, unit);
+    this.setState({ isHovering: true });
   }
 
   onMouseOut(): void {
     const panel = $("#inventory_item_container_" + this.props.index);
-    $.DispatchEvent("DOTAHideAbilityTooltip", panel)
+    $.DispatchEvent("DOTAHideAbilityTooltip", panel);
+    this.setState({ isHovering: false });
   }
 
   render() {
@@ -191,17 +196,13 @@ class InventoryItem extends React.Component<Props, State> {
         onmouseout={this.onMouseOut}
         onactivate={this.onItemLeftClicked}
         oncontextmenu={this.onItemRightClicked}
-        className={'inventoryItemContainer'}
         draggable={true}
-        style={{
-          saturation: (this.state.isItemDragged || this.state.isItemDropTarget) ? '0.5' : '1.0',
-          washColor: (this.state.isItemDragged || this.state.isItemDropTarget) ? '#808080' : 'none',
-        }}
+        style={Styles.Container(this.state.isItemDragged, this.state.isItemDropTarget, this.state.isHovering)}
       >
-        { this.props.item !== -1 && (
+        {this.props.item !== -1 && (
           <React.Fragment>
             <Cooldown key={'cooldown_' + this.props.item} item={this.props.item} />
-            <Hotkey key={'hotkey_' + this.props.item} item={this.props.item} />
+            <Keybind key={'hotkey_' + this.props.item} item={this.props.item} />
             <Charges key={'charges_' + this.props.item} item={this.props.item} />
             <Image key={'image_' + this.props.item} item={this.props.item} />
             <ManaCost key={'mana_cost_' + this.props.item} item={this.props.item} />

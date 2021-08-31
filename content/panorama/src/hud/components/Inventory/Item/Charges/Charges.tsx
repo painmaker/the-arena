@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
   item: ItemEntityIndex
@@ -20,8 +21,8 @@ const Charges = (props: Props) => {
 
   return (
     <React.Fragment>
-      { shouldDisplayCharges && (
-        <Label className={'inventoryItemChargesLabel'} text={charges} />
+      {shouldDisplayCharges && (
+        <Label style={Styles.Container()} text={charges} />
       )}
     </React.Fragment>
   );

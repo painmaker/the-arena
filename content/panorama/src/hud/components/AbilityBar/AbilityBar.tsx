@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { TableUtils } from "../../utils/TableUtils";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
 import { Styles } from "./Styles";
 
-const equals = (a: any[], b: any[]) =>
-  a.length === b.length &&
-  a.every((v, i) => v === b[i]);
 
 type Props = ReactTimeoutProps & {}
 
@@ -58,7 +56,7 @@ class AbilityBar extends React.Component<Props, State> {
     if (this.state.isInLearningMode !== nextState.isInLearningMode) {
       return true;
     }
-    if (!equals(this.state.abilityIndexes, nextState.abilityIndexes)) {
+    if (!TableUtils.isEqual(this.state.abilityIndexes, nextState.abilityIndexes)) {
       return true;
     }
     return false;

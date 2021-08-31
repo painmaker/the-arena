@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
   item: ItemEntityIndex,
@@ -24,13 +25,8 @@ const Image = (props: Props) => {
 
   return (
     <DOTAItemImage
-      className={'inventoryItemImage'}
       itemname={texture}
-      style={{
-        saturation: isMuted ? '0.0' : !isCooldownReady ? '0.5' : '1.0',
-        border: !isCooldownReady ? '3px solid rgba(50, 50, 50, 0.75)' : '0px solid black',
-        washColor: hasEnoughMana ? 'none' : '#1569be',
-      }}
+      style={Styles.Container(isMuted, isCooldownReady, hasEnoughMana)}
     />
   );
 

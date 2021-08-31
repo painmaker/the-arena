@@ -1,65 +1,9 @@
-<root>
-    <scripts>
-        <include src="file://{resources}/layout/custom_game/hud/index.js"></include>
-    </scripts>
-    <styles>
-        <include src="s2r://panorama/styles/dotastyles.vcss_c"></include>
-        <include src="file://{resources}/layout/custom_game/hud/app.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Minimap/minimap.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/settings.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/Divider/divider.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/Title/title.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/Title/CloseBtn/closeBtn.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/MapZoomSlider/mapZoomSlider.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/CameraZoomSlider/cameraZoomSlider.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/LockCameraBtn/lockCameraBtn.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/UseCustomUIBtn/useCustomUIBtn.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Heroes/heroes.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Heroes/Playername/playername.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Heroes/HeroImage/heroImage.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Heroes/Health/health.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Heroes/Mana/mana.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/DateTime/dateTime.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/GameTime/gameTime.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/LevelUp/levelUp.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/StatsPanel/statsPanel.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/StatsPanel/Level/level.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/character.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/HeroModel/heroModel.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/HeroModel/PlayerAvatar/playerAvatar.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/HeroModel/HeroLevel/heroLevel.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/Attack/attack.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/Defense/defense.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/Divider/divider.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/CloseBtn/closeBtn.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/inventory.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/item.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/Hotkey/hotkey.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/Cooldown/cooldown.css"></include> 
-        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/Image/image.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/Charges/charges.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/Menu/menu.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/Inventory/Item/ManaCost/manaCost.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/Shop/shop.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/Shop/Title/title.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/Shop/Item/item.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/Shop/Gold/gold.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/Shop/Search/search.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/heroSelection.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Heroes/heroes.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Heroes/Hero/hero.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/description.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Title/title.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Stats/stats.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Lore/lore.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Heroname/heroname.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Abilities/abilities.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Abilities/Ability/ability.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/HealthAndMana/healthAndMana.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/Description/Attributes/attributes.css"></include>  
-        <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/RandomHeroDialog/randomHeroDialog.css"></include>  
-    </styles>  
-    <Panel class="root" hittest="false">
-      <!-- <Image src="file://panorama/images/silence.png" />  -->
-    </Panel> 
-</root>        
+/******/ (() => { // webpackBootstrap
+/*!***********************!*\
+  !*** ./hud/index.xml ***!
+  \***********************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements:  */
+throw new Error("Module build failed (from ../../../node_modules/webpack-panorama/lib/layout-loader/index.js):\nModuleNotFoundError: Module not found: Error: Can't resolve './components/Inventory/Item/Menu/menu.css' in 'D:\\Projects\\the_arena\\content\\panorama\\src\\hud'\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\lib\\Compilation.js:1470:28\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\lib\\NormalModuleFactory.js:647:13\n    at eval (eval at create (D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:9:1)\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\lib\\NormalModuleFactory.js:233:22\n    at eval (eval at create (D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:9:1)\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\lib\\NormalModuleFactory.js:357:22\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\lib\\NormalModuleFactory.js:116:11\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\lib\\NormalModuleFactory.js:576:24\n    at finishWithoutResolve (D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\Resolver.js:284:11)\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\Resolver.js:350:15\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\Resolver.js:398:5\n    at eval (eval at create (D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\Resolver.js:398:5\n    at eval (eval at create (D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\DescriptionFilePlugin.js:87:43\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\Resolver.js:398:5\n    at eval (eval at create (D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\Resolver.js:398:5\n    at eval (eval at create (D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\DescriptionFilePlugin.js:87:43\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\Resolver.js:398:5\n    at eval (eval at create (D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\Resolver.js:398:5\n    at eval (eval at create (D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\DirectoryExistsPlugin.js:41:15\n    at CacheBackend.provide (D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\CachedInputFileSystem.js:174:31)\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\DirectoryExistsPlugin.js:35:9\n    at Hook.eval [as callAsync] (eval at create (D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:7:1)\n    at Resolver.doResolve (D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\Resolver.js:395:16)\n    at D:\\Projects\\the_arena\\node_modules\\webpack\\node_modules\\enhanced-resolve\\lib\\ConditionalPlugin.js:41:14");
+/******/ })()
+;
