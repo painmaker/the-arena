@@ -1,8 +1,8 @@
 import React from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import { TableUtils } from "../../utils/TableUtils";
+import ItemOptions from "./ItemOptions/ItemOptions";
 import Item from "./Item/Item";
-import Menu from "./Item/OldMenu/Menu";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
@@ -50,6 +50,7 @@ class Inventory extends React.Component<Props, State> {
   render() {
     return (
       <React.Fragment>
+        <ItemOptions />
         <Panel style={Styles.Container()}>
           {this.state.itemIndexes.map((item, index) => {
             return (

@@ -5,7 +5,7 @@ import Image from "./Image/Image";
 import Charges from "./Charges/Charges";
 import ManaCost from "./ManaCost/ManaCost";
 import { ItemOptionsActionTypes } from "../../../types/itemOptionsTypes";
-import { setItemOptionsItem, setItemOptionsVisible } from "../../../actions/itemOptionsActions";
+import { setItemOptionsItem, setItemOptionsPositionX, setItemOptionsVisible } from "../../../actions/itemOptionsActions";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../../reducers/rootReducer";
 import { Styles } from "./Styles";
@@ -17,6 +17,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<ItemOptionsActionTypes>) => ({
   setItemOptionsItem: (item: ItemEntityIndex) => dispatch(setItemOptionsItem(item)),
+  setItemOptionsPositionX: (posX: number) => dispatch(setItemOptionsPositionX(posX)),
   setItemOptionsVisible: (visible: boolean) => dispatch(setItemOptionsVisible(visible)),
 });
 
@@ -126,6 +127,8 @@ class InventoryItem extends React.Component<Props, State> {
       return;
     }
 
+    this.props.setItemOptionsVisible(false);
+
     Game.PrepareUnitOrders({
       OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_MOVE_ITEM,
       TargetIndex: this.props.index,
@@ -165,6 +168,12 @@ class InventoryItem extends React.Component<Props, State> {
       } else {
         this.props.setItemOptionsVisible(true);
         this.props.setItemOptionsItem(this.props.item);
+        const position = panel.style.position;
+        if (position) {
+          const positionsArray = (position.match(/[+-]?\d+(\.\d+)?/g) || []).map(n => parseFloat(n));
+          const posX = (positionsArray[0]);
+          this.props.setItemOptionsPositionX(posX);
+        }
       }
       Game.EmitSound("ui_topmenu_select");
     }

@@ -56689,6 +56689,7 @@ function setRandomHeroDialogVisible(visible) {
   \********************************************/
 /*! namespace exports */
 /*! export setItemOptionsItem [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export setItemOptionsPositionX [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setItemOptionsVisible [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
@@ -56698,6 +56699,7 @@ function setRandomHeroDialogVisible(visible) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setItemOptionsItem": () => /* binding */ setItemOptionsItem,
+/* harmony export */   "setItemOptionsPositionX": () => /* binding */ setItemOptionsPositionX,
 /* harmony export */   "setItemOptionsVisible": () => /* binding */ setItemOptionsVisible
 /* harmony export */ });
 /* harmony import */ var _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/itemOptionsTypes */ "./hud/types/itemOptionsTypes.tsx");
@@ -56706,6 +56708,12 @@ function setItemOptionsItem(item) {
     return {
         type: _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_ITEM_OPTIONS_ITEM,
         payload: { item }
+    };
+}
+function setItemOptionsPositionX(posX) {
+    return {
+        type: _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_ITEM_OPTIONS_POSITION_X,
+        payload: { posX }
     };
 }
 function setItemOptionsVisible(visible) {
@@ -60356,8 +60364,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
 /* harmony import */ var _utils_TableUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/TableUtils */ "./hud/utils/TableUtils.ts");
-/* harmony import */ var _Item_Item__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Item/Item */ "./hud/components/Inventory/Item/Item.tsx");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module './Item/Menu/Menu'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _ItemOptions_ItemOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ItemOptions/ItemOptions */ "./hud/components/Inventory/ItemOptions/ItemOptions.tsx");
+/* harmony import */ var _Item_Item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Item/Item */ "./hud/components/Inventory/Item/Item.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Styles.tsx");
 
 
@@ -60395,13 +60403,210 @@ class Inventory extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     }
     render() {
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Object(function webpackMissingModule() { var e = new Error("Cannot find module './Item/Menu/Menu'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemOptions_ItemOptions__WEBPACK_IMPORTED_MODULE_3__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Container() }, this.state.itemIndexes.map((item, index) => {
-                return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_3__.default, { key: index + "_" + item, index: index, item: item }));
+                return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_4__.default, { key: index + "_" + item, index: index, item: item }));
             }))));
     }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Inventory));
+
+
+/***/ }),
+
+/***/ "./hud/components/Inventory/ItemOptions/ButtonTypes.ts":
+/*!*************************************************************!*\
+  !*** ./hud/components/Inventory/ItemOptions/ButtonTypes.ts ***!
+  \*************************************************************/
+/*! namespace exports */
+/*! export ButtonTypes [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ButtonTypes": () => /* binding */ ButtonTypes
+/* harmony export */ });
+const ButtonTypes = {
+    NONE: "NONE",
+    SELL: "SELL",
+    ALERT: "ALERT",
+    CANCEL: "CANCEL",
+    CROSS: "CROSS",
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Inventory/ItemOptions/ItemOptions.tsx":
+/*!**************************************************************!*\
+  !*** ./hud/components/Inventory/ItemOptions/ItemOptions.tsx ***!
+  \**************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_itemOptionsActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/itemOptionsActions */ "./hud/actions/itemOptionsActions.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _ButtonTypes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ButtonTypes */ "./hud/components/Inventory/ItemOptions/ButtonTypes.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/ItemOptions/Styles.tsx");
+
+
+
+
+
+
+
+const mapStateToProps = (state) => ({
+    item: state.itemOptionsReducer.item,
+    visible: state.itemOptionsReducer.visible,
+    posX: state.itemOptionsReducer.posX,
+});
+const mapDispatchToProps = (dispatch) => ({
+    setItemOptionsVisible: (visible) => dispatch((0,_actions_itemOptionsActions__WEBPACK_IMPORTED_MODULE_3__.setItemOptionsVisible)(visible)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps, mapDispatchToProps);
+const ItemOptions = (props) => {
+    const [buttonTypeHovered, setButtonTypeHovered] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(_ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.NONE);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
+        props.setItemOptionsVisible(false);
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", () => {
+        props.setItemOptionsVisible(false);
+    }, []);
+    if (props.item === -1) {
+        return null;
+    }
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, props.visible && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.OuterContainer(props.posX) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.CloseBtnContainer(buttonTypeHovered === _ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.CROSS) },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.CloseBtn(), onmouseout: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.NONE), onmouseover: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.CROSS), onactivate: () => {
+                    props.setItemOptionsVisible(false);
+                    Game.EmitSound("ui_topmenu_select");
+                } },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.InnerContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "OPTIONS", style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.Title() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Sell", style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.Option(buttonTypeHovered === _ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.SELL), onmouseout: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.NONE), onmouseover: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.SELL), onactivate: () => {
+                    Items.LocalPlayerSellItem(props.item);
+                    props.setItemOptionsVisible(false);
+                } }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Alert", style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.Option(buttonTypeHovered === _ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.ALERT), onmouseout: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.NONE), onmouseover: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.ALERT), onactivate: () => {
+                    Items.LocalPlayerItemAlertAllies(props.item);
+                    props.setItemOptionsVisible(false);
+                } }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Cancel", style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.Option(buttonTypeHovered === _ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.CANCEL), onmouseout: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.NONE), onmouseover: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.CANCEL), onactivate: () => {
+                    Game.EmitSound("ui_topmenu_select");
+                    props.setItemOptionsVisible(false);
+                } }))))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_4__.default)(ItemOptions)));
+
+
+/***/ }),
+
+/***/ "./hud/components/Inventory/ItemOptions/Styles.tsx":
+/*!*********************************************************!*\
+  !*** ./hud/components/Inventory/ItemOptions/Styles.tsx ***!
+  \*********************************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const POS_X_OFFSET = 138;
+const POST_Y_OFFSET = -43;
+const Styles = {
+    OuterContainer: (posX) => ({
+        verticalAlign: "bottom",
+        horizontalAlign: 'center',
+        flowChildren: 'down',
+        width: '165px',
+        height: 'fit-children',
+        marginBottom: "75px",
+        position: (posX - POS_X_OFFSET) + "px " + POST_Y_OFFSET + "px " + "0px",
+        zIndex: 9999,
+    }),
+    InnerContainer: () => ({
+        verticalAlign: "bottom",
+        horizontalAlign: 'center',
+        flowChildren: 'down',
+        width: '100%',
+        height: 'fit-children',
+        backgroundColor: 'black',
+        border: "1px solid black",
+        borderRadius: "1px",
+        zIndex: 9999,
+        marginLeft: '20px',
+        marginRight: '20px',
+    }),
+    Title: () => ({
+        width: '100%',
+        textAlign: 'center',
+        fontSize: '16px',
+        color: 'rgba(200, 200, 200, 0.45)',
+        letterSpacing: '1px',
+        textShadow: "1px 1px 2px 2 #000000",
+        paddingLeft: '2px',
+        paddingTop: '6px',
+        paddingBottom: '4px',
+        backgroundColor: 'rgba(48, 66, 80, 0.5)',
+    }),
+    Divider: () => ({
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        width: "100%",
+        height: '1px',
+    }),
+    Option: (isHovering) => ({
+        width: "100%",
+        textAlign: 'center',
+        fontSize: '16px',
+        paddingTop: "2.5px",
+        paddingBottom: '2.5px',
+        borderTop: "2px solid rgba(44, 53, 60, 1.0)",
+        backgroundColor: 'rgba(24, 33, 40, 1.0)',
+        color: '#acaaaa',
+        letterSpacing: '1px',
+        saturation: isHovering ? '0.5' : '1.1',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    CloseBtnContainer: (isHovering) => ({
+        width: 'fit-children',
+        height: 'fit-children',
+        horizontalAlign: 'right',
+        padding: '1.2px',
+        marginBottom: '-15px',
+        marginRight: '14px',
+        zIndex: 99999,
+        borderRadius: '50%',
+        backgroundColor: isHovering ? 'rgba(40, 40, 40, 1.0)' : 'rgba(24, 33, 40, 1.0)',
+        border: '2px solid black',
+        saturation: isHovering ? '0.5' : '1.5',
+    }),
+    CloseBtn: () => ({
+        width: '15px',
+        height: '15px',
+        washColor: 'rgba(50, 50, 50, 0.7)',
+        marginLeft: '1px',
+    }),
+};
 
 
 /***/ }),
@@ -60667,6 +60872,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
     setItemOptionsItem: (item) => dispatch((0,_actions_itemOptionsActions__WEBPACK_IMPORTED_MODULE_6__.setItemOptionsItem)(item)),
+    setItemOptionsPositionX: (posX) => dispatch((0,_actions_itemOptionsActions__WEBPACK_IMPORTED_MODULE_6__.setItemOptionsPositionX)(posX)),
     setItemOptionsVisible: (visible) => dispatch((0,_actions_itemOptionsActions__WEBPACK_IMPORTED_MODULE_6__.setItemOptionsVisible)(visible)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_7__.connect)(mapStateToProps, mapDispatchToProps);
@@ -60744,6 +60950,7 @@ class InventoryItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         if (draggedItem == this.props.item) {
             return;
         }
+        this.props.setItemOptionsVisible(false);
         Game.PrepareUnitOrders({
             OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_MOVE_ITEM,
             TargetIndex: this.props.index,
@@ -60777,6 +60984,12 @@ class InventoryItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
             else {
                 this.props.setItemOptionsVisible(true);
                 this.props.setItemOptionsItem(this.props.item);
+                const position = panel.style.position;
+                if (position) {
+                    const positionsArray = (position.match(/[+-]?\d+(\.\d+)?/g) || []).map(n => parseFloat(n));
+                    const posX = (positionsArray[0]);
+                    this.props.setItemOptionsPositionX(posX);
+                }
             }
             Game.EmitSound("ui_topmenu_select");
         }
@@ -62908,6 +63121,7 @@ __webpack_require__.r(__webpack_exports__);
 const initialState = {
     item: -1,
     visible: false,
+    posX: 0,
 };
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(state = initialState, action) {
     switch (action.type) {
@@ -62916,6 +63130,9 @@ const initialState = {
         }
         case _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_ITEM_OPTIONS_VISIBLE: {
             return Object.assign(Object.assign({}, state), { visible: action.payload.visible });
+        }
+        case _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_ITEM_OPTIONS_POSITION_X: {
+            return Object.assign(Object.assign({}, state), { posX: action.payload.posX });
         }
         default:
             return state;
@@ -63098,19 +63315,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
 /* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
-/* harmony import */ var _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/itemOptionsTypes */ "./hud/types/itemOptionsTypes.tsx");
-/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
-/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
-
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
 
 
 
 
 function* characterVisible({ payload }) {
     if (payload.visible === true) {
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, visible: false });
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__.SET_SHOP_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SETTINGS_VISIBLE, visible: false });
+        // yield put({ type: SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SHOP_VISIBLE, payload: { visible: false } });
     }
 }
 function* characterSaga() {
@@ -63246,10 +63461,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
 /* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
-/* harmony import */ var _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/itemOptionsTypes */ "./hud/types/itemOptionsTypes.tsx");
-/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
-/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
-
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
 
 
 
@@ -63268,8 +63481,8 @@ function* zoomCamera({ payload: zoom }) {
 function* settingsVisible({ payload: visible }) {
     if (visible === true) {
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__.SET_SHOP_VISIBLE, payload: { visible: false } });
+        // yield put({ type: SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SHOP_VISIBLE, payload: { visible: false } });
     }
 }
 function* useCustomUI({ payload }) {
@@ -63282,10 +63495,10 @@ function* useCustomUI({ payload }) {
     // }
 }
 function* settingsSaga() {
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_CAMERA_LOCKED, lockCamera);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_CAMERA_ZOOM, zoomCamera);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, settingsVisible);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_USE_CUSTOM_UI, useCustomUI);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CAMERA_LOCKED, lockCamera);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CAMERA_ZOOM, zoomCamera);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SETTINGS_VISIBLE, settingsVisible);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_USE_CUSTOM_UI, useCustomUI);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (settingsSaga);
 
@@ -63309,23 +63522,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
 /* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
-/* harmony import */ var _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/itemOptionsTypes */ "./hud/types/itemOptionsTypes.tsx");
-/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
-/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
-
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
 
 
 
 
 function* shopVisible({ payload }) {
     if (payload.visible === true) {
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, visible: false });
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SETTINGS_VISIBLE, visible: false });
+        // yield put({ type: SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
     }
 }
 function* shopSaga() {
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_shopTypes__WEBPACK_IMPORTED_MODULE_4__.SET_SHOP_VISIBLE, shopVisible);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_shopTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SHOP_VISIBLE, shopVisible);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (shopSaga);
 
@@ -63420,6 +63631,7 @@ const SET_RANDOM_HERO_DIALOG_VISIBLE = 'SET_RANDOM_HERO_DIALOG_VISIBLE';
   \****************************************/
 /*! namespace exports */
 /*! export SET_ITEM_OPTIONS_ITEM [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export SET_ITEM_OPTIONS_POSITION_X [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export SET_ITEM_OPTIONS_VISIBLE [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
@@ -63429,9 +63641,11 @@ const SET_RANDOM_HERO_DIALOG_VISIBLE = 'SET_RANDOM_HERO_DIALOG_VISIBLE';
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SET_ITEM_OPTIONS_ITEM": () => /* binding */ SET_ITEM_OPTIONS_ITEM,
+/* harmony export */   "SET_ITEM_OPTIONS_POSITION_X": () => /* binding */ SET_ITEM_OPTIONS_POSITION_X,
 /* harmony export */   "SET_ITEM_OPTIONS_VISIBLE": () => /* binding */ SET_ITEM_OPTIONS_VISIBLE
 /* harmony export */ });
 const SET_ITEM_OPTIONS_ITEM = 'SET_ITEM_OPTIONS_ITEM';
+const SET_ITEM_OPTIONS_POSITION_X = 'SET_ITEM_OPTIONS_POSITION_X';
 const SET_ITEM_OPTIONS_VISIBLE = 'SET_ITEM_OPTIONS_VISIBLE';
 
 

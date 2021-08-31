@@ -21,7 +21,7 @@ function* zoomCamera({ payload: zoom }: SetCameraZoomAction) {
 function* settingsVisible({ payload: visible }: SetSettingsVisibleAction) {
   if (visible === true) {
     yield put({ type: SET_CHARACTER_VISIBLE, payload: { visible: false } });
-    yield put({ type: SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
+    // yield put({ type: SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
     yield put({ type: SET_SHOP_VISIBLE, payload: { visible: false } });
   }
 }
