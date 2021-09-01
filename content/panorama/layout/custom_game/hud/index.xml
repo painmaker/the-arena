@@ -52,6 +52,6 @@
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/RandomHeroDialog/randomHeroDialog.css"></include>  
     </styles>  
     <Panel class="root" hittest="false">
-      <!-- <Image src="file://panorama/images/silence.png" />  -->
+      <Image src="file://panorama/images/tooltip_arrow_top.png"></Image>
     </Panel> 
 </root>        

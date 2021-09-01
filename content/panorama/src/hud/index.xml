@@ -52,6 +52,6 @@
         <include src="./components/HeroSelection/RandomHeroDialog/randomHeroDialog.css" />  
     </styles>  
     <Panel class="root" hittest="false">
-      <!-- <Image src="file://panorama/images/silence.png" />  -->
+      <Image src="file://panorama/images/tooltip_arrow_top.png" />
     </Panel> 
 </root>        

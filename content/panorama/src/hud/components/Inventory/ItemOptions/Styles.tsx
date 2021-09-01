@@ -1,5 +1,5 @@
 const POS_X_OFFSET = 138;
-const POST_Y_OFFSET = -43;
+const POST_Y_OFFSET = -40;
 
 export const Styles = {
 
@@ -7,7 +7,7 @@ export const Styles = {
     verticalAlign: "bottom",
     horizontalAlign: 'center',
     flowChildren: 'down',
-    width: '165px',
+    width: '175px',
     height: 'fit-children',
     marginBottom: "75px",
     position: (posX - POS_X_OFFSET) + "px " + POST_Y_OFFSET + "px " + "0px",
@@ -80,6 +80,20 @@ export const Styles = {
     height: '15px',
     washColor: 'rgba(50, 50, 50, 0.7)',
     marginLeft: '1px',
+  }),
+
+  ArrowheadContainer: (): Partial<VCSSStyleDeclaration> => ({
+    width: "100%",
+    height: 'fit-children',
+  }),
+
+  ArrowheadImage: (): Partial<VCSSStyleDeclaration> => ({
+    width: '20px',
+    height: '10px',
+    washColor: 'rgba(24, 33, 40, 1.0)',
+    zIndex: 9999,
+    preTransformRotate2d: '180deg',
+    horizontalAlign: 'center',
   }),
 
 }

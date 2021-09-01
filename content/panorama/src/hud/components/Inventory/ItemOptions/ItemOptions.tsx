@@ -56,7 +56,6 @@ const ItemOptions = (props: Props) => {
               <Image src="s2r://panorama/images/close_btn_white_png.vtex" />
             </Button>
           </Panel>
-
           <Panel style={Styles.InnerContainer()}>
             <Label
               text={"OPTIONS"}
@@ -92,6 +91,11 @@ const ItemOptions = (props: Props) => {
                 props.setItemOptionsVisible(false);
               }}
             />
+          </Panel>
+          <Panel style={Styles.ArrowheadContainer()}>
+            <Image
+              src="s2r://panorama/images/tooltip_arrow_top.png"
+              style={Styles.ArrowheadImage()} />
           </Panel>
         </Panel>
       )}

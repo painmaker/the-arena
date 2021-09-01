@@ -60509,7 +60509,9 @@ const ItemOptions = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Cancel", style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.Option(buttonTypeHovered === _ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.CANCEL), onmouseout: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.NONE), onmouseover: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.CANCEL), onactivate: () => {
                     Game.EmitSound("ui_topmenu_select");
                     props.setItemOptionsVisible(false);
-                } }))))));
+                } })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.ArrowheadContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/tooltip_arrow_top.png", style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.ArrowheadImage() }))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_4__.default)(ItemOptions)));
 
@@ -60532,13 +60534,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Styles": () => /* binding */ Styles
 /* harmony export */ });
 const POS_X_OFFSET = 138;
-const POST_Y_OFFSET = -43;
+const POST_Y_OFFSET = -40;
 const Styles = {
     OuterContainer: (posX) => ({
         verticalAlign: "bottom",
         horizontalAlign: 'center',
         flowChildren: 'down',
-        width: '165px',
+        width: '175px',
         height: 'fit-children',
         marginBottom: "75px",
         position: (posX - POS_X_OFFSET) + "px " + POST_Y_OFFSET + "px " + "0px",
@@ -60605,6 +60607,18 @@ const Styles = {
         height: '15px',
         washColor: 'rgba(50, 50, 50, 0.7)',
         marginLeft: '1px',
+    }),
+    ArrowheadContainer: () => ({
+        width: "100%",
+        height: 'fit-children',
+    }),
+    ArrowheadImage: () => ({
+        width: '20px',
+        height: '10px',
+        washColor: 'rgba(24, 33, 40, 1.0)',
+        zIndex: 9999,
+        preTransformRotate2d: '180deg',
+        horizontalAlign: 'center',
     }),
 };
 
@@ -60902,9 +60916,6 @@ class InventoryItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         $.RegisterEventHandler('DragStart', panel, this.onDragStart);
         $.RegisterEventHandler('DragEnd', panel, this.OnDragEnd);
         panel.SetAcceptsFocus(false);
-    }
-    componentDidUpdate(prevProps) {
-        // $.Msg("this.props.item: " + this.props.item)
     }
     onDragStart(thisPanel, draggedPanel) {
         if (this.props.item === -1) {

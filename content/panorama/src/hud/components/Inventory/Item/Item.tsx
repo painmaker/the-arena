@@ -65,10 +65,6 @@ class InventoryItem extends React.Component<Props, State> {
     panel.SetAcceptsFocus(false);
   }
 
-  componentDidUpdate(prevProps: Props) {
-    // $.Msg("this.props.item: " + this.props.item)
-  }
-
   onDragStart(thisPanel: Panel, draggedPanel: any): void {
 
     if (this.props.item === -1) {
