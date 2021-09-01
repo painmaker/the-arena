@@ -1,39 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import withReactTimeout, { ReactTimeoutProps } from '../../hoc/ReactTimeout';
+import { Styles } from './Styles';
 
 type Props = ReactTimeoutProps & {}
 
 const Loading: React.FunctionComponent<Props> = props => {
 
-  const [hidden, setHidden] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const id = props.setTimeout(() => {
-      setHidden(false);
+      setIsLoading(false);
     }, 500);
     return () => props.clearTimeout(id);
   }, []);
 
-  if (hidden) {
+  if (isLoading) {
     return (
-      <Panel style={{ width: '100%', height: '100%', backgroundColor: 'black' }}>
+      <Panel style={Styles.Container()}>
         <Label
-          style={{
-            verticalAlign: 'center',
-            horizontalAlign: 'center',
-            fontSize: '25px',
-          }}
+          style={Styles.Label()}
           text={'LOADING...'}
         />
       </Panel>
     )
+  } else {
+    return (
+      <React.Fragment>
+        {props.children}
+      </React.Fragment>
+    )
   }
-
-  return (
-    <React.Fragment>
-      { props.children}
-    </React.Fragment>
-  )
 
 };
 

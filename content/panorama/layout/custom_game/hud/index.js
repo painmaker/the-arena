@@ -60800,17 +60800,28 @@ const Image = (props) => {
     const [isCooldownReady, setIsCooldownReady] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsCooldownReady(props.item));
     const [hasEnoughMana, setHasEnoughMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsOwnersManaEnough(props.item));
     const [isMuted, setIsMuted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsMuted(Players.GetLocalPlayerPortraitUnit()));
+    const [isStunned, setIsStunned] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsStunned(Players.GetLocalPlayerPortraitUnit()));
+    const [isCommandRestricted, setIsCommandRestricted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsCommandRestricted(Players.GetLocalPlayerPortraitUnit()));
+    const [isNightmared, setIsNightmared] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsNightmared(Players.GetLocalPlayerPortraitUnit()));
+    const [isHexed, setIsHexed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsHexed(Players.GetLocalPlayerPortraitUnit()));
     const [texture, setTexutre] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetAbilityTextureName(props.item));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = props.setInterval(() => {
             setIsCooldownReady(Abilities.IsCooldownReady(props.item));
             setHasEnoughMana(Abilities.IsOwnersManaEnough(props.item));
             setIsMuted(Entities.IsMuted(Players.GetLocalPlayerPortraitUnit()));
+            setIsStunned(Entities.IsStunned(Players.GetLocalPlayerPortraitUnit()));
+            setIsCommandRestricted(Entities.IsCommandRestricted(Players.GetLocalPlayerPortraitUnit()));
+            setIsNightmared(Entities.IsNightmared(Players.GetLocalPlayerPortraitUnit()));
+            setIsHexed(Entities.IsHexed(Players.GetLocalPlayerPortraitUnit()));
             setTexutre(Abilities.GetAbilityTextureName(props.item));
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { itemname: texture, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(isMuted, isCooldownReady, hasEnoughMana) }));
+    const lockItems = isMuted || isStunned || isCommandRestricted || isNightmared || isHexed;
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        isCooldownReady && (lockItems) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LockIcon() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { itemname: texture, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(lockItems, isCooldownReady, hasEnoughMana) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Image));
 
@@ -60833,14 +60844,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Styles": () => /* binding */ Styles
 /* harmony export */ });
 const Styles = {
-    Container: (isMuted, isCooldownReady, hasEnoughMana) => ({
+    Container: (lockItems, isCooldownReady, hasEnoughMana) => ({
         width: "100%",
         height: "100%",
         borderRadius: "5px",
         backgroundImage: 'url("s2r://panorama/images/softedge_circle.png")',
-        saturation: isMuted ? '0.0' : !isCooldownReady ? '0.5' : '1.0',
+        saturation: isCooldownReady ? '1.0' : '0.5',
         border: !isCooldownReady ? '3px solid rgba(50, 50, 50, 0.75)' : '0px solid black',
-        washColor: hasEnoughMana ? 'none' : '#1569be',
+        washColor: lockItems ? 'rgba(0, 0, 0, 0.8)' : hasEnoughMana ? 'none' : '#1569be',
+    }),
+    LockIcon: () => ({
+        width: '25px',
+        height: '25px',
+        verticalAlign: 'center',
+        horizontalAlign: 'center',
+        backgroundImage: 'url("s2r://panorama/images/lock_white.png");',
+        backgroundSize: '100% 100%',
+        backgroundPosition: '50% 50%',
+        backgroundRepeat: 'no-repeat',
+        zIndex: 9999,
     }),
 };
 
@@ -61250,27 +61272,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Loading/Styles.ts");
+
 
 
 const Loading = props => {
-    const [hidden, setHidden] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+    const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = props.setTimeout(() => {
-            setHidden(false);
+            setIsLoading(false);
         }, 500);
         return () => props.clearTimeout(id);
     }, []);
-    if (hidden) {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '100%', height: '100%', backgroundColor: 'black' } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: {
-                    verticalAlign: 'center',
-                    horizontalAlign: 'center',
-                    fontSize: '25px',
-                }, text: 'LOADING...' })));
+    if (isLoading) {
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: 'LOADING...' })));
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, props.children));
+    else {
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, props.children));
+    }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Loading));
+
+
+/***/ }),
+
+/***/ "./hud/components/Loading/Styles.ts":
+/*!******************************************!*\
+  !*** ./hud/components/Loading/Styles.ts ***!
+  \******************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'black'
+    }),
+    Label: () => ({
+        verticalAlign: 'center',
+        horizontalAlign: 'center',
+        fontSize: '25px',
+    }),
+};
 
 
 /***/ }),

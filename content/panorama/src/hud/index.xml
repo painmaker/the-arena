@@ -21,7 +21,6 @@
         <include src="./components/Heroes/Mana/mana.css" />
         <include src="./components/DateTime/dateTime.css" />
         <include src="./components/GameTime/gameTime.css" />
-        <include src="./components/LevelUp/levelUp.css" />
         <include src="./components/StatsPanel/statsPanel.css" />
         <include src="./components/StatsPanel/Level/level.css" />
         <include src="./components/Character/character.css" />
@@ -52,6 +51,6 @@
         <include src="./components/HeroSelection/RandomHeroDialog/randomHeroDialog.css" />  
     </styles>  
     <Panel class="root" hittest="false">
-      <Image src="file://panorama/images/tooltip_arrow_top.png" />
+      <!-- <Image src="file://panorama/images/tooltip_arrow_top.png" /> -->
     </Panel> 
 </root>        
