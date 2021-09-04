@@ -1,0 +1,12 @@
+.gameTimeContainer {
+  flow-children: down;
+  horizontal-align: right;
+  width: 100px;
+  margin-top: 15px;
+  margin-right: 250px;
+}
+
+.gameTimeContainer:hover .gameTimeLabel {
+  color: white;
+}
+

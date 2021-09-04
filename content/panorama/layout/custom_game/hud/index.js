@@ -61705,6 +61705,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Minimap/Styles.tsx");
+
 
 
 
@@ -61717,12 +61719,59 @@ const Minimap = (props) => {
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("set_zone_name", (event) => {
         setZoneName(event.zoneName);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'minimapContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'minimapOverlayContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHUDOverlayMap, { className: "minimap", mapscale: props.zoom, hittest: false, hittestchildren: false, maptexture: "materials/overviews/the_arena_tga_5f0a2a04.vtex" })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'minimapLabel', text: zoneName })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Overlay() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHUDOverlayMap, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Minimap(), mapscale: props.zoom, hittest: false, hittestchildren: false, maptexture: "materials/overviews/the_arena_tga_5f0a2a04.vtex" })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: zoneName })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Minimap));
+
+
+/***/ }),
+
+/***/ "./hud/components/Minimap/Styles.tsx":
+/*!*******************************************!*\
+  !*** ./hud/components/Minimap/Styles.tsx ***!
+  \*******************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        marginLeft: "25px",
+        marginBottom: "25px",
+        flowChildren: "down",
+        verticalAlign: "bottom",
+    }),
+    Minimap: () => ({
+        width: '100%',
+        height: '100%',
+    }),
+    Overlay: () => ({
+        borderRadius: "50%",
+        opacityMask: 'url("s2r://panorama/images/softedge_circle_sharper.png") 1',
+        backgroundColor: "gradient( radial, 50% 50%, 0% 0%, 300px 300px, from( #000d ), color-stop( .5, #000d ), to( #000d ) )",
+        width: "300px",
+        height: "300px",
+    }),
+    Label: () => ({
+        width: "100%",
+        height: "20px",
+        textAlign: "center",
+        color: "orange",
+        fontSize: "18px",
+        textOverflow: "ellipsis",
+        textShadow: "0px 0px 2px 2.0 rgba(0, 0, 0, 0.5)",
+    }),
+};
 
 
 /***/ }),
