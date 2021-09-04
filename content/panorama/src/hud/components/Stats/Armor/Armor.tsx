@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
+import { Styles } from "./Styles";
+import { Styles as ParentStyles } from "../Styles";
 
 type Props = ReactTimeoutProps & {}
 
@@ -17,17 +19,18 @@ const Armor = (props: Props) => {
   }, []);
 
   return (
-    <Panel className={'statsPanelEntryOuterContainer'}>
-      <Panel className={'statsPanelEntryInnerContainer'}>
-        <Panel className={'statsPanelArmorImage'} />
-        <Label className={'statsPanelLabel'} text={(armor - bonusArmor).toFixed(1)} />
-        {bonusArmor !== 0 && (
-          <Label
-            style={{ color: bonusArmor > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }}
-            text={(bonusArmor > 0 ? "+" : "") + "(" + bonusArmor.toFixed(1) + ")"}
-          />
-        )}
-      </Panel>
+    <Panel style={ParentStyles.Entry()}>
+      <Panel style={Styles.Image()} />
+      <Label
+        style={ParentStyles.Label()}
+        text={(armor - bonusArmor).toFixed(1)}
+      />
+      {bonusArmor !== 0 && (
+        <Label
+          style={{ color: bonusArmor > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }}
+          text={(bonusArmor > 0 ? "+" : "") + "(" + bonusArmor.toFixed(1) + ")"}
+        />
+      )}
     </Panel>
   );
 

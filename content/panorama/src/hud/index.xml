@@ -13,8 +13,6 @@
         <include src="./components/Settings/CameraZoomSlider/cameraZoomSlider.css" />
         <include src="./components/Settings/LockCameraBtn/lockCameraBtn.css" />
         <include src="./components/Settings/UseCustomUIBtn/useCustomUIBtn.css" />
-        <include src="./components/StatsPanel/statsPanel.css" />
-        <include src="./components/StatsPanel/Level/level.css" />
         <include src="./components/Character/character.css" />
         <include src="./components/Character/HeroModel/heroModel.css" />
         <include src="./components/Character/HeroModel/PlayerAvatar/playerAvatar.css" />

@@ -4,10 +4,11 @@ import Armor from "./Armor/Armor";
 import Damage from "./Damage/Damage";
 import MagicResistance from "./MagicResistance/MagicResistance";
 import MoveSpeed from "./MoveSpeed/MoveSpeed";
+import { Styles } from "./Styles";
 
-const StatsPanel = () => {
+const Stats = () => {
   return (
-    <Panel hittest={false} className={"statsPanelContainer"}>
+    <Panel hittest={false} style={Styles.Container()}>
       <Level />
       <Armor />
       <MagicResistance />
@@ -17,4 +18,4 @@ const StatsPanel = () => {
   );
 };
 
-export default StatsPanel;
+export default Stats;

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
+import { Styles as ParentStyles } from "../Styles";
+import { Styles } from "./Styles";
 
 const EXPERIENCE_PER_LEVEL_TABLE: Record<number, number> = {
   1: 0,
@@ -55,14 +57,18 @@ const Level = (props: Props) => {
   const pct = (xpGainedThisLevel / xpRequiredToLevel) * 100;
 
   return (
-    <Panel className={'statsPanelEntryOuterContainer statsPanelLevelContainer'}>
-      <Panel className={'statsPanelEntryInnerContainer'}>
-        <Label className={'statsPanelLabel statsPanelLevelLabel'} text={'Lvl. ' + level} />
-        <Panel className={'statsPanelLevelBarContainer'}>
-          <Panel className={'statsPanelLevelBar'} style={{ width: Number.isFinite(pct) ? pct + '%' : '100%' }} />
-        </Panel>
-        <Label className={'statsPanelLabel statsPanelLevelPctLabel'} text={Number.isFinite(pct) ? pct + "%" : '100%'} />
+    <Panel style={ParentStyles.Entry()}>
+      <Label
+        style={Styles.LevelLabel()}
+        text={'Lvl. ' + level}
+      />
+      <Panel style={Styles.LevelbarContainer()}>
+        <Panel style={Styles.Levelbar(Number.isFinite(pct) ? pct : 100)} />
       </Panel>
+      <Label
+        style={Styles.LevelPctLabel()}
+        text={Number.isFinite(pct) ? pct + "%" : '100%'}
+      />
     </Panel>
   );
 

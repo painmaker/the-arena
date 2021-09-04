@@ -56513,7 +56513,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_AbilityBar_AbilityBar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/AbilityBar/AbilityBar */ "./hud/components/AbilityBar/AbilityBar.tsx");
 /* harmony import */ var _components_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/HealthBar/HealthBar */ "./hud/components/HealthBar/HealthBar.tsx");
 /* harmony import */ var _components_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/ManaBar/ManaBar */ "./hud/components/ManaBar/ManaBar.tsx");
-/* harmony import */ var _components_StatsPanel_StatsPanel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/StatsPanel/StatsPanel */ "./hud/components/StatsPanel/StatsPanel.tsx");
+/* harmony import */ var _components_Stats_Stats__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Stats/Stats */ "./hud/components/Stats/Stats.tsx");
 /* harmony import */ var _components_Character_Character__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Character/Character */ "./hud/components/Character/Character.tsx");
 /* harmony import */ var _components_Modifiers_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Modifiers/Debuffs/Debuffs */ "./hud/components/Modifiers/Debuffs/Debuffs.tsx");
 /* harmony import */ var _components_Modifiers_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Modifiers/Buffs/Buffs */ "./hud/components/Modifiers/Buffs/Buffs.tsx");
@@ -56607,7 +56607,7 @@ const App = (props) => {
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_12__.default, null),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_11__.default, null),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_13__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_StatsPanel_StatsPanel__WEBPACK_IMPORTED_MODULE_9__.default, null)))))));
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Stats_Stats__WEBPACK_IMPORTED_MODULE_9__.default, null)))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(App));
 
@@ -62956,10 +62956,10 @@ const Weapons = () => {
 
 /***/ }),
 
-/***/ "./hud/components/StatsPanel/Armor/Armor.tsx":
-/*!***************************************************!*\
-  !*** ./hud/components/StatsPanel/Armor/Armor.tsx ***!
-  \***************************************************/
+/***/ "./hud/components/Stats/Armor/Armor.tsx":
+/*!**********************************************!*\
+  !*** ./hud/components/Stats/Armor/Armor.tsx ***!
+  \**********************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -62973,6 +62973,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Stats/Armor/Styles.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Stats/Styles.tsx");
+
+
 
 
 const Armor = (props) => {
@@ -62985,21 +62989,52 @@ const Armor = (props) => {
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelArmorImage' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel', text: (armor - bonusArmor).toFixed(1) }),
-            bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusArmor > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusArmor > 0 ? "+" : "") + "(" + bonusArmor.toFixed(1) + ")" })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Entry() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Image() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: (armor - bonusArmor).toFixed(1) }),
+        bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusArmor > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusArmor > 0 ? "+" : "") + "(" + bonusArmor.toFixed(1) + ")" }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Armor));
 
 
 /***/ }),
 
-/***/ "./hud/components/StatsPanel/Damage/Damage.tsx":
-/*!*****************************************************!*\
-  !*** ./hud/components/StatsPanel/Damage/Damage.tsx ***!
-  \*****************************************************/
+/***/ "./hud/components/Stats/Armor/Styles.tsx":
+/*!***********************************************!*\
+  !*** ./hud/components/Stats/Armor/Styles.tsx ***!
+  \***********************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const Styles = {
+    Image: () => ({
+        width: "15px",
+        height: "15px",
+        backgroundImage: 'url("s2r://panorama/images/icon_armor.png")',
+        backgroundSize: "contain",
+        backgroundPosition: "50% 50%",
+        backgroundRepeat: "no-repeat",
+        verticalAlign: "middle",
+        marginRight: "2px",
+        horizontalAlign: "center",
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Stats/Damage/Damage.tsx":
+/*!************************************************!*\
+  !*** ./hud/components/Stats/Damage/Damage.tsx ***!
+  \************************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -63013,6 +63048,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Stats/Damage/Styles.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Stats/Styles.tsx");
+
+
 
 
 const Damage = (props) => {
@@ -63027,21 +63066,52 @@ const Damage = (props) => {
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelAttackImage' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel', text: minDamage.toFixed(0) + "-" + maxDamage.toFixed(0) }),
-            bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusDamage > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusDamage > 0 ? '+' : '') + "(" + bonusDamage.toFixed(0) + ")" })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Entry() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Image() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: minDamage.toFixed(0) + "-" + maxDamage.toFixed(0) }),
+        bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusDamage > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusDamage > 0 ? '+' : '') + "(" + bonusDamage.toFixed(0) + ")" }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Damage));
 
 
 /***/ }),
 
-/***/ "./hud/components/StatsPanel/Level/Level.tsx":
-/*!***************************************************!*\
-  !*** ./hud/components/StatsPanel/Level/Level.tsx ***!
-  \***************************************************/
+/***/ "./hud/components/Stats/Damage/Styles.tsx":
+/*!************************************************!*\
+  !*** ./hud/components/Stats/Damage/Styles.tsx ***!
+  \************************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const Styles = {
+    Image: () => ({
+        width: "15px",
+        height: "15px",
+        backgroundImage: 'url("s2r://panorama/images/icon_damage.png")',
+        backgroundSize: "contain",
+        backgroundPosition: "50% 50%",
+        backgroundRepeat: "no-repeat",
+        verticalAlign: "middle",
+        marginRight: "2px",
+        horizontalAlign: "center",
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Stats/Level/Level.tsx":
+/*!**********************************************!*\
+  !*** ./hud/components/Stats/Level/Level.tsx ***!
+  \**********************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -63055,6 +63125,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Stats/Styles.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Stats/Level/Styles.tsx");
+
+
 
 
 const EXPERIENCE_PER_LEVEL_TABLE = {
@@ -63103,22 +63177,63 @@ const Level = (props) => {
     const xpGainedThisLevel = totalExperienceGained - EXPERIENCE_PER_LEVEL_TABLE[level];
     const xpRequiredToLevel = EXPERIENCE_PER_LEVEL_TABLE[level === maxLevel ? level : level + 1] - EXPERIENCE_PER_LEVEL_TABLE[level];
     const pct = (xpGainedThisLevel / xpRequiredToLevel) * 100;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer statsPanelLevelContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel statsPanelLevelLabel', text: 'Lvl. ' + level }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelLevelBarContainer' },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelLevelBar', style: { width: Number.isFinite(pct) ? pct + '%' : '100%' } })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel statsPanelLevelPctLabel', text: Number.isFinite(pct) ? pct + "%" : '100%' }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LevelLabel(), text: 'Lvl. ' + level }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LevelbarContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Levelbar(Number.isFinite(pct) ? pct : 100) })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LevelPctLabel(), text: Number.isFinite(pct) ? pct + "%" : '100%' })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Level));
 
 
 /***/ }),
 
-/***/ "./hud/components/StatsPanel/MagicResistance/MagicResistance.tsx":
-/*!***********************************************************************!*\
-  !*** ./hud/components/StatsPanel/MagicResistance/MagicResistance.tsx ***!
-  \***********************************************************************/
+/***/ "./hud/components/Stats/Level/Styles.tsx":
+/*!***********************************************!*\
+  !*** ./hud/components/Stats/Level/Styles.tsx ***!
+  \***********************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Styles */ "./hud/components/Stats/Styles.tsx");
+
+const Styles = {
+    LevelLabel: () => (Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_0__.Styles.Label()), { marginRight: '3px' })),
+    LevelbarContainer: () => ({
+        width: "100px",
+        height: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.65)",
+        marginTop: "2px",
+        marginBottom: "4px",
+        marginLeft: "2px",
+        borderRadius: "4px",
+    }),
+    Levelbar: (pct) => ({
+        backgroundColor: "orange",
+        height: "100%",
+        verticalAlign: "middle",
+        margin: "4px",
+        transition: "width 0.3s ease-in-out 0.0s",
+        width: pct + '%',
+    }),
+    LevelPctLabel: () => (Object.assign(Object.assign({}, Styles.LevelLabel()), { fontSize: "14px", marginLeft: "4px", verticalAlign: "middle", minWidth: "40px", marginRight: "-10px", marginBottom: "2px" }))
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Stats/MagicResistance/MagicResistance.tsx":
+/*!******************************************************************!*\
+  !*** ./hud/components/Stats/MagicResistance/MagicResistance.tsx ***!
+  \******************************************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -63132,6 +63247,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Stats/MagicResistance/Styles.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Stats/Styles.tsx");
+
+
 
 
 const MagicResistance = (props) => {
@@ -63142,20 +63261,51 @@ const MagicResistance = (props) => {
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "statsPanelEntryOuterContainer" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "statsPanelMagicResistImage" }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: "statsPanelLabel", text: (magicResistance * 100).toFixed(1) + "%" }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Entry() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Image() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: (magicResistance * 100).toFixed(1) + "%" })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(MagicResistance));
 
 
 /***/ }),
 
-/***/ "./hud/components/StatsPanel/MoveSpeed/MoveSpeed.tsx":
-/*!***********************************************************!*\
-  !*** ./hud/components/StatsPanel/MoveSpeed/MoveSpeed.tsx ***!
-  \***********************************************************/
+/***/ "./hud/components/Stats/MagicResistance/Styles.tsx":
+/*!*********************************************************!*\
+  !*** ./hud/components/Stats/MagicResistance/Styles.tsx ***!
+  \*********************************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const Styles = {
+    Image: () => ({
+        width: "15px",
+        height: "15px",
+        backgroundImage: 'url("s2r://panorama/images/icon_magic_resist.png")',
+        backgroundSize: "contain",
+        backgroundPosition: "50% 50%",
+        backgroundRepeat: "no-repeat",
+        verticalAlign: "middle",
+        marginRight: "2px",
+        horizontalAlign: "center",
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Stats/MoveSpeed/MoveSpeed.tsx":
+/*!******************************************************!*\
+  !*** ./hud/components/Stats/MoveSpeed/MoveSpeed.tsx ***!
+  \******************************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -63169,6 +63319,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Stats/MoveSpeed/Styles.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Stats/Styles.tsx");
+
+
 
 
 const MoveSpeed = (props) => {
@@ -63179,20 +63333,51 @@ const MoveSpeed = (props) => {
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryOuterContainer', style: { marginRight: '0px' } },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelEntryInnerContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'statsPanelMoveSpeedImage' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'statsPanelLabel', text: moveSpeed.toFixed(0) }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Entry()), { marginRight: '0px' }) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Image() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: moveSpeed.toFixed(0) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(MoveSpeed));
 
 
 /***/ }),
 
-/***/ "./hud/components/StatsPanel/StatsPanel.tsx":
-/*!**************************************************!*\
-  !*** ./hud/components/StatsPanel/StatsPanel.tsx ***!
-  \**************************************************/
+/***/ "./hud/components/Stats/MoveSpeed/Styles.tsx":
+/*!***************************************************!*\
+  !*** ./hud/components/Stats/MoveSpeed/Styles.tsx ***!
+  \***************************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const Styles = {
+    Image: () => ({
+        width: "15px",
+        height: "15px",
+        backgroundImage: 'url("s2r://panorama/images/icon_speed.png")',
+        backgroundSize: "contain",
+        backgroundPosition: "50% 50%",
+        backgroundRepeat: "no-repeat",
+        verticalAlign: "middle",
+        marginRight: "2px",
+        horizontalAlign: "center",
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Stats/Stats.tsx":
+/*!****************************************!*\
+  !*** ./hud/components/Stats/Stats.tsx ***!
+  \****************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -63205,26 +63390,70 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _Level_Level__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Level/Level */ "./hud/components/StatsPanel/Level/Level.tsx");
-/* harmony import */ var _Armor_Armor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Armor/Armor */ "./hud/components/StatsPanel/Armor/Armor.tsx");
-/* harmony import */ var _Damage_Damage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Damage/Damage */ "./hud/components/StatsPanel/Damage/Damage.tsx");
-/* harmony import */ var _MagicResistance_MagicResistance__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MagicResistance/MagicResistance */ "./hud/components/StatsPanel/MagicResistance/MagicResistance.tsx");
-/* harmony import */ var _MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MoveSpeed/MoveSpeed */ "./hud/components/StatsPanel/MoveSpeed/MoveSpeed.tsx");
+/* harmony import */ var _Level_Level__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Level/Level */ "./hud/components/Stats/Level/Level.tsx");
+/* harmony import */ var _Armor_Armor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Armor/Armor */ "./hud/components/Stats/Armor/Armor.tsx");
+/* harmony import */ var _Damage_Damage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Damage/Damage */ "./hud/components/Stats/Damage/Damage.tsx");
+/* harmony import */ var _MagicResistance_MagicResistance__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MagicResistance/MagicResistance */ "./hud/components/Stats/MagicResistance/MagicResistance.tsx");
+/* harmony import */ var _MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MoveSpeed/MoveSpeed */ "./hud/components/Stats/MoveSpeed/MoveSpeed.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Styles */ "./hud/components/Stats/Styles.tsx");
 
 
 
 
 
 
-const StatsPanel = () => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "statsPanelContainer" },
+
+const Stats = () => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Level_Level__WEBPACK_IMPORTED_MODULE_1__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Armor_Armor__WEBPACK_IMPORTED_MODULE_2__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MagicResistance_MagicResistance__WEBPACK_IMPORTED_MODULE_4__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Damage_Damage__WEBPACK_IMPORTED_MODULE_3__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_5__.default, null)));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StatsPanel);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Stats);
+
+
+/***/ }),
+
+/***/ "./hud/components/Stats/Styles.tsx":
+/*!*****************************************!*\
+  !*** ./hud/components/Stats/Styles.tsx ***!
+  \*****************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        verticalAlign: "bottom",
+        horizontalAlign: "center",
+        height: "30px",
+        flowChildren: "right",
+        borderRadius: "7px",
+        backgroundColor: "rgba(25, 25, 25, 0.85)",
+        paddingRight: "15px",
+        paddingLeft: "15px",
+        marginBottom: "5px",
+        width: "fit-children",
+    }),
+    Entry: () => ({
+        flowChildren: "right",
+        verticalAlign: "center",
+        marginRight: "25px",
+        width: "fit-children",
+    }),
+    Label: () => ({
+        color: 'rgba(255, 255, 255, 0.5)',
+    })
+};
 
 
 /***/ }),

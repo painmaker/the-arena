@@ -7,7 +7,7 @@ import GameTime from "./components/GameTime/GameTime";
 import AbilityBar from "./components/AbilityBar/AbilityBar";
 import HealthBar from "./components/HealthBar/HealthBar";
 import ManaBar from "./components/ManaBar/ManaBar";
-import StatsPanel from "./components/StatsPanel/StatsPanel";
+import Stats from "./components/Stats/Stats";
 import Character from "./components/Character/Character";
 import Debuffs from "./components/Modifiers/Debuffs/Debuffs";
 import Buffs from "./components/Modifiers/Buffs/Buffs";
@@ -110,7 +110,7 @@ const App = (props: Props) => {
               <Buffs />
               <Debuffs />
               <Inventory />
-              <StatsPanel />
+              <Stats />
             </React.Fragment>
           )}
         </Loading>

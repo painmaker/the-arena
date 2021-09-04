@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
+import { Styles } from "./Styles";
+import { Styles as ParentStyles } from "../Styles";
 
 type Props = ReactTimeoutProps & {}
 
@@ -19,17 +21,18 @@ const Damage = (props: Props) => {
   }, []);
 
   return (
-    <Panel className={'statsPanelEntryOuterContainer'}>
-      <Panel className={'statsPanelEntryInnerContainer'}>
-        <Panel className={'statsPanelAttackImage'} />
-        <Label className={'statsPanelLabel'} text={minDamage.toFixed(0) + "-" + maxDamage.toFixed(0)} />
-        {bonusDamage !== 0 && (
-          <Label
-            style={{ color: bonusDamage > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }}
-            text={(bonusDamage > 0 ? '+' : '') + "(" + bonusDamage.toFixed(0) + ")"}
-          />
-        )}
-      </Panel>
+    <Panel style={ParentStyles.Entry()}>
+      <Panel style={Styles.Image()} />
+      <Label
+        style={ParentStyles.Label()}
+        text={minDamage.toFixed(0) + "-" + maxDamage.toFixed(0)}
+      />
+      {bonusDamage !== 0 && (
+        <Label
+          style={{ color: bonusDamage > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }}
+          text={(bonusDamage > 0 ? '+' : '') + "(" + bonusDamage.toFixed(0) + ")"}
+        />
+      )}
     </Panel>
   );
 
