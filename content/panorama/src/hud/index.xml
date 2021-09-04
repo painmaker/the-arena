@@ -19,7 +19,7 @@
         <include src="./components/Character/HeroModel/HeroLevel/heroLevel.css" />
         <include src="./components/Character/Attack/attack.css" />
         <include src="./components/Character/Defense/defense.css" />
-        <include src="./components/Character/Divider/divider.css" />
+        <include src="./components/Character/Divider/divider.css" /> 
         <include src="./components/Character/CloseBtn/closeBtn.css" />
         <include src="./components/Shop/shop.css" />  
         <include src="./components/Shop/Title/title.css" />  
