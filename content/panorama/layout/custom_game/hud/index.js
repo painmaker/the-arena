@@ -59028,6 +59028,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils */ "./utils.tsx");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/GameTime/Styles.tsx");
+
 
 
 
@@ -59048,10 +59050,45 @@ const GameTime = (props) => {
         }, 1000);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'gameTimeContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'gameTimeLabel', text: formatGameTime(gameTime) })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: formatGameTime(gameTime) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(GameTime));
+
+
+/***/ }),
+
+/***/ "./hud/components/GameTime/Styles.tsx":
+/*!********************************************!*\
+  !*** ./hud/components/GameTime/Styles.tsx ***!
+  \********************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        flowChildren: "down",
+        horizontalAlign: "right",
+        width: "100px",
+        marginTop: "90px",
+        marginRight: "25px",
+    }),
+    Label: () => ({
+        color: "rgba(255, 255, 255, 0.75)",
+        fontSize: "18px",
+        textShadow: "0px 0px 2px 2.0 rgba(0, 0, 0, 0.5)",
+        width: "100%",
+        paddingLeft: "20px",
+    }),
+};
 
 
 /***/ }),

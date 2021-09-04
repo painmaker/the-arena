@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { formatTime } from "../../../utils";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {}
 
@@ -26,9 +27,9 @@ const GameTime = (props: Props) => {
   }, []);
 
   return (
-    <Panel className={'gameTimeContainer'}>
+    <Panel style={Styles.Container()}>
       <Label
-        className={'gameTimeLabel'}
+        style={Styles.Label()}
         text={formatGameTime(gameTime)}
       />
     </Panel>

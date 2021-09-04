@@ -10,12 +10,3 @@
   color: white;
 }
 
-.gameTimeLabel {
-  /* color: rgba(195, 216, 252, 0.75); */
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 18px;
-  text-shadow: 0px 0px 2px 2.0 rgba(0, 0, 0, 0.5);
-  width: 100%;
-  padding-left: 20px;
-}
-

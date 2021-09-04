@@ -14,7 +14,6 @@
         <include src="file://{resources}/layout/custom_game/hud/components/Settings/CameraZoomSlider/cameraZoomSlider.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Settings/LockCameraBtn/lockCameraBtn.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Settings/UseCustomUIBtn/useCustomUIBtn.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/GameTime/gameTime.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/StatsPanel/statsPanel.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/StatsPanel/Level/level.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Character/character.css"></include>
