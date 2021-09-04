@@ -1,4 +1,4 @@
-import { Styles as ParentStyles } from "../Styles",
+import { Styles as ParentStyles } from "../Styles"
 
 export const Styles = {
 

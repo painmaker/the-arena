@@ -9,6 +9,8 @@ export const Styles = {
     border: '2px solid rgba(25, 25, 25, 0.9)',
     washColor: washColor,
     saturation: saturation,
+    verticalAlign: 'center',
+    horizontalAlign: 'center',
   }),
 
 }
