@@ -14,12 +14,6 @@
         <include src="./components/Settings/CameraZoomSlider/cameraZoomSlider.css" />
         <include src="./components/Settings/LockCameraBtn/lockCameraBtn.css" />
         <include src="./components/Settings/UseCustomUIBtn/useCustomUIBtn.css" />
-        <include src="./components/Heroes/heroes.css" />
-        <include src="./components/Heroes/Playername/playername.css" />
-        <include src="./components/Heroes/HeroImage/heroImage.css" />
-        <include src="./components/Heroes/Health/health.css" />
-        <include src="./components/Heroes/Mana/mana.css" />
-        <include src="./components/DateTime/dateTime.css" />
         <include src="./components/GameTime/gameTime.css" />
         <include src="./components/StatsPanel/statsPanel.css" />
         <include src="./components/StatsPanel/Level/level.css" />
@@ -51,6 +45,6 @@
         <include src="./components/HeroSelection/RandomHeroDialog/randomHeroDialog.css" />  
     </styles>  
     <Panel class="root" hittest="false">
-      <!-- <Image src="file://panorama/images/tooltip_arrow_top.png" /> -->
+      <!-- <Image src="s2r://panorama/images/hud/reborn/icon_disconnect_png.vtex" /> -->
     </Panel> 
 </root>        

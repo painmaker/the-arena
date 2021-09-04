@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { ReactTimeoutProps } from "react-timeout";
+import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { RootState } from "../../../reducers/rootReducer";
+import { Styles } from "./Styles";
 
 const mapStateToProps = (state: RootState) => ({
   cameraLocked: state.settingsReducer.cameraLocked,
@@ -56,10 +57,13 @@ const onHeroImageClicked = (entIndex: EntityIndex, cameraLocked: boolean) => {
 const HeroImage = (props: Props) => {
 
   const [washColor, setWashColor] = useState("none");
+  const [isHovering, setIsHovering] = useState(false);
+  const [isDisconnected, setIsDisconnected] = useState(false);
 
+  // 
   useEffect(() => {
     const handle = GameEvents.Subscribe("entity_killed", (event) => {
-      if (event.entindex_killed === props.entIndex) {
+      if (event.entindex_killed === props.entIndex && !isDisconnected) {
         setWashColor("grey");
       }
     });
@@ -68,25 +72,47 @@ const HeroImage = (props: Props) => {
 
   useEffect(() => {
     const handle = GameEvents.Subscribe("npc_spawned", (event) => {
-      if (event.entindex === props.entIndex) {
+      if (event.entindex === props.entIndex && !isDisconnected) {
         setWashColor("none");
       }
     });
     return () => GameEvents.Unsubscribe(handle);
   }, []);
 
+  useEffect(() => {
+    const id = props.setInterval(() => {
+      const connectionState = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(props.entIndex)).player_connection_state;
+      const isDisconnected = connectionState === DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED ||
+        connectionState === DOTAConnectionState_t.DOTA_CONNECTION_STATE_ABANDONED ||
+        connectionState === DOTAConnectionState_t.DOTA_CONNECTION_STATE_FAILED;
+      setIsDisconnected(isDisconnected);
+      if (isDisconnected) {
+        setWashColor("grey")
+      }
+    }, 100);
+    return () => props.clearInterval(id);
+  }, [])
+
   return (
-    <Panel hittest={false} className="heroesHeroImage">
+    <Panel hittest={false} style={Styles.Container(isHovering)}>
+      {isDisconnected && (
+        <Image
+          src={"s2r://panorama/images/hud/reborn/icon_disconnect_png.vtex"}
+          style={Styles.Disconnected()}
+        />
+      )}
       <DOTAHeroImage
+        onmouseover={() => setIsHovering(true)}
+        onmouseout={() => setIsHovering(false)}
         heroname={props.heroname}
         heroimagestyle="landscape"
         onactivate={() => onHeroImageClicked(props.entIndex, props.cameraLocked)}
         oncontextmenu={() => onHeroImageClicked(props.entIndex, props.cameraLocked)}
-        style={{ washColor: washColor }}
+        style={Styles.Image(washColor)}
       />
     </Panel>
   );
 
 };
 
-export default connector(HeroImage);
+export default connector(withReactTimeout(HeroImage));

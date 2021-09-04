@@ -7,7 +7,6 @@ import GameTime from "./components/GameTime/GameTime";
 import AbilityBar from "./components/AbilityBar/AbilityBar";
 import HealthBar from "./components/HealthBar/HealthBar";
 import ManaBar from "./components/ManaBar/ManaBar";
-import LevelUp from "./components/LevelUp/LevelUp";
 import StatsPanel from "./components/StatsPanel/StatsPanel";
 import Character from "./components/Character/Character";
 import Debuffs from "./components/Modifiers/Debuffs/Debuffs";
@@ -98,13 +97,11 @@ const App = (props: Props) => {
           </ToggleButton>
           {props.useCustomUI && (
             <React.Fragment>
-              {/* <DateTime /> */}
               <Heroes />
               <GameTime />
               <Settings />
               <Character />
               <Shop />
-              {/* <LevelUp /> */}
               <AbilityBar />
               <ManaBar />
               <HealthBar />

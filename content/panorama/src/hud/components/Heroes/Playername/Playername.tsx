@@ -1,5 +1,5 @@
 import React from "react";
-import { toColor } from "../../../utils/Color";
+import { Styles } from "./Styles";
 
 interface Props {
   playerId: PlayerID;
@@ -9,9 +9,8 @@ const Playername = (props: Props) => {
   return (
     <Panel hittest={false} style={{ width: '100%' }}>
       <Label
-        className="heroesPlayernameLabel"
         text={Players.GetPlayerName(props.playerId)}
-        style={{ color: toColor(props.playerId) }}
+        style={Styles.Container(props.playerId)}
       />
     </Panel>
   );

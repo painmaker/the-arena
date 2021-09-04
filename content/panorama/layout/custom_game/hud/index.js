@@ -60136,6 +60136,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Health/Styles.tsx");
+
 
 
 const Health = (props) => {
@@ -60148,10 +60150,48 @@ const Health = (props) => {
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroesHealthContainer" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'heroesHealthProgressBar' })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Scene(health, maxHealth), map: 'scenes/hud/healthbarburner', camera: 'camera_1' }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Health));
+
+
+/***/ }),
+
+/***/ "./hud/components/Heroes/Health/Styles.tsx":
+/*!*************************************************!*\
+  !*** ./hud/components/Heroes/Health/Styles.tsx ***!
+  \*************************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: "100%",
+        height: 'fit-children',
+        marginTop: '1px',
+    }),
+    Progressbar: () => ({
+        width: "100%",
+        height: "6px",
+        borderRadius: "0px",
+        horizontalAlign: "center",
+    }),
+    Scene: (health, maxHealth) => ({
+        width: (health / maxHealth) * 100 + "%",
+        height: '100%',
+        opacity: '0.8',
+    }),
+};
 
 
 /***/ }),
@@ -60173,6 +60213,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/HeroImage/Styles.tsx");
+
+
 
 
 const mapStateToProps = (state) => ({
@@ -60214,9 +60258,12 @@ const onHeroImageClicked = (entIndex, cameraLocked) => {
 };
 const HeroImage = (props) => {
     const [washColor, setWashColor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("none");
+    const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    const [isDisconnected, setIsDisconnected] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    // 
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const handle = GameEvents.Subscribe("entity_killed", (event) => {
-            if (event.entindex_killed === props.entIndex) {
+            if (event.entindex_killed === props.entIndex && !isDisconnected) {
                 setWashColor("grey");
             }
         });
@@ -60224,16 +60271,72 @@ const HeroImage = (props) => {
     }, []);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const handle = GameEvents.Subscribe("npc_spawned", (event) => {
-            if (event.entindex === props.entIndex) {
+            if (event.entindex === props.entIndex && !isDisconnected) {
                 setWashColor("none");
             }
         });
         return () => GameEvents.Unsubscribe(handle);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroesHeroImage" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroname: props.heroname, heroimagestyle: "landscape", onactivate: () => onHeroImageClicked(props.entIndex, props.cameraLocked), oncontextmenu: () => onHeroImageClicked(props.entIndex, props.cameraLocked), style: { washColor: washColor } })));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            const connectionState = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(props.entIndex)).player_connection_state;
+            const isDisconnected = connectionState === DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED ||
+                connectionState === DOTAConnectionState_t.DOTA_CONNECTION_STATE_ABANDONED ||
+                connectionState === DOTAConnectionState_t.DOTA_CONNECTION_STATE_FAILED;
+            setIsDisconnected(isDisconnected);
+            if (isDisconnected) {
+                setWashColor("grey");
+            }
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isHovering) },
+        isDisconnected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/hud/reborn/icon_disconnect_png.vtex", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Disconnected() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), heroname: props.heroname, heroimagestyle: "landscape", onactivate: () => onHeroImageClicked(props.entIndex, props.cameraLocked), oncontextmenu: () => onHeroImageClicked(props.entIndex, props.cameraLocked), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Image(washColor) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(HeroImage));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(HeroImage)));
+
+
+/***/ }),
+
+/***/ "./hud/components/Heroes/HeroImage/Styles.tsx":
+/*!****************************************************!*\
+  !*** ./hud/components/Heroes/HeroImage/Styles.tsx ***!
+  \****************************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const borderColor = "rgba(0, 0, 0, 0.75)";
+const Styles = {
+    Container: (isHovering) => ({
+        width: "100%",
+        height: "41.4px",
+        backgroundColor: 'black',
+        transition: "border 0.15s ease-in-out 0.0s",
+        border: isHovering ? "1.5px solid " + borderColor : "2px solid " + borderColor,
+        zIndex: 998,
+    }),
+    Image: (washColor) => ({
+        verticalAlign: 'center',
+        horizontalAlign: 'center',
+        washColor: washColor,
+    }),
+    Disconnected: () => ({
+        zIndex: 999,
+        width: '80%',
+        height: '50%',
+        verticalAlign: 'center',
+        horizontalAlign: 'center',
+    }),
+};
 
 
 /***/ }),
@@ -60259,6 +60362,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _HeroImage_HeroImage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HeroImage/HeroImage */ "./hud/components/Heroes/HeroImage/HeroImage.tsx");
 /* harmony import */ var _Mana_Mana__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Mana/Mana */ "./hud/components/Heroes/Mana/Mana.tsx");
 /* harmony import */ var _Playername_Playername__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Playername/Playername */ "./hud/components/Heroes/Playername/Playername.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Styles.tsx");
+
 
 
 
@@ -60267,9 +60372,9 @@ __webpack_require__.r(__webpack_exports__);
 
 const Heroes = () => {
     const pickedHeroes = Object.values((0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes).filter(hero => hero.picked === 1);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroesContainer" }, pickedHeroes.map((pickedHero) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.HeroesContainer() }, pickedHeroes.map((pickedHero) => {
         const entIndex = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroContainer", key: entIndex },
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.HeroContainer(), key: entIndex },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HeroImage_HeroImage__WEBPACK_IMPORTED_MODULE_3__.default, { heroname: pickedHero.heroname, entIndex: entIndex }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Health_Health__WEBPACK_IMPORTED_MODULE_2__.default, { entIndex: entIndex }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Mana_Mana__WEBPACK_IMPORTED_MODULE_4__.default, { entIndex: entIndex }),
@@ -60298,6 +60403,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Mana/Styles.tsx");
+
 
 
 const Mana = (props) => {
@@ -60310,10 +60417,48 @@ const Mana = (props) => {
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: "heroesManaContainer" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'heroesManaProgressBar' })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Scene(mana, maxMana), map: 'scenes/hud/healthbarburner', camera: 'camera_1' }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Mana));
+
+
+/***/ }),
+
+/***/ "./hud/components/Heroes/Mana/Styles.tsx":
+/*!***********************************************!*\
+  !*** ./hud/components/Heroes/Mana/Styles.tsx ***!
+  \***********************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: '100%',
+        height: 'fit-children',
+    }),
+    Progressbar: () => ({
+        width: "100%",
+        height: "6px",
+        borderRadius: "0px",
+        horizontalAlign: "center",
+    }),
+    Scene: (mana, maxMana) => ({
+        width: (mana / maxMana) * 100 + "%",
+        height: '100%',
+        hueRotation: '100deg',
+        opacity: '0.8',
+    }),
+};
 
 
 /***/ }),
@@ -60334,14 +60479,80 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _utils_Color__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/Color */ "./hud/utils/Color.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Playername/Styles.tsx");
 
 
 const Playername = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: '100%' } },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: "heroesPlayernameLabel", text: Players.GetPlayerName(props.playerId), style: { color: (0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(props.playerId) } })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(props.playerId), style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container(props.playerId) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Playername);
+
+
+/***/ }),
+
+/***/ "./hud/components/Heroes/Playername/Styles.tsx":
+/*!*****************************************************!*\
+  !*** ./hud/components/Heroes/Playername/Styles.tsx ***!
+  \*****************************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+/* harmony import */ var _utils_Color__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../utils/Color */ "./hud/utils/Color.ts");
+
+const Styles = {
+    Container: (playerId) => ({
+        width: "100%",
+        height: "20px",
+        fontSize: "16px",
+        textAlign: "center",
+        textOverflow: "ellipsis",
+        textShadow: "1px 1px 2px 1.5 rgba(0, 0, 0, 0.75)",
+        color: (0,_utils_Color__WEBPACK_IMPORTED_MODULE_0__.toColor)(playerId)
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Heroes/Styles.tsx":
+/*!******************************************!*\
+  !*** ./hud/components/Heroes/Styles.tsx ***!
+  \******************************************/
+/*! namespace exports */
+/*! export Styles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => /* binding */ Styles
+/* harmony export */ });
+const Styles = {
+    HeroesContainer: () => ({
+        verticalAlign: "top",
+        horizontalAlign: "middle",
+        flowChildren: "right",
+        marginTop: "5px",
+    }),
+    HeroContainer: () => ({
+        width: "80px",
+        flowChildren: "down",
+        marginRight: "12.5px",
+        marginLeft: "12.5px",
+        padding: "5px",
+    }),
+};
 
 
 /***/ }),

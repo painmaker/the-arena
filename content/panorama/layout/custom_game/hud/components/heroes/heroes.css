@@ -13,7 +13,3 @@
   padding: 5px;
   transition: transform 0.1s ease-in-out 0.0s;
 }
-
-.heroContainer:hover {
-  /* transform: scale3d(1.025, 1.025, 0); */
-}
