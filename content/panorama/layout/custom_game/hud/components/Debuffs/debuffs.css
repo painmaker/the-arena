@@ -1,8 +1,0 @@
-.debuffsContainer {
-  position: 60% 80% 0px;
-  /* position: 50% 50% 0px; */
-  flow-children: right-wrap; 
-  max-width: 300px;
-  height: fit-children;
-  width: 300px;
-}

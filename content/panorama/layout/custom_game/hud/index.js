@@ -41,7 +41,7 @@ function _defineProperty(obj, key, value) {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -76,7 +76,7 @@ function _extends() {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -134,7 +134,7 @@ function _objectSpread2(target) {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -295,10 +295,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "y": () => /* binding */ shouldCancel,
 /* harmony export */   "z": () => /* binding */ shouldTerminate
 /* harmony export */ });
-/* harmony import */ var _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @redux-saga/symbols */ "../../../node_modules/@redux-saga/symbols/dist/redux-saga-symbols.esm.js");
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../../node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @redux-saga/is */ "../../../node_modules/@redux-saga/is/dist/redux-saga-is.esm.js");
-/* harmony import */ var _redux_saga_delay_p__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @redux-saga/delay-p */ "../../../node_modules/@redux-saga/delay-p/dist/redux-saga-delay-p.esm.js");
+/* harmony import */ var _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @redux-saga/symbols */ "../../../node_modules/@redux-saga/symbols/dist/redux-saga-symbols.esm.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../../node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @redux-saga/is */ "../../../node_modules/@redux-saga/is/dist/redux-saga-is.esm.js");
+/* harmony import */ var _redux_saga_delay_p__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @redux-saga/delay-p */ "../../../node_modules/@redux-saga/delay-p/dist/redux-saga-delay-p.esm.js");
 
 
 
@@ -335,7 +335,7 @@ function check(value, predicate, error) {
   }
 }
 var assignWithSymbols = function assignWithSymbols(target, source) {
-  (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)(target, source);
+  (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__.default)(target, source);
 
   if (Object.getOwnPropertySymbols) {
     Object.getOwnPropertySymbols(source).forEach(function (s) {
@@ -431,16 +431,16 @@ var wrapSagaDispatch = function wrapSagaDispatch(dispatch) {
       }, FROZEN_ACTION_ERROR);
     }
 
-    return dispatch(Object.defineProperty(action, _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.SAGA_ACTION, {
+    return dispatch(Object.defineProperty(action, _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_3__.SAGA_ACTION, {
       value: true
     }));
   };
 };
 var shouldTerminate = function shouldTerminate(res) {
-  return res === _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.TERMINATE;
+  return res === _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_3__.TERMINATE;
 };
 var shouldCancel = function shouldCancel(res) {
-  return res === _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.TASK_CANCEL;
+  return res === _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_3__.TASK_CANCEL;
 };
 var shouldComplete = function shouldComplete(res) {
   return shouldTerminate(res) || shouldCancel(res);
@@ -457,7 +457,7 @@ function createAllStyleChildCallbacks(shape, parentCallback) {
 
   var completedCount = 0;
   var completed;
-  var results = (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.array)(shape) ? createEmptyArray(totalCount) : {};
+  var results = (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.array)(shape) ? createEmptyArray(totalCount) : {};
   var childCallbacks = {};
 
   function checkEnd() {
@@ -505,7 +505,7 @@ function getMetaInfo(fn) {
   };
 }
 function getLocation(instrumented) {
-  return instrumented[_redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.SAGA_LOCATION];
+  return instrumented[_redux_saga_symbols__WEBPACK_IMPORTED_MODULE_3__.SAGA_LOCATION];
 }
 
 var BUFFER_OVERFLOW = "Channel's Buffer overflow!";
@@ -661,11 +661,11 @@ var TEST_HINT = '\n(HINT: if you are getting these errors in tests, consider usi
 var makeEffect = function makeEffect(type, payload) {
   var _ref;
 
-  return _ref = {}, _ref[_redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.IO] = true, _ref.combinator = false, _ref.type = type, _ref.payload = payload, _ref;
+  return _ref = {}, _ref[_redux_saga_symbols__WEBPACK_IMPORTED_MODULE_3__.IO] = true, _ref.combinator = false, _ref.type = type, _ref.payload = payload, _ref;
 };
 
 var isForkEffect = function isForkEffect(eff) {
-  return (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.effect)(eff) && eff.type === FORK;
+  return (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.effect)(eff) && eff.type === FORK;
 };
 
 var detach = function detach(eff) {
@@ -673,7 +673,7 @@ var detach = function detach(eff) {
     check(eff, isForkEffect, 'detach(eff): argument must be a fork effect');
   }
 
-  return makeEffect(FORK, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, eff.payload, {
+  return makeEffect(FORK, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__.default)({}, eff.payload, {
     detached: true
   }));
 };
@@ -683,23 +683,23 @@ function take(patternOrChannel, multicastPattern) {
   }
 
   if ( true && arguments.length) {
-    check(arguments[0], _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, 'take(patternOrChannel): patternOrChannel is undefined');
+    check(arguments[0], _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, 'take(patternOrChannel): patternOrChannel is undefined');
   }
 
-  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.pattern)(patternOrChannel)) {
+  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.pattern)(patternOrChannel)) {
     return makeEffect(TAKE, {
       pattern: patternOrChannel
     });
   }
 
-  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.multicast)(patternOrChannel) && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef)(multicastPattern) && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.pattern)(multicastPattern)) {
+  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.multicast)(patternOrChannel) && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef)(multicastPattern) && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.pattern)(multicastPattern)) {
     return makeEffect(TAKE, {
       channel: patternOrChannel,
       pattern: multicastPattern
     });
   }
 
-  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.channel)(patternOrChannel)) {
+  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.channel)(patternOrChannel)) {
     return makeEffect(TAKE, {
       channel: patternOrChannel
     });
@@ -717,15 +717,15 @@ var takeMaybe = function takeMaybe() {
 function put(channel$1, action) {
   if (true) {
     if (arguments.length > 1) {
-      check(channel$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, 'put(channel, action): argument channel is undefined');
-      check(channel$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.channel, "put(channel, action): argument " + channel$1 + " is not a valid channel");
-      check(action, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, 'put(channel, action): argument action is undefined');
+      check(channel$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, 'put(channel, action): argument channel is undefined');
+      check(channel$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.channel, "put(channel, action): argument " + channel$1 + " is not a valid channel");
+      check(action, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, 'put(channel, action): argument action is undefined');
     } else {
-      check(channel$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, 'put(action): argument action is undefined');
+      check(channel$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, 'put(action): argument action is undefined');
     }
   }
 
-  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.undef)(action)) {
+  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.undef)(action)) {
     action = channel$1; // `undefined` instead of `null` to make default parameter work
 
     channel$1 = undefined;
@@ -753,44 +753,44 @@ function race(effects) {
 } // this match getFnCallDescriptor logic
 
 var validateFnDescriptor = function validateFnDescriptor(effectName, fnDescriptor) {
-  check(fnDescriptor, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, effectName + ": argument fn is undefined or null");
+  check(fnDescriptor, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, effectName + ": argument fn is undefined or null");
 
-  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.func)(fnDescriptor)) {
+  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.func)(fnDescriptor)) {
     return;
   }
 
   var context = null;
   var fn;
 
-  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.array)(fnDescriptor)) {
+  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.array)(fnDescriptor)) {
     context = fnDescriptor[0];
     fn = fnDescriptor[1];
-    check(fn, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, effectName + ": argument of type [context, fn] has undefined or null `fn`");
-  } else if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.object)(fnDescriptor)) {
+    check(fn, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, effectName + ": argument of type [context, fn] has undefined or null `fn`");
+  } else if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.object)(fnDescriptor)) {
     context = fnDescriptor.context;
     fn = fnDescriptor.fn;
-    check(fn, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, effectName + ": argument of type {context, fn} has undefined or null `fn`");
+    check(fn, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, effectName + ": argument of type {context, fn} has undefined or null `fn`");
   } else {
-    check(fnDescriptor, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.func, effectName + ": argument fn is not function");
+    check(fnDescriptor, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.func, effectName + ": argument fn is not function");
     return;
   }
 
-  if (context && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.string)(fn)) {
-    check(context[fn], _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.func, effectName + ": context arguments has no such method - \"" + fn + "\"");
+  if (context && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.string)(fn)) {
+    check(context[fn], _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.func, effectName + ": context arguments has no such method - \"" + fn + "\"");
     return;
   }
 
-  check(fn, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.func, effectName + ": unpacked fn argument (from [context, fn] or {context, fn}) is not a function");
+  check(fn, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.func, effectName + ": unpacked fn argument (from [context, fn] or {context, fn}) is not a function");
 };
 
 function getFnCallDescriptor(fnDescriptor, args) {
   var context = null;
   var fn;
 
-  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.func)(fnDescriptor)) {
+  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.func)(fnDescriptor)) {
     fn = fnDescriptor;
   } else {
-    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.array)(fnDescriptor)) {
+    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.array)(fnDescriptor)) {
       context = fnDescriptor[0];
       fn = fnDescriptor[1];
     } else {
@@ -798,7 +798,7 @@ function getFnCallDescriptor(fnDescriptor, args) {
       fn = fnDescriptor.fn;
     }
 
-    if (context && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.string)(fn) && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.func)(context[fn])) {
+    if (context && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.string)(fn) && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.func)(context[fn])) {
       fn = context[fn];
     }
   }
@@ -855,7 +855,7 @@ function fork(fnDescriptor) {
   if (true) {
     validateFnDescriptor('fork', fnDescriptor);
     check(fnDescriptor, function (arg) {
-      return !(0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.effect)(arg);
+      return !(0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.effect)(arg);
     }, 'fork: argument must not be an effect');
   }
 
@@ -882,12 +882,12 @@ function join(taskOrTasks) {
       throw new Error('join(...tasks) is not supported any more. Please use join([...tasks]) to join multiple tasks.');
     }
 
-    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.array)(taskOrTasks)) {
+    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.array)(taskOrTasks)) {
       taskOrTasks.forEach(function (t) {
-        check(t, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.task, "join([...tasks]): argument " + t + " is not a valid Task object " + TEST_HINT);
+        check(t, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.task, "join([...tasks]): argument " + t + " is not a valid Task object " + TEST_HINT);
       });
     } else {
-      check(taskOrTasks, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.task, "join(task): argument " + taskOrTasks + " is not a valid Task object " + TEST_HINT);
+      check(taskOrTasks, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.task, "join(task): argument " + taskOrTasks + " is not a valid Task object " + TEST_HINT);
     }
   }
 
@@ -895,7 +895,7 @@ function join(taskOrTasks) {
 }
 function cancel(taskOrTasks) {
   if (taskOrTasks === void 0) {
-    taskOrTasks = _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.SELF_CANCELLATION;
+    taskOrTasks = _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_3__.SELF_CANCELLATION;
   }
 
   if (true) {
@@ -903,12 +903,12 @@ function cancel(taskOrTasks) {
       throw new Error('cancel(...tasks) is not supported any more. Please use cancel([...tasks]) to cancel multiple tasks.');
     }
 
-    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.array)(taskOrTasks)) {
+    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.array)(taskOrTasks)) {
       taskOrTasks.forEach(function (t) {
-        check(t, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.task, "cancel([...tasks]): argument " + t + " is not a valid Task object " + TEST_HINT);
+        check(t, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.task, "cancel([...tasks]): argument " + t + " is not a valid Task object " + TEST_HINT);
       });
-    } else if (taskOrTasks !== _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.SELF_CANCELLATION && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef)(taskOrTasks)) {
-      check(taskOrTasks, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.task, "cancel(task): argument " + taskOrTasks + " is not a valid Task object " + TEST_HINT);
+    } else if (taskOrTasks !== _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_3__.SELF_CANCELLATION && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef)(taskOrTasks)) {
+      check(taskOrTasks, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.task, "cancel(task): argument " + taskOrTasks + " is not a valid Task object " + TEST_HINT);
     }
   }
 
@@ -924,8 +924,8 @@ function select(selector) {
   }
 
   if ( true && arguments.length) {
-    check(arguments[0], _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, 'select(selector, [...]): argument selector is undefined');
-    check(selector, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.func, "select(selector, [...]): argument " + selector + " is not a function");
+    check(arguments[0], _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, 'select(selector, [...]): argument selector is undefined');
+    check(selector, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.func, "select(selector, [...]): argument " + selector + " is not a function");
   }
 
   return makeEffect(SELECT, {
@@ -939,11 +939,11 @@ function select(selector) {
 
 function actionChannel(pattern$1, buffer$1) {
   if (true) {
-    check(pattern$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.pattern, 'actionChannel(pattern,...): argument pattern is not valid');
+    check(pattern$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.pattern, 'actionChannel(pattern,...): argument pattern is not valid');
 
     if (arguments.length > 1) {
-      check(buffer$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, 'actionChannel(pattern, buffer): argument buffer is undefined');
-      check(buffer$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.buffer, "actionChannel(pattern, buffer): argument " + buffer$1 + " is not a valid buffer");
+      check(buffer$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, 'actionChannel(pattern, buffer): argument buffer is undefined');
+      check(buffer$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.buffer, "actionChannel(pattern, buffer): argument " + buffer$1 + " is not a valid buffer");
     }
   }
 
@@ -957,28 +957,28 @@ function cancelled() {
 }
 function flush(channel$1) {
   if (true) {
-    check(channel$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.channel, "flush(channel): argument " + channel$1 + " is not valid channel");
+    check(channel$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.channel, "flush(channel): argument " + channel$1 + " is not valid channel");
   }
 
   return makeEffect(FLUSH, channel$1);
 }
 function getContext(prop) {
   if (true) {
-    check(prop, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.string, "getContext(prop): argument " + prop + " is not a string");
+    check(prop, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.string, "getContext(prop): argument " + prop + " is not a string");
   }
 
   return makeEffect(GET_CONTEXT, prop);
 }
 function setContext(props) {
   if (true) {
-    check(props, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.object, createSetContextWarning(null, props));
+    check(props, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.object, createSetContextWarning(null, props));
   }
 
   return makeEffect(SET_CONTEXT, props);
 }
 var delay =
 /*#__PURE__*/
-call.bind(null, _redux_saga_delay_p__WEBPACK_IMPORTED_MODULE_3__.default);
+call.bind(null, _redux_saga_delay_p__WEBPACK_IMPORTED_MODULE_1__.default);
 
 
 
@@ -1011,8 +1011,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CANCEL": () => /* reexport safe */ _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.CANCEL,
 /* harmony export */   "SAGA_LOCATION": () => /* reexport safe */ _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.SAGA_LOCATION,
-/* harmony export */   "buffers": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.H,
-/* harmony export */   "detach": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.I,
+/* harmony export */   "buffers": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.H,
+/* harmony export */   "detach": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.I,
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__,
 /* harmony export */   "END": () => /* binding */ END,
 /* harmony export */   "channel": () => /* binding */ channel,
@@ -1023,13 +1023,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "stdChannel": () => /* binding */ stdChannel
 /* harmony export */ });
 /* harmony import */ var _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @redux-saga/symbols */ "../../../node_modules/@redux-saga/symbols/dist/redux-saga-symbols.esm.js");
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../../node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "../../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
-/* harmony import */ var _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @redux-saga/is */ "../../../node_modules/@redux-saga/is/dist/redux-saga-is.esm.js");
-/* harmony import */ var _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./io-6de156f3.js */ "../../../node_modules/@redux-saga/core/dist/io-6de156f3.js");
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux */ "../../../node_modules/redux/es/redux.js");
-/* harmony import */ var _redux_saga_deferred__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @redux-saga/deferred */ "../../../node_modules/@redux-saga/deferred/dist/redux-saga-deferred.esm.js");
-/* harmony import */ var _redux_saga_delay_p__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @redux-saga/delay-p */ "../../../node_modules/@redux-saga/delay-p/dist/redux-saga-delay-p.esm.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../../node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "../../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @redux-saga/is */ "../../../node_modules/@redux-saga/is/dist/redux-saga-is.esm.js");
+/* harmony import */ var _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./io-6de156f3.js */ "../../../node_modules/@redux-saga/core/dist/io-6de156f3.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! redux */ "../../../node_modules/redux/es/redux.js");
+/* harmony import */ var _redux_saga_deferred__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @redux-saga/deferred */ "../../../node_modules/@redux-saga/deferred/dist/redux-saga-deferred.esm.js");
+/* harmony import */ var _redux_saga_delay_p__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @redux-saga/delay-p */ "../../../node_modules/@redux-saga/delay-p/dist/redux-saga-delay-p.esm.js");
 
 
 
@@ -1143,11 +1143,11 @@ var symbol = function symbol(pattern) {
   };
 };
 var wildcard = function wildcard() {
-  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.k;
+  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.k;
 };
 function matcher(pattern) {
   // prettier-ignore
-  var matcherCreator = pattern === '*' ? wildcard : (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.string)(pattern) ? string : (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.array)(pattern) ? array : (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.stringableFunc)(pattern) ? string : (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func)(pattern) ? predicate : (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.symbol)(pattern) ? symbol : null;
+  var matcherCreator = pattern === '*' ? wildcard : (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.string)(pattern) ? string : (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.array)(pattern) ? array : (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.stringableFunc)(pattern) ? string : (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func)(pattern) ? predicate : (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.symbol)(pattern) ? symbol : null;
 
   if (matcherCreator === null) {
     throw new Error("invalid pattern: " + pattern);
@@ -1167,30 +1167,30 @@ var INVALID_BUFFER = 'invalid buffer passed to channel factory function';
 var UNDEFINED_INPUT_ERROR = "Saga or channel was provided with an undefined action\nHints:\n  - check that your Action Creator returns a non-undefined value\n  - if the Saga was started using runSaga, check that your subscribe source provides the action to its listeners";
 function channel(buffer$1) {
   if (buffer$1 === void 0) {
-    buffer$1 = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.e)();
+    buffer$1 = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.e)();
   }
 
   var closed = false;
   var takers = [];
 
   if (true) {
-    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(buffer$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.buffer, INVALID_BUFFER);
+    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(buffer$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.buffer, INVALID_BUFFER);
   }
 
   function checkForbiddenStates() {
     if (closed && takers.length) {
-      throw (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.i)(CLOSED_CHANNEL_WITH_TAKERS);
+      throw (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.i)(CLOSED_CHANNEL_WITH_TAKERS);
     }
 
     if (takers.length && !buffer$1.isEmpty()) {
-      throw (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.i)('Cannot have pending takers with non empty buffer');
+      throw (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.i)('Cannot have pending takers with non empty buffer');
     }
   }
 
   function put(input) {
     if (true) {
       checkForbiddenStates();
-      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(input, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.notUndef, UNDEFINED_INPUT_ERROR);
+      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(input, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.notUndef, UNDEFINED_INPUT_ERROR);
     }
 
     if (closed) {
@@ -1208,7 +1208,7 @@ function channel(buffer$1) {
   function take(cb) {
     if (true) {
       checkForbiddenStates();
-      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(cb, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func, "channel.take's callback must be a function");
+      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(cb, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func, "channel.take's callback must be a function");
     }
 
     if (closed && buffer$1.isEmpty()) {
@@ -1219,7 +1219,7 @@ function channel(buffer$1) {
       takers.push(cb);
 
       cb.cancel = function () {
-        (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.r)(takers, cb);
+        (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.r)(takers, cb);
       };
     }
   }
@@ -1227,7 +1227,7 @@ function channel(buffer$1) {
   function flush(cb) {
     if (true) {
       checkForbiddenStates();
-      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(cb, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func, "channel.flush' callback must be a function");
+      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(cb, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func, "channel.flush' callback must be a function");
     }
 
     if (closed && buffer$1.isEmpty()) {
@@ -1266,7 +1266,7 @@ function channel(buffer$1) {
 }
 function eventChannel(subscribe, buffer) {
   if (buffer === void 0) {
-    buffer = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.n)();
+    buffer = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.n)();
   }
 
   var closed = false;
@@ -1280,7 +1280,7 @@ function eventChannel(subscribe, buffer) {
 
     closed = true;
 
-    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func)(unsubscribe)) {
+    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func)(unsubscribe)) {
       unsubscribe();
     }
 
@@ -1297,10 +1297,10 @@ function eventChannel(subscribe, buffer) {
   });
 
   if (true) {
-    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(unsubscribe, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func, 'in eventChannel: subscribe should return a function to unsubscribe');
+    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(unsubscribe, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func, 'in eventChannel: subscribe should return a function to unsubscribe');
   }
 
-  unsubscribe = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.o)(unsubscribe);
+  unsubscribe = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.o)(unsubscribe);
 
   if (closed) {
     unsubscribe();
@@ -1321,7 +1321,7 @@ function multicastChannel() {
 
   function checkForbiddenStates() {
     if (closed && nextTakers.length) {
-      throw (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.i)(CLOSED_CHANNEL_WITH_TAKERS);
+      throw (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.i)(CLOSED_CHANNEL_WITH_TAKERS);
     }
   }
 
@@ -1349,7 +1349,7 @@ function multicastChannel() {
   return _ref = {}, _ref[_redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.MULTICAST] = true, _ref.put = function put(input) {
     if (true) {
       checkForbiddenStates();
-      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(input, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.notUndef, UNDEFINED_INPUT_ERROR);
+      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(input, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.notUndef, UNDEFINED_INPUT_ERROR);
     }
 
     if (closed) {
@@ -1388,9 +1388,9 @@ function multicastChannel() {
     cb[_redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.MATCH] = matcher;
     ensureCanMutateNextTakers();
     nextTakers.push(cb);
-    cb.cancel = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.o)(function () {
+    cb.cancel = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.o)(function () {
       ensureCanMutateNextTakers();
-      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.r)(nextTakers, cb);
+      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.r)(nextTakers, cb);
     });
   }, _ref.close = close, _ref;
 }
@@ -1420,7 +1420,7 @@ var DONE = 3;
 function resolvePromise(promise, cb) {
   var cancelPromise = promise[_redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.CANCEL];
 
-  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func)(cancelPromise)) {
+  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func)(cancelPromise)) {
     cb.cancel = cancelPromise;
   }
 
@@ -1443,7 +1443,7 @@ function getIteratorMetaInfo(iterator, fn) {
     };
   }
 
-  return (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.j)(fn);
+  return (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.j)(fn);
 }
 
 function createTaskIterator(_ref) {
@@ -1455,7 +1455,7 @@ function createTaskIterator(_ref) {
   try {
     var result = fn.apply(context, args); // i.e. a generator function returns an iterator
 
-    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.iterator)(result)) {
+    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.iterator)(result)) {
       return result;
     }
 
@@ -1467,7 +1467,7 @@ function createTaskIterator(_ref) {
 
         return {
           value: result,
-          done: !(0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.promise)(result)
+          done: !(0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.promise)(result)
         };
       } else {
         return {
@@ -1477,11 +1477,11 @@ function createTaskIterator(_ref) {
       }
     };
 
-    return (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.q)(next);
+    return (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.q)(next);
   } catch (err) {
     // do not bubble up synchronous failures for detached forks
     // instead create a failed task. See #152 and #441
-    return (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.q)(function () {
+    return (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.q)(function () {
       throw err;
     });
   }
@@ -1507,7 +1507,7 @@ function runPutEffect(env, _ref2, cb) {
       return;
     }
 
-    if (resolve && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.promise)(result)) {
+    if (resolve && (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.promise)(result)) {
       resolvePromise(result, cb);
     } else {
       cb(result);
@@ -1536,7 +1536,7 @@ function runTakeEffect(env, _ref3, cb) {
   };
 
   try {
-    channel.take(takeCb, (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.notUndef)(pattern) ? matcher(pattern) : null);
+    channel.take(takeCb, (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.notUndef)(pattern) ? matcher(pattern) : null);
   } catch (err) {
     cb(err, true);
     return;
@@ -1555,14 +1555,14 @@ function runCallEffect(env, _ref4, cb, _ref5) {
   try {
     var result = fn.apply(context, args);
 
-    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.promise)(result)) {
+    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.promise)(result)) {
       resolvePromise(result, cb);
       return;
     }
 
-    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.iterator)(result)) {
+    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.iterator)(result)) {
       // resolve iterator
-      proc(env, result, task.context, current, (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.j)(fn),
+      proc(env, result, task.context, current, (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.j)(fn),
       /* isRoot */
       false, cb);
       return;
@@ -1584,7 +1584,7 @@ function runCPSEffect(env, _ref6, cb) {
   // catch synchronous failures; see #152
   try {
     var cpsCb = function cpsCb(err, res) {
-      if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.undef)(err)) {
+      if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.undef)(err)) {
         cb(res);
       } else {
         cb(err, true);
@@ -1642,7 +1642,7 @@ function runJoinEffect(env, taskOrTasks, cb, _ref9) {
       };
 
       cb.cancel = function () {
-        if (taskToJoin.isRunning()) (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.r)(taskToJoin.joiners, joiner);
+        if (taskToJoin.isRunning()) (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.r)(taskToJoin.joiners, joiner);
       };
 
       taskToJoin.joiners.push(joiner);
@@ -1655,13 +1655,13 @@ function runJoinEffect(env, taskOrTasks, cb, _ref9) {
     }
   };
 
-  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.array)(taskOrTasks)) {
+  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.array)(taskOrTasks)) {
     if (taskOrTasks.length === 0) {
       cb([]);
       return;
     }
 
-    var childCallbacks = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.l)(taskOrTasks, cb);
+    var childCallbacks = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.l)(taskOrTasks, cb);
     taskOrTasks.forEach(function (t, i) {
       joinSingleTask(t, childCallbacks[i]);
     });
@@ -1681,7 +1681,7 @@ function runCancelEffect(env, taskOrTasks, cb, _ref10) {
 
   if (taskOrTasks === _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.SELF_CANCELLATION) {
     cancelSingleTask(task);
-  } else if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.array)(taskOrTasks)) {
+  } else if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.array)(taskOrTasks)) {
     taskOrTasks.forEach(cancelSingleTask);
   } else {
     cancelSingleTask(taskOrTasks);
@@ -1696,11 +1696,11 @@ function runAllEffect(env, effects, cb, _ref11) {
   var keys = Object.keys(effects);
 
   if (keys.length === 0) {
-    cb((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.array)(effects) ? [] : {});
+    cb((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.array)(effects) ? [] : {});
     return;
   }
 
-  var childCallbacks = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.l)(effects, cb);
+  var childCallbacks = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.l)(effects, cb);
   keys.forEach(function (key) {
     digestEffect(effects[key], effectId, childCallbacks[key], key);
   });
@@ -1710,7 +1710,7 @@ function runRaceEffect(env, effects, cb, _ref12) {
   var digestEffect = _ref12.digestEffect;
   var effectId = current;
   var keys = Object.keys(effects);
-  var response = (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.array)(effects) ? (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.m)(keys.length) : {};
+  var response = (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.array)(effects) ? (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.m)(keys.length) : {};
   var childCbs = {};
   var completed = false;
   keys.forEach(function (key) {
@@ -1719,7 +1719,7 @@ function runRaceEffect(env, effects, cb, _ref12) {
         return;
       }
 
-      if (isErr || (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.s)(res)) {
+      if (isErr || (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.s)(res)) {
         // Race Auto cancellation
         cb.cancel();
         cb(res, isErr);
@@ -1731,7 +1731,7 @@ function runRaceEffect(env, effects, cb, _ref12) {
       }
     };
 
-    chCbAtKey.cancel = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t;
+    chCbAtKey.cancel = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t;
     childCbs[key] = chCbAtKey;
   });
 
@@ -1807,11 +1807,11 @@ function runGetContextEffect(env, prop, cb, _ref16) {
 
 function runSetContextEffect(env, props, cb, _ref17) {
   var task = _ref17.task;
-  (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.p)(task.context, props);
+  (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.p)(task.context, props);
   cb();
 }
 
-var effectRunnerMap = (_effectRunnerMap = {}, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.T] = runTakeEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.P] = runPutEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.A] = runAllEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.R] = runRaceEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.C] = runCallEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.a] = runCPSEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.F] = runForkEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.J] = runJoinEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.b] = runCancelEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.S] = runSelectEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.d] = runChannelEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.f] = runCancelledEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.g] = runFlushEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.G] = runGetContextEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.h] = runSetContextEffect, _effectRunnerMap);
+var effectRunnerMap = (_effectRunnerMap = {}, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.T] = runTakeEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.P] = runPutEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.A] = runAllEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.R] = runRaceEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.C] = runCallEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.a] = runCPSEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.F] = runForkEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.J] = runJoinEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.b] = runCancelEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.S] = runSelectEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.d] = runChannelEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.f] = runCancelledEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.g] = runFlushEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.G] = runGetContextEffect, _effectRunnerMap[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.h] = runSetContextEffect, _effectRunnerMap);
 
 /**
  Used to track a parent task and its forks
@@ -1853,8 +1853,8 @@ function forkQueue(mainTask, onAbort, cont) {
         return;
       }
 
-      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.r)(tasks, task);
-      task.cont = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t;
+      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.r)(tasks, task);
+      task.cont = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t;
 
       if (isErr) {
         abort(res);
@@ -1878,7 +1878,7 @@ function forkQueue(mainTask, onAbort, cont) {
 
     completed = true;
     tasks.forEach(function (t) {
-      t.cont = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t;
+      t.cont = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t;
       t.cancel();
     });
     tasks = [];
@@ -1899,7 +1899,7 @@ function formatLocation(fileName, lineNumber) {
 }
 
 function effectLocationAsString(effect) {
-  var location = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.v)(effect);
+  var location = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.v)(effect);
 
   if (location) {
     var code = location.code,
@@ -1924,7 +1924,7 @@ function sagaLocationAsString(sagaMeta) {
 }
 
 function cancelledTasksAsString(sagaStack) {
-  var cancelledTasks = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.u)(function (i) {
+  var cancelledTasks = (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.u)(function (i) {
     return i.cancelledTasks;
   }, sagaStack);
 
@@ -1975,7 +1975,7 @@ function newTask(env, mainTask, parentContext, parentEffectId, meta, isRoot, con
   var _task;
 
   if (cont === void 0) {
-    cont = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t;
+    cont = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t;
   }
 
   var status = RUNNING;
@@ -2050,10 +2050,10 @@ function newTask(env, mainTask, parentContext, parentEffectId, meta, isRoot, con
 
   function setContext(props) {
     if (true) {
-      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(props, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.object, (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.w)('task', props));
+      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(props, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.object, (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.w)('task', props));
     }
 
-    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.p)(context, props);
+    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.p)(context, props);
   }
 
   function toPromise() {
@@ -2061,7 +2061,7 @@ function newTask(env, mainTask, parentContext, parentEffectId, meta, isRoot, con
       return deferredEnd.promise;
     }
 
-    deferredEnd = (0,_redux_saga_deferred__WEBPACK_IMPORTED_MODULE_5__.default)();
+    deferredEnd = (0,_redux_saga_deferred__WEBPACK_IMPORTED_MODULE_4__.default)();
 
     if (status === ABORTED) {
       deferredEnd.reject(taskError);
@@ -2087,7 +2087,7 @@ function newTask(env, mainTask, parentContext, parentEffectId, meta, isRoot, con
 }
 
 function proc(env, iterator$1, parentContext, parentEffectId, meta, isRoot, cont) {
-  if ( true && iterator$1[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.x]) {
+  if ( true && iterator$1[_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.x]) {
     throw new Error("redux-saga doesn't support async generators, please use only regular ones");
   }
 
@@ -2098,7 +2098,7 @@ function proc(env, iterator$1, parentContext, parentEffectId, meta, isRoot, cont
     on it. It allows propagating cancellation to child effects
   **/
 
-  next.cancel = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t;
+  next.cancel = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t;
   /** Creates a main task to track the main flow */
 
   var mainTask = {
@@ -2158,7 +2158,7 @@ function proc(env, iterator$1, parentContext, parentEffectId, meta, isRoot, cont
         result = iterator$1.throw(arg); // user handled the error, we can clear bookkept values
 
         clear();
-      } else if ((0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.y)(arg)) {
+      } else if ((0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.y)(arg)) {
         /**
           getting TASK_CANCEL automatically cancels the main task
           We can get this value here
@@ -2176,13 +2176,13 @@ function proc(env, iterator$1, parentContext, parentEffectId, meta, isRoot, cont
           This will jump to the finally block
         **/
 
-        result = (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func)(iterator$1.return) ? iterator$1.return(_redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.TASK_CANCEL) : {
+        result = (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func)(iterator$1.return) ? iterator$1.return(_redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.TASK_CANCEL) : {
           done: true,
           value: _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__.TASK_CANCEL
         };
-      } else if ((0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.z)(arg)) {
+      } else if ((0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.z)(arg)) {
         // We get TERMINATE flag, i.e. by taking from a channel that ended using `take` (and not `takem` used to trap End of channels)
-        result = (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func)(iterator$1.return) ? iterator$1.return() : {
+        result = (0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func)(iterator$1.return) ? iterator$1.return() : {
           done: true
         };
       } else {
@@ -2224,9 +2224,9 @@ function proc(env, iterator$1, parentContext, parentEffectId, meta, isRoot, cont
       promise[CANCEL] method in their returned promises
       ATTENTION! calling cancel must have no effect on an already completed or cancelled effect
     **/
-    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.promise)(effect)) {
+    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.promise)(effect)) {
       resolvePromise(effect, currCb);
-    } else if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.iterator)(effect)) {
+    } else if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.iterator)(effect)) {
       // resolve iterator
       proc(env, effect, task.context, effectId, meta,
       /* isRoot */
@@ -2266,7 +2266,7 @@ function proc(env, iterator$1, parentContext, parentEffectId, meta, isRoot, cont
       }
 
       effectSettled = true;
-      cb.cancel = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t; // defensive measure
+      cb.cancel = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t; // defensive measure
 
       if (env.sagaMonitor) {
         if (isErr) {
@@ -2284,7 +2284,7 @@ function proc(env, iterator$1, parentContext, parentEffectId, meta, isRoot, cont
     } // tracks down the current cancel
 
 
-    currCb.cancel = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t; // setup cancellation logic on the parent cb
+    currCb.cancel = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t; // setup cancellation logic on the parent cb
 
     cb.cancel = function () {
       // prevents cancelling an already completed effect
@@ -2295,7 +2295,7 @@ function proc(env, iterator$1, parentContext, parentEffectId, meta, isRoot, cont
       effectSettled = true;
       currCb.cancel(); // propagates cancel downward
 
-      currCb.cancel = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t; // defensive measure
+      currCb.cancel = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t; // defensive measure
 
       env.sagaMonitor && env.sagaMonitor.effectCancelled(effectId);
     };
@@ -2316,10 +2316,10 @@ function runSaga(_ref, saga) {
       sagaMonitor = _ref.sagaMonitor,
       effectMiddlewares = _ref.effectMiddlewares,
       _ref$onError = _ref.onError,
-      onError = _ref$onError === void 0 ? _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.B : _ref$onError;
+      onError = _ref$onError === void 0 ? _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.B : _ref$onError;
 
   if (true) {
-    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(saga, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func, NON_GENERATOR_ERR);
+    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(saga, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func, NON_GENERATOR_ERR);
   }
 
   for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
@@ -2329,19 +2329,19 @@ function runSaga(_ref, saga) {
   var iterator$1 = saga.apply(void 0, args);
 
   if (true) {
-    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(iterator$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.iterator, NON_GENERATOR_ERR);
+    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(iterator$1, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.iterator, NON_GENERATOR_ERR);
   }
 
   var effectId = nextSagaId();
 
   if (sagaMonitor) {
     // monitors are expected to have a certain interface, let's fill-in any missing ones
-    sagaMonitor.rootSagaStarted = sagaMonitor.rootSagaStarted || _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t;
-    sagaMonitor.effectTriggered = sagaMonitor.effectTriggered || _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t;
-    sagaMonitor.effectResolved = sagaMonitor.effectResolved || _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t;
-    sagaMonitor.effectRejected = sagaMonitor.effectRejected || _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t;
-    sagaMonitor.effectCancelled = sagaMonitor.effectCancelled || _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t;
-    sagaMonitor.actionDispatched = sagaMonitor.actionDispatched || _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.t;
+    sagaMonitor.rootSagaStarted = sagaMonitor.rootSagaStarted || _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t;
+    sagaMonitor.effectTriggered = sagaMonitor.effectTriggered || _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t;
+    sagaMonitor.effectResolved = sagaMonitor.effectResolved || _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t;
+    sagaMonitor.effectRejected = sagaMonitor.effectRejected || _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t;
+    sagaMonitor.effectCancelled = sagaMonitor.effectCancelled || _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t;
+    sagaMonitor.actionDispatched = sagaMonitor.actionDispatched || _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.t;
     sagaMonitor.rootSagaStarted({
       effectId: effectId,
       saga: saga,
@@ -2350,29 +2350,29 @@ function runSaga(_ref, saga) {
   }
 
   if (true) {
-    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.notUndef)(dispatch)) {
-      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(dispatch, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func, 'dispatch must be a function');
+    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.notUndef)(dispatch)) {
+      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(dispatch, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func, 'dispatch must be a function');
     }
 
-    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.notUndef)(getState)) {
-      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(getState, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func, 'getState must be a function');
+    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.notUndef)(getState)) {
+      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(getState, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func, 'getState must be a function');
     }
 
-    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.notUndef)(effectMiddlewares)) {
+    if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.notUndef)(effectMiddlewares)) {
       var MIDDLEWARE_TYPE_ERROR = 'effectMiddlewares must be an array of functions';
-      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(effectMiddlewares, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.array, MIDDLEWARE_TYPE_ERROR);
+      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(effectMiddlewares, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.array, MIDDLEWARE_TYPE_ERROR);
       effectMiddlewares.forEach(function (effectMiddleware) {
-        return (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(effectMiddleware, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func, MIDDLEWARE_TYPE_ERROR);
+        return (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(effectMiddleware, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func, MIDDLEWARE_TYPE_ERROR);
       });
     }
 
-    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(onError, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.func, 'onError passed to the redux-saga is not a function!');
+    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(onError, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.func, 'onError passed to the redux-saga is not a function!');
   }
 
   var finalizeRunEffect;
 
   if (effectMiddlewares) {
-    var middleware = redux__WEBPACK_IMPORTED_MODULE_7__.compose.apply(void 0, effectMiddlewares);
+    var middleware = redux__WEBPACK_IMPORTED_MODULE_5__.compose.apply(void 0, effectMiddlewares);
 
     finalizeRunEffect = function finalizeRunEffect(runEffect) {
       return function (effect, effectId, currCb) {
@@ -2384,19 +2384,19 @@ function runSaga(_ref, saga) {
       };
     };
   } else {
-    finalizeRunEffect = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.E;
+    finalizeRunEffect = _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.E;
   }
 
   var env = {
     channel: channel,
-    dispatch: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.D)(dispatch),
+    dispatch: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.D)(dispatch),
     getState: getState,
     sagaMonitor: sagaMonitor,
     onError: onError,
     finalizeRunEffect: finalizeRunEffect
   };
   return immediately(function () {
-    var task = proc(env, iterator$1, context, effectId, (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.j)(saga),
+    var task = proc(env, iterator$1, context, effectId, (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.j)(saga),
     /* isRoot */
     true, undefined);
 
@@ -2415,18 +2415,18 @@ function sagaMiddlewareFactory(_temp) {
       _ref$channel = _ref.channel,
       channel = _ref$channel === void 0 ? stdChannel() : _ref$channel,
       sagaMonitor = _ref.sagaMonitor,
-      options = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__.default)(_ref, ["context", "channel", "sagaMonitor"]);
+      options = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_6__.default)(_ref, ["context", "channel", "sagaMonitor"]);
 
   var boundRunSaga;
 
   if (true) {
-    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(channel, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.channel, 'options.channel passed to the Saga middleware is not a channel');
+    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(channel, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.channel, 'options.channel passed to the Saga middleware is not a channel');
   }
 
   function sagaMiddleware(_ref2) {
     var getState = _ref2.getState,
         dispatch = _ref2.dispatch;
-    boundRunSaga = runSaga.bind(null, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, options, {
+    boundRunSaga = runSaga.bind(null, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_7__.default)({}, options, {
       context: context,
       channel: channel,
       dispatch: dispatch,
@@ -2457,10 +2457,10 @@ function sagaMiddlewareFactory(_temp) {
 
   sagaMiddleware.setContext = function (props) {
     if (true) {
-      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.c)(props, _redux_saga_is__WEBPACK_IMPORTED_MODULE_3__.object, (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.w)('sagaMiddleware', props));
+      (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.c)(props, _redux_saga_is__WEBPACK_IMPORTED_MODULE_1__.object, (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.w)('sagaMiddleware', props));
     }
 
-    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_4__.p)(context, props);
+    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_2__.p)(context, props);
   };
 
   return sagaMiddleware;
@@ -2511,27 +2511,27 @@ function sagaMiddlewareFactory(_temp) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "actionChannel": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.O,
-/* harmony export */   "all": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__._,
-/* harmony export */   "apply": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.$,
-/* harmony export */   "call": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.N,
-/* harmony export */   "cancel": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.M,
-/* harmony export */   "cancelled": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.a4,
-/* harmony export */   "cps": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.a0,
-/* harmony export */   "delay": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.U,
-/* harmony export */   "effectTypes": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.W,
-/* harmony export */   "flush": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.a5,
-/* harmony export */   "fork": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.L,
-/* harmony export */   "getContext": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.a6,
-/* harmony export */   "join": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.a2,
-/* harmony export */   "put": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.Y,
-/* harmony export */   "putResolve": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.Z,
-/* harmony export */   "race": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.V,
-/* harmony export */   "select": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.a3,
-/* harmony export */   "setContext": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.a7,
-/* harmony export */   "spawn": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.a1,
-/* harmony export */   "take": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.K,
-/* harmony export */   "takeMaybe": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.X,
+/* harmony export */   "actionChannel": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.O,
+/* harmony export */   "all": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__._,
+/* harmony export */   "apply": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.$,
+/* harmony export */   "call": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.N,
+/* harmony export */   "cancel": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.M,
+/* harmony export */   "cancelled": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.a4,
+/* harmony export */   "cps": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.a0,
+/* harmony export */   "delay": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.U,
+/* harmony export */   "effectTypes": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.W,
+/* harmony export */   "flush": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.a5,
+/* harmony export */   "fork": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.L,
+/* harmony export */   "getContext": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.a6,
+/* harmony export */   "join": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.a2,
+/* harmony export */   "put": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.Y,
+/* harmony export */   "putResolve": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.Z,
+/* harmony export */   "race": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.V,
+/* harmony export */   "select": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.a3,
+/* harmony export */   "setContext": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.a7,
+/* harmony export */   "spawn": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.a1,
+/* harmony export */   "take": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.K,
+/* harmony export */   "takeMaybe": () => /* reexport safe */ _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.X,
 /* harmony export */   "debounce": () => /* binding */ debounce,
 /* harmony export */   "retry": () => /* binding */ retry$1,
 /* harmony export */   "takeEvery": () => /* binding */ takeEvery$1,
@@ -2539,11 +2539,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "takeLeading": () => /* binding */ takeLeading$1,
 /* harmony export */   "throttle": () => /* binding */ throttle$1
 /* harmony export */ });
-/* harmony import */ var _redux_saga_symbols__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @redux-saga/symbols */ "../../../node_modules/@redux-saga/symbols/dist/redux-saga-symbols.esm.js");
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../../node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @redux-saga/is */ "../../../node_modules/@redux-saga/is/dist/redux-saga-is.esm.js");
-/* harmony import */ var _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./io-6de156f3.js */ "../../../node_modules/@redux-saga/core/dist/io-6de156f3.js");
-/* harmony import */ var _redux_saga_delay_p__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @redux-saga/delay-p */ "../../../node_modules/@redux-saga/delay-p/dist/redux-saga-delay-p.esm.js");
+/* harmony import */ var _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @redux-saga/is */ "../../../node_modules/@redux-saga/is/dist/redux-saga-is.esm.js");
+/* harmony import */ var _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./io-6de156f3.js */ "../../../node_modules/@redux-saga/core/dist/io-6de156f3.js");
+/* harmony import */ var _redux_saga_delay_p__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @redux-saga/delay-p */ "../../../node_modules/@redux-saga/delay-p/dist/redux-saga-delay-p.esm.js");
 
 
 
@@ -2560,15 +2558,15 @@ var done = function done(value) {
 
 var qEnd = {};
 function safeName(patternOrChannel) {
-  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.channel)(patternOrChannel)) {
+  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.channel)(patternOrChannel)) {
     return 'channel';
   }
 
-  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.stringableFunc)(patternOrChannel)) {
+  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.stringableFunc)(patternOrChannel)) {
     return String(patternOrChannel);
   }
 
-  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.func)(patternOrChannel)) {
+  if ((0,_redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.func)(patternOrChannel)) {
     return patternOrChannel.name;
   }
 
@@ -2599,7 +2597,7 @@ function fsmIterator(fsm, startState, name) {
     }
   }
 
-  return (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.q)(next, function (error) {
+  return (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.q)(next, function (error) {
     return next(null, error);
   }, name);
 }
@@ -2611,13 +2609,13 @@ function takeEvery(patternOrChannel, worker) {
 
   var yTake = {
     done: false,
-    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.K)(patternOrChannel)
+    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.K)(patternOrChannel)
   };
 
   var yFork = function yFork(ac) {
     return {
       done: false,
-      value: _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.L.apply(void 0, [worker].concat(args, [ac]))
+      value: _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.L.apply(void 0, [worker].concat(args, [ac]))
     };
   };
 
@@ -2650,20 +2648,20 @@ function takeLatest(patternOrChannel, worker) {
 
   var yTake = {
     done: false,
-    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.K)(patternOrChannel)
+    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.K)(patternOrChannel)
   };
 
   var yFork = function yFork(ac) {
     return {
       done: false,
-      value: _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.L.apply(void 0, [worker].concat(args, [ac]))
+      value: _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.L.apply(void 0, [worker].concat(args, [ac]))
     };
   };
 
   var yCancel = function yCancel(task) {
     return {
       done: false,
-      value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.M)(task)
+      value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.M)(task)
     };
   };
 
@@ -2712,13 +2710,13 @@ function takeLeading(patternOrChannel, worker) {
 
   var yTake = {
     done: false,
-    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.K)(patternOrChannel)
+    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.K)(patternOrChannel)
   };
 
   var yCall = function yCall(ac) {
     return {
       done: false,
-      value: _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.N.apply(void 0, [worker].concat(args, [ac]))
+      value: _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.N.apply(void 0, [worker].concat(args, [ac]))
     };
   };
 
@@ -2753,26 +2751,26 @@ function throttle(delayLength, pattern, worker) {
   var action, channel;
   var yActionChannel = {
     done: false,
-    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.O)(pattern, (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.Q)(1))
+    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.O)(pattern, (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.Q)(1))
   };
 
   var yTake = function yTake() {
     return {
       done: false,
-      value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.K)(channel)
+      value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.K)(channel)
     };
   };
 
   var yFork = function yFork(ac) {
     return {
       done: false,
-      value: _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.L.apply(void 0, [worker].concat(args, [ac]))
+      value: _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.L.apply(void 0, [worker].concat(args, [ac]))
     };
   };
 
   var yDelay = {
     done: false,
-    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.U)(delayLength)
+    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.U)(delayLength)
   };
 
   var setAction = function setAction(ac) {
@@ -2822,11 +2820,11 @@ function retry(maxTries, delayLength, fn) {
 
   var yCall = {
     done: false,
-    value: _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.N.apply(void 0, [fn].concat(args))
+    value: _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.N.apply(void 0, [fn].concat(args))
   };
   var yDelay = {
     done: false,
-    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.U)(delayLength)
+    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.U)(delayLength)
   };
   return fsmIterator({
     q1: function q1() {
@@ -2864,20 +2862,20 @@ function debounceHelper(delayLength, patternOrChannel, worker) {
   var action, raceOutput;
   var yTake = {
     done: false,
-    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.K)(patternOrChannel)
+    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.K)(patternOrChannel)
   };
   var yRace = {
     done: false,
-    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.V)({
-      action: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.K)(patternOrChannel),
-      debounce: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.U)(delayLength)
+    value: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.V)({
+      action: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.K)(patternOrChannel),
+      debounce: (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.U)(delayLength)
     })
   };
 
   var yFork = function yFork(ac) {
     return {
       done: false,
-      value: _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.L.apply(void 0, [worker].concat(args, [ac]))
+      value: _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.L.apply(void 0, [worker].concat(args, [ac]))
     };
   };
 
@@ -2925,8 +2923,8 @@ function debounceHelper(delayLength, patternOrChannel, worker) {
 }
 
 var validateTakeEffect = function validateTakeEffect(fn, patternOrChannel, worker) {
-  (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.c)(patternOrChannel, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, fn.name + " requires a pattern or channel");
-  (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.c)(worker, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, fn.name + " requires a saga parameter");
+  (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.c)(patternOrChannel, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, fn.name + " requires a pattern or channel");
+  (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.c)(worker, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, fn.name + " requires a saga parameter");
 };
 
 function takeEvery$1(patternOrChannel, worker) {
@@ -2938,7 +2936,7 @@ function takeEvery$1(patternOrChannel, worker) {
     args[_key - 2] = arguments[_key];
   }
 
-  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.L.apply(void 0, [takeEvery, patternOrChannel, worker].concat(args));
+  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.L.apply(void 0, [takeEvery, patternOrChannel, worker].concat(args));
 }
 function takeLatest$1(patternOrChannel, worker) {
   if (true) {
@@ -2949,7 +2947,7 @@ function takeLatest$1(patternOrChannel, worker) {
     args[_key2 - 2] = arguments[_key2];
   }
 
-  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.L.apply(void 0, [takeLatest, patternOrChannel, worker].concat(args));
+  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.L.apply(void 0, [takeLatest, patternOrChannel, worker].concat(args));
 }
 function takeLeading$1(patternOrChannel, worker) {
   if (true) {
@@ -2960,33 +2958,33 @@ function takeLeading$1(patternOrChannel, worker) {
     args[_key3 - 2] = arguments[_key3];
   }
 
-  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.L.apply(void 0, [takeLeading, patternOrChannel, worker].concat(args));
+  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.L.apply(void 0, [takeLeading, patternOrChannel, worker].concat(args));
 }
 function throttle$1(ms, pattern, worker) {
   if (true) {
-    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.c)(pattern, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, 'throttle requires a pattern');
-    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.c)(worker, _redux_saga_is__WEBPACK_IMPORTED_MODULE_2__.notUndef, 'throttle requires a saga parameter');
+    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.c)(pattern, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, 'throttle requires a pattern');
+    (0,_io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.c)(worker, _redux_saga_is__WEBPACK_IMPORTED_MODULE_0__.notUndef, 'throttle requires a saga parameter');
   }
 
   for (var _len4 = arguments.length, args = new Array(_len4 > 3 ? _len4 - 3 : 0), _key4 = 3; _key4 < _len4; _key4++) {
     args[_key4 - 3] = arguments[_key4];
   }
 
-  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.L.apply(void 0, [throttle, ms, pattern, worker].concat(args));
+  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.L.apply(void 0, [throttle, ms, pattern, worker].concat(args));
 }
 function retry$1(maxTries, delayLength, worker) {
   for (var _len5 = arguments.length, args = new Array(_len5 > 3 ? _len5 - 3 : 0), _key5 = 3; _key5 < _len5; _key5++) {
     args[_key5 - 3] = arguments[_key5];
   }
 
-  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.N.apply(void 0, [retry, maxTries, delayLength, worker].concat(args));
+  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.N.apply(void 0, [retry, maxTries, delayLength, worker].concat(args));
 }
 function debounce(delayLength, pattern, worker) {
   for (var _len6 = arguments.length, args = new Array(_len6 > 3 ? _len6 - 3 : 0), _key6 = 3; _key6 < _len6; _key6++) {
     args[_key6 - 3] = arguments[_key6];
   }
 
-  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_3__.L.apply(void 0, [debounceHelper, delayLength, pattern, worker].concat(args));
+  return _io_6de156f3_js__WEBPACK_IMPORTED_MODULE_1__.L.apply(void 0, [debounceHelper, delayLength, pattern, worker].concat(args));
 }
 
 
@@ -50216,15 +50214,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ connectAdvanced
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../../node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "../../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
-/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hoist-non-react-statics */ "../../../node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
-/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-is */ "../../../node_modules/react-is/index.js");
-/* harmony import */ var _utils_Subscription__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/Subscription */ "../../../node_modules/react-redux/es/utils/Subscription.js");
-/* harmony import */ var _utils_useIsomorphicLayoutEffect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/useIsomorphicLayoutEffect */ "../../../node_modules/react-redux/es/utils/useIsomorphicLayoutEffect.js");
-/* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Context */ "../../../node_modules/react-redux/es/components/Context.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../../node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "../../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hoist-non-react-statics */ "../../../node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
+/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-is */ "../../../node_modules/react-is/index.js");
+/* harmony import */ var _utils_Subscription__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/Subscription */ "../../../node_modules/react-redux/es/utils/Subscription.js");
+/* harmony import */ var _utils_useIsomorphicLayoutEffect__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/useIsomorphicLayoutEffect */ "../../../node_modules/react-redux/es/utils/useIsomorphicLayoutEffect.js");
+/* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Context */ "../../../node_modules/react-redux/es/components/Context.js");
 
 
 
@@ -50251,7 +50249,7 @@ function storeStateUpdatesReducer(state, action) {
 }
 
 function useIsomorphicLayoutEffectWithArgs(effectFunc, effectArgs, dependencies) {
-  (0,_utils_useIsomorphicLayoutEffect__WEBPACK_IMPORTED_MODULE_6__.useIsomorphicLayoutEffect)(function () {
+  (0,_utils_useIsomorphicLayoutEffect__WEBPACK_IMPORTED_MODULE_4__.useIsomorphicLayoutEffect)(function () {
     return effectFunc.apply(void 0, effectArgs);
   }, dependencies);
 }
@@ -50389,8 +50387,8 @@ _ref) {
       _ref2$forwardRef = _ref2.forwardRef,
       forwardRef = _ref2$forwardRef === void 0 ? false : _ref2$forwardRef,
       _ref2$context = _ref2.context,
-      context = _ref2$context === void 0 ? _Context__WEBPACK_IMPORTED_MODULE_7__.ReactReduxContext : _ref2$context,
-      connectOptions = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__.default)(_ref2, ["getDisplayName", "methodName", "renderCountProp", "shouldHandleStateChanges", "storeKey", "withRef", "forwardRef", "context"]);
+      context = _ref2$context === void 0 ? _Context__WEBPACK_IMPORTED_MODULE_5__.ReactReduxContext : _ref2$context,
+      connectOptions = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_6__.default)(_ref2, ["getDisplayName", "methodName", "renderCountProp", "shouldHandleStateChanges", "storeKey", "withRef", "forwardRef", "context"]);
 
   if (true) {
     if (renderCountProp !== undefined) {
@@ -50410,14 +50408,14 @@ _ref) {
 
   var Context = context;
   return function wrapWithConnect(WrappedComponent) {
-    if ( true && !(0,react_is__WEBPACK_IMPORTED_MODULE_4__.isValidElementType)(WrappedComponent)) {
+    if ( true && !(0,react_is__WEBPACK_IMPORTED_MODULE_2__.isValidElementType)(WrappedComponent)) {
       throw new Error("You must pass a component to the function returned by " + (methodName + ". Instead received " + stringifyComponent(WrappedComponent)));
     }
 
     var wrappedComponentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
     var displayName = getDisplayName(wrappedComponentName);
 
-    var selectorFactoryOptions = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, connectOptions, {
+    var selectorFactoryOptions = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_7__.default)({}, connectOptions, {
       getDisplayName: getDisplayName,
       methodName: methodName,
       renderCountProp: renderCountProp,
@@ -50437,17 +50435,17 @@ _ref) {
     // that just executes the given callback immediately.
 
 
-    var usePureOnlyMemo = pure ? react__WEBPACK_IMPORTED_MODULE_3__.useMemo : function (callback) {
+    var usePureOnlyMemo = pure ? react__WEBPACK_IMPORTED_MODULE_1__.useMemo : function (callback) {
       return callback();
     };
 
     function ConnectFunction(props) {
-      var _useMemo = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+      var _useMemo = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
         // Distinguish between actual "data" props that were passed to the wrapper component,
         // and values needed to control behavior (forwarded refs, alternate context instances).
         // To maintain the wrapperProps object reference, memoize this destructuring.
         var reactReduxForwardedRef = props.reactReduxForwardedRef,
-            wrapperProps = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__.default)(props, ["reactReduxForwardedRef"]);
+            wrapperProps = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_6__.default)(props, ["reactReduxForwardedRef"]);
 
         return [props.context, reactReduxForwardedRef, wrapperProps];
       }, [props]),
@@ -50455,13 +50453,13 @@ _ref) {
           reactReduxForwardedRef = _useMemo[1],
           wrapperProps = _useMemo[2];
 
-      var ContextToUse = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+      var ContextToUse = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
         // Users may optionally pass in a custom context instance to use instead of our ReactReduxContext.
         // Memoize the check that determines which context instance we should use.
-        return propsContext && propsContext.Consumer && (0,react_is__WEBPACK_IMPORTED_MODULE_4__.isContextConsumer)( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(propsContext.Consumer, null)) ? propsContext : Context;
+        return propsContext && propsContext.Consumer && (0,react_is__WEBPACK_IMPORTED_MODULE_2__.isContextConsumer)( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(propsContext.Consumer, null)) ? propsContext : Context;
       }, [propsContext, Context]); // Retrieve the store and ancestor subscription via context, if available
 
-      var contextValue = (0,react__WEBPACK_IMPORTED_MODULE_3__.useContext)(ContextToUse); // The store _must_ exist as either a prop or in context.
+      var contextValue = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(ContextToUse); // The store _must_ exist as either a prop or in context.
       // We'll check to see if it _looks_ like a Redux store first.
       // This allows us to pass through a `store` prop that is just a plain value.
 
@@ -50474,17 +50472,17 @@ _ref) {
 
 
       var store = didStoreComeFromProps ? props.store : contextValue.store;
-      var childPropsSelector = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+      var childPropsSelector = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
         // The child props selector needs the store reference as an input.
         // Re-create this selector whenever the store changes.
         return createChildSelector(store);
       }, [store]);
 
-      var _useMemo2 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+      var _useMemo2 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
         if (!shouldHandleStateChanges) return NO_SUBSCRIPTION_ARRAY; // This Subscription's source should match where store came from: props vs. context. A component
         // connected to the store via props shouldn't use subscription from context, or vice versa.
 
-        var subscription = new _utils_Subscription__WEBPACK_IMPORTED_MODULE_5__.default(store, didStoreComeFromProps ? null : contextValue.subscription); // `notifyNestedSubs` is duplicated to handle the case where the component is unmounted in
+        var subscription = new _utils_Subscription__WEBPACK_IMPORTED_MODULE_3__.default(store, didStoreComeFromProps ? null : contextValue.subscription); // `notifyNestedSubs` is duplicated to handle the case where the component is unmounted in
         // the middle of the notification loop, where `subscription` will then be null. This can
         // probably be avoided if Subscription's listeners logic is changed to not call listeners
         // that have been unsubscribed in the  middle of the notification loop.
@@ -50497,7 +50495,7 @@ _ref) {
       // and memoize that value to avoid unnecessary context updates.
 
 
-      var overriddenContextValue = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+      var overriddenContextValue = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
         if (didStoreComeFromProps) {
           // This component is directly subscribed to a store from props.
           // We don't want descendants reading from this store - pass down whatever
@@ -50507,13 +50505,13 @@ _ref) {
         // connected descendants won't update until after this component is done
 
 
-        return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, contextValue, {
+        return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_7__.default)({}, contextValue, {
           subscription: subscription
         });
       }, [didStoreComeFromProps, contextValue, subscription]); // We need to force this wrapper component to re-render whenever a Redux store update
       // causes a change to the calculated child component props (or we caught an error in mapState)
 
-      var _useReducer = (0,react__WEBPACK_IMPORTED_MODULE_3__.useReducer)(storeStateUpdatesReducer, EMPTY_ARRAY, initStateUpdates),
+      var _useReducer = (0,react__WEBPACK_IMPORTED_MODULE_1__.useReducer)(storeStateUpdatesReducer, EMPTY_ARRAY, initStateUpdates),
           _useReducer$ = _useReducer[0],
           previousStateUpdateResult = _useReducer$[0],
           forceComponentUpdateDispatch = _useReducer[1]; // Propagate any mapState/mapDispatch errors upwards
@@ -50524,10 +50522,10 @@ _ref) {
       } // Set up refs to coordinate values between the subscription effect and the render logic
 
 
-      var lastChildProps = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)();
-      var lastWrapperProps = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(wrapperProps);
-      var childPropsFromStoreUpdate = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)();
-      var renderIsScheduled = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(false);
+      var lastChildProps = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)();
+      var lastWrapperProps = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(wrapperProps);
+      var childPropsFromStoreUpdate = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)();
+      var renderIsScheduled = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(false);
       var actualChildProps = usePureOnlyMemo(function () {
         // Tricky logic here:
         // - This render may have been triggered by a Redux store update that produced new child props
@@ -50553,19 +50551,19 @@ _ref) {
       useIsomorphicLayoutEffectWithArgs(subscribeUpdates, [shouldHandleStateChanges, store, subscription, childPropsSelector, lastWrapperProps, lastChildProps, renderIsScheduled, childPropsFromStoreUpdate, notifyNestedSubs, forceComponentUpdateDispatch], [store, subscription, childPropsSelector]); // Now that all that's done, we can finally try to actually render the child component.
       // We memoize the elements for the rendered child component as an optimization.
 
-      var renderedWrappedComponent = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(WrappedComponent, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, actualChildProps, {
+      var renderedWrappedComponent = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(WrappedComponent, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_7__.default)({}, actualChildProps, {
           ref: reactReduxForwardedRef
         }));
       }, [reactReduxForwardedRef, WrappedComponent, actualChildProps]); // If React sees the exact same element reference as last time, it bails out of re-rendering
       // that child, same as if it was wrapped in React.memo() or returned false from shouldComponentUpdate.
 
-      var renderedChild = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+      var renderedChild = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
         if (shouldHandleStateChanges) {
           // If this component is subscribed to store updates, we need to pass its own
           // subscription instance down to our descendants. That means rendering the same
           // Context instance, and putting a different value into the context.
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(ContextToUse.Provider, {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(ContextToUse.Provider, {
             value: overriddenContextValue
           }, renderedWrappedComponent);
         }
@@ -50576,22 +50574,22 @@ _ref) {
     } // If we're in "pure" mode, ensure our wrapper component only re-renders when incoming props have changed.
 
 
-    var Connect = pure ? react__WEBPACK_IMPORTED_MODULE_3__.memo(ConnectFunction) : ConnectFunction;
+    var Connect = pure ? react__WEBPACK_IMPORTED_MODULE_1__.memo(ConnectFunction) : ConnectFunction;
     Connect.WrappedComponent = WrappedComponent;
     Connect.displayName = ConnectFunction.displayName = displayName;
 
     if (forwardRef) {
-      var forwarded = react__WEBPACK_IMPORTED_MODULE_3__.forwardRef(function forwardConnectRef(props, ref) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(Connect, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, props, {
+      var forwarded = react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(function forwardConnectRef(props, ref) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Connect, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_7__.default)({}, props, {
           reactReduxForwardedRef: ref
         }));
       });
       forwarded.displayName = displayName;
       forwarded.WrappedComponent = WrappedComponent;
-      return hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2___default()(forwarded, WrappedComponent);
+      return hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_0___default()(forwarded, WrappedComponent);
     }
 
-    return hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2___default()(Connect, WrappedComponent);
+    return hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_0___default()(Connect, WrappedComponent);
   };
 }
 
@@ -50614,14 +50612,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "createConnect": () => /* binding */ createConnect,
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../../node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "../../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
-/* harmony import */ var _components_connectAdvanced__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/connectAdvanced */ "../../../node_modules/react-redux/es/components/connectAdvanced.js");
-/* harmony import */ var _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/shallowEqual */ "../../../node_modules/react-redux/es/utils/shallowEqual.js");
-/* harmony import */ var _mapDispatchToProps__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mapDispatchToProps */ "../../../node_modules/react-redux/es/connect/mapDispatchToProps.js");
-/* harmony import */ var _mapStateToProps__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./mapStateToProps */ "../../../node_modules/react-redux/es/connect/mapStateToProps.js");
-/* harmony import */ var _mergeProps__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mergeProps */ "../../../node_modules/react-redux/es/connect/mergeProps.js");
-/* harmony import */ var _selectorFactory__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./selectorFactory */ "../../../node_modules/react-redux/es/connect/selectorFactory.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../../node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "../../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _components_connectAdvanced__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/connectAdvanced */ "../../../node_modules/react-redux/es/components/connectAdvanced.js");
+/* harmony import */ var _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/shallowEqual */ "../../../node_modules/react-redux/es/utils/shallowEqual.js");
+/* harmony import */ var _mapDispatchToProps__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mapDispatchToProps */ "../../../node_modules/react-redux/es/connect/mapDispatchToProps.js");
+/* harmony import */ var _mapStateToProps__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mapStateToProps */ "../../../node_modules/react-redux/es/connect/mapStateToProps.js");
+/* harmony import */ var _mergeProps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mergeProps */ "../../../node_modules/react-redux/es/connect/mergeProps.js");
+/* harmony import */ var _selectorFactory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./selectorFactory */ "../../../node_modules/react-redux/es/connect/selectorFactory.js");
 
 
 
@@ -50667,15 +50665,15 @@ function strictEqual(a, b) {
 function createConnect(_temp) {
   var _ref = _temp === void 0 ? {} : _temp,
       _ref$connectHOC = _ref.connectHOC,
-      connectHOC = _ref$connectHOC === void 0 ? _components_connectAdvanced__WEBPACK_IMPORTED_MODULE_2__.default : _ref$connectHOC,
+      connectHOC = _ref$connectHOC === void 0 ? _components_connectAdvanced__WEBPACK_IMPORTED_MODULE_0__.default : _ref$connectHOC,
       _ref$mapStateToPropsF = _ref.mapStateToPropsFactories,
-      mapStateToPropsFactories = _ref$mapStateToPropsF === void 0 ? _mapStateToProps__WEBPACK_IMPORTED_MODULE_5__.default : _ref$mapStateToPropsF,
+      mapStateToPropsFactories = _ref$mapStateToPropsF === void 0 ? _mapStateToProps__WEBPACK_IMPORTED_MODULE_2__.default : _ref$mapStateToPropsF,
       _ref$mapDispatchToPro = _ref.mapDispatchToPropsFactories,
-      mapDispatchToPropsFactories = _ref$mapDispatchToPro === void 0 ? _mapDispatchToProps__WEBPACK_IMPORTED_MODULE_4__.default : _ref$mapDispatchToPro,
+      mapDispatchToPropsFactories = _ref$mapDispatchToPro === void 0 ? _mapDispatchToProps__WEBPACK_IMPORTED_MODULE_1__.default : _ref$mapDispatchToPro,
       _ref$mergePropsFactor = _ref.mergePropsFactories,
-      mergePropsFactories = _ref$mergePropsFactor === void 0 ? _mergeProps__WEBPACK_IMPORTED_MODULE_6__.default : _ref$mergePropsFactor,
+      mergePropsFactories = _ref$mergePropsFactor === void 0 ? _mergeProps__WEBPACK_IMPORTED_MODULE_3__.default : _ref$mergePropsFactor,
       _ref$selectorFactory = _ref.selectorFactory,
-      selectorFactory = _ref$selectorFactory === void 0 ? _selectorFactory__WEBPACK_IMPORTED_MODULE_7__.default : _ref$selectorFactory;
+      selectorFactory = _ref$selectorFactory === void 0 ? _selectorFactory__WEBPACK_IMPORTED_MODULE_4__.default : _ref$selectorFactory;
 
   return function connect(mapStateToProps, mapDispatchToProps, mergeProps, _ref2) {
     if (_ref2 === void 0) {
@@ -50688,17 +50686,17 @@ function createConnect(_temp) {
         _ref3$areStatesEqual = _ref3.areStatesEqual,
         areStatesEqual = _ref3$areStatesEqual === void 0 ? strictEqual : _ref3$areStatesEqual,
         _ref3$areOwnPropsEqua = _ref3.areOwnPropsEqual,
-        areOwnPropsEqual = _ref3$areOwnPropsEqua === void 0 ? _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_3__.default : _ref3$areOwnPropsEqua,
+        areOwnPropsEqual = _ref3$areOwnPropsEqua === void 0 ? _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_5__.default : _ref3$areOwnPropsEqua,
         _ref3$areStatePropsEq = _ref3.areStatePropsEqual,
-        areStatePropsEqual = _ref3$areStatePropsEq === void 0 ? _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_3__.default : _ref3$areStatePropsEq,
+        areStatePropsEqual = _ref3$areStatePropsEq === void 0 ? _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_5__.default : _ref3$areStatePropsEq,
         _ref3$areMergedPropsE = _ref3.areMergedPropsEqual,
-        areMergedPropsEqual = _ref3$areMergedPropsE === void 0 ? _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_3__.default : _ref3$areMergedPropsE,
-        extraOptions = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__.default)(_ref3, ["pure", "areStatesEqual", "areOwnPropsEqual", "areStatePropsEqual", "areMergedPropsEqual"]);
+        areMergedPropsEqual = _ref3$areMergedPropsE === void 0 ? _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_5__.default : _ref3$areMergedPropsE,
+        extraOptions = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_6__.default)(_ref3, ["pure", "areStatesEqual", "areOwnPropsEqual", "areStatePropsEqual", "areMergedPropsEqual"]);
 
     var initMapStateToProps = match(mapStateToProps, mapStateToPropsFactories, 'mapStateToProps');
     var initMapDispatchToProps = match(mapDispatchToProps, mapDispatchToPropsFactories, 'mapDispatchToProps');
     var initMergeProps = match(mergeProps, mergePropsFactories, 'mergeProps');
-    return connectHOC(selectorFactory, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({
+    return connectHOC(selectorFactory, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_7__.default)({
       // used in error messages
       methodName: 'connect',
       // used to compute Connect's displayName from the wrapped component's displayName.
@@ -50744,23 +50742,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "whenMapDispatchToPropsIsObject": () => /* binding */ whenMapDispatchToPropsIsObject,
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _utils_bindActionCreators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/bindActionCreators */ "../../../node_modules/react-redux/es/utils/bindActionCreators.js");
-/* harmony import */ var _wrapMapToProps__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./wrapMapToProps */ "../../../node_modules/react-redux/es/connect/wrapMapToProps.js");
+/* harmony import */ var _utils_bindActionCreators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/bindActionCreators */ "../../../node_modules/react-redux/es/utils/bindActionCreators.js");
+/* harmony import */ var _wrapMapToProps__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./wrapMapToProps */ "../../../node_modules/react-redux/es/connect/wrapMapToProps.js");
 
 
 function whenMapDispatchToPropsIsFunction(mapDispatchToProps) {
-  return typeof mapDispatchToProps === 'function' ? (0,_wrapMapToProps__WEBPACK_IMPORTED_MODULE_1__.wrapMapToPropsFunc)(mapDispatchToProps, 'mapDispatchToProps') : undefined;
+  return typeof mapDispatchToProps === 'function' ? (0,_wrapMapToProps__WEBPACK_IMPORTED_MODULE_0__.wrapMapToPropsFunc)(mapDispatchToProps, 'mapDispatchToProps') : undefined;
 }
 function whenMapDispatchToPropsIsMissing(mapDispatchToProps) {
-  return !mapDispatchToProps ? (0,_wrapMapToProps__WEBPACK_IMPORTED_MODULE_1__.wrapMapToPropsConstant)(function (dispatch) {
+  return !mapDispatchToProps ? (0,_wrapMapToProps__WEBPACK_IMPORTED_MODULE_0__.wrapMapToPropsConstant)(function (dispatch) {
     return {
       dispatch: dispatch
     };
   }) : undefined;
 }
 function whenMapDispatchToPropsIsObject(mapDispatchToProps) {
-  return mapDispatchToProps && typeof mapDispatchToProps === 'object' ? (0,_wrapMapToProps__WEBPACK_IMPORTED_MODULE_1__.wrapMapToPropsConstant)(function (dispatch) {
-    return (0,_utils_bindActionCreators__WEBPACK_IMPORTED_MODULE_0__.default)(mapDispatchToProps, dispatch);
+  return mapDispatchToProps && typeof mapDispatchToProps === 'object' ? (0,_wrapMapToProps__WEBPACK_IMPORTED_MODULE_0__.wrapMapToPropsConstant)(function (dispatch) {
+    return (0,_utils_bindActionCreators__WEBPACK_IMPORTED_MODULE_1__.default)(mapDispatchToProps, dispatch);
   }) : undefined;
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([whenMapDispatchToPropsIsFunction, whenMapDispatchToPropsIsMissing, whenMapDispatchToPropsIsObject]);
@@ -50823,12 +50821,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "whenMergePropsIsOmitted": () => /* binding */ whenMergePropsIsOmitted,
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../../node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _utils_verifyPlainObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/verifyPlainObject */ "../../../node_modules/react-redux/es/utils/verifyPlainObject.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "../../../node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _utils_verifyPlainObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/verifyPlainObject */ "../../../node_modules/react-redux/es/utils/verifyPlainObject.js");
 
 
 function defaultMergeProps(stateProps, dispatchProps, ownProps) {
-  return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, ownProps, stateProps, dispatchProps);
+  return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, ownProps, stateProps, dispatchProps);
 }
 function wrapMergePropsFunc(mergeProps) {
   return function initMergePropsProxy(dispatch, _ref) {
@@ -50845,7 +50843,7 @@ function wrapMergePropsFunc(mergeProps) {
       } else {
         hasRunOnce = true;
         mergedProps = nextMergedProps;
-        if (true) (0,_utils_verifyPlainObject__WEBPACK_IMPORTED_MODULE_1__.default)(mergedProps, displayName, 'mergeProps');
+        if (true) (0,_utils_verifyPlainObject__WEBPACK_IMPORTED_MODULE_0__.default)(mergedProps, displayName, 'mergeProps');
       }
 
       return mergedProps;
@@ -50883,8 +50881,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "pureFinalPropsSelectorFactory": () => /* binding */ pureFinalPropsSelectorFactory,
 /* harmony export */   "default": () => /* binding */ finalPropsSelectorFactory
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "../../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
-/* harmony import */ var _verifySubselectors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./verifySubselectors */ "../../../node_modules/react-redux/es/connect/verifySubselectors.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "../../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _verifySubselectors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./verifySubselectors */ "../../../node_modules/react-redux/es/connect/verifySubselectors.js");
 
 
 function impureFinalPropsSelectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch) {
@@ -50959,14 +50957,14 @@ function finalPropsSelectorFactory(dispatch, _ref2) {
   var initMapStateToProps = _ref2.initMapStateToProps,
       initMapDispatchToProps = _ref2.initMapDispatchToProps,
       initMergeProps = _ref2.initMergeProps,
-      options = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__.default)(_ref2, ["initMapStateToProps", "initMapDispatchToProps", "initMergeProps"]);
+      options = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__.default)(_ref2, ["initMapStateToProps", "initMapDispatchToProps", "initMergeProps"]);
 
   var mapStateToProps = initMapStateToProps(dispatch, options);
   var mapDispatchToProps = initMapDispatchToProps(dispatch, options);
   var mergeProps = initMergeProps(dispatch, options);
 
   if (true) {
-    (0,_verifySubselectors__WEBPACK_IMPORTED_MODULE_1__.default)(mapStateToProps, mapDispatchToProps, mergeProps, options.displayName);
+    (0,_verifySubselectors__WEBPACK_IMPORTED_MODULE_0__.default)(mapStateToProps, mapDispatchToProps, mergeProps, options.displayName);
   }
 
   var selectorFactory = options.pure ? pureFinalPropsSelectorFactory : impureFinalPropsSelectorFactory;
@@ -51483,7 +51481,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "connectAdvanced": () => /* reexport safe */ _components_connectAdvanced__WEBPACK_IMPORTED_MODULE_1__.default,
 /* harmony export */   "ReactReduxContext": () => /* reexport safe */ _components_Context__WEBPACK_IMPORTED_MODULE_2__.ReactReduxContext,
 /* harmony export */   "connect": () => /* reexport safe */ _connect_connect__WEBPACK_IMPORTED_MODULE_3__.default,
-/* harmony export */   "batch": () => /* reexport safe */ _utils_reactBatchedUpdates__WEBPACK_IMPORTED_MODULE_8__.unstable_batchedUpdates,
+/* harmony export */   "batch": () => /* reexport safe */ _utils_reactBatchedUpdates__WEBPACK_IMPORTED_MODULE_7__.unstable_batchedUpdates,
 /* harmony export */   "useDispatch": () => /* reexport safe */ _hooks_useDispatch__WEBPACK_IMPORTED_MODULE_4__.useDispatch,
 /* harmony export */   "createDispatchHook": () => /* reexport safe */ _hooks_useDispatch__WEBPACK_IMPORTED_MODULE_4__.createDispatchHook,
 /* harmony export */   "useSelector": () => /* reexport safe */ _hooks_useSelector__WEBPACK_IMPORTED_MODULE_5__.useSelector,
@@ -51499,8 +51497,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hooks_useDispatch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./hooks/useDispatch */ "../../../node_modules/react-redux/es/hooks/useDispatch.js");
 /* harmony import */ var _hooks_useSelector__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./hooks/useSelector */ "../../../node_modules/react-redux/es/hooks/useSelector.js");
 /* harmony import */ var _hooks_useStore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./hooks/useStore */ "../../../node_modules/react-redux/es/hooks/useStore.js");
-/* harmony import */ var _utils_batch__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils/batch */ "../../../node_modules/react-redux/es/utils/batch.js");
-/* harmony import */ var _utils_reactBatchedUpdates__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/reactBatchedUpdates */ "../../../node_modules/react-redux/es/utils/reactBatchedUpdates.js");
+/* harmony import */ var _utils_batch__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/batch */ "../../../node_modules/react-redux/es/utils/batch.js");
+/* harmony import */ var _utils_reactBatchedUpdates__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils/reactBatchedUpdates */ "../../../node_modules/react-redux/es/utils/reactBatchedUpdates.js");
 /* harmony import */ var _utils_shallowEqual__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./utils/shallowEqual */ "../../../node_modules/react-redux/es/utils/shallowEqual.js");
 
 
@@ -51512,7 +51510,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(0,_utils_batch__WEBPACK_IMPORTED_MODULE_7__.setBatch)(_utils_reactBatchedUpdates__WEBPACK_IMPORTED_MODULE_8__.unstable_batchedUpdates);
+(0,_utils_batch__WEBPACK_IMPORTED_MODULE_8__.setBatch)(_utils_reactBatchedUpdates__WEBPACK_IMPORTED_MODULE_7__.unstable_batchedUpdates);
 
 
 /***/ }),
@@ -52163,7 +52161,7 @@ module.exports = withReactTimeout
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
-/** @license React v17.0.1
+/** @license React v17.0.2
  * react.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -52181,7 +52179,7 @@ if (true) {
 var _assign = __webpack_require__(/*! object-assign */ "../../../node_modules/object-assign/index.js");
 
 // TODO: this is special because it gets imported during build.
-var ReactVersion = '17.0.1';
+var ReactVersion = '17.0.2';
 
 // ATTENTION
 // When adding new symbols to this file,
@@ -55779,14 +55777,14 @@ exports.unstable_wrap = unstable_wrap;
 /*! export unstable_wrapCallback [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__ */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context as 52:26-46 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context as 125:13-33 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context as 149:24-44 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context as 193:15-35 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context as 381:28-48 */
-/*! CommonJS bailout: exports.unstable_shouldYield(...) prevents optimization as exports is passed as call context as 405:74-102 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context as 418:20-40 */
-/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context as 517:20-40 */
+/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 52:26-46 */
+/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 125:13-33 */
+/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 149:24-44 */
+/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 193:15-35 */
+/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 381:28-48 */
+/*! CommonJS bailout: exports.unstable_shouldYield(...) prevents optimization as exports is passed as call context at 405:74-102 */
+/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 418:20-40 */
+/*! CommonJS bailout: exports.unstable_now(...) prevents optimization as exports is passed as call context at 517:20-40 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -59045,17 +59043,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils */ "./utils.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/GameTime/Styles.tsx");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils */ "./utils.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/GameTime/Styles.tsx");
 
 
 
 
 const formatGameTime = (dotaTime) => {
-    const hours = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.formatTime)(Math.floor(dotaTime / 3600));
-    const minutes = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.formatTime)(Math.floor((dotaTime % 3600) / 60));
-    const seconds = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.formatTime)(Math.floor((dotaTime % 3600) % 60));
+    const hours = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.formatTime)(Math.floor(dotaTime / 3600));
+    const minutes = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.formatTime)(Math.floor((dotaTime % 3600) / 60));
+    const seconds = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.formatTime)(Math.floor((dotaTime % 3600) % 60));
     if (hours === '00') {
         return minutes + ":" + seconds;
     }
@@ -59069,10 +59067,10 @@ const GameTime = (props) => {
         }, 1000);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: formatGameTime(gameTime) })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: formatGameTime(gameTime) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(GameTime));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(GameTime));
 
 
 /***/ }),
@@ -62005,10 +62003,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _data_auras__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../data/auras */ "./hud/data/auras.tsx");
-/* harmony import */ var _Stacks_Stacks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Stacks/Stacks */ "./hud/components/Modifiers/Modifier/Stacks/Stacks.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Modifiers/Modifier/Styles.tsx");
-/* harmony import */ var _TimedBackground_TimedBackground__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TimedBackground/TimedBackground */ "./hud/components/Modifiers/Modifier/TimedBackground/TimedBackground.tsx");
+/* harmony import */ var _data_auras__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../data/auras */ "./hud/data/auras.tsx");
+/* harmony import */ var _Stacks_Stacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Stacks/Stacks */ "./hud/components/Modifiers/Modifier/Stacks/Stacks.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Modifiers/Modifier/Styles.tsx");
+/* harmony import */ var _TimedBackground_TimedBackground__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TimedBackground/TimedBackground */ "./hud/components/Modifiers/Modifier/TimedBackground/TimedBackground.tsx");
 
 
 
@@ -62029,9 +62027,9 @@ const Modifier = (props) => {
     const panelId = props.isDebuff ? "debuff_" + props.buffId : "buff_" + props.buffId;
     const ability = Buffs.GetAbility(props.selectedUnit, props.buffId);
     const isItem = Abilities.IsItem(ability);
-    const isAura = _data_auras__WEBPACK_IMPORTED_MODULE_1__.aura_modifiers.includes(Buffs.GetName(props.selectedUnit, props.buffId));
+    const isAura = _data_auras__WEBPACK_IMPORTED_MODULE_4__.aura_modifiers.includes(Buffs.GetName(props.selectedUnit, props.buffId));
     const isEnemy = Entities.IsEnemy(props.selectedUnit);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: panelId, hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isMounted, isHovering), onactivate: () => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: panelId, hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(isMounted, isHovering), onactivate: () => {
             $.Msg("Modifier clicked: " + Buffs.GetName(props.selectedUnit, props.buffId));
             Players.BuffClicked(props.selectedUnit, props.buffId, GameUI.IsAltDown());
         }, onmouseout: () => {
@@ -62047,12 +62045,12 @@ const Modifier = (props) => {
             }
             setIsHovering(true);
         } },
-        isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Background(props.isDebuff) })),
-        !isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_TimedBackground_TimedBackground__WEBPACK_IMPORTED_MODULE_4__.default, { buffId: props.buffId, selectedUnit: props.selectedUnit, isDebuff: props.isDebuff })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Foreground() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Stacks_Stacks__WEBPACK_IMPORTED_MODULE_2__.default, { unit: props.selectedUnit, buff: props.buffId }),
-            !isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { key: panelId, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Image(), abilityname: Abilities.GetAbilityName(ability) })),
-            isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { key: panelId, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.PaddedImage(), itemname: Buffs.GetTexture(props.selectedUnit, props.buffId), showtooltip: false })))));
+        isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Background(props.isDebuff) })),
+        !isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_TimedBackground_TimedBackground__WEBPACK_IMPORTED_MODULE_3__.default, { buffId: props.buffId, selectedUnit: props.selectedUnit, isDebuff: props.isDebuff })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Foreground() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Stacks_Stacks__WEBPACK_IMPORTED_MODULE_1__.default, { unit: props.selectedUnit, buff: props.buffId }),
+            !isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { key: panelId, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Image(), abilityname: Abilities.GetAbilityName(ability) })),
+            isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { key: panelId, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PaddedImage(), itemname: Buffs.GetTexture(props.selectedUnit, props.buffId), showtooltip: false })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Modifier);
 
@@ -63923,22 +63921,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
-/* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
-/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
-/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
+/* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
 
 
 
 
 function* characterVisible({ payload }) {
     if (payload.visible === true) {
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SETTINGS_VISIBLE, visible: false });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_1__.SET_SETTINGS_VISIBLE, visible: false });
         // yield put({ type: SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SHOP_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SHOP_VISIBLE, payload: { visible: false } });
     }
 }
 function* characterSaga() {
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_characterTypes__WEBPACK_IMPORTED_MODULE_1__.SET_CHARACTER_VISIBLE, characterVisible);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_characterTypes__WEBPACK_IMPORTED_MODULE_3__.SET_CHARACTER_VISIBLE, characterVisible);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (characterSaga);
 
@@ -64070,8 +64068,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
 /* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
-/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
-/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
 
 
 
@@ -64091,7 +64089,7 @@ function* settingsVisible({ payload: visible }) {
     if (visible === true) {
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
         // yield put({ type: SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SHOP_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SHOP_VISIBLE, payload: { visible: false } });
     }
 }
 function* useCustomUI({ payload }) {
@@ -64104,10 +64102,10 @@ function* useCustomUI({ payload }) {
     // }
 }
 function* settingsSaga() {
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CAMERA_LOCKED, lockCamera);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CAMERA_ZOOM, zoomCamera);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SETTINGS_VISIBLE, settingsVisible);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_USE_CUSTOM_UI, useCustomUI);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_CAMERA_LOCKED, lockCamera);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_CAMERA_ZOOM, zoomCamera);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, settingsVisible);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_USE_CUSTOM_UI, useCustomUI);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (settingsSaga);
 
@@ -64130,8 +64128,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
-/* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
-/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+/* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
 /* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
 
 
@@ -64139,9 +64137,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function* shopVisible({ payload }) {
     if (payload.visible === true) {
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SETTINGS_VISIBLE, visible: false });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_1__.SET_SETTINGS_VISIBLE, visible: false });
         // yield put({ type: SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
     }
 }
 function* shopSaga() {
