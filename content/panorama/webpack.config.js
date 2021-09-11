@@ -1,6 +1,6 @@
 const path = require("path");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const { PanoramaManifestPlugin, PanoramaTargetPlugin } = require("webpack-panorama");
+const { PanoramaManifestPlugin, PanoramaTargetPlugin } = require("@aabao/webpack-panorama");
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -20,12 +20,12 @@ module.exports = {
     rules: [
       {
         test: /\.xml$/,
-        loader: "webpack-panorama/lib/layout-loader"
+        loader: "@aabao/webpack-panorama/lib/layout-loader"
       },
       {
         test: /\.[jt]sx?$/,
         issuer: /\.xml$/,
-        loader: "webpack-panorama/lib/entry-loader"
+        loader: "@aabao/webpack-panorama/lib/entry-loader"
       },
       {
         test: /\.tsx?$/,

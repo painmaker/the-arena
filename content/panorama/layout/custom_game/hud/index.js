@@ -56473,7 +56473,6 @@ const Styles = {
         height: '100%',
     }),
     AbilityImage: (washColor, saturation) => ({
-        border: '2px solid rgba(25, 25, 25, 0.9)',
         washColor: washColor,
         saturation: saturation,
         verticalAlign: 'center',
@@ -57063,7 +57062,7 @@ const Styles = {
         backgroundSize: '100% 100%',
         backgroundPosition: '50% 50%',
         backgroundRepeat: 'no-repeat',
-        padding: isTrainable ? '4px' : isActive || isAutoCastEnabled || isToggled ? '2px' : '1px',
+        padding: isTrainable ? '4px' : isActive || isAutoCastEnabled || isToggled ? '2.5px' : '1px',
     }),
     LevelUpButtonContainer: () => ({
         width: '100%',

@@ -6,7 +6,6 @@ export const Styles = {
   }),
 
   AbilityImage: (washColor: string, saturation: string): Partial<VCSSStyleDeclaration> => ({
-    border: '2px solid rgba(25, 25, 25, 0.9)',
     washColor: washColor,
     saturation: saturation,
     verticalAlign: 'center',
