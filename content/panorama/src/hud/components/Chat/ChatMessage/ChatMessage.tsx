@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import withReactTimeout, { ReactTimeoutProps } from '../../../hoc/ReactTimeout';
 import { Message } from '../../../types/chatTypes';
 import { getHudElement } from '../../../utils/HudElements';
-import { Styles } from './styles';
+import { Styles } from './Styles';
 
 type Props = ReactTimeoutProps & {
   message: Message,
@@ -30,14 +30,14 @@ const ChatMessage = (props: Props) => {
 
   return (
     <Panel style={Styles.container(isChatActive, opacity)}>
-      { props.message.heroname && (
+      {props.message.heroname && (
         <DOTAHeroImage
           heroname={props.message.heroname}
           heroimagestyle={'icon'}
           style={Styles.heroImage()}
         />
       )}
-      { props.message.playername && (
+      {props.message.playername && (
         <Label
           text={props.message.playername + ': '}
           style={Styles.playernameLabel(props.message.playerid)}
