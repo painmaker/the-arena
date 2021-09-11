@@ -1,4 +1,5 @@
 import React from "react";
+import AbilitiesShopButton from "./AbilitiesShopButton/AbilitiesShopButton";
 import CharaterButton from "./CharacterButton/CharaterButton";
 import SettingsButton from "./SettingsButton/SettingsButton";
 import ShoppingButton from "./ShoppingButton/ShoppingButton";
@@ -15,6 +16,9 @@ const ButtonGroup = () => {
       </Panel>
       <Panel hittest={false} style={Styles.Entry()}>
         <CharaterButton />
+      </Panel>
+      <Panel hittest={false} style={Styles.Entry()}>
+        <AbilitiesShopButton />
       </Panel>
     </Panel>
   );

@@ -5,14 +5,6 @@
     <styles> 
         <include src="s2r://panorama/styles/dotastyles.vcss_c"></include>
         <include src="file://{resources}/layout/custom_game/hud/app.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/settings.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/Divider/divider.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/Title/title.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/Title/CloseBtn/closeBtn.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/MapZoomSlider/mapZoomSlider.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/CameraZoomSlider/cameraZoomSlider.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/LockCameraBtn/lockCameraBtn.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Settings/UseCustomUIBtn/useCustomUIBtn.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Character/character.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Character/HeroModel/heroModel.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Character/HeroModel/PlayerAvatar/playerAvatar.css"></include>
@@ -41,6 +33,6 @@
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/RandomHeroDialog/randomHeroDialog.css"></include>  
     </styles>  
     <Panel class="root" hittest="false">
-      <!-- <Image src="s2r://panorama/images/hud/reborn/icon_disconnect_png.vtex" /> -->
+      <!-- <Image src="s2r://panorama/images/book_open_page_variant_outline_png.vtex" /> -->
     </Panel> 
-</root>        
+</root>         

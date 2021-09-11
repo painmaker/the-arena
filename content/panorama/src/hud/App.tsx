@@ -21,6 +21,7 @@ import HeroSelection from "./components/HeroSelection/HeroSelection";
 import { useNetTableValues } from "react-panorama";
 import Chat from "./components/Chat/Chat";
 import Loading from "./components/Loading/Loading";
+import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
 
 const mapStateToProps = (state: RootState) => ({
   useCustomUI: state.settingsReducer.useCustomUI,
@@ -111,6 +112,7 @@ const App = (props: Props) => {
               <Debuffs />
               <Inventory />
               <Stats />
+              <AbilitiesShop />
             </React.Fragment>
           )}
         </Loading>

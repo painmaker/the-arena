@@ -5,14 +5,6 @@
     <styles> 
         <include src="s2r://panorama/styles/dotastyles.vcss_c" />
         <include src="./app.css" />
-        <include src="./components/Settings/settings.css" />
-        <include src="./components/Settings/Divider/divider.css" />
-        <include src="./components/Settings/Title/title.css" />
-        <include src="./components/Settings/Title/CloseBtn/closeBtn.css" />
-        <include src="./components/Settings/MapZoomSlider/mapZoomSlider.css" />
-        <include src="./components/Settings/CameraZoomSlider/cameraZoomSlider.css" />
-        <include src="./components/Settings/LockCameraBtn/lockCameraBtn.css" />
-        <include src="./components/Settings/UseCustomUIBtn/useCustomUIBtn.css" />
         <include src="./components/Character/character.css" />
         <include src="./components/Character/HeroModel/heroModel.css" />
         <include src="./components/Character/HeroModel/PlayerAvatar/playerAvatar.css" />
@@ -41,6 +33,6 @@
         <include src="./components/HeroSelection/RandomHeroDialog/randomHeroDialog.css" />  
     </styles>  
     <Panel class="root" hittest="false">
-      <!-- <Image src="s2r://panorama/images/hud/reborn/icon_disconnect_png.vtex" /> -->
+      <!-- <Image src="s2r://panorama/images/book_open_page_variant_outline_png.vtex" /> -->
     </Panel> 
-</root>        
+</root>         

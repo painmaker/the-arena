@@ -1,10 +1,14 @@
 import React from "react";
 import CloseBtn from "./CloseBtn/CloseBtn";
+import { Styles } from "./Styles";
 
 const Title = () => {
   return (
-    <Panel className={'settingsTitleContainer'}>
-      <Label text={"SETTINGS"} className={"settingsTitleLabel"} />
+    <Panel style={Styles.Container()}>
+      <Label
+        text={"SETTINGS"}
+        style={Styles.Label()}
+      />
       <CloseBtn />
     </Panel>
   );

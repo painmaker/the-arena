@@ -1,6 +1,7 @@
 
 
 import { put, takeLatest } from 'redux-saga/effects'
+import { SET_ABILITIES_SHOP_VISIBLE } from '../types/abilitiesShopTypes';
 import { SET_CHARACTER_VISIBLE } from '../types/characterTypes';
 import { SET_ITEM_OPTIONS_VISIBLE } from '../types/itemOptionsTypes';
 import { SetCameraLockedAction, SetCameraZoomAction, SetSettingsVisibleAction, SetUseCustomUIAction, SET_CAMERA_LOCKED, SET_CAMERA_ZOOM, SET_SETTINGS_VISIBLE, SET_USE_CUSTOM_UI } from '../types/settingsTypes';
@@ -21,8 +22,8 @@ function* zoomCamera({ payload: zoom }: SetCameraZoomAction) {
 function* settingsVisible({ payload: visible }: SetSettingsVisibleAction) {
   if (visible === true) {
     yield put({ type: SET_CHARACTER_VISIBLE, payload: { visible: false } });
-    // yield put({ type: SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
     yield put({ type: SET_SHOP_VISIBLE, payload: { visible: false } });
+    yield put({ type: SET_ABILITIES_SHOP_VISIBLE, payload: { visible: false } });
   }
 }
 

@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { setCameraLocked } from "../../../actions/settingsAction";
 import { RootState } from "../../../reducers/rootReducer";
 import { SettingsActionTypes } from "../../../types/settingsTypes";
+import { Styles } from "./Styles";
 
 const mapStateToProps = (state: RootState) => ({
   locked: state.settingsReducer.cameraLocked,
@@ -21,15 +22,21 @@ type Props = PropsFromRedux & {
 
 const LockCameraBtn = (props: Props) => {
   return (
-    <Panel className={'settingsItem settingsLockCameraBtnContainer'}>
-      <Label className={'lockCameraBtnLeftLabel'} text={"Lock Camera:"} />
-      <Panel className={'lockCameraBtnPanel'}>
+    <Panel style={Styles.Container()}>
+      <Label
+        style={Styles.LeftLabel()}
+        text={"Lock Camera:"}
+      />
+      <Panel style={Styles.ToggleBtnContainer()}>
         <ToggleButton
           selected={props.locked}
           onactivate={() => props.setCameraLocked(!props.locked)}
         />
       </Panel>
-      <Label className={'lockCameraBtnRightLabel'} text={props.locked ? "Locked" : "Unlocked"} />
+      <Label
+        style={Styles.RightLabel()}
+        text={props.locked ? "Locked" : "Unlocked"}
+      />
     </Panel>
   );
 }

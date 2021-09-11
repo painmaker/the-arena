@@ -55895,6 +55895,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/HeroSelection/HeroSelection */ "./hud/components/HeroSelection/HeroSelection.tsx");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 /* harmony import */ var _components_Loading_Loading__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/Loading/Loading */ "./hud/components/Loading/Loading.tsx");
+/* harmony import */ var _components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/AbilitiesShop/AbilitiesShop */ "./hud/components/AbilitiesShop/AbilitiesShop.tsx");
+
 
 
 
@@ -55978,9 +55980,33 @@ const App = (props) => {
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_12__.default, null),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_11__.default, null),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_13__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Stats_Stats__WEBPACK_IMPORTED_MODULE_9__.default, null)))))));
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Stats_Stats__WEBPACK_IMPORTED_MODULE_9__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_20__.default, null)))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(App));
+
+
+/***/ }),
+
+/***/ "./hud/actions/abilitiesShopActions.tsx":
+/*!**********************************************!*\
+  !*** ./hud/actions/abilitiesShopActions.tsx ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "setAbilitiesShopVisible": () => (/* binding */ setAbilitiesShopVisible)
+/* harmony export */ });
+/* harmony import */ var _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/abilitiesShopTypes */ "./hud/types/abilitiesShopTypes.tsx");
+
+function setAbilitiesShopVisible(visible) {
+    return {
+        type: _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_0__.SET_ABILITIES_SHOP_VISIBLE,
+        payload: { visible }
+    };
+}
 
 
 /***/ }),
@@ -56174,6 +56200,403 @@ function setShopSearchValue(searchValue) {
         payload: { searchValue }
     };
 }
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/AbilitiesShop.tsx":
+/*!********************************************************!*\
+  !*** ./hud/components/AbilitiesShop/AbilitiesShop.tsx ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _actions_abilitiesShopActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/abilitiesShopActions */ "./hud/actions/abilitiesShopActions.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/Styles.tsx");
+/* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/AbilitiesShop/Title/Title.tsx");
+/* harmony import */ var _Search_Search__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Search/Search */ "./hud/components/AbilitiesShop/Search/Search.tsx");
+/* harmony import */ var _RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./RegularAbilities/RegularAbilities */ "./hud/components/AbilitiesShop/RegularAbilities/RegularAbilities.tsx");
+/* harmony import */ var _UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./UltimateAbilities/UltimateAbilities */ "./hud/components/AbilitiesShop/UltimateAbilities/UltimateAbilities.tsx");
+
+
+
+
+
+
+
+
+
+const mapStateToProps = (state) => ({
+    visible: state.abilitiesShopReducer.visible,
+});
+const mapDispatchToProps = (dispatch) => ({
+    setShopVisible: (visible) => dispatch((0,_actions_abilitiesShopActions__WEBPACK_IMPORTED_MODULE_3__.setAbilitiesShopVisible)(visible)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
+const Shop = (props) => {
+    const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let timer = -1;
+        if (props.visible === false) {
+            timer = props.setTimeout(() => {
+                setRenderComponent(false);
+            }, 1000);
+        }
+        else {
+            setRenderComponent(true);
+        }
+        return () => props.clearTimeout(timer);
+    }, [props.visible]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(props.visible) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Row() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, null)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.AbilitiesContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, null))))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Shop)));
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/RegularAbilities/RegularAbilities.tsx":
+/*!****************************************************************************!*\
+  !*** ./hud/components/AbilitiesShop/RegularAbilities/RegularAbilities.tsx ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/RegularAbilities/Styles.tsx");
+
+
+
+const RegularAbilities = (props) => {
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            // Do something
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(RegularAbilities));
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/RegularAbilities/Styles.tsx":
+/*!******************************************************************!*\
+  !*** ./hud/components/AbilitiesShop/RegularAbilities/Styles.tsx ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: "50%",
+        minHeight: '200px',
+        backgroundImage: 'url("file://panorama/images/inventory_item_well.png")',
+        backgroundSize: "100%",
+        backgroundColor: "rgba(100, 0, 0, 0.5)",
+        margin: '5px'
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/Search/Search.tsx":
+/*!********************************************************!*\
+  !*** ./hud/components/AbilitiesShop/Search/Search.tsx ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/Search/Styles.tsx");
+
+
+
+const mapDispatchToProps = (dispatch) => ({
+// setShopSearchValue: (searchValue: string) => dispatch(setShopSearchValue(searchValue)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
+/**
+ * TextEntry can't set text through redux-state, the value of the component doesn't update correctly
+ */
+const Search = (props) => {
+    const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Icon() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(TextEntry, { id: "abilitiesShopSearchFieldId", style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.SearchField(), maxchars: 50, placeholder: 'Search...', ontextentrychange: (event) => $.Msg(event) }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { onmouseout: () => setIsHovering(false), onmouseover: () => setIsHovering(true), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ClearBtn(isHovering), onactivate: () => $("#abilitiesShopSearchFieldId").text = '' })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Search));
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/Search/Styles.tsx":
+/*!********************************************************!*\
+  !*** ./hud/components/AbilitiesShop/Search/Styles.tsx ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: "400px",
+        flowChildren: "right",
+        backgroundColor: "black",
+        borderRadius: "5px",
+        border: "1px solid #3d464c",
+    }),
+    Icon: () => ({
+        backgroundImage: 'url("s2r://panorama/images/icon_search_shadow.png")',
+        backgroundSize: "100% 100%",
+        backgroundPosition: "center",
+        height: "24px",
+        width: "24px",
+        washColor: "#8da1b1",
+        verticalAlign: "center",
+        marginTop: "-1.5px",
+        marginLeft: "4px",
+    }),
+    SearchField: () => ({
+        height: "36px",
+        color: "white",
+        fontSize: "20px",
+        textOverflow: "clip",
+        whiteSpace: "nowrap",
+        border: "0px solid black",
+        width: "340px",
+        backgroundColor: "black",
+    }),
+    ClearBtn: (isHovering) => ({
+        backgroundImage: 'url("s2r://panorama/images/x_close_grey_png.vtex")',
+        backgroundSize: "contain",
+        height: "18px",
+        width: "18px",
+        verticalAlign: "center",
+        transition: "transform 0.2s ease-in-out 0.0s, wash-color 0.2s ease-in-out 0.0s",
+        washColor: isHovering ? "rgba(100, 100, 100, 0.25)" : "rgba(100, 100, 100, 0.5)",
+        transform: isHovering ? "scale3d(1.1, 1.1, 0)" : "scale3d(1.0, 1.0, 0)",
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/Styles.tsx":
+/*!*************************************************!*\
+  !*** ./hud/components/AbilitiesShop/Styles.tsx ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    OuterContainer: () => ({
+        width: '100%',
+        height: '100%',
+        transform: 'translateX(500px)'
+    }),
+    InnerContainer: (visible) => ({
+        horizontalAlign: "right",
+        verticalAlign: "top",
+        marginRight: "0px",
+        marginTop: "150px",
+        transition: "transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s",
+        opacity: visible ? "1.0" : "0.1",
+        borderRadius: "5px",
+        minWidth: "750px",
+        minHeight: "550px",
+        backgroundImage: 'url("s2r://panorama/images/ability_bg.png")',
+        backgroundSize: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.85)",
+        flowChildren: "down",
+        transform: visible ? "translateX(-510px)" : 'translateX(0px)',
+    }),
+    Row: () => ({
+        flowChildren: "right",
+        width: "100%",
+        padding: '15px',
+    }),
+    AbilitiesContainer: () => ({
+        flowChildren: "right",
+        width: "100%",
+        padding: '10px',
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/Title/Styles.tsx":
+/*!*******************************************************!*\
+  !*** ./hud/components/AbilitiesShop/Title/Styles.tsx ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: "100%",
+        backgroundColor: "rgba(30, 30, 30, 0.525)",
+    }),
+    Label: () => ({
+        color: "rgba(200, 200, 200, 0.45)",
+        fontSize: "15px",
+        verticalAlign: "center",
+        horizontalAlign: "left",
+        fontWeight: "light",
+        letterSpacing: "1.5px",
+        paddingTop: "2.5px",
+        paddingLeft: "10px",
+    }),
+    CloseBtn: (isHovering) => ({
+        verticalAlign: "center",
+        horizontalAlign: "right",
+        height: "24px",
+        width: "24px",
+        padding: "2px",
+        marginRight: "2.5px",
+        opacity: "0.75",
+        transition: "transform 0.5s ease-in-out 0.0s, background-color 0.5s ease-in-out 0.0s",
+        backgroundColor: isHovering ? 'rgba(60, 60, 60, 1.0)' : 'rgba(0, 0, 0, 0.0)',
+        border: isHovering ? "1px solid rgba(70, 70, 70, 1.0)" : '0px solid rgba(0, 0, 0, 1.0)',
+        washColor: isHovering ? " rgba(100, 100, 100, 0.25)" : "rgba(100, 100, 100, 0.5)",
+        transform: isHovering ? "scale3d(1.2, 1.2, 0)" : "scale3d(1.0, 1.0, 0)",
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/Title/Title.tsx":
+/*!******************************************************!*\
+  !*** ./hud/components/AbilitiesShop/Title/Title.tsx ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_abilitiesShopActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/abilitiesShopActions */ "./hud/actions/abilitiesShopActions.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/Title/Styles.tsx");
+
+
+
+
+const mapDispatchToProps = (dispatch) => ({
+    setAbilitiesShopVisible: (visible) => dispatch((0,_actions_abilitiesShopActions__WEBPACK_IMPORTED_MODULE_2__.setAbilitiesShopVisible)(visible)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
+const Title = (props) => {
+    const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: "ABILITIES SHOP" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CloseBtn(isHovering), onactivate: () => {
+                props.setAbilitiesShopVisible(false);
+                Game.EmitSound("ui_topmenu_select");
+            } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Title));
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/UltimateAbilities/Styles.tsx":
+/*!*******************************************************************!*\
+  !*** ./hud/components/AbilitiesShop/UltimateAbilities/Styles.tsx ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: "50%",
+        minHeight: '200px',
+        backgroundImage: 'url("file://panorama/images/inventory_item_well.png")',
+        backgroundSize: "100%",
+        backgroundColor: "rgba(0, 100, 0, 0.5)",
+        margin: '5px',
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/UltimateAbilities/UltimateAbilities.tsx":
+/*!******************************************************************************!*\
+  !*** ./hud/components/AbilitiesShop/UltimateAbilities/UltimateAbilities.tsx ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/UltimateAbilities/Styles.tsx");
+
+
+
+const UltimateAbilities = (props) => {
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            // Do something
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(UltimateAbilities));
 
 
 /***/ }),
@@ -57099,6 +57522,45 @@ const Styles = {
 
 /***/ }),
 
+/***/ "./hud/components/ButtonGroup/AbilitiesShopButton/AbilitiesShopButton.tsx":
+/*!********************************************************************************!*\
+  !*** ./hud/components/ButtonGroup/AbilitiesShopButton/AbilitiesShopButton.tsx ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_abilitiesShopActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/abilitiesShopActions */ "./hud/actions/abilitiesShopActions.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/ButtonGroup/Styles.tsx");
+
+
+
+
+const mapStateToProps = (state) => ({
+    visible: state.abilitiesShopReducer.visible,
+});
+const mapDispatchToProps = (dispatch) => ({
+    setAbilitiesShopVisible: (visible) => dispatch((0,_actions_abilitiesShopActions__WEBPACK_IMPORTED_MODULE_2__.setAbilitiesShopVisible)(visible)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
+const AbilitiesShopButton = (props) => {
+    const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.EntryHover(props.visible, isHovering), onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), onactivate: () => {
+                props.setAbilitiesShopVisible(!props.visible);
+                Game.EmitSound("ui_topmenu_select");
+            }, src: "s2r://panorama/images/book_open_page_variant_outline_png.vtex" })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(AbilitiesShopButton));
+
+
+/***/ }),
+
 /***/ "./hud/components/ButtonGroup/ButtonGroup.tsx":
 /*!****************************************************!*\
   !*** ./hud/components/ButtonGroup/ButtonGroup.tsx ***!
@@ -57111,23 +57573,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _CharacterButton_CharaterButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CharacterButton/CharaterButton */ "./hud/components/ButtonGroup/CharacterButton/CharaterButton.tsx");
-/* harmony import */ var _SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SettingsButton/SettingsButton */ "./hud/components/ButtonGroup/SettingsButton/SettingsButton.tsx");
-/* harmony import */ var _ShoppingButton_ShoppingButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ShoppingButton/ShoppingButton */ "./hud/components/ButtonGroup/ShoppingButton/ShoppingButton.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/ButtonGroup/Styles.tsx");
+/* harmony import */ var _AbilitiesShopButton_AbilitiesShopButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AbilitiesShopButton/AbilitiesShopButton */ "./hud/components/ButtonGroup/AbilitiesShopButton/AbilitiesShopButton.tsx");
+/* harmony import */ var _CharacterButton_CharaterButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CharacterButton/CharaterButton */ "./hud/components/ButtonGroup/CharacterButton/CharaterButton.tsx");
+/* harmony import */ var _SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SettingsButton/SettingsButton */ "./hud/components/ButtonGroup/SettingsButton/SettingsButton.tsx");
+/* harmony import */ var _ShoppingButton_ShoppingButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ShoppingButton/ShoppingButton */ "./hud/components/ButtonGroup/ShoppingButton/ShoppingButton.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Styles */ "./hud/components/ButtonGroup/Styles.tsx");
+
 
 
 
 
 
 const ButtonGroup = () => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Entry() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_2__.default, null)),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Entry() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ShoppingButton_ShoppingButton__WEBPACK_IMPORTED_MODULE_3__.default, null)),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Entry() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CharacterButton_CharaterButton__WEBPACK_IMPORTED_MODULE_1__.default, null))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Entry() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_3__.default, null)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Entry() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ShoppingButton_ShoppingButton__WEBPACK_IMPORTED_MODULE_4__.default, null)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Entry() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CharacterButton_CharaterButton__WEBPACK_IMPORTED_MODULE_2__.default, null)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Entry() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesShopButton_AbilitiesShopButton__WEBPACK_IMPORTED_MODULE_1__.default, null))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ButtonGroup);
 
@@ -57266,7 +57732,7 @@ const Styles = {
     Container: () => ({
         verticalAlign: "bottom",
         horizontalAlign: "right",
-        width: "200px",
+        width: "250px",
         marginBottom: "25px",
         marginRight: "25px",
         flowChildren: "left",
@@ -61157,6 +61623,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Settings/CameraZoomSlider/Styles.tsx");
+
 
 
 
@@ -61176,13 +61644,44 @@ const CameraZoomSlider = (props) => {
         const panel = $("#camera_zoom_slider");
         panel.value = props.zoom;
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsItem' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'cameraZoomSliderLeftLabel', text: "Camera Zoom:" }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'cameraZoomSliderPanel' },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TextLabel(), text: "Camera Zoom:" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.SliderContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Slider, { id: "camera_zoom_slider", className: "HorizontalSlider", direction: "horizontal", value: props.zoom, min: 800, max: 2000, onvaluechanged: (e) => props.setCameraZoom(Math.round(e.value)) })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'cameraZoomSliderRightLabel', text: props.zoom })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.NumberLabel(), text: props.zoom })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CameraZoomSlider));
+
+
+/***/ }),
+
+/***/ "./hud/components/Settings/CameraZoomSlider/Styles.tsx":
+/*!*************************************************************!*\
+  !*** ./hud/components/Settings/CameraZoomSlider/Styles.tsx ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    TextLabel: () => ({
+        width: "35%",
+        color: "orange",
+        paddingTop: "5px",
+    }),
+    SliderContainer: () => ({
+        width: "40%",
+    }),
+    NumberLabel: () => ({
+        width: "25%",
+        paddingTop: "5px",
+        paddingLeft: "15px",
+        color: "orange",
+    }),
+};
 
 
 /***/ }),
@@ -61199,11 +61698,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/Settings/Divider/Styles.tsx");
 
-const Divider = () => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "settingsDivider" }));
-};
+
+const Divider = () => react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Divider() });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Divider);
+
+
+/***/ }),
+
+/***/ "./hud/components/Settings/Divider/Styles.tsx":
+/*!****************************************************!*\
+  !*** ./hud/components/Settings/Divider/Styles.tsx ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Divider: () => ({
+        width: "100%",
+        marginTop: "2.5px",
+        marginBottom: "2.5px",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+    })
+};
 
 
 /***/ }),
@@ -61222,6 +61744,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Settings/LockCameraBtn/Styles.tsx");
+
 
 
 
@@ -61233,13 +61757,52 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const LockCameraBtn = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsItem settingsLockCameraBtnContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'lockCameraBtnLeftLabel', text: "Lock Camera:" }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'lockCameraBtnPanel' },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftLabel(), text: "Lock Camera:" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ToggleBtnContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(ToggleButton, { selected: props.locked, onactivate: () => props.setCameraLocked(!props.locked) })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'lockCameraBtnRightLabel', text: props.locked ? "Locked" : "Unlocked" })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightLabel(), text: props.locked ? "Locked" : "Unlocked" })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(LockCameraBtn));
+
+
+/***/ }),
+
+/***/ "./hud/components/Settings/LockCameraBtn/Styles.tsx":
+/*!**********************************************************!*\
+  !*** ./hud/components/Settings/LockCameraBtn/Styles.tsx ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: "100%",
+        height: 'fit-children',
+        flowChildren: 'right',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+    }),
+    LeftLabel: () => ({
+        width: "35%",
+        color: "orange",
+    }),
+    RightLabel: () => ({
+        width: "57%",
+        fontSize: "16px",
+        paddingTop: "0.5px",
+        paddingLeft: "-2px",
+        color: "orange",
+    }),
+    ToggleBtnContainer: () => ({
+        width: "8%",
+        paddingLeft: "-2px",
+    }),
+};
 
 
 /***/ }),
@@ -61258,6 +61821,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_minimapActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/minimapActions */ "./hud/actions/minimapActions.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Settings/MapZoomSlider/Styles.tsx");
+
 
 
 
@@ -61274,13 +61839,44 @@ const MapZoomSlider = (props) => {
         const panel = $("#map_zoom_slider");
         panel.value = props.zoom;
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsItem' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'mapZoomSliderLeftLabel', text: "Minimap Zoom:" }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'mapZoomSliderPanel' },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TextLabel(), text: "Minimap Zoom:" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.SliderContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Slider, { id: "map_zoom_slider", className: "HorizontalSlider", direction: "horizontal", value: props.zoom, min: 3, max: 10, onvaluechanged: (e) => props.setMinimapZoom(Math.round(e.value)) })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'mapZoomSliderRightLabel', text: props.zoom })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.NumberLabel(), text: props.zoom })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(MapZoomSlider));
+
+
+/***/ }),
+
+/***/ "./hud/components/Settings/MapZoomSlider/Styles.tsx":
+/*!**********************************************************!*\
+  !*** ./hud/components/Settings/MapZoomSlider/Styles.tsx ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    TextLabel: () => ({
+        width: "35%",
+        color: "orange",
+        paddingTop: "5px",
+    }),
+    SliderContainer: () => ({
+        width: "40%",
+    }),
+    NumberLabel: () => ({
+        width: "25%",
+        paddingTop: "5px",
+        paddingLeft: "15px",
+        color: "orange",
+    }),
+};
 
 
 /***/ }),
@@ -61305,6 +61901,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/Settings/Title/Title.tsx");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
 /* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Styles */ "./hud/components/Settings/Styles.tsx");
+
 
 
 
@@ -61340,18 +61938,67 @@ const Settings = (props) => {
         }
         return () => props.clearTimeout(timer);
     }, [props.visible]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: "100%", height: "100%" } }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: props.visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}, className: "settingsWindow" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CameraZoomSlider_CameraZoomSlider__WEBPACK_IMPORTED_MODULE_2__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MapZoomSlider_MapZoomSlider__WEBPACK_IMPORTED_MODULE_4__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_3__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null))))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.InnerContainer(props.visible) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.EntryContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CameraZoomSlider_CameraZoomSlider__WEBPACK_IMPORTED_MODULE_2__.default, null)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.EntryContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MapZoomSlider_MapZoomSlider__WEBPACK_IMPORTED_MODULE_4__.default, null)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.EntryContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_3__.default, null)),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null)))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_7__.default)(Settings)));
+
+
+/***/ }),
+
+/***/ "./hud/components/Settings/Styles.tsx":
+/*!********************************************!*\
+  !*** ./hud/components/Settings/Styles.tsx ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    InnerContainer: (visible) => ({
+        verticalAlign: "top",
+        horizontalAlign: "right",
+        marginTop: "200px",
+        marginRight: "0px",
+        minWidth: "450px",
+        minHeight: "100px",
+        backgroundImage: 'url("file://panorama/images/bg_scoreboard.png")',
+        backgroundSize: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.9)",
+        borderRadius: "5px",
+        flowChildren: "down",
+        transition: "transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s",
+        opacity: visible ? "1.0" : "0.1",
+        transform: visible ? "translateX(-510px)" : 'translateX(0px)',
+    }),
+    OuterContainer: () => ({
+        width: '100%',
+        height: '100%',
+        transform: 'translateX(500px)'
+    }),
+    EntryContainer: () => ({
+        width: "100%",
+        flowChildren: "right",
+        backgroundColor: "rgba(65, 65, 65, 0.3)",
+        paddingLeft: "15px",
+        paddingRight: "15px",
+        paddingTop: "8.5px",
+        paddingBottom: "8.5px",
+    }),
+};
 
 
 /***/ }),
@@ -61370,6 +62017,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Settings/Title/CloseBtn/Styles.tsx");
+
 
 
 
@@ -61381,14 +62030,77 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const CloseBtn = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsCloseBtnContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: "settingsCloseBtn", onactivate: () => {
+    const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Btn(isHovering), onactivate: () => {
                 props.setSettingsVisible(!props.visible);
                 Game.EmitSound("ui_topmenu_select");
             } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CloseBtn));
+
+
+/***/ }),
+
+/***/ "./hud/components/Settings/Title/CloseBtn/Styles.tsx":
+/*!***********************************************************!*\
+  !*** ./hud/components/Settings/Title/CloseBtn/Styles.tsx ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        height: "24px",
+        width: "24px",
+        verticalAlign: "center",
+        horizontalAlign: "right",
+    }),
+    Btn: (isHovering) => ({
+        opacity: "0.75",
+        padding: "2px",
+        transition: "transform 0.5s ease-in-out 0.0s, background-color 0.5s ease-in-out 0.0s",
+        backgroundColor: isHovering ? 'rgba(60, 60, 60, 1.0)' : 'rgba(0, 0, 0, 0.0)',
+        border: isHovering ? "1px solid rgba(70, 70, 70, 1.0)" : '0px solid rgba(0, 0, 0, 1.0)',
+        washColor: isHovering ? " rgba(100, 100, 100, 0.25)" : "rgba(100, 100, 100, 0.5)",
+        transform: isHovering ? "scale3d(1.2, 1.2, 0)" : "scale3d(1.0, 1.0, 0)",
+    })
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Settings/Title/Styles.tsx":
+/*!**************************************************!*\
+  !*** ./hud/components/Settings/Title/Styles.tsx ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: "100%",
+        backgroundColor: "rgba(30, 30, 30, 0.925)",
+    }),
+    Label: () => ({
+        color: "rgba(200, 200, 200, 0.45)",
+        fontSize: "14px",
+        verticalAlign: "center",
+        fontWeight: "light",
+        letterSpacing: "1.5px",
+        paddingTop: "2.5px",
+        paddingLeft: "10px",
+    }),
+};
 
 
 /***/ }),
@@ -61406,11 +62118,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CloseBtn/CloseBtn */ "./hud/components/Settings/Title/CloseBtn/CloseBtn.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Settings/Title/Styles.tsx");
+
 
 
 const Title = () => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'settingsTitleContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "SETTINGS", className: "settingsTitleLabel" }),
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "SETTINGS", style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_1__.default, null)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Title);
@@ -62361,6 +63075,35 @@ function withReactTimeout(WrappedComponent) {
 
 /***/ }),
 
+/***/ "./hud/reducers/abilitiesShopReducer.tsx":
+/*!***********************************************!*\
+  !*** ./hud/reducers/abilitiesShopReducer.tsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/abilitiesShopTypes */ "./hud/types/abilitiesShopTypes.tsx");
+
+const initialState = {
+    visible: false,
+};
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(state = initialState, action) {
+    switch (action.type) {
+        case _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_0__.SET_ABILITIES_SHOP_VISIBLE: {
+            return Object.assign(Object.assign({}, state), { visible: action.payload.visible });
+        }
+        default:
+            return state;
+    }
+}
+
+
+/***/ }),
+
 /***/ "./hud/reducers/characterReducer.tsx":
 /*!*******************************************!*\
   !*** ./hud/reducers/characterReducer.tsx ***!
@@ -62503,13 +63246,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "rootReducer": () => (/* binding */ rootReducer)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! redux */ "../../../node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux */ "../../../node_modules/redux/es/redux.js");
 /* harmony import */ var _minimapReducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./minimapReducer */ "./hud/reducers/minimapReducer.tsx");
 /* harmony import */ var _settingsReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./settingsReducer */ "./hud/reducers/settingsReducer.tsx");
 /* harmony import */ var _characterReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./characterReducer */ "./hud/reducers/characterReducer.tsx");
 /* harmony import */ var _shopReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shopReducer */ "./hud/reducers/shopReducer.tsx");
 /* harmony import */ var _itemOptionsReducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./itemOptionsReducer */ "./hud/reducers/itemOptionsReducer.tsx");
 /* harmony import */ var _heroSelectionReducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./heroSelectionReducer */ "./hud/reducers/heroSelectionReducer.tsx");
+/* harmony import */ var _abilitiesShopReducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./abilitiesShopReducer */ "./hud/reducers/abilitiesShopReducer.tsx");
 
 
 
@@ -62517,13 +63261,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_6__.combineReducers)({
+
+const rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_7__.combineReducers)({
     minimapReducer: _minimapReducer__WEBPACK_IMPORTED_MODULE_0__.default,
     settingsReducer: _settingsReducer__WEBPACK_IMPORTED_MODULE_1__.default,
     characterReducer: _characterReducer__WEBPACK_IMPORTED_MODULE_2__.default,
     shopReducer: _shopReducer__WEBPACK_IMPORTED_MODULE_3__.default,
     itemOptionsReducer: _itemOptionsReducer__WEBPACK_IMPORTED_MODULE_4__.default,
     heroSelectionReducer: _heroSelectionReducer__WEBPACK_IMPORTED_MODULE_5__.default,
+    abilitiesShopReducer: _abilitiesShopReducer__WEBPACK_IMPORTED_MODULE_6__.default,
 });
 
 
@@ -62603,6 +63349,42 @@ const initialState = {
 
 /***/ }),
 
+/***/ "./hud/sagas/abilitiesShopSaga.tsx":
+/*!*****************************************!*\
+  !*** ./hud/sagas/abilitiesShopSaga.tsx ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
+/* harmony import */ var _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/abilitiesShopTypes */ "./hud/types/abilitiesShopTypes.tsx");
+/* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
+
+
+
+
+
+function* abilitiesShopVisible({ payload }) {
+    if (payload.visible === true) {
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, visible: false });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__.SET_SHOP_VISIBLE, payload: { visible: false } });
+    }
+}
+function* abilitiesShopSaga() {
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_1__.SET_ABILITIES_SHOP_VISIBLE, abilitiesShopVisible);
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (abilitiesShopSaga);
+
+
+/***/ }),
+
 /***/ "./hud/sagas/characterSaga.tsx":
 /*!*************************************!*\
   !*** ./hud/sagas/characterSaga.tsx ***!
@@ -62615,22 +63397,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
-/* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
-/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
-/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
+/* harmony import */ var _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/abilitiesShopTypes */ "./hud/types/abilitiesShopTypes.tsx");
+/* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
+
 
 
 
 
 function* characterVisible({ payload }) {
     if (payload.visible === true) {
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SETTINGS_VISIBLE, visible: false });
-        // yield put({ type: SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SHOP_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, visible: false });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__.SET_SHOP_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_1__.SET_ABILITIES_SHOP_VISIBLE, payload: { visible: false } });
     }
 }
 function* characterSaga() {
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_characterTypes__WEBPACK_IMPORTED_MODULE_1__.SET_CHARACTER_VISIBLE, characterVisible);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_characterTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CHARACTER_VISIBLE, characterVisible);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (characterSaga);
 
@@ -62669,36 +63453,6 @@ function* heroSelectionSaga() {
 
 /***/ }),
 
-/***/ "./hud/sagas/itemOptionsSaga.tsx":
-/*!***************************************!*\
-  !*** ./hud/sagas/itemOptionsSaga.tsx ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
-/* harmony import */ var _types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/itemOptionsTypes */ "./hud/types/itemOptionsTypes.tsx");
-
-
-function* itemOptionsVisible({ payload }) {
-    if (payload.visible === true) {
-        // yield put({ type: SET_CHARACTER_VISIBLE, payload: { visible: false } });
-        // yield put({ type: SET_SETTINGS_VISIBLE, visible: false });
-        // yield put({ type: SET_SHOP_VISIBLE, payload: { visible: false } });
-    }
-}
-function* itemOptionsSaga() {
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_itemOptionsTypes__WEBPACK_IMPORTED_MODULE_1__.SET_ITEM_OPTIONS_VISIBLE, itemOptionsVisible);
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (itemOptionsSaga);
-
-
-/***/ }),
-
 /***/ "./hud/sagas/rootSaga.tsx":
 /*!********************************!*\
   !*** ./hud/sagas/rootSaga.tsx ***!
@@ -62713,9 +63467,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
 /* harmony import */ var _characterSaga__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./characterSaga */ "./hud/sagas/characterSaga.tsx");
 /* harmony import */ var _settingsSaga__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./settingsSaga */ "./hud/sagas/settingsSaga.tsx");
-/* harmony import */ var _itemOptionsSaga__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./itemOptionsSaga */ "./hud/sagas/itemOptionsSaga.tsx");
-/* harmony import */ var _shopSaga__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shopSaga */ "./hud/sagas/shopSaga.tsx");
-/* harmony import */ var _heroSelectionSaga__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./heroSelectionSaga */ "./hud/sagas/heroSelectionSaga.tsx");
+/* harmony import */ var _shopSaga__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shopSaga */ "./hud/sagas/shopSaga.tsx");
+/* harmony import */ var _heroSelectionSaga__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./heroSelectionSaga */ "./hud/sagas/heroSelectionSaga.tsx");
+/* harmony import */ var _abilitiesShopSaga__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./abilitiesShopSaga */ "./hud/sagas/abilitiesShopSaga.tsx");
 
 
 
@@ -62725,9 +63479,9 @@ __webpack_require__.r(__webpack_exports__);
 const rootSaga = function* root() {
     yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.fork)(_settingsSaga__WEBPACK_IMPORTED_MODULE_2__.default);
     yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.fork)(_characterSaga__WEBPACK_IMPORTED_MODULE_1__.default);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.fork)(_itemOptionsSaga__WEBPACK_IMPORTED_MODULE_3__.default);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.fork)(_shopSaga__WEBPACK_IMPORTED_MODULE_4__.default);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.fork)(_heroSelectionSaga__WEBPACK_IMPORTED_MODULE_5__.default);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.fork)(_shopSaga__WEBPACK_IMPORTED_MODULE_3__.default);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.fork)(_heroSelectionSaga__WEBPACK_IMPORTED_MODULE_4__.default);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.fork)(_abilitiesShopSaga__WEBPACK_IMPORTED_MODULE_5__.default);
 };
 
 
@@ -62745,9 +63499,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
-/* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
-/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
-/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
+/* harmony import */ var _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/abilitiesShopTypes */ "./hud/types/abilitiesShopTypes.tsx");
+/* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
+
 
 
 
@@ -62765,9 +63521,9 @@ function* zoomCamera({ payload: zoom }) {
 }
 function* settingsVisible({ payload: visible }) {
     if (visible === true) {
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
-        // yield put({ type: SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SHOP_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__.SET_SHOP_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_1__.SET_ABILITIES_SHOP_VISIBLE, payload: { visible: false } });
     }
 }
 function* useCustomUI({ payload }) {
@@ -62780,10 +63536,10 @@ function* useCustomUI({ payload }) {
     // }
 }
 function* settingsSaga() {
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CAMERA_LOCKED, lockCamera);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CAMERA_ZOOM, zoomCamera);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SETTINGS_VISIBLE, settingsVisible);
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_USE_CUSTOM_UI, useCustomUI);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_CAMERA_LOCKED, lockCamera);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_CAMERA_ZOOM, zoomCamera);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, settingsVisible);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_USE_CUSTOM_UI, useCustomUI);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (settingsSaga);
 
@@ -62802,22 +63558,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "../../../node_modules/redux-saga/dist/redux-saga-effects-npm-proxy.esm.js");
-/* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
-/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
-/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
+/* harmony import */ var _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/abilitiesShopTypes */ "./hud/types/abilitiesShopTypes.tsx");
+/* harmony import */ var _types_characterTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types/characterTypes */ "./hud/types/characterTypes.tsx");
+/* harmony import */ var _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types/settingsTypes */ "./hud/types/settingsTypes.tsx");
+/* harmony import */ var _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../types/shopTypes */ "./hud/types/shopTypes.tsx");
+
 
 
 
 
 function* shopVisible({ payload }) {
     if (payload.visible === true) {
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_2__.SET_SETTINGS_VISIBLE, visible: false });
-        // yield put({ type: SET_ITEM_OPTIONS_VISIBLE, payload: { visible: false } });
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_1__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, visible: false });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_1__.SET_ABILITIES_SHOP_VISIBLE, payload: { visible: false } });
     }
 }
 function* shopSaga() {
-    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_shopTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SHOP_VISIBLE, shopVisible);
+    yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.takeLatest)(_types_shopTypes__WEBPACK_IMPORTED_MODULE_4__.SET_SHOP_VISIBLE, shopVisible);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (shopSaga);
 
@@ -62849,6 +63607,22 @@ function configureStore() {
     sagaMiddleware.run(_sagas_rootSaga__WEBPACK_IMPORTED_MODULE_2__.rootSaga);
     return store;
 }
+
+
+/***/ }),
+
+/***/ "./hud/types/abilitiesShopTypes.tsx":
+/*!******************************************!*\
+  !*** ./hud/types/abilitiesShopTypes.tsx ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SET_ABILITIES_SHOP_VISIBLE": () => (/* binding */ SET_ABILITIES_SHOP_VISIBLE)
+/* harmony export */ });
+const SET_ABILITIES_SHOP_VISIBLE = 'SET_ABILITIES_SHOP_VISIBLE';
 
 
 /***/ }),

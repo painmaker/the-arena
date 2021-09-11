@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { setCameraZoom } from "../../../actions/settingsAction";
 import { RootState } from "../../../reducers/rootReducer";
 import { SettingsActionTypes } from "../../../types/settingsTypes";
+import { Styles } from "./Styles";
 
 const mapStateToProps = (state: RootState) => ({
   zoom: state.settingsReducer.cameraZoom,
@@ -31,9 +32,12 @@ const CameraZoomSlider = (props: Props) => {
   }, []);
 
   return (
-    <Panel className={'settingsItem'}>
-      <Label className={'cameraZoomSliderLeftLabel'} text={"Camera Zoom:"} />
-      <Panel className={'cameraZoomSliderPanel'}>
+    <React.Fragment>
+      <Label
+        style={Styles.TextLabel()}
+        text={"Camera Zoom:"}
+      />
+      <Panel style={Styles.SliderContainer()}>
         <Slider
           id={"camera_zoom_slider"}
           className={"HorizontalSlider"}
@@ -44,8 +48,11 @@ const CameraZoomSlider = (props: Props) => {
           onvaluechanged={(e) => props.setCameraZoom(Math.round(e.value))}
         />
       </Panel>
-      <Label className={'cameraZoomSliderRightLabel'} text={props.zoom} />
-    </Panel>
+      <Label
+        style={Styles.NumberLabel()}
+        text={props.zoom}
+      />
+    </React.Fragment>
   );
 }
 

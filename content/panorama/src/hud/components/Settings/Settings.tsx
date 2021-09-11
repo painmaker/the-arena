@@ -10,6 +10,7 @@ import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import { setCameraLocked, setCameraZoom } from "../../actions/settingsAction";
 import { SettingsActionTypes } from "../../types/settingsTypes";
 import { Timer } from "react-timeout";
+import { Styles } from "./Styles";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,
@@ -49,23 +50,24 @@ const Settings = (props: Props) => {
   }, [props.visible]);
 
   return (
-    <Panel hittest={false} style={{ width: "100%", height: "100%" }}>
-      { renderComponent && (
-        <React.Fragment>
-          <Panel
-            style={props.visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
-            className={"settingsWindow"}
-          >
-            <Title />
-            <Divider />
+    <Panel style={Styles.OuterContainer()}>
+      {renderComponent && (
+        <Panel style={Styles.InnerContainer(props.visible)}>
+          <Title />
+          <Divider />
+          <Panel style={Styles.EntryContainer()}>
             <CameraZoomSlider />
-            <Divider />
-            <MapZoomSlider />
-            <Divider />
-            <LockCameraBtn />
-            <Divider />
           </Panel>
-        </React.Fragment>
+          <Divider />
+          <Panel style={Styles.EntryContainer()}>
+            <MapZoomSlider />
+          </Panel>
+          <Divider />
+          <Panel style={Styles.EntryContainer()}>
+            <LockCameraBtn />
+          </Panel>
+          <Divider />
+        </Panel>
       )}
     </Panel>
   );

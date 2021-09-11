@@ -3,7 +3,7 @@ export const Styles = {
   Container: (): Partial<VCSSStyleDeclaration> => ({
     verticalAlign: "bottom",
     horizontalAlign: "right",
-    width: "200px",
+    width: "250px",
     marginBottom: "25px",
     marginRight: "25px",
     flowChildren: "left",
