@@ -56281,7 +56281,7 @@ const Styles = {
     TextLabel: () => ({
         verticalAlign: 'center',
         textAlign: 'center',
-        fontSize: '11px',
+        fontSize: '12px',
         color: 'rgba(200, 200, 200, 0.75)',
         width: '70%',
     }),
@@ -56320,6 +56320,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./RegularAbilities/RegularAbilities */ "./hud/components/AbilitiesShop/RegularAbilities/RegularAbilities.tsx");
 /* harmony import */ var _UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./UltimateAbilities/UltimateAbilities */ "./hud/components/AbilitiesShop/UltimateAbilities/UltimateAbilities.tsx");
 /* harmony import */ var _AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./AbilitiesPoints/AbilitiesPoints */ "./hud/components/AbilitiesShop/AbilitiesPoints/AbilitiesPoints.tsx");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+
 
 
 
@@ -56338,6 +56340,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const Shop = (props) => {
+    const [entindex, setEntindex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
+    const [regularAbilityNames, setRegularAbilityNames] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+    const [ultimateAbilityNames, setUltimateAbilityNames] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
     // useEffect(() => {
     //   let timer = -1 as Timer;
@@ -56350,17 +56355,84 @@ const Shop = (props) => {
     //   }
     //   return () => props.clearTimeout(timer);
     // }, [props.visible]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(!props.visible) },
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            setEntindex(Players.GetLocalPlayerPortraitUnit());
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", {
+            entindex: entindex,
+        });
+    }, [entindex]);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)('fetch_shop_abilities_ok', (event) => {
+        setRegularAbilityNames(Object.values(event.regularAbilities));
+        setUltimateAbilityNames(Object.values(event.ultimateAbilities));
+    }, []);
+    $.Msg("render");
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(!props.visible) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.TopContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { text: 'Ability Points:' }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { text: 'Ultimate Points:' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.AbilitiesContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { entindex: entindex, abilitynames: regularAbilityNames }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, null))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Shop)));
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/AbilityImage/AbilityImage.tsx":
+/*!********************************************************************!*\
+  !*** ./hud/components/AbilitiesShop/AbilityImage/AbilityImage.tsx ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilityImage/Styles.tsx");
+
+
+const onMouseOver = (entindex, abilityname) => {
+    $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_shop_image_" + abilityname), abilityname, entindex);
+};
+const onMouseOut = (abilityname) => {
+    $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_shop_image_" + abilityname));
+};
+const AbilityImage = (props) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: 'ability_shop_image_' + props.abilityname, style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.AbilityImage(), abilityname: props.abilityname, onmouseout: () => onMouseOut(props.abilityname), onmouseover: () => onMouseOver(props.entindex, props.abilityname) }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AbilityImage);
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/AbilityImage/Styles.tsx":
+/*!**************************************************************!*\
+  !*** ./hud/components/AbilitiesShop/AbilityImage/Styles.tsx ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    AbilityImage: () => ({
+        width: '36px',
+        height: '36px',
+        margin: '3px',
+    }),
+};
 
 
 /***/ }),
@@ -56378,20 +56450,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/RegularAbilities/Styles.tsx");
+/* harmony import */ var _AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../AbilityImage/AbilityImage */ "./hud/components/AbilitiesShop/AbilityImage/AbilityImage.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/RegularAbilities/Styles.tsx");
+
 
 
 
 const RegularAbilities = (props) => {
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
-            // Do something
-        }, 100);
-        return () => props.clearInterval(id);
-    }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Regular Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Title() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() }, props.abilitynames.map(abilityname => {
+            return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_2__.default, { key: abilityname, entindex: props.entindex, abilityname: abilityname }));
+        }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(RegularAbilities));
+/*
+
+  */ 
 
 
 /***/ }),
@@ -56410,11 +56485,30 @@ __webpack_require__.r(__webpack_exports__);
 const Styles = {
     Container: () => ({
         width: "50%",
+        margin: '5px',
+        flowChildren: 'down',
+    }),
+    Title: () => ({
+        width: "100%",
+        backgroundColor: "rgba(0, 0, 0, 1.0)",
+        borderBottom: "1px solid rgba(50, 50, 50, 0.5)",
+        fontSize: "13px",
+        color: "rgb(175, 175, 175)",
+        textAlign: "left",
+        fontFamily: "fantasy",
+        paddingTop: '3px',
+        paddingBottom: '3px',
+        paddingLeft: '5px',
+        letterSpacing: "1.35px"
+    }),
+    AbilitiesContainer: () => ({
+        width: '100%',
         minHeight: '200px',
-        backgroundImage: 'url("file://panorama/images/inventory_item_well.png")',
+        backgroundImage: 'url("s2r://panorama/images/inventory_item_well.png")',
         backgroundSize: "100%",
-        backgroundColor: "rgba(100, 0, 0, 0.5)",
-        margin: '5px'
+        backgroundColor: "rgba(0, 0, 0, 0.35)",
+        flowChildren: 'right-wrap',
+        padding: '10px',
     }),
 };
 
@@ -56533,19 +56627,19 @@ const Styles = {
         horizontalAlign: "right",
         verticalAlign: "top",
         marginRight: "0px",
-        marginTop: "150px",
+        marginTop: "250px",
         transition: "transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s",
         opacity: visible ? "1.0" : "0.1",
         borderRadius: "5px",
         minWidth: "750px",
-        minHeight: "550px",
+        height: "fit-children",
         backgroundImage: 'url("s2r://panorama/images/ability_bg.png")',
         backgroundSize: "100%",
         backgroundColor: "rgba(0, 0, 0, 0.85)",
         flowChildren: "down",
         transform: visible ? "translateX(-510px)" : 'translateX(0px)',
     }),
-    Row: () => ({
+    TopContainer: () => ({
         flowChildren: "right",
         width: "100%",
         padding: '15px',
@@ -56553,7 +56647,10 @@ const Styles = {
     AbilitiesContainer: () => ({
         flowChildren: "right",
         width: "100%",
-        padding: '10px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        paddingTop: '0px',
+        paddingBottom: '10px',
     }),
 };
 
@@ -56657,11 +56754,28 @@ __webpack_require__.r(__webpack_exports__);
 const Styles = {
     Container: () => ({
         width: "50%",
-        minHeight: '200px',
-        backgroundImage: 'url("file://panorama/images/inventory_item_well.png")',
-        backgroundSize: "100%",
-        backgroundColor: "rgba(0, 100, 0, 0.5)",
         margin: '5px',
+        flowChildren: 'down',
+    }),
+    Title: () => ({
+        width: "100%",
+        backgroundColor: "rgba(0, 0, 0, 1.0)",
+        borderBottom: "1px solid rgba(50, 50, 50, 0.5)",
+        fontSize: "13px",
+        color: "rgb(175, 175, 175)",
+        textAlign: "left",
+        fontFamily: "fantasy",
+        paddingTop: '3px',
+        paddingBottom: '3px',
+        paddingLeft: '5px',
+        letterSpacing: "1.35px"
+    }),
+    AbilitiesContainer: () => ({
+        width: '100%',
+        minHeight: '200px',
+        backgroundImage: 'url("s2r://panorama/images/inventory_item_well.png")',
+        backgroundSize: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.35)",
     }),
 };
 
@@ -56692,7 +56806,9 @@ const UltimateAbilities = (props) => {
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Ultimate Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Title() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilitiesContainer() })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(UltimateAbilities));
 

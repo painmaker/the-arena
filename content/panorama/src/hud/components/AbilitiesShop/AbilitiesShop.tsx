@@ -12,6 +12,7 @@ import Search from "./Search/Search";
 import RegularAbilities from "./RegularAbilities/RegularAbilities";
 import UltimateAbilities from "./UltimateAbilities/UltimateAbilities";
 import AbilitiesPoints from "./AbilitiesPoints/AbilitiesPoints";
+import { useGameEvent } from "react-panorama";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.abilitiesShopReducer.visible,
@@ -30,6 +31,9 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const Shop = (props: Props) => {
 
+  const [entindex, setEntindex] = useState(Players.GetLocalPlayerPortraitUnit());
+  const [regularAbilityNames, setRegularAbilityNames] = useState<string[]>([]);
+  const [ultimateAbilityNames, setUltimateAbilityNames] = useState<string[]>([]);
   const [renderComponent, setRenderComponent] = useState(true);
 
   // useEffect(() => {
@@ -44,18 +48,42 @@ const Shop = (props: Props) => {
   //   return () => props.clearTimeout(timer);
   // }, [props.visible]);
 
+
+  useEffect(() => {
+    const id = props.setInterval(() => {
+      setEntindex(Players.GetLocalPlayerPortraitUnit());
+    }, 100);
+    return () => props.clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", {
+      entindex: entindex,
+    });
+  }, [entindex]);
+
+  useGameEvent('fetch_shop_abilities_ok', (event) => {
+    setRegularAbilityNames(Object.values(event.regularAbilities))
+    setUltimateAbilityNames(Object.values(event.ultimateAbilities))
+  }, []);
+
+  $.Msg("render");
+
   return (
-    <Panel style={Styles.OuterContainer()}>
+    <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
-        <Panel style={Styles.InnerContainer(!props.visible)}>
+        <Panel hittest={true} style={Styles.InnerContainer(!props.visible)}>
           <Title />
-          <Panel style={Styles.Row()}>
+          <Panel style={Styles.TopContainer()}>
             <Search />
             <AbilitiesPoints text={'Ability Points:'} />
             <AbilitiesPoints text={'Ultimate Points:'} />
           </Panel>
           <Panel style={Styles.AbilitiesContainer()}>
-            <RegularAbilities />
+            <RegularAbilities
+              entindex={entindex}
+              abilitynames={regularAbilityNames}
+            />
             <UltimateAbilities />
           </Panel>
         </Panel>

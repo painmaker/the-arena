@@ -13,7 +13,7 @@ import { EXPERIENCE_PER_LEVEL_TABLE, HERO_SELECTION_TIME, MAX_PLAYERS } from "./
 import { HeroSelectionService } from "./services/HeroSelectionService";
 import { ChatService } from "./services/ChatService";
 import { ShopService } from "./services/ShopService";
-import { AbilityShopService } from "./services/AbilityShopService";
+import { AbilityShopService } from "./services/AbilityShopService/AbilityShopService";
 
 declare global {
   interface CDOTAGamerules {

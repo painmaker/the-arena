@@ -33,7 +33,7 @@ export const Styles = {
   TextLabel: (): Partial<VCSSStyleDeclaration> => ({
     verticalAlign: 'center',
     textAlign: 'center',
-    fontSize: '11px',
+    fontSize: '12px',
     color: 'rgba(200, 200, 200, 0.75)',
     width: '70%',
   }),

@@ -17,7 +17,12 @@ const UltimateAbilities = (props: Props) => {
 
   return (
     <Panel style={Styles.Container()}>
-
+      <Label
+        text={'Ultimate Abilities'}
+        style={Styles.Title()}
+      />
+      <Panel style={Styles.AbilitiesContainer()}>
+      </Panel>
     </Panel>
   );
 
