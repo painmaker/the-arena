@@ -16,18 +16,28 @@ const onMouseOver = (entindex: EntityIndex, abilityname: string) => {
 }
 
 const onMouseOut = (abilityname: string) => {
-  $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_shop_image_" + abilityname))
+  $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_shop_image_" + abilityname));
+}
+
+const onRightClick = (abilityname: string) => {
+  $.Msg("onRightClick: " + abilityname)
+  GameEvents.SendCustomGameEventToServer("purchase_ability", { abilityname });
 }
 
 const AbilityImage = (props: Props) => {
   return (
-    <DOTAAbilityImage
-      id={'ability_shop_image_' + props.abilityname}
+    <Button
       style={Styles.AbilityImage()}
-      abilityname={props.abilityname}
+      oncontextmenu={() => onRightClick(props.abilityname)}
       onmouseout={() => onMouseOut(props.abilityname)}
       onmouseover={() => onMouseOver(props.entindex, props.abilityname)}
-    />
+    >
+      <DOTAAbilityImage
+        id={'ability_shop_image_' + props.abilityname}
+        abilityname={props.abilityname}
+      />
+    </Button>
+
   );
 };
 

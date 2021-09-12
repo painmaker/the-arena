@@ -59,7 +59,8 @@ export class HeroSelectionService {
 
       CustomNetTables.SetTableValue('HeroSelectionHeroes', 'heroes', updatedHeroes);
 
-      const hero = PlayerResource.ReplaceHeroWith(id, randomHero.heroname, 0, 0)
+      // const hero = PlayerResource.ReplaceHeroWith(id, randomHero.heroname, 0, 0)
+      const hero = PlayerResource.ReplaceHeroWith(id, "npc_dota_hero_dazzle", 0, 0)
       hero.SetCustomDeathXP(10);
       hero.SetGold(START_GOLD, true);
       hero.AddItemByName("item_ultimate_scepter");

@@ -57,9 +57,7 @@ const Shop = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", {
-      entindex: entindex,
-    });
+    GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: entindex });
   }, [entindex]);
 
   useGameEvent('fetch_shop_abilities_ok', (event) => {
@@ -84,7 +82,10 @@ const Shop = (props: Props) => {
               entindex={entindex}
               abilitynames={regularAbilityNames}
             />
-            <UltimateAbilities />
+            <UltimateAbilities
+              entindex={entindex}
+              abilitynames={ultimateAbilityNames}
+            />
           </Panel>
         </Panel>
       )}

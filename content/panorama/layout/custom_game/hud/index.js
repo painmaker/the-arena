@@ -56362,9 +56362,7 @@ const Shop = (props) => {
         return () => props.clearInterval(id);
     }, []);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", {
-            entindex: entindex,
-        });
+        GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: entindex });
     }, [entindex]);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)('fetch_shop_abilities_ok', (event) => {
         setRegularAbilityNames(Object.values(event.regularAbilities));
@@ -56379,7 +56377,7 @@ const Shop = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { text: 'Ultimate Points:' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.AbilitiesContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { entindex: entindex, abilitynames: regularAbilityNames }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, null))))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, { entindex: entindex, abilitynames: ultimateAbilityNames }))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Shop)));
 
@@ -56407,8 +56405,13 @@ const onMouseOver = (entindex, abilityname) => {
 const onMouseOut = (abilityname) => {
     $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_shop_image_" + abilityname));
 };
+const onRightClick = (abilityname) => {
+    $.Msg("onRightClick: " + abilityname);
+    GameEvents.SendCustomGameEventToServer("purchase_ability", { abilityname });
+};
 const AbilityImage = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: 'ability_shop_image_' + props.abilityname, style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.AbilityImage(), abilityname: props.abilityname, onmouseout: () => onMouseOut(props.abilityname), onmouseover: () => onMouseOver(props.entindex, props.abilityname) }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.AbilityImage(), oncontextmenu: () => onRightClick(props.abilityname), onmouseout: () => onMouseOut(props.abilityname), onmouseover: () => onMouseOver(props.entindex, props.abilityname) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: 'ability_shop_image_' + props.abilityname, abilityname: props.abilityname })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AbilityImage);
 
@@ -56776,6 +56779,8 @@ const Styles = {
         backgroundImage: 'url("s2r://panorama/images/inventory_item_well.png")',
         backgroundSize: "100%",
         backgroundColor: "rgba(0, 0, 0, 0.35)",
+        flowChildren: 'right-wrap',
+        padding: '10px',
     }),
 };
 
@@ -56795,20 +56800,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/UltimateAbilities/Styles.tsx");
+/* harmony import */ var _AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../AbilityImage/AbilityImage */ "./hud/components/AbilitiesShop/AbilityImage/AbilityImage.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/UltimateAbilities/Styles.tsx");
+
 
 
 
 const UltimateAbilities = (props) => {
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
-            // Do something
-        }, 100);
-        return () => props.clearInterval(id);
-    }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Ultimate Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Title() }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilitiesContainer() })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Ultimate Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Title() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() }, props.abilitynames.map(abilityname => {
+            return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_2__.default, { key: abilityname, entindex: props.entindex, abilityname: abilityname }));
+        }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(UltimateAbilities));
 
@@ -57724,7 +57727,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const Styles = {
     Container: () => ({
-        minWidth: "235px",
         height: "100px",
         verticalAlign: "bottom",
         horizontalAlign: "center",

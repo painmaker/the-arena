@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import AbilityImage from "../AbilityImage/AbilityImage";
 import { Styles } from "./Styles";

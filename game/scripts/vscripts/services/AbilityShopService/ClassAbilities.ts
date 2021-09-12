@@ -4,9 +4,12 @@ export const ClassAbilities = {
       "dazzle_poison_touch",
       "dazzle_shallow_grave",
       "dazzle_shadow_wave",
+      "witch_doctor_voodoo_restoration",
+      "witch_doctor_maledict",
     ],
     UltimateAbilities: [
-      "dazzle_weave"
+      "dazzle_weave",
+      "witch_doctor_death_ward",
     ]
   }
 }

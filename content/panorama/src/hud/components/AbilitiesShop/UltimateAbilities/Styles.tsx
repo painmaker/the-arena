@@ -26,6 +26,8 @@ export const Styles = {
     backgroundImage: 'url("s2r://panorama/images/inventory_item_well.png")',
     backgroundSize: "100%",
     backgroundColor: "rgba(0, 0, 0, 0.35)",
+    flowChildren: 'right-wrap',
+    padding: '10px',
   }),
 
 }
