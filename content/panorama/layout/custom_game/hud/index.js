@@ -56204,6 +56204,101 @@ function setShopSearchValue(searchValue) {
 
 /***/ }),
 
+/***/ "./hud/components/AbilitiesShop/AbilitiesPoints/AbilitiesPoints.tsx":
+/*!**************************************************************************!*\
+  !*** ./hud/components/AbilitiesShop/AbilitiesPoints/AbilitiesPoints.tsx ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilitiesPoints/Styles.tsx");
+
+
+
+const AbilitiesPoints = (props) => {
+    const [unspentPoints, setUnSpentPoints] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(3);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = props.setInterval(() => {
+            // Do something
+        }, 100);
+        return () => props.clearInterval(id);
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LabelContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: props.text, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: unspentPoints, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.NumberLabel(unspentPoints !== 0) }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AbilitiesPoints));
+
+
+/***/ }),
+
+/***/ "./hud/components/AbilitiesShop/AbilitiesPoints/Styles.tsx":
+/*!*****************************************************************!*\
+  !*** ./hud/components/AbilitiesShop/AbilitiesPoints/Styles.tsx ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: "150px",
+        height: "38px",
+        backgroundImage: 'url("s2r://panorama/images/inventory_item_well.png")',
+        backgroundSize: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        marginLeft: '5px',
+        padding: '5px',
+        borderRadius: '5px',
+        border: '1px solid rgba(100, 100, 100, 0.3)',
+    }),
+    LabelContainer: () => ({
+        height: '100%',
+        width: '100%',
+        paddingTop: '1px',
+        flowChildren: 'right'
+    }),
+    Icon: () => ({
+        verticalAlign: 'center',
+        horizontalAlign: 'left',
+        backgroundImage: 'url("s2r://panorama/images/icon_abilities_shop_points.png")',
+        backgroundSize: "100%",
+        height: '14px',
+        width: '14px',
+        washColor: 'rgba(100, 100, 100, 0.45)',
+        marginLeft: '5px',
+    }),
+    TextLabel: () => ({
+        verticalAlign: 'center',
+        textAlign: 'center',
+        fontSize: '11px',
+        color: 'rgba(200, 200, 200, 0.75)',
+        width: '70%',
+    }),
+    NumberLabel: (hasPoints) => ({
+        verticalAlign: 'center',
+        textAlign: 'center',
+        fontSize: '20px',
+        color: hasPoints ? 'orange' : "rgba(200, 200, 200, 0.75)",
+        fontWeight: 'bold',
+        width: '30%',
+        marginLeft: '-10px',
+    }),
+};
+
+
+/***/ }),
+
 /***/ "./hud/components/AbilitiesShop/AbilitiesShop.tsx":
 /*!********************************************************!*\
   !*** ./hud/components/AbilitiesShop/AbilitiesShop.tsx ***!
@@ -56224,6 +56319,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Search_Search__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Search/Search */ "./hud/components/AbilitiesShop/Search/Search.tsx");
 /* harmony import */ var _RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./RegularAbilities/RegularAbilities */ "./hud/components/AbilitiesShop/RegularAbilities/RegularAbilities.tsx");
 /* harmony import */ var _UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./UltimateAbilities/UltimateAbilities */ "./hud/components/AbilitiesShop/UltimateAbilities/UltimateAbilities.tsx");
+/* harmony import */ var _AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./AbilitiesPoints/AbilitiesPoints */ "./hud/components/AbilitiesShop/AbilitiesPoints/AbilitiesPoints.tsx");
+
 
 
 
@@ -56241,23 +56338,24 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const Shop = (props) => {
-    const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let timer = -1;
-        if (props.visible === false) {
-            timer = props.setTimeout(() => {
-                setRenderComponent(false);
-            }, 1000);
-        }
-        else {
-            setRenderComponent(true);
-        }
-        return () => props.clearTimeout(timer);
-    }, [props.visible]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(props.visible) },
+    const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+    // useEffect(() => {
+    //   let timer = -1 as Timer;
+    //   if (props.visible === false) {
+    //     timer = props.setTimeout(() => {
+    //       setRenderComponent(false);
+    //     }, 1000);
+    //   } else {
+    //     setRenderComponent(true);
+    //   }
+    //   return () => props.clearTimeout(timer);
+    // }, [props.visible]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(!props.visible) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Row() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, null)),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { text: 'Ability Points:' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { text: 'Ultimate Points:' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.AbilitiesContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, null))))));
@@ -56372,7 +56470,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const Styles = {
     Container: () => ({
-        width: "400px",
+        width: "420px",
         flowChildren: "right",
         backgroundColor: "black",
         borderRadius: "5px",
@@ -56396,7 +56494,7 @@ const Styles = {
         textOverflow: "clip",
         whiteSpace: "nowrap",
         border: "0px solid black",
-        width: "340px",
+        width: "360px",
         backgroundColor: "black",
     }),
     ClearBtn: (isHovering) => ({

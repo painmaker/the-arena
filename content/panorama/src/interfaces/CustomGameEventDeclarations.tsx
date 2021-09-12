@@ -46,4 +46,7 @@ interface CustomGameEventDeclarations {
   },
   hero_select_generic_error: {},
   hero_selection_timer_update: { time: number },
+  purchase_regular_ability: { abilityname: string };
+  purchase_regular_ability_ok: {};
+  purchase_regular_ability_error: {};
 }

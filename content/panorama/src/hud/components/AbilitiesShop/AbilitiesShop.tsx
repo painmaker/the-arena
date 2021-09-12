@@ -11,6 +11,7 @@ import Title from "./Title/Title";
 import Search from "./Search/Search";
 import RegularAbilities from "./RegularAbilities/RegularAbilities";
 import UltimateAbilities from "./UltimateAbilities/UltimateAbilities";
+import AbilitiesPoints from "./AbilitiesPoints/AbilitiesPoints";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.abilitiesShopReducer.visible,
@@ -29,27 +30,29 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const Shop = (props: Props) => {
 
-  const [renderComponent, setRenderComponent] = useState(false);
+  const [renderComponent, setRenderComponent] = useState(true);
 
-  useEffect(() => {
-    let timer = -1 as Timer;
-    if (props.visible === false) {
-      timer = props.setTimeout(() => {
-        setRenderComponent(false);
-      }, 1000);
-    } else {
-      setRenderComponent(true);
-    }
-    return () => props.clearTimeout(timer);
-  }, [props.visible]);
+  // useEffect(() => {
+  //   let timer = -1 as Timer;
+  //   if (props.visible === false) {
+  //     timer = props.setTimeout(() => {
+  //       setRenderComponent(false);
+  //     }, 1000);
+  //   } else {
+  //     setRenderComponent(true);
+  //   }
+  //   return () => props.clearTimeout(timer);
+  // }, [props.visible]);
 
   return (
     <Panel style={Styles.OuterContainer()}>
       {renderComponent && (
-        <Panel style={Styles.InnerContainer(props.visible)}>
+        <Panel style={Styles.InnerContainer(!props.visible)}>
           <Title />
           <Panel style={Styles.Row()}>
             <Search />
+            <AbilitiesPoints text={'Ability Points:'} />
+            <AbilitiesPoints text={'Ultimate Points:'} />
           </Panel>
           <Panel style={Styles.AbilitiesContainer()}>
             <RegularAbilities />

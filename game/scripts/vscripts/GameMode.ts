@@ -13,13 +13,15 @@ import { EXPERIENCE_PER_LEVEL_TABLE, HERO_SELECTION_TIME, MAX_PLAYERS } from "./
 import { HeroSelectionService } from "./services/HeroSelectionService";
 import { ChatService } from "./services/ChatService";
 import { ShopService } from "./services/ShopService";
+import { AbilityShopService } from "./services/AbilityShopService";
 
 declare global {
   interface CDOTAGamerules {
     Addon: GameMode;
     HeroSelectionService: HeroSelectionService;
     ChatService: ChatService;
-    InventoryService: ShopService;
+    ShopService: ShopService;
+    AbilityShopService: AbilityShopService;
   }
 }
 
@@ -50,7 +52,8 @@ export class GameMode {
     GameRules.Addon = new GameMode();
     GameRules.HeroSelectionService = new HeroSelectionService();
     GameRules.ChatService = new ChatService();
-    GameRules.InventoryService = new ShopService();
+    GameRules.ShopService = new ShopService();
+    GameRules.AbilityShopService = new AbilityShopService();
   }
 
   constructor() {

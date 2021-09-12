@@ -1,7 +1,7 @@
 export const Styles = {
 
   Container: (): Partial<VCSSStyleDeclaration> => ({
-    width: "400px",
+    width: "420px",
     flowChildren: "right",
     backgroundColor: "black",
     borderRadius: "5px",
@@ -27,7 +27,7 @@ export const Styles = {
     textOverflow: "clip",
     whiteSpace: "nowrap",
     border: "0px solid black",
-    width: "340px",
+    width: "360px",
     backgroundColor: "black",
   }),
 
