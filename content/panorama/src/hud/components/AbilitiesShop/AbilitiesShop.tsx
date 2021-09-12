@@ -65,6 +65,14 @@ const Shop = (props: Props) => {
     setUltimateAbilityNames(Object.values(event.ultimateAbilities))
   }, []);
 
+  useGameEvent("purchase_ability_error", (event) => {
+    GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
+  }, []);
+
+  useGameEvent("fetch_shop_abilities_error", (event) => {
+    GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
+  }, []);
+
   $.Msg("render");
 
   return (

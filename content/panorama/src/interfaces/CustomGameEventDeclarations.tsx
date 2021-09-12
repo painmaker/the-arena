@@ -47,12 +47,12 @@ interface CustomGameEventDeclarations {
   hero_select_generic_error: {},
   hero_selection_timer_update: { time: number },
 
-  purchase_ability: { abilityname: string };
+  purchase_ability: { entindex: EntityIndex, abilityname: string };
   purchase_ability_ok: {};
-  purchase_ability_error: {};
+  purchase_ability_error: { errorMsg: string };
 
   fetch_shop_abilities: { entindex: EntityIndex },
   fetch_shop_abilities_ok: { regularAbilities: string[], ultimateAbilities: string[] },
-  fetch_shop_abilities_error: {},
+  fetch_shop_abilities_error: { errorMsg: string },
 
 }

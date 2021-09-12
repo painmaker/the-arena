@@ -56368,6 +56368,12 @@ const Shop = (props) => {
         setRegularAbilityNames(Object.values(event.regularAbilities));
         setUltimateAbilityNames(Object.values(event.ultimateAbilities));
     }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("purchase_ability_error", (event) => {
+        GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("fetch_shop_abilities_error", (event) => {
+        GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
+    }, []);
     $.Msg("render");
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(!props.visible) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, null),
@@ -56405,12 +56411,12 @@ const onMouseOver = (entindex, abilityname) => {
 const onMouseOut = (abilityname) => {
     $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_shop_image_" + abilityname));
 };
-const onRightClick = (abilityname) => {
+const onRightClick = (entindex, abilityname) => {
     $.Msg("onRightClick: " + abilityname);
-    GameEvents.SendCustomGameEventToServer("purchase_ability", { abilityname });
+    GameEvents.SendCustomGameEventToServer("purchase_ability", { entindex, abilityname });
 };
 const AbilityImage = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.AbilityImage(), oncontextmenu: () => onRightClick(props.abilityname), onmouseout: () => onMouseOut(props.abilityname), onmouseover: () => onMouseOver(props.entindex, props.abilityname) },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.AbilityImage(), oncontextmenu: () => onRightClick(props.entindex, props.abilityname), onmouseout: () => onMouseOut(props.abilityname), onmouseover: () => onMouseOver(props.entindex, props.abilityname) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: 'ability_shop_image_' + props.abilityname, abilityname: props.abilityname })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AbilityImage);
