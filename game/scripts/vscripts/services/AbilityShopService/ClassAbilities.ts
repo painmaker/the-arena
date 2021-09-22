@@ -8,15 +8,15 @@ export const ClassAbilities: Record<string, HeroAbilities> = {
 
   "npc_dota_hero_dazzle": {
     RegularAbilities: [
+      "dazzle_healing_wave",
+      "dazzle_juju_enrage",
+      "dazzle_sadistic_ritual",
       "dazzle_poison_touch",
       "dazzle_shallow_grave",
-      "dazzle_shadow_wave",
       "witch_doctor_voodoo_restoration",
-      "witch_doctor_maledict",
     ],
     UltimateAbilities: [
-      "dazzle_weave",
-      "witch_doctor_death_ward",
+      "dazzle_weave"
     ]
   },
 

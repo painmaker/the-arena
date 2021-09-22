@@ -1,0 +1,74 @@
+"DOTAAbilities"
+{
+   
+    "dazzle_healing_wave"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"                     "ability_lua"
+        "ScriptFile"                    "abilities/heroes/dazzle/dazzle_healing_wave.lua"
+        "AbilityTextureName"            "dazzle_healing_wave"
+        "AbilityType"				        	  "DOTA_ABILITY_TYPE_BASIC"
+        "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+        "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_3"
+		    "AbilityUnitTargetTeam"			    "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+        "AbilityUnitTargetType"			    "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+        "AbilityUnitTargetFlags"			  "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		    "AbilityUnitDamageType"		  	  "DAMAGE_TYPE_MAGICAL"		
+		    "SpellDispellableType"			    ""
+        "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_YES"
+
+        "precache"
+        {
+          "particle"		"particles/units/heroes/hero_dazzle/dazzle_shadow_wave.vpcf"
+          "particle"		"particles/general/health_and_mana_gained_text.vpcf"
+          "soundfile"   "sounds/weapons/hero/dazzle/shadow_wave.vsnd"
+        }
+
+        // "AbilityCastRange"           ""
+        "AbilityCastPoint"              "0.35"
+        "AbilityCooldown"               "5.0"
+        "AbilityManaCost"               "10"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"              "FIELD_INTEGER"
+                "healing"               "50 100 150 200"
+            }
+            "02"
+            {
+                "var_type"              "FIELD_FLOAT"
+                "cast_range"            "700 800 900 1000"
+            }
+            "03"
+            {
+                "var_type"              "FIELD_FLOAT"
+                "healing_decay"         "25"
+            }
+            "04"
+            {
+                "var_type"              "FIELD_INTEGER"
+                "jump_count"            "2 3 4 5"
+            }
+            "05"
+            {
+                "var_type"              "FIELD_INTEGER"
+                "jump_count_tooltip"    "1 2 3 4"
+            }
+            "06"
+            {
+                "var_type"              "FIELD_INTEGER"
+                "jump_radius"           "400"
+            }
+            "07"
+            {
+                "var_type"              "FIELD_FLOAT"
+                "jump_delay"            "0.35"
+            }
+        }
+
+    }
+    
+} 

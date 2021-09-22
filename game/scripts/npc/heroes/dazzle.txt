@@ -58,6 +58,9 @@
     
 		"AttributePrimary"		              "DOTA_ATTRIBUTE_INTELLECT"
 
+    "ArmorPhysical"				              "0"
+		"MagicalResistance"			            "0"
+
     // Total 10 points
 		"CustomBaseStrength"		            "3"
 		"CustomBaseAgility"		              "1"

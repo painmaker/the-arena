@@ -33,6 +33,6 @@
         <include src="./components/HeroSelection/RandomHeroDialog/randomHeroDialog.css" />  
     </styles>  
     <Panel class="root" hittest="false">
-      <Image src="s2r://panorama/images/icon_abilities_shop_points.png" />
+      <!-- <Image src="s2r://panorama/images/icon_abilities_shop_points.png" /> -->
     </Panel> 
 </root>          

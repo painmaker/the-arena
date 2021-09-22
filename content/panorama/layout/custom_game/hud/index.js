@@ -56222,17 +56222,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AbilitiesPoints = (props) => {
-    const [unspentPoints, setUnSpentPoints] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(3);
+    const [abilityPoints, setAbilityPoints] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAbilityPoints(Players.GetLocalPlayerPortraitUnit()));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = props.setInterval(() => {
-            // Do something
+            setAbilityPoints(Entities.GetAbilityPoints(Players.GetLocalPlayerPortraitUnit()));
         }, 100);
         return () => props.clearInterval(id);
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LabelContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: props.text, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel() }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: unspentPoints, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.NumberLabel(unspentPoints !== 0) }))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: abilityPoints, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.NumberLabel(abilityPoints !== 0) }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AbilitiesPoints));
 
@@ -56343,18 +56343,19 @@ const Shop = (props) => {
     const [entindex, setEntindex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
     const [regularAbilityNames, setRegularAbilityNames] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [ultimateAbilityNames, setUltimateAbilityNames] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-    const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
-    // useEffect(() => {
-    //   let timer = -1 as Timer;
-    //   if (props.visible === false) {
-    //     timer = props.setTimeout(() => {
-    //       setRenderComponent(false);
-    //     }, 1000);
-    //   } else {
-    //     setRenderComponent(true);
-    //   }
-    //   return () => props.clearTimeout(timer);
-    // }, [props.visible]);
+    const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let timer = -1;
+        if (props.visible === false) {
+            timer = props.setTimeout(() => {
+                setRenderComponent(false);
+            }, 1000);
+        }
+        else {
+            setRenderComponent(true);
+        }
+        return () => props.clearTimeout(timer);
+    }, [props.visible]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = props.setInterval(() => {
             setEntindex(Players.GetLocalPlayerPortraitUnit());
@@ -56368,19 +56369,20 @@ const Shop = (props) => {
         setRegularAbilityNames(Object.values(event.regularAbilities));
         setUltimateAbilityNames(Object.values(event.ultimateAbilities));
     }, []);
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("purchase_ability_error", (event) => {
-        GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
-    }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("fetch_shop_abilities_error", (event) => {
         GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
     }, []);
-    $.Msg("render");
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(!props.visible) },
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("purchase_ability_error", (event) => {
+        GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("purchase_ability_ok", (event) => {
+        Game.EmitSound("General.Buy");
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(props.visible) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.TopContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { text: 'Ability Points:' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { text: 'Ultimate Points:' })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { text: 'Ability Points:' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.AbilitiesContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { entindex: entindex, abilitynames: regularAbilityNames }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, { entindex: entindex, abilitynames: ultimateAbilityNames }))))));
@@ -56573,7 +56575,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const Styles = {
     Container: () => ({
-        width: "420px",
+        width: "570px",
         flowChildren: "right",
         backgroundColor: "black",
         borderRadius: "5px",
@@ -56597,7 +56599,7 @@ const Styles = {
         textOverflow: "clip",
         whiteSpace: "nowrap",
         border: "0px solid black",
-        width: "360px",
+        width: "510px",
         backgroundColor: "black",
     }),
     ClearBtn: (isHovering) => ({
@@ -56627,18 +56629,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Styles": () => (/* binding */ Styles)
 /* harmony export */ });
 const Styles = {
-    OuterContainer: () => ({
-        width: '100%',
-        height: '100%',
-        transform: 'translateX(500px)'
-    }),
     InnerContainer: (visible) => ({
         horizontalAlign: "right",
         verticalAlign: "top",
         marginRight: "0px",
         marginTop: "250px",
         transition: "transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s",
-        opacity: visible ? "1.0" : "0.1",
         borderRadius: "5px",
         minWidth: "750px",
         height: "fit-children",
@@ -56647,6 +56643,12 @@ const Styles = {
         backgroundColor: "rgba(0, 0, 0, 0.85)",
         flowChildren: "down",
         transform: visible ? "translateX(-510px)" : 'translateX(0px)',
+        opacity: visible ? "1.0" : "0.0",
+    }),
+    OuterContainer: () => ({
+        width: '100%',
+        height: '100%',
+        transform: 'translateX(500px)',
     }),
     TopContainer: () => ({
         flowChildren: "right",
@@ -57249,8 +57251,7 @@ const Styles = {
         height: '100%',
         backgroundColor: "rgba(0, 200, 0, 0.2)",
         clip: 'radial(50% 50%, 0deg, ' + degree + 'deg)',
-        margin: '2px',
-        border: "2px solid rgba(0, 150, 0, 0.2)",
+        border: "2px solid rgba(60, 255, 60, 0.1)",
     }),
 };
 
@@ -57708,7 +57709,7 @@ const Styles = {
         backgroundSize: '100% 100%',
         backgroundPosition: '50% 50%',
         backgroundRepeat: 'no-repeat',
-        padding: isTrainable ? '4px' : isActive || isAutoCastEnabled || isToggled ? '2.5px' : '1px',
+        padding: isTrainable ? '4px' : isActive || isAutoCastEnabled || isToggled ? '2px' : '1px',
     }),
     LevelUpButtonContainer: () => ({
         width: '100%',
@@ -61617,6 +61618,7 @@ const Modifier = (props) => {
     const isEnemy = Entities.IsEnemy(props.selectedUnit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: panelId, hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isMounted, isHovering), onactivate: () => {
             $.Msg("Modifier clicked: " + Buffs.GetName(props.selectedUnit, props.buffId));
+            $.Msg(Buffs.IsHidden(props.selectedUnit, props.buffId));
             Players.BuffClicked(props.selectedUnit, props.buffId, GameUI.IsAltDown());
         }, onmouseout: () => {
             const thisPanel = $("#" + panelId);
@@ -62190,6 +62192,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Styles": () => (/* binding */ Styles)
 /* harmony export */ });
 const Styles = {
+    OuterContainer: () => ({
+        width: '100%',
+        height: '100%',
+        transform: 'translateX(500px)'
+    }),
     InnerContainer: (visible) => ({
         verticalAlign: "top",
         horizontalAlign: "right",
@@ -62205,11 +62212,6 @@ const Styles = {
         transition: "transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s",
         opacity: visible ? "1.0" : "0.1",
         transform: visible ? "translateX(-510px)" : 'translateX(0px)',
-    }),
-    OuterContainer: () => ({
-        width: '100%',
-        height: '100%',
-        transform: 'translateX(500px)'
     }),
     EntryContainer: () => ({
         width: "100%",

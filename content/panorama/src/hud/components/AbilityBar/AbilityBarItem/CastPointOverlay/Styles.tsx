@@ -5,8 +5,7 @@ export const Styles = {
     height: '100%',
     backgroundColor: "rgba(0, 200, 0, 0.2)",
     clip: 'radial(50% 50%, 0deg, ' + degree + 'deg)',
-    margin: '2px',
-    border: "2px solid rgba(0, 150, 0, 0.2)",
+    border: "2px solid rgba(60, 255, 60, 0.1)",
   }),
 
 }

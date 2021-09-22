@@ -1,0 +1,49 @@
+"DOTAAbilities"
+{
+   
+    "dazzle_sadistic_ritual"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"                     "ability_lua"
+        "ScriptFile"                    "abilities/heroes/dazzle/dazzle_sadistic_ritual.lua"
+        "AbilityTextureName"            "dazzle_sadistic_ritual"
+        "AbilityType"				        	  "DOTA_ABILITY_TYPE_BASIC"
+        "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+        "AbilityCastAnimation"          "ACT_DOTA_SHALLOW_GRAVE"
+		    "AbilityUnitTargetTeam"			    ""
+        "AbilityUnitTargetType"			    "DOTA_UNIT_TARGET_NONE"
+        "AbilityUnitTargetFlags"			  "DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+		    "AbilityUnitDamageType"		  	  ""		
+		    "SpellDispellableType"			    ""
+        "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_YES"
+
+        "precache"
+        {
+          "particle"		"particles/general/health_and_mana_gained_text.vpcf"
+          "particle"		"particles/abilities/heroes/dazzle/general/dazzle_cast_ability_a.vpcf"
+          "particle"		"particles/abilities/heroes/dazzle/dazzle_sadistic_ritual/dazzle_sadistic_ritual.vpcf"
+        }
+
+        // "AbilityCastRange"              "1250"
+        "AbilityCastPoint"              "0.35"
+        "AbilityCooldown"               "5.0"
+        // "AbilityManaCost"               "0"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"              "FIELD_INTEGER"
+                "health_lost"           "25 50 100 150"
+            }
+            "02"
+            {
+                "var_type"              "FIELD_INTEGER"
+                "mana_gained"           "75 125 175 225"
+            }
+        }
+
+    }
+    
+} 

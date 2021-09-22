@@ -1,5 +1,11 @@
 export const Styles = {
 
+  OuterContainer: (): Partial<VCSSStyleDeclaration> => ({
+    width: '100%',
+    height: '100%',
+    transform: 'translateX(500px)'
+  }),
+
   InnerContainer: (visible: boolean): Partial<VCSSStyleDeclaration> => ({
     verticalAlign: "top",
     horizontalAlign: "right",
@@ -15,12 +21,6 @@ export const Styles = {
     transition: "transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s",
     opacity: visible ? "1.0" : "0.1",
     transform: visible ? "translateX(-510px)" : 'translateX(0px)',
-  }),
-
-  OuterContainer: (): Partial<VCSSStyleDeclaration> => ({
-    width: '100%',
-    height: '100%',
-    transform: 'translateX(500px)'
   }),
 
   EntryContainer: (): Partial<VCSSStyleDeclaration> => ({

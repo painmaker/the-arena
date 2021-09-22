@@ -33,6 +33,6 @@
         <include src="file://{resources}/layout/custom_game/hud/components/HeroSelection/RandomHeroDialog/randomHeroDialog.css"></include>  
     </styles>  
     <Panel class="root" hittest="false">
-      <Image src="s2r://panorama/images/icon_abilities_shop_points.png"></Image>
+      <!-- <Image src="s2r://panorama/images/icon_abilities_shop_points.png" /> -->
     </Panel> 
 </root>          

@@ -38,6 +38,7 @@ const Modifier = (props: Props) => {
       style={Styles.Container(isMounted, isHovering)}
       onactivate={() => {
         $.Msg("Modifier clicked: " + Buffs.GetName(props.selectedUnit, props.buffId));
+        $.Msg(Buffs.IsHidden(props.selectedUnit, props.buffId));
         Players.BuffClicked(props.selectedUnit, props.buffId, GameUI.IsAltDown());
       }}
       onmouseout={() => {

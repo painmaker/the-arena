@@ -63,8 +63,6 @@ export class HeroSelectionService {
       const hero = PlayerResource.ReplaceHeroWith(id, "npc_dota_hero_dazzle", 0, 0)
       hero.SetCustomDeathXP(10);
       hero.SetGold(START_GOLD, true);
-      hero.AddItemByName("item_ultimate_scepter");
-      hero.AddItemByName("item_blink");
 
       EmitSoundOnClient("HeroPicker.Selected", player);
 
@@ -115,8 +113,6 @@ export class HeroSelectionService {
     const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, randomHero.heroname, 0, 0);
     hero.SetCustomDeathXP(10);
     hero.SetGold(START_GOLD, true);
-    hero.AddItemByName("item_ultimate_scepter");
-    hero.AddItemByName("item_blink");
 
     EmitSoundOnClient("HeroPicker.Selected", player);
 
@@ -164,8 +160,6 @@ export class HeroSelectionService {
     const hero = PlayerResource.ReplaceHeroWith(event.PlayerID, event.heroname, 0, 0);
     hero.SetCustomDeathXP(10);
     hero.SetGold(START_GOLD, true);
-    hero.AddItemByName("item_ultimate_scepter");
-    hero.AddItemByName("item_blink");
 
     EmitSoundOnClient("HeroPicker.Selected", player);
 

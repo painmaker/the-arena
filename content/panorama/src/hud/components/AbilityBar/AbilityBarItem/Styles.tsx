@@ -20,7 +20,7 @@ export const Styles = {
     backgroundSize: '100% 100%',
     backgroundPosition: '50% 50%',
     backgroundRepeat: 'no-repeat',
-    padding: isTrainable ? '4px' : isActive || isAutoCastEnabled || isToggled ? '2.5px' : '1px',
+    padding: isTrainable ? '4px' : isActive || isAutoCastEnabled || isToggled ? '2px' : '1px',
   }),
 
   LevelUpButtonContainer: (): Partial<VCSSStyleDeclaration> => ({

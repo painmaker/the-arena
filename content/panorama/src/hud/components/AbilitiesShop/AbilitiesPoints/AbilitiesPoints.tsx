@@ -8,11 +8,11 @@ type Props = ReactTimeoutProps & {
 
 const AbilitiesPoints = (props: Props) => {
 
-  const [unspentPoints, setUnSpentPoints] = useState(3);
+  const [abilityPoints, setAbilityPoints] = useState(Entities.GetAbilityPoints(Players.GetLocalPlayerPortraitUnit()));
 
   useEffect(() => {
     const id = props.setInterval(() => {
-      // Do something
+      setAbilityPoints(Entities.GetAbilityPoints(Players.GetLocalPlayerPortraitUnit()));
     }, 100);
     return () => props.clearInterval(id);
   }, []);
@@ -31,8 +31,8 @@ const AbilitiesPoints = (props: Props) => {
           style={Styles.TextLabel()}
         />
         <Label
-          text={unspentPoints}
-          style={Styles.NumberLabel(unspentPoints !== 0)}
+          text={abilityPoints}
+          style={Styles.NumberLabel(abilityPoints !== 0)}
         />
       </Panel>
     </Panel>

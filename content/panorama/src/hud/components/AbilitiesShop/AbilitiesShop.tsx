@@ -34,19 +34,19 @@ const Shop = (props: Props) => {
   const [entindex, setEntindex] = useState(Players.GetLocalPlayerPortraitUnit());
   const [regularAbilityNames, setRegularAbilityNames] = useState<string[]>([]);
   const [ultimateAbilityNames, setUltimateAbilityNames] = useState<string[]>([]);
-  const [renderComponent, setRenderComponent] = useState(true);
+  const [renderComponent, setRenderComponent] = useState(false);
 
-  // useEffect(() => {
-  //   let timer = -1 as Timer;
-  //   if (props.visible === false) {
-  //     timer = props.setTimeout(() => {
-  //       setRenderComponent(false);
-  //     }, 1000);
-  //   } else {
-  //     setRenderComponent(true);
-  //   }
-  //   return () => props.clearTimeout(timer);
-  // }, [props.visible]);
+  useEffect(() => {
+    let timer = -1 as Timer;
+    if (props.visible === false) {
+      timer = props.setTimeout(() => {
+        setRenderComponent(false);
+      }, 1000);
+    } else {
+      setRenderComponent(true);
+    }
+    return () => props.clearTimeout(timer);
+  }, [props.visible]);
 
 
   useEffect(() => {
@@ -65,25 +65,27 @@ const Shop = (props: Props) => {
     setUltimateAbilityNames(Object.values(event.ultimateAbilities))
   }, []);
 
-  useGameEvent("purchase_ability_error", (event) => {
-    GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
-  }, []);
-
   useGameEvent("fetch_shop_abilities_error", (event) => {
     GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
   }, []);
 
-  $.Msg("render");
+  useGameEvent("purchase_ability_error", (event) => {
+    GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
+  }, []);
+
+  useGameEvent("purchase_ability_ok", (event) => {
+    Game.EmitSound("General.Buy");
+  }, []);
 
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
-        <Panel hittest={true} style={Styles.InnerContainer(!props.visible)}>
+        <Panel hittest={true} style={Styles.InnerContainer(props.visible)}>
           <Title />
           <Panel style={Styles.TopContainer()}>
             <Search />
             <AbilitiesPoints text={'Ability Points:'} />
-            <AbilitiesPoints text={'Ultimate Points:'} />
+            {/* <AbilitiesPoints text={'Ultimate Points:'} /> */}
           </Panel>
           <Panel style={Styles.AbilitiesContainer()}>
             <RegularAbilities

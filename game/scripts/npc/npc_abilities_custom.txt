@@ -2,6 +2,14 @@
 #base "rizzrak/abilities/rizzrak_ticking_bomb.kv"
 #base "rizzrak/abilities/rizzrak_ticking_bomb_intrinsic.kv"
 
+// Dummy unit
+#base "abilities/units/dummy/dummy_unit_ability.kv"
+
+// Dazzle
+#base "abilities/heroes/dazzle/dazzle_healing_wave.kv"
+#base "abilities/heroes/dazzle/dazzle_juju_enrage.kv"
+#base "abilities/heroes/dazzle/dazzle_sadistic_ritual.kv"
+
 "DOTAAbilities"
 {
 }

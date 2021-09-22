@@ -1,7 +1,7 @@
 import { reloadable } from "./lib/tstl-utils";
-import "./modifiers/modifier_panic";
 import "./modifiers/modifier_not_on_minimap";
 import "./modifiers/modifier_fow_visible";
+import "./modifiers/modifier_no_statusbar";
 import "./modifiers/modifier_shopkeeper";
 import "./modifiers/ui/modifier_ui_status_resistance";
 import "./modifiers/ui/modifier_ui_evasion";
@@ -22,6 +22,7 @@ declare global {
     ChatService: ChatService;
     ShopService: ShopService;
     AbilityShopService: AbilityShopService;
+    dummy: CDOTA_BaseNPC,
   }
 }
 
@@ -37,6 +38,7 @@ export class GameMode {
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_techies.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_shredder.vsndevts", context);
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_bloodseeker.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/voscripts/game_sounds_vo_shredder.vsndevts", context);
     PrecacheResource("soundfile", "game_sounds_ui_imported.vsndevts", context);
     PrecacheUnitByNameSync("npc_dota_hero_crystal_maiden", context)
@@ -61,6 +63,7 @@ export class GameMode {
     ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
     ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
     ListenToGameEvent("player_connect_full", event => this.OnPlayerConnectFull(event), undefined);
+    ListenToGameEvent("dota_player_gained_level", event => this.OnLevelUp(event), undefined);
 
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, MAX_PLAYERS);
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, MAX_PLAYERS);
@@ -124,9 +127,15 @@ export class GameMode {
       return 1;
     });
 
+    const dummyUnitSpawner = Entities.FindByName(undefined, "npc_dota_spawner_dummy_unit");
+    if (dummyUnitSpawner !== undefined) {
+      const dummy = CreateUnitByName("dummy_unit", dummyUnitSpawner.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
+      GameRules.dummy = dummy;
+    }
+
     const spawnEntity = Entities.FindByName(undefined, "npc_boss_spawner_1");
     if (spawnEntity !== undefined) {
-      const boss = CreateUnitByName("rizzrak", spawnEntity.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_BADGUYS);
+      CreateUnitByName("rizzrak", spawnEntity.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_BADGUYS);
       // boss.AddNewModifier(undefined, undefined, "modifier_fow_visible", undefined);
     }
 
@@ -144,7 +153,7 @@ export class GameMode {
 
     let delay = 1.0;
     [
-      { hero: "npc_dota_hero_dazzle", name: "Dazzle" },
+      { hero: "npc_dota_hero_dragon_knight", name: "Dragon Knight" },
       { hero: "npc_dota_hero_crystal_maiden", name: "Crystal Maiden" },
       { hero: "npc_dota_hero_lina", name: "Lina" }
     ].forEach(bot => {
@@ -169,10 +178,29 @@ export class GameMode {
     unit.AddNewModifier(unit, undefined, "modifier_ui_base_health_regen", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_ui_spell_amp", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_ui_hero_id", { duration: -1 });
+    unit.AddNewModifier(unit, undefined, "modifier_no_statusbar", { duration: -1 });
+
+    // @ts-ignore
+    if (!unit.bFirstSpawn && unit.IsRealHero()) {
+      print("Spawning hero " + unit.GetName() + " for the first time...");
+      unit.SetAbilityPoints(3);
+      // @ts-ignore
+      unit.bFirstSpawn = true;
+      unit.AddItemByName("item_heart");
+      unit.AddItemByName("item_skadi");
+      unit.AddItemByName("item_pipe");
+      unit.AddItemByName("item_blink");
+      unit.AddItemByName("item_mek");
+    }
+
   }
 
   private OnPlayerConnectFull(event: PlayerConnectFullEvent) {
     print(event);
+  }
+
+  private OnLevelUp(event: DotaPlayerGainedLevelEvent) {
+
   }
 
 }
