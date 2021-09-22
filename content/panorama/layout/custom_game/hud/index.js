@@ -56343,6 +56343,8 @@ const Shop = (props) => {
     const [entindex, setEntindex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
     const [regularAbilityNames, setRegularAbilityNames] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [ultimateAbilityNames, setUltimateAbilityNames] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+    const [isLoadingAbilities, setIsLoadingAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    const [searchValue, setSearchValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let timer = -1;
@@ -56357,20 +56359,19 @@ const Shop = (props) => {
         return () => props.clearTimeout(timer);
     }, [props.visible]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
-            setEntindex(Players.GetLocalPlayerPortraitUnit());
-        }, 100);
-        return () => props.clearInterval(id);
-    }, []);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        setRegularAbilityNames([]);
+        setUltimateAbilityNames([]);
+        setIsLoadingAbilities(true);
         GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: entindex });
     }, [entindex]);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)('fetch_shop_abilities_ok', (event) => {
         setRegularAbilityNames(Object.values(event.regularAbilities));
         setUltimateAbilityNames(Object.values(event.ultimateAbilities));
+        setIsLoadingAbilities(false);
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("fetch_shop_abilities_error", (event) => {
         GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
+        setIsLoadingAbilities(false);
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("purchase_ability_error", (event) => {
         GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
@@ -56378,14 +56379,32 @@ const Shop = (props) => {
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("purchase_ability_ok", (event) => {
         Game.EmitSound("General.Buy");
     }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("dota_player_update_query_unit", (event) => {
+        let newEntindex = Players.GetLocalPlayerPortraitUnit();
+        if (Entities.GetUnitName(newEntindex) === 'shopkeeper_abilities') {
+            newEntindex = Entities.IsRealHero(entindex) ? entindex : Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
+            GameUI.SelectUnit(newEntindex, false);
+            props.setShopVisible(true);
+        }
+        setEntindex(newEntindex);
+    }, [entindex]);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("dota_player_update_selected_unit", (event) => {
+        let newEntindex = Players.GetLocalPlayerPortraitUnit();
+        if (Entities.GetUnitName(newEntindex) === 'shopkeeper_abilities') {
+            newEntindex = Entities.IsRealHero(entindex) ? entindex : Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
+            GameUI.SelectUnit(newEntindex, false);
+            props.setShopVisible(true);
+        }
+        setEntindex(newEntindex);
+    }, [entindex]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(props.visible) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.TopContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, { setSearchValue: setSearchValue }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { text: 'Ability Points:' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.AbilitiesContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { entindex: entindex, abilitynames: regularAbilityNames }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, { entindex: entindex, abilitynames: ultimateAbilityNames }))))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { entindex: entindex, abilitynames: regularAbilityNames, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, { entindex: entindex, abilitynames: ultimateAbilityNames, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Shop)));
 
@@ -56418,8 +56437,11 @@ const onRightClick = (entindex, abilityname) => {
     GameEvents.SendCustomGameEventToServer("purchase_ability", { entindex, abilityname });
 };
 const AbilityImage = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.AbilityImage(), oncontextmenu: () => onRightClick(props.entindex, props.abilityname), onmouseout: () => onMouseOut(props.abilityname), onmouseover: () => onMouseOver(props.entindex, props.abilityname) },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: 'ability_shop_image_' + props.abilityname, abilityname: props.abilityname })));
+    const searchMatchesAbilityname = props.abilityname.match(props.searchValue) ? false : true;
+    const isWashedOut = props.searchValue.trim().length === 0 ? false : searchMatchesAbilityname;
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.AbilityImage(isWashedOut), oncontextmenu: () => onRightClick(props.entindex, props.abilityname), onmouseout: () => onMouseOut(props.abilityname), onmouseover: () => onMouseOver(props.entindex, props.abilityname) },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: 'ability_shop_image_' + props.abilityname, abilityname: props.abilityname }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AbilityImage);
 
@@ -56438,10 +56460,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Styles": () => (/* binding */ Styles)
 /* harmony export */ });
 const Styles = {
-    AbilityImage: () => ({
+    AbilityImage: (isWashedOut) => ({
         width: '36px',
         height: '36px',
         margin: '3px',
+        washColor: isWashedOut ? 'grey' : 'none',
     }),
 };
 
@@ -56470,9 +56493,12 @@ __webpack_require__.r(__webpack_exports__);
 const RegularAbilities = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Regular Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Title() }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() }, props.abilitynames.map(abilityname => {
-            return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_2__.default, { key: abilityname, entindex: props.entindex, abilityname: abilityname }));
-        }))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() },
+            (props.abilitynames.length === 0 && props.isLoadingAbilities === true) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Loading...", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CenterLabel() })),
+            (props.abilitynames.length === 0 && props.isLoadingAbilities === false) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(props.entindex)) + " Has No Regular Abilities", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CenterLabel() })),
+            props.abilitynames.map(abilityname => {
+                return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_2__.default, { key: abilityname, entindex: props.entindex, abilityname: abilityname, searchValue: props.searchValue }));
+            }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(RegularAbilities));
 /*
@@ -56521,6 +56547,11 @@ const Styles = {
         flowChildren: 'right-wrap',
         padding: '10px',
     }),
+    CenterLabel: () => ({
+        verticalAlign: 'center',
+        horizontalAlign: 'center',
+        fontSize: '14px',
+    })
 };
 
 
@@ -56538,26 +56569,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/Search/Styles.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/Search/Styles.tsx");
 
 
-
-const mapDispatchToProps = (dispatch) => ({
-// setShopSearchValue: (searchValue: string) => dispatch(setShopSearchValue(searchValue)),
-});
-const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
 /**
  * TextEntry can't set text through redux-state, the value of the component doesn't update correctly
  */
 const Search = (props) => {
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Icon() }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(TextEntry, { id: "abilitiesShopSearchFieldId", style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.SearchField(), maxchars: 50, placeholder: 'Search...', ontextentrychange: (event) => $.Msg(event) }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { onmouseout: () => setIsHovering(false), onmouseover: () => setIsHovering(true), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ClearBtn(isHovering), onactivate: () => $("#abilitiesShopSearchFieldId").text = '' })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Icon() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(TextEntry, { id: "abilitiesShopSearchFieldId", style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.SearchField(), maxchars: 50, placeholder: 'Search...', ontextentrychange: (event) => props.setSearchValue(event.text.toLocaleLowerCase().trim()) }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { onmouseout: () => setIsHovering(false), onmouseover: () => setIsHovering(true), style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ClearBtn(isHovering), onactivate: () => $("#abilitiesShopSearchFieldId").text = '' })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Search));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Search);
 
 
 /***/ }),
@@ -56790,6 +56815,11 @@ const Styles = {
         flowChildren: 'right-wrap',
         padding: '10px',
     }),
+    CenterLabel: () => ({
+        verticalAlign: 'center',
+        horizontalAlign: 'center',
+        fontSize: '14px',
+    })
 };
 
 
@@ -56817,9 +56847,12 @@ __webpack_require__.r(__webpack_exports__);
 const UltimateAbilities = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Ultimate Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Title() }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() }, props.abilitynames.map(abilityname => {
-            return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_2__.default, { key: abilityname, entindex: props.entindex, abilityname: abilityname }));
-        }))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() },
+            (props.abilitynames.length === 0 && props.isLoadingAbilities === true) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Loading...", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CenterLabel() })),
+            (props.abilitynames.length === 0 && props.isLoadingAbilities === false) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(props.entindex)) + " Has No Ultimate Abilities", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CenterLabel() })),
+            props.abilitynames.map(abilityname => {
+                return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_2__.default, { key: abilityname, entindex: props.entindex, abilityname: abilityname, searchValue: props.searchValue }));
+            }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(UltimateAbilities));
 

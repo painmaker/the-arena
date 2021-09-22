@@ -4,6 +4,7 @@ import { Styles } from "./Styles";
 type Props = {
   entindex: EntityIndex,
   abilityname: string,
+  searchValue: string,
 }
 
 const onMouseOver = (entindex: EntityIndex, abilityname: string) => {
@@ -25,20 +26,26 @@ const onRightClick = (entindex: EntityIndex, abilityname: string) => {
 }
 
 const AbilityImage = (props: Props) => {
-  return (
-    <Button
-      style={Styles.AbilityImage()}
-      oncontextmenu={() => onRightClick(props.entindex, props.abilityname)}
-      onmouseout={() => onMouseOut(props.abilityname)}
-      onmouseover={() => onMouseOver(props.entindex, props.abilityname)}
-    >
-      <DOTAAbilityImage
-        id={'ability_shop_image_' + props.abilityname}
-        abilityname={props.abilityname}
-      />
-    </Button>
 
+  const searchMatchesAbilityname = props.abilityname.match(props.searchValue) ? false : true;
+  const isWashedOut = props.searchValue.trim().length === 0 ? false : searchMatchesAbilityname;
+
+  return (
+    <React.Fragment>
+      <Button
+        style={Styles.AbilityImage(isWashedOut)}
+        oncontextmenu={() => onRightClick(props.entindex, props.abilityname)}
+        onmouseout={() => onMouseOut(props.abilityname)}
+        onmouseover={() => onMouseOver(props.entindex, props.abilityname)}
+      >
+        <DOTAAbilityImage
+          id={'ability_shop_image_' + props.abilityname}
+          abilityname={props.abilityname}
+        />
+      </Button>
+    </React.Fragment>
   );
+
 };
 
 export default AbilityImage;

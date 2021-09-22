@@ -34,6 +34,8 @@ const Shop = (props: Props) => {
   const [entindex, setEntindex] = useState(Players.GetLocalPlayerPortraitUnit());
   const [regularAbilityNames, setRegularAbilityNames] = useState<string[]>([]);
   const [ultimateAbilityNames, setUltimateAbilityNames] = useState<string[]>([]);
+  const [isLoadingAbilities, setIsLoadingAbilities] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
@@ -48,25 +50,22 @@ const Shop = (props: Props) => {
     return () => props.clearTimeout(timer);
   }, [props.visible]);
 
-
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setEntindex(Players.GetLocalPlayerPortraitUnit());
-    }, 100);
-    return () => props.clearInterval(id);
-  }, []);
-
-  useEffect(() => {
+    setRegularAbilityNames([]);
+    setUltimateAbilityNames([]);
+    setIsLoadingAbilities(true);
     GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: entindex });
   }, [entindex]);
 
   useGameEvent('fetch_shop_abilities_ok', (event) => {
-    setRegularAbilityNames(Object.values(event.regularAbilities))
-    setUltimateAbilityNames(Object.values(event.ultimateAbilities))
+    setRegularAbilityNames(Object.values(event.regularAbilities));
+    setUltimateAbilityNames(Object.values(event.ultimateAbilities));
+    setIsLoadingAbilities(false);
   }, []);
 
   useGameEvent("fetch_shop_abilities_error", (event) => {
     GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
+    setIsLoadingAbilities(false);
   }, []);
 
   useGameEvent("purchase_ability_error", (event) => {
@@ -77,13 +76,33 @@ const Shop = (props: Props) => {
     Game.EmitSound("General.Buy");
   }, []);
 
+  useGameEvent("dota_player_update_query_unit", (event) => {
+    let newEntindex = Players.GetLocalPlayerPortraitUnit();
+    if (Entities.GetUnitName(newEntindex) === 'shopkeeper_abilities') {
+      newEntindex = Entities.IsRealHero(entindex) ? entindex : Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
+      GameUI.SelectUnit(newEntindex, false);
+      props.setShopVisible(true);
+    }
+    setEntindex(newEntindex);
+  }, [entindex]);
+
+  useGameEvent("dota_player_update_selected_unit", (event) => {
+    let newEntindex = Players.GetLocalPlayerPortraitUnit();
+    if (Entities.GetUnitName(newEntindex) === 'shopkeeper_abilities') {
+      newEntindex = Entities.IsRealHero(entindex) ? entindex : Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
+      GameUI.SelectUnit(newEntindex, false);
+      props.setShopVisible(true);
+    }
+    setEntindex(newEntindex);
+  }, [entindex]);
+
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
         <Panel hittest={true} style={Styles.InnerContainer(props.visible)}>
           <Title />
           <Panel style={Styles.TopContainer()}>
-            <Search />
+            <Search setSearchValue={setSearchValue} />
             <AbilitiesPoints text={'Ability Points:'} />
             {/* <AbilitiesPoints text={'Ultimate Points:'} /> */}
           </Panel>
@@ -91,10 +110,14 @@ const Shop = (props: Props) => {
             <RegularAbilities
               entindex={entindex}
               abilitynames={regularAbilityNames}
+              isLoadingAbilities={isLoadingAbilities}
+              searchValue={searchValue}
             />
             <UltimateAbilities
               entindex={entindex}
               abilitynames={ultimateAbilityNames}
+              isLoadingAbilities={isLoadingAbilities}
+              searchValue={searchValue}
             />
           </Panel>
         </Panel>

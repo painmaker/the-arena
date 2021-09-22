@@ -78,12 +78,12 @@
 		{
 			_class = "C_INIT_RandomAlpha"
 			m_nAlphaMin = 5
-			m_nAlphaMax = 45
+			m_nAlphaMax = 65
 		},
 		{
 			_class = "C_INIT_RandomRadius"
-			m_flRadiusMin = 80.0
-			m_flRadiusMax = 100.0
+			m_flRadiusMin = 60.0
+			m_flRadiusMax = 80.0
 		},
 		{
 			_class = "C_INIT_RandomSequence"

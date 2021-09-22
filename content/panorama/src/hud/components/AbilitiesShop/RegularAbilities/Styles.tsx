@@ -30,4 +30,10 @@ export const Styles = {
     padding: '10px',
   }),
 
+  CenterLabel: (): Partial<VCSSStyleDeclaration> => ({
+    verticalAlign: 'center',
+    horizontalAlign: 'center',
+    fontSize: '14px',
+  })
+
 }

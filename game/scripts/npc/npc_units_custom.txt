@@ -1,6 +1,6 @@
 #base "rizzrak/rizzrak.kv"
 #base "rizzrak/units/rizzrak_ticking_bomb.kv"
-#base "units/shopkeeper.kv"
+#base "units/shopkeeper_abilities.kv"
 #base "units/dummy_unit.kv"
 
 "DOTAUnits"

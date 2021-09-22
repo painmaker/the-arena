@@ -21,8 +21,6 @@ export class AbilityShopService {
 
   public fetchClassAbilities(event: { PlayerID: PlayerID, entindex: EntityIndex }): void {
 
-    print("Fetching shop abilities for entindex: " + event.entindex);
-
     const player = PlayerResource.GetPlayer(event.PlayerID);
     if (!player) {
       CustomGameEventManager.Send_ServerToAllClients("fetch_shop_abilities_error", { errorMsg: "Could Not Find Player" });
@@ -52,8 +50,6 @@ export class AbilityShopService {
 
 
   public purchasAbility(event: { PlayerID: PlayerID, entindex: EntityIndex, abilityname: string }): void {
-
-    print("Purchasing ability " + event.abilityname + " for entindex " + event.entindex);
 
     const player = PlayerResource.GetPlayer(event.PlayerID);
     if (!player) {

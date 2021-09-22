@@ -1,18 +1,9 @@
-import React, { useState } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { Dispatch } from "redux";
-import { ShopActionTypes } from "../../../types/shopTypes";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Styles } from "./Styles";
 
-const mapDispatchToProps = (dispatch: Dispatch<ShopActionTypes>) => ({
-  // setShopSearchValue: (searchValue: string) => dispatch(setShopSearchValue(searchValue)),
-});
 
-const connector = connect(null, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  // ownProps
+type Props = {
+  setSearchValue: Dispatch<SetStateAction<string>>
 };
 
 /**
@@ -30,7 +21,7 @@ const Search = (props: Props) => {
         style={Styles.SearchField()}
         maxchars={50}
         placeholder={'Search...'}
-        ontextentrychange={(event) => $.Msg(event)}
+        ontextentrychange={(event) => props.setSearchValue(event.text.toLocaleLowerCase().trim())}
       />
       <Button
         onmouseout={() => setIsHovering(false)}
@@ -43,4 +34,4 @@ const Search = (props: Props) => {
 
 };
 
-export default connector(Search);
+export default Search;

@@ -30,6 +30,10 @@ declare global {
 export class GameMode {
 
   public static Precache(this: void, context: CScriptPrecacheContext) {
+
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_dazzle.vsndevts", context);
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_vo_dazzle.vsndevts", context);
+
     PrecacheResource("model", "particles/units/heroes/hero_meepo/meepo_earthbind_projectile_fx.vpcf", context);
     PrecacheResource("particle", "particles/units/heroes/hero_meepo/meepo_earthbind_projectile_fx.vpcf", context);
     PrecacheResource("particle", "particles/econ/items/phantom_assassin/phantom_assassin_arcana_elder_smith/pa_arcana_event_glitch.vpcf", context);
@@ -139,16 +143,9 @@ export class GameMode {
       // boss.AddNewModifier(undefined, undefined, "modifier_fow_visible", undefined);
     }
 
-    const shopkeeperSpawner = Entities.FindByName(undefined, "shopkeeper_spawner");
-    if (shopkeeperSpawner !== undefined) {
-      // CreateUnitByName(
-      //   "npc_shopkeeper",
-      //   shopkeeperSpawner.GetAbsOrigin(),
-      //   true,
-      //   undefined,
-      //   undefined,
-      //   DOTATeam_t.DOTA_TEAM_GOODGUYS
-      // );
+    const shopkeeperAbilitiesSpawner = Entities.FindByName(undefined, "npc_dota_spawner_shopkeeper_abilities");
+    if (shopkeeperAbilitiesSpawner !== undefined) {
+      CreateUnitByName("shopkeeper_abilities", shopkeeperAbilitiesSpawner.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
     }
 
     let delay = 1.0;
