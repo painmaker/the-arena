@@ -3,6 +3,6 @@
     custom_net_tables = [
         "HeroSelectionHeroes",
         "RegularAbilities",
-        "UltimateAbility",
+        "UltimateAbilities",
     ]
 }

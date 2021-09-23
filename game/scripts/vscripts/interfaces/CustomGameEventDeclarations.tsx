@@ -52,7 +52,7 @@ interface CustomGameEventDeclarations {
   purchase_ability_error: { errorMsg: string };
 
   fetch_shop_abilities: { entindex: EntityIndex },
-  fetch_shop_abilities_ok: { regularAbilities: string[], ultimateAbilities: string[] },
+  fetch_shop_abilities_ok: { regularAbilities: ShopAbility[], ultimateAbilities: ShopAbility[] },
   fetch_shop_abilities_error: { errorMsg: string },
 
 }

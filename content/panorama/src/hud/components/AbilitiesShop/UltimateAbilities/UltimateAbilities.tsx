@@ -5,7 +5,7 @@ import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
   entindex: EntityIndex
-  abilitynames: string[],
+  ultimateAbilities: ShopAbility[],
   isLoadingAbilities: boolean,
   searchValue: string,
 }
@@ -18,24 +18,24 @@ const UltimateAbilities = (props: Props) => {
         style={Styles.Title()}
       />
       <Panel style={Styles.AbilitiesContainer()}>
-        {(props.abilitynames.length === 0 && props.isLoadingAbilities === true) && (
+        {(props.ultimateAbilities.length === 0 && props.isLoadingAbilities === true) && (
           <Label
             text={"Loading..."}
             style={Styles.CenterLabel()}
           />
         )}
-        {(props.abilitynames.length === 0 && props.isLoadingAbilities === false) && (
+        {(props.ultimateAbilities.length === 0 && props.isLoadingAbilities === false) && (
           <Label
             text={$.Localize(Entities.GetUnitName(props.entindex)) + " Has No Ultimate Abilities"}
             style={Styles.CenterLabel()}
           />
         )}
-        {props.abilitynames.map(abilityname => {
+        {props.ultimateAbilities.map(ultimateAbility => {
           return (
             <AbilityImage
-              key={abilityname}
+              key={ultimateAbility.name}
               entindex={props.entindex}
-              abilityname={abilityname}
+              shopAbility={ultimateAbility}
               searchValue={props.searchValue}
             />
           )

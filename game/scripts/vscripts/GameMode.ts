@@ -187,7 +187,7 @@ export class GameMode {
       unit.AddItemByName("item_skadi");
       unit.AddItemByName("item_pipe");
       unit.AddItemByName("item_blink");
-      unit.AddItemByName("item_mek");
+      unit.AddItemByName("item_buckler");
     }
 
   }

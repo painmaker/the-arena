@@ -33,13 +33,6 @@ const Shop = (props: Props) => {
 
   const [renderComponent, setRenderComponent] = useState(false);
 
-  useGameEvent("dota_player_update_query_unit", (event) => {
-    const name = Entities.GetUnitName(Players.GetLocalPlayerPortraitUnit());
-    if (name === 'npc_shopkeeper') {
-      props.setShopVisible(true);
-    }
-  }, []);
-
   useEffect(() => {
     let timer = -1 as Timer;
     if (props.visible === false) {
@@ -54,7 +47,7 @@ const Shop = (props: Props) => {
 
   return (
     <React.Fragment>
-      { renderComponent && (
+      {renderComponent && (
         <React.Fragment>
           <Panel
             className={"shopContainer"}

@@ -32,8 +32,8 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 const Shop = (props: Props) => {
 
   const [entindex, setEntindex] = useState(Players.GetLocalPlayerPortraitUnit());
-  const [regularAbilityNames, setRegularAbilityNames] = useState<string[]>([]);
-  const [ultimateAbilityNames, setUltimateAbilityNames] = useState<string[]>([]);
+  const [regularAbilities, setRegularAbilities] = useState<ShopAbility[]>([]);
+  const [ultimateAbilities, setUltimateAbilities] = useState<ShopAbility[]>([]);
   const [isLoadingAbilities, setIsLoadingAbilities] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [renderComponent, setRenderComponent] = useState(false);
@@ -51,15 +51,15 @@ const Shop = (props: Props) => {
   }, [props.visible]);
 
   useEffect(() => {
-    setRegularAbilityNames([]);
-    setUltimateAbilityNames([]);
+    setRegularAbilities([]);
+    setUltimateAbilities([]);
     setIsLoadingAbilities(true);
     GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: entindex });
   }, [entindex]);
 
   useGameEvent('fetch_shop_abilities_ok', (event) => {
-    setRegularAbilityNames(Object.values(event.regularAbilities));
-    setUltimateAbilityNames(Object.values(event.ultimateAbilities));
+    setRegularAbilities(Object.values(event.regularAbilities));
+    setUltimateAbilities(Object.values(event.ultimateAbilities));
     setIsLoadingAbilities(false);
   }, []);
 
@@ -77,7 +77,7 @@ const Shop = (props: Props) => {
   }, []);
 
   useGameEvent("dota_player_update_query_unit", (event) => {
-    let newEntindex = Players.GetLocalPlayerPortraitUnit();
+    let newEntindex = Players.GetQueryUnit(Players.GetLocalPlayer());
     if (Entities.GetUnitName(newEntindex) === 'shopkeeper_abilities') {
       newEntindex = Entities.IsRealHero(entindex) ? entindex : Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
       GameUI.SelectUnit(newEntindex, false);
@@ -109,13 +109,13 @@ const Shop = (props: Props) => {
           <Panel style={Styles.AbilitiesContainer()}>
             <RegularAbilities
               entindex={entindex}
-              abilitynames={regularAbilityNames}
+              regularAbilities={regularAbilities}
               isLoadingAbilities={isLoadingAbilities}
               searchValue={searchValue}
             />
             <UltimateAbilities
               entindex={entindex}
-              abilitynames={ultimateAbilityNames}
+              ultimateAbilities={ultimateAbilities}
               isLoadingAbilities={isLoadingAbilities}
               searchValue={searchValue}
             />

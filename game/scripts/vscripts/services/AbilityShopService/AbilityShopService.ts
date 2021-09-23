@@ -1,6 +1,7 @@
 import { ClassAbilities } from "./ClassAbilities";
 
 const MAX_REGULAR_ABILITIES = 5;
+const MAX_ULTIMATE_ABILITIES = 1;
 const ULTIMATE_INDEX = 5;
 const LEVEL_REQUIRED_TO_LEVEL_UP_ULTIMATE = 6;
 
@@ -13,10 +14,10 @@ export class AbilityShopService {
     CustomNetTables.SetTableValue('RegularAbilities', "1", []);
     CustomNetTables.SetTableValue('RegularAbilities', "2", []);
     CustomNetTables.SetTableValue('RegularAbilities', "3", []);
-    CustomNetTables.SetTableValue('UltimateAbility', "0", { ability: undefined });
-    CustomNetTables.SetTableValue('UltimateAbility', "1", { ability: undefined });
-    CustomNetTables.SetTableValue('UltimateAbility', "2", { ability: undefined });
-    CustomNetTables.SetTableValue('UltimateAbility', "3", { ability: undefined });
+    CustomNetTables.SetTableValue('UltimateAbilities', "0", []);
+    CustomNetTables.SetTableValue('UltimateAbilities', "1", []);
+    CustomNetTables.SetTableValue('UltimateAbilities', "2", []);
+    CustomNetTables.SetTableValue('UltimateAbilities', "3", []);
   }
 
   public fetchClassAbilities(event: { PlayerID: PlayerID, entindex: EntityIndex }): void {
@@ -33,8 +34,8 @@ export class AbilityShopService {
       return;
     }
 
-    let regularAbilities: string[] = [];
-    let ultimateAbilities: string[] = [];
+    let regularAbilities: ShopAbility[] = [];
+    let ultimateAbilities: ShopAbility[] = [];
     if (entity.IsBaseNPC() && entity.IsRealHero()) {
       const heroAbilities = ClassAbilities[entity.GetName()];
       regularAbilities = heroAbilities ? heroAbilities.RegularAbilities : [];
@@ -103,31 +104,39 @@ export class AbilityShopService {
     }
 
     const heroAbilities = ClassAbilities[entity.GetName()];
-    const isRegularAbility = heroAbilities ? heroAbilities.RegularAbilities.includes(event.abilityname) : false;
-    const isUltimateAbility = heroAbilities ? heroAbilities.UltimateAbilities.includes(event.abilityname) : false;
-    if (!isRegularAbility && !isUltimateAbility) {
+
+    const regularAbility = heroAbilities.RegularAbilities.find(ability => ability.name === event.abilityname);
+    const regularAbilities = Object.values(CustomNetTables.GetTableValue('RegularAbilities', entity.GetPlayerID().toString()));
+
+    const ultimateAbility = heroAbilities.UltimateAbilities.find(ability => ability.name === event.abilityname);
+    const ultimateAbilities = Object.values(CustomNetTables.GetTableValue('UltimateAbilities', entity.GetPlayerID().toString()));
+
+    if (!regularAbility && !ultimateAbility) {
       CustomGameEventManager.Send_ServerToPlayer(player, "purchase_ability_error", { errorMsg: "Hero Cannot Purchase This Ability" });
       return;
     }
 
-    const regularAbilities = Object.values(CustomNetTables.GetTableValue('RegularAbilities', entity.GetPlayerID().toString()));
-    if (isRegularAbility && regularAbilities.length === MAX_REGULAR_ABILITIES) {
+    if (regularAbility && regularAbilities.length === MAX_REGULAR_ABILITIES) {
       CustomGameEventManager.Send_ServerToPlayer(player, "purchase_ability_error", { errorMsg: "Max Regular Abilities Reached" });
       return;
     }
 
-    const ultimateAbility = CustomNetTables.GetTableValue('UltimateAbility', entity.GetPlayerID().toString());
-    if (isUltimateAbility && ultimateAbility.ability !== undefined) {
+    if (regularAbility && regularAbility.requiredLevel > entity.GetLevel()) {
+      CustomGameEventManager.Send_ServerToPlayer(player, "purchase_ability_error", { errorMsg: "Requires Hero Level " + regularAbility.requiredLevel });
+      return;
+    }
+
+    if (ultimateAbility && ultimateAbilities.length === MAX_ULTIMATE_ABILITIES) {
       CustomGameEventManager.Send_ServerToPlayer(player, "purchase_ability_error", { errorMsg: "Max Ultimate Abilities Reached" });
       return;
     }
 
-    if (isUltimateAbility && entity.GetLevel() < LEVEL_REQUIRED_TO_LEVEL_UP_ULTIMATE) {
-      CustomGameEventManager.Send_ServerToPlayer(player, "purchase_ability_error", { errorMsg: "Requires Hero Level " + LEVEL_REQUIRED_TO_LEVEL_UP_ULTIMATE });
+    if (ultimateAbility && ultimateAbility.requiredLevel > entity.GetLevel()) {
+      CustomGameEventManager.Send_ServerToPlayer(player, "purchase_ability_error", { errorMsg: "Requires Hero Level " + ultimateAbility.requiredLevel });
       return;
     }
 
-    const index = isUltimateAbility ? ULTIMATE_INDEX : regularAbilities.length;
+    const index = ultimateAbility ? ULTIMATE_INDEX : regularAbilities.length;
 
     const replacedableAbility = entity.GetAbilityByIndex(index);
     if (!replacedableAbility) {
@@ -145,10 +154,10 @@ export class AbilityShopService {
     newAbility.SetLevel(1);
     entity.SetAbilityPoints(abilityPoints - 1);
 
-    if (isUltimateAbility) {
-      CustomNetTables.SetTableValue('UltimateAbility', entity.GetPlayerID().toString(), { ability: event.abilityname });
+    if (ultimateAbility) {
+      CustomNetTables.SetTableValue('UltimateAbilities', entity.GetPlayerID().toString(), [...ultimateAbilities, ultimateAbility]);
     } else {
-      CustomNetTables.SetTableValue('RegularAbilities', entity.GetPlayerID().toString(), [...regularAbilities, event.abilityname]);
+      CustomNetTables.SetTableValue('RegularAbilities', entity.GetPlayerID().toString(), [...regularAbilities, regularAbility!]);
     }
 
     CustomGameEventManager.Send_ServerToPlayer(player, "purchase_ability_ok", {});

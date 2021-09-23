@@ -11,6 +11,9 @@
     // UI error messages
     "dota_hud_error_health_too_low" "Health Too Low"
 
+    // Units
+    "shopkeeper_abilities" "Shopkeeper Abilities"
+
     // Rizzrak
     "rizzrak" "Rizzrak"
 
