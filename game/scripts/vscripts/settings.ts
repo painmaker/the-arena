@@ -33,7 +33,7 @@ export const EXPERIENCE_PER_LEVEL_TABLE: Record<number, number> = {
 
 export const MAX_PLAYERS = 4;
 
-export const HERO_SELECTION_TIME = 6.0;
+export const HERO_SELECTION_TIME = 99999.0;
 
 export const PLAYER_ID_ARRAY: PlayerID[] = [0, 1, 2, 3];
 

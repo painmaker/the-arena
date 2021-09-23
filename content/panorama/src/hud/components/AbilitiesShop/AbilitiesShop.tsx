@@ -77,7 +77,7 @@ const Shop = (props: Props) => {
   }, []);
 
   useGameEvent("dota_player_update_query_unit", (event) => {
-    let newEntindex = Players.GetQueryUnit(Players.GetLocalPlayer());
+    let newEntindex = Players.GetLocalPlayerPortraitUnit();
     if (Entities.GetUnitName(newEntindex) === 'shopkeeper_abilities') {
       newEntindex = Entities.IsRealHero(entindex) ? entindex : Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
       GameUI.SelectUnit(newEntindex, false);
@@ -100,11 +100,13 @@ const Shop = (props: Props) => {
     <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
         <Panel hittest={true} style={Styles.InnerContainer(props.visible)}>
-          <Title />
+          <Title entindex={entindex} />
           <Panel style={Styles.TopContainer()}>
             <Search setSearchValue={setSearchValue} />
-            <AbilitiesPoints text={'Ability Points:'} />
-            {/* <AbilitiesPoints text={'Ultimate Points:'} /> */}
+            <AbilitiesPoints
+              entindex={entindex}
+              text={'Ability Points:'}
+            />
           </Panel>
           <Panel style={Styles.AbilitiesContainer()}>
             <RegularAbilities

@@ -151,12 +151,12 @@ export class GameMode {
     let delay = 1.0;
     [
       { hero: "npc_dota_hero_dragon_knight", name: "Dragon Knight" },
-      { hero: "npc_dota_hero_crystal_maiden", name: "Crystal Maiden" },
-      { hero: "npc_dota_hero_lina", name: "Lina" }
+      // { hero: "npc_dota_hero_crystal_maiden", name: "Crystal Maiden" },
+      // { hero: "npc_dota_hero_lina", name: "Lina" }
     ].forEach(bot => {
       Timers.CreateTimer(delay, () => {
-        // const unit = GameRules.AddBotPlayerWithEntityScript(bot.hero, bot.name, DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false) as CDOTA_BaseNPC_Hero;
-        // unit.RespawnHero(false, false);
+        const unit = GameRules.AddBotPlayerWithEntityScript(bot.hero, bot.name, DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false) as CDOTA_BaseNPC_Hero;
+        unit.RespawnHero(false, false);
       });
       delay += 1.0;
     });

@@ -56222,16 +56222,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AbilitiesPoints = (props) => {
-    const [abilityPoints, setAbilityPoints] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAbilityPoints(Players.GetLocalPlayerPortraitUnit()));
+    const { entindex, text, setInterval, clearInterval } = props;
+    const [abilityPoints, setAbilityPoints] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAbilityPoints(entindex));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
-            setAbilityPoints(Entities.GetAbilityPoints(Players.GetLocalPlayerPortraitUnit()));
+        const id = setInterval(() => {
+            setAbilityPoints(Entities.GetAbilityPoints(entindex));
         }, 100);
-        return () => props.clearInterval(id);
-    }, []);
+        return () => clearInterval(id);
+    }, [entindex, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LabelContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: props.text, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: text, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel() }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: abilityPoints, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.NumberLabel(abilityPoints !== 0) }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AbilitiesPoints));
@@ -56380,7 +56381,7 @@ const Shop = (props) => {
         Game.EmitSound("General.Buy");
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("dota_player_update_query_unit", (event) => {
-        let newEntindex = Players.GetQueryUnit(Players.GetLocalPlayer());
+        let newEntindex = Players.GetLocalPlayerPortraitUnit();
         if (Entities.GetUnitName(newEntindex) === 'shopkeeper_abilities') {
             newEntindex = Entities.IsRealHero(entindex) ? entindex : Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
             GameUI.SelectUnit(newEntindex, false);
@@ -56398,10 +56399,10 @@ const Shop = (props) => {
         setEntindex(newEntindex);
     }, [entindex]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(props.visible) },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, { entindex: entindex }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.TopContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, { setSearchValue: setSearchValue }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { text: 'Ability Points:' })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { entindex: entindex, text: 'Ability Points:' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.AbilitiesContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { entindex: entindex, regularAbilities: regularAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, { entindex: entindex, ultimateAbilities: ultimateAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }))))));
@@ -56787,9 +56788,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
 const Title = (props) => {
+    const { entindex } = props;
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: "ABILITIES SHOP" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: "ABILITIES SHOP - " + $.Localize(Entities.GetUnitName(entindex)).toUpperCase() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CloseBtn(isHovering), onactivate: () => {
                 props.setAbilitiesShopVisible(false);
                 Game.EmitSound("ui_topmenu_select");
@@ -58829,7 +58831,7 @@ __webpack_require__.r(__webpack_exports__);
 const ModelPanel = () => {
     const [entindex, setEntindex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
-        setEntindex(Players.GetQueryUnit(Players.GetLocalPlayer()));
+        setEntindex(Players.GetLocalPlayerPortraitUnit());
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", () => {
         setEntindex(Players.GetLocalPlayerPortraitUnit());
@@ -58880,7 +58882,7 @@ __webpack_require__.r(__webpack_exports__);
 const PlayerAvatar = () => {
     const [entindex, setEntindex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
-        setEntindex(Players.GetQueryUnit(Players.GetLocalPlayer()));
+        setEntindex(Players.GetLocalPlayerPortraitUnit());
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", () => {
         setEntindex(Players.GetLocalPlayerPortraitUnit());
@@ -61503,7 +61505,7 @@ const BuffsPanel = () => {
         setBuffs(getBuffs(unit));
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
-        const unit = Players.GetQueryUnit(Players.GetLocalPlayer());
+        const unit = Players.GetLocalPlayerPortraitUnit();
         setSelectedUnit(unit);
         setBuffs(getBuffs(unit));
     }, []);
@@ -61592,7 +61594,7 @@ const Debuffs = () => {
         setDebuffs(getDebuffs(unit));
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
-        const unit = Players.GetQueryUnit(Players.GetLocalPlayer());
+        const unit = Players.GetLocalPlayerPortraitUnit();
         setSelectedUnit(unit);
         setDebuffs(getDebuffs(unit));
     }, []);
@@ -61674,7 +61676,11 @@ const Modifier = (props) => {
     const isItem = Abilities.IsItem(ability);
     const isAura = _data_auras__WEBPACK_IMPORTED_MODULE_1__.aura_modifiers.includes(Buffs.GetName(props.selectedUnit, props.buffId));
     const isEnemy = Entities.IsEnemy(props.selectedUnit);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: panelId, hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isMounted, isHovering), onactivate: () => Players.BuffClicked(props.selectedUnit, props.buffId, GameUI.IsAltDown()), onmouseout: () => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: panelId, hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isMounted, isHovering), onactivate: () => {
+            $.Msg("Modifier clicked: " + Buffs.GetName(props.selectedUnit, props.buffId));
+            $.Msg(Buffs.IsHidden(props.selectedUnit, props.buffId));
+            Players.BuffClicked(props.selectedUnit, props.buffId, GameUI.IsAltDown());
+        }, onmouseout: () => {
             const thisPanel = $("#" + panelId);
             if (thisPanel) {
                 $.DispatchEvent("DOTAHideBuffTooltip", thisPanel);

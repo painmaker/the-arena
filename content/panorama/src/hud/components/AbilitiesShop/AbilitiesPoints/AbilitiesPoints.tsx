@@ -3,31 +3,28 @@ import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
+  entindex: EntityIndex
   text: string,
 }
 
 const AbilitiesPoints = (props: Props) => {
 
-  const [abilityPoints, setAbilityPoints] = useState(Entities.GetAbilityPoints(Players.GetLocalPlayerPortraitUnit()));
+  const { entindex, text, setInterval, clearInterval } = props;
+
+  const [abilityPoints, setAbilityPoints] = useState(Entities.GetAbilityPoints(entindex));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setAbilityPoints(Entities.GetAbilityPoints(Players.GetLocalPlayerPortraitUnit()));
+    const id = setInterval(() => {
+      setAbilityPoints(Entities.GetAbilityPoints(entindex));
     }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [entindex, setInterval, clearInterval]);
 
   return (
     <Panel style={Styles.Container()}>
       <Panel style={Styles.LabelContainer()}>
-        {/* 
-        <Image
-          src={props.imageSrc}
-          style={Styles.Icon()}
-        />
-        */}
         <Label
-          text={props.text}
+          text={text}
           style={Styles.TextLabel()}
         />
         <Label

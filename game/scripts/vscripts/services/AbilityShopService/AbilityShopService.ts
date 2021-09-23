@@ -3,7 +3,6 @@ import { ClassAbilities } from "./ClassAbilities";
 const MAX_REGULAR_ABILITIES = 5;
 const MAX_ULTIMATE_ABILITIES = 1;
 const ULTIMATE_INDEX = 5;
-const LEVEL_REQUIRED_TO_LEVEL_UP_ULTIMATE = 6;
 
 export class AbilityShopService {
 
