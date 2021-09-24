@@ -12,6 +12,7 @@ type Props = ReactTimeoutProps & {
 interface State {
   entityIndex: EntityIndex,
   itemIndexes: ItemEntityIndex[],
+  hasInventory: boolean,
 }
 
 const ITEM_SLOTS = [0, 1, 2, 3, 4, 5];
@@ -23,6 +24,7 @@ class Inventory extends React.Component<Props, State> {
     this.state = {
       entityIndex: Players.GetLocalPlayerPortraitUnit(),
       itemIndexes: [],
+      hasInventory: false,
     }
   }
 
@@ -30,7 +32,8 @@ class Inventory extends React.Component<Props, State> {
     this.props.setInterval(() => {
       const entityIndex = Players.GetLocalPlayerPortraitUnit();
       const itemIndexes = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(entityIndex, slot));
-      this.setState({ entityIndex, itemIndexes })
+      const hasInventory = Entities.IsInventoryEnabled(entityIndex);
+      this.setState({ entityIndex, itemIndexes, hasInventory })
     }, 100);
   }
 
@@ -50,18 +53,22 @@ class Inventory extends React.Component<Props, State> {
   render() {
     return (
       <React.Fragment>
-        <ItemOptions />
-        <Panel style={Styles.Container()}>
-          {this.state.itemIndexes.map((item, index) => {
-            return (
-              <Item
-                key={index + "_" + item}
-                index={index}
-                item={item}
-              />
-            );
-          })}
-        </Panel>
+        {this.state.hasInventory && (
+          <React.Fragment>
+            <ItemOptions />
+            <Panel style={Styles.Container()}>
+              {this.state.itemIndexes.map((item, index) => {
+                return (
+                  <Item
+                    key={index + "_" + item}
+                    index={index}
+                    item={item}
+                  />
+                );
+              })}
+            </Panel>
+          </React.Fragment>
+        )}
       </React.Fragment>
     )
   }

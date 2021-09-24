@@ -13,6 +13,7 @@ import RegularAbilities from "./RegularAbilities/RegularAbilities";
 import UltimateAbilities from "./UltimateAbilities/UltimateAbilities";
 import AbilitiesPoints from "./AbilitiesPoints/AbilitiesPoints";
 import { useGameEvent } from "react-panorama";
+import { useSelectedUnit } from "../../hooks/useSelectedUnit";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.abilitiesShopReducer.visible,
@@ -31,31 +32,33 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const Shop = (props: Props) => {
 
-  const [entindex, setEntindex] = useState(Players.GetLocalPlayerPortraitUnit());
+  const { visible, setShopVisible, setTimeout, clearTimeout } = props;
+
   const [regularAbilities, setRegularAbilities] = useState<ShopAbility[]>([]);
   const [ultimateAbilities, setUltimateAbilities] = useState<ShopAbility[]>([]);
   const [isLoadingAbilities, setIsLoadingAbilities] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [renderComponent, setRenderComponent] = useState(false);
+  const selectedUnit = useSelectedUnit();
 
   useEffect(() => {
     let timer = -1 as Timer;
-    if (props.visible === false) {
-      timer = props.setTimeout(() => {
+    if (visible === false) {
+      timer = setTimeout(() => {
         setRenderComponent(false);
       }, 1000);
     } else {
       setRenderComponent(true);
     }
-    return () => props.clearTimeout(timer);
-  }, [props.visible]);
+    return () => clearTimeout(timer);
+  }, [visible, clearTimeout, setTimeout]);
 
   useEffect(() => {
     setRegularAbilities([]);
     setUltimateAbilities([]);
     setIsLoadingAbilities(true);
-    GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: entindex });
-  }, [entindex]);
+    GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: selectedUnit });
+  }, [selectedUnit]);
 
   useGameEvent('fetch_shop_abilities_ok', (event) => {
     setRegularAbilities(Object.values(event.regularAbilities));
@@ -77,46 +80,40 @@ const Shop = (props: Props) => {
   }, []);
 
   useGameEvent("dota_player_update_query_unit", (event) => {
-    let newEntindex = Players.GetLocalPlayerPortraitUnit();
-    if (Entities.GetUnitName(newEntindex) === 'shopkeeper_abilities') {
-      newEntindex = Entities.IsRealHero(entindex) ? entindex : Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
-      GameUI.SelectUnit(newEntindex, false);
-      props.setShopVisible(true);
+    const unit = Players.GetQueryUnit(Players.GetLocalPlayer());
+    if (Entities.GetUnitName(unit) === 'shopkeeper_abilities') {
+      setShopVisible(true);
     }
-    setEntindex(newEntindex);
-  }, [entindex]);
+  }, [visible, setShopVisible]);
 
   useGameEvent("dota_player_update_selected_unit", (event) => {
-    let newEntindex = Players.GetLocalPlayerPortraitUnit();
-    if (Entities.GetUnitName(newEntindex) === 'shopkeeper_abilities') {
-      newEntindex = Entities.IsRealHero(entindex) ? entindex : Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
-      GameUI.SelectUnit(newEntindex, false);
-      props.setShopVisible(true);
+    const unit = Players.GetLocalPlayerPortraitUnit();
+    if (Entities.GetUnitName(unit) === 'shopkeeper_abilities') {
+      setShopVisible(true);
     }
-    setEntindex(newEntindex);
-  }, [entindex]);
+  }, [visible, setShopVisible]);
 
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
-        <Panel hittest={true} style={Styles.InnerContainer(props.visible)}>
-          <Title entindex={entindex} />
+        <Panel hittest={true} style={Styles.InnerContainer(visible)}>
+          <Title entindex={selectedUnit} />
           <Panel style={Styles.TopContainer()}>
             <Search setSearchValue={setSearchValue} />
             <AbilitiesPoints
-              entindex={entindex}
+              entindex={selectedUnit}
               text={'Ability Points:'}
             />
           </Panel>
           <Panel style={Styles.AbilitiesContainer()}>
             <RegularAbilities
-              entindex={entindex}
+              entindex={selectedUnit}
               regularAbilities={regularAbilities}
               isLoadingAbilities={isLoadingAbilities}
               searchValue={searchValue}
             />
             <UltimateAbilities
-              entindex={entindex}
+              entindex={selectedUnit}
               ultimateAbilities={ultimateAbilities}
               isLoadingAbilities={isLoadingAbilities}
               searchValue={searchValue}

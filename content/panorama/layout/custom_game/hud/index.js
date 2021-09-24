@@ -56322,6 +56322,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./UltimateAbilities/UltimateAbilities */ "./hud/components/AbilitiesShop/UltimateAbilities/UltimateAbilities.tsx");
 /* harmony import */ var _AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./AbilitiesPoints/AbilitiesPoints */ "./hud/components/AbilitiesShop/AbilitiesPoints/AbilitiesPoints.tsx");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
+
 
 
 
@@ -56341,30 +56343,31 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const Shop = (props) => {
-    const [entindex, setEntindex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
+    const { visible, setShopVisible, setTimeout, clearTimeout } = props;
     const [regularAbilities, setRegularAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [ultimateAbilities, setUltimateAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [isLoadingAbilities, setIsLoadingAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [searchValue, setSearchValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_11__.useSelectedUnit)();
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let timer = -1;
-        if (props.visible === false) {
-            timer = props.setTimeout(() => {
+        if (visible === false) {
+            timer = setTimeout(() => {
                 setRenderComponent(false);
             }, 1000);
         }
         else {
             setRenderComponent(true);
         }
-        return () => props.clearTimeout(timer);
-    }, [props.visible]);
+        return () => clearTimeout(timer);
+    }, [visible, clearTimeout, setTimeout]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         setRegularAbilities([]);
         setUltimateAbilities([]);
         setIsLoadingAbilities(true);
-        GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: entindex });
-    }, [entindex]);
+        GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: selectedUnit });
+    }, [selectedUnit]);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)('fetch_shop_abilities_ok', (event) => {
         setRegularAbilities(Object.values(event.regularAbilities));
         setUltimateAbilities(Object.values(event.ultimateAbilities));
@@ -56381,31 +56384,25 @@ const Shop = (props) => {
         Game.EmitSound("General.Buy");
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("dota_player_update_query_unit", (event) => {
-        let newEntindex = Players.GetLocalPlayerPortraitUnit();
-        if (Entities.GetUnitName(newEntindex) === 'shopkeeper_abilities') {
-            newEntindex = Entities.IsRealHero(entindex) ? entindex : Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
-            GameUI.SelectUnit(newEntindex, false);
-            props.setShopVisible(true);
+        const unit = Players.GetQueryUnit(Players.GetLocalPlayer());
+        if (Entities.GetUnitName(unit) === 'shopkeeper_abilities') {
+            setShopVisible(true);
         }
-        setEntindex(newEntindex);
-    }, [entindex]);
+    }, [visible, setShopVisible]);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("dota_player_update_selected_unit", (event) => {
-        let newEntindex = Players.GetLocalPlayerPortraitUnit();
-        if (Entities.GetUnitName(newEntindex) === 'shopkeeper_abilities') {
-            newEntindex = Entities.IsRealHero(entindex) ? entindex : Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
-            GameUI.SelectUnit(newEntindex, false);
-            props.setShopVisible(true);
+        const unit = Players.GetLocalPlayerPortraitUnit();
+        if (Entities.GetUnitName(unit) === 'shopkeeper_abilities') {
+            setShopVisible(true);
         }
-        setEntindex(newEntindex);
-    }, [entindex]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(props.visible) },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, { entindex: entindex }),
+    }, [visible, setShopVisible]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(visible) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, { entindex: selectedUnit }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.TopContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, { setSearchValue: setSearchValue }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { entindex: entindex, text: 'Ability Points:' })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { entindex: selectedUnit, text: 'Ability Points:' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.AbilitiesContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { entindex: entindex, regularAbilities: regularAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, { entindex: entindex, ultimateAbilities: ultimateAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }))))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { entindex: selectedUnit, regularAbilities: regularAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, { entindex: selectedUnit, ultimateAbilities: ultimateAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Shop)));
 
@@ -58998,36 +58995,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/HealthBar/Styles.tsx");
+/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/HealthBar/Styles.tsx");
+
 
 
 
 const HealthBar = (props) => {
-    const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(Players.GetLocalPlayerPortraitUnit()));
-    const [maxHealth, setMaxHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxHealth(Players.GetLocalPlayerPortraitUnit()));
-    const [healthRegen, setHealthRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealthThinkRegen(Players.GetLocalPlayerPortraitUnit()));
+    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
+    const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(selectedUnit));
+    const [maxHealth, setMaxHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxHealth(selectedUnit));
+    const [healthRegen, setHealthRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealthThinkRegen(selectedUnit));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = props.setInterval(() => {
-            setHealth(Entities.GetHealth(Players.GetLocalPlayerPortraitUnit()));
-            setMaxHealth(Entities.GetMaxHealth(Players.GetLocalPlayerPortraitUnit()));
+            setHealth(Entities.GetHealth(selectedUnit));
+            setMaxHealth(Entities.GetMaxHealth(selectedUnit));
             // Hack because panorama API method for health regen is bugged
-            const entindex = Players.GetLocalPlayerPortraitUnit();
-            const numberOfBuffs = Entities.GetNumBuffs(entindex);
+            const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
             for (let i = 0; i < numberOfBuffs; i++) {
-                const buff = Entities.GetBuff(entindex, i);
-                const name = Buffs.GetName(entindex, buff);
+                const buff = Entities.GetBuff(selectedUnit, i);
+                const name = Buffs.GetName(selectedUnit, buff);
                 if (name === 'modifier_ui_health_regen') {
-                    setHealthRegen(Buffs.GetStackCount(entindex, buff) / 100);
+                    setHealthRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
                 }
             }
         }, 100);
         return () => props.clearInterval(id);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Scene(health, maxHealth), map: 'scenes/hud/healthbarburner', camera: 'camera_1' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HealthLabel(), text: health + " / " + maxHealth }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RegenLabel(), text: '+ ' + healthRegen.toFixed(1) })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Scene(health, maxHealth), map: 'scenes/hud/healthbarburner', camera: 'camera_1' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.HealthLabel(), text: health + " / " + maxHealth }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RegenLabel(), text: '+ ' + healthRegen.toFixed(1) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(HealthBar));
 
@@ -60400,13 +60399,15 @@ class Inventory extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         this.state = {
             entityIndex: Players.GetLocalPlayerPortraitUnit(),
             itemIndexes: [],
+            hasInventory: false,
         };
     }
     componentDidMount() {
         this.props.setInterval(() => {
             const entityIndex = Players.GetLocalPlayerPortraitUnit();
             const itemIndexes = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(entityIndex, slot));
-            this.setState({ entityIndex, itemIndexes });
+            const hasInventory = Entities.IsInventoryEnabled(entityIndex);
+            this.setState({ entityIndex, itemIndexes, hasInventory });
         }, 100);
     }
     shouldComponentUpdate(nextProps, nextState) {
@@ -60422,11 +60423,11 @@ class Inventory extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         return false;
     }
     render() {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, this.state.hasInventory && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemOptions_ItemOptions__WEBPACK_IMPORTED_MODULE_3__.default, null),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Container() }, this.state.itemIndexes.map((item, index) => {
                 return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_4__.default, { key: index + "_" + item, index: index, item: item }));
-            }))));
+            }))))));
     }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Inventory));
@@ -63347,6 +63348,60 @@ function withReactTimeout(WrappedComponent) {
     };
     return ComponentWithExtendedProps;
 }
+
+
+/***/ }),
+
+/***/ "./hud/hooks/useSelectedUnit.ts":
+/*!**************************************!*\
+  !*** ./hud/hooks/useSelectedUnit.ts ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useSelectedUnit": () => (/* binding */ useSelectedUnit)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+
+
+const excludedUnits = [
+    "shopkeeper_abilities"
+];
+const useSelectedUnit = () => {
+    const [selectedUnit, setSelectedUnit] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetLocalPlayerPortraitUnit());
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", (event) => {
+        $.Msg("query");
+        const unit = Players.GetQueryUnit(Players.GetLocalPlayer());
+        if (unit !== -1) {
+            if (!excludedUnits.includes(Entities.GetUnitName(unit))) {
+                $.Msg("Setting query unit: " + Entities.GetUnitName(unit));
+                setSelectedUnit(unit);
+            }
+        }
+        else {
+            $.Msg("query is -1, using fallback " + Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())));
+            setSelectedUnit(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+        }
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", (event) => {
+        $.Msg("select");
+        const unit = Players.GetLocalPlayerPortraitUnit();
+        if (unit !== -1) {
+            if (!excludedUnits.includes(Entities.GetUnitName(unit))) {
+                $.Msg("Setting select unit: " + Entities.GetUnitName(unit));
+                setSelectedUnit(unit);
+            }
+        }
+        else {
+            $.Msg("select is -1, using fallback " + Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())));
+            setSelectedUnit(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+        }
+    }, []);
+    return selectedUnit;
+};
 
 
 /***/ }),
