@@ -30,16 +30,16 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
   // ownProps
 };
 
-const Shop = (props: Props) => {
+const AbilitiesShop = (props: Props) => {
 
   const { visible, setShopVisible, setTimeout, clearTimeout } = props;
 
+  const selectedUnit = useSelectedUnit();
   const [regularAbilities, setRegularAbilities] = useState<ShopAbility[]>([]);
   const [ultimateAbilities, setUltimateAbilities] = useState<ShopAbility[]>([]);
   const [isLoadingAbilities, setIsLoadingAbilities] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [renderComponent, setRenderComponent] = useState(false);
-  const selectedUnit = useSelectedUnit();
 
   useEffect(() => {
     let timer = -1 as Timer;
@@ -126,4 +126,4 @@ const Shop = (props: Props) => {
 
 };
 
-export default connector(withReactTimeout(Shop));
+export default connector(withReactTimeout(AbilitiesShop));

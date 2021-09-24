@@ -2,21 +2,27 @@ import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
+import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 
-type Props = ReactTimeoutProps & {}
+type Props = ReactTimeoutProps & {
+  // ownProps
+}
 
 const Armor = (props: Props) => {
 
-  const [armor, setArmor] = useState(Entities.GetPhysicalArmorValue(Players.GetLocalPlayerPortraitUnit()));
-  const [bonusArmor, setBonusArmor] = useState(Entities.GetBonusPhysicalArmor(Players.GetLocalPlayerPortraitUnit()));
+  const { setInterval, clearInterval } = props;
+
+  const selectedUnit = useSelectedUnit();
+  const [armor, setArmor] = useState(Entities.GetPhysicalArmorValue(selectedUnit));
+  const [bonusArmor, setBonusArmor] = useState(Entities.GetBonusPhysicalArmor(selectedUnit));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setArmor(Entities.GetPhysicalArmorValue(Players.GetLocalPlayerPortraitUnit()));
-      setBonusArmor(Entities.GetBonusPhysicalArmor(Players.GetLocalPlayerPortraitUnit()));
+    const id = setInterval(() => {
+      setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
+      setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
     }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel style={ParentStyles.Entry()}>

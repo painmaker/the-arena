@@ -18,7 +18,7 @@ import { setCameraZoom, setUseCustomUI } from "./actions/settingsAction";
 import { SettingsActionTypes } from "./types/settingsTypes";
 import Shop from "./components/Shop/Shop";
 import HeroSelection from "./components/HeroSelection/HeroSelection";
-import { useGameEvent, useNetTableValues } from "react-panorama";
+import { useNetTableValues } from "react-panorama";
 import Chat from "./components/Chat/Chat";
 import Loading from "./components/Loading/Loading";
 import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";

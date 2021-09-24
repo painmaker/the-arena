@@ -1,40 +1,49 @@
-import { useState } from "react";
-import { useGameEvent } from "react-panorama";
+import { useEffect, useState } from "react";
 
 const excludedUnits = [
   "shopkeeper_abilities"
 ]
 
+const getGameUnitSelected = () => {
+
+  const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
+  if (queryUnit !== -1 && !excludedUnits.includes(Entities.GetUnitName(queryUnit))) {
+    return queryUnit;
+  }
+
+  const portraitUnit = Players.GetLocalPlayerPortraitUnit();
+  if (portraitUnit !== -1 && !excludedUnits.includes(Entities.GetUnitName(portraitUnit))) {
+    return portraitUnit
+  }
+
+  return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
+
+}
+
 export const useSelectedUnit = () => {
 
-  const [selectedUnit, setSelectedUnit] = useState(Players.GetLocalPlayerPortraitUnit());
+  const [selectedUnit, setSelectedUnit] = useState(getGameUnitSelected());
 
-  useGameEvent("dota_player_update_query_unit", (event) => {
-    $.Msg("query")
-    const unit = Players.GetQueryUnit(Players.GetLocalPlayer());
-    if (unit !== -1) {
-      if (!excludedUnits.includes(Entities.GetUnitName(unit))) {
-        $.Msg("Setting query unit: " + Entities.GetUnitName(unit))
-        setSelectedUnit(unit);
+  useEffect(() => {
+    let schedule = -1 as ScheduleID;
+    const update = () => {
+      schedule = -1 as ScheduleID;
+      const unitToSelect = getGameUnitSelected();
+      if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
+        setSelectedUnit(unitToSelect)
       }
-    } else {
-      $.Msg("query is -1, using fallback " + Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())))
-      setSelectedUnit(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()))
+      schedule = $.Schedule(0.03, update)
     }
-  }, []);
-
-  useGameEvent("dota_player_update_selected_unit", (event) => {
-    $.Msg("select")
-    const unit = Players.GetLocalPlayerPortraitUnit();
-    if (unit !== -1) {
-      if (!excludedUnits.includes(Entities.GetUnitName(unit))) {
-        $.Msg("Setting select unit: " + Entities.GetUnitName(unit))
-        setSelectedUnit(unit);
+    schedule = $.Schedule(0, update)
+    return () => {
+      try {
+        if (schedule !== -1) {
+          $.CancelScheduled(schedule);
+        }
+      } catch {
+        $.Msg("Schedule " + schedule + " already finished");
       }
-    } else {
-      $.Msg("select is -1, using fallback " + Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())))
-      setSelectedUnit(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()))
-    }
+    };
   }, []);
 
   return selectedUnit;

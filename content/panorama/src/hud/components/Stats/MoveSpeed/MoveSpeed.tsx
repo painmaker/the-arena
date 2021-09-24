@@ -2,19 +2,23 @@ import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
+import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 
 type Props = ReactTimeoutProps & {}
 
 const MoveSpeed = (props: Props) => {
 
-  const [moveSpeed, setMoveSpeed] = useState(Entities.GetMoveSpeedModifier(Players.GetLocalPlayerPortraitUnit(), Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit())));
+  const { setInterval, clearInterval } = props;
+
+  const selectedUnit = useSelectedUnit();
+  const [moveSpeed, setMoveSpeed] = useState(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setMoveSpeed(Entities.GetMoveSpeedModifier(Players.GetLocalPlayerPortraitUnit(), Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit())));
+    const id = setInterval(() => {
+      setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
     }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel style={{ ...ParentStyles.Entry(), marginRight: '0px' }} >

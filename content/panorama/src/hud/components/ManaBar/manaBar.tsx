@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { useSelectedUnit } from "../../hooks/useSelectedUnit";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {}
 
 const ManaBar = (props: Props) => {
 
-  const [mana, setMana] = useState(Entities.GetMana(Players.GetLocalPlayerPortraitUnit()));
-  const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(Players.GetLocalPlayerPortraitUnit()));
-  const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(Players.GetLocalPlayerPortraitUnit()));
+
+  const { setInterval, clearInterval } = props;
+
+  const selectedUnit = useSelectedUnit();
+  const [mana, setMana] = useState(Entities.GetMana(selectedUnit));
+  const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(selectedUnit));
+  const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(selectedUnit));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setMana(Entities.GetMana(Players.GetLocalPlayerPortraitUnit()));
-      setMaxMana(Entities.GetMaxMana(Players.GetLocalPlayerPortraitUnit()));
-      setManaRegen(Entities.GetManaThinkRegen(Players.GetLocalPlayerPortraitUnit()));
+    const id = setInterval(() => {
+      setMana(Entities.GetMana(selectedUnit));
+      setMaxMana(Entities.GetMaxMana(selectedUnit));
+      setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
     }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   if (maxMana <= 0) {
     return null;

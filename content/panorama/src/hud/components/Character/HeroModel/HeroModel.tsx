@@ -1,47 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { useGameEvent } from "react-panorama";
+import React, { useEffect } from "react";
+import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 import Level from "./HeroLevel/HeroLevel";
 import Avatar from "./PlayerAvatar/PlayerAvatar";
 
 const ModelPanel = () => {
 
-  const [entindex, setEntindex] = useState(Players.GetLocalPlayerPortraitUnit());
-
-  useGameEvent("dota_player_update_query_unit", () => {
-    setEntindex(Players.GetLocalPlayerPortraitUnit());
-  }, []);
-
-  useGameEvent("dota_player_update_selected_unit", () => {
-    setEntindex(Players.GetLocalPlayerPortraitUnit());
-  }, []);
+  const selectedUnit = useSelectedUnit();
 
   useEffect(() => {
     const scenePanel = $('#modelPanelScene') as ScenePanel;
-    if (Entities.IsRealHero(entindex)) {
-      for (let i = 0; i < Entities.GetNumBuffs(entindex); i++) {
-        const buff = Entities.GetBuff(entindex, i);
-        if (Buffs.GetName(entindex, buff) === 'modifier_ui_hero_id') {
-          const heroId = Buffs.GetStackCount(entindex, buff) as HeroID;
+    if (Entities.IsRealHero(selectedUnit)) {
+      for (let i = 0; i < Entities.GetNumBuffs(selectedUnit); i++) {
+        const buff = Entities.GetBuff(selectedUnit, i);
+        if (Buffs.GetName(selectedUnit, buff) === 'modifier_ui_hero_id') {
+          const heroId = Buffs.GetStackCount(selectedUnit, buff) as HeroID;
           scenePanel.SetScenePanelToLocalHero(heroId);
           scenePanel.SetCustomPostProcessMaterial("materials/dev/deferred_post_process_graphic_ui.vmat")
         }
       }
     } else {
-      scenePanel.SetUnit(Entities.GetUnitName(entindex), "", true);
+      scenePanel.SetUnit(Entities.GetUnitName(selectedUnit), "", true);
     }
     scenePanel.SetPostProcessFade(100);
-  }, [entindex])
+  }, [selectedUnit])
 
   return (
     <Panel className={'modelPanelContainer'}>
       <Label
-        text={$.Localize(Entities.GetUnitName(entindex)).toUpperCase()}
+        text={$.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()}
         className={'characterPanelComponentTitleLabel modelPanelHeroNameLabel'}
       />
       <DOTAScenePanel
         id={'modelPanelScene'}
-        key={Entities.GetUnitName(entindex)}
-        unit={Entities.GetUnitName(entindex)}
+        key={Entities.GetUnitName(selectedUnit)}
+        unit={Entities.GetUnitName(selectedUnit)}
         className={'modelPanelHeroScreen'}
         allowrotation={true}
       />

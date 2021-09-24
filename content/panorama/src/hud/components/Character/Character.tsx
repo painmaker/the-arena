@@ -17,29 +17,33 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {};
+type Props = PropsFromRedux & ReactTimeoutProps & {
+  // ownProps
+};
 
 const Character = (props: Props) => {
+
+  const { visible, setTimeout, clearTimeout } = props;
 
   const [renderComponent, setRenderComponent] = useState(true);
 
   useEffect(() => {
     let timer = -1 as Timer;
-    if (props.visible === false) {
-      timer = props.setTimeout(() => {
+    if (visible === false) {
+      timer = setTimeout(() => {
         setRenderComponent(false);
       }, 1000);
     } else {
       setRenderComponent(true);
     }
-    return () => props.clearTimeout(timer);
-  }, [props.visible]);
+    return () => clearTimeout(timer);
+  }, [visible, setTimeout, clearTimeout]);
 
   return (
     <React.Fragment>
-      { renderComponent && (
+      {renderComponent && (
         <React.Fragment>
-          <Panel className={"characterPanelContainer"} style={props.visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}>
+          <Panel className={"characterPanelContainer"} style={visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}>
             <Panel className={'characterTitleContainer'}>
               <Label className={'characterTitleLabel'} text={'CHARACTER'} />
               <CloseBtn />

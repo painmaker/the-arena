@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
 import { REFRESH_RATE } from "../../Character";
 
-type Props = ReactTimeoutProps & {};
+type Props = ReactTimeoutProps & {
+  // ownprops
+};
 
 const MoveSpeed = (props: Props) => {
 
-  const [baseMoveSpeed, setBaseMoveSpeed] = useState(Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit()));
-  const [totalMoveSpeed, setTotalMoveSpeed] = useState(Entities.GetMoveSpeedModifier(Players.GetLocalPlayerPortraitUnit(), Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit())));
+  const { setInterval, clearInterval } = props;
+
+  const selectedUnit = useSelectedUnit();
+  const [baseMoveSpeed, setBaseMoveSpeed] = useState(Entities.GetBaseMoveSpeed(selectedUnit));
+  const [totalMoveSpeed, setTotalMoveSpeed] = useState(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setBaseMoveSpeed(Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit()))
-      setTotalMoveSpeed(Entities.GetMoveSpeedModifier(Players.GetLocalPlayerPortraitUnit(), Entities.GetBaseMoveSpeed(Players.GetLocalPlayerPortraitUnit())));
+    const id = setInterval(() => {
+      setBaseMoveSpeed(Entities.GetBaseMoveSpeed(selectedUnit))
+      setTotalMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
     }, REFRESH_RATE);
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
 

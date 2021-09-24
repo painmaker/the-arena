@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
+import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 import { Styles as ParentStyles } from "../Styles";
 import { Styles } from "./Styles";
 
@@ -36,20 +37,25 @@ const EXPERIENCE_PER_LEVEL_TABLE: Record<number, number> = {
   30: 2900,
 };
 
-type Props = ReactTimeoutProps & {}
+type Props = ReactTimeoutProps & {
+  // ownProps
+}
 
 const Level = (props: Props) => {
 
-  const [level, setLevel] = useState(Entities.GetLevel(Players.GetLocalPlayerPortraitUnit()));
-  const [totalExperienceGained, setTotalExperienceGained] = useState(Entities.GetCurrentXP(Players.GetLocalPlayerPortraitUnit()));
+  const { setInterval, clearInterval } = props;
+
+  const selectedUnit = useSelectedUnit();
+  const [level, setLevel] = useState(Entities.GetLevel(selectedUnit));
+  const [totalExperienceGained, setTotalExperienceGained] = useState(Entities.GetCurrentXP(selectedUnit));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setLevel(Entities.GetLevel(Players.GetLocalPlayerPortraitUnit()));
-      setTotalExperienceGained(Entities.GetCurrentXP(Players.GetLocalPlayerPortraitUnit()));
+    const id = setInterval(() => {
+      setLevel(Entities.GetLevel(selectedUnit));
+      setTotalExperienceGained(Entities.GetCurrentXP(selectedUnit));
     }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   const maxLevel = Object.keys(EXPERIENCE_PER_LEVEL_TABLE).length;
   const xpGainedThisLevel = totalExperienceGained - EXPERIENCE_PER_LEVEL_TABLE[level];

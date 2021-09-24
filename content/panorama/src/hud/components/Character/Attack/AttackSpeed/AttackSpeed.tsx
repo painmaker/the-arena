@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
 import { REFRESH_RATE } from "../../Character";
 
-type Props = ReactTimeoutProps & {};
+type Props = ReactTimeoutProps & {
+  // ownProps
+};
 
 const AttackSpeed = (props: Props) => {
 
-  const [attackSpeed, setAttackSpeed] = useState(Entities.GetAttackSpeed(Players.GetLocalPlayerPortraitUnit()))
-  const [secondsPerAttack, setSecondsPerAttack] = useState(Entities.GetSecondsPerAttack(Players.GetLocalPlayerPortraitUnit()))
+  const { setInterval, clearInterval } = props;
+
+  const selectedUnit = useSelectedUnit();
+  const [attackSpeed, setAttackSpeed] = useState(Entities.GetAttackSpeed(selectedUnit))
+  const [secondsPerAttack, setSecondsPerAttack] = useState(Entities.GetSecondsPerAttack(selectedUnit))
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setAttackSpeed(Entities.GetAttackSpeed(Players.GetLocalPlayerPortraitUnit()));
-      setSecondsPerAttack(Entities.GetSecondsPerAttack(Players.GetLocalPlayerPortraitUnit()));
+    const id = setInterval(() => {
+      setAttackSpeed(Entities.GetAttackSpeed(selectedUnit));
+      setSecondsPerAttack(Entities.GetSecondsPerAttack(selectedUnit));
     }, REFRESH_RATE)
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel className={'attackPanelEntryContainer'}>

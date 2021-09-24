@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
 import { REFRESH_RATE } from "../../Character";
 
-type Props = ReactTimeoutProps & {};
+type Props = ReactTimeoutProps & {
+  // ownProps
+};
 
 const PyshicalResistance = (props: Props) => {
 
-  const [resistance, setResistance] = useState(Entities.GetArmorReductionForDamageType(Players.GetLocalPlayerPortraitUnit(), DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL))
+  const { setInterval, clearInterval } = props;
+
+  const selectedUnit = useSelectedUnit();
+  const [resistance, setResistance] = useState(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL))
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setResistance(Entities.GetArmorReductionForDamageType(Players.GetLocalPlayerPortraitUnit(), DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
+    const id = setInterval(() => {
+      setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
     }, REFRESH_RATE)
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel className={'defensePanelEntryContainer'}>

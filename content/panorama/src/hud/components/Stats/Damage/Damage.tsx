@@ -2,23 +2,29 @@ import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
+import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 
-type Props = ReactTimeoutProps & {}
+type Props = ReactTimeoutProps & {
+  // ownProps
+}
 
 const Damage = (props: Props) => {
 
-  const [minDamage, setMinDamage] = useState(Entities.GetDamageMin(Players.GetLocalPlayerPortraitUnit()));
-  const [maxDamage, setMaxDamage] = useState(Entities.GetDamageMax(Players.GetLocalPlayerPortraitUnit()));
-  const [bonusDamage, setBonusDamage] = useState(Entities.GetDamageBonus(Players.GetLocalPlayerPortraitUnit()));
+  const { setInterval, clearInterval } = props;
+
+  const selectedUnit = useSelectedUnit();
+  const [minDamage, setMinDamage] = useState(Entities.GetDamageMin(selectedUnit));
+  const [maxDamage, setMaxDamage] = useState(Entities.GetDamageMax(selectedUnit));
+  const [bonusDamage, setBonusDamage] = useState(Entities.GetDamageBonus(selectedUnit));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setMinDamage(Entities.GetDamageMin(Players.GetLocalPlayerPortraitUnit()));
-      setMaxDamage(Entities.GetDamageMax(Players.GetLocalPlayerPortraitUnit()));
-      setBonusDamage(Entities.GetDamageBonus(Players.GetLocalPlayerPortraitUnit()));
+    const id = setInterval(() => {
+      setMinDamage(Entities.GetDamageMin(selectedUnit));
+      setMaxDamage(Entities.GetDamageMax(selectedUnit));
+      setBonusDamage(Entities.GetDamageBonus(selectedUnit));
     }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel style={ParentStyles.Entry()}>

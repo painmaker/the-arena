@@ -2,21 +2,25 @@ import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
+import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 
-type Props = ReactTimeoutProps & {};
+type Props = ReactTimeoutProps & {
+  // ownProps
+};
 
 const MagicResistance = (props: Props) => {
 
-  const [magicResistance, setMagicResistance] = useState(
-    Entities.GetMagicalArmorValue(Players.GetLocalPlayerPortraitUnit())
-  );
+  const { setInterval, clearInterval } = props;
+
+  const selectedUnit = useSelectedUnit();
+  const [magicResistance, setMagicResistance] = useState(Entities.GetMagicalArmorValue(selectedUnit));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setMagicResistance(Entities.GetMagicalArmorValue(Players.GetLocalPlayerPortraitUnit()));
+    const id = setInterval(() => {
+      setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
     }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel style={ParentStyles.Entry()}>

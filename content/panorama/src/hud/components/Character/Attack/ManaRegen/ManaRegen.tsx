@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
 import { REFRESH_RATE } from "../../Character";
 
-type Props = ReactTimeoutProps & {};
+type Props = ReactTimeoutProps & {
+  // ownProps
+};
 
 const AttackSpeed = (props: Props) => {
 
-  const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(Players.GetLocalPlayerPortraitUnit()))
+  const { setInterval, clearInterval } = props;
+
+  const selectedUnit = useSelectedUnit();
+  const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(selectedUnit))
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setManaRegen(Entities.GetManaThinkRegen(Players.GetLocalPlayerPortraitUnit()));
+    const id = setInterval(() => {
+      setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
     }, REFRESH_RATE);
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel className={'attackPanelEntryContainer'}>

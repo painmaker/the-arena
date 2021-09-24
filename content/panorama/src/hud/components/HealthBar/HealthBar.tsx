@@ -3,9 +3,13 @@ import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import { useSelectedUnit } from "../../hooks/useSelectedUnit";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {}
+type Props = ReactTimeoutProps & {
+  // ownProps
+}
 
 const HealthBar = (props: Props) => {
+
+  const { setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();
   const [health, setHealth] = useState(Entities.GetHealth(selectedUnit));
@@ -13,7 +17,7 @@ const HealthBar = (props: Props) => {
   const [healthRegen, setHealthRegen] = useState(Entities.GetHealthThinkRegen(selectedUnit));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
+    const id = setInterval(() => {
       setHealth(Entities.GetHealth(selectedUnit));
       setMaxHealth(Entities.GetMaxHealth(selectedUnit));
       // Hack because panorama API method for health regen is bugged
@@ -26,8 +30,8 @@ const HealthBar = (props: Props) => {
         }
       }
     }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel hittest={false} style={Styles.Container()}>

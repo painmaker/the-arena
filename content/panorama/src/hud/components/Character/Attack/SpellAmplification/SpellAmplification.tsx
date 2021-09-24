@@ -1,27 +1,32 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
 import { REFRESH_RATE } from "../../Character";
 
-type Props = ReactTimeoutProps & {};
+type Props = ReactTimeoutProps & {
+  // ownProps
+};
 
 const SpellAmplification = (props: Props) => {
 
-  const [spellAmp, setSpellAmp] = useState(Entities.GetAttackRange(Players.GetLocalPlayerPortraitUnit()))
+  const { setInterval, clearInterval } = props;
+
+  const selectedUnit = useSelectedUnit();
+  const [spellAmp, setSpellAmp] = useState(Entities.GetAttackRange(selectedUnit))
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      const entindex = Players.GetLocalPlayerPortraitUnit();
-      const numberOfBuffs = Entities.GetNumBuffs(entindex);
+    const id = setInterval(() => {
+      const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
       for (let i = 0; i < numberOfBuffs; i++) {
-        const buff = Entities.GetBuff(entindex, i);
-        const name = Buffs.GetName(entindex, buff);
+        const buff = Entities.GetBuff(selectedUnit, i);
+        const name = Buffs.GetName(selectedUnit, buff);
         if (name === 'modifier_ui_spell_amp') {
-          setSpellAmp(Buffs.GetStackCount(entindex, buff) / 100);
+          setSpellAmp(Buffs.GetStackCount(selectedUnit, buff) / 100);
         }
       }
     }, REFRESH_RATE);
-    return () => props.clearInterval(id);
-  }, []);
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel className={'attackPanelEntryContainer'}>

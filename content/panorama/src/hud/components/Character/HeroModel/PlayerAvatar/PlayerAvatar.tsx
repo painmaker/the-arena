@@ -1,33 +1,30 @@
-import React, { useState } from "react";
-import { useGameEvent } from "react-panorama";
+import React, { useEffect, useState } from "react";
+import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
 
 const PlayerAvatar = () => {
 
-  const [entindex, setEntindex] = useState(Players.GetLocalPlayerPortraitUnit());
+  const selectedUnit = useSelectedUnit();
+  const [steamId, setSteamId] = useState<string | undefined>(undefined);
 
-  useGameEvent("dota_player_update_query_unit", () => {
-    setEntindex(Players.GetLocalPlayerPortraitUnit());
-  }, []);
+  useEffect(() => {
+    const isRealHero = Entities.IsRealHero(selectedUnit);
+    const playerId = Entities.GetPlayerOwnerID(selectedUnit);
+    const isValidPlayerId = Players.IsValidPlayerID(playerId);
+    if (isRealHero && isValidPlayerId) {
+      setSteamId(Game.GetPlayerInfo(playerId).player_steamid);
+    } else {
+      setSteamId(undefined);
+    }
+  }, [selectedUnit])
 
-  useGameEvent("dota_player_update_selected_unit", () => {
-    setEntindex(Players.GetLocalPlayerPortraitUnit());
-  }, []);
-
-  if (!Entities.IsRealHero(entindex)) {
+  if (steamId === undefined) {
     return null;
   }
-
-  const playerId = Entities.GetPlayerOwnerID(entindex);
-  if (!Players.IsValidPlayerID(playerId)) {
-    return null;
-  }
-
-  const steamid = Game.GetPlayerInfo(playerId).player_steamid;
 
   return (
     <Panel className={'playerContainer'}>
       <DOTAAvatarImage
-        steamid={steamid}
+        steamid={steamId}
         style={{
           width: '64px',
           height: '64px',
@@ -36,7 +33,7 @@ const PlayerAvatar = () => {
         }}
       />
       <Panel className={'playerLabelContainer'}>
-        <DOTAUserName className={'playerLabel'} steamid={steamid} />
+        <DOTAUserName className={'playerLabel'} steamid={steamId} />
       </Panel>
     </Panel>
   );
