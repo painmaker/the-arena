@@ -41,7 +41,7 @@ const Debuffs = () => {
       {debuffs.map((debuff) =>
         <Modifier
           key={debuff}
-          buffId={debuff}
+          buff={debuff}
           selectedUnit={selectedUnit}
           isDebuff={true}
         />

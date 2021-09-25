@@ -21,21 +21,26 @@ type Props = PropsFromRedux & {
 };
 
 const SettingsButton = (props: Props) => {
+
+  const { visible, setSettingsVisible } = props;
+
   const [isHovering, setIsHovering] = useState(false);
+
   return (
     <Button>
       <Image
-        style={Styles.EntryHover(props.visible, isHovering)}
+        style={Styles.EntryHover(visible, isHovering)}
         onmouseover={() => setIsHovering(true)}
         onmouseout={() => setIsHovering(false)}
         onactivate={() => {
-          props.setSettingsVisible(!props.visible);
+          setSettingsVisible(!visible);
           Game.EmitSound("ui_topmenu_select");
         }}
         src="s2r://panorama/images/settings_btn_white_png.vtex"
       />
     </Button>
   );
+
 };
 
 export default connector(SettingsButton);

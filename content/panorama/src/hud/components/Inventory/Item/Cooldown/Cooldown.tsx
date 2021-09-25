@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
@@ -8,16 +9,24 @@ type Props = ReactTimeoutProps & {
 
 const Cooldown = (props: Props) => {
 
-  const [totalCooldown, setTotalCooldown] = useState(Abilities.GetCooldownLength(props.item))
-  const [remainingCooldown, setRemainingCooldown] = useState(Abilities.GetCooldownTimeRemaining(props.item))
+  const { item, setInterval, clearInterval } = props;
+
+  const [totalCooldown, setTotalCooldown] = useState(Abilities.GetCooldownLength(item))
+  const [remainingCooldown, setRemainingCooldown] = useState(Abilities.GetCooldownTimeRemaining(item))
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setTotalCooldown(Abilities.GetCooldownLength(props.item));
-      setRemainingCooldown(Abilities.GetCooldownTimeRemaining(props.item));
-    }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+
+    const update = () => {
+      setTotalCooldown(Abilities.GetCooldownLength(item));
+      setRemainingCooldown(Abilities.GetCooldownTimeRemaining(item));
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+
+  }, [item, setInterval, clearInterval]);
 
   let degree = Math.min(0, - (remainingCooldown / totalCooldown) * 360);
   if (Number.isNaN(degree) || !Number.isFinite(degree)) {

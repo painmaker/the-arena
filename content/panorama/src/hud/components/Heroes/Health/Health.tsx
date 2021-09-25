@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
-  entIndex: EntityIndex,
+  hero: EntityIndex,
 }
 
 const Health = (props: Props) => {
 
-  const [health, setHealth] = useState(Entities.GetHealth(props.entIndex));
-  const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(props.entIndex));
+  const { hero, setInterval, clearInterval } = props;
+
+  const [health, setHealth] = useState(Entities.GetHealth(hero));
+  const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(hero));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setHealth(Entities.GetHealth(props.entIndex));
-      setMaxHealth(Entities.GetMaxHealth(props.entIndex));
-    }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+
+    const update = () => {
+      setHealth(Entities.GetHealth(hero));
+      setMaxHealth(Entities.GetMaxHealth(hero));
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+
+  }, [hero, setInterval, clearInterval]);
 
   return (
     <Panel hittest={false} style={Styles.Container()}>

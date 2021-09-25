@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import { useSelectedUnit } from "../../hooks/useSelectedUnit";
 import { Styles } from "./Styles";
@@ -6,7 +7,6 @@ import { Styles } from "./Styles";
 type Props = ReactTimeoutProps & {}
 
 const ManaBar = (props: Props) => {
-
 
   const { setInterval, clearInterval } = props;
 
@@ -16,12 +16,18 @@ const ManaBar = (props: Props) => {
   const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(selectedUnit));
 
   useEffect(() => {
-    const id = setInterval(() => {
+
+    const update = () => {
       setMana(Entities.GetMana(selectedUnit));
       setMaxMana(Entities.GetMaxMana(selectedUnit));
       setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
-    }, 100);
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
     return () => clearInterval(id);
+
   }, [selectedUnit, setInterval, clearInterval]);
 
   if (maxMana <= 0) {

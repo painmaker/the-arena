@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
@@ -42,7 +43,7 @@ const AbilityImage = (props: Props) => {
     };
 
     update();
-    const id = setInterval(update, 100);
+    const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);
 

@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
-  entIndex: EntityIndex,
+  hero: EntityIndex,
 }
 
 const Mana = (props: Props) => {
 
-  const [mana, setMana] = useState(Entities.GetMana(props.entIndex));
-  const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(props.entIndex));
+  const { hero, setInterval, clearInterval } = props;
+
+  const [mana, setMana] = useState(Entities.GetMana(hero));
+  const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(hero));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setMana(Entities.GetMana(props.entIndex));
-      setMaxMana(Entities.GetMaxMana(props.entIndex));
-    }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+
+    const update = () => {
+      setMana(Entities.GetMana(hero));
+      setMaxMana(Entities.GetMaxMana(hero));
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+
+  }, [hero, setInterval, clearInterval]);
 
   return (
     <Panel style={Styles.Container()}>

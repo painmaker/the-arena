@@ -3,10 +3,12 @@ import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeou
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
-  abilityEntityIndex: AbilityEntityIndex
+  ability: AbilityEntityIndex
 }
 
 const LevelUpButton = (props: Props) => {
+
+  const { ability } = props;
 
   return (
     <Panel style={Styles.Container()}>
@@ -15,7 +17,7 @@ const LevelUpButton = (props: Props) => {
         style={Styles.ParticleScene()}
       />
       <Panel
-        onactivate={() => Abilities.AttemptToUpgrade(props.abilityEntityIndex)}
+        onactivate={() => Abilities.AttemptToUpgrade(ability)}
         style={Styles.ButtonBackground()}
       >
         <Panel style={Styles.LockIcon()} />

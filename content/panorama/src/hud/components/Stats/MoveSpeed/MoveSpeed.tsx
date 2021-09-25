@@ -3,6 +3,7 @@ import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
 import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
+import { HUD_THINK } from "../../../App";
 
 type Props = ReactTimeoutProps & {}
 
@@ -14,10 +15,16 @@ const MoveSpeed = (props: Props) => {
   const [moveSpeed, setMoveSpeed] = useState(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
 
   useEffect(() => {
-    const id = setInterval(() => {
+
+    const update = () => {
       setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
-    }, 100);
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
     return () => clearInterval(id);
+
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (

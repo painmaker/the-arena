@@ -23,6 +23,9 @@ import Chat from "./components/Chat/Chat";
 import Loading from "./components/Loading/Loading";
 import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
 
+export const HUD_THINK = 50;
+export const HUD_THINK_SLOW = 1000;
+
 const mapStateToProps = (state: RootState) => ({
   useCustomUI: state.settingsReducer.useCustomUI,
 });

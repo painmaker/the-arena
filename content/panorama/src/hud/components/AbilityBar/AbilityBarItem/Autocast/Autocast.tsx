@@ -3,14 +3,16 @@ import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeou
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
-  abilityEntityIndex: AbilityEntityIndex,
   enabled: boolean,
 }
 
 const Autocast = (props: Props) => {
+
+  const { enabled } = props;
+
   return (
     <Panel style={Styles.Container()}>
-      {props.enabled && (
+      {enabled && (
         <DOTAScenePanel
           map={'scenes/hud/autocasting'}
           style={Styles.AutocastScene()}
@@ -18,6 +20,7 @@ const Autocast = (props: Props) => {
       )}
     </Panel>
   );
+
 };
 
 export default withReactTimeout(Autocast);

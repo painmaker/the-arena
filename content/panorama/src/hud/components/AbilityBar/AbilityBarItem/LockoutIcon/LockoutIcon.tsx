@@ -1,30 +1,38 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
-  abilityEntityIndex: AbilityEntityIndex,
-  unitEntityIndex: EntityIndex,
+  selectedUnit: EntityIndex,
 }
 
 const LockoutIcon = (props: Props) => {
 
-  const [isStunned, setIsStunned] = useState(Entities.IsStunned(props.unitEntityIndex));
-  const [isSilenced, setIsSilenced] = useState(Entities.IsSilenced(props.unitEntityIndex));
-  const [isCommandRestricted, setIsCommandRestricted] = useState(Entities.IsCommandRestricted(props.unitEntityIndex));
-  const [isNightmared, setIsNightmared] = useState(Entities.IsNightmared(props.unitEntityIndex));
-  const [isHexed, setIsHexed] = useState(Entities.IsHexed(props.unitEntityIndex));
+  const { selectedUnit, setInterval, clearInterval } = props;
+
+  const [isStunned, setIsStunned] = useState(Entities.IsStunned(selectedUnit));
+  const [isSilenced, setIsSilenced] = useState(Entities.IsSilenced(selectedUnit));
+  const [isCommandRestricted, setIsCommandRestricted] = useState(Entities.IsCommandRestricted(selectedUnit));
+  const [isNightmared, setIsNightmared] = useState(Entities.IsNightmared(selectedUnit));
+  const [isHexed, setIsHexed] = useState(Entities.IsHexed(selectedUnit));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setIsStunned(Entities.IsStunned(props.unitEntityIndex));
-      setIsSilenced(Entities.IsSilenced(props.unitEntityIndex));
-      setIsCommandRestricted(Entities.IsCommandRestricted(props.unitEntityIndex));
-      setIsNightmared(Entities.IsNightmared(props.unitEntityIndex));
-      setIsHexed(Entities.IsHexed(props.unitEntityIndex));
-    }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+
+    const update = () => {
+      setIsStunned(Entities.IsStunned(selectedUnit));
+      setIsSilenced(Entities.IsSilenced(selectedUnit));
+      setIsCommandRestricted(Entities.IsCommandRestricted(selectedUnit));
+      setIsNightmared(Entities.IsNightmared(selectedUnit));
+      setIsHexed(Entities.IsHexed(selectedUnit));
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+
+  }, [selectedUnit, setInterval, clearInterval]);
 
   const showLock = (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
 

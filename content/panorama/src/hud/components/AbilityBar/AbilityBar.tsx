@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import { useSelectedUnit } from "../../hooks/useSelectedUnit";
 import { TableUtils } from "../../utils/TableUtils";
@@ -33,7 +34,7 @@ const AbilityBar = (props: Props) => {
     };
 
     update();
-    const id = setInterval(update, 3);
+    const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 import { Styles as ParentStyles } from "../Styles";
@@ -50,11 +51,17 @@ const Level = (props: Props) => {
   const [totalExperienceGained, setTotalExperienceGained] = useState(Entities.GetCurrentXP(selectedUnit));
 
   useEffect(() => {
-    const id = setInterval(() => {
+
+    const update = () => {
       setLevel(Entities.GetLevel(selectedUnit));
       setTotalExperienceGained(Entities.GetCurrentXP(selectedUnit));
-    }, 100);
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
     return () => clearInterval(id);
+
   }, [selectedUnit, setInterval, clearInterval]);
 
   const maxLevel = Object.keys(EXPERIENCE_PER_LEVEL_TABLE).length;
@@ -63,19 +70,23 @@ const Level = (props: Props) => {
   const pct = (xpGainedThisLevel / xpRequiredToLevel) * 100;
 
   return (
-    <Panel style={ParentStyles.Entry()}>
-      <Label
-        style={Styles.LevelLabel()}
-        text={'Lvl. ' + level}
-      />
-      <Panel style={Styles.LevelbarContainer()}>
-        <Panel style={Styles.Levelbar(Number.isFinite(pct) ? pct : 100)} />
-      </Panel>
-      <Label
-        style={Styles.LevelPctLabel()}
-        text={Number.isFinite(pct) ? pct + "%" : '100%'}
-      />
-    </Panel>
+    <React.Fragment>
+      {Entities.IsHero(selectedUnit) && (
+        <Panel style={ParentStyles.Entry()}>
+          <Label
+            style={Styles.LevelLabel()}
+            text={'Lvl. ' + level}
+          />
+          <Panel style={Styles.LevelbarContainer()}>
+            <Panel style={Styles.Levelbar(Number.isFinite(pct) ? pct : 100)} />
+          </Panel>
+          <Label
+            style={Styles.LevelPctLabel()}
+            text={Number.isFinite(pct) ? pct + "%" : '100%'}
+          />
+        </Panel>
+      )}
+    </React.Fragment>
   );
 
 };

@@ -2,7 +2,7 @@ import { toColor } from "../../../utils/Color";
 
 export const Styles = {
 
-  Container: (playerId: PlayerID): Partial<VCSSStyleDeclaration> => ({
+  Label: (playerId: PlayerID): Partial<VCSSStyleDeclaration> => ({
     width: "100%",
     height: "20px",
     fontSize: "16px",

@@ -10,6 +10,7 @@ import AbilityImage from "./AbilityImage/AbilityImage";
 import { Styles } from "./Styles";
 import LevelUpButton from "./LevelUpButton/LevelUpButton";
 import CastPointOverlay from "./CastPointOverlay/CastPointOverlay";
+import { HUD_THINK } from "../../../App";
 
 type Props = ReactTimeoutProps & {
   ability: AbilityEntityIndex,
@@ -74,7 +75,7 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
         cooldownTimeRemaining: Abilities.GetCooldownTimeRemaining(this.props.ability),
         hasAbilityPoints: Entities.GetAbilityPoints(this.props.selectedUnit) !== 0,
       })
-    }, 100);
+    }, HUD_THINK);
   }
 
   getSaturation(isTrainable: boolean): string {
@@ -172,7 +173,7 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
       <Panel style={Styles.Container()} id={'ability_' + this.props.ability}>
         <Panel style={Styles.LevelUpButtonContainer()}>
           {isAbilityUpgradeable && (
-            <LevelUpButton abilityEntityIndex={this.props.ability} />
+            <LevelUpButton ability={this.props.ability} />
           )}
         </Panel>
         <Panel
@@ -190,38 +191,35 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
           )}
         >
           <AbilityImage
-            abilityEntityIndex={this.props.ability}
+            ability={this.props.ability}
             washColor={this.getWashColor(isTrainable)}
             saturation={this.getSaturation(isTrainable)}
           />
           {Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer()) && (
             <Keybind
-              abilityEntityIndex={this.props.ability}
+              ability={this.props.ability}
               isTrainable={isTrainable}
               isPassive={this.state.isPassive}
             />
           )}
           <ManaCost
-            abilityEntityIndex={this.props.ability}
             manaCost={this.state.manaCost}
           />
           <Cooldown
-            abilityEntityIndex={this.props.ability}
+            ability={this.props.ability}
             cooldownTimeRemaining={this.state.cooldownTimeRemaining}
           />
           <Autocast
-            abilityEntityIndex={this.props.ability}
             enabled={this.state.isAutoCastEnabled}
           />
           {this.state.cooldownTimeRemaining === 0 && (
             <LockoutIcon
-              abilityEntityIndex={this.props.ability}
-              unitEntityIndex={this.props.selectedUnit}
+              selectedUnit={this.props.selectedUnit}
             />
           )}
-          <CastPointOverlay abilityEntityIndex={this.props.ability} />
+          <CastPointOverlay ability={this.props.ability} />
         </Panel>
-        <Skillpoints abilityEntityIndex={this.props.ability} />
+        <Skillpoints ability={this.props.ability} />
       </Panel>
     );
 

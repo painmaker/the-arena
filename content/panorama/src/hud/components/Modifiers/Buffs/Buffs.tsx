@@ -40,7 +40,7 @@ const BuffsPanel = () => {
       {buffs.map((buff) =>
         <Modifier
           key={buff}
-          buffId={buff}
+          buff={buff}
           selectedUnit={selectedUnit}
           isDebuff={false}
         />

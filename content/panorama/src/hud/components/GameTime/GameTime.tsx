@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { formatTime } from "../../../utils";
+import { HUD_THINK_SLOW } from "../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
@@ -17,14 +18,22 @@ const formatGameTime = (dotaTime: number) => {
 
 const GameTime = (props: Props) => {
 
+  const { setInterval, clearInterval } = props;
+
   const [gameTime, setGameTime] = useState(Game.GetDOTATime(false, false));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
+
+    const update = () => {
       setGameTime(Game.GetDOTATime(false, false));
-    }, 1000);
-    return () => props.clearInterval(id);
-  }, []);
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK_SLOW);
+
+    return () => clearInterval(id);
+
+  }, [setInterval, clearInterval]);
 
   return (
     <Panel style={Styles.Container()}>

@@ -1,25 +1,34 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
-  buffId: BuffID,
+  buff: BuffID,
   selectedUnit: EntityIndex,
   isDebuff: boolean,
 }
 
 const TimedBackground = (props: Props) => {
 
-  const [remaining, setRemaining] = useState(Math.max(0, Buffs.GetRemainingTime(props.selectedUnit, props.buffId)));
-  const [duration, setDuration] = useState(Math.max(0, Buffs.GetDuration(props.selectedUnit, props.buffId)));
+  const { buff, selectedUnit, isDebuff, setInterval, clearInterval } = props;
+
+  const [remaining, setRemaining] = useState(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
+  const [duration, setDuration] = useState(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setRemaining(Math.max(0, Buffs.GetRemainingTime(props.selectedUnit, props.buffId)));
-      setDuration(Math.max(0, Buffs.GetDuration(props.selectedUnit, props.buffId)));
-    }, 50);
-    return () => props.clearInterval(id);
-  }, []);
+
+    const update = () => {
+      setRemaining(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
+      setDuration(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+
+  }, [buff, selectedUnit, setInterval, clearInterval]);
 
   let degree = Math.max(0, (remaining / duration) * 360);
   if (Number.isNaN(degree) || !Number.isFinite(degree)) {
@@ -27,7 +36,7 @@ const TimedBackground = (props: Props) => {
   }
 
   return (
-    <Panel style={Styles.Container(props.isDebuff, degree)} />
+    <Panel style={Styles.Container(isDebuff, degree)} />
   );
 
 };

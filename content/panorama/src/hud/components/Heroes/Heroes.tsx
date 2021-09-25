@@ -13,12 +13,12 @@ const Heroes = () => {
   return (
     <Panel style={Styles.HeroesContainer()}>
       {pickedHeroes.map((pickedHero) => {
-        const entIndex = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
+        const hero = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
         return (
-          <Panel style={Styles.HeroContainer()} key={entIndex} >
-            <HeroImage heroname={pickedHero.heroname} entIndex={entIndex} />
-            <Health entIndex={entIndex} />
-            <Mana entIndex={entIndex} />
+          <Panel style={Styles.HeroContainer()} key={hero} >
+            <HeroImage hero={hero} />
+            <Health hero={hero} />
+            <Mana hero={hero} />
             <Playername playerId={pickedHero.playerID} />
           </Panel>
         );

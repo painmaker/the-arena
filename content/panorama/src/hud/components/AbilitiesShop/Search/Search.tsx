@@ -11,6 +11,8 @@ type Props = {
  */
 const Search = (props: Props) => {
 
+  const { setSearchValue } = props;
+
   const [isHovering, setIsHovering] = useState(false);
 
   return (
@@ -21,7 +23,7 @@ const Search = (props: Props) => {
         style={Styles.SearchField()}
         maxchars={50}
         placeholder={'Search...'}
-        ontextentrychange={(event) => props.setSearchValue(event.text.toLocaleLowerCase().trim())}
+        ontextentrychange={(event) => setSearchValue(event.text.toLocaleLowerCase().trim())}
       />
       <Button
         onmouseout={() => setIsHovering(false)}

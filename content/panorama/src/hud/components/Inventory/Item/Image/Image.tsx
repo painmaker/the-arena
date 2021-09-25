@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
@@ -8,28 +10,37 @@ type Props = ReactTimeoutProps & {
 
 const Image = (props: Props) => {
 
-  const [isCooldownReady, setIsCooldownReady] = useState(Abilities.IsCooldownReady(props.item));
-  const [hasEnoughMana, setHasEnoughMana] = useState(Abilities.IsOwnersManaEnough(props.item));
-  const [isMuted, setIsMuted] = useState(Entities.IsMuted(Players.GetLocalPlayerPortraitUnit()));
-  const [isStunned, setIsStunned] = useState(Entities.IsStunned(Players.GetLocalPlayerPortraitUnit()));
-  const [isCommandRestricted, setIsCommandRestricted] = useState(Entities.IsCommandRestricted(Players.GetLocalPlayerPortraitUnit()));
-  const [isNightmared, setIsNightmared] = useState(Entities.IsNightmared(Players.GetLocalPlayerPortraitUnit()));
-  const [isHexed, setIsHexed] = useState(Entities.IsHexed(Players.GetLocalPlayerPortraitUnit()));
-  const [texture, setTexutre] = useState(Abilities.GetAbilityTextureName(props.item));
+  const { item, setInterval, clearInterval } = props;
+
+  const selectedUnit = useSelectedUnit();
+  const [isCooldownReady, setIsCooldownReady] = useState(Abilities.IsCooldownReady(item));
+  const [hasEnoughMana, setHasEnoughMana] = useState(Abilities.IsOwnersManaEnough(item));
+  const [isMuted, setIsMuted] = useState(Entities.IsMuted(selectedUnit));
+  const [isStunned, setIsStunned] = useState(Entities.IsStunned(selectedUnit));
+  const [isCommandRestricted, setIsCommandRestricted] = useState(Entities.IsCommandRestricted(selectedUnit));
+  const [isNightmared, setIsNightmared] = useState(Entities.IsNightmared(selectedUnit));
+  const [isHexed, setIsHexed] = useState(Entities.IsHexed(selectedUnit));
+  const [texture, setTexutre] = useState(Abilities.GetAbilityTextureName(item));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setIsCooldownReady(Abilities.IsCooldownReady(props.item));
-      setHasEnoughMana(Abilities.IsOwnersManaEnough(props.item));
-      setIsMuted(Entities.IsMuted(Players.GetLocalPlayerPortraitUnit()));
-      setIsStunned(Entities.IsStunned(Players.GetLocalPlayerPortraitUnit()));
-      setIsCommandRestricted(Entities.IsCommandRestricted(Players.GetLocalPlayerPortraitUnit()));
-      setIsNightmared(Entities.IsNightmared(Players.GetLocalPlayerPortraitUnit()));
-      setIsHexed(Entities.IsHexed(Players.GetLocalPlayerPortraitUnit()));
-      setTexutre(Abilities.GetAbilityTextureName(props.item));
-    }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+
+    const update = () => {
+      setIsCooldownReady(Abilities.IsCooldownReady(item));
+      setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
+      setIsMuted(Entities.IsMuted(selectedUnit));
+      setIsStunned(Entities.IsStunned(selectedUnit));
+      setIsCommandRestricted(Entities.IsCommandRestricted(selectedUnit));
+      setIsNightmared(Entities.IsNightmared(selectedUnit));
+      setIsHexed(Entities.IsHexed(selectedUnit));
+      setTexutre(Abilities.GetAbilityTextureName(item));
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+
+  }, [selectedUnit, item, setInterval, clearInterval]);
 
   const lockItems = isMuted || isStunned || isCommandRestricted || isNightmared || isHexed;
 

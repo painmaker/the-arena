@@ -5,6 +5,7 @@ import ItemOptions from "./ItemOptions/ItemOptions";
 import Item from "./Item/Item";
 import { Styles } from "./Styles";
 import { useSelectedUnit } from "../../hooks/useSelectedUnit";
+import { HUD_THINK } from "../../App";
 
 type Props = ReactTimeoutProps & {
   // ownProps
@@ -31,7 +32,7 @@ const Inventory = (props: Props) => {
     }
 
     update();
-    const id = setInterval(update, 3);
+    const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);
 

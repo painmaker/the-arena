@@ -22,21 +22,26 @@ type Props = PropsFromRedux & {
 };
 
 const AbilitiesShopButton = (props: Props) => {
+
+  const { visible, setAbilitiesShopVisible } = props;
+
   const [isHovering, setIsHovering] = useState(false);
+
   return (
     <Button>
       <Image
-        style={Styles.EntryHover(props.visible, isHovering)}
+        style={Styles.EntryHover(visible, isHovering)}
         onmouseover={() => setIsHovering(true)}
         onmouseout={() => setIsHovering(false)}
         onactivate={() => {
-          props.setAbilitiesShopVisible(!props.visible);
+          setAbilitiesShopVisible(!visible);
           Game.EmitSound("ui_topmenu_select");
         }}
         src="s2r://panorama/images/book_open_page_variant_outline_png.vtex"
       />
     </Button>
   );
+
 };
 
 export default connector(AbilitiesShopButton);

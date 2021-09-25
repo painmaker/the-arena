@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
@@ -8,14 +9,22 @@ type Props = ReactTimeoutProps & {
 
 const ManaCost = (props: Props) => {
 
-  const [manaCost, setManaCost] = useState(Abilities.GetManaCost(props.item));
+  const { item, setInterval, clearInterval } = props;
+
+  const [manaCost, setManaCost] = useState(Abilities.GetManaCost(item));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setManaCost(Abilities.GetManaCost(props.item));
-    }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+
+    const update = () => {
+      setManaCost(Abilities.GetManaCost(item));
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+
+  }, [item, setInterval, clearInterval]);
 
   return (
     <Label

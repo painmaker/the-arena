@@ -2,19 +2,23 @@ import React from "react";
 import { Styles } from "./Styles";
 
 type Props = {
-  abilityEntityIndex: AbilityEntityIndex,
   manaCost: number,
 }
 
 const ManaCost = (props: Props) => {
-  if (props.manaCost === 0) {
+
+  const { manaCost } = props;
+
+  if (manaCost === 0) {
     return null;
   }
+
   return (
     <Panel style={Styles.Container()}>
-      <Label style={Styles.Label()} text={props.manaCost} />
+      <Label style={Styles.Label()} text={manaCost} />
     </Panel>
   );
+
 };
 
 export default ManaCost;

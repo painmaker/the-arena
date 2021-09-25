@@ -1,9 +1,8 @@
 import React from "react";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import AbilityImage from "../AbilityImage/AbilityImage";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex
   regularAbilities: ShopAbility[],
   isLoadingAbilities: boolean,
@@ -11,6 +10,9 @@ type Props = ReactTimeoutProps & {
 }
 
 const RegularAbilities = (props: Props) => {
+
+  const { selectedUnit, regularAbilities, isLoadingAbilities, searchValue } = props;
+
   return (
     <Panel style={Styles.Container()}>
       <Label
@@ -18,35 +20,34 @@ const RegularAbilities = (props: Props) => {
         style={Styles.Title()}
       />
       <Panel style={Styles.AbilitiesContainer()}>
-        {(props.regularAbilities.length === 0 && props.isLoadingAbilities === true) && (
+        {/*
+        {(regularAbilities.length === 0 && isLoadingAbilities === true) && (
           <Label
             text={"Loading..."}
             style={Styles.CenterLabel()}
           />
         )}
-        {(props.regularAbilities.length === 0 && props.isLoadingAbilities === false) && (
+        */}
+        {(regularAbilities.length === 0 && isLoadingAbilities === false) && (
           <Label
-            text={$.Localize(Entities.GetUnitName(props.selectedUnit)) + " Has No Regular Abilities"}
+            text={$.Localize(Entities.GetUnitName(selectedUnit)) + " Has No Regular Abilities"}
             style={Styles.CenterLabel()}
           />
         )}
-        {props.regularAbilities.map(regularAbility => {
+        {regularAbilities.map(regularAbility => {
           return (
             <AbilityImage
               key={regularAbility.name}
-              selectedUnit={props.selectedUnit}
+              selectedUnit={selectedUnit}
               shopAbility={regularAbility}
-              searchValue={props.searchValue}
+              searchValue={searchValue}
             />
           )
         })}
       </Panel>
     </Panel>
   );
+
 };
 
-export default withReactTimeout(RegularAbilities);
-
-/*
-
-  */
+export default RegularAbilities;

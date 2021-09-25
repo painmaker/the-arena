@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
@@ -8,16 +9,24 @@ type Props = ReactTimeoutProps & {
 
 const Keybind = (props: Props) => {
 
-  const [keybind, setKeybind] = useState(Abilities.GetKeybind(props.item));
-  const [isPassive, setIsPassive] = useState(Abilities.IsPassive(props.item));
+  const { item, setInterval, clearInterval } = props;
+
+  const [keybind, setKeybind] = useState(Abilities.GetKeybind(item));
+  const [isPassive, setIsPassive] = useState(Abilities.IsPassive(item));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setKeybind(Abilities.GetKeybind(props.item));
-      setIsPassive(Abilities.IsPassive(props.item));
-    }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+
+    const update = () => {
+      setKeybind(Abilities.GetKeybind(item));
+      setIsPassive(Abilities.IsPassive(item));
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+
+  }, [item, setInterval, clearInterval]);
 
   return (
     <Label

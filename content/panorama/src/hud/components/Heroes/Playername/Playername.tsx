@@ -6,14 +6,18 @@ interface Props {
 }
 
 const Playername = (props: Props) => {
+
+  const { playerId } = props;
+
   return (
     <Panel hittest={false} style={{ width: '100%' }}>
       <Label
-        text={Players.GetPlayerName(props.playerId)}
-        style={Styles.Container(props.playerId)}
+        text={Players.GetPlayerName(playerId)}
+        style={Styles.Label(playerId)}
       />
     </Panel>
   );
+
 };
 
 export default Playername;

@@ -1,9 +1,8 @@
 import React from "react";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import AbilityImage from "../AbilityImage/AbilityImage";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex
   ultimateAbilities: ShopAbility[],
   isLoadingAbilities: boolean,
@@ -11,6 +10,9 @@ type Props = ReactTimeoutProps & {
 }
 
 const UltimateAbilities = (props: Props) => {
+
+  const { selectedUnit, ultimateAbilities, isLoadingAbilities, searchValue } = props;
+
   return (
     <Panel style={Styles.Container()}>
       <Label
@@ -18,31 +20,34 @@ const UltimateAbilities = (props: Props) => {
         style={Styles.Title()}
       />
       <Panel style={Styles.AbilitiesContainer()}>
-        {(props.ultimateAbilities.length === 0 && props.isLoadingAbilities === true) && (
+        {/* 
+        {(ultimateAbilities.length === 0 && isLoadingAbilities === true) && (
           <Label
             text={"Loading..."}
             style={Styles.CenterLabel()}
           />
         )}
-        {(props.ultimateAbilities.length === 0 && props.isLoadingAbilities === false) && (
+        */}
+        {(ultimateAbilities.length === 0 && isLoadingAbilities === false) && (
           <Label
-            text={$.Localize(Entities.GetUnitName(props.selectedUnit)) + " Has No Ultimate Abilities"}
+            text={$.Localize(Entities.GetUnitName(selectedUnit)) + " Has No Ultimate Abilities"}
             style={Styles.CenterLabel()}
           />
         )}
-        {props.ultimateAbilities.map(ultimateAbility => {
+        {ultimateAbilities.map(ultimateAbility => {
           return (
             <AbilityImage
               key={ultimateAbility.name}
-              selectedUnit={props.selectedUnit}
+              selectedUnit={selectedUnit}
               shopAbility={ultimateAbility}
-              searchValue={props.searchValue}
+              searchValue={searchValue}
             />
           )
         })}
       </Panel>
     </Panel>
   );
+
 };
 
-export default withReactTimeout(UltimateAbilities);
+export default UltimateAbilities;

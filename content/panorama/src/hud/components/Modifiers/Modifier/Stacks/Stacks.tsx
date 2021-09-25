@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { HUD_THINK } from "../../../../App"
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout"
 import { Styles } from "./Styles"
 
@@ -9,14 +10,22 @@ type Props = ReactTimeoutProps & {
 
 const Stacks = (props: Props) => {
 
-  const [stacks, setStacks] = useState(Buffs.GetStackCount(props.unit, props.buff))
+  const { unit, buff, setInterval, clearInterval } = props;
+
+  const [stacks, setStacks] = useState(Buffs.GetStackCount(unit, buff))
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setStacks(Buffs.GetStackCount(props.unit, props.buff))
-    }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+
+    const update = () => {
+      setStacks(Buffs.GetStackCount(unit, buff))
+    }
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+
+  }, [unit, buff, setInterval, clearInterval]);
 
   if (stacks === 0) {
     return null;

@@ -30,29 +30,31 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const Settings = (props: Props) => {
 
+  const { visible, setCameraLocked, setCameraZoom, setTimeout, clearTimeout } = props;
+
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
-    props.setCameraLocked(true);
-    props.setCameraZoom(1600);
-  }, []);
+    setCameraLocked(true);
+    setCameraZoom(1600);
+  }, [setCameraLocked, setCameraZoom]);
 
   useEffect(() => {
     let timer = -1 as Timer;
-    if (props.visible === false) {
-      timer = props.setTimeout(() => {
+    if (visible === false) {
+      timer = setTimeout(() => {
         setRenderComponent(false);
       }, 1000);
     } else {
       setRenderComponent(true);
     }
-    return () => props.clearTimeout(timer);
-  }, [props.visible]);
+    return () => clearTimeout(timer);
+  }, [visible, setTimeout, clearTimeout]);
 
   return (
     <Panel style={Styles.OuterContainer()}>
       {renderComponent && (
-        <Panel style={Styles.InnerContainer(props.visible)}>
+        <Panel style={Styles.InnerContainer(visible)}>
           <Title />
           <Divider />
           <Panel style={Styles.EntryContainer()}>

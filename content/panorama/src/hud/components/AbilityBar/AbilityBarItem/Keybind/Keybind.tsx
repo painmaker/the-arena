@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
-  abilityEntityIndex: AbilityEntityIndex,
+  ability: AbilityEntityIndex,
   isTrainable: boolean,
   isPassive: boolean,
 }
 
 const Keybind = (props: Props) => {
 
-  const [keybind, setKeybind] = useState(Abilities.GetKeybind(props.abilityEntityIndex));
+  const { ability, setInterval, clearInterval } = props;
+
+  const [keybind, setKeybind] = useState(Abilities.GetKeybind(ability));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setKeybind(Abilities.GetKeybind(props.abilityEntityIndex));
-    }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+
+    const update = () => {
+      setKeybind(Abilities.GetKeybind(ability));
+    };
+
+    update();
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+
+  }, [ability, setInterval, clearInterval]);
 
   if (!props.isTrainable && props.isPassive) {
     return null;
