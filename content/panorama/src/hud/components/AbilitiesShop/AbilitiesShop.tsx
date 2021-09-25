@@ -97,23 +97,23 @@ const AbilitiesShop = (props: Props) => {
     <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
         <Panel hittest={true} style={Styles.InnerContainer(visible)}>
-          <Title entindex={selectedUnit} />
+          <Title selectedUnit={selectedUnit} />
           <Panel style={Styles.TopContainer()}>
             <Search setSearchValue={setSearchValue} />
             <AbilitiesPoints
-              entindex={selectedUnit}
+              selectedUnit={selectedUnit}
               text={'Ability Points:'}
             />
           </Panel>
           <Panel style={Styles.AbilitiesContainer()}>
             <RegularAbilities
-              entindex={selectedUnit}
+              selectedUnit={selectedUnit}
               regularAbilities={regularAbilities}
               isLoadingAbilities={isLoadingAbilities}
               searchValue={searchValue}
             />
             <UltimateAbilities
-              entindex={selectedUnit}
+              selectedUnit={selectedUnit}
               ultimateAbilities={ultimateAbilities}
               isLoadingAbilities={isLoadingAbilities}
               searchValue={searchValue}

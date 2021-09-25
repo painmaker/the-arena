@@ -4,7 +4,7 @@ import AbilityImage from "../AbilityImage/AbilityImage";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
-  entindex: EntityIndex
+  selectedUnit: EntityIndex
   ultimateAbilities: ShopAbility[],
   isLoadingAbilities: boolean,
   searchValue: string,
@@ -26,7 +26,7 @@ const UltimateAbilities = (props: Props) => {
         )}
         {(props.ultimateAbilities.length === 0 && props.isLoadingAbilities === false) && (
           <Label
-            text={$.Localize(Entities.GetUnitName(props.entindex)) + " Has No Ultimate Abilities"}
+            text={$.Localize(Entities.GetUnitName(props.selectedUnit)) + " Has No Ultimate Abilities"}
             style={Styles.CenterLabel()}
           />
         )}
@@ -34,7 +34,7 @@ const UltimateAbilities = (props: Props) => {
           return (
             <AbilityImage
               key={ultimateAbility.name}
-              entindex={props.entindex}
+              selectedUnit={props.selectedUnit}
               shopAbility={ultimateAbility}
               searchValue={props.searchValue}
             />

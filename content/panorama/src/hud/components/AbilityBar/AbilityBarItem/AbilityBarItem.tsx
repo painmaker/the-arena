@@ -13,7 +13,7 @@ import CastPointOverlay from "./CastPointOverlay/CastPointOverlay";
 
 type Props = ReactTimeoutProps & {
   ability: AbilityEntityIndex,
-  unit: EntityIndex,
+  selectedUnit: EntityIndex,
 }
 
 interface State {
@@ -45,16 +45,16 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
     this.state = {
       level: Abilities.GetLevel(props.ability),
       manaCost: Abilities.GetManaCost(props.ability),
-      unitMana: Entities.GetMana(props.unit),
+      unitMana: Entities.GetMana(props.selectedUnit),
       isPassive: Abilities.IsPassive(props.ability),
       isUpgradeable: Abilities.CanAbilityBeUpgraded(props.ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED,
-      isControllable: Entities.IsControllableByPlayer(props.unit, Players.GetLocalPlayer()),
+      isControllable: Entities.IsControllableByPlayer(props.selectedUnit, Players.GetLocalPlayer()),
       isAutoCastEnabled: Abilities.GetAutoCastState(props.ability),
       isToggled: Abilities.GetToggleState(props.ability),
       isActive: Abilities.GetLocalPlayerActiveAbility() === this.props.ability,
       isInLearningMode: Game.IsInAbilityLearnMode(),
       cooldownTimeRemaining: Abilities.GetCooldownTimeRemaining(props.ability),
-      hasAbilityPoints: Entities.GetAbilityPoints(props.unit) !== 0,
+      hasAbilityPoints: Entities.GetAbilityPoints(props.selectedUnit) !== 0,
     }
   }
 
@@ -63,16 +63,16 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
       this.setState({
         level: Abilities.GetLevel(this.props.ability),
         manaCost: Abilities.GetManaCost(this.props.ability),
-        unitMana: Entities.GetMana(this.props.unit),
+        unitMana: Entities.GetMana(this.props.selectedUnit),
         isPassive: Abilities.IsPassive(this.props.ability),
         isUpgradeable: Abilities.CanAbilityBeUpgraded(this.props.ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED,
-        isControllable: Entities.IsControllableByPlayer(this.props.unit, Players.GetLocalPlayer()),
+        isControllable: Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer()),
         isAutoCastEnabled: Abilities.GetAutoCastState(this.props.ability),
         isToggled: Abilities.GetToggleState(this.props.ability),
         isActive: Abilities.GetLocalPlayerActiveAbility() === this.props.ability,
         isInLearningMode: Game.IsInAbilityLearnMode(),
         cooldownTimeRemaining: Abilities.GetCooldownTimeRemaining(this.props.ability),
-        hasAbilityPoints: Entities.GetAbilityPoints(this.props.unit) !== 0,
+        hasAbilityPoints: Entities.GetAbilityPoints(this.props.selectedUnit) !== 0,
       })
     }, 100);
   }
@@ -127,15 +127,15 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
       Abilities.AttemptToUpgrade(this.props.ability);
       return;
     }
-    if (Entities.IsStunned(this.props.unit) || Entities.IsCommandRestricted(this.props.unit)) {
+    if (Entities.IsStunned(this.props.selectedUnit) || Entities.IsCommandRestricted(this.props.selectedUnit)) {
       Game.EmitSound("General.CastFail_Custom");
       return;
     }
-    if (Entities.IsSilenced(this.props.unit)) {
+    if (Entities.IsSilenced(this.props.selectedUnit)) {
       Game.EmitSound("General.CastFail_Silenced");
       return;
     }
-    Abilities.ExecuteAbility(this.props.ability, this.props.unit, false);
+    Abilities.ExecuteAbility(this.props.ability, this.props.selectedUnit, false);
   }
 
   onRightClick() {
@@ -155,7 +155,7 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
       "DOTAShowAbilityTooltipForEntityIndex",
       $("#ability_" + this.props.ability),
       Abilities.GetAbilityName(this.props.ability),
-      this.props.unit
+      this.props.selectedUnit
     )
   }
 
@@ -194,11 +194,13 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
             washColor={this.getWashColor(isTrainable)}
             saturation={this.getSaturation(isTrainable)}
           />
-          <Keybind
-            abilityEntityIndex={this.props.ability}
-            isTrainable={isTrainable}
-            isPassive={this.state.isPassive}
-          />
+          {Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer()) && (
+            <Keybind
+              abilityEntityIndex={this.props.ability}
+              isTrainable={isTrainable}
+              isPassive={this.state.isPassive}
+            />
+          )}
           <ManaCost
             abilityEntityIndex={this.props.ability}
             manaCost={this.state.manaCost}
@@ -214,7 +216,7 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
           {this.state.cooldownTimeRemaining === 0 && (
             <LockoutIcon
               abilityEntityIndex={this.props.ability}
-              unitEntityIndex={this.props.unit}
+              unitEntityIndex={this.props.selectedUnit}
             />
           )}
           <CastPointOverlay abilityEntityIndex={this.props.ability} />

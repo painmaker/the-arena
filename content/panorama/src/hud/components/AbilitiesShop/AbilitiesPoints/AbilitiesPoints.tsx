@@ -3,22 +3,28 @@ import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
-  entindex: EntityIndex
+  selectedUnit: EntityIndex
   text: string,
 }
 
 const AbilitiesPoints = (props: Props) => {
 
-  const { entindex, text, setInterval, clearInterval } = props;
+  const { selectedUnit, text, setInterval, clearInterval } = props;
 
-  const [abilityPoints, setAbilityPoints] = useState(Entities.GetAbilityPoints(entindex));
+  const [abilityPoints, setAbilityPoints] = useState(Entities.GetAbilityPoints(selectedUnit));
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setAbilityPoints(Entities.GetAbilityPoints(entindex));
-    }, 100);
+
+    const update = () => {
+      setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
+    };
+
+    update();
+    const id = setInterval(update, 100);
+
     return () => clearInterval(id);
-  }, [entindex, setInterval, clearInterval]);
+
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel style={Styles.Container()}>

@@ -25,8 +25,10 @@ export const useSelectedUnit = () => {
   const [selectedUnit, setSelectedUnit] = useState(getGameUnitSelected());
 
   useEffect(() => {
+
     let schedule: ScheduleID | undefined;
     let canceled = false;
+
     const update = () => {
       if (!canceled) {
         const unitToSelect = getGameUnitSelected();
@@ -38,7 +40,9 @@ export const useSelectedUnit = () => {
         schedule = $.Schedule(0.03, update)
       }
     }
+
     update();
+
     return () => {
       canceled = true;
       try {
@@ -49,6 +53,7 @@ export const useSelectedUnit = () => {
         $.Msg("Schedule " + schedule + " already finished");
       }
     };
+
   }, [selectedUnit]);
 
   return selectedUnit;

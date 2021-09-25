@@ -21,14 +21,20 @@ const Inventory = (props: Props) => {
   const [hasInventory, setHasInventory] = useState(Entities.IsInventoryEnabled(selectedUnit));
 
   useEffect(() => {
-    const id = setInterval(() => {
+
+    const update = () => {
       setHasInventory(Entities.IsInventoryEnabled(selectedUnit));
       const newItems = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(selectedUnit, slot));
       if (!TableUtils.isEqual(items, newItems)) {
         setItems(newItems);
       }
-    }, 100);
+    }
+
+    update();
+    const id = setInterval(update, 3);
+
     return () => clearInterval(id);
+
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (
@@ -43,6 +49,7 @@ const Inventory = (props: Props) => {
                   key={index + "_" + item}
                   index={index}
                   item={item}
+                  selectedUnit={selectedUnit}
                 />
               );
             })}

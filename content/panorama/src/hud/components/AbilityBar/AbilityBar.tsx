@@ -5,9 +5,15 @@ import { TableUtils } from "../../utils/TableUtils";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
 import { Styles } from "./Styles";
 
-
 type Props = ReactTimeoutProps & {
   // ownprops
+}
+
+const getUnitAbilities = (selectedUnit: EntityIndex) => {
+  return Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
+    .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
+    .filter(index => index !== -1)
+    .filter(index => Abilities.IsDisplayedAbility(index));
 }
 
 const AbilityBar = (props: Props) => {
@@ -18,28 +24,34 @@ const AbilityBar = (props: Props) => {
   const [abilities, setAbilities] = useState<AbilityEntityIndex[]>([]);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      if (Entities.GetAbilityPoints(selectedUnit) <= 0) {
-        Game.EndAbilityLearnMode();
-      }
-      const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
-        .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
-        .filter(index => index !== -1)
-        .filter(index => Abilities.IsDisplayedAbility(index));
+
+    const update = () => {
+      const newAbilities = getUnitAbilities(selectedUnit);
       if (!TableUtils.isEqual(newAbilities, abilities)) {
         setAbilities(newAbilities);
       }
-    }, 100);
+    };
+
+    update();
+    const id = setInterval(update, 3);
+
     return () => clearInterval(id);
+
   }, [selectedUnit, abilities, setInterval, clearInterval])
+
+  useEffect(() => {
+    if (Entities.GetAbilityPoints(selectedUnit) <= 0) {
+      Game.EndAbilityLearnMode();
+    }
+  }, [selectedUnit])
 
   return (
     <Panel hittest={false} style={Styles.Container()}>
       {abilities.map(ability => (
         <AbilityBarItem
-          key={selectedUnit + "_" + ability}
+          key={ability}
           ability={ability}
-          unit={selectedUnit}
+          selectedUnit={selectedUnit}
         />
       ))}
     </Panel>

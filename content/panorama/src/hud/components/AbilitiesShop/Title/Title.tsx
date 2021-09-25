@@ -13,12 +13,12 @@ const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  entindex: EntityIndex
+  selectedUnit: EntityIndex
 };
 
 const Title = (props: Props) => {
 
-  const { entindex } = props;
+  const { selectedUnit } = props;
 
   const [isHovering, setIsHovering] = useState(false);
 
@@ -26,7 +26,7 @@ const Title = (props: Props) => {
     <Panel style={Styles.Container()}>
       <Label
         style={Styles.Label()}
-        text={"ABILITIES SHOP - " + $.Localize(Entities.GetUnitName(entindex)).toUpperCase()}
+        text={"ABILITIES SHOP - " + $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()}
       />
       <Button
         onmouseover={() => setIsHovering(true)}

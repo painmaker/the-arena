@@ -26,6 +26,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   item: ItemEntityIndex,
+  selectedUnit: EntityIndex,
   index: number,
 };
 
@@ -67,11 +68,16 @@ class InventoryItem extends React.Component<Props, State> {
 
   onDragStart(thisPanel: Panel, draggedPanel: any): void {
 
+    $.DispatchEvent("DOTAHideAbilityTooltip", thisPanel);
+
     if (this.props.item === -1) {
       return;
     }
 
-    $.DispatchEvent("DOTAHideAbilityTooltip", thisPanel);
+    if (!Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer())) {
+      GameUI.SendCustomHUDError("Item Not Owned By You", "General.InvalidTarget_Invulnerable");
+      return;
+    }
 
     this.setState({ isItemDragged: true })
 
@@ -87,7 +93,7 @@ class InventoryItem extends React.Component<Props, State> {
 
   OnDragEnd(thisPanel: Panel, draggedPanel: any): void {
     if (!draggedPanel.Data().dragCompleted) {
-      Game.DropItemAtCursor(Players.GetLocalPlayerPortraitUnit(), this.props.item);
+      Game.DropItemAtCursor(this.props.selectedUnit, this.props.item);
     }
     draggedPanel.DeleteAsync(0);
     this.setState({ isItemDragged: false })
@@ -141,7 +147,10 @@ class InventoryItem extends React.Component<Props, State> {
       Items.LocalPlayerItemAlertAllies(this.props.item);
       return;
     }
-    Abilities.ExecuteAbility(this.props.item, Players.GetLocalPlayerPortraitUnit(), false);
+    if (!Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer())) {
+      return;
+    }
+    Abilities.ExecuteAbility(this.props.item, this.props.selectedUnit, false);
   }
 
   onItemRightClicked(): void {
@@ -154,9 +163,8 @@ class InventoryItem extends React.Component<Props, State> {
       return;
     }
 
-    const selectedUnit = Players.GetLocalPlayerPortraitUnit();
-    const playerId = Entities.GetPlayerOwnerID(selectedUnit);
-    const isControllable = Entities.IsControllableByPlayer(selectedUnit, playerId);
+    const playerId = Entities.GetPlayerOwnerID(this.props.selectedUnit);
+    const isControllable = Entities.IsControllableByPlayer(this.props.selectedUnit, playerId);
 
     if (isControllable) {
       if (this.props.itemOptionsVisible && this.props.itemOptionsItem === this.props.item) {
@@ -172,6 +180,8 @@ class InventoryItem extends React.Component<Props, State> {
         }
       }
       Game.EmitSound("ui_topmenu_select");
+    } else {
+      GameUI.SendCustomHUDError("Item Not Owned By You", "General.InvalidTarget_Invulnerable")
     }
 
   }
@@ -182,8 +192,7 @@ class InventoryItem extends React.Component<Props, State> {
     }
     const panel = $("#inventory_item_container_" + this.props.index);
     const ability = Abilities.GetAbilityName(this.props.item);
-    const unit = Players.GetLocalPlayerPortraitUnit();
-    $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", panel, ability, unit);
+    $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", panel, ability, this.props.selectedUnit);
     this.setState({ isHovering: true });
   }
 
@@ -207,7 +216,9 @@ class InventoryItem extends React.Component<Props, State> {
         {this.props.item !== -1 && (
           <React.Fragment>
             <Cooldown key={'cooldown_' + this.props.item} item={this.props.item} />
-            <Keybind key={'hotkey_' + this.props.item} item={this.props.item} />
+            {Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer()) && (
+              <Keybind key={'hotkey_' + this.props.item} item={this.props.item} />
+            )}
             <Charges key={'charges_' + this.props.item} item={this.props.item} />
             <Image key={'image_' + this.props.item} item={this.props.item} />
             <ManaCost key={'mana_cost_' + this.props.item} item={this.props.item} />

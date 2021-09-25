@@ -4,7 +4,7 @@ import AbilityImage from "../AbilityImage/AbilityImage";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
-  entindex: EntityIndex
+  selectedUnit: EntityIndex
   regularAbilities: ShopAbility[],
   isLoadingAbilities: boolean,
   searchValue: string,
@@ -26,7 +26,7 @@ const RegularAbilities = (props: Props) => {
         )}
         {(props.regularAbilities.length === 0 && props.isLoadingAbilities === false) && (
           <Label
-            text={$.Localize(Entities.GetUnitName(props.entindex)) + " Has No Regular Abilities"}
+            text={$.Localize(Entities.GetUnitName(props.selectedUnit)) + " Has No Regular Abilities"}
             style={Styles.CenterLabel()}
           />
         )}
@@ -34,7 +34,7 @@ const RegularAbilities = (props: Props) => {
           return (
             <AbilityImage
               key={regularAbility.name}
-              entindex={props.entindex}
+              selectedUnit={props.selectedUnit}
               shopAbility={regularAbility}
               searchValue={props.searchValue}
             />

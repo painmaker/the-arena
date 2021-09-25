@@ -3,17 +3,17 @@ import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
-  entindex: EntityIndex,
+  selectedUnit: EntityIndex,
   shopAbility: ShopAbility,
   searchValue: string,
 }
 
-const onMouseOver = (entindex: EntityIndex, abilityname: string) => {
+const onMouseOver = (selectedUnit: EntityIndex, abilityname: string) => {
   $.DispatchEvent(
     "DOTAShowAbilityTooltipForEntityIndex",
     $("#ability_shop_image_" + abilityname),
     abilityname,
-    entindex
+    selectedUnit
   )
 }
 
@@ -21,26 +21,32 @@ const onMouseOut = (abilityname: string) => {
   $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_shop_image_" + abilityname));
 }
 
-const onRightClick = (entindex: EntityIndex, abilityname: string) => {
+const onRightClick = (selectedUnit: EntityIndex, abilityname: string) => {
   $.Msg("onRightClick: " + abilityname)
-  GameEvents.SendCustomGameEventToServer("purchase_ability", { entindex, abilityname });
+  GameEvents.SendCustomGameEventToServer("purchase_ability", { entindex: selectedUnit, abilityname });
 }
 
 const AbilityImage = (props: Props) => {
 
-  const { entindex, shopAbility, searchValue, setInterval, clearInterval } = props;
+  const { selectedUnit, shopAbility, searchValue, setInterval, clearInterval } = props;
   const { name, aliases, requiredLevel } = shopAbility;
 
-  const [isRequiredLevel, setIsRequiredLevel] = useState(Entities.GetLevel(entindex) >= requiredLevel);
+  const [isRequiredLevel, setIsRequiredLevel] = useState(Entities.GetLevel(selectedUnit) >= requiredLevel);
   const [isSearched, setIsSearched] = useState(false);
   const [hasSearchedValue, setHasSearchedValue] = useState(false);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setIsRequiredLevel(Entities.GetLevel(entindex) >= requiredLevel);
-    }, 250);
+
+    const update = () => {
+      setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
+    };
+
+    update();
+    const id = setInterval(update, 100);
+
     return () => clearInterval(id);
-  }, [entindex, setInterval, clearInterval]);
+
+  }, [selectedUnit, setInterval, clearInterval]);
 
   useEffect(() => {
     let isSearched = false;
@@ -60,9 +66,9 @@ const AbilityImage = (props: Props) => {
     <React.Fragment>
       <Button
         style={Styles.AbilityImage(hasSearchedValue, isSearched, isRequiredLevel)}
-        oncontextmenu={() => onRightClick(entindex, name)}
+        oncontextmenu={() => onRightClick(selectedUnit, name)}
         onmouseout={() => onMouseOut(name)}
-        onmouseover={() => onMouseOver(entindex, name)}
+        onmouseover={() => onMouseOver(selectedUnit, name)}
       >
         <DOTAAbilityImage
           id={'ability_shop_image_' + name}
