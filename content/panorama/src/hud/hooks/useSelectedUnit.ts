@@ -32,6 +32,8 @@ export const useSelectedUnit = () => {
         const unitToSelect = getGameUnitSelected();
         if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
           setSelectedUnit(unitToSelect)
+        } else {
+          // GameUI.SelectUnit(selectedUnit, false);
         }
         schedule = $.Schedule(0.03, update)
       }
@@ -47,7 +49,7 @@ export const useSelectedUnit = () => {
         $.Msg("Schedule " + schedule + " already finished");
       }
     };
-  }, []);
+  }, [selectedUnit]);
 
   return selectedUnit;
 

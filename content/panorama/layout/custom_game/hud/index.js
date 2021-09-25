@@ -60398,6 +60398,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ItemOptions_ItemOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ItemOptions/ItemOptions */ "./hud/components/Inventory/ItemOptions/ItemOptions.tsx");
 /* harmony import */ var _Item_Item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Item/Item */ "./hud/components/Inventory/Item/Item.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Styles.tsx");
+/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
+
 
 
 
@@ -60405,43 +60407,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const ITEM_SLOTS = [0, 1, 2, 3, 4, 5];
-class Inventory extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            entityIndex: Players.GetLocalPlayerPortraitUnit(),
-            itemIndexes: [],
-            hasInventory: false,
-        };
-    }
-    componentDidMount() {
-        this.props.setInterval(() => {
-            const entityIndex = Players.GetLocalPlayerPortraitUnit();
-            const itemIndexes = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(entityIndex, slot));
-            const hasInventory = Entities.IsInventoryEnabled(entityIndex);
-            this.setState({ entityIndex, itemIndexes, hasInventory });
+const Inventory = (props) => {
+    const { setInterval, clearInterval } = props;
+    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_6__.useSelectedUnit)();
+    const [items, setItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+    const [hasInventory, setHasInventory] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsInventoryEnabled(selectedUnit));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = setInterval(() => {
+            setHasInventory(Entities.IsInventoryEnabled(selectedUnit));
+            const newItems = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(selectedUnit, slot));
+            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_2__.TableUtils.isEqual(items, newItems)) {
+                setItems(newItems);
+            }
         }, 100);
-    }
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps !== this.props) {
-            return true;
-        }
-        if (this.state.entityIndex !== nextState.entityIndex) {
-            return true;
-        }
-        if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_2__.TableUtils.isEqual(this.state.itemIndexes, nextState.itemIndexes)) {
-            return true;
-        }
-        return false;
-    }
-    render() {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, this.state.hasInventory && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemOptions_ItemOptions__WEBPACK_IMPORTED_MODULE_3__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Container() }, this.state.itemIndexes.map((item, index) => {
-                return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_4__.default, { key: index + "_" + item, index: index, item: item }));
-            }))))));
-    }
-}
+        return () => clearInterval(id);
+    }, [selectedUnit, setInterval, clearInterval]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, hasInventory && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemOptions_ItemOptions__WEBPACK_IMPORTED_MODULE_3__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Container() }, items.map((item, index) => {
+            return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_4__.default, { key: index + "_" + item, index: index, item: item }));
+        }))))));
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Inventory));
 
 
@@ -63413,6 +63399,9 @@ const useSelectedUnit = () => {
                 if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
                     setSelectedUnit(unitToSelect);
                 }
+                else {
+                    // GameUI.SelectUnit(selectedUnit, false);
+                }
                 schedule = $.Schedule(0.03, update);
             }
         };
@@ -63428,7 +63417,7 @@ const useSelectedUnit = () => {
                 $.Msg("Schedule " + schedule + " already finished");
             }
         };
-    }, []);
+    }, [selectedUnit]);
     return selectedUnit;
 };
 
