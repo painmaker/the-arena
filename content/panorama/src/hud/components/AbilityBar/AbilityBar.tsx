@@ -1,82 +1,50 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { useSelectedUnit } from "../../hooks/useSelectedUnit";
 import { TableUtils } from "../../utils/TableUtils";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
 import { Styles } from "./Styles";
 
 
-type Props = ReactTimeoutProps & {}
-
-interface State {
-  entityUnitIndex: EntityIndex,
-  isInLearningMode: boolean,
-  abilityIndexes: AbilityEntityIndex[],
+type Props = ReactTimeoutProps & {
+  // ownprops
 }
 
-class AbilityBar extends React.Component<Props, State> {
+const AbilityBar = (props: Props) => {
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      entityUnitIndex: Players.GetLocalPlayerPortraitUnit(),
-      isInLearningMode: false,
-      abilityIndexes: [],
-    }
-  }
+  const { setInterval, clearInterval } = props;
 
-  componentDidMount() {
-    this.props.setInterval(() => {
+  const selectedUnit = useSelectedUnit();
+  const [abilities, setAbilities] = useState<AbilityEntityIndex[]>([]);
 
-      if (Entities.GetAbilityPoints(Players.GetLocalPlayerPortraitUnit()) <= 0) {
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (Entities.GetAbilityPoints(selectedUnit) <= 0) {
         Game.EndAbilityLearnMode();
       }
-
-      const indexes = Array
-        .from(Array(Entities.GetAbilityCount(Players.GetLocalPlayerPortraitUnit())).keys())
-        .map(abilityNumber => Entities.GetAbility(Players.GetLocalPlayerPortraitUnit(), abilityNumber))
+      const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
+        .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
         .filter(index => index !== -1)
         .filter(index => Abilities.IsDisplayedAbility(index));
-
-      this.setState({
-        entityUnitIndex: Players.GetLocalPlayerPortraitUnit(),
-        isInLearningMode: Game.IsInAbilityLearnMode(),
-        abilityIndexes: indexes,
-      })
-
+      if (!TableUtils.isEqual(newAbilities, abilities)) {
+        setAbilities(newAbilities);
+      }
     }, 100);
-  }
+    return () => clearInterval(id);
+  }, [selectedUnit, abilities, setInterval, clearInterval])
 
-  shouldComponentUpdate(nextProps: Props, nextState: State) {
-    if (nextProps !== this.props) {
-      return true;
-    }
-    if (this.state.entityUnitIndex !== nextState.entityUnitIndex) {
-      return true;
-    }
-    if (this.state.isInLearningMode !== nextState.isInLearningMode) {
-      return true;
-    }
-    if (!TableUtils.isEqual(this.state.abilityIndexes, nextState.abilityIndexes)) {
-      return true;
-    }
-    return false;
-  }
-
-  render() {
-    return (
-      <Panel hittest={false} style={Styles.Container()}>
-        {this.state.abilityIndexes.map(abilityEntityIndex => (
-          <AbilityBarItem
-            key={this.state.entityUnitIndex + "_" + abilityEntityIndex}
-            ability={abilityEntityIndex}
-            unit={this.state.entityUnitIndex}
-          />
-        ))}
-      </Panel>
-    )
-  }
+  return (
+    <Panel hittest={false} style={Styles.Container()}>
+      {abilities.map(ability => (
+        <AbilityBarItem
+          key={selectedUnit + "_" + ability}
+          ability={ability}
+          unit={selectedUnit}
+        />
+      ))}
+    </Panel>
+  )
 
 }
 
 export default withReactTimeout(AbilityBar);
-

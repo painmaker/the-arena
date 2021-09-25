@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
+import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 import Modifier from "../Modifier/Modifier";
 import { Styles } from "./Styles";
 
@@ -23,26 +24,16 @@ const getBuffs = (unit: EntityIndex) => {
 
 const BuffsPanel = () => {
 
-  const [selectedUnit, setSelectedUnit] = useState(Players.GetLocalPlayerPortraitUnit());
-  const [buffs, setBuffs] = useState<BuffID[]>(getBuffs(Players.GetLocalPlayerPortraitUnit()));
+  const selectedUnit = useSelectedUnit();
+  const [buffs, setBuffs] = useState<BuffID[]>(getBuffs(selectedUnit));
 
   useGameEvent("dota_portrait_unit_modifiers_changed", () => {
-    const unit = Players.GetLocalPlayerPortraitUnit();
-    setSelectedUnit(unit);
-    setBuffs(getBuffs(unit));
-  }, []);
+    setBuffs(getBuffs(selectedUnit));
+  }, [selectedUnit]);
 
-  useGameEvent("dota_player_update_query_unit", () => {
-    const unit = Players.GetLocalPlayerPortraitUnit();
-    setSelectedUnit(unit);
-    setBuffs(getBuffs(unit));
-  }, []);
-
-  useGameEvent("dota_player_update_selected_unit", () => {
-    const unit = Players.GetLocalPlayerPortraitUnit();
-    setSelectedUnit(unit);
-    setBuffs(getBuffs(unit));
-  }, []);
+  useEffect(() => {
+    setBuffs(getBuffs(selectedUnit));
+  }, [selectedUnit])
 
   return (
     <Panel style={Styles.Container()}>

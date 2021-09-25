@@ -7,12 +7,12 @@ const excludedUnits = [
 const getGameUnitSelected = () => {
 
   const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
-  if (queryUnit !== -1 && !excludedUnits.includes(Entities.GetUnitName(queryUnit))) {
+  if (queryUnit !== -1) {
     return queryUnit;
   }
 
   const portraitUnit = Players.GetLocalPlayerPortraitUnit();
-  if (portraitUnit !== -1 && !excludedUnits.includes(Entities.GetUnitName(portraitUnit))) {
+  if (portraitUnit !== -1) {
     return portraitUnit
   }
 
@@ -25,19 +25,22 @@ export const useSelectedUnit = () => {
   const [selectedUnit, setSelectedUnit] = useState(getGameUnitSelected());
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
+    let schedule: ScheduleID | undefined;
+    let canceled = false;
     const update = () => {
-      schedule = -1 as ScheduleID;
-      const unitToSelect = getGameUnitSelected();
-      if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
-        setSelectedUnit(unitToSelect)
+      if (!canceled) {
+        const unitToSelect = getGameUnitSelected();
+        if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
+          setSelectedUnit(unitToSelect)
+        }
+        schedule = $.Schedule(0.03, update)
       }
-      schedule = $.Schedule(0.03, update)
     }
-    schedule = $.Schedule(0, update)
+    update();
     return () => {
+      canceled = true;
       try {
-        if (schedule !== -1) {
+        if (schedule !== undefined) {
           $.CancelScheduled(schedule);
         }
       } catch {

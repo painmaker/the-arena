@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
+import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 import Modifier from "../Modifier/Modifier";
 import { Styles } from "./Styles";
 
@@ -16,6 +17,7 @@ const getDebuffs = (unit: EntityIndex) => {
     if (!Buffs.IsDebuff(unit, buff)) {
       continue;
     }
+    $.Msg(Buffs.GetName(unit, buff))
     debuffs.push(buff);
   }
   return debuffs;
@@ -23,26 +25,16 @@ const getDebuffs = (unit: EntityIndex) => {
 
 const Debuffs = () => {
 
-  const [selectedUnit, setSelectedUnit] = useState(Players.GetLocalPlayerPortraitUnit());
+  const selectedUnit = useSelectedUnit();
   const [debuffs, setDebuffs] = useState<BuffID[]>(getDebuffs(Players.GetLocalPlayerPortraitUnit()));
 
   useGameEvent("dota_portrait_unit_modifiers_changed", () => {
-    const unit = Players.GetLocalPlayerPortraitUnit();
-    setSelectedUnit(unit);
-    setDebuffs(getDebuffs(unit));
-  }, []);
+    setDebuffs(getDebuffs(selectedUnit));
+  }, [selectedUnit]);
 
-  useGameEvent("dota_player_update_query_unit", () => {
-    const unit = Players.GetLocalPlayerPortraitUnit();
-    setSelectedUnit(unit);
-    setDebuffs(getDebuffs(unit));
-  }, []);
-
-  useGameEvent("dota_player_update_selected_unit", () => {
-    const unit = Players.GetLocalPlayerPortraitUnit();
-    setSelectedUnit(unit);
-    setDebuffs(getDebuffs(unit));
-  }, []);
+  useEffect(() => {
+    setDebuffs(getDebuffs(selectedUnit));
+  }, [selectedUnit])
 
   return (
     <Panel style={Styles.Container()}>
