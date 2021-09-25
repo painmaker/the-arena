@@ -4,6 +4,7 @@ import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeou
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
+  ability: AbilityEntityIndex,
   selectedUnit: EntityIndex,
 }
 
@@ -11,22 +12,21 @@ const LockoutIcon = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { ability, selectedUnit, setInterval, clearInterval } = props;
 
-  const [isStunned, setIsStunned] = useState(Entities.IsStunned(selectedUnit));
-  const [isSilenced, setIsSilenced] = useState(Entities.IsSilenced(selectedUnit));
-  const [isCommandRestricted, setIsCommandRestricted] = useState(Entities.IsCommandRestricted(selectedUnit));
-  const [isNightmared, setIsNightmared] = useState(Entities.IsNightmared(selectedUnit));
-  const [isHexed, setIsHexed] = useState(Entities.IsHexed(selectedUnit));
+  const [showLock, setShowLock] = useState(false);
 
   useEffect(() => {
 
     const update = () => {
-      setIsStunned(Entities.IsStunned(selectedUnit));
-      setIsSilenced(Entities.IsSilenced(selectedUnit));
-      setIsCommandRestricted(Entities.IsCommandRestricted(selectedUnit));
-      setIsNightmared(Entities.IsNightmared(selectedUnit));
-      setIsHexed(Entities.IsHexed(selectedUnit));
+      const isStunned = Entities.IsStunned(selectedUnit);
+      const isSilenced = Entities.IsSilenced(selectedUnit);
+      const isCommandRestricted = Entities.IsCommandRestricted(selectedUnit);
+      const isNightmared = Entities.IsNightmared(selectedUnit);
+      const isHexed = Entities.IsHexed(selectedUnit);
+      const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
+      const showLock = cooldownRemaining !== 0 && (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
+      setShowLock(showLock);
     };
 
     // update();
@@ -34,15 +34,15 @@ const LockoutIcon = (props: Props) => {
 
     return () => clearInterval(id);
 
-  }, [selectedUnit, setInterval, clearInterval]);
+  }, [ability, selectedUnit, setInterval, clearInterval]);
 
-  const showLock = (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
+  if (!showLock) {
+    return null;
+  }
 
   return (
     <Panel style={Styles.Container(showLock)}>
-      {showLock && (
-        <Panel style={Styles.Icon()} />
-      )}
+      <Panel style={Styles.Icon()} />
     </Panel>
   );
 

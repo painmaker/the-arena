@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { HUD_THINK } from "../../../../App";
+import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
-type Props = {
-  manaCost: number,
+type Props = ReactTimeoutProps & {
+  ability: AbilityEntityIndex,
 }
 
 const ManaCost = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilityBarItem - ManaCost rendered");
 
-  const { manaCost } = props;
+  const { ability, setInterval, clearInterval } = props;
+
+  const [manaCost, setManaCost] = useState(0);
+
+  useEffect(() => {
+
+    const update = () => {
+      setManaCost(Abilities.GetManaCost(ability));
+    };
+
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+
+  }, [ability, setInterval, clearInterval])
 
   if (manaCost === 0) {
     return null;
@@ -23,4 +39,4 @@ const ManaCost = (props: Props) => {
 
 };
 
-export default ManaCost;
+export default withReactTimeout(ManaCost);

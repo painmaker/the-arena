@@ -6,7 +6,7 @@ import LockoutIcon from "./LockoutIcon/LockoutIcon";
 import Skillpoints from "./Skillpoints/Skillpoints";
 import ManaCost from "./ManaCost/ManaCost";
 import Keybind from "./Keybind/Keybind";
-import AbilityImage from "./AbilityImage/AbilityImage";
+import Image from "./AbilityImage/AbilityImage";
 import { Styles } from "./Styles";
 import LevelUpButton from "./LevelUpButton/LevelUpButton";
 import CastPointOverlay from "./CastPointOverlay/CastPointOverlay";
@@ -18,9 +18,6 @@ type Props = ReactTimeoutProps & {
 }
 
 interface State {
-  level: number,
-  manaCost: number,
-  unitMana: number,
   isPassive: boolean,
   isUpgradeable: boolean,
   isControllable: boolean,
@@ -28,25 +25,56 @@ interface State {
   isToggled: boolean,
   isActive: boolean,
   isInLearningMode: boolean,
-  cooldownTimeRemaining: number,
   hasAbilityPoints: boolean
+}
+
+const onMouseOver = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
+  $.DispatchEvent(
+    "DOTAShowAbilityTooltipForEntityIndex",
+    $("#ability_" + ability),
+    Abilities.GetAbilityName(ability),
+    selectedUnit
+  )
+}
+
+const onMouseOut = (ability: AbilityEntityIndex) => {
+  $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_" + ability))
+}
+
+const onLeftClick = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
+  if (Game.IsInAbilityLearnMode()) {
+    Abilities.AttemptToUpgrade(ability);
+    return;
+  }
+  if (Entities.IsStunned(selectedUnit) || Entities.IsCommandRestricted(selectedUnit)) {
+    Game.EmitSound("General.CastFail_Custom");
+    return;
+  }
+  if (Entities.IsSilenced(selectedUnit)) {
+    Game.EmitSound("General.CastFail_Silenced");
+    return;
+  }
+  Abilities.ExecuteAbility(ability, selectedUnit, false);
+}
+
+const onRightClick = (ability: AbilityEntityIndex) => {
+  if (Game.IsInAbilityLearnMode()) {
+    return;
+  }
+  if (Abilities.IsAutocast(ability)) {
+    Game.PrepareUnitOrders({
+      OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TOGGLE_AUTO,
+      AbilityIndex: ability
+    });
+  }
 }
 
 class AbilityBarItem extends React.PureComponent<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.getSaturation = this.getSaturation.bind(this);
-    this.getWashColor = this.getWashColor.bind(this);
-    this.onLeftClick = this.onLeftClick.bind(this);
-    this.onRightClick = this.onRightClick.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
-    this.onMouseOut = this.onMouseOut.bind(this);
     this.getContainerBackgroundImage = this.getContainerBackgroundImage.bind(this);
     this.state = {
-      level: Abilities.GetLevel(props.ability),
-      manaCost: Abilities.GetManaCost(props.ability),
-      unitMana: Entities.GetMana(props.selectedUnit),
       isPassive: Abilities.IsPassive(props.ability),
       isUpgradeable: Abilities.CanAbilityBeUpgraded(props.ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED,
       isControllable: Entities.IsControllableByPlayer(props.selectedUnit, Players.GetLocalPlayer()),
@@ -54,7 +82,6 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
       isToggled: Abilities.GetToggleState(props.ability),
       isActive: Abilities.GetLocalPlayerActiveAbility() === this.props.ability,
       isInLearningMode: Game.IsInAbilityLearnMode(),
-      cooldownTimeRemaining: Abilities.GetCooldownTimeRemaining(props.ability),
       hasAbilityPoints: Entities.GetAbilityPoints(props.selectedUnit) !== 0,
     }
   }
@@ -62,9 +89,6 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
   componentDidMount() {
     this.props.setInterval(() => {
       this.setState({
-        level: Abilities.GetLevel(this.props.ability),
-        manaCost: Abilities.GetManaCost(this.props.ability),
-        unitMana: Entities.GetMana(this.props.selectedUnit),
         isPassive: Abilities.IsPassive(this.props.ability),
         isUpgradeable: Abilities.CanAbilityBeUpgraded(this.props.ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED,
         isControllable: Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer()),
@@ -72,39 +96,9 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
         isToggled: Abilities.GetToggleState(this.props.ability),
         isActive: Abilities.GetLocalPlayerActiveAbility() === this.props.ability,
         isInLearningMode: Game.IsInAbilityLearnMode(),
-        cooldownTimeRemaining: Abilities.GetCooldownTimeRemaining(this.props.ability),
         hasAbilityPoints: Entities.GetAbilityPoints(this.props.selectedUnit) !== 0,
       })
     }, HUD_THINK);
-  }
-
-  getSaturation(isTrainable: boolean): string {
-    if (isTrainable) {
-      return '1.0';
-    }
-    if (this.state.level === 0) {
-      return '0.0';
-    }
-    if (this.state.manaCost > this.state.unitMana) {
-      return '0.0';
-    }
-    return '1.0';
-  }
-
-  getWashColor(isTrainable: boolean): string {
-    if (isTrainable) {
-      return 'none';
-    }
-    if (this.state.manaCost > this.state.unitMana) {
-      return '#1569be';
-    }
-    if (this.state.cooldownTimeRemaining > 0) {
-      return 'rgba(0, 0, 0, 0.4)'
-    }
-    if (this.state.level === 0) {
-      return '#303030';
-    }
-    return 'none';
   }
 
   getContainerBackgroundImage(isTrainable: boolean): string {
@@ -123,47 +117,6 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
     return 'none'
   }
 
-  onLeftClick() {
-    if (Game.IsInAbilityLearnMode()) {
-      Abilities.AttemptToUpgrade(this.props.ability);
-      return;
-    }
-    if (Entities.IsStunned(this.props.selectedUnit) || Entities.IsCommandRestricted(this.props.selectedUnit)) {
-      Game.EmitSound("General.CastFail_Custom");
-      return;
-    }
-    if (Entities.IsSilenced(this.props.selectedUnit)) {
-      Game.EmitSound("General.CastFail_Silenced");
-      return;
-    }
-    Abilities.ExecuteAbility(this.props.ability, this.props.selectedUnit, false);
-  }
-
-  onRightClick() {
-    if (Game.IsInAbilityLearnMode()) {
-      return;
-    }
-    if (Abilities.IsAutocast(this.props.ability)) {
-      Game.PrepareUnitOrders({
-        OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TOGGLE_AUTO,
-        AbilityIndex: this.props.ability
-      });
-    }
-  }
-
-  onMouseOver() {
-    $.DispatchEvent(
-      "DOTAShowAbilityTooltipForEntityIndex",
-      $("#ability_" + this.props.ability),
-      Abilities.GetAbilityName(this.props.ability),
-      this.props.selectedUnit
-    )
-  }
-
-  onMouseOut() {
-    $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_" + this.props.ability))
-  }
-
   render() {
 
     $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
@@ -180,10 +133,10 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
         </Panel>
         <Panel
           hittest={true}
-          onactivate={() => this.onLeftClick()}
-          oncontextmenu={() => this.onRightClick()}
-          onmouseover={() => this.onMouseOver()}
-          onmouseout={() => this.onMouseOut()}
+          onactivate={() => onLeftClick(this.props.ability, this.props.selectedUnit)}
+          oncontextmenu={() => onRightClick(this.props.ability)}
+          onmouseover={() => onMouseOver(this.props.ability, this.props.selectedUnit)}
+          onmouseout={() => onMouseOut(this.props.ability)}
           style={Styles.AbilityContainer(
             isTrainable,
             this.state.isActive,
@@ -192,33 +145,12 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
             this.getContainerBackgroundImage(isTrainable)
           )}
         >
-          <AbilityImage
-            ability={this.props.ability}
-            washColor={this.getWashColor(isTrainable)}
-            saturation={this.getSaturation(isTrainable)}
-          />
-          {Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer()) && (
-            <Keybind
-              ability={this.props.ability}
-              isTrainable={isTrainable}
-              isPassive={this.state.isPassive}
-            />
-          )}
-          <ManaCost
-            manaCost={this.state.manaCost}
-          />
-          <Cooldown
-            ability={this.props.ability}
-            cooldownTimeRemaining={this.state.cooldownTimeRemaining}
-          />
-          <Autocast
-            enabled={this.state.isAutoCastEnabled}
-          />
-          {this.state.cooldownTimeRemaining === 0 && (
-            <LockoutIcon
-              selectedUnit={this.props.selectedUnit}
-            />
-          )}
+          <Image ability={this.props.ability} />
+          <Keybind ability={this.props.ability} />
+          <ManaCost ability={this.props.ability} />
+          <Cooldown ability={this.props.ability} />
+          <Autocast ability={this.props.ability} />
+          <LockoutIcon ability={this.props.ability} selectedUnit={this.props.selectedUnit} />
           <CastPointOverlay ability={this.props.ability} />
         </Panel>
         <Skillpoints ability={this.props.ability} />

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { HUD_THINK } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
   ability: AbilityEntityIndex,
-  isTrainable: boolean,
-  isPassive: boolean,
 }
 
 const Keybind = (props: Props) => {
@@ -15,12 +14,21 @@ const Keybind = (props: Props) => {
 
   const { ability, setInterval, clearInterval } = props;
 
-  const [keybind, setKeybind] = useState(Abilities.GetKeybind(ability));
+  const selectedUnit = useSelectedUnit();
+  const [keybind, setKeybind] = useState<string | undefined>(undefined);
 
   useEffect(() => {
 
     const update = () => {
-      setKeybind(Abilities.GetKeybind(ability));
+      const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+      const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
+      const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
+      const isInLearningMode = Game.IsInAbilityLearnMode();
+      const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
+      const isPassive = Abilities.IsPassive(ability);
+      if (isControllable && !isPassive && !isTrainable) {
+        setKeybind(Abilities.GetKeybind(ability));
+      }
     };
 
     // update();
@@ -28,9 +36,9 @@ const Keybind = (props: Props) => {
 
     return () => clearInterval(id);
 
-  }, [ability, setInterval, clearInterval]);
+  }, [ability, selectedUnit, setInterval, clearInterval]);
 
-  if (!props.isTrainable && props.isPassive) {
+  if (!keybind) {
     return null;
   }
 

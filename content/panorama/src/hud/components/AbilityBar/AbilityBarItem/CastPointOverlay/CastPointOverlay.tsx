@@ -49,6 +49,10 @@ const Cooldown = (props: Props) => {
     return () => clearInterval(id);
   }, [isInAbilityPhase, castPoint, setInterval, clearInterval])
 
+  if (degree === 0) {
+    return null;
+  }
+
   return (
     <Panel style={Styles.Container(degree)} />
   );

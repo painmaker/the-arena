@@ -5,21 +5,29 @@ import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
   ability: AbilityEntityIndex,
-  cooldownTimeRemaining: number,
 }
 
 const Cooldown = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilityBarItem - Cooldown rendered");
 
-  const { ability, cooldownTimeRemaining, setInterval, clearInterval } = props;
+  const { ability, setInterval, clearInterval } = props;
 
-  const [totalCooldown, setTotalCooldown] = useState(Abilities.GetCooldownLength(ability));
+  const [degree, setDegree] = useState(0);
+  const [cooldownTimeRemaining, setCooldownTimeRemaining] = useState(0);
 
   useEffect(() => {
 
     const update = () => {
-      setTotalCooldown(Abilities.GetCooldownLength(ability));
+      const totalCooldown = Abilities.GetCooldown(ability);
+      const cooldownTimeRemaining = Abilities.GetCooldownTimeRemaining(ability);
+      const degree = Math.min(0, - (cooldownTimeRemaining / totalCooldown) * 360);
+      if (Number.isNaN(degree) || !Number.isFinite(degree)) {
+        setDegree(0)
+      } else {
+        setDegree(degree);
+      }
+      setCooldownTimeRemaining(cooldownTimeRemaining);
     };
 
     // update();
@@ -29,18 +37,13 @@ const Cooldown = (props: Props) => {
 
   }, [ability, setInterval, clearInterval]);
 
-  let cooldownClipDegree = Math.min(0, - (cooldownTimeRemaining / totalCooldown) * 360);
-  if (Number.isNaN(cooldownClipDegree) || !Number.isFinite(cooldownClipDegree)) {
-    cooldownClipDegree = 0;
-  }
-
   if (cooldownTimeRemaining === 0) {
     return null;
   }
 
   return (
     <Panel style={Styles.Container()}>
-      <Panel style={Styles.Background(cooldownClipDegree)} />
+      <Panel style={Styles.Background(degree)} />
       <Label
         style={Styles.Label()}
         text={Math.ceil(cooldownTimeRemaining)}
