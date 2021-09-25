@@ -15,6 +15,8 @@ const ITEM_SLOTS = [0, 1, 2, 3, 4, 5];
 
 const Inventory = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Inventory rendered");
+
   const { setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();
@@ -31,12 +33,12 @@ const Inventory = (props: Props) => {
       }
     }
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);
 
-  }, [selectedUnit, setInterval, clearInterval]);
+  }, [selectedUnit, items, setInterval, clearInterval]);
 
   return (
     <React.Fragment>

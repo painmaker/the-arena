@@ -11,6 +11,8 @@ type Props = ReactTimeoutProps & {
 
 const Keybind = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilityBarItem - Keybind rendered");
+
   const { ability, setInterval, clearInterval } = props;
 
   const [keybind, setKeybind] = useState(Abilities.GetKeybind(ability));
@@ -21,7 +23,7 @@ const Keybind = (props: Props) => {
       setKeybind(Abilities.GetKeybind(ability));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

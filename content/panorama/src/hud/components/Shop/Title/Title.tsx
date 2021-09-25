@@ -12,17 +12,22 @@ const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  // ownProps
+  selectedUnit: EntityIndex,
 };
 
 const Title = (props: Props) => {
+
+  $.Msg("REACT-RENDER: Shop - Title rendered");
+
+  const { selectedUnit, setShopVisible } = props;
+
   return (
     <Panel className={"shopTitleContainer"}>
-      <Label className={"shopTitleLabel"} text={"SHOP"} />
+      <Label className={"shopTitleLabel"} text={"SHOP - " + $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()} />
       <Button
         className="shopTitleCloseBtn"
         onactivate={() => {
-          props.setShopVisible(false);
+          setShopVisible(false);
           Game.EmitSound("ui_topmenu_select");
         }}
       >
@@ -30,6 +35,7 @@ const Title = (props: Props) => {
       </Button>
     </Panel>
   );
+
 };
 
 export default connector(Title);

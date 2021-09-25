@@ -9,6 +9,8 @@ type Props = ReactTimeoutProps & {
 
 const Keybind = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Inventory - Keybind rendered");
+
   const { item, setInterval, clearInterval } = props;
 
   const [keybind, setKeybind] = useState(Abilities.GetKeybind(item));
@@ -21,7 +23,7 @@ const Keybind = (props: Props) => {
       setIsPassive(Abilities.IsPassive(item));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

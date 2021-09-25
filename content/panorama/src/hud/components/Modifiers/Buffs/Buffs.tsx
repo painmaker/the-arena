@@ -24,6 +24,8 @@ const getBuffs = (unit: EntityIndex) => {
 
 const BuffsPanel = () => {
 
+  $.Msg("REACT-RENDER: Buffs rendered");
+
   const selectedUnit = useSelectedUnit();
   const [buffs, setBuffs] = useState<BuffID[]>(getBuffs(selectedUnit));
 

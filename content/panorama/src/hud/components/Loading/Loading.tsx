@@ -6,19 +6,17 @@ type Props = ReactTimeoutProps & {}
 
 const Loading: React.FunctionComponent<Props> = props => {
 
+  $.Msg("REACT-RENDER: Loading rendered");
+
   const { setTimeout, clearTimeout } = props;
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-
     const update = () => {
       setIsLoading(false);
     };
-
-    update();
     const id = setTimeout(update, 500);
-
     return () => clearTimeout(id);
 
   }, [setTimeout, clearTimeout]);

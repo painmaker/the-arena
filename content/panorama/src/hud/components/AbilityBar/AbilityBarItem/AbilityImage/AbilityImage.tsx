@@ -10,6 +10,8 @@ type Props = ReactTimeoutProps & {
 
 const AbilityImage = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
+
   const { washColor, saturation, ability } = props;
 
   return (

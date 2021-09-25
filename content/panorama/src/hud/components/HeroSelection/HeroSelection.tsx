@@ -55,6 +55,8 @@ const HeroSelection = (props: Props) => {
     GameUI.SendCustomHUDError("Unexpected error occured during hero select", "General.InvalidTarget_Invulnerable");
   }, []);
 
+  $.Msg("HeroSelection rendered");
+
   return (
     <Panel className={'heroSelectionContainer'} hittest={false} >
       <DOTAScenePanel

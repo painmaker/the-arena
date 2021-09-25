@@ -9,6 +9,8 @@ type Props = ReactTimeoutProps & {
 
 const ManaCost = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Inventory - ManaCost rendered");
+
   const { item, setInterval, clearInterval } = props;
 
   const [manaCost, setManaCost] = useState(Abilities.GetManaCost(item));
@@ -19,7 +21,7 @@ const ManaCost = (props: Props) => {
       setManaCost(Abilities.GetManaCost(item));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

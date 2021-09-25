@@ -205,7 +205,7 @@ export class GameMode {
     unit.AddNewModifier(unit, undefined, "modifier_no_statusbar", { duration: -1 });
 
     // @ts-ignore
-    if (!unit.bFirstSpawn && unit.IsRealHero()) {
+    if (!unit.bFirstSpawn && unit.IsRealHero() && unit.GetUnitName() !== "npc_dota_hero_wisp") {
       print("Spawning hero " + unit.GetName() + " for the first time...");
       unit.SetAbilityPoints(3);
       // @ts-ignore

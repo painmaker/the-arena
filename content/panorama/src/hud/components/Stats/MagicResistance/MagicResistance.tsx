@@ -11,6 +11,8 @@ type Props = ReactTimeoutProps & {
 
 const MagicResistance = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Stats - MagicalResistance rendered");
+
   const { setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();
@@ -22,7 +24,7 @@ const MagicResistance = (props: Props) => {
       setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

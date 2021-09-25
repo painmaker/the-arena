@@ -5,6 +5,8 @@ import Avatar from "./PlayerAvatar/PlayerAvatar";
 
 const ModelPanel = () => {
 
+  $.Msg("REACT-RENDER: Character - HeroModel rendered");
+
   const selectedUnit = useSelectedUnit();
 
   useEffect(() => {

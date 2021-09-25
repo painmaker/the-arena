@@ -13,6 +13,7 @@ import Artifacts from "./Artifacts/Artifacts";
 import { useGameEvent } from "react-panorama";
 import { setShopVisible } from "../../actions/shopActions";
 import { ShopActionTypes } from "../../types/shopTypes";
+import { useSelectedUnit } from "../../hooks/useSelectedUnit";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.shopReducer.visible,
@@ -31,6 +32,9 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const Shop = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Shop rendered");
+
+  const selectedUnit = useSelectedUnit();
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
@@ -53,19 +57,19 @@ const Shop = (props: Props) => {
             className={"shopContainer"}
             style={props.visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
           >
-            <Title />
+            <Title selectedUnit={selectedUnit} />
             <Panel className={'shopTopBarContainer'}>
               <Search />
-              <Gold />
+              <Gold selectedUnit={selectedUnit} />
             </Panel>
             <Panel className={'shopItemsContainer'}>
               <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
-                <Consumables />
-                <Artifacts />
+                <Consumables selectedUnit={selectedUnit} />
+                <Artifacts selectedUnit={selectedUnit} />
               </Panel>
               <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
-                <Armor />
-                <Weapons />
+                <Armor selectedUnit={selectedUnit} />
+                <Weapons selectedUnit={selectedUnit} />
               </Panel>
             </Panel>
           </Panel>

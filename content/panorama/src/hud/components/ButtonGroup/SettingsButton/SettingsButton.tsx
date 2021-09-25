@@ -22,6 +22,8 @@ type Props = PropsFromRedux & {
 
 const SettingsButton = (props: Props) => {
 
+  $.Msg("REACT-RENDER: ButtonGroup - SettingsButton rendered");
+
   const { visible, setSettingsVisible } = props;
 
   const [isHovering, setIsHovering] = useState(false);

@@ -21,6 +21,9 @@ type Props = PropsFromRedux & {
 };
 
 const LockCameraBtn = (props: Props) => {
+
+  $.Msg("REACT-RENDER: Settings - LockCameraBtn rendered");
+
   return (
     <Panel style={Styles.Container()}>
       <Label
@@ -38,6 +41,7 @@ const LockCameraBtn = (props: Props) => {
         text={props.locked ? "Locked" : "Unlocked"}
       />
     </Panel>
+
   );
 }
 

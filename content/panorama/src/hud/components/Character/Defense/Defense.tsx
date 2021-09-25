@@ -8,6 +8,9 @@ import PyshicalResistance from "./PyshicalResistance/PyshicalResistance";
 import StatusResistance from "./StatusResistance/StatusResistance";
 
 const Defense = () => {
+
+  $.Msg("REACT-RENDER: Character - Defense rendered");
+
   return (
     <Panel hittest={false} className={'defensePanelContainer'}>
       <Panel className={'defensePanelBackground'}>
@@ -24,6 +27,7 @@ const Defense = () => {
       </Panel>
     </Panel>
   );
+
 };
 
 export default Defense;

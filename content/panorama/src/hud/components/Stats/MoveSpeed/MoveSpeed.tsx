@@ -9,6 +9,8 @@ type Props = ReactTimeoutProps & {}
 
 const MoveSpeed = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Stats - MoveSpeed rendered");
+
   const { setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();
@@ -20,7 +22,7 @@ const MoveSpeed = (props: Props) => {
       setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

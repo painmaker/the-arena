@@ -10,6 +10,8 @@ type Props = ReactTimeoutProps & {
 
 const HealthBar = (props: Props) => {
 
+  $.Msg("REACT-RENDER: HealthBar rendered");
+
   const { setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();

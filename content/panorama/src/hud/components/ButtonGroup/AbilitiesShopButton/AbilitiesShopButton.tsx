@@ -23,6 +23,8 @@ type Props = PropsFromRedux & {
 
 const AbilitiesShopButton = (props: Props) => {
 
+  $.Msg("REACT-RENDER: ButtonGroup - AbilitiesShopButton rendered");
+
   const { visible, setAbilitiesShopVisible } = props;
 
   const [isHovering, setIsHovering] = useState(false);

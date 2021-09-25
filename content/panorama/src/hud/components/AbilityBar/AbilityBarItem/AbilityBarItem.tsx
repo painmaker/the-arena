@@ -166,6 +166,8 @@ class AbilityBarItem extends React.PureComponent<Props, State> {
 
   render() {
 
+    $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
+
     const isAbilityUpgradeable = this.state.isUpgradeable && this.state.isControllable && this.state.hasAbilityPoints;
     const isTrainable = this.state.isInLearningMode && isAbilityUpgradeable;
 

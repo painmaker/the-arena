@@ -18,6 +18,8 @@ type Props = PropsFromRedux & {
 
 const Title = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilitiesShop - Title rendered");
+
   const { selectedUnit } = props;
 
   const [isHovering, setIsHovering] = useState(false);

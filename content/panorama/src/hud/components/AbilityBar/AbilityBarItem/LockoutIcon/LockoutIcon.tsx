@@ -9,6 +9,8 @@ type Props = ReactTimeoutProps & {
 
 const LockoutIcon = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
+
   const { selectedUnit, setInterval, clearInterval } = props;
 
   const [isStunned, setIsStunned] = useState(Entities.IsStunned(selectedUnit));
@@ -27,7 +29,7 @@ const LockoutIcon = (props: Props) => {
       setIsHexed(Entities.IsHexed(selectedUnit));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

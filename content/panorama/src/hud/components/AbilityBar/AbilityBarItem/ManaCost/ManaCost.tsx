@@ -7,6 +7,8 @@ type Props = {
 
 const ManaCost = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilityBarItem - ManaCost rendered");
+
   const { manaCost } = props;
 
   if (manaCost === 0) {

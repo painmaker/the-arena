@@ -8,6 +8,8 @@ type Props = ReactTimeoutProps & {}
 
 const ManaBar = (props: Props) => {
 
+  $.Msg("REACT-RENDER: ManaBar rendered");
+
   const { setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();
@@ -23,7 +25,7 @@ const ManaBar = (props: Props) => {
       setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

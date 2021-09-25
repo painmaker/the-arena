@@ -9,6 +9,8 @@ type Props = ReactTimeoutProps & {
 
 const Health = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Heroes - Health rendered");
+
   const { hero, setInterval, clearInterval } = props;
 
   const [health, setHealth] = useState(Entities.GetHealth(hero));
@@ -21,7 +23,7 @@ const Health = (props: Props) => {
       setMaxHealth(Entities.GetMaxHealth(hero));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

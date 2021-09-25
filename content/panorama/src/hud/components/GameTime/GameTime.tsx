@@ -28,7 +28,7 @@ const GameTime = (props: Props) => {
       setGameTime(Game.GetDOTATime(false, false));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK_SLOW);
 
     return () => clearInterval(id);

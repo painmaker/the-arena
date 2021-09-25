@@ -6,6 +6,9 @@ import ShoppingButton from "./ShoppingButton/ShoppingButton";
 import { Styles } from "./Styles";
 
 const ButtonGroup = () => {
+
+  $.Msg("REACT-RENDER: ButtonGroup rendered");
+
   return (
     <Panel hittest={false} style={Styles.Container()}>
       <Panel hittest={false} style={Styles.Entry()}>
@@ -22,6 +25,7 @@ const ButtonGroup = () => {
       </Panel>
     </Panel>
   );
+
 };
 
 export default ButtonGroup;

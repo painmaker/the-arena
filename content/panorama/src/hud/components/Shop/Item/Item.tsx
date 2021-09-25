@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
+import { HUD_THINK } from "../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { RootState } from "../../../reducers/rootReducer";
 import { Item } from "../../../types/shopTypes";
@@ -13,21 +14,32 @@ const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & ReactTimeoutProps & {
-  item: Item
+  item: Item,
+  selectedUnit: EntityIndex,
 };
 
 const Item = (props: Props) => {
 
-  const [playerGold, setPlayerGold] = useState(Players.GetGold(Entities.GetPlayerOwnerID(Players.GetLocalPlayerPortraitUnit())));
-  const [isShopInRange, setIsShopInRange] = useState(Entities.IsInRangeOfShop(Players.GetLocalPlayerPortraitUnit(), 0, false));
+  $.Msg("REACT-RENDER: Shop - Item rendered");
+
+  const { item, selectedUnit, setInterval, clearInterval } = props;
+
+  const [playerGold, setPlayerGold] = useState(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
+  const [isShopInRange, setIsShopInRange] = useState(Entities.IsInRangeOfShop(selectedUnit, 0, false));
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(Players.GetLocalPlayerPortraitUnit())))
-      setIsShopInRange(Entities.IsInRangeOfShop(Players.GetLocalPlayerPortraitUnit(), 0, false));
-    }, 100);
-    return () => props.clearInterval(id);
-  }, []);
+
+    const update = () => {
+      setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
+      setIsShopInRange(Entities.IsInRangeOfShop(selectedUnit, 0, false));
+    };
+
+    // update();
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+
+  }, [selectedUnit, setInterval, clearInterval]);
 
   useGameEvent("attempt_item_purchase_success", () => {
     Game.EmitSound("General.CourierGivesItem");
@@ -38,10 +50,10 @@ const Item = (props: Props) => {
     GameUI.SendCustomHUDError("Unable To Purchase Item", "General.Item_CantPickUp");
   }, []);
 
-  const hasEnoughCold = props.item.cost <= playerGold;
+  const hasEnoughCold = item.cost <= playerGold;
 
   let isSearched = false;
-  props.item.aliases.forEach(alias => {
+  item.aliases.forEach(alias => {
     if (alias.match(props.searchValue)) {
       isSearched = true;
     }
@@ -57,8 +69,8 @@ const Item = (props: Props) => {
       onactivate={() => {
         if (GameUI.IsAltDown()) {
           GameEvents.SendCustomGameEventToServer("alert_shop_item", {
-            itemname: props.item.itemname,
-            cost: props.item.cost,
+            itemname: item.itemname,
+            cost: item.cost,
           });
         }
       }}
@@ -75,15 +87,15 @@ const Item = (props: Props) => {
         }
 
         GameEvents.SendCustomGameEventToServer("attempt_item_purchase", {
-          itemname: props.item.itemname,
-          cost: props.item.cost,
+          itemname: item.itemname,
+          cost: item.cost,
         });
 
       }}
     >
       <DOTAItemImage
         className={'shopItemImage'}
-        itemname={props.item.itemname}
+        itemname={item.itemname}
       />
     </Button>
   );

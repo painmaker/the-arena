@@ -9,6 +9,8 @@ type Props = ReactTimeoutProps & {
 
 const Charges = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Inventory - Charges rendered");
+
   const { item, setInterval, clearInterval } = props;
 
   const [shouldDisplayCharges, setShouldDisplayCharges] = useState(Items.ShouldDisplayCharges(item))
@@ -21,7 +23,7 @@ const Charges = (props: Props) => {
       setCharges(Items.GetCurrentCharges(item));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

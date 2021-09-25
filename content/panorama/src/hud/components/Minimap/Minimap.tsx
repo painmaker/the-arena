@@ -11,9 +11,13 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & {};
+type Props = PropsFromRedux & {
+  // ownProps
+};
 
 const Minimap = (props: Props) => {
+
+  $.Msg("REACT-RENDER: Minimap rendered");
 
   const [zoneName, setZoneName] = useState('#ZoneName');
 

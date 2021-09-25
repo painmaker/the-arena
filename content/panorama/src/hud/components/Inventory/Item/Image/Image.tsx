@@ -10,6 +10,8 @@ type Props = ReactTimeoutProps & {
 
 const Image = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Inventory - Image rendered");
+
   const { item, setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();
@@ -35,7 +37,7 @@ const Image = (props: Props) => {
       setTexutre(Abilities.GetAbilityTextureName(item));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

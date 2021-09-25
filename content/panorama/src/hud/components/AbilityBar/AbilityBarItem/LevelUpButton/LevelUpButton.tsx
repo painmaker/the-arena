@@ -8,6 +8,8 @@ type Props = ReactTimeoutProps & {
 
 const LevelUpButton = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilityBarItem - LevelUpButton rendered");
+
   const { ability } = props;
 
   return (

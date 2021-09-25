@@ -6,6 +6,8 @@ type Props = ReactTimeoutProps & {};
 
 const HealthRegen = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Character - HealthRegen rendered");
+
   const [regen, setRegen] = useState(0)
   const [baseRegen, setBaseRegen] = useState(0)
 

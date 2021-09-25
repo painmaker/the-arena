@@ -25,6 +25,8 @@ const getDebuffs = (unit: EntityIndex) => {
 
 const Debuffs = () => {
 
+  $.Msg("REACT-RENDER: Debuffs rendered");
+
   const selectedUnit = useSelectedUnit();
   const [debuffs, setDebuffs] = useState<BuffID[]>(getDebuffs(Players.GetLocalPlayerPortraitUnit()));
 

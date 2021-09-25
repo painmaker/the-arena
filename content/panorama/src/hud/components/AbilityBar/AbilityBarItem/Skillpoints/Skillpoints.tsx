@@ -9,6 +9,8 @@ type Props = ReactTimeoutProps & {
 
 const Skillpoints = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilityBarItem - Skillpoints rendered");
+
   const { ability, setInterval, clearInterval } = props;
 
   const [abilityLevel, setAbilityLevel] = useState(Abilities.GetLevel(ability));
@@ -21,7 +23,7 @@ const Skillpoints = (props: Props) => {
       setMaxAbilityLevel(Abilities.GetMaxLevel(ability));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

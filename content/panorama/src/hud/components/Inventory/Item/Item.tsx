@@ -203,6 +203,9 @@ class InventoryItem extends React.Component<Props, State> {
   }
 
   render() {
+
+    $.Msg("REACT-RENDER: Inventory - Item rendered");
+
     return (
       <Panel
         id={"inventory_item_container_" + this.props.index}
@@ -226,6 +229,7 @@ class InventoryItem extends React.Component<Props, State> {
         )}
       </Panel>
     );
+
   }
 
 };

@@ -9,6 +9,8 @@ type Props = ReactTimeoutProps & {
 
 const AttackSpeed = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Character - ManaRegen rendered");
+
   const { setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();

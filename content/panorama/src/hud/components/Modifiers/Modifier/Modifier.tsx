@@ -12,6 +12,8 @@ type Props = {
 
 const Modifier = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Modifiers rendered");
+
   const { buff, selectedUnit, isDebuff } = props;
 
   const [isMounted, setIsMounted] = useState(false);

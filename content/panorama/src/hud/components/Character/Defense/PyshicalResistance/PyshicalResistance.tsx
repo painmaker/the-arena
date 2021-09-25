@@ -9,6 +9,8 @@ type Props = ReactTimeoutProps & {
 
 const PyshicalResistance = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Character - PhysicalResistance rendered");
+
   const { setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();

@@ -11,6 +11,8 @@ type Props = ReactTimeoutProps & {
 
 const Damage = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Stats - Damage rendered");
+
   const { setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();
@@ -26,7 +28,7 @@ const Damage = (props: Props) => {
       setBonusDamage(Entities.GetDamageBonus(selectedUnit));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

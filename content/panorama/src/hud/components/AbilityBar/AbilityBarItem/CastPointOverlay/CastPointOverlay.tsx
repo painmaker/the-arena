@@ -9,6 +9,8 @@ type Props = ReactTimeoutProps & {
 
 const Cooldown = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
+
   const { ability, setInterval, clearInterval } = props;
 
   const [castPoint, setCastPoint] = useState(Math.max(0, Abilities.GetCastPoint(ability)));
@@ -22,7 +24,7 @@ const Cooldown = (props: Props) => {
       setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);
@@ -39,7 +41,7 @@ const Cooldown = (props: Props) => {
         const degree = Math.min(0, -(360 - ((gameTimeDifference / offsetCastPoint) * 360)));
         setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
       };
-      update();
+      // update();
       id = setInterval(update, HUD_THINK);
     } else {
       setDegree(0)

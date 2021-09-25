@@ -10,6 +10,8 @@ type Props = ReactTimeoutProps & {
 
 const Stacks = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Modifier rendered");
+
   const { unit, buff, setInterval, clearInterval } = props;
 
   const [stacks, setStacks] = useState(Buffs.GetStackCount(unit, buff))
@@ -20,7 +22,7 @@ const Stacks = (props: Props) => {
       setStacks(Buffs.GetStackCount(unit, buff))
     }
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

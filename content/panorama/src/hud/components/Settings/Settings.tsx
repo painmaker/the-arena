@@ -30,6 +30,8 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const Settings = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Settings rendered");
+
   const { visible, setCameraLocked, setCameraZoom, setTimeout, clearTimeout } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);

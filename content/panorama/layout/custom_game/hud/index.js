@@ -56228,13 +56228,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AbilitiesPoints = (props) => {
+    $.Msg("REACT-RENDER: AbilitiesShop - AbilitiesPoints rendered");
     const { selectedUnit, text, setInterval, clearInterval } = props;
     const [abilityPoints, setAbilityPoints] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAbilityPoints(selectedUnit));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
             setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
@@ -56351,6 +56352,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const AbilitiesShop = (props) => {
+    $.Msg("REACT-RENDER: AbilitiesShop rendered");
     const { visible, setShopVisible, setTimeout, clearTimeout } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_11__.useSelectedUnit)();
     const [regularAbilities, setRegularAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
@@ -56447,6 +56449,7 @@ const onRightClick = (selectedUnit, abilityname) => {
     GameEvents.SendCustomGameEventToServer("purchase_ability", { entindex: selectedUnit, abilityname });
 };
 const AbilityImage = (props) => {
+    $.Msg("REACT-RENDER: AbilitiesShop - AbilityImage rendered");
     const { selectedUnit, shopAbility, searchValue, setInterval, clearInterval } = props;
     const { name, aliases, requiredLevel } = shopAbility;
     const [isRequiredLevel, setIsRequiredLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit) >= requiredLevel);
@@ -56456,7 +56459,7 @@ const AbilityImage = (props) => {
         const update = () => {
             setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
@@ -56524,6 +56527,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const RegularAbilities = (props) => {
+    $.Msg("REACT-RENDER: AbilitiesShop - RegularAbilities rendered");
     const { selectedUnit, regularAbilities, isLoadingAbilities, searchValue } = props;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Regular Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Title() }),
@@ -56606,6 +56610,7 @@ __webpack_require__.r(__webpack_exports__);
  * TextEntry can't set text through redux-state, the value of the component doesn't update correctly
  */
 const Search = (props) => {
+    $.Msg("REACT-RENDER: AbilitiesShop - Search rendered");
     const { setSearchValue } = props;
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container() },
@@ -56793,6 +56798,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
 const Title = (props) => {
+    $.Msg("REACT-RENDER: AbilitiesShop - Title rendered");
     const { selectedUnit } = props;
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -56875,6 +56881,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const UltimateAbilities = (props) => {
+    $.Msg("REACT-RENDER: AbilitiesShop - UltimateAbilities rendered");
     const { selectedUnit, ultimateAbilities, isLoadingAbilities, searchValue } = props;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Ultimate Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Title() }),
@@ -56914,24 +56921,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const getUnitAbilities = (selectedUnit) => {
-    return Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
-        .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
-        .filter(index => index !== -1)
-        .filter(index => Abilities.IsDisplayedAbility(index));
-};
 const AbilityBar = (props) => {
+    $.Msg("REACT-RENDER: AbilityBar rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_3__.useSelectedUnit)();
     const [abilities, setAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
-            const newAbilities = getUnitAbilities(selectedUnit);
+            const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
+                .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
+                .filter(index => index !== -1)
+                .filter(index => Abilities.IsDisplayedAbility(index));
             if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_4__.TableUtils.isEqual(newAbilities, abilities)) {
                 setAbilities(newAbilities);
             }
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [selectedUnit, abilities, setInterval, clearInterval]);
@@ -57102,6 +57107,7 @@ class AbilityBarItem extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_" + this.props.ability));
     }
     render() {
+        $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
         const isAbilityUpgradeable = this.state.isUpgradeable && this.state.isControllable && this.state.hasAbilityPoints;
         const isTrainable = this.state.isInLearningMode && isAbilityUpgradeable;
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.Container(), id: 'ability_' + this.props.ability },
@@ -57141,6 +57147,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AbilityImage = (props) => {
+    $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
     const { washColor, saturation, ability } = props;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilityImage(washColor, saturation), contextEntityIndex: ability })));
@@ -57195,6 +57202,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Autocast = (props) => {
+    $.Msg("REACT-RENDER: AbilityBarItem - Autocast rendered");
     const { enabled } = props;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() }, enabled && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { map: 'scenes/hud/autocasting', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AutocastScene() }))));
 };
@@ -57250,6 +57258,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Cooldown = (props) => {
+    $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
     const { ability, setInterval, clearInterval } = props;
     const [castPoint, setCastPoint] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Math.max(0, Abilities.GetCastPoint(ability)));
     const [isInAbilityPhase, setIsInAbilityPhase] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsInAbilityPhase(ability));
@@ -57259,7 +57268,7 @@ const Cooldown = (props) => {
             setCastPoint(Math.max(0, Abilities.GetCastPoint(ability)));
             setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [ability, setInterval, clearInterval]);
@@ -57273,7 +57282,7 @@ const Cooldown = (props) => {
                 const degree = Math.min(0, -(360 - ((gameTimeDifference / offsetCastPoint) * 360)));
                 setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
             };
-            update();
+            // update();
             id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         }
         else {
@@ -57332,13 +57341,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Cooldown = (props) => {
+    $.Msg("REACT-RENDER: AbilityBarItem - Cooldown rendered");
     const { ability, cooldownTimeRemaining, setInterval, clearInterval } = props;
     const [totalCooldown, setTotalCooldown] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetCooldownLength(ability));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
             setTotalCooldown(Abilities.GetCooldownLength(ability));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [ability, setInterval, clearInterval]);
@@ -57413,13 +57423,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Keybind = (props) => {
+    $.Msg("REACT-RENDER: AbilityBarItem - Keybind rendered");
     const { ability, setInterval, clearInterval } = props;
     const [keybind, setKeybind] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetKeybind(ability));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
             setKeybind(Abilities.GetKeybind(ability));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [ability, setInterval, clearInterval]);
@@ -57481,6 +57492,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const LevelUpButton = (props) => {
+    $.Msg("REACT-RENDER: AbilityBarItem - LevelUpButton rendered");
     const { ability } = props;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { map: 'scenes/hud/levelupburst', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ParticleScene() }),
@@ -57560,6 +57572,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const LockoutIcon = (props) => {
+    $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
     const { selectedUnit, setInterval, clearInterval } = props;
     const [isStunned, setIsStunned] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsStunned(selectedUnit));
     const [isSilenced, setIsSilenced] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsSilenced(selectedUnit));
@@ -57574,7 +57587,7 @@ const LockoutIcon = (props) => {
             setIsNightmared(Entities.IsNightmared(selectedUnit));
             setIsHexed(Entities.IsHexed(selectedUnit));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
@@ -57636,6 +57649,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const ManaCost = (props) => {
+    $.Msg("REACT-RENDER: AbilityBarItem - ManaCost rendered");
     const { manaCost } = props;
     if (manaCost === 0) {
         return null;
@@ -57700,6 +57714,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Skillpoints = (props) => {
+    $.Msg("REACT-RENDER: AbilityBarItem - Skillpoints rendered");
     const { ability, setInterval, clearInterval } = props;
     const [abilityLevel, setAbilityLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetLevel(ability));
     const [maxAbilityLevel, setMaxAbilityLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetMaxLevel(ability));
@@ -57708,7 +57723,7 @@ const Skillpoints = (props) => {
             setAbilityLevel(Abilities.GetLevel(ability));
             setMaxAbilityLevel(Abilities.GetMaxLevel(ability));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [ability, setInterval, clearInterval]);
@@ -57848,6 +57863,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const AbilitiesShopButton = (props) => {
+    $.Msg("REACT-RENDER: ButtonGroup - AbilitiesShopButton rendered");
     const { visible, setAbilitiesShopVisible } = props;
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
@@ -57885,6 +57901,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const ButtonGroup = () => {
+    $.Msg("REACT-RENDER: ButtonGroup rendered");
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Entry() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SettingsButton_SettingsButton__WEBPACK_IMPORTED_MODULE_3__.default, null)),
@@ -57927,6 +57944,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const CharaterButton = (props) => {
+    $.Msg("REACT-RENDER: ButtonGroup - CharacterButton rendered");
     const { visible, setCharacterPanelVisible } = props;
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
@@ -57967,6 +57985,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const SettingsButton = (props) => {
+    $.Msg("REACT-RENDER: ButtonGroup - SettingsButton rendered");
     const { visible, setSettingsVisible } = props;
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
@@ -58007,6 +58026,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const ShoppingButton = (props) => {
+    $.Msg("REACT-RENDER: ButtonGroup - ShoppingButton rendered");
     const { visible, setShopVisible } = props;
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, null,
@@ -58088,6 +58108,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Attack = () => {
+    $.Msg("REACT-RENDER: Character - Attack rendered");
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: 'attackPanelContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelBackground' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'ATTACK', className: 'characterPanelComponentTitleLabel attackPanelTitle' }),
@@ -58125,6 +58146,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AttackSpeed = (props) => {
+    $.Msg("REACT-RENDER: Character - AttackRange rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
     const [attackRange, setAttackRange] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackRange(selectedUnit));
@@ -58165,6 +58187,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AttackSpeed = (props) => {
+    $.Msg("REACT-RENDER: Character - AttackSpeed rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
     const [attackSpeed, setAttackSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackSpeed(selectedUnit));
@@ -58207,6 +58230,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Damage = (props) => {
+    $.Msg("REACT-RENDER: Character - Damage rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
     const [minDamage, setMinDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageMin(selectedUnit));
@@ -58252,6 +58276,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AttackSpeed = (props) => {
+    $.Msg("REACT-RENDER: Character - ManaRegen rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
     const [manaRegen, setManaRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetManaThinkRegen(selectedUnit));
@@ -58292,6 +58317,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const MoveSpeed = (props) => {
+    $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
     const [baseMoveSpeed, setBaseMoveSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetBaseMoveSpeed(selectedUnit));
@@ -58336,6 +58362,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const SpellAmplification = (props) => {
+    $.Msg("REACT-RENDER: Character - SpellAmplification rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
     const [spellAmp, setSpellAmp] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackRange(selectedUnit));
@@ -58395,6 +58422,7 @@ const mapStateToProps = (state) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
 const Character = (props) => {
+    $.Msg("REACT-RENDER: Character rendered");
     const { visible, setTimeout, clearTimeout } = props;
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -58447,6 +58475,7 @@ const mapDispatchToProps = (dispatch) => ({
     setCharacterPanelVisible: (visible) => dispatch((0,_actions_characterActions__WEBPACK_IMPORTED_MODULE_2__.setCharacterVisible)(visible)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
+$.Msg("REACT-RENDER: Character - CloseBtn rendered");
 const CloseBtn = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelCloseBtnOuterContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelCloseBtnInnerContainer" },
@@ -58481,6 +58510,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Armor = (props) => {
+    $.Msg("REACT-RENDER: Character - Armor rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
     const [armor, setArmor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetPhysicalArmorValue(selectedUnit));
@@ -58532,6 +58562,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Defense = () => {
+    $.Msg("REACT-RENDER: Character - Defense rendered");
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: 'defensePanelContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelBackground' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'DEFENSE', className: 'characterPanelComponentTitleLabel defensePanelTitle' }),
@@ -58567,6 +58598,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Evasion = (props) => {
+    $.Msg("REACT-RENDER: Character - Evasion rendered");
     const [evasion, setEvasion] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = props.setInterval(() => {
@@ -58611,6 +58643,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const HealthRegen = (props) => {
+    $.Msg("REACT-RENDER: Character - HealthRegen rendered");
     const [regen, setRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     const [baseRegen, setBaseRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -58662,6 +58695,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const MagicalResistance = (props) => {
+    $.Msg("REACT-RENDER: Character - MagicalResistance rendered");
     const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetArmorReductionForDamageType(Players.GetLocalPlayerPortraitUnit(), DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = props.setInterval(() => {
@@ -58700,6 +58734,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const PyshicalResistance = (props) => {
+    $.Msg("REACT-RENDER: Character - PhysicalResistance rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
     const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
@@ -58740,6 +58775,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const StatusResistance = (props) => {
+    $.Msg("REACT-RENDER: Character - StatusResistance rendered");
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
     const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -58780,6 +58816,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 
 const Divider = () => {
+    $.Msg("REACT-RENDER: Character - Divider rendered");
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelDivider" }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Divider);
@@ -58837,6 +58874,7 @@ const EXPERIENCE_PER_LEVEL_TABLE = {
     30: 2900,
 };
 const HeroLevel = (props) => {
+    $.Msg("REACT-RENDER: Character - HeroLevel rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
     const [level, setLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit));
@@ -58887,6 +58925,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const ModelPanel = () => {
+    $.Msg("REACT-RENDER: Character - HeroModel rendered");
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_1__.useSelectedUnit)();
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const scenePanel = $('#modelPanelScene');
@@ -58932,6 +58971,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const PlayerAvatar = () => {
+    $.Msg("REACT-RENDER: Character - PlayerAvatar rendered");
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_1__.useSelectedUnit)();
     const [steamId, setSteamId] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -59000,7 +59040,7 @@ const GameTime = (props) => {
         const update = () => {
             setGameTime(Game.GetDOTATime(false, false));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_SLOW);
         return () => clearInterval(id);
     }, [setInterval, clearInterval]);
@@ -59065,6 +59105,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const HealthBar = (props) => {
+    $.Msg("REACT-RENDER: HealthBar rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_3__.useSelectedUnit)();
     const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(selectedUnit));
@@ -59709,6 +59750,7 @@ const HeroSelection = (props) => {
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("hero_select_generic_error", () => {
         GameUI.SendCustomHUDError("Unexpected error occured during hero select", "General.InvalidTarget_Invulnerable");
     }, []);
+    $.Msg("HeroSelection rendered");
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionContainer', hittest: false },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { hittest: false, id: 'heroSelectionScene', className: 'heroSelectionBackground', map: "heroSelection", particleonly: false, light: 'light', camera: 'camera_main' },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Description_description__WEBPACK_IMPORTED_MODULE_4__.default, { focusedHero: props.focusedHero }),
@@ -60057,6 +60099,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Health = (props) => {
+    $.Msg("REACT-RENDER: Heroes - Health rendered");
     const { hero, setInterval, clearInterval } = props;
     const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(hero));
     const [maxHealth, setMaxHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxHealth(hero));
@@ -60065,7 +60108,7 @@ const Health = (props) => {
             setHealth(Entities.GetHealth(hero));
             setMaxHealth(Entities.GetMaxHealth(hero));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [hero, setInterval, clearInterval]);
@@ -60170,6 +60213,7 @@ const onHeroImageClicked = (hero, cameraLocked) => {
     }
 };
 const HeroImage = (props) => {
+    $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
     const { hero, cameraLocked, setInterval, clearInterval } = props;
     const [washColor, setWashColor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("none");
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -60203,7 +60247,7 @@ const HeroImage = (props) => {
                 }
             }
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK);
         return () => clearInterval(id);
     }, [hero, setInterval, clearInterval]);
@@ -60280,6 +60324,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Heroes = () => {
+    $.Msg("REACT-RENDER: Heroes rendered");
     const pickedHeroes = Object.values((0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes).filter(hero => hero.picked === 1);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.HeroesContainer() }, pickedHeroes.map((pickedHero) => {
         const hero = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
@@ -60315,6 +60360,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Mana = (props) => {
+    $.Msg("REACT-RENDER: Heroes - Mana rendered");
     const { hero, setInterval, clearInterval } = props;
     const [mana, setMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMana(hero));
     const [maxMana, setMaxMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxMana(hero));
@@ -60323,7 +60369,7 @@ const Mana = (props) => {
             setMana(Entities.GetMana(hero));
             setMaxMana(Entities.GetMaxMana(hero));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [hero, setInterval, clearInterval]);
@@ -60385,6 +60431,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Playername = (props) => {
+    $.Msg("REACT-RENDER: Heroes - Playername rendered");
     const { playerId } = props;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: '100%' } },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(playerId), style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Label(playerId) })));
@@ -60481,6 +60528,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const ITEM_SLOTS = [0, 1, 2, 3, 4, 5];
 const Inventory = (props) => {
+    $.Msg("REACT-RENDER: Inventory rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_6__.useSelectedUnit)();
     const [items, setItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
@@ -60493,10 +60541,10 @@ const Inventory = (props) => {
                 setItems(newItems);
             }
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_7__.HUD_THINK);
         return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    }, [selectedUnit, items, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, hasInventory && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemOptions_ItemOptions__WEBPACK_IMPORTED_MODULE_3__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Container() }, items.map((item, index) => {
@@ -60565,6 +60613,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps, mapDispatchToProps);
 const ItemOptions = (props) => {
+    $.Msg("REACT-RENDER: Inventory - ItemOptions rendered");
     const [buttonTypeHovered, setButtonTypeHovered] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(_ButtonTypes__WEBPACK_IMPORTED_MODULE_5__.ButtonTypes.NONE);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
         props.setItemOptionsVisible(false);
@@ -60727,6 +60776,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Charges = (props) => {
+    $.Msg("REACT-RENDER: Inventory - Charges rendered");
     const { item, setInterval, clearInterval } = props;
     const [shouldDisplayCharges, setShouldDisplayCharges] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Items.ShouldDisplayCharges(item));
     const [charges, setCharges] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Items.GetCurrentCharges(item));
@@ -60735,7 +60785,7 @@ const Charges = (props) => {
             setShouldDisplayCharges(Items.ShouldDisplayCharges(item));
             setCharges(Items.GetCurrentCharges(item));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [item, setInterval, clearInterval]);
@@ -60793,6 +60843,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Cooldown = (props) => {
+    $.Msg("REACT-RENDER: Inventory - Cooldown rendered");
     const { item, setInterval, clearInterval } = props;
     const [totalCooldown, setTotalCooldown] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetCooldownLength(item));
     const [remainingCooldown, setRemainingCooldown] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetCooldownTimeRemaining(item));
@@ -60801,7 +60852,7 @@ const Cooldown = (props) => {
             setTotalCooldown(Abilities.GetCooldownLength(item));
             setRemainingCooldown(Abilities.GetCooldownTimeRemaining(item));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [item, setInterval, clearInterval]);
@@ -60873,6 +60924,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Image = (props) => {
+    $.Msg("REACT-RENDER: Inventory - Image rendered");
     const { item, setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_3__.useSelectedUnit)();
     const [isCooldownReady, setIsCooldownReady] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsCooldownReady(item));
@@ -60894,7 +60946,7 @@ const Image = (props) => {
             setIsHexed(Entities.IsHexed(selectedUnit));
             setTexutre(Abilities.GetAbilityTextureName(item));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [selectedUnit, item, setInterval, clearInterval]);
@@ -61123,6 +61175,7 @@ class InventoryItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         this.setState({ isHovering: false });
     }
     render() {
+        $.Msg("REACT-RENDER: Inventory - Item rendered");
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: "inventory_item_container_" + this.props.index, onmouseover: this.onMouseOver, onmouseout: this.onMouseOut, onactivate: this.onItemLeftClicked, oncontextmenu: this.onItemRightClicked, draggable: true, style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Container(this.state.isItemDragged, this.state.isItemDropTarget, this.state.isHovering) }, this.props.item !== -1 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Cooldown_Cooldown__WEBPACK_IMPORTED_MODULE_2__.default, { key: 'cooldown_' + this.props.item, item: this.props.item }),
             Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer()) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Keybind_Keybind__WEBPACK_IMPORTED_MODULE_1__.default, { key: 'hotkey_' + this.props.item, item: this.props.item })),
@@ -61157,6 +61210,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Keybind = (props) => {
+    $.Msg("REACT-RENDER: Inventory - Keybind rendered");
     const { item, setInterval, clearInterval } = props;
     const [keybind, setKeybind] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetKeybind(item));
     const [isPassive, setIsPassive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsPassive(item));
@@ -61165,7 +61219,7 @@ const Keybind = (props) => {
             setKeybind(Abilities.GetKeybind(item));
             setIsPassive(Abilities.IsPassive(item));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [item, setInterval, clearInterval]);
@@ -61223,13 +61277,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const ManaCost = (props) => {
+    $.Msg("REACT-RENDER: Inventory - ManaCost rendered");
     const { item, setInterval, clearInterval } = props;
     const [manaCost, setManaCost] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetManaCost(item));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
             setManaCost(Abilities.GetManaCost(item));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [item, setInterval, clearInterval]);
@@ -61339,13 +61394,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Loading = props => {
+    $.Msg("REACT-RENDER: Loading rendered");
     const { setTimeout, clearTimeout } = props;
     const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
             setIsLoading(false);
         };
-        update();
         const id = setTimeout(update, 500);
         return () => clearTimeout(id);
     }, [setTimeout, clearTimeout]);
@@ -61411,6 +61466,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const ManaBar = (props) => {
+    $.Msg("REACT-RENDER: ManaBar rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_3__.useSelectedUnit)();
     const [mana, setMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMana(selectedUnit));
@@ -61422,7 +61478,7 @@ const ManaBar = (props) => {
             setMaxMana(Entities.GetMaxMana(selectedUnit));
             setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
@@ -61524,6 +61580,7 @@ const mapStateToProps = (state) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps);
 const Minimap = (props) => {
+    $.Msg("REACT-RENDER: Minimap rendered");
     const [zoneName, setZoneName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('#ZoneName');
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("set_zone_name", (event) => {
         setZoneName(event.zoneName);
@@ -61620,6 +61677,7 @@ const getBuffs = (unit) => {
     return buffs;
 };
 const BuffsPanel = () => {
+    $.Msg("REACT-RENDER: Buffs rendered");
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
     const [buffs, setBuffs] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getBuffs(selectedUnit));
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_portrait_unit_modifiers_changed", () => {
@@ -61703,6 +61761,7 @@ const getDebuffs = (unit) => {
     return debuffs;
 };
 const Debuffs = () => {
+    $.Msg("REACT-RENDER: Debuffs rendered");
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
     const [debuffs, setDebuffs] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getDebuffs(Players.GetLocalPlayerPortraitUnit()));
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_portrait_unit_modifiers_changed", () => {
@@ -61768,6 +61827,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Modifier = (props) => {
+    $.Msg("REACT-RENDER: Modifiers rendered");
     const { buff, selectedUnit, isDebuff } = props;
     const [isMounted, setIsMounted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -61834,13 +61894,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Stacks = (props) => {
+    $.Msg("REACT-RENDER: Modifier rendered");
     const { unit, buff, setInterval, clearInterval } = props;
     const [stacks, setStacks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Buffs.GetStackCount(unit, buff));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
             setStacks(Buffs.GetStackCount(unit, buff));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [unit, buff, setInterval, clearInterval]);
@@ -61989,6 +62050,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const TimedBackground = (props) => {
+    $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
     const { buff, selectedUnit, isDebuff, setInterval, clearInterval } = props;
     const [remaining, setRemaining] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
     const [duration, setDuration] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
@@ -61997,7 +62059,7 @@ const TimedBackground = (props) => {
             setRemaining(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
             setDuration(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [buff, selectedUnit, setInterval, clearInterval]);
@@ -62042,6 +62104,7 @@ const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateT
  * Requires "Far Z Clip plane" in the "env_fog_controller" entity to be increased to 5000 or more.
  */
 const CameraZoomSlider = (props) => {
+    $.Msg("REACT-RENDER: Settings - CameraZoomSlider rendered");
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         // Hack to initalize the slider caret correctly
         const panel = $("#camera_zoom_slider");
@@ -62104,7 +62167,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/Settings/Divider/Styles.tsx");
 
 
-const Divider = () => react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Divider() });
+const Divider = () => {
+    $.Msg("REACT-RENDER: Settings - Divider rendered");
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Divider() }));
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Divider);
 
 
@@ -62160,6 +62226,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const LockCameraBtn = (props) => {
+    $.Msg("REACT-RENDER: Settings - LockCameraBtn rendered");
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftLabel(), text: "Lock Camera:" }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ToggleBtnContainer() },
@@ -62237,6 +62304,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const MapZoomSlider = (props) => {
+    $.Msg("REACT-RENDER: Settings - MapZoomSlider rendered");
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         // Hack to initalize the slider caret correctly
         const panel = $("#map_zoom_slider");
@@ -62324,6 +62392,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const Settings = (props) => {
+    $.Msg("REACT-RENDER: Settings rendered");
     const { visible, setCameraLocked, setCameraZoom, setTimeout, clearTimeout } = props;
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -62434,6 +62503,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const CloseBtn = (props) => {
+    $.Msg("REACT-RENDER: Settings - CloseBtn rendered");
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Btn(isHovering), onactivate: () => {
@@ -62527,6 +62597,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Title = () => {
+    $.Msg("REACT-RENDER: Settings - Title rendered");
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "SETTINGS", style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_1__.default, null)));
@@ -62553,10 +62624,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const Armor = () => {
+const Armor = (props) => {
+    $.Msg("REACT-RENDER: Shop - Armor rendered");
+    const { selectedUnit } = props;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopCategory' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'shopCategoryTitleLabel', text: 'Armor' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopCategoryItems" }, _data_shop__WEBPACK_IMPORTED_MODULE_1__.items.armor.map(item => react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { item: item, key: item.itemname })))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopCategoryItems" }, _data_shop__WEBPACK_IMPORTED_MODULE_1__.items.armor.map(item => react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { key: item.itemname, item: item, selectedUnit: selectedUnit })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Armor);
 
@@ -62580,10 +62653,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const Artifacts = () => {
+const Artifacts = (props) => {
+    $.Msg("REACT-RENDER: Shop - Artifacts rendered");
+    const { selectedUnit } = props;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopCategory' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'shopCategoryTitleLabel', text: 'Artifacts' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopCategoryItems" }, _data_shop__WEBPACK_IMPORTED_MODULE_1__.items.artifacts.map(item => react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { item: item, key: item.itemname })))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopCategoryItems" }, _data_shop__WEBPACK_IMPORTED_MODULE_1__.items.artifacts.map(item => react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { key: item.itemname, item: item, selectedUnit: selectedUnit })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Artifacts);
 
@@ -62607,10 +62682,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const Consumables = () => {
+const Consumables = (props) => {
+    $.Msg("REACT-RENDER: Shop - Consumables rendered");
+    const { selectedUnit } = props;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopCategory' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'shopCategoryTitleLabel', text: 'Consumables' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopCategoryItems" }, _data_shop__WEBPACK_IMPORTED_MODULE_1__.items.consumables.map(item => react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { item: item, key: item.itemname })))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopCategoryItems" }, _data_shop__WEBPACK_IMPORTED_MODULE_1__.items.consumables.map(item => react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { key: item.itemname, item: item, selectedUnit: selectedUnit })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Consumables);
 
@@ -62633,13 +62710,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Gold = (props) => {
-    const [playerGold, setPlayerGold] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetGold(Entities.GetPlayerOwnerID(Players.GetLocalPlayerPortraitUnit())));
+    $.Msg("REACT-RENDER: Shop - Gold rendered");
+    const { selectedUnit } = props;
+    const [playerGold, setPlayerGold] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
-            setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(Players.GetLocalPlayerPortraitUnit())));
-        }, 100);
+        const update = () => {
+            setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
+        };
+        // update();
+        const id = props.setInterval(update, 100);
         return () => props.clearInterval(id);
-    }, []);
+    }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopGoldContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopGoldImage' }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'shopGoldLabel', text: playerGold })));
@@ -62663,7 +62744,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+
 
 
 
@@ -62673,15 +62756,19 @@ const mapStateToProps = (state) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps);
 const Item = (props) => {
-    const [playerGold, setPlayerGold] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetGold(Entities.GetPlayerOwnerID(Players.GetLocalPlayerPortraitUnit())));
-    const [isShopInRange, setIsShopInRange] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsInRangeOfShop(Players.GetLocalPlayerPortraitUnit(), 0, false));
+    $.Msg("REACT-RENDER: Shop - Item rendered");
+    const { item, selectedUnit, setInterval, clearInterval } = props;
+    const [playerGold, setPlayerGold] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
+    const [isShopInRange, setIsShopInRange] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsInRangeOfShop(selectedUnit, 0, false));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
-            setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(Players.GetLocalPlayerPortraitUnit())));
-            setIsShopInRange(Entities.IsInRangeOfShop(Players.GetLocalPlayerPortraitUnit(), 0, false));
-        }, 100);
-        return () => props.clearInterval(id);
-    }, []);
+        const update = () => {
+            setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
+            setIsShopInRange(Entities.IsInRangeOfShop(selectedUnit, 0, false));
+        };
+        // update();
+        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK);
+        return () => clearInterval(id);
+    }, [selectedUnit, setInterval, clearInterval]);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("attempt_item_purchase_success", () => {
         Game.EmitSound("General.CourierGivesItem");
         Game.EmitSound("Item.PickUpShop");
@@ -62689,9 +62776,9 @@ const Item = (props) => {
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("attempt_item_purchase_error", () => {
         GameUI.SendCustomHUDError("Unable To Purchase Item", "General.Item_CantPickUp");
     }, []);
-    const hasEnoughCold = props.item.cost <= playerGold;
+    const hasEnoughCold = item.cost <= playerGold;
     let isSearched = false;
-    props.item.aliases.forEach(alias => {
+    item.aliases.forEach(alias => {
         if (alias.match(props.searchValue)) {
             isSearched = true;
         }
@@ -62702,8 +62789,8 @@ const Item = (props) => {
         }, onactivate: () => {
             if (GameUI.IsAltDown()) {
                 GameEvents.SendCustomGameEventToServer("alert_shop_item", {
-                    itemname: props.item.itemname,
-                    cost: props.item.cost,
+                    itemname: item.itemname,
+                    cost: item.cost,
                 });
             }
         }, oncontextmenu: () => {
@@ -62716,13 +62803,13 @@ const Item = (props) => {
                 return;
             }
             GameEvents.SendCustomGameEventToServer("attempt_item_purchase", {
-                itemname: props.item.itemname,
-                cost: props.item.cost,
+                itemname: item.itemname,
+                cost: item.cost,
             });
         } },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { className: 'shopItemImage', itemname: props.item.itemname })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { className: 'shopItemImage', itemname: item.itemname })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(Item)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_4__.default)(Item)));
 
 
 /***/ }),
@@ -62752,9 +62839,11 @@ const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, map
  * TextEntry cannot set text through redux-state, it result in a faluty searchbar. Workaround provided.
  */
 const Search = (props) => {
+    $.Msg("REACT-RENDER: Shop - Search rendered");
+    const { setShopSearchValue } = props;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopSearchContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopSearchIcon' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(TextEntry, { id: "shopSearchFieldId", className: 'shopSearchField', maxchars: 50, placeholder: 'Search...', ontextentrychange: (event) => props.setShopSearchValue(event.text.toLocaleLowerCase().trim()) }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(TextEntry, { id: "shopSearchFieldId", className: 'shopSearchField', maxchars: 50, placeholder: 'Search...', ontextentrychange: (event) => setShopSearchValue(event.text.toLocaleLowerCase().trim()) }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'shopSearchClearBtn', onactivate: () => $("#shopSearchFieldId").text = '' })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Search));
@@ -62784,6 +62873,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Weapons_Weapons__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Weapons/Weapons */ "./hud/components/Shop/Weapons/Weapons.tsx");
 /* harmony import */ var _Artifacts_Artifacts__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Artifacts/Artifacts */ "./hud/components/Shop/Artifacts/Artifacts.tsx");
 /* harmony import */ var _actions_shopActions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../actions/shopActions */ "./hud/actions/shopActions.tsx");
+/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
+
 
 
 
@@ -62803,6 +62894,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const Shop = (props) => {
+    $.Msg("REACT-RENDER: Shop rendered");
+    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_11__.useSelectedUnit)();
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let timer = -1;
@@ -62818,17 +62911,17 @@ const Shop = (props) => {
     }, [props.visible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopContainer", style: props.visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {} },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_3__.default, null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_3__.default, { selectedUnit: selectedUnit }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopTopBarContainer' },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_5__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Gold_Gold__WEBPACK_IMPORTED_MODULE_4__.default, null)),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Gold_Gold__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit })),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopItemsContainer' },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '50%', height: '100%', flowChildren: 'down' } },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Consumables_Consumables__WEBPACK_IMPORTED_MODULE_6__.default, null),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Artifacts_Artifacts__WEBPACK_IMPORTED_MODULE_9__.default, null)),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Consumables_Consumables__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Artifacts_Artifacts__WEBPACK_IMPORTED_MODULE_9__.default, { selectedUnit: selectedUnit })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '50%', height: '100%', flowChildren: 'down' } },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Armor_Armor__WEBPACK_IMPORTED_MODULE_7__.default, null),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Weapons_Weapons__WEBPACK_IMPORTED_MODULE_8__.default, null))))))));
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Armor_Armor__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit }),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Weapons_Weapons__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit }))))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Shop)));
 
@@ -62857,10 +62950,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
 const Title = (props) => {
+    $.Msg("REACT-RENDER: Shop - Title rendered");
+    const { selectedUnit, setShopVisible } = props;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopTitleContainer" },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: "shopTitleLabel", text: "SHOP" }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: "shopTitleLabel", text: "SHOP - " + $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: "shopTitleCloseBtn", onactivate: () => {
-                props.setShopVisible(false);
+                setShopVisible(false);
                 Game.EmitSound("ui_topmenu_select");
             } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
@@ -62887,10 +62982,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const Weapons = () => {
+const Weapons = (props) => {
+    $.Msg("REACT-RENDER: Shop - Weapons rendered");
+    const { selectedUnit } = props;
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopCategory' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'shopCategoryTitleLabel', text: 'Weapons' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopCategoryItems" }, _data_shop__WEBPACK_IMPORTED_MODULE_1__.items.weapons.map(item => react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { item: item, key: item.itemname })))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopCategoryItems" }, _data_shop__WEBPACK_IMPORTED_MODULE_1__.items.weapons.map(item => react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_2__.default, { key: item.itemname, item: item, selectedUnit: selectedUnit })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Weapons);
 
@@ -62921,6 +63018,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Armor = (props) => {
+    $.Msg("REACT-RENDER: Stats - Armor rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_4__.useSelectedUnit)();
     const [armor, setArmor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetPhysicalArmorValue(selectedUnit));
@@ -62930,7 +63028,7 @@ const Armor = (props) => {
             setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
             setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_5__.HUD_THINK);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
@@ -62996,6 +63094,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Damage = (props) => {
+    $.Msg("REACT-RENDER: Stats - Damage rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_4__.useSelectedUnit)();
     const [minDamage, setMinDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageMin(selectedUnit));
@@ -63007,7 +63106,7 @@ const Damage = (props) => {
             setMaxDamage(Entities.GetDamageMax(selectedUnit));
             setBonusDamage(Entities.GetDamageBonus(selectedUnit));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_5__.HUD_THINK);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
@@ -63105,6 +63204,7 @@ const EXPERIENCE_PER_LEVEL_TABLE = {
     30: 2900,
 };
 const Level = (props) => {
+    $.Msg("REACT-RENDER: Stats - Level rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_3__.useSelectedUnit)();
     const [level, setLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit));
@@ -63114,7 +63214,7 @@ const Level = (props) => {
             setLevel(Entities.GetLevel(selectedUnit));
             setTotalExperienceGained(Entities.GetCurrentXP(selectedUnit));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
@@ -63195,6 +63295,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const MagicResistance = (props) => {
+    $.Msg("REACT-RENDER: Stats - MagicalResistance rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_4__.useSelectedUnit)();
     const [magicResistance, setMagicResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMagicalArmorValue(selectedUnit));
@@ -63202,7 +63303,7 @@ const MagicResistance = (props) => {
         const update = () => {
             setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_5__.HUD_THINK);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
@@ -63267,6 +63368,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const MoveSpeed = (props) => {
+    $.Msg("REACT-RENDER: Stats - MoveSpeed rendered");
     const { setInterval, clearInterval } = props;
     const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_4__.useSelectedUnit)();
     const [moveSpeed, setMoveSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
@@ -63274,7 +63376,7 @@ const MoveSpeed = (props) => {
         const update = () => {
             setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
         };
-        update();
+        // update();
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_5__.HUD_THINK);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
@@ -63341,6 +63443,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Stats = () => {
+    $.Msg("REACT-RENDER: Stats rendered");
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Level_Level__WEBPACK_IMPORTED_MODULE_1__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Armor_Armor__WEBPACK_IMPORTED_MODULE_2__.default, null),

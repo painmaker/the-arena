@@ -44,6 +44,8 @@ type Props = ReactTimeoutProps & {
 
 const Level = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Stats - Level rendered");
+
   const { setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();
@@ -57,7 +59,7 @@ const Level = (props: Props) => {
       setTotalExperienceGained(Entities.GetCurrentXP(selectedUnit));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

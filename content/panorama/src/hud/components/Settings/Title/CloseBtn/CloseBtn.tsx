@@ -22,6 +22,8 @@ type Props = PropsFromRedux & {
 
 const CloseBtn = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Settings - CloseBtn rendered");
+
   const [isHovering, setIsHovering] = useState(false);
 
   return (

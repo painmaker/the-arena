@@ -9,6 +9,8 @@ type Props = ReactTimeoutProps & {
 
 const Cooldown = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Inventory - Cooldown rendered");
+
   const { item, setInterval, clearInterval } = props;
 
   const [totalCooldown, setTotalCooldown] = useState(Abilities.GetCooldownLength(item))
@@ -21,7 +23,7 @@ const Cooldown = (props: Props) => {
       setRemainingCooldown(Abilities.GetCooldownTimeRemaining(item));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

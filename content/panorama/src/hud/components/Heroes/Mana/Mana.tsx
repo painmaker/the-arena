@@ -9,6 +9,8 @@ type Props = ReactTimeoutProps & {
 
 const Mana = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Heroes - Mana rendered");
+
   const { hero, setInterval, clearInterval } = props;
 
   const [mana, setMana] = useState(Entities.GetMana(hero));
@@ -21,7 +23,7 @@ const Mana = (props: Props) => {
       setMaxMana(Entities.GetMaxMana(hero));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

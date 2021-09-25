@@ -29,6 +29,8 @@ const onRightClick = (selectedUnit: EntityIndex, abilityname: string) => {
 
 const AbilityImage = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilitiesShop - AbilityImage rendered");
+
   const { selectedUnit, shopAbility, searchValue, setInterval, clearInterval } = props;
   const { name, aliases, requiredLevel } = shopAbility;
 
@@ -42,7 +44,7 @@ const AbilityImage = (props: Props) => {
       setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

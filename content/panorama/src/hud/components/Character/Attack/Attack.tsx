@@ -8,6 +8,9 @@ import SpellAmplification from "./SpellAmplification/SpellAmplification";
 import Divider from "../Divider/Divider";
 
 const Attack = () => {
+
+  $.Msg("REACT-RENDER: Character - Attack rendered");
+
   return (
     <Panel hittest={false} className={'attackPanelContainer'}>
       <Panel className={'attackPanelBackground'}>
@@ -24,6 +27,7 @@ const Attack = () => {
       </Panel>
     </Panel>
   );
+
 };
 
 export default Attack;

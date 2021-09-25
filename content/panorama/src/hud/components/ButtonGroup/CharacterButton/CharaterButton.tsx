@@ -22,6 +22,8 @@ type Props = PropsFromRedux & {
 
 const CharaterButton = (props: Props) => {
 
+  $.Msg("REACT-RENDER: ButtonGroup - CharacterButton rendered");
+
   const { visible, setCharacterPanelVisible } = props;
 
   const [isHovering, setIsHovering] = useState(false);

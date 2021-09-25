@@ -11,6 +11,8 @@ type Props = {
 
 const UltimateAbilities = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilitiesShop - UltimateAbilities rendered");
+
   const { selectedUnit, ultimateAbilities, isLoadingAbilities, searchValue } = props;
 
   return (

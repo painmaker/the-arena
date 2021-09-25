@@ -11,6 +11,8 @@ type Props = ReactTimeoutProps & {
 
 const TimedBackground = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
+
   const { buff, selectedUnit, isDebuff, setInterval, clearInterval } = props;
 
   const [remaining, setRemaining] = useState(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
@@ -23,7 +25,7 @@ const TimedBackground = (props: Props) => {
       setDuration(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

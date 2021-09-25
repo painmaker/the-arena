@@ -32,6 +32,8 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const AbilitiesShop = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilitiesShop rendered");
+
   const { visible, setShopVisible, setTimeout, clearTimeout } = props;
 
   const selectedUnit = useSelectedUnit();

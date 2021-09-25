@@ -7,6 +7,9 @@ import MoveSpeed from "./MoveSpeed/MoveSpeed";
 import { Styles } from "./Styles";
 
 const Stats = () => {
+
+  $.Msg("REACT-RENDER: Stats rendered");
+
   return (
     <Panel hittest={false} style={Styles.Container()}>
       <Level />
@@ -16,6 +19,7 @@ const Stats = () => {
       <MoveSpeed />
     </Panel>
   );
+
 };
 
 export default Stats;

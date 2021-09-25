@@ -3,6 +3,8 @@ import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
 
 const PlayerAvatar = () => {
 
+  $.Msg("REACT-RENDER: Character - PlayerAvatar rendered");
+
   const selectedUnit = useSelectedUnit();
   const [steamId, setSteamId] = useState<string | undefined>(undefined);
 

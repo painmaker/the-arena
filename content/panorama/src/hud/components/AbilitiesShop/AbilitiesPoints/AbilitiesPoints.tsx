@@ -10,6 +10,8 @@ type Props = ReactTimeoutProps & {
 
 const AbilitiesPoints = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilitiesShop - AbilitiesPoints rendered");
+
   const { selectedUnit, text, setInterval, clearInterval } = props;
 
   const [abilityPoints, setAbilityPoints] = useState(Entities.GetAbilityPoints(selectedUnit));
@@ -20,7 +22,7 @@ const AbilitiesPoints = (props: Props) => {
       setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

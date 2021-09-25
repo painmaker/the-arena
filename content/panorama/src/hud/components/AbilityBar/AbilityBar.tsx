@@ -12,6 +12,8 @@ type Props = ReactTimeoutProps & {
 
 const AbilityBar = (props: Props) => {
 
+  $.Msg("REACT-RENDER: AbilityBar rendered");
+
   const { setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();
@@ -29,7 +31,7 @@ const AbilityBar = (props: Props) => {
       }
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

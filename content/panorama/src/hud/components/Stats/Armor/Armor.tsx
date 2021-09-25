@@ -11,6 +11,8 @@ type Props = ReactTimeoutProps & {
 
 const Armor = (props: Props) => {
 
+  $.Msg("REACT-RENDER: Stats - Armor rendered");
+
   const { setInterval, clearInterval } = props;
 
   const selectedUnit = useSelectedUnit();
@@ -24,7 +26,7 @@ const Armor = (props: Props) => {
       setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
     };
 
-    update();
+    // update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

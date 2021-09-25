@@ -19,6 +19,11 @@ type Props = PropsFromRedux & {
  * TextEntry cannot set text through redux-state, it result in a faluty searchbar. Workaround provided. 
  */
 const Search = (props: Props) => {
+
+  $.Msg("REACT-RENDER: Shop - Search rendered");
+
+  const { setShopSearchValue } = props;
+
   return (
     <Panel className={'shopSearchContainer'}>
       <Panel className={'shopSearchIcon'} />
@@ -27,7 +32,7 @@ const Search = (props: Props) => {
         className={'shopSearchField'}
         maxchars={50}
         placeholder={'Search...'}
-        ontextentrychange={(event) => props.setShopSearchValue(event.text.toLocaleLowerCase().trim())}
+        ontextentrychange={(event) => setShopSearchValue(event.text.toLocaleLowerCase().trim())}
       />
       <Button
         className={'shopSearchClearBtn'}
@@ -35,6 +40,7 @@ const Search = (props: Props) => {
       />
     </Panel>
   );
+
 };
 
 export default connector(Search);
