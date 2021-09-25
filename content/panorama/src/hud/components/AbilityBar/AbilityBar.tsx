@@ -10,13 +10,6 @@ type Props = ReactTimeoutProps & {
   // ownprops
 }
 
-const getUnitAbilities = (selectedUnit: EntityIndex) => {
-  return Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
-    .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
-    .filter(index => index !== -1)
-    .filter(index => Abilities.IsDisplayedAbility(index));
-}
-
 const AbilityBar = (props: Props) => {
 
   const { setInterval, clearInterval } = props;
@@ -27,7 +20,10 @@ const AbilityBar = (props: Props) => {
   useEffect(() => {
 
     const update = () => {
-      const newAbilities = getUnitAbilities(selectedUnit);
+      const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
+        .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
+        .filter(index => index !== -1)
+        .filter(index => Abilities.IsDisplayedAbility(index));
       if (!TableUtils.isEqual(newAbilities, abilities)) {
         setAbilities(newAbilities);
       }
