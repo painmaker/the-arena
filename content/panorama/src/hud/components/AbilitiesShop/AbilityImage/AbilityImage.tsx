@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK } from "../../../App";
+import { HUD_THINK_MEDIUM } from "../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
@@ -45,7 +45,7 @@ const AbilityImage = (props: Props) => {
     };
 
     // update();
-    const id = setInterval(update, HUD_THINK);
+    const id = setInterval(update, HUD_THINK_MEDIUM);
 
     return () => clearInterval(id);
 
@@ -59,7 +59,7 @@ const AbilityImage = (props: Props) => {
       }
     });
     setIsSearched(isSearched);
-  }, [aliases])
+  }, [aliases, searchValue])
 
   useEffect(() => {
     setHasSearchedValue(searchValue.length > 0);

@@ -22,8 +22,10 @@ import { useNetTableValues } from "react-panorama";
 import Chat from "./components/Chat/Chat";
 import Loading from "./components/Loading/Loading";
 import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
+import SelectedUnit from "./components/SelectedUnit/SelectedUnit";
 
-export const HUD_THINK = 50;
+export const HUD_THINK_FAST = 50;
+export const HUD_THINK_MEDIUM = 100;
 export const HUD_THINK_SLOW = 1000;
 
 const mapStateToProps = (state: RootState) => ({
@@ -114,6 +116,7 @@ const App = (props: Props) => {
               <Buffs />
               <Debuffs />
               <Inventory />
+              <SelectedUnit />
               <Stats />
               <AbilitiesShop />
             </React.Fragment>

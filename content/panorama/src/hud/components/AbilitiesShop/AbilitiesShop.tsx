@@ -13,10 +13,10 @@ import RegularAbilities from "./RegularAbilities/RegularAbilities";
 import UltimateAbilities from "./UltimateAbilities/UltimateAbilities";
 import AbilitiesPoints from "./AbilitiesPoints/AbilitiesPoints";
 import { useGameEvent } from "react-panorama";
-import { useSelectedUnit } from "../../hooks/useSelectedUnit";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.abilitiesShopReducer.visible,
+  selectedUnit: state.selectedUnitReducer.selectedUnit,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AbilitiesShopTypes>) => ({
@@ -34,9 +34,8 @@ const AbilitiesShop = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilitiesShop rendered");
 
-  const { visible, setShopVisible, setTimeout, clearTimeout } = props;
+  const { visible, selectedUnit, setShopVisible, setTimeout, clearTimeout } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [regularAbilities, setRegularAbilities] = useState<ShopAbility[]>([]);
   const [ultimateAbilities, setUltimateAbilities] = useState<ShopAbility[]>([]);
   const [isLoadingAbilities, setIsLoadingAbilities] = useState(false);

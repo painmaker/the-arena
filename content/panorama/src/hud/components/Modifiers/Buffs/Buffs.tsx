@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
-import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
+import { connect, ConnectedProps } from "react-redux";
+import { RootState } from "../../../reducers/rootReducer";
 import Modifier from "../Modifier/Modifier";
 import { Styles } from "./Styles";
 
@@ -22,11 +23,22 @@ const getBuffs = (unit: EntityIndex) => {
   return buffs;
 }
 
-const BuffsPanel = () => {
+const mapStateToProps = (state: RootState) => ({
+  selectedUnit: state.selectedUnitReducer.selectedUnit,
+});
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  // ownProps
+};
+
+const BuffsPanel = (props: Props) => {
 
   $.Msg("REACT-RENDER: Buffs rendered");
 
-  const selectedUnit = useSelectedUnit();
+  const { selectedUnit } = props;
   const [buffs, setBuffs] = useState<BuffID[]>(getBuffs(selectedUnit));
 
   useGameEvent("dota_portrait_unit_modifiers_changed", () => {
@@ -52,4 +64,4 @@ const BuffsPanel = () => {
 
 };
 
-export default BuffsPanel;
+export default connector(BuffsPanel);

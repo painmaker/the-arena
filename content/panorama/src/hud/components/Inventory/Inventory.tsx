@@ -4,10 +4,18 @@ import { TableUtils } from "../../utils/TableUtils";
 import ItemOptions from "./ItemOptions/ItemOptions";
 import Item from "./Item/Item";
 import { Styles } from "./Styles";
-import { useSelectedUnit } from "../../hooks/useSelectedUnit";
-import { HUD_THINK } from "../../App";
+import { HUD_THINK_FAST } from "../../App";
+import { RootState } from "../../reducers/rootReducer";
+import { connect, ConnectedProps } from "react-redux";
 
-type Props = ReactTimeoutProps & {
+const mapStateToProps = (state: RootState) => ({
+  selectedUnit: state.selectedUnitReducer.selectedUnit,
+});
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & ReactTimeoutProps & {
   // ownProps
 };
 
@@ -17,9 +25,8 @@ const Inventory = (props: Props) => {
 
   $.Msg("REACT-RENDER: Inventory rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [items, setItems] = useState<ItemEntityIndex[]>([]);
   const [hasInventory, setHasInventory] = useState(Entities.IsInventoryEnabled(selectedUnit));
 
@@ -34,7 +41,7 @@ const Inventory = (props: Props) => {
     }
 
     update();
-    const id = setInterval(update, HUD_THINK);
+    const id = setInterval(update, HUD_THINK_FAST);
 
     return () => clearInterval(id);
 
@@ -42,26 +49,22 @@ const Inventory = (props: Props) => {
 
   return (
     <React.Fragment>
-      {hasInventory && (
-        <React.Fragment>
-          <ItemOptions />
-          <Panel style={Styles.Container()}>
-            {items.map((item, index) => {
-              return (
-                <Item
-                  key={index + "_" + item}
-                  index={index}
-                  item={item}
-                  selectedUnit={selectedUnit}
-                />
-              );
-            })}
-          </Panel>
-        </React.Fragment>
-      )}
+      <ItemOptions />
+      <Panel style={Styles.Container(hasInventory)}>
+        {items.map((item, index) => {
+          return (
+            <Item
+              key={index + "_" + item}
+              index={index}
+              item={item}
+              selectedUnit={selectedUnit}
+            />
+          );
+        })}
+      </Panel>
     </React.Fragment>
   )
 
 }
 
-export default withReactTimeout(Inventory);
+export default connector(withReactTimeout(Inventory));

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
-import { HUD_THINK } from "../../../App";
+import { HUD_THINK_FAST } from "../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { RootState } from "../../../reducers/rootReducer";
 import { Item } from "../../../types/shopTypes";
@@ -35,7 +35,7 @@ const Item = (props: Props) => {
     };
 
     // update();
-    const id = setInterval(update, HUD_THINK);
+    const id = setInterval(update, HUD_THINK_FAST);
 
     return () => clearInterval(id);
 

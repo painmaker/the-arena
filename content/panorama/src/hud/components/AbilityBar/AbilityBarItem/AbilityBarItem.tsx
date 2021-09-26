@@ -10,7 +10,7 @@ import Image from "./Image/Image";
 import { Styles } from "./Styles";
 import LevelUpButton from "./LevelUpButton/LevelUpButton";
 import CastPointOverlay from "./CastPointOverlay/CastPointOverlay";
-import { HUD_THINK } from "../../../App";
+import { HUD_THINK_FAST } from "../../../App";
 
 const onMouseOver = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
   $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_" + ability), Abilities.GetAbilityName(ability), selectedUnit);
@@ -80,7 +80,7 @@ const AbilityBarItem = (props: Props) => {
     };
 
     // update();
-    const id = setInterval(update, HUD_THINK);
+    const id = setInterval(update, HUD_THINK_FAST);
 
     return () => clearInterval(id);
   }, [ability, selectedUnit, setInterval, clearInterval])

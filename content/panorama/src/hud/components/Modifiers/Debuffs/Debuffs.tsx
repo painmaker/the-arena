@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
-import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
+import { connect, ConnectedProps } from "react-redux";
+import { RootState } from "../../../reducers/rootReducer";
 import Modifier from "../Modifier/Modifier";
 import { Styles } from "./Styles";
 
@@ -23,11 +24,23 @@ const getDebuffs = (unit: EntityIndex) => {
   return debuffs;
 }
 
-const Debuffs = () => {
+const mapStateToProps = (state: RootState) => ({
+  selectedUnit: state.selectedUnitReducer.selectedUnit,
+});
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & {
+  // ownProps
+};
+
+const Debuffs = (props: Props) => {
 
   $.Msg("REACT-RENDER: Debuffs rendered");
 
-  const selectedUnit = useSelectedUnit();
+  const { selectedUnit } = props;
+
   const [debuffs, setDebuffs] = useState<BuffID[]>(getDebuffs(Players.GetLocalPlayerPortraitUnit()));
 
   useGameEvent("dota_portrait_unit_modifiers_changed", () => {
@@ -53,4 +66,4 @@ const Debuffs = () => {
 
 };
 
-export default Debuffs;
+export default connector(Debuffs);

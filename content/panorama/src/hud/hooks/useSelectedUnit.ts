@@ -22,6 +22,8 @@ const getGameUnitSelected = () => {
 
 export const useSelectedUnit = () => {
 
+  // $.Msg("UseSelectedUnit initialized");
+
   const [selectedUnit, setSelectedUnit] = useState(getGameUnitSelected());
 
   useEffect(() => {
@@ -54,7 +56,7 @@ export const useSelectedUnit = () => {
       }
     };
 
-  }, [selectedUnit]);
+  }, []);
 
   return selectedUnit;
 

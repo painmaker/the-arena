@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK } from "../../App";
+import { connect, ConnectedProps } from "react-redux";
+import { HUD_THINK_FAST } from "../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
-import { useSelectedUnit } from "../../hooks/useSelectedUnit";
+import { RootState } from "../../reducers/rootReducer";
 import { TableUtils } from "../../utils/TableUtils";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
-  // ownprops
-}
+const mapStateToProps = (state: RootState) => ({
+  selectedUnit: state.selectedUnitReducer.selectedUnit,
+});
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & ReactTimeoutProps & {
+  // ownProps
+};
 
 const AbilityBar = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilityBar rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [abilities, setAbilities] = useState<AbilityEntityIndex[]>([]);
 
   useEffect(() => {
@@ -32,7 +39,7 @@ const AbilityBar = (props: Props) => {
     };
 
     update();
-    const id = setInterval(update, HUD_THINK);
+    const id = setInterval(update, HUD_THINK_FAST);
 
     return () => clearInterval(id);
 
@@ -58,4 +65,4 @@ const AbilityBar = (props: Props) => {
 
 }
 
-export default withReactTimeout(AbilityBar);
+export default connector(withReactTimeout(AbilityBar));

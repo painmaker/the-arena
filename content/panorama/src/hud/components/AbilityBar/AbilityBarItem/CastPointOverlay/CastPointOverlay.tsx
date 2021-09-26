@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK } from "../../../../App";
+import { HUD_THINK_FAST } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
@@ -25,7 +25,7 @@ const Cooldown = (props: Props) => {
     };
 
     // update();
-    const id = setInterval(update, HUD_THINK);
+    const id = setInterval(update, HUD_THINK_FAST);
 
     return () => clearInterval(id);
 
@@ -42,7 +42,7 @@ const Cooldown = (props: Props) => {
         setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
       };
       // update();
-      id = setInterval(update, HUD_THINK);
+      id = setInterval(update, HUD_THINK_FAST);
     } else {
       setDegree(0)
     }

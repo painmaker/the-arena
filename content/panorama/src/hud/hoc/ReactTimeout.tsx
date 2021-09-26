@@ -1,7 +1,7 @@
 import React from "react";
 import ReactTimeout, { Id, Timer } from "react-timeout";
 
-export interface ReactTimeoutProps {
+export type ReactTimeoutProps = {
   setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timer;
   clearTimeout: (timer: Timer) => void;
   setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Id;
@@ -18,4 +18,4 @@ export default function withReactTimeout<T extends ReactTimeoutProps = ReactTime
     return <ReactTimeoutComponent {...(props as T)} />;
   };
   return ComponentWithExtendedProps;
-} 
+}

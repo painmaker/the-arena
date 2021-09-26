@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK } from "../../App";
+import { connect, ConnectedProps } from "react-redux";
+import { HUD_THINK_FAST } from "../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
-import { useSelectedUnit } from "../../hooks/useSelectedUnit";
+import { RootState } from "../../reducers/rootReducer";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+const mapStateToProps = (state: RootState) => ({
+  selectedUnit: state.selectedUnitReducer.selectedUnit,
+});
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & ReactTimeoutProps & {
   // ownProps
-}
+};
 
 const ManaBar = (props: Props) => {
 
   $.Msg("REACT-RENDER: ManaBar rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [mana, setMana] = useState(Entities.GetMana(selectedUnit));
   const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(selectedUnit));
   const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(selectedUnit));
@@ -28,18 +35,14 @@ const ManaBar = (props: Props) => {
     };
 
     // update();
-    const id = setInterval(update, HUD_THINK);
+    const id = setInterval(update, HUD_THINK_FAST);
 
     return () => clearInterval(id);
 
   }, [selectedUnit, setInterval, clearInterval]);
 
-  if (maxMana <= 0) {
-    return null;
-  }
-
   return (
-    <Panel hittest={false} style={Styles.Container()}>
+    <Panel hittest={false} style={Styles.Container(maxMana > 0)}>
       <ProgressBar
         min={0}
         max={maxMana}
@@ -60,4 +63,4 @@ const ManaBar = (props: Props) => {
 
 };
 
-export default withReactTimeout(ManaBar);
+export default connector(withReactTimeout(ManaBar));

@@ -3,7 +3,7 @@ import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
 import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
-import { HUD_THINK } from "../../../App";
+import { HUD_THINK_MEDIUM } from "../../../App";
 
 type Props = ReactTimeoutProps & {
   // ownProps
@@ -25,7 +25,7 @@ const MagicResistance = (props: Props) => {
     };
 
     // update();
-    const id = setInterval(update, HUD_THINK);
+    const id = setInterval(update, HUD_THINK_MEDIUM);
 
     return () => clearInterval(id);
 

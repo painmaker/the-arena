@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK } from "../../App";
+import { connect, ConnectedProps } from "react-redux";
+import { HUD_THINK_FAST } from "../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
-import { useSelectedUnit } from "../../hooks/useSelectedUnit";
+import { RootState } from "../../reducers/rootReducer";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+const mapStateToProps = (state: RootState) => ({
+  selectedUnit: state.selectedUnitReducer.selectedUnit,
+});
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux & ReactTimeoutProps & {
   // ownProps
-}
+};
 
 const HealthBar = (props: Props) => {
 
   $.Msg("REACT-RENDER: HealthBar rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [health, setHealth] = useState(Entities.GetHealth(selectedUnit));
   const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(selectedUnit));
   const [healthRegen, setHealthRegen] = useState(Entities.GetHealthThinkRegen(selectedUnit));
@@ -36,7 +43,7 @@ const HealthBar = (props: Props) => {
     };
 
     update();
-    const id = setInterval(update, HUD_THINK);
+    const id = setInterval(update, HUD_THINK_FAST);
 
     return () => clearInterval(id);
 
@@ -64,4 +71,4 @@ const HealthBar = (props: Props) => {
 
 };
 
-export default withReactTimeout(HealthBar);
+export default connector(withReactTimeout(HealthBar));

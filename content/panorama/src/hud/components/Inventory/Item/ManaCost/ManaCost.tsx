@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK } from "../../../../App";
+import { HUD_THINK_FAST } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
@@ -22,7 +22,7 @@ const ManaCost = (props: Props) => {
     };
 
     // update();
-    const id = setInterval(update, HUD_THINK);
+    const id = setInterval(update, HUD_THINK_FAST);
 
     return () => clearInterval(id);
 

@@ -223,7 +223,7 @@ class InventoryItem extends React.Component<Props, State> {
               <Keybind key={'hotkey_' + this.props.item} item={this.props.item} />
             )}
             <Charges key={'charges_' + this.props.item} item={this.props.item} />
-            <Image key={'image_' + this.props.item} item={this.props.item} />
+            <Image key={'image_' + this.props.item} item={this.props.item} selectedUnit={this.props.selectedUnit} />
             <ManaCost key={'mana_cost_' + this.props.item} item={this.props.item} />
           </React.Fragment>
         )}

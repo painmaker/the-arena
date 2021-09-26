@@ -10,13 +10,12 @@ import Consumables from "./Consumables/Consumables";
 import Armor from "./Armor/Armor";
 import Weapons from "./Weapons/Weapons";
 import Artifacts from "./Artifacts/Artifacts";
-import { useGameEvent } from "react-panorama";
 import { setShopVisible } from "../../actions/shopActions";
 import { ShopActionTypes } from "../../types/shopTypes";
-import { useSelectedUnit } from "../../hooks/useSelectedUnit";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.shopReducer.visible,
+  selectedUnit: state.selectedUnitReducer.selectedUnit,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ShopActionTypes>) => ({
@@ -34,20 +33,21 @@ const Shop = (props: Props) => {
 
   $.Msg("REACT-RENDER: Shop rendered");
 
-  const selectedUnit = useSelectedUnit();
+  const { selectedUnit, visible, setTimeout, clearTimeout } = props;
+
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
     let timer = -1 as Timer;
-    if (props.visible === false) {
-      timer = props.setTimeout(() => {
+    if (visible === false) {
+      timer = setTimeout(() => {
         setRenderComponent(false);
       }, 1000);
     } else {
       setRenderComponent(true);
     }
-    return () => props.clearTimeout(timer);
-  }, [props.visible]);
+    return () => clearTimeout(timer);
+  }, [visible]);
 
   return (
     <React.Fragment>
@@ -55,7 +55,7 @@ const Shop = (props: Props) => {
         <React.Fragment>
           <Panel
             className={"shopContainer"}
-            style={props.visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
+            style={visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
           >
             <Title selectedUnit={selectedUnit} />
             <Panel className={'shopTopBarContainer'}>

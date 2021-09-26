@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK_MEDIUM } from "../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 
 type Props = ReactTimeoutProps & {
@@ -20,7 +21,7 @@ const Gold = (props: Props) => {
     };
 
     // update();
-    const id = props.setInterval(update, 100);
+    const id = props.setInterval(update, HUD_THINK_MEDIUM);
 
     return () => props.clearInterval(id);
 

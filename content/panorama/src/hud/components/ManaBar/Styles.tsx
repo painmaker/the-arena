@@ -1,12 +1,13 @@
 export const Styles = {
 
-  Container: (): Partial<VCSSStyleDeclaration> => ({
+  Container: (visible: boolean): Partial<VCSSStyleDeclaration> => ({
     width: "330.5px",
     height: "18.5px",
     verticalAlign: "bottom",
     horizontalAlign: "center",
     marginBottom: "120px",
     borderRadius: "4px",
+    visibility: visible ? 'visible' : 'collapse',
   }),
 
   Progressbar: (): Partial<VCSSStyleDeclaration> => ({
@@ -16,12 +17,15 @@ export const Styles = {
     horizontalAlign: "center",
   }),
 
-  Scene: (mana: number, maxMana: number): Partial<VCSSStyleDeclaration> => ({
-    width: (mana / maxMana) * 100 + "%",
-    height: '100%',
-    hueRotation: '100deg',
-    opacity: '0.8',
-  }),
+  Scene: (mana: number, maxMana: number): Partial<VCSSStyleDeclaration> => {
+    const width = (mana / maxMana) * 100
+    return {
+      width: Number.isNaN(width) || !Number.isFinite(width) ? '100%' : width + "%",
+      height: '100%',
+      hueRotation: '100deg',
+      opacity: '0.8',
+    }
+  },
 
   ManaLabel: (): Partial<VCSSStyleDeclaration> => ({
     fontSize: "14px",
