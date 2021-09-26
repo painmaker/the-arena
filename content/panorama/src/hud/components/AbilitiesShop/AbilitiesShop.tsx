@@ -56,11 +56,13 @@ const AbilitiesShop = (props: Props) => {
   }, [visible, clearTimeout, setTimeout]);
 
   useEffect(() => {
-    setRegularAbilities([]);
-    setUltimateAbilities([]);
-    setIsLoadingAbilities(true);
-    GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: selectedUnit });
-  }, [selectedUnit]);
+    if (visible) {
+      setRegularAbilities([]);
+      setUltimateAbilities([]);
+      setIsLoadingAbilities(true);
+      GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: selectedUnit });
+    }
+  }, [selectedUnit, visible]);
 
   useGameEvent('fetch_shop_abilities_ok', (event) => {
     setRegularAbilities(Object.values(event.regularAbilities));
@@ -86,14 +88,14 @@ const AbilitiesShop = (props: Props) => {
     if (Entities.GetUnitName(unit) === 'shopkeeper_abilities') {
       setShopVisible(true);
     }
-  }, [visible, setShopVisible]);
+  }, [setShopVisible]);
 
   useGameEvent("dota_player_update_selected_unit", (event) => {
     const unit = Players.GetLocalPlayerPortraitUnit();
     if (Entities.GetUnitName(unit) === 'shopkeeper_abilities') {
       setShopVisible(true);
     }
-  }, [visible, setShopVisible]);
+  }, [setShopVisible]);
 
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>

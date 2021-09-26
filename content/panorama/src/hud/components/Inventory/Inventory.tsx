@@ -33,7 +33,7 @@ const Inventory = (props: Props) => {
       }
     }
 
-    // update();
+    update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

@@ -6,15 +6,15 @@ import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
   ability: AbilityEntityIndex,
+  selectedUnit: EntityIndex,
 }
 
 const Keybind = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilityBarItem - Keybind rendered");
 
-  const { ability, setInterval, clearInterval } = props;
+  const { ability, selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [keybind, setKeybind] = useState<string | undefined>(undefined);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const Keybind = (props: Props) => {
       }
     };
 
-    // update();
+    update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

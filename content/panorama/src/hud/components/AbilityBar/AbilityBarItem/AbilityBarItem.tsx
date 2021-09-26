@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import Cooldown from "./Cooldown/Cooldown";
 import Autocast from "./Autocast/Autocast";
@@ -6,39 +6,18 @@ import LockoutIcon from "./LockoutIcon/LockoutIcon";
 import Skillpoints from "./Skillpoints/Skillpoints";
 import ManaCost from "./ManaCost/ManaCost";
 import Keybind from "./Keybind/Keybind";
-import Image from "./AbilityImage/AbilityImage";
+import Image from "./Image/Image";
 import { Styles } from "./Styles";
 import LevelUpButton from "./LevelUpButton/LevelUpButton";
 import CastPointOverlay from "./CastPointOverlay/CastPointOverlay";
 import { HUD_THINK } from "../../../App";
 
-type Props = ReactTimeoutProps & {
-  ability: AbilityEntityIndex,
-  selectedUnit: EntityIndex,
-}
-
-interface State {
-  isPassive: boolean,
-  isUpgradeable: boolean,
-  isControllable: boolean,
-  isAutoCastEnabled: boolean,
-  isToggled: boolean,
-  isActive: boolean,
-  isInLearningMode: boolean,
-  hasAbilityPoints: boolean
-}
-
 const onMouseOver = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
-  $.DispatchEvent(
-    "DOTAShowAbilityTooltipForEntityIndex",
-    $("#ability_" + ability),
-    Abilities.GetAbilityName(ability),
-    selectedUnit
-  )
+  $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_" + ability), Abilities.GetAbilityName(ability), selectedUnit);
 }
 
 const onMouseOut = (ability: AbilityEntityIndex) => {
-  $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_" + ability))
+  $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_" + ability));
 }
 
 const onLeftClick = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
@@ -69,95 +48,67 @@ const onRightClick = (ability: AbilityEntityIndex) => {
   }
 }
 
-class AbilityBarItem extends React.PureComponent<Props, State> {
+type Props = ReactTimeoutProps & {
+  ability: AbilityEntityIndex,
+  selectedUnit: EntityIndex,
+}
 
-  constructor(props: Props) {
-    super(props);
-    this.getContainerBackgroundImage = this.getContainerBackgroundImage.bind(this);
-    this.state = {
-      isPassive: Abilities.IsPassive(props.ability),
-      isUpgradeable: Abilities.CanAbilityBeUpgraded(props.ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED,
-      isControllable: Entities.IsControllableByPlayer(props.selectedUnit, Players.GetLocalPlayer()),
-      isAutoCastEnabled: Abilities.GetAutoCastState(props.ability),
-      isToggled: Abilities.GetToggleState(props.ability),
-      isActive: Abilities.GetLocalPlayerActiveAbility() === this.props.ability,
-      isInLearningMode: Game.IsInAbilityLearnMode(),
-      hasAbilityPoints: Entities.GetAbilityPoints(props.selectedUnit) !== 0,
-    }
-  }
+const AbilityBarItem = (props: Props) => {
 
-  componentDidMount() {
-    this.props.setInterval(() => {
-      this.setState({
-        isPassive: Abilities.IsPassive(this.props.ability),
-        isUpgradeable: Abilities.CanAbilityBeUpgraded(this.props.ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED,
-        isControllable: Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer()),
-        isAutoCastEnabled: Abilities.GetAutoCastState(this.props.ability),
-        isToggled: Abilities.GetToggleState(this.props.ability),
-        isActive: Abilities.GetLocalPlayerActiveAbility() === this.props.ability,
-        isInLearningMode: Game.IsInAbilityLearnMode(),
-        hasAbilityPoints: Entities.GetAbilityPoints(this.props.selectedUnit) !== 0,
-      })
-    }, HUD_THINK);
-  }
+  $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
 
-  getContainerBackgroundImage(isTrainable: boolean): string {
-    if (isTrainable) {
-      return 'url("s2r://panorama/images/hud/reborn/levelup_button_learnmode_psd.vtex")';
-    }
-    if (this.state.isPassive) {
-      return 'url("s2r://panorama/images/hud/passive_ability_border_png.vtex")';
-    }
-    if (this.state.isActive) {
-      return 'url("s2r://panorama/images/hud/reborn/active_ability_border_psd.vtex")';
-    }
-    if (this.state.isAutoCastEnabled || this.state.isToggled) {
-      return 'url("s2r://panorama/images/hud/reborn/autocastable_ability_border_psd.vtex")'
-    }
-    return 'none'
-  }
+  const { ability, selectedUnit, setInterval, clearInterval } = props;
 
-  render() {
+  const [isPassive, setIsPassive] = useState(false);
+  const [isAutoCastEnabled, setIsAutoCastEnabled] = useState(false);
+  const [isToggled, setIsToggled] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const [isTrainable, setIsTrainable] = useState(false);
 
-    $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
+  useEffect(() => {
 
-    const isAbilityUpgradeable = this.state.isUpgradeable && this.state.isControllable && this.state.hasAbilityPoints;
-    const isTrainable = this.state.isInLearningMode && isAbilityUpgradeable;
+    const update = () => {
+      const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+      const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
+      const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
+      const isInLearningMode = Game.IsInAbilityLearnMode();
+      setIsTrainable(isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints);
+      setIsPassive(Abilities.IsPassive(ability));
+      setIsAutoCastEnabled(Abilities.GetAutoCastState(ability))
+      setIsToggled(Abilities.GetToggleState(ability))
+      setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
+    };
 
-    return (
-      <Panel style={Styles.Container()} id={'ability_' + this.props.ability}>
-        <Panel style={Styles.LevelUpButtonContainer()}>
-          {isAbilityUpgradeable && (
-            <LevelUpButton ability={this.props.ability} />
-          )}
-        </Panel>
-        <Panel
-          hittest={true}
-          onactivate={() => onLeftClick(this.props.ability, this.props.selectedUnit)}
-          oncontextmenu={() => onRightClick(this.props.ability)}
-          onmouseover={() => onMouseOver(this.props.ability, this.props.selectedUnit)}
-          onmouseout={() => onMouseOut(this.props.ability)}
-          style={Styles.AbilityContainer(
-            isTrainable,
-            this.state.isActive,
-            this.state.isAutoCastEnabled,
-            this.state.isToggled,
-            this.getContainerBackgroundImage(isTrainable)
-          )}
-        >
-          <Image ability={this.props.ability} />
-          <Keybind ability={this.props.ability} />
-          <ManaCost ability={this.props.ability} />
-          <Cooldown ability={this.props.ability} />
-          <Autocast ability={this.props.ability} />
-          <LockoutIcon ability={this.props.ability} selectedUnit={this.props.selectedUnit} />
-          <CastPointOverlay ability={this.props.ability} />
-        </Panel>
-        <Skillpoints ability={this.props.ability} />
+    // update();
+    const id = setInterval(update, HUD_THINK);
+
+    return () => clearInterval(id);
+  }, [ability, selectedUnit, setInterval, clearInterval])
+
+  return (
+    <Panel style={Styles.Container()} id={'ability_' + ability} >
+      <Panel style={Styles.LevelUpButtonContainer()}>
+        <LevelUpButton ability={ability} selectedUnit={selectedUnit} />
       </Panel>
-    );
-
-  }
+      <Panel
+        hittest={true}
+        onactivate={() => onLeftClick(ability, selectedUnit)}
+        oncontextmenu={() => onRightClick(ability)}
+        onmouseover={() => onMouseOver(ability, selectedUnit)}
+        onmouseout={() => onMouseOut(ability)}
+        style={Styles.AbilityContainer(isTrainable, isActive, isAutoCastEnabled, isToggled, isPassive)}
+      >
+        <Image ability={ability} selectedUnit={selectedUnit} />
+        <Keybind ability={ability} selectedUnit={selectedUnit} />
+        <ManaCost ability={ability} />
+        <Cooldown ability={ability} />
+        <Autocast ability={ability} />
+        <LockoutIcon ability={ability} selectedUnit={selectedUnit} />
+        <CastPointOverlay ability={ability} />
+      </Panel>
+      <Skillpoints ability={ability} />
+    </Panel>
+  );
 
 };
 

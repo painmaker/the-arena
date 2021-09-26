@@ -23,7 +23,7 @@ const Keybind = (props: Props) => {
       setIsPassive(Abilities.IsPassive(item));
     };
 
-    // update();
+    update();
     const id = setInterval(update, HUD_THINK);
 
     return () => clearInterval(id);

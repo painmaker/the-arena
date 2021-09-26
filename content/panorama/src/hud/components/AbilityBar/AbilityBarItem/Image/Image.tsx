@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { HUD_THINK } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
-import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
   ability: AbilityEntityIndex,
+  selectedUnit: EntityIndex,
 }
 
 const getSaturation = (isTrainable: boolean, level: number, manaCost: number, unitMana: number): string => {
@@ -42,9 +42,8 @@ const Image = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
 
-  const { ability, setInterval, clearInterval } = props;
+  const { ability, selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [saturation, setSaturation] = useState('1.0');
   const [washColor, setWashColor] = useState('#303030');
 

@@ -7,7 +7,6 @@ import Attack from "./Attack/Attack";
 import Defense from "./Defense/Defense";
 import CloseBtn from "./CloseBtn/CloseBtn";
 import { Timer } from "react-timeout";
-import { useSelectedUnit } from "../../hooks/useSelectedUnit";
 
 export const REFRESH_RATE = 250;
 
@@ -28,7 +27,7 @@ const Character = (props: Props) => {
 
   const { visible, setTimeout, clearTimeout } = props;
 
-  const [renderComponent, setRenderComponent] = useState(true);
+  const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
     let timer = -1 as Timer;

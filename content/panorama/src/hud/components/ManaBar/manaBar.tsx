@@ -4,7 +4,9 @@ import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import { useSelectedUnit } from "../../hooks/useSelectedUnit";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {}
+type Props = ReactTimeoutProps & {
+  // ownProps
+}
 
 const ManaBar = (props: Props) => {
 
