@@ -39,7 +39,7 @@ type Props = ReactTimeoutProps & {}
 
 const HeroLevel = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - HeroLevel rendered");
+  // $.Msg("REACT-RENDER: Character - HeroLevel rendered");
 
   const { setInterval, clearInterval } = props;
 

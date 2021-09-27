@@ -9,7 +9,7 @@ type Props = ReactTimeoutProps & {
 
 const Armor = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - Armor rendered");
+  // $.Msg("REACT-RENDER: Character - Armor rendered");
 
   const { setInterval, clearInterval } = props;
 

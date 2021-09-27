@@ -11,7 +11,7 @@ type Props = ReactTimeoutProps & {
 
 const Armor = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Stats - Armor rendered");
+  // $.Msg("REACT-RENDER: Stats - Armor rendered");
 
   const { setInterval, clearInterval } = props;
 

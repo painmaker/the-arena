@@ -8,7 +8,7 @@ type Props = {
 
 const Consumables = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Shop - Consumables rendered");
+  // $.Msg("REACT-RENDER: Shop - Consumables rendered");
 
   const { selectedUnit } = props;
 

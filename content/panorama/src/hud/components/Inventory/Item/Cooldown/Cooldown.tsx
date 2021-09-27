@@ -9,7 +9,7 @@ type Props = ReactTimeoutProps & {
 
 const Cooldown = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Inventory - Cooldown rendered");
+  // $.Msg("REACT-RENDER: Inventory - Cooldown rendered");
 
   const { item, setInterval, clearInterval } = props;
 

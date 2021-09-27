@@ -204,7 +204,7 @@ class InventoryItem extends React.Component<Props, State> {
 
   render() {
 
-    $.Msg("REACT-RENDER: Inventory - Item rendered");
+    // $.Msg("REACT-RENDER: Inventory - Item rendered");
 
     return (
       <Panel

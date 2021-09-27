@@ -6,7 +6,7 @@ type Props = ReactTimeoutProps & {};
 
 const Evasion = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - Evasion rendered");
+  // $.Msg("REACT-RENDER: Character - Evasion rendered");
 
   const [evasion, setEvasion] = useState(0);
 

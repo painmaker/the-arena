@@ -18,7 +18,7 @@ const Autocast = (props: Props) => {
   useEffect(() => {
 
     const update = () => {
-      setIsAutocastEnabled(Abilities.IsAutocast(ability));
+      setIsAutocastEnabled(Abilities.GetAutoCastState(ability));
     };
 
     // update();

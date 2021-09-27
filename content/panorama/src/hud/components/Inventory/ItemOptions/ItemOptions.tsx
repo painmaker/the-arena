@@ -25,7 +25,7 @@ type Props = PropsFromRedux & ReactTimeoutProps & {};
 
 const ItemOptions = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Inventory - ItemOptions rendered");
+  // $.Msg("REACT-RENDER: Inventory - ItemOptions rendered");
 
   const [buttonTypeHovered, setButtonTypeHovered] = useState(ButtonTypes.NONE);
 

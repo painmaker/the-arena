@@ -4,7 +4,7 @@ import { Styles } from "./Styles";
 
 const Title = () => {
 
-  $.Msg("REACT-RENDER: Settings - Title rendered");
+  // $.Msg("REACT-RENDER: Settings - Title rendered");
 
   return (
     <Panel style={Styles.Container()}>

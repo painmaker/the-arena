@@ -6,7 +6,7 @@ type Props = ReactTimeoutProps & {}
 
 const Loading: React.FunctionComponent<Props> = props => {
 
-  $.Msg("REACT-RENDER: Loading rendered");
+  // $.Msg("REACT-RENDER: Loading rendered");
 
   const { setTimeout, clearTimeout } = props;
 

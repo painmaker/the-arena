@@ -8,7 +8,7 @@ import { Styles } from "./Styles";
 
 const Stats = () => {
 
-  $.Msg("REACT-RENDER: Stats rendered");
+  // $.Msg("REACT-RENDER: Stats rendered");
 
   return (
     <Panel hittest={false} style={Styles.Container()}>

@@ -8,35 +8,12 @@ import { RootState } from '../../reducers/rootReducer';
 import { SelectedUnitActionTypes } from '../../types/selectedUnitTypes';
 import { Styles } from './Styles';
 
-const excludedUnits = [
-  "shopkeeper_abilities"
-]
-
-const getGameUnitSelected = () => {
-
-  const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
-  if (queryUnit !== -1) {
-    return queryUnit;
-  }
-
-  const portraitUnit = Players.GetLocalPlayerPortraitUnit();
-  if (portraitUnit !== -1) {
-    return portraitUnit
-  }
-
-  return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
-
-}
 
 const mapStateToProps = (state: RootState) => ({
   selectedUnit: state.selectedUnitReducer.selectedUnit,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<SelectedUnitActionTypes>) => ({
-  setSelectedUnit: (selectedUnit: EntityIndex) => dispatch(setSelectedUnit(selectedUnit)),
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & ReactTimeoutProps & {
@@ -45,20 +22,9 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const SelectedUnit = (props: Props) => {
 
-  $.Msg("REACT-RENDER: SelectedUnit rendered");
+  // $.Msg("REACT-RENDER: SelectedUnit rendered");
 
-  const { selectedUnit, setSelectedUnit, setInterval, clearInterval } = props;
-
-  useEffect(() => {
-    const update = () => {
-      const unitToSelect = getGameUnitSelected();
-      if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
-        setSelectedUnit(unitToSelect)
-      }
-    };
-    const id = setInterval(update, HUD_THINK_FAST);
-    return () => clearInterval(id);
-  }, [setSelectedUnit, setInterval, clearInterval]);
+  const { selectedUnit } = props;
 
   return (
     <Panel style={Styles.Container()}>

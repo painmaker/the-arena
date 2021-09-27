@@ -36,7 +36,6 @@ const AbilityImage = (props: Props) => {
 
   const [isRequiredLevel, setIsRequiredLevel] = useState(Entities.GetLevel(selectedUnit) >= requiredLevel);
   const [isSearched, setIsSearched] = useState(false);
-  const [hasSearchedValue, setHasSearchedValue] = useState(false);
 
   useEffect(() => {
 
@@ -61,14 +60,10 @@ const AbilityImage = (props: Props) => {
     setIsSearched(isSearched);
   }, [aliases, searchValue])
 
-  useEffect(() => {
-    setHasSearchedValue(searchValue.length > 0);
-  }, [searchValue])
-
   return (
     <React.Fragment>
       <Button
-        style={Styles.AbilityImage(hasSearchedValue, isSearched, isRequiredLevel)}
+        style={Styles.AbilityImage(searchValue.length > 0, isSearched, isRequiredLevel)}
         oncontextmenu={() => onRightClick(selectedUnit, name)}
         onmouseout={() => onMouseOut(name)}
         onmouseover={() => onMouseOver(selectedUnit, name)}

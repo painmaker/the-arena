@@ -22,14 +22,6 @@ const RegularAbilities = (props: Props) => {
         style={Styles.Title()}
       />
       <Panel style={Styles.AbilitiesContainer()}>
-        {/*
-        {(regularAbilities.length === 0 && isLoadingAbilities === true) && (
-          <Label
-            text={"Loading..."}
-            style={Styles.CenterLabel()}
-          />
-        )}
-        */}
         {(regularAbilities.length === 0 && isLoadingAbilities === false) && (
           <Label
             text={$.Localize(Entities.GetUnitName(selectedUnit)) + " Has No Regular Abilities"}

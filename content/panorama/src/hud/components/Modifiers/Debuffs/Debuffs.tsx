@@ -18,7 +18,7 @@ const getDebuffs = (unit: EntityIndex) => {
     if (!Buffs.IsDebuff(unit, buff)) {
       continue;
     }
-    $.Msg(Buffs.GetName(unit, buff))
+    // $.Msg(Buffs.GetName(unit, buff))
     debuffs.push(buff);
   }
   return debuffs;
@@ -37,7 +37,7 @@ type Props = PropsFromRedux & {
 
 const Debuffs = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Debuffs rendered");
+  // $.Msg("REACT-RENDER: Debuffs rendered");
 
   const { selectedUnit } = props;
 

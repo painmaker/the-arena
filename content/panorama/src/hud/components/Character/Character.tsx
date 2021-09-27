@@ -23,7 +23,7 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const Character = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character rendered");
+  // $.Msg("REACT-RENDER: Character rendered");
 
   const { visible, setTimeout, clearTimeout } = props;
 

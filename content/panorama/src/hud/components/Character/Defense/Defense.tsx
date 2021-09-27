@@ -9,7 +9,7 @@ import StatusResistance from "./StatusResistance/StatusResistance";
 
 const Defense = () => {
 
-  $.Msg("REACT-RENDER: Character - Defense rendered");
+  // $.Msg("REACT-RENDER: Character - Defense rendered");
 
   return (
     <Panel hittest={false} className={'defensePanelContainer'}>

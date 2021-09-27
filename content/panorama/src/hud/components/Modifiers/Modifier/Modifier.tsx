@@ -12,7 +12,7 @@ type Props = {
 
 const Modifier = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Modifiers rendered");
+  // $.Msg("REACT-RENDER: Modifiers rendered");
 
   const { buff, selectedUnit, isDebuff } = props;
 
@@ -41,8 +41,8 @@ const Modifier = (props: Props) => {
       hittest={true}
       style={Styles.Container(isMounted, isHovering)}
       onactivate={() => {
-        $.Msg("Modifier clicked: " + Buffs.GetName(selectedUnit, buff));
-        $.Msg(Buffs.IsHidden(selectedUnit, buff));
+        // $.Msg("Modifier clicked: " + Buffs.GetName(selectedUnit, buff));
+        // $.Msg(Buffs.IsHidden(selectedUnit, buff));
         Players.BuffClicked(selectedUnit, buff, GameUI.IsAltDown());
       }}
       onmouseout={() => {

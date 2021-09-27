@@ -7,7 +7,7 @@ type Props = ReactTimeoutProps & {};
 
 const StatusResistance = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - StatusResistance rendered");
+  // $.Msg("REACT-RENDER: Character - StatusResistance rendered");
 
   const selectedUnit = useSelectedUnit();
   const [resistance, setResistance] = useState(0)

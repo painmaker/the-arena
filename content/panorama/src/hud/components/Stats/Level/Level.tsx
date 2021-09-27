@@ -44,7 +44,7 @@ type Props = ReactTimeoutProps & {
 
 const Level = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Stats - Level rendered");
+  // $.Msg("REACT-RENDER: Stats - Level rendered");
 
   const { setInterval, clearInterval } = props;
 
@@ -73,21 +73,19 @@ const Level = (props: Props) => {
 
   return (
     <React.Fragment>
-      {Entities.IsHero(selectedUnit) && (
-        <Panel style={ParentStyles.Entry()}>
-          <Label
-            style={Styles.LevelLabel()}
-            text={'Lvl. ' + level}
-          />
-          <Panel style={Styles.LevelbarContainer()}>
-            <Panel style={Styles.Levelbar(Number.isFinite(pct) ? pct : 100)} />
-          </Panel>
-          <Label
-            style={Styles.LevelPctLabel()}
-            text={Number.isFinite(pct) ? pct + "%" : '100%'}
-          />
+      <Panel style={ParentStyles.Entry()}>
+        <Label
+          style={Styles.LevelLabel()}
+          text={'Lvl. ' + level}
+        />
+        <Panel style={Styles.LevelbarContainer()}>
+          <Panel style={Styles.Levelbar(Number.isFinite(pct) ? pct : 100)} />
         </Panel>
-      )}
+        <Label
+          style={Styles.LevelPctLabel()}
+          text={Number.isFinite(pct) ? pct + "%" : '100%'}
+        />
+      </Panel>
     </React.Fragment>
   );
 

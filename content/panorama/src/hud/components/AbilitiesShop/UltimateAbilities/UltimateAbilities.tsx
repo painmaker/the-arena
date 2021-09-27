@@ -22,14 +22,6 @@ const UltimateAbilities = (props: Props) => {
         style={Styles.Title()}
       />
       <Panel style={Styles.AbilitiesContainer()}>
-        {/* 
-        {(ultimateAbilities.length === 0 && isLoadingAbilities === true) && (
-          <Label
-            text={"Loading..."}
-            style={Styles.CenterLabel()}
-          />
-        )}
-        */}
         {(ultimateAbilities.length === 0 && isLoadingAbilities === false) && (
           <Label
             text={$.Localize(Entities.GetUnitName(selectedUnit)) + " Has No Ultimate Abilities"}

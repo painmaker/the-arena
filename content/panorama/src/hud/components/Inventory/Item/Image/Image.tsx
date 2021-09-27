@@ -10,7 +10,7 @@ type Props = ReactTimeoutProps & {
 
 const Image = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Inventory - Image rendered");
+  // $.Msg("REACT-RENDER: Inventory - Image rendered");
 
   const { item, selectedUnit, setInterval, clearInterval } = props;
 

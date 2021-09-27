@@ -8,7 +8,7 @@ import { Styles } from "./Styles";
 
 const Heroes = () => {
 
-  $.Msg("REACT-RENDER: Heroes rendered");
+  // $.Msg("REACT-RENDER: Heroes rendered");
 
   const pickedHeroes = Object.values(useNetTableValues('HeroSelectionHeroes').heroes).filter(hero => hero.picked === 1)
 

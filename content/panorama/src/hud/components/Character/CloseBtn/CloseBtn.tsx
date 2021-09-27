@@ -14,7 +14,7 @@ type Props = PropsFromRedux & {
   // ownProps
 };
 
-$.Msg("REACT-RENDER: Character - CloseBtn rendered");
+// $.Msg("REACT-RENDER: Character - CloseBtn rendered");
 
 const CloseBtn = (props: Props) => {
   return (

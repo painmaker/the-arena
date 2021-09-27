@@ -9,7 +9,7 @@ type Props = ReactTimeoutProps & {
 
 const ManaCost = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Inventory - ManaCost rendered");
+  // $.Msg("REACT-RENDER: Inventory - ManaCost rendered");
 
   const { item, setInterval, clearInterval } = props;
 

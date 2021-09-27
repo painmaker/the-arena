@@ -17,7 +17,7 @@ type Props = PropsFromRedux & {
 
 const Minimap = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Minimap rendered");
+  // $.Msg("REACT-RENDER: Minimap rendered");
 
   const [zoneName, setZoneName] = useState('#ZoneName');
 

@@ -9,7 +9,7 @@ type Props = ReactTimeoutProps & {
 
 const Mana = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Heroes - Mana rendered");
+  // $.Msg("REACT-RENDER: Heroes - Mana rendered");
 
   const { hero, setInterval, clearInterval } = props;
 

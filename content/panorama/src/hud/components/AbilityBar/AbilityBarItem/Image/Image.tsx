@@ -40,7 +40,7 @@ const getWashColor = (isTrainable: boolean, manaCost: number, unitMana: number, 
 
 const Image = (props: Props) => {
 
-  $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
+  // $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
 
   const { ability, selectedUnit, setInterval, clearInterval } = props;
 
@@ -71,7 +71,7 @@ const Image = (props: Props) => {
 
     return () => clearInterval(id);
 
-  }, [selectedUnit, ability, setInterval, clearInterval]);
+  }, [ability, selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel style={Styles.Container()}>

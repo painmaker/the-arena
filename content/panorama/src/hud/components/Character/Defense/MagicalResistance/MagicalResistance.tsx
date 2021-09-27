@@ -6,7 +6,7 @@ type Props = ReactTimeoutProps & {};
 
 const MagicalResistance = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - MagicalResistance rendered");
+  // $.Msg("REACT-RENDER: Character - MagicalResistance rendered");
 
   const [resistance, setResistance] = useState(Entities.GetArmorReductionForDamageType(Players.GetLocalPlayerPortraitUnit(), DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL))
 

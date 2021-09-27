@@ -11,7 +11,7 @@ type Props = ReactTimeoutProps & {
 
 const Damage = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Stats - Damage rendered");
+  // $.Msg("REACT-RENDER: Stats - Damage rendered");
 
   const { setInterval, clearInterval } = props;
 

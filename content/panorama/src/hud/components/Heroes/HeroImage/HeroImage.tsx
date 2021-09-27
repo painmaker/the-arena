@@ -56,7 +56,7 @@ const onHeroImageClicked = (hero: EntityIndex, cameraLocked: boolean) => {
 
 const HeroImage = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
+  // $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
 
   const { hero, cameraLocked, setInterval, clearInterval } = props;
 

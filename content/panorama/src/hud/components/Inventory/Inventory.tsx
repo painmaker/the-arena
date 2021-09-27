@@ -23,7 +23,7 @@ const ITEM_SLOTS = [0, 1, 2, 3, 4, 5];
 
 const Inventory = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Inventory rendered");
+  // $.Msg("REACT-RENDER: Inventory rendered");
 
   const { selectedUnit, setInterval, clearInterval } = props;
 
