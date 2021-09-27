@@ -55,7 +55,7 @@ type Props = ReactTimeoutProps & {
 
 const AbilityBarItem = (props: Props) => {
 
-  $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
+  // $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
 
   const { ability, selectedUnit, setInterval, clearInterval } = props;
 

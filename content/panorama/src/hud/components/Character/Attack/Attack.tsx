@@ -9,7 +9,7 @@ import Divider from "../Divider/Divider";
 
 const Attack = () => {
 
-  $.Msg("REACT-RENDER: Character - Attack rendered");
+  // $.Msg("REACT-RENDER: Character - Attack rendered");
 
   return (
     <Panel hittest={false} className={'attackPanelContainer'}>

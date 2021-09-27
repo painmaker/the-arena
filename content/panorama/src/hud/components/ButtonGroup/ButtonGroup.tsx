@@ -7,7 +7,7 @@ import { Styles } from "./Styles";
 
 const ButtonGroup = () => {
 
-  $.Msg("REACT-RENDER: ButtonGroup rendered");
+  // $.Msg("REACT-RENDER: ButtonGroup rendered");
 
   return (
     <Panel hittest={false} style={Styles.Container()}>

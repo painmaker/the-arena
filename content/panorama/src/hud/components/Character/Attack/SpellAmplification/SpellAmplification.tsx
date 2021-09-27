@@ -9,7 +9,7 @@ type Props = ReactTimeoutProps & {
 
 const SpellAmplification = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - SpellAmplification rendered");
+  // $.Msg("REACT-RENDER: Character - SpellAmplification rendered");
 
   const { setInterval, clearInterval } = props;
 

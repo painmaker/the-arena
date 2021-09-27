@@ -11,7 +11,7 @@ type Props = {
  */
 const Search = (props: Props) => {
 
-  $.Msg("REACT-RENDER: AbilitiesShop - Search rendered");
+  // $.Msg("REACT-RENDER: AbilitiesShop - Search rendered");
 
   const { setSearchValue } = props;
 
