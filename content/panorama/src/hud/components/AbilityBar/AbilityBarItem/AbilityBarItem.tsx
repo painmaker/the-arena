@@ -21,6 +21,9 @@ const onMouseOut = (ability: AbilityEntityIndex) => {
 }
 
 const onLeftClick = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
+  if (GameUI.IsAltDown()) {
+    return;
+  }
   if (Game.IsInAbilityLearnMode()) {
     Abilities.AttemptToUpgrade(ability);
     return;

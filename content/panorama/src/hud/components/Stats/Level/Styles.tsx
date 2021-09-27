@@ -4,16 +4,16 @@ export const Styles = {
 
   LevelLabel: (): Partial<VCSSStyleDeclaration> => ({
     ...ParentStyles.Label(),
-    marginRight: '3px',
   }),
 
   LevelbarContainer: (): Partial<VCSSStyleDeclaration> => ({
     width: "100px",
     height: "100%",
+    verticalAlign: 'center',
     backgroundColor: "rgba(0, 0, 0, 0.65)",
-    marginTop: "2px",
-    marginBottom: "4px",
-    marginLeft: "2px",
+    marginTop: "3px",
+    marginBottom: "3px",
+    marginLeft: "4px",
     borderRadius: "4px",
   }),
 
@@ -27,13 +27,10 @@ export const Styles = {
   }),
 
   LevelPctLabel: (): Partial<VCSSStyleDeclaration> => ({
-    ...Styles.LevelLabel(),
+    ...ParentStyles.Label(),
     fontSize: "14px",
-    marginLeft: "4px",
     verticalAlign: "middle",
-    minWidth: "40px",
-    marginRight: "-10px",
-    marginBottom: "2px",
+    marginLeft: "4px",
   })
 
 }

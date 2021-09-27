@@ -72,8 +72,6 @@ const App = (props: Props) => {
 
   const { useCustomUI, setCameraZoom, setSelectedUnit, setInterval, clearInterval, setUseCustomUI } = props;
 
-  $.Msg("useCustomUI: " + useCustomUI)
-
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
   const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
 

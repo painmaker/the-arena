@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { HUD_THINK_MEDIUM } from "../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
-import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 import { Styles as ParentStyles } from "../Styles";
 import { Styles } from "./Styles";
 
@@ -39,24 +38,31 @@ const EXPERIENCE_PER_LEVEL_TABLE: Record<number, number> = {
 };
 
 type Props = ReactTimeoutProps & {
-  // ownProps
+  selectedUnit: EntityIndex,
 }
 
 const Level = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Stats - Level rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [level, setLevel] = useState(Entities.GetLevel(selectedUnit));
-  const [totalExperienceGained, setTotalExperienceGained] = useState(Entities.GetCurrentXP(selectedUnit));
+  const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
 
     const update = () => {
+
+      const currentXp = Entities.GetCurrentXP(selectedUnit);
+      const maxLevel = Object.keys(EXPERIENCE_PER_LEVEL_TABLE).length;
+      const xpGainedThisLevel = currentXp - EXPERIENCE_PER_LEVEL_TABLE[level];
+      const xpRequiredToLevel = EXPERIENCE_PER_LEVEL_TABLE[level === maxLevel ? level : level + 1] - EXPERIENCE_PER_LEVEL_TABLE[level];
+      const percentage = (xpGainedThisLevel / xpRequiredToLevel) * 100;
+      setPercentage(Math.max(0, Math.min(percentage, 100)));
+
       setLevel(Entities.GetLevel(selectedUnit));
-      setTotalExperienceGained(Entities.GetCurrentXP(selectedUnit));
+
     };
 
     // update();
@@ -66,10 +72,7 @@ const Level = (props: Props) => {
 
   }, [selectedUnit, setInterval, clearInterval]);
 
-  const maxLevel = Object.keys(EXPERIENCE_PER_LEVEL_TABLE).length;
-  const xpGainedThisLevel = totalExperienceGained - EXPERIENCE_PER_LEVEL_TABLE[level];
-  const xpRequiredToLevel = EXPERIENCE_PER_LEVEL_TABLE[level === maxLevel ? level : level + 1] - EXPERIENCE_PER_LEVEL_TABLE[level];
-  const pct = (xpGainedThisLevel / xpRequiredToLevel) * 100;
+
 
   return (
     <React.Fragment>
@@ -79,11 +82,11 @@ const Level = (props: Props) => {
           text={'Lvl. ' + level}
         />
         <Panel style={Styles.LevelbarContainer()}>
-          <Panel style={Styles.Levelbar(Number.isFinite(pct) ? pct : 100)} />
+          <Panel style={Styles.Levelbar(Number.isFinite(percentage) ? percentage : 100)} />
         </Panel>
         <Label
           style={Styles.LevelPctLabel()}
-          text={Number.isFinite(pct) ? pct + "%" : '100%'}
+          text={Number.isFinite(percentage) ? percentage + "%" : '100%'}
         />
       </Panel>
     </React.Fragment>

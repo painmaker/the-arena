@@ -5,15 +5,16 @@ import { Styles as ParentStyles } from "../Styles";
 import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 import { HUD_THINK_MEDIUM } from "../../../App";
 
-type Props = ReactTimeoutProps & {}
+type Props = ReactTimeoutProps & {
+  selectedUnit: EntityIndex,
+}
 
 const MoveSpeed = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Stats - MoveSpeed rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [moveSpeed, setMoveSpeed] = useState(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const MoveSpeed = (props: Props) => {
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <Panel style={{ ...ParentStyles.Entry(), marginRight: '0px' }} >
+    <Panel style={ParentStyles.Entry()} >
       <Panel style={Styles.Image()} />
       <Label
         style={ParentStyles.Label()}

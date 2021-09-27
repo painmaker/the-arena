@@ -2,20 +2,18 @@ import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
-import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 import { HUD_THINK_MEDIUM } from "../../../App";
 
 type Props = ReactTimeoutProps & {
-  // ownProps
+  selectedUnit: EntityIndex,
 };
 
 const MagicResistance = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Stats - MagicalResistance rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [magicResistance, setMagicResistance] = useState(Entities.GetMagicalArmorValue(selectedUnit));
 
   useEffect(() => {
