@@ -41,7 +41,7 @@ const Attack = (props: Props) => {
         </Panel>
         <Panel style={Styles.Row()}>
           <Panel style={Styles.LeftColumn()}>
-            <Label text={'Attack range:'} style={Styles.ColumnLabel()} />
+            <Label text={'Attack Range:'} style={Styles.ColumnLabel()} />
           </Panel>
           <Panel style={Styles.RightColumn()}>
             <AttackRange selectedUnit={selectedUnit} />
@@ -49,7 +49,7 @@ const Attack = (props: Props) => {
         </Panel>
         <Panel style={Styles.Row()}>
           <Panel style={Styles.LeftColumn()}>
-            <Label text={'Movement speed:'} style={Styles.ColumnLabel()} />
+            <Label text={'Movement Speed:'} style={Styles.ColumnLabel()} />
           </Panel>
           <Panel style={Styles.RightColumn()}>
             <MoveSpeed selectedUnit={selectedUnit} />
@@ -57,7 +57,7 @@ const Attack = (props: Props) => {
         </Panel>
         <Panel style={Styles.Row()}>
           <Panel style={Styles.LeftColumn()}>
-            <Label text={'Spell amplification:'} style={Styles.ColumnLabel()} />
+            <Label text={'Spell Amplification:'} style={Styles.ColumnLabel()} />
           </Panel>
           <Panel style={Styles.RightColumn()}>
             <SpellAmplification selectedUnit={selectedUnit} />
@@ -65,7 +65,7 @@ const Attack = (props: Props) => {
         </Panel>
         <Panel style={Styles.Row()}>
           <Panel style={Styles.LeftColumn()}>
-            <Label text={'Mana regeneration:'} style={Styles.ColumnLabel()} />
+            <Label text={'Mana Regeneration:'} style={Styles.ColumnLabel()} />
           </Panel>
           <Panel style={Styles.RightColumn()}>
             <ManaRegen selectedUnit={selectedUnit} />

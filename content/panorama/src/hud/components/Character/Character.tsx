@@ -49,7 +49,7 @@ const Character = (props: Props) => {
     <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
         <React.Fragment>
-          <Panel style={Styles.InnerContainer(visible)}>
+          <Panel className={'Invisible'} style={Styles.InnerContainer(visible)}>
             <Title selectedUnit={selectedUnit} />
             <Panel style={Styles.ColumnContainer()}>
               <Panel style={Styles.LeftColumn()}>

@@ -32,14 +32,12 @@ export const Styles = {
   CircleForeground: (degree: number): Partial<VCSSStyleDeclaration> => ({
     width: "100%",
     height: "100%",
+    horizontalAlign: "center",
+    verticalAlign: "center",
     borderRadius: "50%",
     border: "1.5px solid #E7D291",
     zIndex: 50,
-    transitionProperty: "clip",
-    transitionDuration: "0.5s",
-    transitionTimingFunction: "ease-in-out",
-    horizontalAlign: "center",
-    verticalAlign: "center",
+    transition: "clip 0.5s ease-in-out 0.0s",
     clip: 'radial(50% 50%, 0.0deg, ' + degree + 'deg)'
   }),
 

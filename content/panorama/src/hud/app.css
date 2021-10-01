@@ -22,6 +22,15 @@
   padding-bottom: 3px;
 }
 
+.Invisible {
+  opacity: 0.0;
+}
+
+.EmptyCircle {
+  clip: radial(50% 50%, 0.0deg, 0.0deg);
+}
+
+
 Slider {
   margin-bottom: 0px;
 }

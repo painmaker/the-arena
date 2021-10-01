@@ -56464,7 +56464,7 @@ const AbilitiesShop = (props) => {
             setShopVisible(true);
         }
     }, [setShopVisible]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(visible) },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'Invisible', style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(visible) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.TopContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, { setSearchValue: setSearchValue }),
@@ -56750,7 +56750,6 @@ const Styles = {
         verticalAlign: "top",
         marginRight: "0px",
         marginTop: "250px",
-        transition: "transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s",
         borderRadius: "5px",
         minWidth: "750px",
         height: "fit-children",
@@ -56759,6 +56758,7 @@ const Styles = {
         backgroundSize: "100%",
         backgroundColor: "rgba(0, 0, 0, 0.85)",
         flowChildren: "down",
+        transition: "transform 0.55s ease-in-out 0.0s, opacity 0.55s ease-in-out 0.0s",
         transform: visible ? "translateX(-510px)" : 'translateX(0px)',
         opacity: visible ? "1.0" : "0.0",
     }),
@@ -58253,22 +58253,22 @@ const Attack = (props) => {
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Damage_Damage__WEBPACK_IMPORTED_MODULE_1__.default, { selectedUnit: selectedUnit }))),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack range:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Range:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AttackRange_AttackRange__WEBPACK_IMPORTED_MODULE_3__.default, { selectedUnit: selectedUnit }))),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Movement speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Movement Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }))),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Spell amplification:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Spell Amplification:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpellAmplification_SpellAmplification__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }))),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Mana regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Mana Regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaRegen_ManaRegen__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }))))));
 };
@@ -58716,7 +58716,7 @@ const Character = (props) => {
         return () => clearTimeout(timer);
     }, [visible, setTimeout, clearTimeout]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.InnerContainer(visible) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'Invisible', style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.InnerContainer(visible) },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.ColumnContainer() },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.LeftColumn() },
@@ -59114,26 +59114,28 @@ const Level = (props) => {
     // $.Msg("REACT-RENDER: Character - Level rendered");
     const { selectedUnit, setInterval, clearInterval } = props;
     const [level, setLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit));
-    const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit));
+    const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = setInterval(() => {
+        const update = () => {
             if (Entities.IsHero(selectedUnit)) {
                 const currentXp = Entities.GetCurrentXP(selectedUnit);
                 const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
-                const degree = currentXp / requiredXp * 360;
-                setDegree(Math.floor(Math.max(0, Math.min(360, degree))));
+                const degree = Math.floor(Math.max(0, Math.min(360, currentXp / requiredXp * 360)));
+                setDegree(degree);
             }
             else {
                 setDegree(360);
             }
             setLevel(Entities.GetLevel(selectedUnit));
-        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
+        };
+        update();
+        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleBackground() }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleForeground(degree) }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'EmptyCircle', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleForeground(degree) }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleLevelLabel(), text: level })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LevelLabel(), text: 'level' })));
 };
@@ -59182,14 +59184,12 @@ const Styles = {
     CircleForeground: (degree) => ({
         width: "100%",
         height: "100%",
+        horizontalAlign: "center",
+        verticalAlign: "center",
         borderRadius: "50%",
         border: "1.5px solid #E7D291",
         zIndex: 50,
-        transitionProperty: "clip",
-        transitionDuration: "0.5s",
-        transitionTimingFunction: "ease-in-out",
-        horizontalAlign: "center",
-        verticalAlign: "center",
+        transition: "clip 0.5s ease-in-out 0.0s",
         clip: 'radial(50% 50%, 0.0deg, ' + degree + 'deg)'
     }),
     CircleLevelLabel: () => ({
@@ -59311,7 +59311,6 @@ const Styles = {
         verticalAlign: "top",
         marginRight: "0px",
         marginTop: "150px",
-        transition: "transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s",
         borderRadius: "5px",
         minWidth: "750px",
         minHeight: "550px",
@@ -59320,6 +59319,7 @@ const Styles = {
         backgroundSize: "100%",
         backgroundColor: "rgba(0, 0, 0, 0.85)",
         flowChildren: "down",
+        transition: "transform 0.55s ease-in-out 0.0s, opacity 0.55s ease-in-out 0.0s",
         transform: visible ? "translateX(-510px)" : 'translateX(0px)',
         opacity: visible ? "1.0" : "0.0",
     }),

@@ -99,7 +99,7 @@ const AbilitiesShop = (props: Props) => {
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
-        <Panel style={Styles.InnerContainer(visible)}>
+        <Panel className={'Invisible'} style={Styles.InnerContainer(visible)}>
           <Title selectedUnit={selectedUnit} />
           <Panel style={Styles.TopContainer()}>
             <Search setSearchValue={setSearchValue} />
