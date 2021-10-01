@@ -1,11 +1,12 @@
 import React from "react";
+import { Styles } from "./Styles";
 
 const Divider = () => {
 
   // $.Msg("REACT-RENDER: Character - Divider rendered");
 
   return (
-    <Panel className={"characterPanelDivider"} />
+    <Panel style={Styles.Divider()} />
   );
 
 };

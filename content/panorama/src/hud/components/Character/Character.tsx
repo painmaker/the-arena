@@ -2,16 +2,20 @@ import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../reducers/rootReducer";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
-import HeroModel from "./HeroModel/HeroModel";
+import Model from "./Model/Model";
 import Attack from "./Attack/Attack";
 import Defense from "./Defense/Defense";
-import CloseBtn from "./CloseBtn/CloseBtn";
+import Title from "./Title/Title";
 import { Timer } from "react-timeout";
+import { Styles } from "./Styles";
+import Level from "./Level/Level";
+import Avatar from "./Avatar/Avatar";
 
 export const REFRESH_RATE = 250;
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.characterReducer.visible,
+  selectedUnit: state.selectedUnitReducer.selectedUnit,
 });
 
 const connector = connect(mapStateToProps);
@@ -25,7 +29,7 @@ const Character = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character rendered");
 
-  const { visible, setTimeout, clearTimeout } = props;
+  const { selectedUnit, visible, setTimeout, clearTimeout } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
@@ -42,19 +46,18 @@ const Character = (props: Props) => {
   }, [visible, setTimeout, clearTimeout]);
 
   return (
-    <React.Fragment>
+    <Panel style={Styles.OuterContainer()}>
       {renderComponent && (
         <React.Fragment>
-          <Panel className={"characterPanelContainer"} style={visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}>
-            <Panel className={'characterTitleContainer'}>
-              <Label className={'characterTitleLabel'} text={'CHARACTER'} />
-              <CloseBtn />
-            </Panel>
-            <Panel style={{ width: '100%', height: '100%', flowChildren: 'right' }}>
-              <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
-                <HeroModel />
+          <Panel style={Styles.InnerContainer(visible)}>
+            <Title selectedUnit={selectedUnit} />
+            <Panel style={Styles.ColumnContainer()}>
+              <Panel style={Styles.LeftColumn()}>
+                <Model selectedUnit={selectedUnit} />
+                <Level selectedUnit={selectedUnit} />
+                <Avatar selectedUnit={selectedUnit} />
               </Panel>
-              <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
+              <Panel style={Styles.RightColumn()}>
                 <Attack />
                 <Defense />
               </Panel>
@@ -62,7 +65,7 @@ const Character = (props: Props) => {
           </Panel>
         </React.Fragment>
       )}
-    </React.Fragment>
+    </Panel>
   );
 
 };

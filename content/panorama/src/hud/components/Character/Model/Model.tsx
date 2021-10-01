@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
-import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
-import Level from "./HeroLevel/HeroLevel";
-import Avatar from "./PlayerAvatar/PlayerAvatar";
+import { Styles } from "./Styles";
 
-const ModelPanel = () => {
+interface Props {
+  selectedUnit: EntityIndex,
+}
+
+const Model = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - HeroModel rendered");
 
-  const selectedUnit = useSelectedUnit();
+  const { selectedUnit } = props;
 
   useEffect(() => {
     const scenePanel = $('#modelPanelScene') as ScenePanel;
@@ -26,24 +28,21 @@ const ModelPanel = () => {
     scenePanel.SetPostProcessFade(100);
   }, [selectedUnit])
 
+  const name = $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase();
+
   return (
-    <Panel className={'modelPanelContainer'}>
-      <Label
-        text={$.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()}
-        className={'characterPanelComponentTitleLabel modelPanelHeroNameLabel'}
-      />
+    <Panel style={Styles.Container()}>
+      <Label text={name} style={Styles.Label()} />
       <DOTAScenePanel
         id={'modelPanelScene'}
         key={Entities.GetUnitName(selectedUnit)}
         unit={Entities.GetUnitName(selectedUnit)}
-        className={'modelPanelHeroScreen'}
+        style={Styles.Screen()}
         allowrotation={true}
       />
-      <Level />
-      <Avatar />
     </Panel>
   );
 
 };
 
-export default ModelPanel;
+export default Model;

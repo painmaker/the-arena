@@ -54,12 +54,14 @@ const Level = (props: Props) => {
 
     const update = () => {
 
-      const currentXp = Entities.GetCurrentXP(selectedUnit);
-      const maxLevel = Object.keys(EXPERIENCE_PER_LEVEL_TABLE).length;
-      const xpGainedThisLevel = currentXp - EXPERIENCE_PER_LEVEL_TABLE[level];
-      const xpRequiredToLevel = EXPERIENCE_PER_LEVEL_TABLE[level === maxLevel ? level : level + 1] - EXPERIENCE_PER_LEVEL_TABLE[level];
-      const percentage = (xpGainedThisLevel / xpRequiredToLevel) * 100;
-      setPercentage(Math.max(0, Math.min(percentage, 100)));
+      if (Entities.IsHero(selectedUnit)) {
+        const currentXp = Entities.GetCurrentXP(selectedUnit);
+        const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
+        const degree = currentXp / requiredXp * 100
+        setPercentage(Math.floor(Math.max(0, Math.min(100, degree))));
+      } else {
+        setPercentage(100);
+      }
 
       setLevel(Entities.GetLevel(selectedUnit));
 
@@ -72,8 +74,6 @@ const Level = (props: Props) => {
 
   }, [selectedUnit, setInterval, clearInterval]);
 
-
-
   return (
     <React.Fragment>
       <Panel style={ParentStyles.Entry()}>
@@ -82,7 +82,7 @@ const Level = (props: Props) => {
           text={'Lvl. ' + level}
         />
         <Panel style={Styles.LevelbarContainer()}>
-          <Panel style={Styles.Levelbar(Number.isFinite(percentage) ? percentage : 100)} />
+          <Panel style={Styles.Levelbar(percentage)} />
         </Panel>
         <Label
           style={Styles.LevelPctLabel()}

@@ -6,13 +6,8 @@
         <include src="s2r://panorama/styles/dotastyles.vcss_c"></include>
         <include src="file://{resources}/layout/custom_game/hud/app.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Character/character.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/HeroModel/heroModel.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/HeroModel/PlayerAvatar/playerAvatar.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/HeroModel/HeroLevel/heroLevel.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Character/Attack/attack.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Character/Defense/defense.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/Divider/divider.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/CloseBtn/closeBtn.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Shop/shop.css"></include>  
         <include src="file://{resources}/layout/custom_game/hud/components/Shop/Title/title.css"></include>  
         <include src="file://{resources}/layout/custom_game/hud/components/Shop/Item/item.css"></include>  

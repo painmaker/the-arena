@@ -97,9 +97,9 @@ const AbilitiesShop = (props: Props) => {
   }, [setShopVisible]);
 
   return (
-    <Panel hittest={false} style={Styles.OuterContainer()}>
+    <Panel style={Styles.OuterContainer()}>
       {renderComponent && (
-        <Panel hittest={true} style={Styles.InnerContainer(visible)}>
+        <Panel style={Styles.InnerContainer(visible)}>
           <Title selectedUnit={selectedUnit} />
           <Panel style={Styles.TopContainer()}>
             <Search setSearchValue={setSearchValue} />

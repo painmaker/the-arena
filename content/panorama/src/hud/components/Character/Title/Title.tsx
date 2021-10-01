@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
-import { setAbilitiesShopVisible } from "../../../actions/abilitiesShopActions";
-import { AbilitiesShopTypes } from "../../../types/abilitiesShopTypes";
+import { setCharacterVisible } from "../../../actions/characterActions";
+import { CharacterActionTypes } from "../../../types/characterTypes";
 import { Styles } from "./Styles";
 
-const mapDispatchToProps = (dispatch: Dispatch<AbilitiesShopTypes>) => ({
-  setAbilitiesShopVisible: (visible: boolean) => dispatch(setAbilitiesShopVisible(visible)),
+const mapDispatchToProps = (dispatch: Dispatch<CharacterActionTypes>) => ({
+  setCharacterVisible: (visible: boolean) => dispatch(setCharacterVisible(visible)),
 });
 
 const connector = connect(null, mapDispatchToProps);
@@ -18,9 +18,9 @@ type Props = PropsFromRedux & {
 
 const Title = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: AbilitiesShop - Title rendered");
+  // $.Msg("REACT-RENDER: Character - Title rendered");
 
-  const { selectedUnit, setAbilitiesShopVisible } = props;
+  const { selectedUnit, setCharacterVisible } = props;
 
   const [isHovering, setIsHovering] = useState(false);
 
@@ -28,14 +28,14 @@ const Title = (props: Props) => {
     <Panel style={Styles.Container()}>
       <Label
         style={Styles.Label()}
-        text={"ABILITIES SHOP - " + $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()}
+        text={"CHARACTER - " + $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()}
       />
       <Button
         onmouseover={() => setIsHovering(true)}
         onmouseout={() => setIsHovering(false)}
         style={Styles.CloseBtn(isHovering)}
         onactivate={() => {
-          setAbilitiesShopVisible(false);
+          setCharacterVisible(false);
           Game.EmitSound("ui_topmenu_select");
         }}
       >

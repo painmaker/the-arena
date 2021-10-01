@@ -1,37 +1,3 @@
-.characterPanelContainer {
-  horizontal-align: right;
-  vertical-align: top;
-  margin-right: 0px;
-  margin-top: 150px;
-  transition: transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s;
-  opacity: 0.0;
-  border-radius: 5px;
-  min-width: 750px;
-  min-height: 550px;
-  flow-children: down;
-  z-index: 999;
-  background-color: rgba(0, 0, 0, 0.85);
-  background-image: url("file://panorama/images/ability_bg.png");
-  background-size: 100%;
-  transform: translateX(490px);
-}
-
-.characterTitleContainer {
-  width: 100%;
-  background-color: rgba(30, 30, 30, 0.525);
-}
-
-.characterTitleLabel {
-  color: rgba(200, 200, 200, 0.45);
-  font-size: 15px;
-  vertical-align: center;
-  horizontal-align: left;
-  font-weight: lighter;
-  letter-spacing: 1.5px;
-  padding-top: 2.5px;
-  padding-left: 10px;
-}
-
 .characterPanelComponentTitleLabel {
   color: rgba(255, 165, 0, 0.9);
   text-align: center;

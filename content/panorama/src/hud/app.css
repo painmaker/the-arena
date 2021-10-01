@@ -92,6 +92,14 @@ ProgressBar {
   background-image: url("file://panorama/images/minimap_boss_icon.png");		
 }
 
+.MinimapImage.shopkeeper_abilities
+{
+  wash-color: orange;
+  width: 20px;
+  height: 20px;
+  background-image: url("s2r://panorama/images/book_open_page_variant_outline_png.vtex");	
+}
+
 .minimap > DOTAHeroImage
 {
 	width: 30px;

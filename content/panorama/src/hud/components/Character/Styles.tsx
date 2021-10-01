@@ -4,13 +4,13 @@ export const Styles = {
     horizontalAlign: "right",
     verticalAlign: "top",
     marginRight: "0px",
-    marginTop: "250px",
+    marginTop: "150px",
     transition: "transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s",
     borderRadius: "5px",
     minWidth: "750px",
-    height: "fit-children",
+    minHeight: "550px",
     zIndex: 999,
-    backgroundImage: 'url("s2r://panorama/images/ability_bg.png")',
+    backgroundImage: "url('s2r://panorama/images/ability_bg.png')",
     backgroundSize: "100%",
     backgroundColor: "rgba(0, 0, 0, 0.85)",
     flowChildren: "down",
@@ -24,19 +24,20 @@ export const Styles = {
     transform: 'translateX(500px)',
   }),
 
-  TopContainer: (): Partial<VCSSStyleDeclaration> => ({
-    flowChildren: "right",
-    width: "100%",
-    padding: '15px',
+  ColumnContainer: (): Partial<VCSSStyleDeclaration> => ({
+    width: '100%',
+    height: '100%', flowChildren: 'right'
   }),
 
-  AbilitiesContainer: (): Partial<VCSSStyleDeclaration> => ({
-    flowChildren: "right",
-    width: "100%",
-    paddingLeft: '10px',
-    paddingRight: '10px',
-    paddingTop: '0px',
-    paddingBottom: '10px',
+  LeftColumn: (): Partial<VCSSStyleDeclaration> => ({
+    width: '50%',
+    height: '100%',
+  }),
+
+  RightColumn: (): Partial<VCSSStyleDeclaration> => ({
+    width: '50%',
+    height: '100%',
+    flowChildren: 'down'
   }),
 
 }

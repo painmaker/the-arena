@@ -56464,7 +56464,7 @@ const AbilitiesShop = (props) => {
             setShopVisible(true);
         }
     }, [setShopVisible]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(visible) },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(visible) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.TopContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, { setSearchValue: setSearchValue }),
@@ -56754,6 +56754,7 @@ const Styles = {
         borderRadius: "5px",
         minWidth: "750px",
         height: "fit-children",
+        zIndex: 999,
         backgroundImage: 'url("s2r://panorama/images/ability_bg.png")',
         backgroundSize: "100%",
         backgroundColor: "rgba(0, 0, 0, 0.85)",
@@ -56854,12 +56855,12 @@ const mapDispatchToProps = (dispatch) => ({
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
 const Title = (props) => {
     // $.Msg("REACT-RENDER: AbilitiesShop - Title rendered");
-    const { selectedUnit } = props;
+    const { selectedUnit, setAbilitiesShopVisible } = props;
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: "ABILITIES SHOP - " + $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CloseBtn(isHovering), onactivate: () => {
-                props.setAbilitiesShopVisible(false);
+                setAbilitiesShopVisible(false);
                 Game.EmitSound("ui_topmenu_select");
             } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
@@ -58514,6 +58515,91 @@ const SpellAmplification = (props) => {
 
 /***/ }),
 
+/***/ "./hud/components/Character/Avatar/Avatar.tsx":
+/*!****************************************************!*\
+  !*** ./hud/components/Character/Avatar/Avatar.tsx ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Avatar/Styles.tsx");
+
+
+const Avatar = (props) => {
+    // $.Msg("REACT-RENDER: Character - Avatar rendered");
+    const { selectedUnit } = props;
+    const [steamId, setSteamId] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const isRealHero = Entities.IsRealHero(selectedUnit);
+        const playerId = Entities.GetPlayerOwnerID(selectedUnit);
+        const isValidPlayerId = Players.IsValidPlayerID(playerId);
+        if (isRealHero && isValidPlayerId) {
+            setSteamId(Game.GetPlayerInfo(playerId).player_steamid);
+        }
+        else {
+            setSteamId(undefined);
+        }
+    }, [selectedUnit]);
+    if (steamId === undefined) {
+        return null;
+    }
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { steamid: steamId, style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Image() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.LabelContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAUserName, { steamid: steamId, style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Label() }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Avatar);
+
+
+/***/ }),
+
+/***/ "./hud/components/Character/Avatar/Styles.tsx":
+/*!****************************************************!*\
+  !*** ./hud/components/Character/Avatar/Styles.tsx ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: "100%",
+        verticalAlign: "bottom",
+        flowChildren: "right",
+        paddingLeft: "30px",
+        paddingRight: "30px",
+        paddingBottom: "15px",
+    }),
+    Image: () => ({
+        width: '64px',
+        height: '64px',
+        border: '1px solid rgba(0, 0, 0, 0.5)',
+        borderRadius: '5px 0px 0px 5px',
+        backgroundColor: 'black',
+    }),
+    LabelContainer: () => ({
+        width: "100%",
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        borderRadius: '0px 5px 5px 0px',
+    }),
+    Label: () => ({
+        verticalAlign: 'center',
+        horizontalAlign: 'center',
+    }),
+};
+
+
+/***/ }),
+
 /***/ "./hud/components/Character/Character.tsx":
 /*!************************************************!*\
   !*** ./hud/components/Character/Character.tsx ***!
@@ -58529,10 +58615,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _HeroModel_HeroModel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HeroModel/HeroModel */ "./hud/components/Character/HeroModel/HeroModel.tsx");
+/* harmony import */ var _Model_Model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Model/Model */ "./hud/components/Character/Model/Model.tsx");
 /* harmony import */ var _Attack_Attack__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Attack/Attack */ "./hud/components/Character/Attack/Attack.tsx");
 /* harmony import */ var _Defense_Defense__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Defense/Defense */ "./hud/components/Character/Defense/Defense.tsx");
-/* harmony import */ var _CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CloseBtn/CloseBtn */ "./hud/components/Character/CloseBtn/CloseBtn.tsx");
+/* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/Character/Title/Title.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Styles.tsx");
+/* harmony import */ var _Level_Level__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Level/Level */ "./hud/components/Character/Level/Level.tsx");
+/* harmony import */ var _Avatar_Avatar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Avatar/Avatar */ "./hud/components/Character/Avatar/Avatar.tsx");
+
+
+
 
 
 
@@ -58543,11 +58635,12 @@ __webpack_require__.r(__webpack_exports__);
 const REFRESH_RATE = 250;
 const mapStateToProps = (state) => ({
     visible: state.characterReducer.visible,
+    selectedUnit: state.selectedUnitReducer.selectedUnit,
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
 const Character = (props) => {
     // $.Msg("REACT-RENDER: Character rendered");
-    const { visible, setTimeout, clearTimeout } = props;
+    const { selectedUnit, visible, setTimeout, clearTimeout } = props;
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let timer = -1;
@@ -58561,55 +58654,19 @@ const Character = (props) => {
         }
         return () => clearTimeout(timer);
     }, [visible, setTimeout, clearTimeout]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelContainer", style: visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {} },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterTitleContainer' },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'characterTitleLabel', text: 'CHARACTER' }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_6__.default, null)),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '100%', height: '100%', flowChildren: 'right' } },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '50%', height: '100%', flowChildren: 'down' } },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HeroModel_HeroModel__WEBPACK_IMPORTED_MODULE_3__.default, null)),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: { width: '50%', height: '100%', flowChildren: 'down' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.InnerContainer(visible) },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.ColumnContainer() },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.LeftColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Model_Model__WEBPACK_IMPORTED_MODULE_3__.default, { selectedUnit: selectedUnit }),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Level_Level__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit }),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Avatar_Avatar__WEBPACK_IMPORTED_MODULE_9__.default, { selectedUnit: selectedUnit })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.RightColumn() },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Attack_Attack__WEBPACK_IMPORTED_MODULE_4__.default, null),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Defense_Defense__WEBPACK_IMPORTED_MODULE_5__.default, null))))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Character)));
-
-
-/***/ }),
-
-/***/ "./hud/components/Character/CloseBtn/CloseBtn.tsx":
-/*!********************************************************!*\
-  !*** ./hud/components/Character/CloseBtn/CloseBtn.tsx ***!
-  \********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_characterActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/characterActions */ "./hud/actions/characterActions.tsx");
-
-
-
-const mapDispatchToProps = (dispatch) => ({
-    setCharacterPanelVisible: (visible) => dispatch((0,_actions_characterActions__WEBPACK_IMPORTED_MODULE_2__.setCharacterVisible)(visible)),
-});
-const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
-// $.Msg("REACT-RENDER: Character - CloseBtn rendered");
-const CloseBtn = (props) => {
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelCloseBtnOuterContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelCloseBtnInnerContainer" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: "characterPanelCloseBtn", onactivate: () => {
-                    props.setCharacterPanelVisible(false);
-                    Game.EmitSound("ui_topmenu_select");
-                } },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" })))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CloseBtn));
 
 
 /***/ }),
@@ -58938,101 +58995,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Divider/Styles.tsx");
+
 
 const Divider = () => {
     // $.Msg("REACT-RENDER: Character - Divider rendered");
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "characterPanelDivider" }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Divider() }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Divider);
 
 
 /***/ }),
 
-/***/ "./hud/components/Character/HeroModel/HeroLevel/HeroLevel.tsx":
-/*!********************************************************************!*\
-  !*** ./hud/components/Character/HeroModel/HeroLevel/HeroLevel.tsx ***!
-  \********************************************************************/
+/***/ "./hud/components/Character/Divider/Styles.tsx":
+/*!*****************************************************!*\
+  !*** ./hud/components/Character/Divider/Styles.tsx ***!
+  \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "Styles": () => (/* binding */ Styles)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
-
-
-
-const EXPERIENCE_PER_LEVEL_TABLE = {
-    1: 0,
-    2: 100,
-    3: 200,
-    4: 300,
-    5: 400,
-    6: 500,
-    7: 600,
-    8: 700,
-    9: 800,
-    10: 900,
-    11: 1000,
-    12: 1100,
-    13: 1200,
-    14: 1300,
-    15: 1400,
-    16: 1500,
-    17: 1600,
-    18: 1700,
-    19: 1800,
-    20: 1900,
-    21: 2000,
-    22: 2100,
-    23: 2200,
-    24: 2300,
-    25: 2400,
-    26: 2500,
-    27: 2600,
-    28: 2700,
-    29: 2800,
-    30: 2900,
+const Styles = {
+    Divider: () => ({
+        width: "80%",
+        borderTop: "1px solid rgba(255, 165, 0, 0.1)",
+        horizontalAlign: "center",
+        marginTop: "15px",
+    }),
 };
-const HeroLevel = (props) => {
-    // $.Msg("REACT-RENDER: Character - HeroLevel rendered");
-    const { setInterval, clearInterval } = props;
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
-    const [level, setLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit));
-    const [totalExperienceGained, setTotalExperienceGained] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetCurrentXP(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = setInterval(() => {
-            setLevel(Entities.GetLevel(selectedUnit));
-            setTotalExperienceGained(Entities.GetCurrentXP(selectedUnit));
-        }, 100);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
-    const maxLevel = Object.keys(EXPERIENCE_PER_LEVEL_TABLE).length;
-    const xpGainedThisLevel = totalExperienceGained - EXPERIENCE_PER_LEVEL_TABLE[level];
-    const xpRequiredToLevel = EXPERIENCE_PER_LEVEL_TABLE[level === maxLevel ? level : level + 1] - EXPERIENCE_PER_LEVEL_TABLE[level];
-    const degree = level !== maxLevel ? ((xpGainedThisLevel / xpRequiredToLevel) * 360) : 360;
-    if (Number.isNaN(degree) || !Number.isFinite(degree)) {
-        return null;
-    }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'levelContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "levelCircleContainer" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'levelBackground' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'levelForeground', style: { clip: 'radial(50% 50%, 0.0deg, ' + degree + 'deg)' } }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'levelLabel', text: level })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'levelLabelSubtext', text: 'level' })));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(HeroLevel));
 
 
 /***/ }),
 
-/***/ "./hud/components/Character/HeroModel/HeroModel.tsx":
-/*!**********************************************************!*\
-  !*** ./hud/components/Character/HeroModel/HeroModel.tsx ***!
-  \**********************************************************/
+/***/ "./hud/components/Character/Level/Level.tsx":
+/*!**************************************************!*\
+  !*** ./hud/components/Character/Level/Level.tsx ***!
+  \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -59041,16 +59042,126 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
-/* harmony import */ var _HeroLevel_HeroLevel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./HeroLevel/HeroLevel */ "./hud/components/Character/HeroModel/HeroLevel/HeroLevel.tsx");
-/* harmony import */ var _PlayerAvatar_PlayerAvatar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PlayerAvatar/PlayerAvatar */ "./hud/components/Character/HeroModel/PlayerAvatar/PlayerAvatar.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Level/Styles.ts");
 
 
 
 
-const ModelPanel = () => {
+const Level = (props) => {
+    // $.Msg("REACT-RENDER: Character - Level rendered");
+    const { selectedUnit, setInterval, clearInterval } = props;
+    const [level, setLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit));
+    const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const id = setInterval(() => {
+            if (Entities.IsHero(selectedUnit)) {
+                const currentXp = Entities.GetCurrentXP(selectedUnit);
+                const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
+                const degree = currentXp / requiredXp * 360;
+                setDegree(Math.floor(Math.max(0, Math.min(360, degree))));
+            }
+            else {
+                setDegree(360);
+            }
+            setLevel(Entities.GetLevel(selectedUnit));
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
+        return () => clearInterval(id);
+    }, [selectedUnit, setInterval, clearInterval]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleBackground() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleForeground(degree) }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleLevelLabel(), text: level })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LevelLabel(), text: 'level' })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Level));
+
+
+/***/ }),
+
+/***/ "./hud/components/Character/Level/Styles.ts":
+/*!**************************************************!*\
+  !*** ./hud/components/Character/Level/Styles.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        horizontalAlign: "right",
+        marginRight: "20px",
+        marginTop: "20px",
+        flowChildren: "down",
+    }),
+    LevelLabel: () => ({
+        width: "100%",
+        textAlign: "center",
+        marginTop: "5px",
+        fontSize: "16px",
+        fontWeight: "bold",
+    }),
+    CircleContainer: () => ({
+        width: "48px",
+        height: "48px",
+    }),
+    CircleBackground: () => ({
+        width: "100%",
+        height: "100%",
+        borderRadius: "50%",
+        border: "2px solid rgba(225, 225, 255, 0.1)",
+        zIndex: 40,
+        backgroundColor: "rgba(25, 25, 25, 0.75)",
+    }),
+    CircleForeground: (degree) => ({
+        width: "100%",
+        height: "100%",
+        borderRadius: "50%",
+        border: "1.5px solid #E7D291",
+        zIndex: 50,
+        transitionProperty: "clip",
+        transitionDuration: "0.5s",
+        transitionTimingFunction: "ease-in-out",
+        horizontalAlign: "center",
+        verticalAlign: "center",
+        clip: 'radial(50% 50%, 0.0deg, ' + degree + 'deg)'
+    }),
+    CircleLevelLabel: () => ({
+        fontSize: "18px",
+        color: "rgba(255, 255, 255, 0.65)",
+        marginTop: "0.25px",
+        verticalAlign: "middle",
+        horizontalAlign: "center",
+        zIndex: 60,
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Character/Model/Model.tsx":
+/*!**************************************************!*\
+  !*** ./hud/components/Character/Model/Model.tsx ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Model/Styles.ts");
+
+
+const Model = (props) => {
     // $.Msg("REACT-RENDER: Character - HeroModel rendered");
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_1__.useSelectedUnit)();
+    const { selectedUnit } = props;
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const scenePanel = $('#modelPanelScene');
         if (Entities.IsRealHero(selectedUnit)) {
@@ -59068,21 +59179,161 @@ const ModelPanel = () => {
         }
         scenePanel.SetPostProcessFade(100);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'modelPanelContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase(), className: 'characterPanelComponentTitleLabel modelPanelHeroNameLabel' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'modelPanelScene', key: Entities.GetUnitName(selectedUnit), unit: Entities.GetUnitName(selectedUnit), className: 'modelPanelHeroScreen', allowrotation: true }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HeroLevel_HeroLevel__WEBPACK_IMPORTED_MODULE_2__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerAvatar_PlayerAvatar__WEBPACK_IMPORTED_MODULE_3__.default, null)));
+    const name = $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase();
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: name, style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Label() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'modelPanelScene', key: Entities.GetUnitName(selectedUnit), unit: Entities.GetUnitName(selectedUnit), style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Screen(), allowrotation: true })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModelPanel);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Model);
 
 
 /***/ }),
 
-/***/ "./hud/components/Character/HeroModel/PlayerAvatar/PlayerAvatar.tsx":
-/*!**************************************************************************!*\
-  !*** ./hud/components/Character/HeroModel/PlayerAvatar/PlayerAvatar.tsx ***!
-  \**************************************************************************/
+/***/ "./hud/components/Character/Model/Styles.ts":
+/*!**************************************************!*\
+  !*** ./hud/components/Character/Model/Styles.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        height: "100%",
+        width: "100%",
+        marginRight: "5px",
+        marginLeft: "10px",
+        marginBottom: "10px",
+        marginTop: "7.5px",
+        borderRadius: "5px",
+        backgroundImage: 'url("s2r://panorama/images/inventory_item_well.png")',
+        backgroundSize: "100%",
+    }),
+    Label: () => ({
+        color: "rgba(255, 165, 0, 0.9)",
+        textAlign: "center",
+        width: "100%",
+        fontSize: "20px",
+        paddingTop: "20px",
+        fontWeight: "bold",
+        textOverflow: "ellipsis",
+    }),
+    Screen: () => ({
+        width: "100%",
+        height: "100%",
+        verticalAlign: "center",
+        horizontalAlign: "center",
+        zIndex: -10,
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Character/Styles.tsx":
+/*!*********************************************!*\
+  !*** ./hud/components/Character/Styles.tsx ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    InnerContainer: (visible) => ({
+        horizontalAlign: "right",
+        verticalAlign: "top",
+        marginRight: "0px",
+        marginTop: "150px",
+        transition: "transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s",
+        borderRadius: "5px",
+        minWidth: "750px",
+        minHeight: "550px",
+        zIndex: 999,
+        backgroundImage: "url('s2r://panorama/images/ability_bg.png')",
+        backgroundSize: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.85)",
+        flowChildren: "down",
+        transform: visible ? "translateX(-510px)" : 'translateX(0px)',
+        opacity: visible ? "1.0" : "0.0",
+    }),
+    OuterContainer: () => ({
+        width: '100%',
+        height: '100%',
+        transform: 'translateX(500px)',
+    }),
+    ColumnContainer: () => ({
+        width: '100%',
+        height: '100%', flowChildren: 'right'
+    }),
+    LeftColumn: () => ({
+        width: '50%',
+        height: '100%',
+    }),
+    RightColumn: () => ({
+        width: '50%',
+        height: '100%',
+        flowChildren: 'down'
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Character/Title/Styles.tsx":
+/*!***************************************************!*\
+  !*** ./hud/components/Character/Title/Styles.tsx ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: "100%",
+        backgroundColor: "rgba(30, 30, 30, 0.525)",
+    }),
+    Label: () => ({
+        color: "rgba(200, 200, 200, 0.45)",
+        fontSize: "15px",
+        verticalAlign: "center",
+        horizontalAlign: "left",
+        fontWeight: "light",
+        letterSpacing: "1.5px",
+        paddingTop: "2.5px",
+        paddingLeft: "10px",
+    }),
+    CloseBtn: (isHovering) => ({
+        verticalAlign: "center",
+        horizontalAlign: "right",
+        height: "24px",
+        width: "24px",
+        padding: "2px",
+        marginRight: "2.5px",
+        opacity: "0.75",
+        transition: "transform 0.5s ease-in-out 0.0s, background-color 0.5s ease-in-out 0.0s",
+        backgroundColor: isHovering ? 'rgba(60, 60, 60, 1.0)' : 'rgba(0, 0, 0, 0.0)',
+        border: isHovering ? "1px solid rgba(70, 70, 70, 1.0)" : '0px solid rgba(0, 0, 0, 1.0)',
+        washColor: isHovering ? " rgba(100, 100, 100, 0.25)" : "rgba(100, 100, 100, 0.5)",
+        transform: isHovering ? "scale3d(1.2, 1.2, 0)" : "scale3d(1.0, 1.0, 0)",
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Character/Title/Title.tsx":
+/*!**************************************************!*\
+  !*** ./hud/components/Character/Title/Title.tsx ***!
+  \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -59091,38 +59342,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_characterActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/characterActions */ "./hud/actions/characterActions.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Title/Styles.tsx");
 
 
-const PlayerAvatar = () => {
-    // $.Msg("REACT-RENDER: Character - PlayerAvatar rendered");
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_1__.useSelectedUnit)();
-    const [steamId, setSteamId] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const isRealHero = Entities.IsRealHero(selectedUnit);
-        const playerId = Entities.GetPlayerOwnerID(selectedUnit);
-        const isValidPlayerId = Players.IsValidPlayerID(playerId);
-        if (isRealHero && isValidPlayerId) {
-            setSteamId(Game.GetPlayerInfo(playerId).player_steamid);
-        }
-        else {
-            setSteamId(undefined);
-        }
-    }, [selectedUnit]);
-    if (steamId === undefined) {
-        return null;
-    }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'playerContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAvatarImage, { steamid: steamId, style: {
-                width: '64px',
-                height: '64px',
-                border: '1px solid rgba(0, 0, 0, 0.5)',
-                borderRadius: '5px',
-            } }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'playerLabelContainer' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAUserName, { className: 'playerLabel', steamid: steamId }))));
+
+
+const mapDispatchToProps = (dispatch) => ({
+    setCharacterVisible: (visible) => dispatch((0,_actions_characterActions__WEBPACK_IMPORTED_MODULE_2__.setCharacterVisible)(visible)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
+const Title = (props) => {
+    // $.Msg("REACT-RENDER: Character - Title rendered");
+    const { selectedUnit, setCharacterVisible } = props;
+    const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: "CHARACTER - " + $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CloseBtn(isHovering), onactivate: () => {
+                setCharacterVisible(false);
+                Game.EmitSound("ui_topmenu_select");
+            } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerAvatar);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Title));
 
 
 /***/ }),
@@ -63382,12 +63625,15 @@ const Level = (props) => {
     const [percentage, setPercentage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
-            const currentXp = Entities.GetCurrentXP(selectedUnit);
-            const maxLevel = Object.keys(EXPERIENCE_PER_LEVEL_TABLE).length;
-            const xpGainedThisLevel = currentXp - EXPERIENCE_PER_LEVEL_TABLE[level];
-            const xpRequiredToLevel = EXPERIENCE_PER_LEVEL_TABLE[level === maxLevel ? level : level + 1] - EXPERIENCE_PER_LEVEL_TABLE[level];
-            const percentage = (xpGainedThisLevel / xpRequiredToLevel) * 100;
-            setPercentage(Math.max(0, Math.min(percentage, 100)));
+            if (Entities.IsHero(selectedUnit)) {
+                const currentXp = Entities.GetCurrentXP(selectedUnit);
+                const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
+                const degree = currentXp / requiredXp * 100;
+                setPercentage(Math.floor(Math.max(0, Math.min(100, degree))));
+            }
+            else {
+                setPercentage(100);
+            }
             setLevel(Entities.GetLevel(selectedUnit));
         };
         // update();
@@ -63398,7 +63644,7 @@ const Level = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Entry() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.LevelLabel(), text: 'Lvl. ' + level }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.LevelbarContainer() },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Levelbar(Number.isFinite(percentage) ? percentage : 100) })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Levelbar(percentage) })),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.LevelPctLabel(), text: Number.isFinite(percentage) ? percentage + "%" : '100%' }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Level));

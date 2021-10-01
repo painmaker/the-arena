@@ -6,13 +6,8 @@
         <include src="s2r://panorama/styles/dotastyles.vcss_c" />
         <include src="./app.css" />
         <include src="./components/Character/character.css" />
-        <include src="./components/Character/HeroModel/heroModel.css" />
-        <include src="./components/Character/HeroModel/PlayerAvatar/playerAvatar.css" />
-        <include src="./components/Character/HeroModel/HeroLevel/heroLevel.css" />
         <include src="./components/Character/Attack/attack.css" />
         <include src="./components/Character/Defense/defense.css" />
-        <include src="./components/Character/Divider/divider.css" />
-        <include src="./components/Character/CloseBtn/closeBtn.css" />
         <include src="./components/Shop/shop.css" />  
         <include src="./components/Shop/Title/title.css" />  
         <include src="./components/Shop/Item/item.css" />  
