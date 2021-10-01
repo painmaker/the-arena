@@ -56464,7 +56464,7 @@ const AbilitiesShop = (props) => {
             setShopVisible(true);
         }
     }, [setShopVisible]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(visible) },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(visible) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.TopContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, { setSearchValue: setSearchValue }),
@@ -58224,6 +58224,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ManaRegen_ManaRegen__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ManaRegen/ManaRegen */ "./hud/components/Character/Attack/ManaRegen/ManaRegen.tsx");
 /* harmony import */ var _SpellAmplification_SpellAmplification__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SpellAmplification/SpellAmplification */ "./hud/components/Character/Attack/SpellAmplification/SpellAmplification.tsx");
 /* harmony import */ var _Divider_Divider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Divider/Divider */ "./hud/components/Character/Divider/Divider.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Attack/Styles.ts");
 
 
 
@@ -58232,19 +58233,44 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const Attack = () => {
+
+const Attack = (props) => {
     // $.Msg("REACT-RENDER: Character - Attack rendered");
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: 'attackPanelContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelBackground' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'ATTACK', className: 'characterPanelComponentTitleLabel attackPanelTitle' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_7__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelLabelContainer' },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AttackSpeed_AttackSpeed__WEBPACK_IMPORTED_MODULE_2__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Damage_Damage__WEBPACK_IMPORTED_MODULE_1__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AttackRange_AttackRange__WEBPACK_IMPORTED_MODULE_3__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_4__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpellAmplification_SpellAmplification__WEBPACK_IMPORTED_MODULE_6__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaRegen_ManaRegen__WEBPACK_IMPORTED_MODULE_5__.default, null)))));
+    const { selectedUnit } = props;
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.OuterContainer() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'ATTACK', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Title() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_7__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.InnerContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AttackSpeed_AttackSpeed__WEBPACK_IMPORTED_MODULE_2__.default, { selectedUnit: selectedUnit }))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Damage:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Damage_Damage__WEBPACK_IMPORTED_MODULE_1__.default, { selectedUnit: selectedUnit }))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack range:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AttackRange_AttackRange__WEBPACK_IMPORTED_MODULE_3__.default, { selectedUnit: selectedUnit }))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Movement speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Spell amplification:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpellAmplification_SpellAmplification__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Mana regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaRegen_ManaRegen__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Attack);
 
@@ -58263,31 +58289,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
-/* harmony import */ var _Character__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
 
 
 
 
 const AttackSpeed = (props) => {
     // $.Msg("REACT-RENDER: Character - AttackRange rendered");
-    const { setInterval, clearInterval } = props;
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
+    const { selectedUnit, setInterval, clearInterval } = props;
     const [attackRange, setAttackRange] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackRange(selectedUnit));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = setInterval(() => {
             setAttackRange(Entities.GetAttackRange(selectedUnit));
-        }, _Character__WEBPACK_IMPORTED_MODULE_3__.REFRESH_RATE);
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelEntryContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Range:', className: 'characterPanelLabel characterPanelStatsLabel' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: attackRange.toFixed(0), className: 'characterPanelLabel characterPanelStatsLabel' }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: attackRange.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AttackSpeed));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AttackSpeed));
 
 
 /***/ }),
@@ -58304,33 +58325,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
-/* harmony import */ var _Character__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
 
 
 
 
 const AttackSpeed = (props) => {
     // $.Msg("REACT-RENDER: Character - AttackSpeed rendered");
-    const { setInterval, clearInterval } = props;
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
+    const { selectedUnit, setInterval, clearInterval } = props;
     const [attackSpeed, setAttackSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackSpeed(selectedUnit));
     const [secondsPerAttack, setSecondsPerAttack] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetSecondsPerAttack(selectedUnit));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = setInterval(() => {
             setAttackSpeed(Entities.GetAttackSpeed(selectedUnit));
             setSecondsPerAttack(Entities.GetSecondsPerAttack(selectedUnit));
-        }, _Character__WEBPACK_IMPORTED_MODULE_3__.REFRESH_RATE);
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelEntryContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Speed:', className: 'characterPanelLabel characterPanelStatsLabel' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)', className: 'characterPanelLabel characterPanelStatsLabel' }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AttackSpeed));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AttackSpeed));
 
 
 /***/ }),
@@ -58347,17 +58363,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
-/* harmony import */ var _Character__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
 
 
 
 
 const Damage = (props) => {
     // $.Msg("REACT-RENDER: Character - Damage rendered");
-    const { setInterval, clearInterval } = props;
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
+    const { selectedUnit, setInterval, clearInterval } = props;
     const [minDamage, setMinDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageMin(selectedUnit));
     const [maxDamage, setMaxDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageMax(selectedUnit));
     const [bonusDamage, setBonusDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageBonus(selectedUnit));
@@ -58366,17 +58381,14 @@ const Damage = (props) => {
             setMinDamage(Entities.GetDamageMin(selectedUnit));
             setMaxDamage(Entities.GetDamageMax(selectedUnit));
             setBonusDamage(Entities.GetDamageBonus(selectedUnit));
-        }, _Character__WEBPACK_IMPORTED_MODULE_3__.REFRESH_RATE);
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelEntryContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Damage:', className: 'characterPanelLabel characterPanelStatsLabel' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry', style: { flowChildren: 'right' } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: minDamage.toFixed(0) + " - " + maxDamage.toFixed(0), className: 'characterPanelLabel characterPanelStatsLabel' }),
-            bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: '+' + bonusDamage, className: 'characterPanelLabel characterPanelStatsLabel', style: { color: bonusDamage > 0 ? 'green' : 'red' } })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: minDamage.toFixed(0) + " - " + maxDamage.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+        bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusDamage > 0 ? ' + ' : ' - ') + Math.abs(bonusDamage), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: bonusDamage > 0 ? 'green' : 'red' }) }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Damage));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Damage));
 
 
 /***/ }),
@@ -58393,31 +58405,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
-/* harmony import */ var _Character__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
 
 
 
 
 const AttackSpeed = (props) => {
     // $.Msg("REACT-RENDER: Character - ManaRegen rendered");
-    const { setInterval, clearInterval } = props;
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
+    const { selectedUnit, setInterval, clearInterval } = props;
     const [manaRegen, setManaRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetManaThinkRegen(selectedUnit));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = setInterval(() => {
             setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
-        }, _Character__WEBPACK_IMPORTED_MODULE_3__.REFRESH_RATE);
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelEntryContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Mana Regen:', className: 'characterPanelLabel characterPanelStatsLabel' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: manaRegen.toFixed(2), className: 'characterPanelLabel characterPanelStatsLabel' }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: manaRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AttackSpeed));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AttackSpeed));
 
 
 /***/ }),
@@ -58434,35 +58441,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
-/* harmony import */ var _Character__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
 
 
 
 
 const MoveSpeed = (props) => {
     // $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
-    const { setInterval, clearInterval } = props;
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
+    const { selectedUnit, setInterval, clearInterval } = props;
     const [baseMoveSpeed, setBaseMoveSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetBaseMoveSpeed(selectedUnit));
     const [totalMoveSpeed, setTotalMoveSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = setInterval(() => {
             setBaseMoveSpeed(Entities.GetBaseMoveSpeed(selectedUnit));
             setTotalMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
-        }, _Character__WEBPACK_IMPORTED_MODULE_3__.REFRESH_RATE);
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
     const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelEntryContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Move Speed:', className: 'characterPanelLabel characterPanelStatsLabel' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry', style: { flowChildren: 'right' } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseMoveSpeed.toFixed(0), className: 'characterPanelLabel characterPanelStatsLabel' }),
-            increasedMoveSpeed !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedMoveSpeed > 0 ? '+' : '') + increasedMoveSpeed.toFixed(0), className: 'characterPanelLabel characterPanelStatsLabel', style: { color: increasedMoveSpeed > 0 ? 'green' : 'red' } })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseMoveSpeed.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+        increasedMoveSpeed !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedMoveSpeed > 0 ? ' + ' : ' - ') + Math.abs(increasedMoveSpeed).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: increasedMoveSpeed > 0 ? 'green' : 'red' }) }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(MoveSpeed));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(MoveSpeed));
 
 
 /***/ }),
@@ -58479,17 +58482,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
-/* harmony import */ var _Character__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
 
 
 
 
 const SpellAmplification = (props) => {
     // $.Msg("REACT-RENDER: Character - SpellAmplification rendered");
-    const { setInterval, clearInterval } = props;
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
+    const { selectedUnit, setInterval, clearInterval } = props;
     const [spellAmp, setSpellAmp] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackRange(selectedUnit));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = setInterval(() => {
@@ -58501,16 +58503,75 @@ const SpellAmplification = (props) => {
                     setSpellAmp(Buffs.GetStackCount(selectedUnit, buff) / 100);
                 }
             }
-        }, _Character__WEBPACK_IMPORTED_MODULE_3__.REFRESH_RATE);
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'attackPanelEntryContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Spell Amp:', className: 'characterPanelLabel characterPanelStatsLabel' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: spellAmp + ' %', className: 'characterPanelLabel characterPanelStatsLabel' }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: spellAmp + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(SpellAmplification));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(SpellAmplification));
+
+
+/***/ }),
+
+/***/ "./hud/components/Character/Attack/Styles.ts":
+/*!***************************************************!*\
+  !*** ./hud/components/Character/Attack/Styles.ts ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    OuterContainer: () => ({
+        width: "100%",
+        height: "50%",
+        flowChildren: "down",
+        marginTop: "7.5px",
+        marginRight: "7.5px",
+        marginBottom: "7.5px",
+        marginLeft: "5px",
+        borderRadius: "5px",
+        border: "1px solid rgba(0, 0, 0, 0.5)",
+        backgroundImage: 'url("s2r://panorama/images/inventory_item_well.png")',
+        backgroundSize: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.35)",
+    }),
+    Title: () => ({
+        textAlign: "center",
+        width: "100%",
+        paddingTop: "15px",
+        fontWeight: "bold",
+        color: "rgba(255, 165, 0, 0.9)",
+        fontSize: "20px",
+    }),
+    InnerContainer: () => ({
+        width: "100%",
+        flowChildren: "down",
+        marginRight: "25px",
+        marginLeft: "25px",
+        marginBottom: "25px",
+        marginTop: "15px",
+        verticalAlign: "center",
+    }),
+    Row: () => ({
+        width: "100%",
+        flowChildren: "right",
+    }),
+    LeftColumn: () => ({
+        width: "60%",
+    }),
+    RightColumn: () => ({
+        width: "40%",
+        flowChildren: 'right',
+    }),
+    ColumnLabel: () => ({
+        color: "rgba(255, 255, 255, 0.65)",
+        fontSize: "18px",
+    }),
+};
 
 
 /***/ }),
@@ -58654,7 +58715,7 @@ const Character = (props) => {
         }
         return () => clearTimeout(timer);
     }, [visible, setTimeout, clearTimeout]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.InnerContainer(visible) },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.ColumnContainer() },
@@ -58663,7 +58724,7 @@ const Character = (props) => {
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Level_Level__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit }),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Avatar_Avatar__WEBPACK_IMPORTED_MODULE_9__.default, { selectedUnit: selectedUnit })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.RightColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Attack_Attack__WEBPACK_IMPORTED_MODULE_4__.default, null),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Attack_Attack__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Defense_Defense__WEBPACK_IMPORTED_MODULE_5__.default, null))))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Character)));

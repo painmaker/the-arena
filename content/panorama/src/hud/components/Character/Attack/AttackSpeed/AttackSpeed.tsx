@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK_MEDIUM } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
-import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
-import { REFRESH_RATE } from "../../Character";
+import { Styles as ParentStyles } from "../Styles";
 
 type Props = ReactTimeoutProps & {
-  // ownProps
+  selectedUnit: EntityIndex,
 };
 
 const AttackSpeed = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - AttackSpeed rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [attackSpeed, setAttackSpeed] = useState(Entities.GetAttackSpeed(selectedUnit))
   const [secondsPerAttack, setSecondsPerAttack] = useState(Entities.GetSecondsPerAttack(selectedUnit))
 
@@ -21,24 +20,15 @@ const AttackSpeed = (props: Props) => {
     const id = setInterval(() => {
       setAttackSpeed(Entities.GetAttackSpeed(selectedUnit));
       setSecondsPerAttack(Entities.GetSecondsPerAttack(selectedUnit));
-    }, REFRESH_RATE)
+    }, HUD_THINK_MEDIUM)
     return () => clearInterval(id);
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <Panel className={'attackPanelEntryContainer'}>
-      <Panel className={'characterPanelStatsEntry'}>
-        <Label
-          text={'Attack Speed:'}
-          className={'characterPanelLabel characterPanelStatsLabel'}
-        />
-      </Panel>
-      <Panel className={'characterPanelStatsEntry'}>
-        <Label
-          text={(attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)'}
-          className={'characterPanelLabel characterPanelStatsLabel'} />
-      </Panel>
-    </Panel>
+    <Label
+      text={(attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)'}
+      style={ParentStyles.ColumnLabel()}
+    />
   );
 
 };

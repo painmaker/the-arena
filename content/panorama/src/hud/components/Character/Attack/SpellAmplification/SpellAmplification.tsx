@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK_MEDIUM } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
-import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
-import { REFRESH_RATE } from "../../Character";
+import { Styles as ParentStyles } from "../Styles";
 
 type Props = ReactTimeoutProps & {
-  // ownProps
+  selectedUnit: EntityIndex,
 };
 
 const SpellAmplification = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - SpellAmplification rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [spellAmp, setSpellAmp] = useState(Entities.GetAttackRange(selectedUnit))
 
   useEffect(() => {
@@ -26,24 +25,15 @@ const SpellAmplification = (props: Props) => {
           setSpellAmp(Buffs.GetStackCount(selectedUnit, buff) / 100);
         }
       }
-    }, REFRESH_RATE);
+    }, HUD_THINK_MEDIUM);
     return () => clearInterval(id);
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <Panel className={'attackPanelEntryContainer'}>
-      <Panel className={'characterPanelStatsEntry'}>
-        <Label
-          text={'Spell Amp:'}
-          className={'characterPanelLabel characterPanelStatsLabel'}
-        />
-      </Panel>
-      <Panel className={'characterPanelStatsEntry'}>
-        <Label
-          text={spellAmp + ' %'}
-          className={'characterPanelLabel characterPanelStatsLabel'} />
-      </Panel>
-    </Panel>
+    <Label
+      text={spellAmp + ' %'}
+      style={ParentStyles.ColumnLabel()}
+    />
   );
 
 };

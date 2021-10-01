@@ -46,7 +46,7 @@ const Character = (props: Props) => {
   }, [visible, setTimeout, clearTimeout]);
 
   return (
-    <Panel style={Styles.OuterContainer()}>
+    <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
         <React.Fragment>
           <Panel style={Styles.InnerContainer(visible)}>
@@ -58,7 +58,7 @@ const Character = (props: Props) => {
                 <Avatar selectedUnit={selectedUnit} />
               </Panel>
               <Panel style={Styles.RightColumn()}>
-                <Attack />
+                <Attack selectedUnit={selectedUnit} />
                 <Defense />
               </Panel>
             </Panel>

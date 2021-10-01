@@ -6,23 +6,70 @@ import MoveSpeed from "./MoveSpeed/MoveSpeed";
 import ManaRegen from "./ManaRegen/ManaRegen";
 import SpellAmplification from "./SpellAmplification/SpellAmplification";
 import Divider from "../Divider/Divider";
+import { Styles } from "./Styles";
 
-const Attack = () => {
+interface Props {
+  selectedUnit: EntityIndex,
+}
+
+const Attack = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Attack rendered");
 
+  const { selectedUnit } = props;
+
   return (
-    <Panel hittest={false} className={'attackPanelContainer'}>
-      <Panel className={'attackPanelBackground'}>
-        <Label text={'ATTACK'} className={'characterPanelComponentTitleLabel attackPanelTitle'} />
-        <Divider />
-        <Panel className={'attackPanelLabelContainer'}>
-          <AttackSpeed />
-          <Damage />
-          <AttackRange />
-          <MoveSpeed />
-          <SpellAmplification />
-          <ManaRegen />
+    <Panel style={Styles.OuterContainer()}>
+      <Label text={'ATTACK'} style={Styles.Title()} />
+      <Divider />
+      <Panel style={Styles.InnerContainer()}>
+        <Panel style={Styles.Row()}>
+          <Panel style={Styles.LeftColumn()}>
+            <Label text={'Attack Speed:'} style={Styles.ColumnLabel()} />
+          </Panel>
+          <Panel style={Styles.RightColumn()}>
+            <AttackSpeed selectedUnit={selectedUnit} />
+          </Panel>
+        </Panel>
+        <Panel style={Styles.Row()}>
+          <Panel style={Styles.LeftColumn()}>
+            <Label text={'Damage:'} style={Styles.ColumnLabel()} />
+          </Panel>
+          <Panel style={Styles.RightColumn()}>
+            <Damage selectedUnit={selectedUnit} />
+          </Panel>
+        </Panel>
+        <Panel style={Styles.Row()}>
+          <Panel style={Styles.LeftColumn()}>
+            <Label text={'Attack range:'} style={Styles.ColumnLabel()} />
+          </Panel>
+          <Panel style={Styles.RightColumn()}>
+            <AttackRange selectedUnit={selectedUnit} />
+          </Panel>
+        </Panel>
+        <Panel style={Styles.Row()}>
+          <Panel style={Styles.LeftColumn()}>
+            <Label text={'Movement speed:'} style={Styles.ColumnLabel()} />
+          </Panel>
+          <Panel style={Styles.RightColumn()}>
+            <MoveSpeed selectedUnit={selectedUnit} />
+          </Panel>
+        </Panel>
+        <Panel style={Styles.Row()}>
+          <Panel style={Styles.LeftColumn()}>
+            <Label text={'Spell amplification:'} style={Styles.ColumnLabel()} />
+          </Panel>
+          <Panel style={Styles.RightColumn()}>
+            <SpellAmplification selectedUnit={selectedUnit} />
+          </Panel>
+        </Panel>
+        <Panel style={Styles.Row()}>
+          <Panel style={Styles.LeftColumn()}>
+            <Label text={'Mana regeneration:'} style={Styles.ColumnLabel()} />
+          </Panel>
+          <Panel style={Styles.RightColumn()}>
+            <ManaRegen selectedUnit={selectedUnit} />
+          </Panel>
         </Panel>
       </Panel>
     </Panel>

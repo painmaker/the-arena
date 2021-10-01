@@ -1,42 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK_MEDIUM } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
-import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
-import { REFRESH_RATE } from "../../Character";
+import { Styles as ParentStyles } from "../Styles";
 
 type Props = ReactTimeoutProps & {
-  // ownProps
+  selectedUnit: EntityIndex,
 };
 
 const AttackSpeed = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - ManaRegen rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(selectedUnit))
 
   useEffect(() => {
     const id = setInterval(() => {
       setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
-    }, REFRESH_RATE);
+    }, HUD_THINK_MEDIUM);
     return () => clearInterval(id);
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <Panel className={'attackPanelEntryContainer'}>
-      <Panel className={'characterPanelStatsEntry'}>
-        <Label
-          text={'Mana Regen:'}
-          className={'characterPanelLabel characterPanelStatsLabel'}
-        />
-      </Panel>
-      <Panel className={'characterPanelStatsEntry'}>
-        <Label
-          text={manaRegen.toFixed(2)}
-          className={'characterPanelLabel characterPanelStatsLabel'} />
-      </Panel>
-    </Panel>
+    <Label
+      text={manaRegen.toFixed(2)}
+      style={ParentStyles.ColumnLabel()}
+    />
   );
 
 };

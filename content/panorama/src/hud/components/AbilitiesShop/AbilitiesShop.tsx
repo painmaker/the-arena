@@ -97,7 +97,7 @@ const AbilitiesShop = (props: Props) => {
   }, [setShopVisible]);
 
   return (
-    <Panel style={Styles.OuterContainer()}>
+    <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
         <Panel style={Styles.InnerContainer(visible)}>
           <Title selectedUnit={selectedUnit} />

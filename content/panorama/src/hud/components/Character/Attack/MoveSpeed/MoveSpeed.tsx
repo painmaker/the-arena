@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK_MEDIUM } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
-import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
-import { REFRESH_RATE } from "../../Character";
+import { Styles as ParentStyles } from "../Styles";
 
 type Props = ReactTimeoutProps & {
-  // ownprops
+  selectedUnit: EntityIndex,
 };
 
 const MoveSpeed = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [baseMoveSpeed, setBaseMoveSpeed] = useState(Entities.GetBaseMoveSpeed(selectedUnit));
   const [totalMoveSpeed, setTotalMoveSpeed] = useState(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
 
@@ -21,35 +20,28 @@ const MoveSpeed = (props: Props) => {
     const id = setInterval(() => {
       setBaseMoveSpeed(Entities.GetBaseMoveSpeed(selectedUnit))
       setTotalMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
-    }, REFRESH_RATE);
+    }, HUD_THINK_MEDIUM);
     return () => clearInterval(id);
   }, [selectedUnit, setInterval, clearInterval]);
 
   const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
 
   return (
-    <Panel className={'attackPanelEntryContainer'}>
-      <Panel className={'characterPanelStatsEntry'}>
+    <React.Fragment>
+      <Label
+        text={baseMoveSpeed.toFixed(0)}
+        style={ParentStyles.ColumnLabel()}
+      />
+      {increasedMoveSpeed !== 0 && (
         <Label
-          text={'Move Speed:'}
-          className={'characterPanelLabel characterPanelStatsLabel'}
+          text={(increasedMoveSpeed > 0 ? ' + ' : ' - ') + Math.abs(increasedMoveSpeed).toFixed(0)}
+          style={{
+            ...ParentStyles.ColumnLabel(),
+            color: increasedMoveSpeed > 0 ? 'green' : 'red'
+          }}
         />
-      </Panel>
-      <Panel className={'characterPanelStatsEntry'} style={{ flowChildren: 'right' }}>
-        <Label
-          text={baseMoveSpeed.toFixed(0)}
-          className={'characterPanelLabel characterPanelStatsLabel'}
-        />
-        {increasedMoveSpeed !== 0 && (
-          <Label
-            text={(increasedMoveSpeed > 0 ? '+' : '') + increasedMoveSpeed.toFixed(0)}
-            className={'characterPanelLabel characterPanelStatsLabel'}
-            style={{ color: increasedMoveSpeed > 0 ? 'green' : 'red' }}
-          />
-        )}
-
-      </Panel>
-    </Panel>
+      )}
+    </React.Fragment>
   );
 
 };

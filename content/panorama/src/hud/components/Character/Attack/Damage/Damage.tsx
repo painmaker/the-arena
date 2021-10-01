@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK_MEDIUM } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
-import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
-import { REFRESH_RATE } from "../../Character";
+import { Styles as ParentStyles } from "../Styles";
 
 type Props = ReactTimeoutProps & {
-  // ownProps
+  selectedUnit: EntityIndex,
 };
 
 const Damage = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Damage rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [minDamage, setMinDamage] = useState(Entities.GetDamageMin(selectedUnit))
   const [maxDamage, setMaxDamage] = useState(Entities.GetDamageMax(selectedUnit))
   const [bonusDamage, setBonusDamage] = useState(Entities.GetDamageBonus(selectedUnit))
@@ -23,32 +22,26 @@ const Damage = (props: Props) => {
       setMinDamage(Entities.GetDamageMin(selectedUnit));
       setMaxDamage(Entities.GetDamageMax(selectedUnit));
       setBonusDamage(Entities.GetDamageBonus(selectedUnit));
-    }, REFRESH_RATE);
+    }, HUD_THINK_MEDIUM);
     return () => clearInterval(id);
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <Panel className={'attackPanelEntryContainer'}>
-      <Panel className={'characterPanelStatsEntry'}>
+    <React.Fragment>
+      <Label
+        text={minDamage.toFixed(0) + " - " + maxDamage.toFixed(0)}
+        style={ParentStyles.ColumnLabel()}
+      />
+      {bonusDamage !== 0 && (
         <Label
-          text={'Damage:'}
-          className={'characterPanelLabel characterPanelStatsLabel'}
+          text={(bonusDamage > 0 ? ' + ' : ' - ') + Math.abs(bonusDamage)}
+          style={{
+            ...ParentStyles.ColumnLabel(),
+            color: bonusDamage > 0 ? 'green' : 'red',
+          }}
         />
-      </Panel>
-      <Panel className={'characterPanelStatsEntry'} style={{ flowChildren: 'right' }}>
-        <Label
-          text={minDamage.toFixed(0) + " - " + maxDamage.toFixed(0)}
-          className={'characterPanelLabel characterPanelStatsLabel'}
-        />
-        {bonusDamage !== 0 && (
-          <Label
-            text={'+' + bonusDamage}
-            className={'characterPanelLabel characterPanelStatsLabel'}
-            style={{ color: bonusDamage > 0 ? 'green' : 'red' }}
-          />
-        )}
-      </Panel>
-    </Panel>
+      )}
+    </React.Fragment>
   );
 
 };
