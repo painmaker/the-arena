@@ -46,14 +46,20 @@ export class GameMode {
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_bloodseeker.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/voscripts/game_sounds_vo_shredder.vsndevts", context);
     PrecacheResource("soundfile", "game_sounds_ui_imported.vsndevts", context);
+
     PrecacheUnitByNameSync("npc_dota_hero_crystal_maiden", context)
     PrecacheUnitByNameSync("npc_dota_hero_lina", context)
     PrecacheUnitByNameSync("npc_dota_hero_dragon_knight", context)
     PrecacheUnitByNameSync("npc_dota_hero_phantom_assassin", context)
     PrecacheUnitByNameSync("npc_dota_hero_dazzle", context)
     PrecacheUnitByNameSync("npc_dota_hero_windrunner", context)
+    PrecacheUnitByNameSync("npc_dota_hero_axe", context)
+    PrecacheUnitByNameSync("npc_dota_hero_bane", context)
+    PrecacheUnitByNameSync("npc_dota_hero_vengeful_spirit", context)
+
     PrecacheUnitByNameSync("shopkeeper_abilities", context)
     PrecacheUnitByNameSync("npc_dota_creep_goodguys_melee", context)
+    PrecacheUnitByNameSync("npc_dota_creep_badguys_melee", context)
   }
 
   public static Activate(this: void) {
@@ -135,8 +141,8 @@ export class GameMode {
 
     const dummyUnitSpawner = Entities.FindByName(undefined, "npc_dota_spawner_dummy_unit");
     if (dummyUnitSpawner !== undefined) {
-      const dummy = CreateUnitByName("dummy_unit", dummyUnitSpawner.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
-      GameRules.dummy = dummy;
+      // const dummy = CreateUnitByName("dummy_unit", dummyUnitSpawner.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
+      // GameRules.dummy = dummy;
     }
 
     const spawnEntity = Entities.FindByName(undefined, "npc_boss_spawner_1");
@@ -153,39 +159,39 @@ export class GameMode {
     let delay = 1.0;
     [
       { hero: "npc_dota_hero_dragon_knight", name: "Dragon Knight" },
-      // { hero: "npc_dota_hero_crystal_maiden", name: "Crystal Maiden" },
-      // { hero: "npc_dota_hero_lina", name: "Lina" }
+      { hero: "npc_dota_hero_crystal_maiden", name: "Crystal Maiden" },
+      { hero: "npc_dota_hero_lina", name: "Lina" }
     ].forEach(bot => {
       Timers.CreateTimer(delay, () => {
-        const unit = GameRules.AddBotPlayerWithEntityScript(bot.hero, bot.name, DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false) as CDOTA_BaseNPC_Hero;
-        unit.RespawnHero(false, false);
+        // const unit = GameRules.AddBotPlayerWithEntityScript(bot.hero, bot.name, DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false) as CDOTA_BaseNPC_Hero;
+        // unit.RespawnHero(false, false);
       });
       delay += 1.0;
     });
 
     const creepSpawner1 = Entities.FindByName(undefined, "radiant_melee_creep_spawner_1");
     if (creepSpawner1) {
-      CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner1.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
+      // CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner1.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
     }
 
     const creepSpawner2 = Entities.FindByName(undefined, "radiant_melee_creep_spawner_2");
     if (creepSpawner2) {
-      CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner2.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
+      // CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner2.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
     }
 
     const creepSpawner3 = Entities.FindByName(undefined, "radiant_melee_creep_spawner_3");
     if (creepSpawner3) {
-      CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner3.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
+      // CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner3.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
     }
 
     const creepSpawner4 = Entities.FindByName(undefined, "radiant_melee_creep_spawner_4");
     if (creepSpawner4) {
-      CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner4.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
+      // CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner4.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
     }
 
     const creepSpawner5 = Entities.FindByName(undefined, "radiant_melee_creep_spawner_5");
     if (creepSpawner5) {
-      CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner5.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
+      // CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner5.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
     }
 
   }

@@ -67,6 +67,14 @@ ProgressBar {
   transition-timing-function: linear;
 }
 
+.healthProgressBarEnemy .ProgressBarLeft {
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #ff0000 ), to( #4c0000 ) );
+  border-radius: 1px;
+  transition-property: width;
+  transition-duration: 0.0s;
+  transition-timing-function: linear;
+}
+
 #inventoryItemDraggedItem {
   width: 60px;
   height: 45px;

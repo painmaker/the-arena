@@ -5,6 +5,7 @@ export const Styles = {
     marginBottom: "25px",
     flowChildren: "down",
     verticalAlign: "bottom",
+    zIndex: 999,
   }),
 
   Minimap: (): Partial<VCSSStyleDeclaration> => ({

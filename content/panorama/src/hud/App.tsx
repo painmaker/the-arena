@@ -26,6 +26,7 @@ import { setSelectedUnit } from "./actions/selectedUnitActions";
 import { Dispatch } from "redux";
 import { SelectedUnitActionTypes } from "./types/selectedUnitTypes";
 import withReactTimeout, { ReactTimeoutProps } from "./hoc/ReactTimeout";
+import FloatingBars from "./components/FloatingBars/FloatingBars";
 
 export const HUD_THINK_FAST = 50;
 export const HUD_THINK_MEDIUM = 100;
@@ -157,6 +158,7 @@ const App = (props: Props) => {
               <SelectedUnit />
               <Stats />
               <AbilitiesShop />
+              <FloatingBars />
             </React.Fragment>
           )}
         </Loading>

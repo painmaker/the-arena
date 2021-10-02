@@ -55902,6 +55902,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_SelectedUnit_SelectedUnit__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/SelectedUnit/SelectedUnit */ "./hud/components/SelectedUnit/SelectedUnit.tsx");
 /* harmony import */ var _actions_selectedUnitActions__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./actions/selectedUnitActions */ "./hud/actions/selectedUnitActions.tsx");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _components_FloatingBars_FloatingBars__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/FloatingBars/FloatingBars */ "./hud/components/FloatingBars/FloatingBars.tsx");
+
 
 
 
@@ -56021,7 +56023,8 @@ const App = (props) => {
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_13__.default, null),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_SelectedUnit_SelectedUnit__WEBPACK_IMPORTED_MODULE_21__.default, null),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Stats_Stats__WEBPACK_IMPORTED_MODULE_9__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_20__.default, null)))))));
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_20__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_FloatingBars_FloatingBars__WEBPACK_IMPORTED_MODULE_24__.default, null)))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_23__.default)(App)));
 
@@ -59497,6 +59500,242 @@ const Title = (props) => {
 
 /***/ }),
 
+/***/ "./hud/components/FloatingBars/FloatingBars.tsx":
+/*!******************************************************!*\
+  !*** ./hud/components/FloatingBars/FloatingBars.tsx ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _FloatingHealthBar_FloatingHealthBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FloatingHealthBar/FloatingHealthBar */ "./hud/components/FloatingBars/FloatingHealthBar/FloatingHealthBar.tsx");
+/* harmony import */ var _FloatingManaBar_FloatingManaBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FloatingManaBar/FloatingManaBar */ "./hud/components/FloatingBars/FloatingManaBar/FloatingManaBar.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingBars/Styles.ts");
+
+
+
+
+
+const FloatingBars = (props) => {
+    const { setInterval, clearInterval } = props;
+    const [floatingBars, setFloatingBars] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const update = () => {
+            const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
+            const scale = 1080 / Game.GetScreenHeight();
+            const mFloatingBars = Entities.GetAllEntities()
+                .filter(entity => Entities.IsSelectable(entity))
+                .filter(entity => Entities.IsAlive(entity))
+                .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < 3500)
+                .map(unit => {
+                const unitOrigin = Entities.GetAbsOrigin(unit);
+                const healthBarOffset = Entities.GetHealthBarOffset(unit) + 100;
+                const offsetX = (centerOrigin[0] - unitOrigin[0]) / 20;
+                const offsetY = (centerOrigin[1] - unitOrigin[1]) / 20;
+                const offsetScreenX = scale * Game.WorldToScreenX(unitOrigin[0] + offsetX, unitOrigin[1] + offsetY, unitOrigin[2] + healthBarOffset);
+                const offsetScreenY = scale * Game.WorldToScreenY(unitOrigin[0] + offsetX, unitOrigin[1] + offsetY, unitOrigin[2] + healthBarOffset);
+                const screenWorldPosition = GameUI.GetScreenWorldPosition([
+                    Game.WorldToScreenX(unitOrigin[0], unitOrigin[1], unitOrigin[2]),
+                    Game.WorldToScreenY(unitOrigin[0], unitOrigin[1], unitOrigin[2])
+                ]);
+                return {
+                    unit,
+                    screenX: offsetScreenX,
+                    screenY: offsetScreenY,
+                    visible: screenWorldPosition !== null
+                };
+            })
+                .filter(screenPosition => screenPosition.visible);
+            setFloatingBars(mFloatingBars);
+        };
+        // update();
+        const id = setInterval(update, 5);
+        return () => clearInterval(id);
+    }, [setInterval, clearInterval]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, floatingBars.map(floatingBar => {
+        const { unit, screenX, screenY } = floatingBar;
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { key: unit, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container(screenX - 40, screenY, 0) },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FloatingManaBar_FloatingManaBar__WEBPACK_IMPORTED_MODULE_3__.default, { unit: unit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FloatingHealthBar_FloatingHealthBar__WEBPACK_IMPORTED_MODULE_2__.default, { unit: unit })));
+    })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(FloatingBars));
+
+
+/***/ }),
+
+/***/ "./hud/components/FloatingBars/FloatingHealthBar/FloatingHealthBar.tsx":
+/*!*****************************************************************************!*\
+  !*** ./hud/components/FloatingBars/FloatingHealthBar/FloatingHealthBar.tsx ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingBars/FloatingHealthBar/Styles.ts");
+
+
+
+
+const FloatingHealthBar = (props) => {
+    const { unit, setInterval, clearInterval } = props;
+    const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(unit));
+    const [maxHealth, setMaxHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxHealth(unit));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const update = () => {
+            setHealth(Entities.GetHealth(unit));
+            setMaxHealth(Entities.GetMaxHealth(unit));
+        };
+        // update();
+        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
+        return () => clearInterval(id);
+    }, [unit, setInterval, clearInterval]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: Entities.IsEnemy(unit) ? 'healthProgressBarEnemy' : 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(FloatingHealthBar));
+
+
+/***/ }),
+
+/***/ "./hud/components/FloatingBars/FloatingHealthBar/Styles.ts":
+/*!*****************************************************************!*\
+  !*** ./hud/components/FloatingBars/FloatingHealthBar/Styles.ts ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        width: "100%",
+        height: "5px",
+        backgroundColor: 'black',
+        borderRadius: '14px',
+    }),
+    Progressbar: () => ({
+        width: "100%",
+        height: "100%",
+        borderRadius: "0px",
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/FloatingBars/FloatingManaBar/FloatingManaBar.tsx":
+/*!*************************************************************************!*\
+  !*** ./hud/components/FloatingBars/FloatingManaBar/FloatingManaBar.tsx ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingBars/FloatingManaBar/Styles.ts");
+
+
+
+
+const FloatingManaBar = (props) => {
+    const { unit, setInterval, clearInterval } = props;
+    const [mana, setMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMana(unit));
+    const [maxMana, setMaxMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxMana(unit));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const update = () => {
+            setMana(Entities.GetMana(unit));
+            setMaxMana(Entities.GetMaxMana(unit));
+        };
+        // update();
+        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
+        return () => clearInterval(id);
+    }, [unit, setInterval, clearInterval]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(maxMana > 0) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(FloatingManaBar));
+
+
+/***/ }),
+
+/***/ "./hud/components/FloatingBars/FloatingManaBar/Styles.ts":
+/*!***************************************************************!*\
+  !*** ./hud/components/FloatingBars/FloatingManaBar/Styles.ts ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: (visible) => ({
+        marginTop: '1px',
+        width: "100%",
+        height: "5px",
+        backgroundColor: 'black',
+        visibility: visible ? 'visible' : 'collapse',
+        borderRadius: '14px',
+    }),
+    Progressbar: () => ({
+        width: "100%",
+        height: "100%",
+        borderRadius: "0px",
+    }),
+    Scene: (health, maxHealth) => ({
+        width: (health / maxHealth) * 100 + "%",
+        height: '100%',
+        opacity: '0.8',
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/FloatingBars/Styles.ts":
+/*!***********************************************!*\
+  !*** ./hud/components/FloatingBars/Styles.ts ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: (x, y, z) => ({
+        height: 'fit-children',
+        width: '80px',
+        position: x + "px " + y + "px " + z + "px",
+        flowChildren: 'up',
+        zIndex: -1,
+    }),
+};
+
+
+/***/ }),
+
 /***/ "./hud/components/GameTime/GameTime.tsx":
 /*!**********************************************!*\
   !*** ./hud/components/GameTime/GameTime.tsx ***!
@@ -62108,6 +62347,7 @@ const Styles = {
         marginBottom: "25px",
         flowChildren: "down",
         verticalAlign: "bottom",
+        zIndex: 999,
     }),
     Minimap: () => ({
         width: '100%',
@@ -62214,7 +62454,7 @@ const Styles = {
         width: "300px",
         padding: "2px",
         marginRight: "660px",
-        marginBottom: "117.5px",
+        marginBottom: "114px",
     }),
 };
 
@@ -62302,7 +62542,7 @@ const Styles = {
         width: "300px",
         padding: "2px",
         marginLeft: "665px",
-        marginBottom: "117.5px",
+        marginBottom: "114px",
     }),
 };
 
