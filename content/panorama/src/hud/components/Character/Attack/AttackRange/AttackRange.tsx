@@ -23,10 +23,17 @@ const AttackSpeed = (props: Props) => {
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <Label
-      text={attackRange.toFixed(0)}
-      style={ParentStyles.ColumnLabel()}
-    />
+    <Panel style={ParentStyles.Row()}>
+      <Panel style={ParentStyles.LeftColumn()}>
+        <Label text={'Attack Range:'} style={ParentStyles.ColumnLabel()} />
+      </Panel>
+      <Panel style={ParentStyles.RightColumn()}>
+        <Label
+          text={attackRange.toFixed(0)}
+          style={ParentStyles.ColumnLabel()}
+        />
+      </Panel>
+    </Panel>
   );
 
 };

@@ -23,54 +23,12 @@ const Attack = (props: Props) => {
       <Label text={'ATTACK'} style={Styles.Title()} />
       <Divider />
       <Panel style={Styles.InnerContainer()}>
-        <Panel style={Styles.Row()}>
-          <Panel style={Styles.LeftColumn()}>
-            <Label text={'Attack Speed:'} style={Styles.ColumnLabel()} />
-          </Panel>
-          <Panel style={Styles.RightColumn()}>
-            <AttackSpeed selectedUnit={selectedUnit} />
-          </Panel>
-        </Panel>
-        <Panel style={Styles.Row()}>
-          <Panel style={Styles.LeftColumn()}>
-            <Label text={'Damage:'} style={Styles.ColumnLabel()} />
-          </Panel>
-          <Panel style={Styles.RightColumn()}>
-            <Damage selectedUnit={selectedUnit} />
-          </Panel>
-        </Panel>
-        <Panel style={Styles.Row()}>
-          <Panel style={Styles.LeftColumn()}>
-            <Label text={'Attack Range:'} style={Styles.ColumnLabel()} />
-          </Panel>
-          <Panel style={Styles.RightColumn()}>
-            <AttackRange selectedUnit={selectedUnit} />
-          </Panel>
-        </Panel>
-        <Panel style={Styles.Row()}>
-          <Panel style={Styles.LeftColumn()}>
-            <Label text={'Movement Speed:'} style={Styles.ColumnLabel()} />
-          </Panel>
-          <Panel style={Styles.RightColumn()}>
-            <MoveSpeed selectedUnit={selectedUnit} />
-          </Panel>
-        </Panel>
-        <Panel style={Styles.Row()}>
-          <Panel style={Styles.LeftColumn()}>
-            <Label text={'Spell Amplification:'} style={Styles.ColumnLabel()} />
-          </Panel>
-          <Panel style={Styles.RightColumn()}>
-            <SpellAmplification selectedUnit={selectedUnit} />
-          </Panel>
-        </Panel>
-        <Panel style={Styles.Row()}>
-          <Panel style={Styles.LeftColumn()}>
-            <Label text={'Mana Regeneration:'} style={Styles.ColumnLabel()} />
-          </Panel>
-          <Panel style={Styles.RightColumn()}>
-            <ManaRegen selectedUnit={selectedUnit} />
-          </Panel>
-        </Panel>
+        <AttackSpeed selectedUnit={selectedUnit} />
+        <Damage selectedUnit={selectedUnit} />
+        <AttackRange selectedUnit={selectedUnit} />
+        <MoveSpeed selectedUnit={selectedUnit} />
+        <SpellAmplification selectedUnit={selectedUnit} />
+        <ManaRegen selectedUnit={selectedUnit} />
       </Panel>
     </Panel>
   );

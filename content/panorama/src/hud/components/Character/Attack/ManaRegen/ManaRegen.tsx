@@ -23,10 +23,17 @@ const AttackSpeed = (props: Props) => {
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <Label
-      text={manaRegen.toFixed(2)}
-      style={ParentStyles.ColumnLabel()}
-    />
+    <Panel style={ParentStyles.Row()}>
+      <Panel style={ParentStyles.LeftColumn()}>
+        <Label text={'Mana Regeneration:'} style={ParentStyles.ColumnLabel()} />
+      </Panel>
+      <Panel style={ParentStyles.RightColumn()}>
+        <Label
+          text={manaRegen.toFixed(2)}
+          style={ParentStyles.ColumnLabel()}
+        />
+      </Panel>
+    </Panel>
   );
 
 };

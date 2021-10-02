@@ -27,21 +27,26 @@ const Damage = (props: Props) => {
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <React.Fragment>
-      <Label
-        text={minDamage.toFixed(0) + " - " + maxDamage.toFixed(0)}
-        style={ParentStyles.ColumnLabel()}
-      />
-      {bonusDamage !== 0 && (
+    <Panel style={ParentStyles.Row()}>
+      <Panel style={ParentStyles.LeftColumn()}>
+        <Label text={'Damage:'} style={ParentStyles.ColumnLabel()} />
+      </Panel>
+      <Panel style={ParentStyles.RightColumn()}>
         <Label
-          text={(bonusDamage > 0 ? ' + ' : ' - ') + Math.abs(bonusDamage)}
-          style={{
-            ...ParentStyles.ColumnLabel(),
-            color: bonusDamage > 0 ? 'green' : 'red',
-          }}
+          text={minDamage.toFixed(0) + " - " + maxDamage.toFixed(0)}
+          style={ParentStyles.ColumnLabel()}
         />
-      )}
-    </React.Fragment>
+        {bonusDamage !== 0 && (
+          <Label
+            text={(bonusDamage > 0 ? ' + ' : ' - ') + Math.abs(bonusDamage)}
+            style={{
+              ...ParentStyles.ColumnLabel(),
+              color: bonusDamage > 0 ? 'green' : 'red',
+            }}
+          />
+        )}
+      </Panel>
+    </Panel>
   );
 
 };

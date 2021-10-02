@@ -5,8 +5,6 @@
     <styles> 
         <include src="s2r://panorama/styles/dotastyles.vcss_c" />
         <include src="./app.css" />
-        <include src="./components/Character/character.css" />
-        <include src="./components/Character/Defense/defense.css" />
         <include src="./components/Shop/shop.css" />  
         <include src="./components/Shop/Title/title.css" />  
         <include src="./components/Shop/Item/item.css" />  
@@ -29,4 +27,4 @@
     <Panel class="root" hittest="false">
       <!-- <Image src="s2r://panorama/images/icon_abilities_shop_points.png" /> -->
     </Panel> 
-</root>          
+</root>           

@@ -11,8 +11,6 @@ import { Styles } from "./Styles";
 import Level from "./Level/Level";
 import Avatar from "./Avatar/Avatar";
 
-export const REFRESH_RATE = 250;
-
 const mapStateToProps = (state: RootState) => ({
   visible: state.characterReducer.visible,
   selectedUnit: state.selectedUnitReducer.selectedUnit,
@@ -59,7 +57,7 @@ const Character = (props: Props) => {
               </Panel>
               <Panel style={Styles.RightColumn()}>
                 <Attack selectedUnit={selectedUnit} />
-                <Defense />
+                <Defense selectedUnit={selectedUnit} />
               </Panel>
             </Panel>
           </Panel>

@@ -27,21 +27,26 @@ const MoveSpeed = (props: Props) => {
   const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
 
   return (
-    <React.Fragment>
-      <Label
-        text={baseMoveSpeed.toFixed(0)}
-        style={ParentStyles.ColumnLabel()}
-      />
-      {increasedMoveSpeed !== 0 && (
+    <Panel style={ParentStyles.Row()}>
+      <Panel style={ParentStyles.LeftColumn()}>
+        <Label text={'Movement Speed:'} style={ParentStyles.ColumnLabel()} />
+      </Panel>
+      <Panel style={ParentStyles.RightColumn()}>
         <Label
-          text={(increasedMoveSpeed > 0 ? ' + ' : ' - ') + Math.abs(increasedMoveSpeed).toFixed(0)}
-          style={{
-            ...ParentStyles.ColumnLabel(),
-            color: increasedMoveSpeed > 0 ? 'green' : 'red'
-          }}
+          text={baseMoveSpeed.toFixed(0)}
+          style={ParentStyles.ColumnLabel()}
         />
-      )}
-    </React.Fragment>
+        {increasedMoveSpeed !== 0 && (
+          <Label
+            text={(increasedMoveSpeed > 0 ? ' + ' : ' - ') + Math.abs(increasedMoveSpeed).toFixed(0)}
+            style={{
+              ...ParentStyles.ColumnLabel(),
+              color: increasedMoveSpeed > 0 ? 'green' : 'red'
+            }}
+          />
+        )}
+      </Panel>
+    </Panel>
   );
 
 };

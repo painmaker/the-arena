@@ -58241,36 +58241,12 @@ const Attack = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'ATTACK', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Title() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_7__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.InnerContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AttackSpeed_AttackSpeed__WEBPACK_IMPORTED_MODULE_2__.default, { selectedUnit: selectedUnit }))),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Damage:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Damage_Damage__WEBPACK_IMPORTED_MODULE_1__.default, { selectedUnit: selectedUnit }))),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Range:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AttackRange_AttackRange__WEBPACK_IMPORTED_MODULE_3__.default, { selectedUnit: selectedUnit }))),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Movement Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }))),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Spell Amplification:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpellAmplification_SpellAmplification__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }))),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Row() },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LeftColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Mana Regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.ColumnLabel() })),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.RightColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaRegen_ManaRegen__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }))))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AttackSpeed_AttackSpeed__WEBPACK_IMPORTED_MODULE_2__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Damage_Damage__WEBPACK_IMPORTED_MODULE_1__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AttackRange_AttackRange__WEBPACK_IMPORTED_MODULE_3__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpellAmplification_SpellAmplification__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaRegen_ManaRegen__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Attack);
 
@@ -58306,7 +58282,11 @@ const AttackSpeed = (props) => {
         }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: attackRange.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Range:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: attackRange.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AttackSpeed));
 
@@ -58344,7 +58324,11 @@ const AttackSpeed = (props) => {
         }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AttackSpeed));
 
@@ -58384,9 +58368,12 @@ const Damage = (props) => {
         }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: minDamage.toFixed(0) + " - " + maxDamage.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
-        bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusDamage > 0 ? ' + ' : ' - ') + Math.abs(bonusDamage), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: bonusDamage > 0 ? 'green' : 'red' }) }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Damage:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: minDamage.toFixed(0) + " - " + maxDamage.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+            bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusDamage > 0 ? ' + ' : ' - ') + Math.abs(bonusDamage), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: bonusDamage > 0 ? 'green' : 'red' }) })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Damage));
 
@@ -58422,7 +58409,11 @@ const AttackSpeed = (props) => {
         }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: manaRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Mana Regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: manaRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AttackSpeed));
 
@@ -58461,9 +58452,12 @@ const MoveSpeed = (props) => {
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
     const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseMoveSpeed.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
-        increasedMoveSpeed !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedMoveSpeed > 0 ? ' + ' : ' - ') + Math.abs(increasedMoveSpeed).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: increasedMoveSpeed > 0 ? 'green' : 'red' }) }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Movement Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseMoveSpeed.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+            increasedMoveSpeed !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedMoveSpeed > 0 ? ' + ' : ' - ') + Math.abs(increasedMoveSpeed).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: increasedMoveSpeed > 0 ? 'green' : 'red' }) })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(MoveSpeed));
 
@@ -58506,7 +58500,11 @@ const SpellAmplification = (props) => {
         }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: spellAmp + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Spell Amplification:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: spellAmp + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(SpellAmplification));
 
@@ -58670,7 +58668,6 @@ const Styles = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "REFRESH_RATE": () => (/* binding */ REFRESH_RATE),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
@@ -58693,7 +58690,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const REFRESH_RATE = 250;
 const mapStateToProps = (state) => ({
     visible: state.characterReducer.visible,
     selectedUnit: state.selectedUnitReducer.selectedUnit,
@@ -58725,7 +58721,7 @@ const Character = (props) => {
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Avatar_Avatar__WEBPACK_IMPORTED_MODULE_9__.default, { selectedUnit: selectedUnit })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.RightColumn() },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Attack_Attack__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Defense_Defense__WEBPACK_IMPORTED_MODULE_5__.default, null))))))));
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Defense_Defense__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }))))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Character)));
 
@@ -58744,34 +58740,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
-/* harmony import */ var _Character__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
 
 
 
 
 const Armor = (props) => {
     // $.Msg("REACT-RENDER: Character - Armor rendered");
-    const { setInterval, clearInterval } = props;
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
+    const { selectedUnit, setInterval, clearInterval } = props;
     const [armor, setArmor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetPhysicalArmorValue(selectedUnit));
     const [bonusArmor, setBonusArmor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetBonusPhysicalArmor(selectedUnit));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = setInterval(() => {
             setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
             setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
-        }, _Character__WEBPACK_IMPORTED_MODULE_3__.REFRESH_RATE);
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelEntryContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Armor:', className: 'characterPanelLabel characterPanelStatsLabel' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (armor - bonusArmor).toFixed(1), className: 'characterPanelLabel characterPanelStatsLabel' }),
-            bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusArmor > 0 ? '+' : '') + bonusArmor.toFixed(0), className: 'characterPanelLabel characterPanelStatsLabel', style: { color: bonusArmor > 0 ? 'green' : 'red' } })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Armor:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (armor - bonusArmor).toFixed(1), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+            bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusArmor > 0 ? ' + ' : ' - ') + Math.abs(bonusArmor).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: bonusArmor > 0 ? 'green' : 'red' }) })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Armor));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Armor));
 
 
 /***/ }),
@@ -58795,6 +58790,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MagicalResistance_MagicalResistance__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MagicalResistance/MagicalResistance */ "./hud/components/Character/Defense/MagicalResistance/MagicalResistance.tsx");
 /* harmony import */ var _PyshicalResistance_PyshicalResistance__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./PyshicalResistance/PyshicalResistance */ "./hud/components/Character/Defense/PyshicalResistance/PyshicalResistance.tsx");
 /* harmony import */ var _StatusResistance_StatusResistance__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./StatusResistance/StatusResistance */ "./hud/components/Character/Defense/StatusResistance/StatusResistance.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Defense/Styles.ts");
 
 
 
@@ -58803,19 +58799,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const Defense = () => {
+
+const Defense = (props) => {
     // $.Msg("REACT-RENDER: Character - Defense rendered");
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, className: 'defensePanelContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelBackground' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'DEFENSE', className: 'characterPanelComponentTitleLabel defensePanelTitle' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_1__.default, null),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelLabelContainer' },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Armor_Armor__WEBPACK_IMPORTED_MODULE_2__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PyshicalResistance_PyshicalResistance__WEBPACK_IMPORTED_MODULE_6__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MagicalResistance_MagicalResistance__WEBPACK_IMPORTED_MODULE_5__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StatusResistance_StatusResistance__WEBPACK_IMPORTED_MODULE_7__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Evasion_Evasion__WEBPACK_IMPORTED_MODULE_3__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HealthRegen_HealthRegen__WEBPACK_IMPORTED_MODULE_4__.default, null)))));
+    const { selectedUnit } = props;
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.OuterContainer() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'DEFENSE', style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Title() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_1__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.InnerContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Armor_Armor__WEBPACK_IMPORTED_MODULE_2__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PyshicalResistance_PyshicalResistance__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MagicalResistance_MagicalResistance__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StatusResistance_StatusResistance__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Evasion_Evasion__WEBPACK_IMPORTED_MODULE_3__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HealthRegen_HealthRegen__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Defense);
 
@@ -58834,35 +58831,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Character__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+
 
 
 
 const Evasion = (props) => {
     // $.Msg("REACT-RENDER: Character - Evasion rendered");
+    const { selectedUnit, setInterval, clearInterval } = props;
     const [evasion, setEvasion] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
-            const entindex = Players.GetLocalPlayerPortraitUnit();
-            const numberOfBuffs = Entities.GetNumBuffs(entindex);
+        const id = setInterval(() => {
+            const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
             for (let i = 0; i < numberOfBuffs; i++) {
-                const buff = Entities.GetBuff(entindex, i);
-                const name = Buffs.GetName(entindex, buff);
+                const buff = Entities.GetBuff(selectedUnit, i);
+                const name = Buffs.GetName(selectedUnit, buff);
                 if (name === 'modifier_ui_evasion') {
-                    setEvasion(Buffs.GetStackCount(entindex, buff));
+                    setEvasion(Buffs.GetStackCount(selectedUnit, buff));
                 }
             }
-        }, _Character__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
-        return () => props.clearInterval(id);
-    }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelEntryContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Evasion:', className: 'characterPanelLabel characterPanelStatsLabel' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (evasion > 0 ? (evasion / 100).toFixed(0) : 0) + ' %', className: 'characterPanelLabel characterPanelStatsLabel' }))));
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
+        return () => clearInterval(id);
+    }, [selectedUnit]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Evasion:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (evasion > 0 ? (evasion / 100).toFixed(0) : 0) + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Evasion));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Evasion));
 
 
 /***/ }),
@@ -58879,42 +58878,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Character__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+
 
 
 
 const HealthRegen = (props) => {
     // $.Msg("REACT-RENDER: Character - HealthRegen rendered");
+    const { selectedUnit, setInterval, clearInterval } = props;
     const [regen, setRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     const [baseRegen, setBaseRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
+        const id = setInterval(() => {
             // Hack because panorama API method for health regen is bugged
-            const entindex = Players.GetLocalPlayerPortraitUnit();
-            const numberOfBuffs = Entities.GetNumBuffs(entindex);
+            const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
             for (let i = 0; i < numberOfBuffs; i++) {
-                const buff = Entities.GetBuff(entindex, i);
-                const name = Buffs.GetName(entindex, buff);
+                const buff = Entities.GetBuff(selectedUnit, i);
+                const name = Buffs.GetName(selectedUnit, buff);
                 if (name === 'modifier_ui_health_regen') {
-                    setRegen(Buffs.GetStackCount(entindex, buff) / 100);
+                    setRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
                 }
                 if (name === 'modifier_ui_base_health_regen') {
-                    setBaseRegen(Buffs.GetStackCount(entindex, buff) / 100);
+                    setBaseRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
                 }
             }
-        }, _Character__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
-        return () => props.clearInterval(id);
-    }, []);
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
+        return () => clearInterval(id);
+    }, [selectedUnit, setInterval, clearInterval]);
     const increasedRegen = regen - baseRegen;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelEntryContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Health Regen:', className: 'characterPanelLabel characterPanelStatsLabel' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseRegen.toFixed(2), className: 'characterPanelLabel characterPanelStatsLabel' }),
-            increasedRegen !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedRegen > 0 ? '+' : '') + increasedRegen.toFixed(2), className: 'characterPanelLabel characterPanelStatsLabel', style: { color: increasedRegen > 0 ? 'green' : 'red' } })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Health Regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+            increasedRegen !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedRegen > 0 ? ' + ' : ' - ') + Math.abs(increasedRegen).toFixed(2), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: increasedRegen > 0 ? 'green' : 'red' }) })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(HealthRegen));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(HealthRegen));
 
 
 /***/ }),
@@ -58931,27 +58932,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Character__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+
 
 
 
 const MagicalResistance = (props) => {
     // $.Msg("REACT-RENDER: Character - MagicalResistance rendered");
-    const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetArmorReductionForDamageType(Players.GetLocalPlayerPortraitUnit(), DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
+    const { selectedUnit, setInterval, clearInterval } = props;
+    const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
-            setResistance(Entities.GetArmorReductionForDamageType(Players.GetLocalPlayerPortraitUnit(), DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
-        }, _Character__WEBPACK_IMPORTED_MODULE_2__.REFRESH_RATE);
-        return () => props.clearInterval(id);
-    }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelEntryContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Magical Resistance:', className: 'characterPanelLabel characterPanelStatsLabel' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", className: 'characterPanelLabel characterPanelStatsLabel' }))));
+        const id = setInterval(() => {
+            setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
+        return () => clearInterval(id);
+    }, [selectedUnit, setInterval, clearInterval]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Magical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(MagicalResistance));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(MagicalResistance));
 
 
 /***/ }),
@@ -58968,31 +58972,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
-/* harmony import */ var _Character__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
 
 
 
 
 const PyshicalResistance = (props) => {
     // $.Msg("REACT-RENDER: Character - PhysicalResistance rendered");
-    const { setInterval, clearInterval } = props;
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
+    const { selectedUnit, setInterval, clearInterval } = props;
     const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const id = setInterval(() => {
             setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
-        }, _Character__WEBPACK_IMPORTED_MODULE_3__.REFRESH_RATE);
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
         return () => clearInterval(id);
     }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelEntryContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Pyshical Resistance:', className: 'characterPanelLabel characterPanelStatsLabel' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", className: 'characterPanelLabel characterPanelStatsLabel' }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Pyshical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(PyshicalResistance));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(PyshicalResistance));
 
 
 /***/ }),
@@ -59009,19 +59012,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
-/* harmony import */ var _Character__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
 
 
 
 
 const StatusResistance = (props) => {
     // $.Msg("REACT-RENDER: Character - StatusResistance rendered");
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_2__.useSelectedUnit)();
+    const { selectedUnit, setInterval, clearInterval } = props;
     const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const id = props.setInterval(() => {
+        const id = setInterval(() => {
             const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
             for (let i = 0; i < numberOfBuffs; i++) {
                 const buff = Entities.GetBuff(selectedUnit, i);
@@ -59030,16 +59033,79 @@ const StatusResistance = (props) => {
                     setResistance(Buffs.GetStackCount(selectedUnit, buff));
                 }
             }
-        }, _Character__WEBPACK_IMPORTED_MODULE_3__.REFRESH_RATE);
-        return () => props.clearInterval(id);
-    }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'defensePanelEntryContainer' },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Status Resistance:', className: 'characterPanelLabel characterPanelStatsLabel' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'characterPanelStatsEntry' },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance !== 0 ? (resistance / 100).toFixed(2) : 0) + ' %', className: 'characterPanelLabel characterPanelStatsLabel' }))));
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
+        return () => clearInterval(id);
+    }, [selectedUnit, setInterval, clearInterval]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Pyshical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance !== 0 ? (resistance / 100).toFixed(2) : 0) + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(StatusResistance));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(StatusResistance));
+
+
+/***/ }),
+
+/***/ "./hud/components/Character/Defense/Styles.ts":
+/*!****************************************************!*\
+  !*** ./hud/components/Character/Defense/Styles.ts ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    OuterContainer: () => ({
+        width: "100%",
+        height: "50%",
+        flowChildren: "down",
+        marginTop: "7.5px",
+        marginRight: "7.5px",
+        marginBottom: "7.5px",
+        marginLeft: "5px",
+        borderRadius: "5px",
+        border: "1px solid rgba(0, 0, 0, 0.5)",
+        backgroundImage: 'url("s2r://panorama/images/inventory_item_well.png")',
+        backgroundSize: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.35)",
+    }),
+    Title: () => ({
+        textAlign: "center",
+        width: "100%",
+        paddingTop: "15px",
+        fontWeight: "bold",
+        color: "rgba(255, 165, 0, 0.9)",
+        fontSize: "20px",
+    }),
+    InnerContainer: () => ({
+        width: "100%",
+        flowChildren: "down",
+        marginRight: "25px",
+        marginLeft: "25px",
+        marginBottom: "25px",
+        marginTop: "15px",
+        verticalAlign: "center",
+    }),
+    Row: () => ({
+        width: "100%",
+        flowChildren: "right",
+    }),
+    LeftColumn: () => ({
+        width: "60%",
+    }),
+    RightColumn: () => ({
+        width: "40%",
+        flowChildren: 'right',
+    }),
+    ColumnLabel: () => ({
+        color: "rgba(255, 255, 255, 0.65)",
+        fontSize: "18px",
+    }),
+};
 
 
 /***/ }),
@@ -64086,70 +64152,6 @@ function withReactTimeout(WrappedComponent) {
     };
     return ComponentWithExtendedProps;
 }
-
-
-/***/ }),
-
-/***/ "./hud/hooks/useSelectedUnit.ts":
-/*!**************************************!*\
-  !*** ./hud/hooks/useSelectedUnit.ts ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "useSelectedUnit": () => (/* binding */ useSelectedUnit)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-
-const excludedUnits = [
-    "shopkeeper_abilities"
-];
-const getGameUnitSelected = () => {
-    const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
-    if (queryUnit !== -1) {
-        return queryUnit;
-    }
-    const portraitUnit = Players.GetLocalPlayerPortraitUnit();
-    if (portraitUnit !== -1) {
-        return portraitUnit;
-    }
-    return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
-};
-const useSelectedUnit = () => {
-    // $.Msg("UseSelectedUnit initialized");
-    const [selectedUnit, setSelectedUnit] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getGameUnitSelected());
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let schedule;
-        let canceled = false;
-        const update = () => {
-            if (!canceled) {
-                const unitToSelect = getGameUnitSelected();
-                if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
-                    setSelectedUnit(unitToSelect);
-                }
-                else {
-                    // GameUI.SelectUnit(selectedUnit, false);
-                }
-                schedule = $.Schedule(0.03, update);
-            }
-        };
-        update();
-        return () => {
-            canceled = true;
-            try {
-                if (schedule !== undefined) {
-                    $.CancelScheduled(schedule);
-                }
-            }
-            catch (_a) {
-                $.Msg("Schedule " + schedule + " already finished");
-            }
-        };
-    }, []);
-    return selectedUnit;
-};
 
 
 /***/ }),

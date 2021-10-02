@@ -30,10 +30,17 @@ const SpellAmplification = (props: Props) => {
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <Label
-      text={spellAmp + ' %'}
-      style={ParentStyles.ColumnLabel()}
-    />
+    <Panel style={ParentStyles.Row()}>
+      <Panel style={ParentStyles.LeftColumn()}>
+        <Label text={'Spell Amplification:'} style={ParentStyles.ColumnLabel()} />
+      </Panel>
+      <Panel style={ParentStyles.RightColumn()}>
+        <Label
+          text={spellAmp + ' %'}
+          style={ParentStyles.ColumnLabel()}
+        />
+      </Panel>
+    </Panel>
   );
 
 };

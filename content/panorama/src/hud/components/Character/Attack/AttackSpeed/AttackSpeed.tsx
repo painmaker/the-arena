@@ -25,10 +25,17 @@ const AttackSpeed = (props: Props) => {
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <Label
-      text={(attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)'}
-      style={ParentStyles.ColumnLabel()}
-    />
+    <Panel style={ParentStyles.Row()}>
+      <Panel style={ParentStyles.LeftColumn()}>
+        <Label text={'Attack Speed:'} style={ParentStyles.ColumnLabel()} />
+      </Panel>
+      <Panel style={ParentStyles.RightColumn()}>
+        <Label
+          text={(attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)'}
+          style={ParentStyles.ColumnLabel()}
+        />
+      </Panel>
+    </Panel>
   );
 
 };

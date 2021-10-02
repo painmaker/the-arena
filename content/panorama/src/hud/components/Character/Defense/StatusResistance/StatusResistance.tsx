@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK_MEDIUM } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
-import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
-import { REFRESH_RATE } from "../../Character";
+import { Styles as ParentStyles } from "../Styles";
 
-type Props = ReactTimeoutProps & {};
+type Props = ReactTimeoutProps & {
+  selectedUnit: EntityIndex,
+};
 
 const StatusResistance = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - StatusResistance rendered");
 
-  const selectedUnit = useSelectedUnit();
+  const { selectedUnit, setInterval, clearInterval } = props;
   const [resistance, setResistance] = useState(0)
 
   useEffect(() => {
-    const id = props.setInterval(() => {
+    const id = setInterval(() => {
       const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
       for (let i = 0; i < numberOfBuffs; i++) {
         const buff = Entities.GetBuff(selectedUnit, i);
@@ -22,22 +24,22 @@ const StatusResistance = (props: Props) => {
           setResistance(Buffs.GetStackCount(selectedUnit, buff));
         }
       }
-    }, REFRESH_RATE)
-    return () => props.clearInterval(id);
-  }, [selectedUnit]);
+    }, HUD_THINK_MEDIUM)
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <Panel className={'defensePanelEntryContainer'}>
-      <Panel className={'characterPanelStatsEntry'}>
+    <Panel style={ParentStyles.Row()}>
+      <Panel style={ParentStyles.LeftColumn()}>
         <Label
-          text={'Status Resistance:'}
-          className={'characterPanelLabel characterPanelStatsLabel'}
+          text={'Pyshical Resistance:'}
+          style={ParentStyles.ColumnLabel()}
         />
       </Panel>
-      <Panel className={'characterPanelStatsEntry'}>
+      <Panel style={ParentStyles.RightColumn()}>
         <Label
           text={(resistance !== 0 ? (resistance / 100).toFixed(2) : 0) + ' %'}
-          className={'characterPanelLabel characterPanelStatsLabel'}
+          style={ParentStyles.ColumnLabel()}
         />
       </Panel>
     </Panel>

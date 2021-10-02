@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK_MEDIUM } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
-import { useSelectedUnit } from "../../../../hooks/useSelectedUnit";
-import { REFRESH_RATE } from "../../Character";
+import { Styles as ParentStyles } from "../Styles";
 
 type Props = ReactTimeoutProps & {
-  // ownProps
+  selectedUnit: EntityIndex,
 };
 
 const Armor = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Armor rendered");
 
-  const { setInterval, clearInterval } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
-  const selectedUnit = useSelectedUnit();
   const [armor, setArmor] = useState(Entities.GetPhysicalArmorValue(selectedUnit))
   const [bonusArmor, setBonusArmor] = useState(Entities.GetBonusPhysicalArmor(selectedUnit))
 
@@ -21,28 +20,27 @@ const Armor = (props: Props) => {
     const id = setInterval(() => {
       setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
       setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
-    }, REFRESH_RATE)
+    }, HUD_THINK_MEDIUM)
     return () => clearInterval(id);
   }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <Panel className={'defensePanelEntryContainer'}>
-      <Panel className={'characterPanelStatsEntry'}>
-        <Label
-          text={'Armor:'}
-          className={'characterPanelLabel characterPanelStatsLabel'}
-        />
+    <Panel style={ParentStyles.Row()}>
+      <Panel style={ParentStyles.LeftColumn()}>
+        <Label text={'Armor:'} style={ParentStyles.ColumnLabel()} />
       </Panel>
-      <Panel className={'characterPanelStatsEntry'}>
+      <Panel style={ParentStyles.RightColumn()}>
         <Label
           text={(armor - bonusArmor).toFixed(1)}
-          className={'characterPanelLabel characterPanelStatsLabel'}
+          style={ParentStyles.ColumnLabel()}
         />
         {bonusArmor !== 0 && (
           <Label
-            text={(bonusArmor > 0 ? '+' : '') + bonusArmor.toFixed(0)}
-            className={'characterPanelLabel characterPanelStatsLabel'}
-            style={{ color: bonusArmor > 0 ? 'green' : 'red' }}
+            text={(bonusArmor > 0 ? ' + ' : ' - ') + Math.abs(bonusArmor).toFixed(0)}
+            style={{
+              ...ParentStyles.ColumnLabel(),
+              color: bonusArmor > 0 ? 'green' : 'red',
+            }}
           />
         )}
       </Panel>
@@ -52,3 +50,4 @@ const Armor = (props: Props) => {
 };
 
 export default withReactTimeout(Armor);
+

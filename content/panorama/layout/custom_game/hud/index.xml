@@ -5,8 +5,6 @@
     <styles> 
         <include src="s2r://panorama/styles/dotastyles.vcss_c"></include>
         <include src="file://{resources}/layout/custom_game/hud/app.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/character.css"></include>
-        <include src="file://{resources}/layout/custom_game/hud/components/Character/Defense/defense.css"></include>
         <include src="file://{resources}/layout/custom_game/hud/components/Shop/shop.css"></include>  
         <include src="file://{resources}/layout/custom_game/hud/components/Shop/Title/title.css"></include>  
         <include src="file://{resources}/layout/custom_game/hud/components/Shop/Item/item.css"></include>  
@@ -29,4 +27,4 @@
     <Panel class="root" hittest="false">
       <!-- <Image src="s2r://panorama/images/icon_abilities_shop_points.png" /> -->
     </Panel> 
-</root>          
+</root>           

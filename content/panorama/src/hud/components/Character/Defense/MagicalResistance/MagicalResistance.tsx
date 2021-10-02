@@ -1,34 +1,39 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK_MEDIUM } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
-import { REFRESH_RATE } from "../../Character";
+import { Styles as ParentStyles } from "../Styles";
 
-type Props = ReactTimeoutProps & {};
+type Props = ReactTimeoutProps & {
+  selectedUnit: EntityIndex,
+};
 
 const MagicalResistance = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - MagicalResistance rendered");
 
-  const [resistance, setResistance] = useState(Entities.GetArmorReductionForDamageType(Players.GetLocalPlayerPortraitUnit(), DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL))
+  const { selectedUnit, setInterval, clearInterval } = props;
+
+  const [resistance, setResistance] = useState(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL))
 
   useEffect(() => {
-    const id = props.setInterval(() => {
-      setResistance(Entities.GetArmorReductionForDamageType(Players.GetLocalPlayerPortraitUnit(), DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
-    }, REFRESH_RATE)
-    return () => props.clearInterval(id);
-  }, []);
+    const id = setInterval(() => {
+      setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
+    }, HUD_THINK_MEDIUM)
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
-    <Panel className={'defensePanelEntryContainer'}>
-      <Panel className={'characterPanelStatsEntry'}>
+    <Panel style={ParentStyles.Row()}>
+      <Panel style={ParentStyles.LeftColumn()}>
         <Label
           text={'Magical Resistance:'}
-          className={'characterPanelLabel characterPanelStatsLabel'}
+          style={ParentStyles.ColumnLabel()}
         />
       </Panel>
-      <Panel className={'characterPanelStatsEntry'}>
+      <Panel style={ParentStyles.RightColumn()}>
         <Label
           text={(resistance * 100).toFixed(2) + " %"}
-          className={'characterPanelLabel characterPanelStatsLabel'}
+          style={ParentStyles.ColumnLabel()}
         />
       </Panel>
     </Panel>

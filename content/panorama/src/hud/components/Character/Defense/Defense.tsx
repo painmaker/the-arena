@@ -6,24 +6,29 @@ import HealthRegen from "./HealthRegen/HealthRegen";
 import MagicalResistance from "./MagicalResistance/MagicalResistance";
 import PyshicalResistance from "./PyshicalResistance/PyshicalResistance";
 import StatusResistance from "./StatusResistance/StatusResistance";
+import { Styles } from "./Styles";
 
-const Defense = () => {
+interface Props {
+  selectedUnit: EntityIndex,
+}
+
+const Defense = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Defense rendered");
 
+  const { selectedUnit } = props;
+
   return (
-    <Panel hittest={false} className={'defensePanelContainer'}>
-      <Panel className={'defensePanelBackground'}>
-        <Label text={'DEFENSE'} className={'characterPanelComponentTitleLabel defensePanelTitle'} />
-        <Divider />
-        <Panel className={'defensePanelLabelContainer'}>
-          <Armor />
-          <PyshicalResistance />
-          <MagicalResistance />
-          <StatusResistance />
-          <Evasion />
-          <HealthRegen />
-        </Panel>
+    <Panel style={Styles.OuterContainer()}>
+      <Label text={'DEFENSE'} style={Styles.Title()} />
+      <Divider />
+      <Panel style={Styles.InnerContainer()}>
+        <Armor selectedUnit={selectedUnit} />
+        <PyshicalResistance selectedUnit={selectedUnit} />
+        <MagicalResistance selectedUnit={selectedUnit} />
+        <StatusResistance selectedUnit={selectedUnit} />
+        <Evasion selectedUnit={selectedUnit} />
+        <HealthRegen selectedUnit={selectedUnit} />
       </Panel>
     </Panel>
   );

@@ -1,55 +1,58 @@
 import React, { useEffect, useState } from "react";
+import { HUD_THINK_MEDIUM } from "../../../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
-import { REFRESH_RATE } from "../../Character";
+import { Styles as ParentStyles } from "../Styles";
 
-type Props = ReactTimeoutProps & {};
+type Props = ReactTimeoutProps & {
+  selectedUnit: EntityIndex,
+};
 
 const HealthRegen = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - HealthRegen rendered");
 
+  const { selectedUnit, setInterval, clearInterval } = props;
+
   const [regen, setRegen] = useState(0)
   const [baseRegen, setBaseRegen] = useState(0)
 
   useEffect(() => {
-    const id = props.setInterval(() => {
+    const id = setInterval(() => {
       // Hack because panorama API method for health regen is bugged
-      const entindex = Players.GetLocalPlayerPortraitUnit();
-      const numberOfBuffs = Entities.GetNumBuffs(entindex);
+      const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
       for (let i = 0; i < numberOfBuffs; i++) {
-        const buff = Entities.GetBuff(entindex, i);
-        const name = Buffs.GetName(entindex, buff);
+        const buff = Entities.GetBuff(selectedUnit, i);
+        const name = Buffs.GetName(selectedUnit, buff);
         if (name === 'modifier_ui_health_regen') {
-          setRegen(Buffs.GetStackCount(entindex, buff) / 100);
+          setRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
         }
         if (name === 'modifier_ui_base_health_regen') {
-          setBaseRegen(Buffs.GetStackCount(entindex, buff) / 100);
+          setBaseRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
         }
       }
-    }, REFRESH_RATE)
-    return () => props.clearInterval(id);
-  }, []);
+    }, HUD_THINK_MEDIUM)
+    return () => clearInterval(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   const increasedRegen = regen - baseRegen;
 
   return (
-    <Panel className={'defensePanelEntryContainer'}>
-      <Panel className={'characterPanelStatsEntry'}>
-        <Label
-          text={'Health Regen:'}
-          className={'characterPanelLabel characterPanelStatsLabel'}
-        />
+    <Panel style={ParentStyles.Row()}>
+      <Panel style={ParentStyles.LeftColumn()}>
+        <Label text={'Health Regeneration:'} style={ParentStyles.ColumnLabel()} />
       </Panel>
-      <Panel className={'characterPanelStatsEntry'}>
+      <Panel style={ParentStyles.RightColumn()}>
         <Label
           text={baseRegen.toFixed(2)}
-          className={'characterPanelLabel characterPanelStatsLabel'}
+          style={ParentStyles.ColumnLabel()}
         />
         {increasedRegen !== 0 && (
           <Label
-            text={(increasedRegen > 0 ? '+' : '') + increasedRegen.toFixed(2)}
-            className={'characterPanelLabel characterPanelStatsLabel'}
-            style={{ color: increasedRegen > 0 ? 'green' : 'red' }}
+            text={(increasedRegen > 0 ? ' + ' : ' - ') + Math.abs(increasedRegen).toFixed(2)}
+            style={{
+              ...ParentStyles.ColumnLabel(),
+              color: increasedRegen > 0 ? 'green' : 'red',
+            }}
           />
         )}
       </Panel>
