@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { objectsEqual } from "../../utils/ObjectUtils";
 import { TableUtils } from "../../utils/TableUtils";
-import FloatingHealthBar from "./FloatingHealthBar/FloatingHealthBar";
-import FloatingManaBar from "./FloatingManaBar/FloatingManaBar";
+import HealthBar from "./HealthBar/HealthBar";
+import ManaBar from "./ManaBar/ManaBar";
 import { Styles } from "./Styles";
 
 type Props = ReactTimeoutProps & {
@@ -18,6 +19,8 @@ interface IFloatingBar {
 
 const FloatingBars = (props: Props) => {
 
+  // $.Msg("REACT-RENDER: FloatingBars rendered");
+
   const { setInterval, clearInterval } = props;
 
   const [floatingBars, setFloatingBars] = useState<IFloatingBar[]>([]);
@@ -29,7 +32,7 @@ const FloatingBars = (props: Props) => {
       const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
       const scale = 1080 / Game.GetScreenHeight();
 
-      const mFloatingBars = Entities.GetAllEntities()
+      const mFloatingBars = Entities.GetAllHeroEntities()
         .filter(entity => Entities.IsSelectable(entity))
         .filter(entity => Entities.IsAlive(entity))
         .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < 3500)
@@ -68,7 +71,9 @@ const FloatingBars = (props: Props) => {
         })
         .filter(screenPosition => screenPosition.visible);
 
-      setFloatingBars(mFloatingBars);
+      if (!TableUtils.isEqual(mFloatingBars, floatingBars, objectsEqual)) {
+        setFloatingBars(mFloatingBars);
+      }
 
     };
 
@@ -77,7 +82,7 @@ const FloatingBars = (props: Props) => {
 
     return () => clearInterval(id);
 
-  }, [setInterval, clearInterval]);
+  }, [floatingBars, setInterval, clearInterval]);
 
   return (
     <React.Fragment>
@@ -85,8 +90,8 @@ const FloatingBars = (props: Props) => {
         const { unit, screenX, screenY } = floatingBar;
         return (
           <Panel key={unit} style={Styles.Container(screenX - 40, screenY, 0)}>
-            <FloatingManaBar unit={unit} />
-            <FloatingHealthBar unit={unit} />
+            <HealthBar unit={unit} />
+            <ManaBar unit={unit} />
           </Panel>
         )
       })}

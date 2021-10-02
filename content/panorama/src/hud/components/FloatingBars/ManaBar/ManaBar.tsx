@@ -7,7 +7,9 @@ type Props = ReactTimeoutProps & {
   unit: EntityIndex,
 };
 
-const FloatingManaBar = (props: Props) => {
+const ManaBar = (props: Props) => {
+
+  // $.Msg("REACT-RENDER: FloatingBars - ManaBar rendered");
 
   const { unit, setInterval, clearInterval } = props;
 
@@ -42,4 +44,4 @@ const FloatingManaBar = (props: Props) => {
 
 }
 
-export default withReactTimeout(FloatingManaBar);
+export default React.memo(withReactTimeout(ManaBar));

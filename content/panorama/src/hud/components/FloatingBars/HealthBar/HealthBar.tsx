@@ -7,7 +7,9 @@ type Props = ReactTimeoutProps & {
   unit: EntityIndex,
 };
 
-const FloatingHealthBar = (props: Props) => {
+const HealthBar = (props: Props) => {
+
+  // $.Msg("REACT-RENDER: FloatingBars - HealthBar rendered");
 
   const { unit, setInterval, clearInterval } = props;
 
@@ -42,4 +44,4 @@ const FloatingHealthBar = (props: Props) => {
 
 }
 
-export default withReactTimeout(FloatingHealthBar);
+export default React.memo(withReactTimeout(HealthBar));
