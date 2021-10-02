@@ -49,7 +49,6 @@ module.exports = {
     new PanoramaTargetPlugin(),
     new PanoramaManifestPlugin({
       entries: [
-        { import: "./loading-screen/layout.xml", filename: "custom_loading_screen.xml" },
         { import: "./hud/index.xml", type: "Hud" },
       ],
     }),

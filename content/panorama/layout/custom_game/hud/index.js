@@ -58673,11 +58673,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Model_Model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Model/Model */ "./hud/components/Character/Model/Model.tsx");
-/* harmony import */ var _Attack_Attack__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Attack/Attack */ "./hud/components/Character/Attack/Attack.tsx");
-/* harmony import */ var _Defense_Defense__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Defense/Defense */ "./hud/components/Character/Defense/Defense.tsx");
-/* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/Character/Title/Title.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Styles.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Styles.tsx");
+/* harmony import */ var _Model_Model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Model/Model */ "./hud/components/Character/Model/Model.tsx");
+/* harmony import */ var _Attack_Attack__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Attack/Attack */ "./hud/components/Character/Attack/Attack.tsx");
+/* harmony import */ var _Defense_Defense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Defense/Defense */ "./hud/components/Character/Defense/Defense.tsx");
+/* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/Character/Title/Title.tsx");
 /* harmony import */ var _Level_Level__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Level/Level */ "./hud/components/Character/Level/Level.tsx");
 /* harmony import */ var _Avatar_Avatar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Avatar/Avatar */ "./hud/components/Character/Avatar/Avatar.tsx");
 
@@ -58711,17 +58711,17 @@ const Character = (props) => {
         }
         return () => clearTimeout(timer);
     }, [visible, setTimeout, clearTimeout]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'Invisible', style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.InnerContainer(visible) },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.ColumnContainer() },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.LeftColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Model_Model__WEBPACK_IMPORTED_MODULE_3__.default, { selectedUnit: selectedUnit }),
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'Invisible', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.InnerContainer(visible) },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnContainer() },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Model_Model__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Level_Level__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit }),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Avatar_Avatar__WEBPACK_IMPORTED_MODULE_9__.default, { selectedUnit: selectedUnit })),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.RightColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Attack_Attack__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Defense_Defense__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }))))))));
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Attack_Attack__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Defense_Defense__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }))))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Character)));
 

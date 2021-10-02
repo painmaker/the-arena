@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../reducers/rootReducer";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { Timer } from "react-timeout";
+import { Styles } from "./Styles";
 import Model from "./Model/Model";
 import Attack from "./Attack/Attack";
 import Defense from "./Defense/Defense";
-import Title from "./Title/Title";
-import { Timer } from "react-timeout";
-import { Styles } from "./Styles";
+import Title from "./Title/Title"
 import Level from "./Level/Level";
 import Avatar from "./Avatar/Avatar";
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
-import { useSelectedUnit } from "../../../hooks/useSelectedUnit";
 import { HUD_THINK_MEDIUM } from "../../../App";
 
 type Props = ReactTimeoutProps & {

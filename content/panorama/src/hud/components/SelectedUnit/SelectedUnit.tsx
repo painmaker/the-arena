@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { Dispatch } from 'redux';
-import { setSelectedUnit } from '../../actions/selectedUnitActions';
-import { HUD_THINK_FAST } from '../../App';
 import withReactTimeout, { ReactTimeoutProps } from '../../hoc/ReactTimeout';
 import { RootState } from '../../reducers/rootReducer';
-import { SelectedUnitActionTypes } from '../../types/selectedUnitTypes';
 import { Styles } from './Styles';
 
 
