@@ -53,7 +53,6 @@ const ManaBar = (props: Props) => {
         <DOTAScenePanel
           style={Styles.Scene(mana, maxMana)}
           map={'scenes/hud/healthbarburner'}
-          camera={'camera_1'}
         />
       </ProgressBar>
       <Label style={Styles.ManaLabel()} text={mana + " / " + maxMana} />

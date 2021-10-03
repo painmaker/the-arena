@@ -38,13 +38,7 @@ const Mana = (props: Props) => {
         value={mana}
         className='manaProgressBar'
         style={Styles.Progressbar()}
-      >
-        <DOTAScenePanel
-          style={Styles.Scene(mana, maxMana)}
-          map={'scenes/hud/healthbarburner'}
-          camera={'camera_1'}
-        />
-      </ProgressBar>
+      />
     </Panel>
   );
 

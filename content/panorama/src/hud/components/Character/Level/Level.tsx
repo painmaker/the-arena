@@ -23,7 +23,7 @@ const Level = (props: Props) => {
         const currentXp = Entities.GetCurrentXP(selectedUnit);
         const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
         const degree = Math.floor(Math.max(0, Math.min(360, currentXp / requiredXp * 360)));
-        setDegree(degree);
+        setDegree(Number.isNaN(degree) ? 360 : degree);
       } else {
         setDegree(360);
       }

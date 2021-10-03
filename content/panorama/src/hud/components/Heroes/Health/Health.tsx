@@ -38,13 +38,7 @@ const Health = (props: Props) => {
         value={health}
         className='healthProgressBar'
         style={Styles.Progressbar()}
-      >
-        <DOTAScenePanel
-          style={Styles.Scene(health, maxHealth)}
-          map={'scenes/hud/healthbarburner'}
-          camera={'camera_1'}
-        />
-      </ProgressBar>
+      />
     </Panel>
   );
 

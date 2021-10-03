@@ -59190,7 +59190,7 @@ const Level = (props) => {
                 const currentXp = Entities.GetCurrentXP(selectedUnit);
                 const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
                 const degree = Math.floor(Math.max(0, Math.min(360, currentXp / requiredXp * 360)));
-                setDegree(degree);
+                setDegree(Number.isNaN(degree) ? 360 : degree);
             }
             else {
                 setDegree(360);
@@ -59878,7 +59878,7 @@ const HealthBar = (props) => {
     }, [selectedUnit, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Progressbar() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Scene(health, maxHealth), map: 'scenes/hud/healthbarburner', camera: 'camera_1' })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Scene(health, maxHealth), map: 'scenes/hud/healthbarburner' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.HealthLabel(), text: health + " / " + maxHealth }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.RegenLabel(), text: '+ ' + healthRegen.toFixed(1) })));
 };
@@ -60860,8 +60860,7 @@ const Health = (props) => {
         return () => clearInterval(id);
     }, [hero, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Scene(health, maxHealth), map: 'scenes/hud/healthbarburner', camera: 'camera_1' }))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Health)));
 
@@ -60914,11 +60913,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
-/* harmony import */ var _Health_Health__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Health/Health */ "./hud/components/Heroes/Health/Health.tsx");
-/* harmony import */ var _Image_Image__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Image/Image */ "./hud/components/Heroes/Image/Image.tsx");
-/* harmony import */ var _Mana_Mana__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Mana/Mana */ "./hud/components/Heroes/Mana/Mana.tsx");
-/* harmony import */ var _Playername_Playername__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Playername/Playername */ "./hud/components/Heroes/Playername/Playername.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Styles.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _Health_Health__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Health/Health */ "./hud/components/Heroes/Health/Health.tsx");
+/* harmony import */ var _Image_Image__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Image/Image */ "./hud/components/Heroes/Image/Image.tsx");
+/* harmony import */ var _Mana_Mana__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Mana/Mana */ "./hud/components/Heroes/Mana/Mana.tsx");
+/* harmony import */ var _Playername_Playername__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Playername/Playername */ "./hud/components/Heroes/Playername/Playername.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Styles.tsx");
 
 
 
@@ -60926,19 +60926,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const Heroes = () => {
+
+const Heroes = (props) => {
     // $.Msg("REACT-RENDER: Heroes rendered");
     const pickedHeroes = Object.values((0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes).filter(hero => hero.picked === 1);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.HeroesContainer() }, pickedHeroes.map((pickedHero) => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.HeroesContainer() }, pickedHeroes.map((pickedHero) => {
         const hero = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.HeroContainer(), key: hero },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Image_Image__WEBPACK_IMPORTED_MODULE_3__.default, { hero: hero }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Health_Health__WEBPACK_IMPORTED_MODULE_2__.default, { hero: hero }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Mana_Mana__WEBPACK_IMPORTED_MODULE_4__.default, { hero: hero }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Playername_Playername__WEBPACK_IMPORTED_MODULE_5__.default, { playerId: pickedHero.playerID })));
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.HeroContainer(), key: hero },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Image_Image__WEBPACK_IMPORTED_MODULE_4__.default, { hero: hero }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Health_Health__WEBPACK_IMPORTED_MODULE_3__.default, { hero: hero }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Mana_Mana__WEBPACK_IMPORTED_MODULE_5__.default, { hero: hero }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Playername_Playername__WEBPACK_IMPORTED_MODULE_6__.default, { playerId: pickedHero.playerID })));
     })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Heroes));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Heroes)));
 
 
 /***/ }),
@@ -61121,8 +61122,7 @@ const Mana = (props) => {
         return () => clearInterval(id);
     }, [hero, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Scene(mana, maxMana), map: 'scenes/hud/healthbarburner', camera: 'camera_1' }))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Mana)));
 
@@ -62229,7 +62229,7 @@ const ManaBar = (props) => {
     }, [selectedUnit, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container(maxMana > 0) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Progressbar() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Scene(mana, maxMana), map: 'scenes/hud/healthbarburner', camera: 'camera_1' })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Scene(mana, maxMana), map: 'scenes/hud/healthbarburner' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.ManaLabel(), text: mana + " / " + maxMana }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.RegenLabel(), text: '+ ' + manaRegen.toFixed(1) })));
 };
@@ -64006,8 +64006,8 @@ const Level = (props) => {
             if (Entities.IsHero(selectedUnit)) {
                 const currentXp = Entities.GetCurrentXP(selectedUnit);
                 const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
-                const degree = currentXp / requiredXp * 100;
-                setPercentage(Math.floor(Math.max(0, Math.min(100, degree))));
+                const percentage = Math.floor(Math.max(0, Math.min(100, currentXp / requiredXp * 100)));
+                setPercentage(Number.isNaN(percentage) ? 100 : percentage);
             }
             else {
                 setPercentage(100);

@@ -57,8 +57,8 @@ const Level = (props: Props) => {
       if (Entities.IsHero(selectedUnit)) {
         const currentXp = Entities.GetCurrentXP(selectedUnit);
         const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
-        const degree = currentXp / requiredXp * 100
-        setPercentage(Math.floor(Math.max(0, Math.min(100, degree))));
+        const percentage = Math.floor(Math.max(0, Math.min(100, currentXp / requiredXp * 100)))
+        setPercentage(Number.isNaN(percentage) ? 100 : percentage)
       } else {
         setPercentage(100);
       }
