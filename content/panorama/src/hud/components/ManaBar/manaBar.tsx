@@ -63,4 +63,4 @@ const ManaBar = (props: Props) => {
 
 };
 
-export default connector(withReactTimeout(ManaBar));
+export default React.memo(connector(withReactTimeout(ManaBar)));

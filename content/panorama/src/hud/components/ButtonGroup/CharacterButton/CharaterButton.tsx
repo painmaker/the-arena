@@ -45,4 +45,4 @@ const CharaterButton = (props: Props) => {
 
 };
 
-export default connector(CharaterButton);
+export default React.memo(connector(CharaterButton));

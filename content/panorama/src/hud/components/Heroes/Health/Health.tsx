@@ -50,4 +50,4 @@ const Health = (props: Props) => {
 
 };
 
-export default withReactTimeout(Health);
+export default React.memo(withReactTimeout(Health));

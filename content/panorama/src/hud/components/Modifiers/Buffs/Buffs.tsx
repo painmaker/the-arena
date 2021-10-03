@@ -64,4 +64,4 @@ const BuffsPanel = (props: Props) => {
 
 };
 
-export default connector(BuffsPanel);
+export default React.memo(connector(BuffsPanel));

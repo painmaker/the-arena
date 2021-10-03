@@ -41,4 +41,4 @@ const PyshicalResistance = (props: Props) => {
 
 };
 
-export default withReactTimeout(PyshicalResistance);
+export default React.memo(withReactTimeout(PyshicalResistance));

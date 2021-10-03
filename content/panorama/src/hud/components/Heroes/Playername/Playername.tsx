@@ -22,4 +22,4 @@ const Playername = (props: Props) => {
 
 };
 
-export default Playername;
+export default React.memo(Playername);

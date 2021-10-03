@@ -68,4 +68,4 @@ const Character = (props: Props) => {
 
 };
 
-export default connector(withReactTimeout(Character));
+export default React.memo(connector(withReactTimeout(Character)));

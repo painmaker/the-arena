@@ -1,7 +1,7 @@
 import React from "react";
 import { useNetTableValues } from "react-panorama";
 import Health from "./Health/Health";
-import HeroImage from "./HeroImage/HeroImage";
+import Image from "./Image/Image";
 import Mana from "./Mana/Mana";
 import Playername from "./Playername/Playername";
 import { Styles } from "./Styles";
@@ -18,7 +18,7 @@ const Heroes = () => {
         const hero = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
         return (
           <Panel style={Styles.HeroContainer()} key={hero} >
-            <HeroImage hero={hero} />
+            <Image hero={hero} />
             <Health hero={hero} />
             <Mana hero={hero} />
             <Playername playerId={pickedHero.playerID} />
@@ -30,4 +30,4 @@ const Heroes = () => {
 
 };
 
-export default Heroes;
+export default React.memo(Heroes);

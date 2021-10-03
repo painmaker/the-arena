@@ -46,4 +46,4 @@ const AbilitiesPoints = (props: Props) => {
 
 };
 
-export default withReactTimeout(AbilitiesPoints);
+export default React.memo(withReactTimeout(AbilitiesPoints));

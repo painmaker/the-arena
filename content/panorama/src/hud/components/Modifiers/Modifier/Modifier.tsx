@@ -96,4 +96,4 @@ const Modifier = (props: Props) => {
 
 };
 
-export default Modifier;
+export default React.memo(Modifier);

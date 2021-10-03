@@ -42,4 +42,4 @@ const Minimap = (props: Props) => {
 
 };
 
-export default connector(Minimap);
+export default React.memo(connector(Minimap));

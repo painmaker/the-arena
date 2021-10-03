@@ -45,4 +45,4 @@ const LockCameraBtn = (props: Props) => {
   );
 }
 
-export default connector(LockCameraBtn);
+export default React.memo(connector(LockCameraBtn));

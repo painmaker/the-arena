@@ -41,4 +41,4 @@ const MoveSpeed = (props: Props) => {
 
 };
 
-export default withReactTimeout(MoveSpeed);
+export default React.memo(withReactTimeout(MoveSpeed));

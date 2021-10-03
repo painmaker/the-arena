@@ -53,4 +53,4 @@ const Cooldown = (props: Props) => {
 
 };
 
-export default withReactTimeout(Cooldown);
+export default React.memo(withReactTimeout(Cooldown));

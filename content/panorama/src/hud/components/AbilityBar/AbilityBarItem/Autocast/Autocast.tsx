@@ -45,4 +45,4 @@ const Autocast = (props: Props) => {
 
 };
 
-export default withReactTimeout(Autocast);
+export default React.memo(withReactTimeout(Autocast));

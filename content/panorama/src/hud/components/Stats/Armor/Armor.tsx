@@ -49,4 +49,4 @@ const Armor = (props: Props) => {
 
 };
 
-export default withReactTimeout(Armor);
+export default React.memo(withReactTimeout(Armor));

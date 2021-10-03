@@ -45,4 +45,4 @@ const SettingsButton = (props: Props) => {
 
 };
 
-export default connector(SettingsButton);
+export default React.memo(connector(SettingsButton));

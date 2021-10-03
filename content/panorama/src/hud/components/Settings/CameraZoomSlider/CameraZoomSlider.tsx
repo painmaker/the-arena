@@ -58,4 +58,4 @@ const CameraZoomSlider = (props: Props) => {
   );
 }
 
-export default connector(CameraZoomSlider);
+export default React.memo(connector(CameraZoomSlider));

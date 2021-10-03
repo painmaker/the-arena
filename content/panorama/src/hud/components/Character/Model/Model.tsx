@@ -45,4 +45,4 @@ const Model = (props: Props) => {
 
 };
 
-export default Model;
+export default React.memo(Model);

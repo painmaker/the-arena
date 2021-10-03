@@ -37,4 +37,4 @@ const Stats = (props: Props) => {
 
 };
 
-export default connector(Stats);
+export default React.memo(connector(Stats));

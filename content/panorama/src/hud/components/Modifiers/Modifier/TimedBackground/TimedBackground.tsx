@@ -43,4 +43,4 @@ const TimedBackground = (props: Props) => {
 
 };
 
-export default withReactTimeout(TimedBackground);
+export default React.memo(withReactTimeout(TimedBackground));

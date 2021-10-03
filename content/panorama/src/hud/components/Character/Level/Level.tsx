@@ -50,4 +50,4 @@ const Level = (props: Props) => {
 
 };
 
-export default withReactTimeout(Level);
+export default React.memo(withReactTimeout(Level));

@@ -41,4 +41,4 @@ const MagicResistance = (props: Props) => {
 
 };
 
-export default withReactTimeout(MagicResistance);
+export default React.memo(withReactTimeout(MagicResistance));

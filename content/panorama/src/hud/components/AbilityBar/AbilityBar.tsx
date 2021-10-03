@@ -65,4 +65,4 @@ const AbilityBar = (props: Props) => {
 
 }
 
-export default connector(withReactTimeout(AbilityBar));
+export default React.memo(connector(withReactTimeout(AbilityBar)));

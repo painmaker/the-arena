@@ -46,4 +46,4 @@ const Title = (props: Props) => {
 
 };
 
-export default connector(Title);
+export default React.memo(connector(Title));

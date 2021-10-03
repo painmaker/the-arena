@@ -78,4 +78,4 @@ const AbilityImage = (props: Props) => {
 
 };
 
-export default withReactTimeout(AbilityImage);
+export default React.memo(withReactTimeout(AbilityImage));

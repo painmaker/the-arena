@@ -71,4 +71,4 @@ const HealthBar = (props: Props) => {
 
 };
 
-export default connector(withReactTimeout(HealthBar));
+export default React.memo(connector(withReactTimeout(HealthBar)));

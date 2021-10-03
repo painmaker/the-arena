@@ -84,4 +84,4 @@ const Image = (props: Props) => {
 
 };
 
-export default withReactTimeout(Image);
+export default React.memo(withReactTimeout(Image));

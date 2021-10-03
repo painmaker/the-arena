@@ -44,4 +44,4 @@ const UltimateAbilities = (props: Props) => {
 
 };
 
-export default UltimateAbilities;
+export default React.memo(UltimateAbilities);

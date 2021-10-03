@@ -129,4 +129,4 @@ const AbilitiesShop = (props: Props) => {
 
 };
 
-export default connector(withReactTimeout(AbilitiesShop));
+export default React.memo(connector(withReactTimeout(AbilitiesShop)));

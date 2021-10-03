@@ -47,4 +47,4 @@ const StatusResistance = (props: Props) => {
 
 };
 
-export default withReactTimeout(StatusResistance);
+export default React.memo(withReactTimeout(StatusResistance));

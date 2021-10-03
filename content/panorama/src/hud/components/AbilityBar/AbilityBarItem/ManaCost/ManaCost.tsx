@@ -39,4 +39,4 @@ const ManaCost = (props: Props) => {
 
 };
 
-export default withReactTimeout(ManaCost);
+export default React.memo(withReactTimeout(ManaCost));

@@ -78,4 +78,4 @@ const Settings = (props: Props) => {
 
 };
 
-export default connector(withReactTimeout(Settings));
+export default React.memo(connector(withReactTimeout(Settings)));

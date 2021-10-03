@@ -56306,7 +56306,7 @@ const AbilitiesPoints = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: text, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TextLabel() }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: abilityPoints, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.NumberLabel(abilityPoints !== 0) }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AbilitiesPoints));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AbilitiesPoints)));
 
 
 /***/ }),
@@ -56476,7 +56476,7 @@ const AbilitiesShop = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit, regularAbilities: regularAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit, ultimateAbilities: ultimateAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AbilitiesShop)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AbilitiesShop))));
 
 
 /***/ }),
@@ -56537,7 +56537,7 @@ const AbilityImage = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityImage(searchValue.length > 0, isSearched, isRequiredLevel), oncontextmenu: () => onRightClick(selectedUnit, name), onmouseout: () => onMouseOut(name), onmouseover: () => onMouseOver(selectedUnit, name) },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: 'ability_shop_image_' + name, abilityname: name }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AbilityImage));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AbilityImage)));
 
 
 /***/ }),
@@ -56595,7 +56595,7 @@ const RegularAbilities = (props) => {
                 return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_1__.default, { key: regularAbility.name, selectedUnit: selectedUnit, shopAbility: regularAbility, searchValue: searchValue }));
             }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RegularAbilities);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(RegularAbilities));
 
 
 /***/ }),
@@ -56676,7 +56676,7 @@ const Search = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(TextEntry, { id: "abilitiesShopSearchFieldId", style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.SearchField(), maxchars: 50, placeholder: 'Search...', ontextentrychange: (event) => setSearchValue(event.text.toLocaleLowerCase().trim()) }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { onmouseout: () => setIsHovering(false), onmouseover: () => setIsHovering(true), style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ClearBtn(isHovering), onactivate: () => $("#abilitiesShopSearchFieldId").text = '' })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Search);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Search));
 
 
 /***/ }),
@@ -56868,7 +56868,7 @@ const Title = (props) => {
             } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Title));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Title)));
 
 
 /***/ }),
@@ -56950,7 +56950,7 @@ const UltimateAbilities = (props) => {
                 return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_1__.default, { key: ultimateAbility.name, selectedUnit: selectedUnit, shopAbility: ultimateAbility, searchValue: searchValue }));
             }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UltimateAbilities);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(UltimateAbilities));
 
 
 /***/ }),
@@ -57009,7 +57009,7 @@ const AbilityBar = (props) => {
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.Container() }, abilities.map(ability => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityBarItem_AbilityBarItem__WEBPACK_IMPORTED_MODULE_5__.default, { key: ability, ability: ability, selectedUnit: selectedUnit })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(AbilityBar)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(AbilityBar))));
 
 
 /***/ }),
@@ -57123,7 +57123,7 @@ const AbilityBarItem = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CastPointOverlay_CastPointOverlay__WEBPACK_IMPORTED_MODULE_11__.default, { ability: ability })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Skillpoints_Skillpoints__WEBPACK_IMPORTED_MODULE_5__.default, { ability: ability })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AbilityBarItem));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AbilityBarItem)));
 
 
 /***/ }),
@@ -57166,7 +57166,7 @@ const Autocast = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { map: 'scenes/hud/autocasting', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AutocastScene() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Autocast));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Autocast)));
 
 
 /***/ }),
@@ -57255,7 +57255,7 @@ const Cooldown = (props) => {
     }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(degree) }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Cooldown));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Cooldown)));
 
 
 /***/ }),
@@ -57332,7 +57332,7 @@ const Cooldown = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Background(degree) }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: Math.ceil(cooldownTimeRemaining) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Cooldown));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Cooldown)));
 
 
 /***/ }),
@@ -57444,7 +57444,7 @@ const Image = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityImage(washColor, saturation), contextEntityIndex: ability })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Image));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Image)));
 
 
 /***/ }),
@@ -57521,7 +57521,7 @@ const Keybind = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: keybind })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Keybind));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Keybind)));
 
 
 /***/ }),
@@ -57598,7 +57598,7 @@ const LevelUpButton = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { onactivate: () => Abilities.AttemptToUpgrade(ability), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ButtonBackground() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LockIcon() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(LevelUpButton));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(LevelUpButton)));
 
 
 /***/ }),
@@ -57695,7 +57695,7 @@ const LockoutIcon = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(showLock) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Icon() })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(LockoutIcon));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(LockoutIcon)));
 
 
 /***/ }),
@@ -57770,7 +57770,7 @@ const ManaCost = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: manaCost })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(ManaCost));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(ManaCost)));
 
 
 /***/ }),
@@ -57846,7 +57846,7 @@ const Skillpoints = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Skillpoint(abilityLevel, index) })));
     })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Skillpoints));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Skillpoints)));
 
 
 /***/ }),
@@ -58000,7 +58000,7 @@ const AbilitiesShopButton = (props) => {
                 Game.EmitSound("ui_topmenu_select");
             }, src: "s2r://panorama/images/book_open_page_variant_outline_png.vtex" })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(AbilitiesShopButton));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(AbilitiesShopButton)));
 
 
 /***/ }),
@@ -58040,7 +58040,7 @@ const ButtonGroup = () => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Entry() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesShopButton_AbilitiesShopButton__WEBPACK_IMPORTED_MODULE_1__.default, null))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ButtonGroup);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ButtonGroup));
 
 
 /***/ }),
@@ -58081,7 +58081,7 @@ const CharaterButton = (props) => {
                 Game.EmitSound("ui_topmenu_select");
             }, src: "s2r://panorama/images/character_btn_white_png.vtex" })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CharaterButton));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(CharaterButton)));
 
 
 /***/ }),
@@ -58122,7 +58122,7 @@ const SettingsButton = (props) => {
                 Game.EmitSound("ui_topmenu_select");
             }, src: "s2r://panorama/images/settings_btn_white_png.vtex" })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(SettingsButton));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(SettingsButton)));
 
 
 /***/ }),
@@ -58163,7 +58163,7 @@ const ShoppingButton = (props) => {
                 Game.EmitSound("ui_topmenu_select");
             }, src: "s2r://panorama/images/shop_btn_white_png.vtex" })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(ShoppingButton));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(ShoppingButton)));
 
 
 /***/ }),
@@ -58251,7 +58251,7 @@ const Attack = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpellAmplification_SpellAmplification__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaRegen_ManaRegen__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Attack);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Attack));
 
 
 /***/ }),
@@ -58291,7 +58291,7 @@ const AttackSpeed = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: attackRange.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AttackSpeed));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AttackSpeed)));
 
 
 /***/ }),
@@ -58333,7 +58333,7 @@ const AttackSpeed = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AttackSpeed));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AttackSpeed)));
 
 
 /***/ }),
@@ -58378,7 +58378,7 @@ const Damage = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: minDamage.toFixed(0) + " - " + maxDamage.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
             bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusDamage > 0 ? ' + ' : ' - ') + Math.abs(bonusDamage), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: bonusDamage > 0 ? 'green' : 'red' }) })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Damage));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Damage)));
 
 
 /***/ }),
@@ -58418,7 +58418,7 @@ const AttackSpeed = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: manaRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AttackSpeed));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AttackSpeed)));
 
 
 /***/ }),
@@ -58462,7 +58462,7 @@ const MoveSpeed = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseMoveSpeed.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
             increasedMoveSpeed !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedMoveSpeed > 0 ? ' + ' : ' - ') + Math.abs(increasedMoveSpeed).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: increasedMoveSpeed > 0 ? 'green' : 'red' }) })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(MoveSpeed));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(MoveSpeed)));
 
 
 /***/ }),
@@ -58509,7 +58509,7 @@ const SpellAmplification = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: spellAmp + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(SpellAmplification));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(SpellAmplification)));
 
 
 /***/ }),
@@ -58615,7 +58615,7 @@ const Avatar = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.LabelContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAUserName, { steamid: steamId, style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Label() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Avatar);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Avatar));
 
 
 /***/ }),
@@ -58726,7 +58726,7 @@ const Character = (props) => {
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Attack_Attack__WEBPACK_IMPORTED_MODULE_9__.default, { selectedUnit: selectedUnit }),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Defense_Defense__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }))))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Character)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Character))));
 
 
 /***/ }),
@@ -58769,7 +58769,7 @@ const Armor = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (armor - bonusArmor).toFixed(1), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
             bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusArmor > 0 ? ' + ' : ' - ') + Math.abs(bonusArmor).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: bonusArmor > 0 ? 'green' : 'red' }) })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Armor));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Armor)));
 
 
 /***/ }),
@@ -58817,7 +58817,7 @@ const Defense = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Evasion_Evasion__WEBPACK_IMPORTED_MODULE_3__.default, { selectedUnit: selectedUnit }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HealthRegen_HealthRegen__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Defense);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Defense));
 
 
 /***/ }),
@@ -58864,7 +58864,7 @@ const Evasion = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (evasion > 0 ? (evasion / 100).toFixed(0) : 0) + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Evasion));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Evasion)));
 
 
 /***/ }),
@@ -58918,7 +58918,7 @@ const HealthRegen = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
             increasedRegen !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedRegen > 0 ? ' + ' : ' - ') + Math.abs(increasedRegen).toFixed(2), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: increasedRegen > 0 ? 'green' : 'red' }) })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(HealthRegen));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(HealthRegen)));
 
 
 /***/ }),
@@ -58958,7 +58958,7 @@ const MagicalResistance = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(MagicalResistance));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(MagicalResistance)));
 
 
 /***/ }),
@@ -58998,7 +58998,7 @@ const PyshicalResistance = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(PyshicalResistance));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(PyshicalResistance)));
 
 
 /***/ }),
@@ -59045,7 +59045,7 @@ const StatusResistance = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance !== 0 ? (resistance / 100).toFixed(2) : 0) + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(StatusResistance));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(StatusResistance)));
 
 
 /***/ }),
@@ -59132,7 +59132,7 @@ const Divider = () => {
     // $.Msg("REACT-RENDER: Character - Divider rendered");
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Divider() }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Divider);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Divider));
 
 
 /***/ }),
@@ -59208,7 +59208,7 @@ const Level = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleLevelLabel(), text: level })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LevelLabel(), text: 'level' })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Level));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Level)));
 
 
 /***/ }),
@@ -59314,7 +59314,7 @@ const Model = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: name, style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Label() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'modelPanelScene', key: Entities.GetUnitName(selectedUnit), unit: Entities.GetUnitName(selectedUnit), style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Screen(), allowrotation: true })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Model);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Model));
 
 
 /***/ }),
@@ -59495,7 +59495,7 @@ const Title = (props) => {
             } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Title));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Title)));
 
 
 /***/ }),
@@ -59574,7 +59574,7 @@ const FloatingBars = (props) => {
             Entities.GetMaxMana(unit) > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_6__.default, { unit: unit }))));
     })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(FloatingBars));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(FloatingBars)));
 
 
 /***/ }),
@@ -59791,7 +59791,7 @@ const GameTime = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Label(), text: formatGameTime(gameTime) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(GameTime));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(GameTime)));
 
 
 /***/ }),
@@ -59882,7 +59882,7 @@ const HealthBar = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.HealthLabel(), text: health + " / " + maxHealth }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.RegenLabel(), text: '+ ' + healthRegen.toFixed(1) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(HealthBar)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(HealthBar))));
 
 
 /***/ }),
@@ -60863,7 +60863,7 @@ const Health = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Scene(health, maxHealth), map: 'scenes/hud/healthbarburner', camera: 'camera_1' }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Health));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Health)));
 
 
 /***/ }),
@@ -60901,10 +60901,52 @@ const Styles = {
 
 /***/ }),
 
-/***/ "./hud/components/Heroes/HeroImage/HeroImage.tsx":
-/*!*******************************************************!*\
-  !*** ./hud/components/Heroes/HeroImage/HeroImage.tsx ***!
-  \*******************************************************/
+/***/ "./hud/components/Heroes/Heroes.tsx":
+/*!******************************************!*\
+  !*** ./hud/components/Heroes/Heroes.tsx ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _Health_Health__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Health/Health */ "./hud/components/Heroes/Health/Health.tsx");
+/* harmony import */ var _Image_Image__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Image/Image */ "./hud/components/Heroes/Image/Image.tsx");
+/* harmony import */ var _Mana_Mana__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Mana/Mana */ "./hud/components/Heroes/Mana/Mana.tsx");
+/* harmony import */ var _Playername_Playername__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Playername/Playername */ "./hud/components/Heroes/Playername/Playername.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Styles.tsx");
+
+
+
+
+
+
+
+const Heroes = () => {
+    // $.Msg("REACT-RENDER: Heroes rendered");
+    const pickedHeroes = Object.values((0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes).filter(hero => hero.picked === 1);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.HeroesContainer() }, pickedHeroes.map((pickedHero) => {
+        const hero = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.HeroContainer(), key: hero },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Image_Image__WEBPACK_IMPORTED_MODULE_3__.default, { hero: hero }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Health_Health__WEBPACK_IMPORTED_MODULE_2__.default, { hero: hero }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Mana_Mana__WEBPACK_IMPORTED_MODULE_4__.default, { hero: hero }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Playername_Playername__WEBPACK_IMPORTED_MODULE_5__.default, { playerId: pickedHero.playerID })));
+    })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Heroes));
+
+
+/***/ }),
+
+/***/ "./hud/components/Heroes/Image/Image.tsx":
+/*!***********************************************!*\
+  !*** ./hud/components/Heroes/Image/Image.tsx ***!
+  \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -60916,7 +60958,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/HeroImage/Styles.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Image/Styles.tsx");
 
 
 
@@ -60959,7 +61001,7 @@ const onHeroImageClicked = (hero, cameraLocked) => {
         Game.EmitSound("ui_topmenu_select");
     }
 };
-const HeroImage = (props) => {
+const ImageImpl = (props) => {
     // $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
     const { hero, cameraLocked, setInterval, clearInterval } = props;
     const [washColor, setWashColor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("none");
@@ -61002,15 +61044,15 @@ const HeroImage = (props) => {
         isDisconnected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/hud/reborn/icon_disconnect_png.vtex", style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Disconnected() })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), heroname: Entities.GetUnitName(hero), heroimagestyle: "landscape", onactivate: () => onHeroImageClicked(hero, cameraLocked), oncontextmenu: () => onHeroImageClicked(hero, cameraLocked), style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Image(washColor) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(HeroImage)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(ImageImpl))));
 
 
 /***/ }),
 
-/***/ "./hud/components/Heroes/HeroImage/Styles.tsx":
-/*!****************************************************!*\
-  !*** ./hud/components/Heroes/HeroImage/Styles.tsx ***!
-  \****************************************************/
+/***/ "./hud/components/Heroes/Image/Styles.tsx":
+/*!************************************************!*\
+  !*** ./hud/components/Heroes/Image/Styles.tsx ***!
+  \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -61041,48 +61083,6 @@ const Styles = {
         horizontalAlign: 'center',
     }),
 };
-
-
-/***/ }),
-
-/***/ "./hud/components/Heroes/Heroes.tsx":
-/*!******************************************!*\
-  !*** ./hud/components/Heroes/Heroes.tsx ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
-/* harmony import */ var _Health_Health__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Health/Health */ "./hud/components/Heroes/Health/Health.tsx");
-/* harmony import */ var _HeroImage_HeroImage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HeroImage/HeroImage */ "./hud/components/Heroes/HeroImage/HeroImage.tsx");
-/* harmony import */ var _Mana_Mana__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Mana/Mana */ "./hud/components/Heroes/Mana/Mana.tsx");
-/* harmony import */ var _Playername_Playername__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Playername/Playername */ "./hud/components/Heroes/Playername/Playername.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Styles.tsx");
-
-
-
-
-
-
-
-const Heroes = () => {
-    // $.Msg("REACT-RENDER: Heroes rendered");
-    const pickedHeroes = Object.values((0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes).filter(hero => hero.picked === 1);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.HeroesContainer() }, pickedHeroes.map((pickedHero) => {
-        const hero = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.HeroContainer(), key: hero },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HeroImage_HeroImage__WEBPACK_IMPORTED_MODULE_3__.default, { hero: hero }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Health_Health__WEBPACK_IMPORTED_MODULE_2__.default, { hero: hero }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Mana_Mana__WEBPACK_IMPORTED_MODULE_4__.default, { hero: hero }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Playername_Playername__WEBPACK_IMPORTED_MODULE_5__.default, { playerId: pickedHero.playerID })));
-    })));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Heroes);
 
 
 /***/ }),
@@ -61124,7 +61124,7 @@ const Mana = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Scene(mana, maxMana), map: 'scenes/hud/healthbarburner', camera: 'camera_1' }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Mana));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Mana)));
 
 
 /***/ }),
@@ -61183,7 +61183,7 @@ const Playername = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: { width: '100%' } },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(playerId), style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Label(playerId) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Playername);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Playername));
 
 
 /***/ }),
@@ -61301,7 +61301,7 @@ const Inventory = (props) => {
             return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_4__.default, { key: index + "_" + item, index: index, item: item, selectedUnit: selectedUnit }));
         }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Inventory)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Inventory))));
 
 
 /***/ }),
@@ -61398,7 +61398,7 @@ const ItemOptions = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.ArrowheadContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/tooltip_arrow_top.png", style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.ArrowheadImage() }))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_4__.default)(ItemOptions)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_4__.default)(ItemOptions))));
 
 
 /***/ }),
@@ -61541,7 +61541,7 @@ const Charges = (props) => {
     }, [item, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, shouldDisplayCharges && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(), text: charges }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Charges));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Charges)));
 
 
 /***/ }),
@@ -61614,7 +61614,7 @@ const Cooldown = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(degree) }),
         remainingCooldown > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: remainingCooldown > 1.0 ? Math.round(remainingCooldown) : remainingCooldown.toFixed(1) }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Cooldown));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Cooldown)));
 
 
 /***/ }),
@@ -61698,7 +61698,7 @@ const Image = (props) => {
         (isCooldownReady && showLock) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LockIcon() })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { itemname: texture, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(showLock, isCooldownReady, hasEnoughMana) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Image));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Image)));
 
 
 /***/ }),
@@ -61966,7 +61966,7 @@ const Keybind = (props) => {
     }, [item, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: keybind }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Keybind));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Keybind)));
 
 
 /***/ }),
@@ -62031,7 +62031,7 @@ const ManaCost = (props) => {
     }, [item, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: manaCost > 0 ? manaCost.toFixed(0) : '' }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(ManaCost));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(ManaCost)));
 
 
 /***/ }),
@@ -62154,7 +62154,7 @@ const Loading = props => {
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, props.children));
     }
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Loading));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Loading)));
 
 
 /***/ }),
@@ -62233,7 +62233,7 @@ const ManaBar = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.ManaLabel(), text: mana + " / " + maxMana }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.RegenLabel(), text: '+ ' + manaRegen.toFixed(1) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(ManaBar)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(ManaBar))));
 
 
 /***/ }),
@@ -62336,7 +62336,7 @@ const Minimap = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHUDOverlayMap, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Minimap(), mapscale: props.zoom, hittest: false, hittestchildren: false, maptexture: "materials/overviews/the_arena_tga_5f0a2a04.vtex" })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: zoneName })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Minimap));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Minimap)));
 
 
 /***/ }),
@@ -62439,7 +62439,7 @@ const BuffsPanel = (props) => {
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() }, buffs.map((buff) => react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Modifier_Modifier__WEBPACK_IMPORTED_MODULE_3__.default, { key: buff, buff: buff, selectedUnit: selectedUnit, isDebuff: false }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(BuffsPanel));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(BuffsPanel)));
 
 
 /***/ }),
@@ -62527,7 +62527,7 @@ const Debuffs = (props) => {
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() }, debuffs.map((debuff) => react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Modifier_Modifier__WEBPACK_IMPORTED_MODULE_3__.default, { key: debuff, buff: debuff, selectedUnit: selectedUnit, isDebuff: true }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Debuffs));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Debuffs)));
 
 
 /***/ }),
@@ -62624,7 +62624,7 @@ const Modifier = (props) => {
             !isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { key: panelId, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Image(), abilityname: Abilities.GetAbilityName(ability) })),
             isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { key: panelId, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.PaddedImage(), itemname: Buffs.GetTexture(selectedUnit, buff), showtooltip: false })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Modifier);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Modifier));
 
 
 /***/ }),
@@ -62666,7 +62666,7 @@ const Stacks = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.StackLabel(), text: stacks })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Stacks));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Stacks)));
 
 
 /***/ }),
@@ -62824,7 +62824,7 @@ const TimedBackground = (props) => {
     }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isDebuff, degree) }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(TimedBackground));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(TimedBackground)));
 
 
 /***/ }),
@@ -62858,7 +62858,7 @@ const SelectedUnit = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase(), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label() })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(SelectedUnit)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(SelectedUnit))));
 
 
 /***/ }),
@@ -62932,7 +62932,7 @@ const CameraZoomSlider = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Slider, { id: "camera_zoom_slider", className: "HorizontalSlider", direction: "horizontal", value: props.zoom, min: 800, max: 2000, onvaluechanged: (e) => props.setCameraZoom(Math.round(e.value)) })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.NumberLabel(), text: props.zoom })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CameraZoomSlider));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(CameraZoomSlider)));
 
 
 /***/ }),
@@ -62987,7 +62987,7 @@ const Divider = () => {
     // $.Msg("REACT-RENDER: Settings - Divider rendered");
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Divider() }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Divider);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Divider));
 
 
 /***/ }),
@@ -63049,7 +63049,7 @@ const LockCameraBtn = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(ToggleButton, { selected: props.locked, onactivate: () => props.setCameraLocked(!props.locked) })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightLabel(), text: props.locked ? "Locked" : "Unlocked" })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(LockCameraBtn));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(LockCameraBtn)));
 
 
 /***/ }),
@@ -63132,7 +63132,7 @@ const MapZoomSlider = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Slider, { id: "map_zoom_slider", className: "HorizontalSlider", direction: "horizontal", value: props.zoom, min: 3, max: 10, onvaluechanged: (e) => props.setMinimapZoom(Math.round(e.value)) })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.NumberLabel(), text: props.zoom })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(MapZoomSlider));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(MapZoomSlider)));
 
 
 /***/ }),
@@ -63240,7 +63240,7 @@ const Settings = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_3__.default, null)),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null)))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_7__.default)(Settings)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_7__.default)(Settings))));
 
 
 /***/ }),
@@ -63328,7 +63328,7 @@ const CloseBtn = (props) => {
             } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(CloseBtn));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(CloseBtn)));
 
 
 /***/ }),
@@ -63418,7 +63418,7 @@ const Title = () => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "SETTINGS", style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CloseBtn_CloseBtn__WEBPACK_IMPORTED_MODULE_1__.default, null)));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Title);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Title));
 
 
 /***/ }),
@@ -63851,7 +63851,7 @@ const Armor = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: (armor - bonusArmor).toFixed(1) }),
         bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusArmor > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusArmor > 0 ? "+" : "") + "(" + bonusArmor.toFixed(1) + ")" }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Armor));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Armor)));
 
 
 /***/ }),
@@ -63918,7 +63918,7 @@ const Damage = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: minDamage.toFixed(0) + "-" + maxDamage.toFixed(0) }),
         bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusDamage > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusDamage > 0 ? '+' : '') + "(" + bonusDamage.toFixed(0) + ")" }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Damage));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(Damage)));
 
 
 /***/ }),
@@ -64025,7 +64025,7 @@ const Level = (props) => {
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Levelbar(percentage) })),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.LevelPctLabel(), text: Number.isFinite(percentage) ? percentage + "%" : '100%' }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Level));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Level)));
 
 
 /***/ }),
@@ -64106,7 +64106,7 @@ const MagicResistance = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Image() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: (magicResistance * 100).toFixed(1) + "%" })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(MagicResistance));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(MagicResistance)));
 
 
 /***/ }),
@@ -64168,7 +64168,7 @@ const MoveSpeed = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Image() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: moveSpeed.toFixed(0) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(MoveSpeed));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(MoveSpeed)));
 
 
 /***/ }),
@@ -64234,7 +64234,7 @@ const Stats = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Damage_Damage__WEBPACK_IMPORTED_MODULE_3__.default, { selectedUnit: selectedUnit }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MoveSpeed_MoveSpeed__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Stats));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Stats)));
 
 
 /***/ }),

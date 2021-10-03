@@ -49,4 +49,4 @@ const Keybind = (props: Props) => {
 
 };
 
-export default withReactTimeout(Keybind);
+export default React.memo(withReactTimeout(Keybind));

@@ -38,4 +38,4 @@ const Search = (props: Props) => {
 
 };
 
-export default Search;
+export default React.memo(Search);

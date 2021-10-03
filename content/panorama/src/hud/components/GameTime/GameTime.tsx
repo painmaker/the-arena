@@ -4,7 +4,9 @@ import { HUD_THINK_SLOW } from "../../App";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {}
+type Props = ReactTimeoutProps & {
+  // ownProps
+}
 
 const formatGameTime = (dotaTime: number) => {
   const hours = formatTime(Math.floor(dotaTime / 3600));
@@ -46,4 +48,4 @@ const GameTime = (props: Props) => {
 
 };
 
-export default withReactTimeout(GameTime);
+export default React.memo(withReactTimeout(GameTime));

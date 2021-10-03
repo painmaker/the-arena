@@ -38,4 +38,4 @@ const AttackSpeed = (props: Props) => {
 
 };
 
-export default withReactTimeout(AttackSpeed);
+export default React.memo(withReactTimeout(AttackSpeed));

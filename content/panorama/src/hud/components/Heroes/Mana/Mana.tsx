@@ -50,4 +50,4 @@ const Mana = (props: Props) => {
 
 };
 
-export default withReactTimeout(Mana);
+export default React.memo(withReactTimeout(Mana));

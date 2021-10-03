@@ -44,4 +44,4 @@ const RegularAbilities = (props: Props) => {
 
 };
 
-export default RegularAbilities;
+export default React.memo(RegularAbilities);

@@ -67,4 +67,4 @@ const Inventory = (props: Props) => {
 
 }
 
-export default connector(withReactTimeout(Inventory));
+export default React.memo(connector(withReactTimeout(Inventory)));

@@ -115,6 +115,6 @@ const AbilityBarItem = (props: Props) => {
 
 };
 
-export default withReactTimeout(AbilityBarItem);
+export default React.memo(withReactTimeout(AbilityBarItem));
 
 

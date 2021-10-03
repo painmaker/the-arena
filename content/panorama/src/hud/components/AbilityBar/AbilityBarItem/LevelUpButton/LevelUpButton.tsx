@@ -53,4 +53,4 @@ const LevelUpButton = (props: Props) => {
 
 };
 
-export default withReactTimeout(LevelUpButton);
+export default React.memo(withReactTimeout(LevelUpButton));

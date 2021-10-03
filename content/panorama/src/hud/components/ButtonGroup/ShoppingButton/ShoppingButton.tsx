@@ -45,4 +45,4 @@ const ShoppingButton = (props: Props) => {
 
 };
 
-export default connector(ShoppingButton);
+export default React.memo(connector(ShoppingButton));

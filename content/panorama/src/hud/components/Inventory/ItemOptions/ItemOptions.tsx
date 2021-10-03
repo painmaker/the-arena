@@ -106,4 +106,4 @@ const ItemOptions = (props: Props) => {
 
 };
 
-export default connector(withReactTimeout(ItemOptions));
+export default React.memo(connector(withReactTimeout(ItemOptions)));

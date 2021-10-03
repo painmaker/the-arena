@@ -105,4 +105,4 @@ const FloatingBars = (props: Props) => {
 
 }
 
-export default withReactTimeout(FloatingBars);
+export default React.memo(withReactTimeout(FloatingBars));

@@ -45,4 +45,4 @@ const SpellAmplification = (props: Props) => {
 
 };
 
-export default withReactTimeout(SpellAmplification);
+export default React.memo(withReactTimeout(SpellAmplification));

@@ -56,4 +56,4 @@ const MapZoomSlider = (props: Props) => {
 
 };
 
-export default connector(MapZoomSlider);
+export default React.memo(connector(MapZoomSlider));

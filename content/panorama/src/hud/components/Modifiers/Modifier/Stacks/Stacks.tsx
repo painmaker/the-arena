@@ -41,4 +41,4 @@ const Stacks = (props: Props) => {
 
 }
 
-export default withReactTimeout(Stacks);
+export default React.memo(withReactTimeout(Stacks));

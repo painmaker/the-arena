@@ -51,4 +51,4 @@ const Damage = (props: Props) => {
 
 };
 
-export default withReactTimeout(Damage);
+export default React.memo(withReactTimeout(Damage));

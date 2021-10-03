@@ -35,4 +35,4 @@ const Attack = (props: Props) => {
 
 };
 
-export default Attack;
+export default React.memo(Attack);

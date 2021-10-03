@@ -48,4 +48,4 @@ const Skillpoints = (props: Props) => {
 
 };
 
-export default withReactTimeout(Skillpoints);
+export default React.memo(withReactTimeout(Skillpoints));

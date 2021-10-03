@@ -40,4 +40,4 @@ const Loading: React.FunctionComponent<Props> = props => {
 
 };
 
-export default withReactTimeout(Loading);
+export default React.memo(withReactTimeout(Loading));

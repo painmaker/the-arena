@@ -44,4 +44,4 @@ const CloseBtn = (props: Props) => {
 
 };
 
-export default connector(CloseBtn);
+export default React.memo(connector(CloseBtn));

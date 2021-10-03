@@ -46,4 +46,4 @@ const AbilitiesShopButton = (props: Props) => {
 
 };
 
-export default connector(AbilitiesShopButton);
+export default React.memo(connector(AbilitiesShopButton));

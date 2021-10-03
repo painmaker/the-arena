@@ -33,4 +33,4 @@ const SelectedUnit = (props: Props) => {
 
 };
 
-export default connector(withReactTimeout(SelectedUnit));
+export default React.memo(connector(withReactTimeout(SelectedUnit)));

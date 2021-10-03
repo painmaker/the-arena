@@ -40,4 +40,4 @@ const Charges = (props: Props) => {
 
 };
 
-export default withReactTimeout(Charges);
+export default React.memo(withReactTimeout(Charges));

@@ -35,4 +35,4 @@ const Defense = (props: Props) => {
 
 };
 
-export default Defense;
+export default React.memo(Defense);

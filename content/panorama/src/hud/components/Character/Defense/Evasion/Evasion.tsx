@@ -45,4 +45,4 @@ const Evasion = (props: Props) => {
 
 };
 
-export default withReactTimeout(Evasion);
+export default React.memo(withReactTimeout(Evasion));

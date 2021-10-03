@@ -48,4 +48,4 @@ const LockoutIcon = (props: Props) => {
 
 };
 
-export default withReactTimeout(LockoutIcon);
+export default React.memo(withReactTimeout(LockoutIcon));

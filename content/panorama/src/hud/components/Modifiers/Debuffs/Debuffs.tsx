@@ -66,4 +66,4 @@ const Debuffs = (props: Props) => {
 
 };
 
-export default connector(Debuffs);
+export default React.memo(connector(Debuffs));

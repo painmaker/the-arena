@@ -54,7 +54,7 @@ const onHeroImageClicked = (hero: EntityIndex, cameraLocked: boolean) => {
 
 };
 
-const HeroImage = (props: Props) => {
+const ImageImpl = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
 
@@ -126,4 +126,4 @@ const HeroImage = (props: Props) => {
 
 };
 
-export default connector(withReactTimeout(HeroImage));
+export default React.memo(connector(withReactTimeout(ImageImpl)));
