@@ -11,8 +11,19 @@ export class modifier_no_statusbar extends BaseModifier {
     return false;
   }
 
-  IsPermanent(): boolean {
-    return true;
+  OnDestroy(): void {
+    if (IsServer()) {
+      const units = Object.values(CustomNetTables.GetTableValue('FloatingBarUnits', 'units'))
+        .filter(unit => unit !== this.GetParent().GetEntityIndex())
+      CustomNetTables.SetTableValue('FloatingBarUnits', 'units', units);
+    }
+  }
+
+  OnCreated(): void {
+    if (IsServer()) {
+      const units = CustomNetTables.GetTableValue('FloatingBarUnits', 'units');
+      CustomNetTables.SetTableValue('FloatingBarUnits', 'units', [...Object.values(units), this.GetParent().GetEntityIndex()]);
+    }
   }
 
   CheckState(): Partial<Record<modifierstate, boolean>> {

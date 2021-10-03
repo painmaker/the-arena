@@ -1,12 +1,19 @@
 {
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "compilerOptions": {
-      "target": "es2017",
-      "lib": ["es2017"],
-      "types": ["@moddota/panorama-types"],
-      "moduleResolution": "node",
-      "strict": true,
-      "allowSyntheticDefaultImports": true,
-      "jsx": "react"
+    "target": "es2017",
+    "lib": [
+      "es2017"
+    ],
+    "types": [
+      "@moddota/panorama-types"
+    ],
+    "moduleResolution": "node",
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "module": "es2015"
   }
 }

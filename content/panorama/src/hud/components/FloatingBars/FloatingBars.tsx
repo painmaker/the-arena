@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNetTableValues } from "react-panorama";
 import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import { objectsEqual } from "../../utils/ObjectUtils";
 import { TableUtils } from "../../utils/TableUtils";
@@ -23,6 +24,8 @@ const FloatingBars = (props: Props) => {
 
   const { setInterval, clearInterval } = props;
 
+  const units = useNetTableValues('FloatingBarUnits').units;
+
   const [floatingBars, setFloatingBars] = useState<IFloatingBar[]>([]);
 
   useEffect(() => {
@@ -32,7 +35,7 @@ const FloatingBars = (props: Props) => {
       const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
       const scale = 1080 / Game.GetScreenHeight();
 
-      const mFloatingBars = Entities.GetAllHeroEntities()
+      const mFloatingBars = Object.values(units)
         .filter(entity => Entities.IsSelectable(entity))
         .filter(entity => Entities.IsAlive(entity))
         .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < 3500)
@@ -82,7 +85,7 @@ const FloatingBars = (props: Props) => {
 
     return () => clearInterval(id);
 
-  }, [floatingBars, setInterval, clearInterval]);
+  }, [units, floatingBars, setInterval, clearInterval]);
 
   return (
     <React.Fragment>

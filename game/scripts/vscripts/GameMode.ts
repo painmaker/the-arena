@@ -72,6 +72,8 @@ export class GameMode {
 
   constructor() {
 
+    CustomNetTables.SetTableValue('FloatingBarUnits', "units", []);
+
     ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
     ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
     ListenToGameEvent("player_connect_full", event => this.OnPlayerConnectFull(event), undefined);

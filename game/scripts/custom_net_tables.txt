@@ -4,5 +4,6 @@
         "HeroSelectionHeroes",
         "RegularAbilities",
         "UltimateAbilities",
+        "FloatingBarUnits",
     ]
 }

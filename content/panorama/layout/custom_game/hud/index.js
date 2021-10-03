@@ -58678,11 +58678,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Styles.tsx");
 /* harmony import */ var _Model_Model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Model/Model */ "./hud/components/Character/Model/Model.tsx");
-/* harmony import */ var _Attack_Attack__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Attack/Attack */ "./hud/components/Character/Attack/Attack.tsx");
-/* harmony import */ var _Defense_Defense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Defense/Defense */ "./hud/components/Character/Defense/Defense.tsx");
-/* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/Character/Title/Title.tsx");
-/* harmony import */ var _Level_Level__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Level/Level */ "./hud/components/Character/Level/Level.tsx");
-/* harmony import */ var _Avatar_Avatar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Avatar/Avatar */ "./hud/components/Character/Avatar/Avatar.tsx");
+/* harmony import */ var _Defense_Defense__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Defense/Defense */ "./hud/components/Character/Defense/Defense.tsx");
+/* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/Character/Title/Title.tsx");
+/* harmony import */ var _Level_Level__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Level/Level */ "./hud/components/Character/Level/Level.tsx");
+/* harmony import */ var _Avatar_Avatar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Avatar/Avatar */ "./hud/components/Character/Avatar/Avatar.tsx");
+/* harmony import */ var _Attack_Attack__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Attack/Attack */ "./hud/components/Character/Attack/Attack.tsx");
 
 
 
@@ -58716,15 +58716,15 @@ const Character = (props) => {
     }, [visible, setTimeout, clearTimeout]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'Invisible', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.InnerContainer(visible) },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnContainer() },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Model_Model__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Level_Level__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit }),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Avatar_Avatar__WEBPACK_IMPORTED_MODULE_9__.default, { selectedUnit: selectedUnit })),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Level_Level__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit }),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Avatar_Avatar__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Attack_Attack__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Defense_Defense__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }))))))));
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Attack_Attack__WEBPACK_IMPORTED_MODULE_9__.default, { selectedUnit: selectedUnit }),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Defense_Defense__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }))))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Character)));
 
@@ -59512,12 +59512,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _utils_ObjectUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/ObjectUtils */ "./hud/utils/ObjectUtils.ts");
-/* harmony import */ var _utils_TableUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/TableUtils */ "./hud/utils/TableUtils.ts");
-/* harmony import */ var _HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./HealthBar/HealthBar */ "./hud/components/FloatingBars/HealthBar/HealthBar.tsx");
-/* harmony import */ var _ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ManaBar/ManaBar */ "./hud/components/FloatingBars/ManaBar/ManaBar.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingBars/Styles.ts");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _utils_ObjectUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/ObjectUtils */ "./hud/utils/ObjectUtils.ts");
+/* harmony import */ var _utils_TableUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/TableUtils */ "./hud/utils/TableUtils.ts");
+/* harmony import */ var _HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./HealthBar/HealthBar */ "./hud/components/FloatingBars/HealthBar/HealthBar.tsx");
+/* harmony import */ var _ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ManaBar/ManaBar */ "./hud/components/FloatingBars/ManaBar/ManaBar.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingBars/Styles.ts");
+
 
 
 
@@ -59528,12 +59530,13 @@ __webpack_require__.r(__webpack_exports__);
 const FloatingBars = (props) => {
     // $.Msg("REACT-RENDER: FloatingBars rendered");
     const { setInterval, clearInterval } = props;
+    const units = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('FloatingBarUnits').units;
     const [floatingBars, setFloatingBars] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
             const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
             const scale = 1080 / Game.GetScreenHeight();
-            const mFloatingBars = Entities.GetAllHeroEntities()
+            const mFloatingBars = Object.values(units)
                 .filter(entity => Entities.IsSelectable(entity))
                 .filter(entity => Entities.IsAlive(entity))
                 .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < 3500)
@@ -59556,22 +59559,22 @@ const FloatingBars = (props) => {
                 };
             })
                 .filter(screenPosition => screenPosition.visible);
-            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_3__.TableUtils.isEqual(mFloatingBars, floatingBars, _utils_ObjectUtils__WEBPACK_IMPORTED_MODULE_2__.objectsEqual)) {
+            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_4__.TableUtils.isEqual(mFloatingBars, floatingBars, _utils_ObjectUtils__WEBPACK_IMPORTED_MODULE_3__.objectsEqual)) {
                 setFloatingBars(mFloatingBars);
             }
         };
         // update();
         const id = setInterval(update, 5);
         return () => clearInterval(id);
-    }, [floatingBars, setInterval, clearInterval]);
+    }, [units, floatingBars, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, floatingBars.map(floatingBar => {
         const { unit, screenX, screenY } = floatingBar;
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { key: unit, style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.Container(screenX - 40, screenY, 0) },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_4__.default, { unit: unit }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_5__.default, { unit: unit })));
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { key: unit, style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.Container(screenX - 40, screenY, 0) },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_5__.default, { unit: unit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_6__.default, { unit: unit })));
     })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(FloatingBars));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(FloatingBars));
 
 
 /***/ }),

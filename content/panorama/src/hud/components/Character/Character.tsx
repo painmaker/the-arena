@@ -5,11 +5,11 @@ import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
 import { Timer } from "react-timeout";
 import { Styles } from "./Styles";
 import Model from "./Model/Model";
-import Attack from "./Attack/Attack";
 import Defense from "./Defense/Defense";
 import Title from "./Title/Title"
 import Level from "./Level/Level";
 import Avatar from "./Avatar/Avatar";
+import Attack from "./Attack/Attack";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.characterReducer.visible,

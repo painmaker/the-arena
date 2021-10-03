@@ -6,5 +6,7 @@ interface CustomNetTableDeclarations {
 
   UltimateAbilities: { [playerId: string]: ShopAbility[] };
 
+  FloatingBarUnits: { units: EntityIndex[] }
+
 }
 
