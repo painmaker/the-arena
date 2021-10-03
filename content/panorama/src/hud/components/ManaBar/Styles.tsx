@@ -5,7 +5,7 @@ export const Styles = {
     height: "18.5px",
     verticalAlign: "bottom",
     horizontalAlign: "center",
-    marginBottom: "120px",
+    marginBottom: "85px",
     borderRadius: "4px",
     visibility: visible ? 'visible' : 'collapse',
   }),

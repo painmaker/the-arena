@@ -55899,11 +55899,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 /* harmony import */ var _components_Loading_Loading__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/Loading/Loading */ "./hud/components/Loading/Loading.tsx");
 /* harmony import */ var _components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/AbilitiesShop/AbilitiesShop */ "./hud/components/AbilitiesShop/AbilitiesShop.tsx");
-/* harmony import */ var _components_SelectedUnit_SelectedUnit__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/SelectedUnit/SelectedUnit */ "./hud/components/SelectedUnit/SelectedUnit.tsx");
-/* harmony import */ var _actions_selectedUnitActions__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./actions/selectedUnitActions */ "./hud/actions/selectedUnitActions.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _components_FloatingBars_FloatingBars__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/FloatingBars/FloatingBars */ "./hud/components/FloatingBars/FloatingBars.tsx");
-
+/* harmony import */ var _actions_selectedUnitActions__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./actions/selectedUnitActions */ "./hud/actions/selectedUnitActions.tsx");
+/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _components_FloatingBars_FloatingBars__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/FloatingBars/FloatingBars */ "./hud/components/FloatingBars/FloatingBars.tsx");
 
 
 
@@ -55937,7 +55935,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     setUseCustomUI: (useCustomUI) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_15__.setUseCustomUI)(useCustomUI)),
     setCameraZoom: (zoom) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_15__.setCameraZoom)(zoom)),
-    setSelectedUnit: (selectedUnit) => dispatch((0,_actions_selectedUnitActions__WEBPACK_IMPORTED_MODULE_22__.setSelectedUnit)(selectedUnit)),
+    setSelectedUnit: (selectedUnit) => dispatch((0,_actions_selectedUnitActions__WEBPACK_IMPORTED_MODULE_21__.setSelectedUnit)(selectedUnit)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_14__.connect)(mapStateToProps, mapDispatchToProps);
 const excludedUnits = [
@@ -56021,12 +56019,11 @@ const App = (props) => {
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_12__.default, null),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_11__.default, null),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_13__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_SelectedUnit_SelectedUnit__WEBPACK_IMPORTED_MODULE_21__.default, null),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Stats_Stats__WEBPACK_IMPORTED_MODULE_9__.default, null),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_20__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_FloatingBars_FloatingBars__WEBPACK_IMPORTED_MODULE_24__.default, null)))))));
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_FloatingBars_FloatingBars__WEBPACK_IMPORTED_MODULE_23__.default, null)))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_23__.default)(App)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_22__.default)(App)));
 
 
 /***/ }),
@@ -57957,7 +57954,7 @@ const Styles = {
         verticalAlign: "bottom",
         horizontalAlign: "center",
         flowChildren: "right",
-        marginBottom: "165px",
+        marginBottom: "130px",
     }),
 };
 
@@ -59542,11 +59539,11 @@ const FloatingBars = (props) => {
                 .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < 3500)
                 .map(unit => {
                 const unitOrigin = Entities.GetAbsOrigin(unit);
-                const healthBarOffset = Entities.GetHealthBarOffset(unit) + 100;
                 const offsetX = (centerOrigin[0] - unitOrigin[0]) / 20;
                 const offsetY = (centerOrigin[1] - unitOrigin[1]) / 20;
-                const offsetScreenX = scale * Game.WorldToScreenX(unitOrigin[0] + offsetX, unitOrigin[1] + offsetY, unitOrigin[2] + healthBarOffset);
-                const offsetScreenY = scale * Game.WorldToScreenY(unitOrigin[0] + offsetX, unitOrigin[1] + offsetY, unitOrigin[2] + healthBarOffset);
+                const offsetZ = Entities.GetHealthBarOffset(unit) + 100;
+                const offsetScreenX = scale * Game.WorldToScreenX(unitOrigin[0] + offsetX, unitOrigin[1] + offsetY, unitOrigin[2] + offsetZ);
+                const offsetScreenY = scale * Game.WorldToScreenY(unitOrigin[0] + offsetX, unitOrigin[1] + offsetY, unitOrigin[2] + offsetZ);
                 const screenWorldPosition = GameUI.GetScreenWorldPosition([
                     Game.WorldToScreenX(unitOrigin[0], unitOrigin[1], unitOrigin[2]),
                     Game.WorldToScreenY(unitOrigin[0], unitOrigin[1], unitOrigin[2])
@@ -59904,7 +59901,7 @@ const Styles = {
         height: "18.5px",
         verticalAlign: "bottom",
         horizontalAlign: "center",
-        marginBottom: "140px",
+        marginBottom: "105px",
         borderRadius: "4px",
     }),
     Progressbar: () => ({
@@ -62108,7 +62105,7 @@ const Styles = {
     Container: (hasInventory) => ({
         verticalAlign: "bottom",
         horizontalAlign: "center",
-        marginBottom: "75px",
+        marginBottom: "40px",
         flowChildren: "right",
         marginRight: "0px",
         visibility: hasInventory ? 'visible' : 'collapse',
@@ -62255,7 +62252,7 @@ const Styles = {
         height: "18.5px",
         verticalAlign: "bottom",
         horizontalAlign: "center",
-        marginBottom: "120px",
+        marginBottom: "85px",
         borderRadius: "4px",
         visibility: visible ? 'visible' : 'collapse',
     }),
@@ -62465,7 +62462,7 @@ const Styles = {
         width: "300px",
         padding: "2px",
         marginRight: "660px",
-        marginBottom: "114px",
+        marginBottom: "80px",
     }),
 };
 
@@ -62553,7 +62550,7 @@ const Styles = {
         width: "300px",
         padding: "2px",
         marginLeft: "665px",
-        marginBottom: "114px",
+        marginBottom: "80px",
     }),
 };
 
@@ -62825,67 +62822,6 @@ const TimedBackground = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isDebuff, degree) }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(TimedBackground)));
-
-
-/***/ }),
-
-/***/ "./hud/components/SelectedUnit/SelectedUnit.tsx":
-/*!******************************************************!*\
-  !*** ./hud/components/SelectedUnit/SelectedUnit.tsx ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/SelectedUnit/Styles.ts");
-
-
-
-
-const mapStateToProps = (state) => ({
-    selectedUnit: state.selectedUnitReducer.selectedUnit,
-});
-const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
-const SelectedUnit = (props) => {
-    // $.Msg("REACT-RENDER: SelectedUnit rendered");
-    const { selectedUnit } = props;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase(), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label() })));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(SelectedUnit))));
-
-
-/***/ }),
-
-/***/ "./hud/components/SelectedUnit/Styles.ts":
-/*!***********************************************!*\
-  !*** ./hud/components/SelectedUnit/Styles.ts ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Styles": () => (/* binding */ Styles)
-/* harmony export */ });
-const Styles = {
-    Container: () => ({
-        verticalAlign: 'top',
-        horizontalAlign: 'center',
-        marginTop: '100px',
-    }),
-    Label: () => ({
-        fontSize: '14px',
-        color: "orange",
-        textShadow: "0px 0px 2px 2.0 rgba(0, 0, 0, 0.5)",
-    }),
-};
 
 
 /***/ }),

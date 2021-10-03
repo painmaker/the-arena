@@ -5,7 +5,7 @@ export const Styles = {
     verticalAlign: "bottom",
     horizontalAlign: "center",
     flowChildren: "right",
-    marginBottom: "165px",
+    marginBottom: "130px",
   }),
 
 }

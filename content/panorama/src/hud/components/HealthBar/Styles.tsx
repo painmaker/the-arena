@@ -5,7 +5,7 @@ export const Styles = {
     height: "18.5px",
     verticalAlign: "bottom",
     horizontalAlign: "center",
-    marginBottom: "140px",
+    marginBottom: "105px",
     borderRadius: "4px",
   }),
 

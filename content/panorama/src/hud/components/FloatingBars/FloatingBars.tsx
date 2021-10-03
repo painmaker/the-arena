@@ -43,20 +43,20 @@ const FloatingBars = (props: Props) => {
 
           const unitOrigin = Entities.GetAbsOrigin(unit);
 
-          const healthBarOffset = Entities.GetHealthBarOffset(unit) + 100;
           const offsetX = (centerOrigin[0] - unitOrigin[0]) / 20;
           const offsetY = (centerOrigin[1] - unitOrigin[1]) / 20;
+          const offsetZ = Entities.GetHealthBarOffset(unit) + 100;
 
           const offsetScreenX = scale * Game.WorldToScreenX(
             unitOrigin[0] + offsetX,
             unitOrigin[1] + offsetY,
-            unitOrigin[2] + healthBarOffset
+            unitOrigin[2] + offsetZ
           );
 
           const offsetScreenY = scale * Game.WorldToScreenY(
             unitOrigin[0] + offsetX,
             unitOrigin[1] + offsetY,
-            unitOrigin[2] + healthBarOffset
+            unitOrigin[2] + offsetZ
           );
 
           const screenWorldPosition = GameUI.GetScreenWorldPosition([

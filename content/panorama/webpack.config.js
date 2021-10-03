@@ -1,12 +1,16 @@
 const path = require("path");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const { PanoramaManifestPlugin, PanoramaTargetPlugin } = require("@aabao/webpack-panorama");
+const TerserPlugin = require('terser-webpack-plugin');
 
-const isProduction = process.env.NODE_ENV === 'production';
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
-  mode: isProduction ? 'production' : 'development',
+  mode: 'development',
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin({})],
+  },
   context: path.resolve(__dirname, "src"),
   output: {
     path: path.resolve(__dirname, "layout/custom_game"),

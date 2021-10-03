@@ -21,7 +21,6 @@ import HeroSelection from "./components/HeroSelection/HeroSelection";
 import { useNetTableValues } from "react-panorama";
 import Loading from "./components/Loading/Loading";
 import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
-import SelectedUnit from "./components/SelectedUnit/SelectedUnit";
 import { setSelectedUnit } from "./actions/selectedUnitActions";
 import { Dispatch } from "redux";
 import { SelectedUnitActionTypes } from "./types/selectedUnitTypes";
@@ -155,7 +154,7 @@ const App = (props: Props) => {
               <Buffs />
               <Debuffs />
               <Inventory />
-              <SelectedUnit />
+              {/* <SelectedUnit /> */}
               <Stats />
               <AbilitiesShop />
               <FloatingBars />
