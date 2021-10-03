@@ -35,9 +35,9 @@ const FloatingBars = (props: Props) => {
       const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
       const scale = 1080 / Game.GetScreenHeight();
 
-      const mFloatingBars = Object.values(units)
+      const mFloatingBars = Entities.GetAllEntities()
         .filter(entity => Entities.IsSelectable(entity))
-        .filter(entity => Entities.IsAlive(entity))
+        .filter(entity => Object.values(units).includes(entity))
         .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < 3500)
         .map(unit => {
 
@@ -94,7 +94,9 @@ const FloatingBars = (props: Props) => {
         return (
           <Panel key={unit} style={Styles.Container(screenX - 40, screenY, 0)}>
             <HealthBar unit={unit} />
-            <ManaBar unit={unit} />
+            {Entities.GetMaxMana(unit) > 0 && (
+              <ManaBar unit={unit} />
+            )}
           </Panel>
         )
       })}

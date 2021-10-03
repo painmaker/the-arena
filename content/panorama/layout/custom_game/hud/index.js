@@ -59536,9 +59536,9 @@ const FloatingBars = (props) => {
         const update = () => {
             const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
             const scale = 1080 / Game.GetScreenHeight();
-            const mFloatingBars = Object.values(units)
+            const mFloatingBars = Entities.GetAllEntities()
                 .filter(entity => Entities.IsSelectable(entity))
-                .filter(entity => Entities.IsAlive(entity))
+                .filter(entity => Object.values(units).includes(entity))
                 .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < 3500)
                 .map(unit => {
                 const unitOrigin = Entities.GetAbsOrigin(unit);
@@ -59571,7 +59571,7 @@ const FloatingBars = (props) => {
         const { unit, screenX, screenY } = floatingBar;
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { key: unit, style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.Container(screenX - 40, screenY, 0) },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_5__.default, { unit: unit }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_6__.default, { unit: unit })));
+            Entities.GetMaxMana(unit) > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_6__.default, { unit: unit }))));
     })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(FloatingBars));
