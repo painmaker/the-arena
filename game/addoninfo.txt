@@ -2,7 +2,7 @@
 {
 	"maps"			"the_arena"
   "IsPlayable"	"1"
-	"the_arena1"
+	"the_arena"
 	{
 		"MaxPlayers"	"4"
 	}
