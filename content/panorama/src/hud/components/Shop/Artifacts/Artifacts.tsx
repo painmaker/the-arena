@@ -8,7 +8,7 @@ type Props = {
 
 const Artifacts = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Shop - Artifacts rendered");
+  $.Msg("REACT-RENDER: Shop - Artifacts rendered");
 
   const { selectedUnit } = props;
 

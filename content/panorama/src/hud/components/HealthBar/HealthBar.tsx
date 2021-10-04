@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { HUD_THINK_FAST } from "../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../App";
 import { RootState } from "../../reducers/rootReducer";
 import { Styles } from "./Styles";
 
@@ -12,22 +11,22 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   // ownProps
 };
 
 const HealthBar = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: HealthBar rendered");
+  $.Msg("REACT-RENDER: HealthBar rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [health, setHealth] = useState(Entities.GetHealth(selectedUnit));
   const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(selectedUnit));
   const [healthRegen, setHealthRegen] = useState(Entities.GetHealthThinkRegen(selectedUnit));
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       setHealth(Entities.GetHealth(selectedUnit));
       setMaxHealth(Entities.GetMaxHealth(selectedUnit));
@@ -40,14 +39,11 @@ const HealthBar = (props: Props) => {
           setHealthRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
         }
       }
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
     update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
-  }, [selectedUnit, setInterval, clearInterval]);
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit]);
 
   return (
     <Panel hittest={false} style={Styles.Container()}>
@@ -70,4 +66,4 @@ const HealthBar = (props: Props) => {
 
 };
 
-export default React.memo(connector(withReactTimeout(HealthBar)));
+export default React.memo(connector(HealthBar));

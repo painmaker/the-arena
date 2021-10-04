@@ -1,8 +1,7 @@
-import React, { Dispatch, useEffect, useState } from "react";
+import React, { Dispatch, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
 import { setItemOptionsVisible } from "../../../actions/itemOptionsActions";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { RootState } from "../../../reducers/rootReducer";
 import { ItemOptionsActionTypes } from "../../../types/itemOptionsTypes";
 import { ButtonTypes } from "./ButtonTypes";
@@ -21,11 +20,13 @@ const mapDispatchToProps = (dispatch: Dispatch<ItemOptionsActionTypes>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {};
+type Props = PropsFromRedux & {
+  // ownProps
+};
 
 const ItemOptions = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Inventory - ItemOptions rendered");
+  $.Msg("REACT-RENDER: Inventory - ItemOptions rendered");
 
   const [buttonTypeHovered, setButtonTypeHovered] = useState(ButtonTypes.NONE);
 
@@ -106,4 +107,4 @@ const ItemOptions = (props: Props) => {
 
 };
 
-export default React.memo(connector(withReactTimeout(ItemOptions)));
+export default React.memo(connector(ItemOptions));

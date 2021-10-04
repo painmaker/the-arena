@@ -10,7 +10,7 @@ type Props = ReactTimeoutProps & {
 
 const Keybind = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: AbilityBarItem - Keybind rendered");
+  $.Msg("REACT-RENDER: AbilityBarItem - Keybind rendered");
 
   const { ability, selectedUnit, setInterval, clearInterval } = props;
 

@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_MEDIUM } from "../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_MEDIUM } from "../../../App";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 }
 
 const Level = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Character - Level rendered");
+  $.Msg("REACT-RENDER: Character - Level rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [level, setLevel] = useState(Entities.GetLevel(selectedUnit));
   const [degree, setDegree] = useState(0);
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       if (Entities.IsHero(selectedUnit)) {
         const currentXp = Entities.GetCurrentXP(selectedUnit);
@@ -28,14 +27,11 @@ const Level = (props: Props) => {
         setDegree(360);
       }
       setLevel(Entities.GetLevel(selectedUnit));
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
-
     update();
-    const id = setInterval(update, HUD_THINK_MEDIUM);
-
-    return () => clearInterval(id);
-
-  }, [selectedUnit, setInterval, clearInterval]);
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit]);
 
   return (
     <Panel style={Styles.Container()}>
@@ -50,4 +46,4 @@ const Level = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(Level));
+export default React.memo(Level);

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../reducers/rootReducer";
-import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
-import { Timer } from "react-timeout";
 import { Styles } from "./Styles";
 import Model from "./Model/Model";
 import Defense from "./Defense/Defense";
@@ -10,6 +8,7 @@ import Title from "./Title/Title"
 import Level from "./Level/Level";
 import Avatar from "./Avatar/Avatar";
 import Attack from "./Attack/Attack";
+import { SCHEDULE_THINK_SLOW } from "../../App";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.characterReducer.visible,
@@ -19,35 +18,33 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   // ownProps
 };
 
 const Character = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Character rendered");
+  $.Msg("REACT-RENDER: Character rendered");
 
-  const { selectedUnit, visible, setTimeout, clearTimeout } = props;
+  const { selectedUnit, visible } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
-    let timer = -1 as Timer;
+    let schedule = -1 as ScheduleID;
     if (visible === false) {
-      timer = setTimeout(() => {
-        setRenderComponent(false);
-      }, 1000);
+      schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => setRenderComponent(false));
     } else {
       setRenderComponent(true);
     }
-    return () => clearTimeout(timer);
-  }, [visible, setTimeout, clearTimeout]);
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Character schedule not found: " + schedule) }; }
+  }, [visible]);
 
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
         <React.Fragment>
-          <Panel className={'Invisible'} style={Styles.InnerContainer(visible)}>
+          <Panel style={Styles.InnerContainer(visible)}>
             <Title selectedUnit={selectedUnit} />
             <Panel style={Styles.ColumnContainer()}>
               <Panel style={Styles.LeftColumn()}>
@@ -68,4 +65,4 @@ const Character = (props: Props) => {
 
 };
 
-export default React.memo(connector(withReactTimeout(Character)));
+export default React.memo(connector(Character));

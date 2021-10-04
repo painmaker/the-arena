@@ -10,7 +10,7 @@ type Props = ReactTimeoutProps & {
 
 const LockoutIcon = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
+  $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
 
   const { ability, selectedUnit, setInterval, clearInterval } = props;
 

@@ -8,7 +8,7 @@ type Props = ReactTimeoutProps & {
 
 const Gold = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Shop - Gold rendered");
+  $.Msg("REACT-RENDER: Shop - Gold rendered");
 
   const { selectedUnit } = props;
 

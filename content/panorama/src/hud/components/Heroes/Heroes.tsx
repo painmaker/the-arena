@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNetTableValues } from "react-panorama";
-import { HUD_THINK_MEDIUM, HUD_THINK_SLOW } from "../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
-import { TableUtils } from "../../utils/TableUtils";
 import Health from "./Health/Health";
 import Image from "./Image/Image";
 import Mana from "./Mana/Mana";
 import Playername from "./Playername/Playername";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   // ownProps
 };
 
 const Heroes = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Heroes rendered");
+  $.Msg("REACT-RENDER: Heroes rendered");
 
   const pickedHeroes = Object.values(useNetTableValues('HeroSelectionHeroes').heroes).filter(hero => hero.picked === 1)
 
@@ -37,4 +34,4 @@ const Heroes = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(Heroes));
+export default React.memo(Heroes);

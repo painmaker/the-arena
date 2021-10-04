@@ -20,7 +20,7 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const Item = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Shop - Item rendered");
+  $.Msg("REACT-RENDER: Shop - Item rendered");
 
   const { item, selectedUnit, setInterval, clearInterval } = props;
 

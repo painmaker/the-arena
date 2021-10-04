@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNetTableValues } from "react-panorama";
-import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../App";
 import { objectsEqual } from "../../utils/ObjectUtils";
 import { TableUtils } from "../../utils/TableUtils";
 import HealthBar from "./HealthBar/HealthBar";
 import ManaBar from "./ManaBar/ManaBar";
 import { Styles } from "./Styles";
-
-type Props = ReactTimeoutProps & {
-  // ownProps
-};
 
 interface IFloatingBar {
   unit: EntityIndex,
@@ -18,17 +14,17 @@ interface IFloatingBar {
   visible: boolean,
 }
 
-const FloatingBars = (props: Props) => {
+const FloatingBars = () => {
 
-  // $.Msg("REACT-RENDER: FloatingBars rendered");
-
-  const { setInterval, clearInterval } = props;
+  $.Msg("REACT-RENDER: FloatingBars rendered");
 
   const units = useNetTableValues('FloatingBarUnits').units;
 
   const [floatingBars, setFloatingBars] = useState<IFloatingBar[]>([]);
 
   useEffect(() => {
+
+    let schedule = -1 as ScheduleID;
 
     const update = () => {
 
@@ -77,15 +73,14 @@ const FloatingBars = (props: Props) => {
       if (!TableUtils.isEqual(mFloatingBars, floatingBars, objectsEqual)) {
         setFloatingBars(mFloatingBars);
       }
-
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update)
     };
 
-    // update();
-    const id = setInterval(update, 5);
+    update();
 
-    return () => clearInterval(id);
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
 
-  }, [units, floatingBars, setInterval, clearInterval]);
+  }, [units, floatingBars]);
 
   return (
     <React.Fragment>
@@ -105,4 +100,4 @@ const FloatingBars = (props: Props) => {
 
 }
 
-export default React.memo(withReactTimeout(FloatingBars));
+export default React.memo(FloatingBars);

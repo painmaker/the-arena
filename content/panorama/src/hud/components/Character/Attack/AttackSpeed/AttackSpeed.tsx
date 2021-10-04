@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_MEDIUM } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_MEDIUM } from "../../../../App";
 import { Styles as ParentStyles } from "../Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
 const AttackSpeed = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Character - AttackSpeed rendered");
+  $.Msg("REACT-RENDER: Character - AttackSpeed rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [attackSpeed, setAttackSpeed] = useState(Entities.GetAttackSpeed(selectedUnit))
   const [secondsPerAttack, setSecondsPerAttack] = useState(Entities.GetSecondsPerAttack(selectedUnit))
 
   useEffect(() => {
-    const id = setInterval(() => {
+    let schedule = -1 as ScheduleID;
+    const update = () => {
       setAttackSpeed(Entities.GetAttackSpeed(selectedUnit));
       setSecondsPerAttack(Entities.GetSecondsPerAttack(selectedUnit));
-    }, HUD_THINK_MEDIUM)
-    return () => clearInterval(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
+    };
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit]);
 
   return (
     <Panel style={ParentStyles.Row()}>
@@ -40,4 +42,4 @@ const AttackSpeed = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(AttackSpeed));
+export default React.memo(AttackSpeed);

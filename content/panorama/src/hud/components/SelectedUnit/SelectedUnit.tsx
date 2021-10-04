@@ -18,7 +18,7 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const SelectedUnit = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: SelectedUnit rendered");
+  $.Msg("REACT-RENDER: SelectedUnit rendered");
 
   const { selectedUnit } = props;
 

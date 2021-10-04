@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { HUD_THINK_FAST } from "../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../../App";
 import { RootState } from "../../../reducers/rootReducer";
 import { Styles } from "./Styles";
 
@@ -12,7 +11,7 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   hero: EntityIndex;
 };
 
@@ -56,9 +55,9 @@ const onHeroImageClicked = (hero: EntityIndex, cameraLocked: boolean) => {
 
 const ImageImpl = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
+  $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
 
-  const { hero, cameraLocked, setInterval, clearInterval } = props;
+  const { hero, cameraLocked } = props;
 
   const [washColor, setWashColor] = useState("none");
   const [isHovering, setIsHovering] = useState(false);
@@ -83,7 +82,7 @@ const ImageImpl = (props: Props) => {
   }, []);
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       const playerInfo = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(hero));
       if (playerInfo) {
@@ -95,14 +94,11 @@ const ImageImpl = (props: Props) => {
           setWashColor("grey");
         }
       }
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
-  }, [hero, setInterval, clearInterval])
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [hero])
 
   return (
     <Panel hittest={false} style={Styles.Container(isHovering)}>
@@ -126,4 +122,4 @@ const ImageImpl = (props: Props) => {
 
 };
 
-export default React.memo(connector(withReactTimeout(ImageImpl)));
+export default React.memo(connector(ImageImpl));

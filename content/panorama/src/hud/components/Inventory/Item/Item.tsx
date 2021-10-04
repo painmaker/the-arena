@@ -204,7 +204,7 @@ class InventoryItem extends React.Component<Props, State> {
 
   render() {
 
-    // $.Msg("REACT-RENDER: Inventory - Item rendered");
+    $.Msg("REACT-RENDER: Inventory - Item rendered");
 
     return (
       <Panel
@@ -218,13 +218,13 @@ class InventoryItem extends React.Component<Props, State> {
       >
         {this.props.item !== -1 && (
           <React.Fragment>
-            <Cooldown key={'cooldown_' + this.props.item} item={this.props.item} />
+            <Cooldown item={this.props.item} />
             {Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer()) && (
-              <Keybind key={'hotkey_' + this.props.item} item={this.props.item} />
+              <Keybind item={this.props.item} />
             )}
-            <Charges key={'charges_' + this.props.item} item={this.props.item} />
-            <Image key={'image_' + this.props.item} item={this.props.item} selectedUnit={this.props.selectedUnit} />
-            <ManaCost key={'mana_cost_' + this.props.item} item={this.props.item} />
+            <Charges item={this.props.item} />
+            <Image item={this.props.item} selectedUnit={this.props.selectedUnit} />
+            <ManaCost item={this.props.item} />
           </React.Fragment>
         )}
       </Panel>

@@ -11,7 +11,7 @@ type Props = ReactTimeoutProps & {
 
 const TimedBackground = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
+  $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
 
   const { buff, selectedUnit, isDebuff, setInterval, clearInterval } = props;
 

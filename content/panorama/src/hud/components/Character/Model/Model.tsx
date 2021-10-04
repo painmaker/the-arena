@@ -7,7 +7,7 @@ interface Props {
 
 const Model = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Character - HeroModel rendered");
+  $.Msg("REACT-RENDER: Character - HeroModel rendered");
 
   const { selectedUnit } = props;
 

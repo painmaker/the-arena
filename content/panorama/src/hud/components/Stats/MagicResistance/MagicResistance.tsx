@@ -10,7 +10,7 @@ type Props = ReactTimeoutProps & {
 
 const MagicResistance = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Stats - MagicalResistance rendered");
+  $.Msg("REACT-RENDER: Stats - MagicalResistance rendered");
 
   const { selectedUnit, setInterval, clearInterval } = props;
 

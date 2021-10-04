@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { formatTime } from "../../../utils";
-import { HUD_THINK_SLOW } from "../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../App";
 import { Styles } from "./Styles";
-
-type Props = ReactTimeoutProps & {
-  // ownProps
-}
 
 const formatGameTime = (dotaTime: number) => {
   const hours = formatTime(Math.floor(dotaTime / 3600));
@@ -18,24 +13,19 @@ const formatGameTime = (dotaTime: number) => {
   return hours + ":" + minutes + ":" + seconds;
 }
 
-const GameTime = (props: Props) => {
-
-  const { setInterval, clearInterval } = props;
+const GameTime = () => {
 
   const [gameTime, setGameTime] = useState(Game.GetDOTATime(false, false));
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       setGameTime(Game.GetDOTATime(false, false));
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_SLOW);
-
-    return () => clearInterval(id);
-
-  }, [setInterval, clearInterval]);
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, []);
 
   return (
     <Panel style={Styles.Container()}>
@@ -48,4 +38,4 @@ const GameTime = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(GameTime));
+export default React.memo(GameTime);

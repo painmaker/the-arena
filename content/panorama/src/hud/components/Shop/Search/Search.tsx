@@ -20,7 +20,7 @@ type Props = PropsFromRedux & {
  */
 const Search = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Shop - Search rendered");
+  $.Msg("REACT-RENDER: Shop - Search rendered");
 
   const { setShopSearchValue } = props;
 

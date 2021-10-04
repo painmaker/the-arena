@@ -22,7 +22,7 @@ type Props = PropsFromRedux & {
 
 const ShoppingButton = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: ButtonGroup - ShoppingButton rendered");
+  $.Msg("REACT-RENDER: ButtonGroup - ShoppingButton rendered");
 
   const { visible, setShopVisible } = props;
 

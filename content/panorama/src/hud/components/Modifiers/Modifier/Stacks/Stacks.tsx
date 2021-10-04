@@ -10,7 +10,7 @@ type Props = ReactTimeoutProps & {
 
 const Stacks = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Modifier rendered");
+  $.Msg("REACT-RENDER: Modifier rendered");
 
   const { unit, buff, setInterval, clearInterval } = props;
 

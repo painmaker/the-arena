@@ -14,7 +14,7 @@ interface Props {
 
 const Attack = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Character - Attack rendered");
+  $.Msg("REACT-RENDER: Character - Attack rendered");
 
   const { selectedUnit } = props;
 

@@ -10,7 +10,7 @@ type Props = ReactTimeoutProps & {
 
 const AbilitiesPoints = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: AbilitiesShop - AbilitiesPoints rendered");
+  $.Msg("REACT-RENDER: AbilitiesShop - AbilitiesPoints rendered");
 
   const { selectedUnit, text, setInterval, clearInterval } = props;
 

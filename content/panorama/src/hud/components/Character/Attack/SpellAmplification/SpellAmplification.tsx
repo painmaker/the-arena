@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_MEDIUM } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_MEDIUM } from "../../../../App";
 import { Styles as ParentStyles } from "../Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
 const SpellAmplification = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Character - SpellAmplification rendered");
+  $.Msg("REACT-RENDER: Character - SpellAmplification rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [spellAmp, setSpellAmp] = useState(Entities.GetAttackRange(selectedUnit))
 
   useEffect(() => {
-    const id = setInterval(() => {
+    let schedule = -1 as ScheduleID;
+    const update = () => {
       const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
       for (let i = 0; i < numberOfBuffs; i++) {
         const buff = Entities.GetBuff(selectedUnit, i);
@@ -25,9 +25,11 @@ const SpellAmplification = (props: Props) => {
           setSpellAmp(Buffs.GetStackCount(selectedUnit, buff) / 100);
         }
       }
-    }, HUD_THINK_MEDIUM);
-    return () => clearInterval(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
+    };
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit]);
 
   return (
     <Panel style={ParentStyles.Row()}>
@@ -45,4 +47,4 @@ const SpellAmplification = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(SpellAmplification));
+export default React.memo(SpellAmplification);

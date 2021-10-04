@@ -7,10 +7,10 @@ const TerserPlugin = require('terser-webpack-plugin');
 /** @type {import('webpack').Configuration} */
 module.exports = {
   mode: 'development',
-  optimization: {
-    minimize: true,
-    minimizer: [new TerserPlugin({})],
-  },
+  // optimization: {
+  //   minimize: true,
+  //   minimizer: [new TerserPlugin({})],
+  // },
   context: path.resolve(__dirname, "src"),
   output: {
     path: path.resolve(__dirname, "layout/custom_game"),

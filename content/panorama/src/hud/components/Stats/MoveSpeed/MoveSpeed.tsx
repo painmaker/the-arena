@@ -10,7 +10,7 @@ type Props = ReactTimeoutProps & {
 
 const MoveSpeed = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Stats - MoveSpeed rendered");
+  $.Msg("REACT-RENDER: Stats - MoveSpeed rendered");
 
   const { selectedUnit, setInterval, clearInterval } = props;
 

@@ -9,7 +9,7 @@ type Props = ReactTimeoutProps & {
 
 const Skillpoints = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: AbilityBarItem - Skillpoints rendered");
+  $.Msg("REACT-RENDER: AbilityBarItem - Skillpoints rendered");
 
   const { ability, setInterval, clearInterval } = props;
 

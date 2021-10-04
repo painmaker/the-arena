@@ -11,7 +11,7 @@ type Props = {
 
 const RegularAbilities = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: AbilitiesShop - RegularAbilities rendered");
+  $.Msg("REACT-RENDER: AbilitiesShop - RegularAbilities rendered");
 
   const { selectedUnit, regularAbilities, isLoadingAbilities, searchValue } = props;
 

@@ -22,7 +22,7 @@ type Props = PropsFromRedux & {
 
 const LockCameraBtn = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Settings - LockCameraBtn rendered");
+  $.Msg("REACT-RENDER: Settings - LockCameraBtn rendered");
 
   return (
     <Panel style={Styles.Container()}>

@@ -9,7 +9,7 @@ type Props = ReactTimeoutProps & {
 
 const Cooldown = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
+  $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
 
   const { ability, setInterval, clearInterval } = props;
 

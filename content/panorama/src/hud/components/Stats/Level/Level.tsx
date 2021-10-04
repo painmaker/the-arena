@@ -43,7 +43,7 @@ type Props = ReactTimeoutProps & {
 
 const Level = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Stats - Level rendered");
+  $.Msg("REACT-RENDER: Stats - Level rendered");
 
   const { selectedUnit, setInterval, clearInterval } = props;
 

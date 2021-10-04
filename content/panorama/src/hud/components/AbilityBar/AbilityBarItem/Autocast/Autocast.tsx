@@ -9,7 +9,7 @@ type Props = ReactTimeoutProps & {
 
 const Autocast = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: AbilityBarItem - Autocast rendered");
+  $.Msg("REACT-RENDER: AbilityBarItem - Autocast rendered");
 
   const { ability, setInterval, clearInterval } = props;
 

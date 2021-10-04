@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_FAST } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../../../App";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   item: ItemEntityIndex,
   selectedUnit: EntityIndex,
 };
 
 const Image = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Inventory - Image rendered");
+  $.Msg("REACT-RENDER: Inventory - Image rendered");
 
-  const { item, selectedUnit, setInterval, clearInterval } = props;
+  const { item, selectedUnit } = props;
 
   const [isCooldownReady, setIsCooldownReady] = useState(Abilities.IsCooldownReady(item));
   const [hasEnoughMana, setHasEnoughMana] = useState(Abilities.IsOwnersManaEnough(item));
@@ -20,6 +19,8 @@ const Image = (props: Props) => {
   const [showLock, setShowLock] = useState(false);
 
   useEffect(() => {
+
+    let schedule = -1 as ScheduleID;
 
     const update = () => {
 
@@ -34,15 +35,15 @@ const Image = (props: Props) => {
       const isHexed = Entities.IsHexed(selectedUnit);
       setShowLock(isMuted || isStunned || isCommandRestricted || isNightmared || isHexed);
 
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
+
     };
 
-    // update();
-    const id = setInterval(update, HUD_THINK_FAST);
+    update();
 
-    return () => clearInterval(id);
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
 
-  }, [selectedUnit, item, setInterval, clearInterval]);
-
+  }, [selectedUnit, item]);
 
   return (
     <React.Fragment>
@@ -58,4 +59,4 @@ const Image = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(Image));
+export default React.memo(Image);

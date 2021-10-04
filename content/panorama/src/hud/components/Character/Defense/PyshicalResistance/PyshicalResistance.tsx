@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_MEDIUM } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_MEDIUM } from "../../../../App";
 import { Styles as ParentStyles } from "../Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
 const PyshicalResistance = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Character - PhysicalResistance rendered");
+  $.Msg("REACT-RENDER: Character - PhysicalResistance rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [resistance, setResistance] = useState(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL))
 
   useEffect(() => {
-    const id = setInterval(() => {
+    let schedule = -1 as ScheduleID;
+    const update = () => {
       setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
-    }, HUD_THINK_MEDIUM)
-    return () => clearInterval(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
+    };
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit]);
 
   return (
     <Panel style={ParentStyles.Row()}>
@@ -41,4 +43,4 @@ const PyshicalResistance = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(PyshicalResistance));
+export default React.memo(PyshicalResistance);

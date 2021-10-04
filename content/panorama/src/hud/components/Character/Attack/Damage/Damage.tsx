@@ -1,30 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_MEDIUM } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_MEDIUM } from "../../../../App";
 import { Styles as ParentStyles } from "../Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
 const Damage = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Character - Damage rendered");
+  $.Msg("REACT-RENDER: Character - Damage rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [minDamage, setMinDamage] = useState(Entities.GetDamageMin(selectedUnit))
   const [maxDamage, setMaxDamage] = useState(Entities.GetDamageMax(selectedUnit))
   const [bonusDamage, setBonusDamage] = useState(Entities.GetDamageBonus(selectedUnit))
 
   useEffect(() => {
-    const id = setInterval(() => {
+    let schedule = -1 as ScheduleID;
+    const update = () => {
       setMinDamage(Entities.GetDamageMin(selectedUnit));
       setMaxDamage(Entities.GetDamageMax(selectedUnit));
       setBonusDamage(Entities.GetDamageBonus(selectedUnit));
-    }, HUD_THINK_MEDIUM);
-    return () => clearInterval(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update)
+    };
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit]);
 
   return (
     <Panel style={ParentStyles.Row()}>
@@ -51,4 +53,4 @@ const Damage = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(Damage));
+export default React.memo(Damage);

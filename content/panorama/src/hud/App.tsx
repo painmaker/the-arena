@@ -30,6 +30,9 @@ import FloatingBars from "./components/FloatingBars/FloatingBars";
 export const HUD_THINK_FAST = 50;
 export const HUD_THINK_MEDIUM = 100;
 export const HUD_THINK_SLOW = 1000;
+export const SCHEDULE_THINK_FAST = 0.03;
+export const SCHEDULE_THINK_MEDIUM = 0.1;
+export const SCHEDULE_THINK_SLOW = 1.0;
 
 const mapStateToProps = (state: RootState) => ({
   useCustomUI: state.settingsReducer.useCustomUI,

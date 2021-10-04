@@ -23,13 +23,13 @@ const onMouseOut = (abilityname: string) => {
 }
 
 const onRightClick = (selectedUnit: EntityIndex, abilityname: string) => {
-  // $.Msg("onRightClick: " + abilityname)
+  $.Msg("onRightClick: " + abilityname)
   GameEvents.SendCustomGameEventToServer("purchase_ability", { entindex: selectedUnit, abilityname });
 }
 
 const AbilityImage = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: AbilitiesShop - AbilityImage rendered");
+  $.Msg("REACT-RENDER: AbilitiesShop - AbilityImage rendered");
 
   const { selectedUnit, shopAbility, searchValue, setInterval, clearInterval } = props;
   const { name, aliases, requiredLevel } = shopAbility;

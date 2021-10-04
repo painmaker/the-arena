@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { SCHEDULE_THINK_SLOW } from '../../App';
 import withReactTimeout, { ReactTimeoutProps } from '../../hoc/ReactTimeout';
 import { Styles } from './Styles';
 
@@ -6,20 +7,14 @@ type Props = ReactTimeoutProps & {}
 
 const Loading: React.FunctionComponent<Props> = props => {
 
-  // $.Msg("REACT-RENDER: Loading rendered");
-
-  const { setTimeout, clearTimeout } = props;
+  $.Msg("REACT-RENDER: Loading rendered");
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const update = () => {
-      setIsLoading(false);
-    };
-    const id = setTimeout(update, 500);
-    return () => clearTimeout(id);
-
-  }, [setTimeout, clearTimeout]);
+    const schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => setIsLoading(false));
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, []);
 
   if (isLoading) {
     return (

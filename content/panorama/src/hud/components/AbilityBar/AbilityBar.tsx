@@ -20,7 +20,7 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const AbilityBar = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: AbilityBar rendered");
+  $.Msg("REACT-RENDER: AbilityBar rendered");
 
   const { selectedUnit, setInterval, clearInterval } = props;
 

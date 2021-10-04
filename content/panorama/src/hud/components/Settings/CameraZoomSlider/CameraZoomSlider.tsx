@@ -25,7 +25,7 @@ type Props = PropsFromRedux & {
  */
 const CameraZoomSlider = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Settings - CameraZoomSlider rendered");
+  $.Msg("REACT-RENDER: Settings - CameraZoomSlider rendered");
 
   useEffect(() => {
     // Hack to initalize the slider caret correctly

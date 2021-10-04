@@ -21,7 +21,7 @@ type Props = PropsFromRedux & {
 
 const Stats = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Stats rendered");
+  $.Msg("REACT-RENDER: Stats rendered");
 
   const { selectedUnit } = props;
 

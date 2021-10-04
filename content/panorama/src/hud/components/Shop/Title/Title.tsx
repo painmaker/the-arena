@@ -17,7 +17,7 @@ type Props = PropsFromRedux & {
 
 const Title = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Shop - Title rendered");
+  $.Msg("REACT-RENDER: Shop - Title rendered");
 
   const { selectedUnit, setShopVisible } = props;
 

@@ -1,32 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_FAST } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../../../App";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   item: ItemEntityIndex,
 };
 
 const ManaCost = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Inventory - ManaCost rendered");
+  $.Msg("REACT-RENDER: Inventory - ManaCost rendered");
 
-  const { item, setInterval, clearInterval } = props;
+  const { item } = props;
 
   const [manaCost, setManaCost] = useState(Abilities.GetManaCost(item));
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       setManaCost(Abilities.GetManaCost(item));
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
-  }, [item, setInterval, clearInterval]);
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [item]);
 
   return (
     <Label
@@ -37,4 +33,4 @@ const ManaCost = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(ManaCost));
+export default React.memo(ManaCost);

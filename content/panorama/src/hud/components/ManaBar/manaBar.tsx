@@ -18,7 +18,7 @@ type Props = PropsFromRedux & ReactTimeoutProps & {
 
 const ManaBar = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: ManaBar rendered");
+  $.Msg("REACT-RENDER: ManaBar rendered");
 
   const { selectedUnit, setInterval, clearInterval } = props;
 
