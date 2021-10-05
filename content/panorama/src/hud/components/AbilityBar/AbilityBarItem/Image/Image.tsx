@@ -65,7 +65,7 @@ const Image = (props: Props) => {
     };
     update();
     return () => cancelSchedule(schedule, Image.name);
-  }, [ability, selectedUnit, setInterval, clearInterval]);
+  }, [ability, selectedUnit]);
 
   return (
     <Panel style={Styles.Container()}>

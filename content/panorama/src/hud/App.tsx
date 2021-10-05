@@ -123,7 +123,7 @@ const App = (props: Props) => {
     };
     update();
     return () => cancelSchedule(schedule, App.name);
-  }, [setSelectedUnit, setInterval, clearInterval]);
+  }, [setSelectedUnit]);
 
   return (
     <Panel id={'root'} hittest={false} className={"appContainer"} >

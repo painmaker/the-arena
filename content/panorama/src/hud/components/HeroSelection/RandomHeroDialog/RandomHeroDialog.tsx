@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { Timer } from "react-timeout";
 import { Dispatch } from "redux";
 import { setRandomHeroDialogVisible } from "../../../actions/heroSelectionActions";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_SLOW } from "../../../App";
 import { RootState } from "../../../reducers/rootReducer";
 import { HeroSelectionActionTypes } from "../../../types/heroSelectionTypes";
+import { cancelSchedule } from "../../../utils/Schedule";
 
 const mapStateToProps = (state: RootState) => ({
   randomHeroDialogVisible: state.heroSelectionReducer.randomHeroDialogVisible
@@ -18,34 +18,34 @@ const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   // ownProps
 };
 
 const RandomHeroDialog = (props: Props) => {
 
+  const { randomHeroDialogVisible } = props;
+
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
-    let timer = -1 as Timer;
-    if (props.randomHeroDialogVisible === false) {
-      timer = props.setTimeout(() => {
-        setRenderComponent(false);
-      }, 1000);
+    let schedule = -1 as ScheduleID;
+    if (randomHeroDialogVisible === false) {
+      schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => setRenderComponent(false));
     } else {
       setRenderComponent(true);
     }
-    return () => props.clearTimeout(timer);
-  }, [props.randomHeroDialogVisible]);
+    return () => cancelSchedule(schedule, RandomHeroDialog.name);
+  }, [randomHeroDialogVisible]);
 
   return (
     <React.Fragment>
-      { renderComponent && (
+      {renderComponent && (
         <Panel
           className={'heroSelectionRandomHeroDialogOuterContainer'}
           style={{
-            opacity: props.randomHeroDialogVisible ? '1.0' : '0.0',
-            preTransformScale2d: props.randomHeroDialogVisible ? '1.0' : '0.5',
+            opacity: randomHeroDialogVisible ? '1.0' : '0.0',
+            preTransformScale2d: randomHeroDialogVisible ? '1.0' : '0.5',
           }}
         >
           <Panel className={'heroSelectionRandomHeroDialogInnerContainer'}>
@@ -57,7 +57,7 @@ const RandomHeroDialog = (props: Props) => {
                 className={'heroSelectionRandomHeroDialogButton'}
                 onactivate={() => {
                   GameEvents.SendCustomGameEventToServer("on_random_hero", {});
-                  props.setRandomHeroDialogVisible(false);
+                  setRandomHeroDialogVisible(false);
                   Game.EmitSound("ui_topmenu_select");
                 }}
               >
@@ -66,7 +66,7 @@ const RandomHeroDialog = (props: Props) => {
               <Button
                 className={'heroSelectionRandomHeroDialogButton'}
                 onactivate={() => {
-                  props.setRandomHeroDialogVisible(false);
+                  setRandomHeroDialogVisible(false);
                   Game.EmitSound("ui_topmenu_select");
                 }}
               >
@@ -82,4 +82,4 @@ const RandomHeroDialog = (props: Props) => {
 
 }
 
-export default connector(withReactTimeout(RandomHeroDialog));
+export default connector(RandomHeroDialog);

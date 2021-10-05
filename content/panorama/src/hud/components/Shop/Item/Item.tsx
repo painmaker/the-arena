@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
-import { HUD_THINK_FAST } from "../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../../App";
 import { RootState } from "../../../reducers/rootReducer";
 import { Item } from "../../../types/shopTypes";
+import { cancelSchedule } from "../../../utils/Schedule";
 
 const mapStateToProps = (state: RootState) => ({
   searchValue: state.shopReducer.searchValue,
@@ -13,7 +13,7 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   item: Item,
   selectedUnit: EntityIndex,
 };
@@ -22,24 +22,21 @@ const Item = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Shop - Item rendered");
 
-  const { item, selectedUnit, setInterval, clearInterval } = props;
+  const { item, selectedUnit } = props;
 
   const [playerGold, setPlayerGold] = useState(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
   const [isShopInRange, setIsShopInRange] = useState(Entities.IsInRangeOfShop(selectedUnit, 0, false));
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
       setIsShopInRange(Entities.IsInRangeOfShop(selectedUnit, 0, false));
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
-  }, [selectedUnit, setInterval, clearInterval]);
+    update();
+    return () => cancelSchedule(schedule, Item.name);
+  }, [selectedUnit]);
 
   useGameEvent("attempt_item_purchase_success", () => {
     Game.EmitSound("General.CourierGivesItem");
@@ -102,4 +99,4 @@ const Item = (props: Props) => {
 
 };
 
-export default connector(withReactTimeout(Item));
+export default React.memo(connector(Item));

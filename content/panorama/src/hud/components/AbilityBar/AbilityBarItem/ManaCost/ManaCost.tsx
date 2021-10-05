@@ -23,7 +23,7 @@ const ManaCost = (props: Props) => {
     };
     update();
     return () => cancelSchedule(schedule, ManaCost.name);
-  }, [ability, setInterval, clearInterval])
+  }, [ability])
 
   if (manaCost === 0) {
     return null;

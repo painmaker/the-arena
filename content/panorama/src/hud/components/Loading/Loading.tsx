@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { SCHEDULE_THINK_SLOW } from '../../App';
-import withReactTimeout, { ReactTimeoutProps } from '../../hoc/ReactTimeout';
 import { cancelSchedule } from '../../utils/Schedule';
 import { Styles } from './Styles';
 
-type Props = ReactTimeoutProps & {}
+type Props = {
+  children: React.ReactNode
+}
 
-const Loading: React.FunctionComponent<Props> = props => {
+const Loading = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Loading rendered");
 
@@ -36,4 +37,4 @@ const Loading: React.FunctionComponent<Props> = props => {
 
 };
 
-export default React.memo(withReactTimeout(Loading));
+export default React.memo(Loading);
