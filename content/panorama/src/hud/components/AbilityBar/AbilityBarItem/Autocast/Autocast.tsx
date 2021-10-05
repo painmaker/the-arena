@@ -8,7 +8,7 @@ type Props = {
 
 const Autocast = (props: Props) => {
 
-  $.Msg("REACT-RENDER: AbilityBarItem - Autocast rendered");
+  // $.Msg("REACT-RENDER: AbilityBarItem - Autocast rendered");
 
   const { ability } = props;
 

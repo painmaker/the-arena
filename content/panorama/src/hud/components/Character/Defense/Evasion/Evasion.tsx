@@ -8,7 +8,7 @@ type Props = {
 
 const Evasion = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - Evasion rendered");
+  // $.Msg("REACT-RENDER: Character - Evasion rendered");
 
   const { selectedUnit } = props;
 

@@ -8,7 +8,7 @@ type Props = {
 
 const StatusResistance = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - StatusResistance rendered");
+  // $.Msg("REACT-RENDER: Character - StatusResistance rendered");
 
   const { selectedUnit } = props;
   const [resistance, setResistance] = useState(0)

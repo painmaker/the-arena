@@ -8,7 +8,7 @@ type Props = {
 
 const Level = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - Level rendered");
+  // $.Msg("REACT-RENDER: Character - Level rendered");
 
   const { selectedUnit } = props;
 

@@ -8,7 +8,7 @@ type Props = {
 
 const PyshicalResistance = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - PhysicalResistance rendered");
+  // $.Msg("REACT-RENDER: Character - PhysicalResistance rendered");
 
   const { selectedUnit } = props;
 

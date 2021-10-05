@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { formatTime } from "../../../utils";
-import { SCHEDULE_THINK_FAST } from "../../App";
+import { SCHEDULE_THINK_SLOW } from "../../App";
 import { Styles } from "./Styles";
 
 const formatGameTime = (dotaTime: number) => {
@@ -20,8 +20,9 @@ const GameTime = () => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      $.Msg("Tick!")
       setGameTime(Game.GetDOTATime(false, false));
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
+      schedule = $.Schedule(SCHEDULE_THINK_SLOW, update);
     };
     update();
     return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }

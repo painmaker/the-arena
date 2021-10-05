@@ -28,7 +28,7 @@ const onRightClick = (selectedUnit: EntityIndex, abilityname: string) => {
 
 const AbilityImage = (props: Props) => {
 
-  $.Msg("REACT-RENDER: AbilitiesShop - AbilityImage rendered");
+  // $.Msg("REACT-RENDER: AbilitiesShop - AbilityImage rendered");
 
   const { selectedUnit, shopAbility, searchValue } = props;
   const { name, aliases, requiredLevel } = shopAbility;

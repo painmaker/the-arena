@@ -57,7 +57,7 @@ type Props = {
 
 const AbilityBarItem = (props: Props) => {
 
-  $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
+  // $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
 
   const { ability, selectedUnit } = props;
 

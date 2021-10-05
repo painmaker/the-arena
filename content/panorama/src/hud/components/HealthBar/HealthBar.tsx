@@ -17,7 +17,7 @@ type Props = PropsFromRedux & {
 
 const HealthBar = (props: Props) => {
 
-  $.Msg("REACT-RENDER: HealthBar rendered");
+  // $.Msg("REACT-RENDER: HealthBar rendered");
 
   const { selectedUnit } = props;
 

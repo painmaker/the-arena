@@ -8,7 +8,7 @@ type Props = {
 
 const SpellAmplification = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - SpellAmplification rendered");
+  // $.Msg("REACT-RENDER: Character - SpellAmplification rendered");
 
   const { selectedUnit } = props;
 

@@ -8,7 +8,7 @@ type Props = {
 
 const Charges = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Inventory - Charges rendered");
+  // $.Msg("REACT-RENDER: Inventory - Charges rendered");
 
   const { item } = props;
 

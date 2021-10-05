@@ -8,7 +8,7 @@ type Props = {
 
 const HealthRegen = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - HealthRegen rendered");
+  // $.Msg("REACT-RENDER: Character - HealthRegen rendered");
 
   const { selectedUnit } = props;
 

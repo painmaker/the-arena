@@ -9,7 +9,7 @@ type Props = {
 
 const Image = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Inventory - Image rendered");
+  // $.Msg("REACT-RENDER: Inventory - Image rendered");
 
   const { item, selectedUnit } = props;
 

@@ -10,7 +10,7 @@ type Props = {
 
 const TimedBackground = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
+  // $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
 
   const { buff, selectedUnit, isDebuff } = props;
 

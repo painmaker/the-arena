@@ -9,7 +9,7 @@ type Props = ReactTimeoutProps & {
 
 const ManaCost = (props: Props) => {
 
-  $.Msg("REACT-RENDER: AbilityBarItem - ManaCost rendered");
+  // $.Msg("REACT-RENDER: AbilityBarItem - ManaCost rendered");
 
   const { ability, setInterval, clearInterval } = props;
 

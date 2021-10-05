@@ -19,7 +19,7 @@ type Props = PropsFromRedux & {
 
 const AbilityBar = (props: Props) => {
 
-  $.Msg("REACT-RENDER: AbilityBar rendered");
+  // $.Msg("REACT-RENDER: AbilityBar rendered");
 
   const { selectedUnit } = props;
 

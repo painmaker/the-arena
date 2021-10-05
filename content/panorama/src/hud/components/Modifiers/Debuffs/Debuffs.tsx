@@ -37,7 +37,7 @@ type Props = PropsFromRedux & {
 
 const Debuffs = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Debuffs rendered");
+  // $.Msg("REACT-RENDER: Debuffs rendered");
 
   const { selectedUnit } = props;
 

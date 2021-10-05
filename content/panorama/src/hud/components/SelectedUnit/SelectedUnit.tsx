@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import withReactTimeout, { ReactTimeoutProps } from '../../hoc/ReactTimeout';
 import { RootState } from '../../reducers/rootReducer';
 import { Styles } from './Styles';
 
@@ -12,13 +11,13 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   // ownProps
 };
 
 const SelectedUnit = (props: Props) => {
 
-  $.Msg("REACT-RENDER: SelectedUnit rendered");
+  // $.Msg("REACT-RENDER: SelectedUnit rendered");
 
   const { selectedUnit } = props;
 
@@ -33,4 +32,4 @@ const SelectedUnit = (props: Props) => {
 
 };
 
-export default React.memo(connector(withReactTimeout(SelectedUnit)));
+export default React.memo(connector(SelectedUnit));

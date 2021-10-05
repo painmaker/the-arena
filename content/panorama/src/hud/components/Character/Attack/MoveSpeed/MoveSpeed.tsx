@@ -8,7 +8,7 @@ type Props = {
 
 const MoveSpeed = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
+  // $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
 
   const { selectedUnit } = props;
 

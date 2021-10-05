@@ -8,7 +8,7 @@ type Props = {
 
 const Cooldown = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Inventory - Cooldown rendered");
+  // $.Msg("REACT-RENDER: Inventory - Cooldown rendered");
 
   const { item } = props;
 

@@ -7,7 +7,7 @@ interface Props {
 
 const Avatar = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - Avatar rendered");
+  // $.Msg("REACT-RENDER: Character - Avatar rendered");
 
   const { selectedUnit } = props;
   const [steamId, setSteamId] = useState<string | undefined>(undefined);

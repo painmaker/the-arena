@@ -8,7 +8,7 @@ type Props = {
 
 const Keybind = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Inventory - Keybind rendered");
+  // $.Msg("REACT-RENDER: Inventory - Keybind rendered");
 
   const { item } = props;
 

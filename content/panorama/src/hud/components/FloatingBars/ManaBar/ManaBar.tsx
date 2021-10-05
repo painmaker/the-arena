@@ -8,7 +8,7 @@ type Props = {
 
 const ManaBar = (props: Props) => {
 
-  $.Msg("REACT-RENDER: FloatingBars - ManaBar rendered");
+  // $.Msg("REACT-RENDER: FloatingBars - ManaBar rendered");
 
   const { unit } = props;
 

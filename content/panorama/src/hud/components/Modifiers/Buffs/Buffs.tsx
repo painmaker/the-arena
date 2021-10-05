@@ -36,7 +36,7 @@ type Props = PropsFromRedux & {
 
 const BuffsPanel = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Buffs rendered");
+  // $.Msg("REACT-RENDER: Buffs rendered");
 
   const { selectedUnit } = props;
   const [buffs, setBuffs] = useState<BuffID[]>(getBuffs(selectedUnit));

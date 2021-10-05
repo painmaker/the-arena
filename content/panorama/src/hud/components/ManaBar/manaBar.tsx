@@ -17,7 +17,7 @@ type Props = PropsFromRedux & {
 
 const ManaBar = (props: Props) => {
 
-  $.Msg("REACT-RENDER: ManaBar rendered");
+  // $.Msg("REACT-RENDER: ManaBar rendered");
 
   const { selectedUnit } = props;
 

@@ -29,7 +29,7 @@ type Props = PropsFromRedux & {
 
 const Settings = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Settings rendered");
+  // $.Msg("REACT-RENDER: Settings rendered");
 
   const { visible, setCameraLocked, setCameraZoom } = props;
 

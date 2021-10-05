@@ -8,7 +8,7 @@ type Props = {
 
 const HealthBar = (props: Props) => {
 
-  $.Msg("REACT-RENDER: FloatingBars - HealthBar rendered");
+  // $.Msg("REACT-RENDER: FloatingBars - HealthBar rendered");
 
   const { unit } = props;
 

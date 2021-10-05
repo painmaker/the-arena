@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from "react";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
-import { HUD_THINK_MEDIUM } from "../../../App";
+import { SCHEDULE_THINK_MEDIUM, SCHEDULE_THINK_SLOW } from "../../../App";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 }
 
 const MoveSpeed = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Stats - MoveSpeed rendered");
+  // $.Msg("REACT-RENDER: Stats - MoveSpeed rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [moveSpeed, setMoveSpeed] = useState(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
+      $.Msg("Update MoveSpeed");
       setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
+      schedule = $.Schedule(SCHEDULE_THINK_SLOW, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_MEDIUM);
-
-    return () => clearInterval(id);
-
-  }, [selectedUnit, setInterval, clearInterval]);
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit]);
 
   return (
     <Panel style={ParentStyles.Entry()} >
@@ -41,4 +38,4 @@ const MoveSpeed = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(MoveSpeed));
+export default React.memo(MoveSpeed);

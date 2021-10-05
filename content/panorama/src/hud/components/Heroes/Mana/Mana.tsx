@@ -8,7 +8,7 @@ type Props = {
 
 const Mana = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Heroes - Mana rendered");
+  // $.Msg("REACT-RENDER: Heroes - Mana rendered");
 
   const { hero } = props;
 

@@ -31,7 +31,7 @@ type Props = PropsFromRedux & {
 
 const AbilitiesShop = (props: Props) => {
 
-  $.Msg("REACT-RENDER: AbilitiesShop rendered");
+  // $.Msg("REACT-RENDER: AbilitiesShop rendered");
 
   const { visible, selectedUnit, setShopVisible } = props;
 

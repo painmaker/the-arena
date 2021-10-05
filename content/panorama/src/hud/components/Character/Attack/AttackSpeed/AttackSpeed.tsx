@@ -8,7 +8,7 @@ type Props = {
 
 const AttackSpeed = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Character - AttackSpeed rendered");
+  // $.Msg("REACT-RENDER: Character - AttackSpeed rendered");
 
   const { selectedUnit } = props;
 

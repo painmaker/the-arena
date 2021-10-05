@@ -22,7 +22,7 @@ type Props = PropsFromRedux & {
 
 const MapZoomSlider = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Settings - MapZoomSlider rendered");
+  // $.Msg("REACT-RENDER: Settings - MapZoomSlider rendered");
 
   useEffect(() => {
     // Hack to initalize the slider caret correctly

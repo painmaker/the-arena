@@ -23,7 +23,7 @@ type Props = PropsFromRedux & {
 
 const AbilitiesShopButton = (props: Props) => {
 
-  $.Msg("REACT-RENDER: ButtonGroup - AbilitiesShopButton rendered");
+  // $.Msg("REACT-RENDER: ButtonGroup - AbilitiesShopButton rendered");
 
   const { visible, setAbilitiesShopVisible } = props;
 

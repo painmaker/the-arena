@@ -3,7 +3,7 @@ import { Styles } from "./Styles";
 
 const Divider = () => {
 
-  $.Msg("REACT-RENDER: Settings - Divider rendered");
+  // $.Msg("REACT-RENDER: Settings - Divider rendered");
 
   return (
     <Panel style={Styles.Divider()} />

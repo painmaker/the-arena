@@ -8,7 +8,7 @@ type Props = {
 
 const Health = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Heroes - Health rendered");
+  // $.Msg("REACT-RENDER: Heroes - Health rendered");
 
   const { hero } = props;
 

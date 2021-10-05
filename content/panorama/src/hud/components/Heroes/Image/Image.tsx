@@ -55,7 +55,7 @@ const onHeroImageClicked = (hero: EntityIndex, cameraLocked: boolean) => {
 
 const ImageImpl = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
+  // $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
 
   const { hero, cameraLocked } = props;
 

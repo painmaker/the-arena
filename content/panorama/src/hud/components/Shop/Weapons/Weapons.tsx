@@ -8,7 +8,7 @@ type Props = {
 
 const Weapons = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Shop - Weapons rendered");
+  // $.Msg("REACT-RENDER: Shop - Weapons rendered");
 
   const { selectedUnit } = props;
 

@@ -1,35 +1,32 @@
 import React, { useEffect, useState } from "react";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
-import { HUD_THINK_MEDIUM } from "../../../App";
+import { SCHEDULE_THINK_MEDIUM, SCHEDULE_THINK_SLOW } from "../../../App";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex
 }
 
 const Armor = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Stats - Armor rendered");
+  // $.Msg("REACT-RENDER: Stats - Armor rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [armor, setArmor] = useState(Entities.GetPhysicalArmorValue(selectedUnit));
   const [bonusArmor, setBonusArmor] = useState(Entities.GetBonusPhysicalArmor(selectedUnit));
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
+      $.Msg("Update Armor");
       setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
       setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
+      schedule = $.Schedule(SCHEDULE_THINK_SLOW, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_MEDIUM);
-
-    return () => clearInterval(id);
-
-  }, [selectedUnit, setInterval, clearInterval]);
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit]);
 
   return (
     <Panel style={ParentStyles.Entry()}>
@@ -49,4 +46,4 @@ const Armor = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(Armor));
+export default React.memo(Armor);

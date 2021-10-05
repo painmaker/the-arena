@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from "react";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
-import { HUD_THINK_MEDIUM } from "../../../App";
+import { SCHEDULE_THINK_MEDIUM, SCHEDULE_THINK_SLOW } from "../../../App";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
 const MagicResistance = (props: Props) => {
 
-  $.Msg("REACT-RENDER: Stats - MagicalResistance rendered");
+  // $.Msg("REACT-RENDER: Stats - MagicalResistance rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [magicResistance, setMagicResistance] = useState(Entities.GetMagicalArmorValue(selectedUnit));
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
+      $.Msg("Update MagicResistance");
       setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
+      schedule = $.Schedule(SCHEDULE_THINK_SLOW, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_MEDIUM);
-
-    return () => clearInterval(id);
-
-  }, [selectedUnit, setInterval, clearInterval]);
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit]);
 
   return (
     <Panel style={ParentStyles.Entry()}>
@@ -41,4 +38,4 @@ const MagicResistance = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(MagicResistance));
+export default React.memo(MagicResistance);

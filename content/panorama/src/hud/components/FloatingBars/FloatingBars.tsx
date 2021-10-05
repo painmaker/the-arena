@@ -16,7 +16,7 @@ interface IFloatingBar {
 
 const FloatingBars = () => {
 
-  $.Msg("REACT-RENDER: FloatingBars rendered");
+  // $.Msg("REACT-RENDER: FloatingBars rendered");
 
   const units = useNetTableValues('FloatingBarUnits').units;
 

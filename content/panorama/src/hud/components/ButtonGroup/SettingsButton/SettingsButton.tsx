@@ -22,7 +22,7 @@ type Props = PropsFromRedux & {
 
 const SettingsButton = (props: Props) => {
 
-  $.Msg("REACT-RENDER: ButtonGroup - SettingsButton rendered");
+  // $.Msg("REACT-RENDER: ButtonGroup - SettingsButton rendered");
 
   const { visible, setSettingsVisible } = props;
 
