@@ -10,6 +10,7 @@ import { setCameraLocked, setCameraZoom } from "../../actions/settingsAction";
 import { SettingsActionTypes } from "../../types/settingsTypes";
 import { Styles } from "./Styles";
 import { SCHEDULE_THINK_SLOW } from "../../App";
+import { cancelSchedule } from "../../utils/Schedule";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,
@@ -47,7 +48,7 @@ const Settings = (props: Props) => {
     } else {
       setRenderComponent(true);
     }
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Settings schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, Settings.name);
   }, [visible]);
 
   return (

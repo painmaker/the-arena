@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
 import { SCHEDULE_THINK_MEDIUM } from "../../../App";
+import { cancelSchedule } from "../../../utils/Schedule";
 
 type Props = {
   selectedUnit: EntityIndex,
@@ -22,7 +23,7 @@ const MagicResistance = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, MagicResistance.name);
   }, [selectedUnit]);
 
   return (

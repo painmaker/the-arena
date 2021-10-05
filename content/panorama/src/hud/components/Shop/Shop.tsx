@@ -1,8 +1,6 @@
 import React, { Dispatch, useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../reducers/rootReducer";
-import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
-import { Timer } from "react-timeout";
 import Title from "./Title/Title";
 import Gold from "./Gold/Gold";
 import Search from "./Search/Search";
@@ -12,6 +10,8 @@ import Weapons from "./Weapons/Weapons";
 import Artifacts from "./Artifacts/Artifacts";
 import { setShopVisible } from "../../actions/shopActions";
 import { ShopActionTypes } from "../../types/shopTypes";
+import { SCHEDULE_THINK_SLOW } from "../../App";
+import { cancelSchedule } from "../../utils/Schedule";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.shopReducer.visible,
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch<ShopActionTypes>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   // ownProps
 };
 
@@ -33,20 +33,18 @@ const Shop = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Shop rendered");
 
-  const { selectedUnit, visible, setTimeout, clearTimeout } = props;
+  const { selectedUnit, visible } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
-    let timer = -1 as Timer;
+    let schedule = -1 as ScheduleID;
     if (visible === false) {
-      timer = setTimeout(() => {
-        setRenderComponent(false);
-      }, 1000);
+      schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => setRenderComponent(false));
     } else {
       setRenderComponent(true);
     }
-    return () => clearTimeout(timer);
+    return () => cancelSchedule(schedule, Shop.name);
   }, [visible]);
 
   return (
@@ -80,4 +78,4 @@ const Shop = (props: Props) => {
 
 };
 
-export default connector(withReactTimeout(Shop));
+export default connector(Shop);

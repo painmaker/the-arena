@@ -25,6 +25,7 @@ import { setSelectedUnit } from "./actions/selectedUnitActions";
 import { Dispatch } from "redux";
 import { SelectedUnitActionTypes } from "./types/selectedUnitTypes";
 import FloatingBars from "./components/FloatingBars/FloatingBars";
+import { cancelSchedule } from "./utils/Schedule";
 
 export const HUD_THINK_FAST = 50;
 export const HUD_THINK_MEDIUM = 100;
@@ -121,7 +122,7 @@ const App = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("App schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, App.name);
   }, [setSelectedUnit, setInterval, clearInterval]);
 
   return (

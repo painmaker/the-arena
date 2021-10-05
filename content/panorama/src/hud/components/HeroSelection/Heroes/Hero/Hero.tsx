@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNetTableValues } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
 import { RootState } from "../../../../reducers/rootReducer";
 
 const mapStateToProps = (state: RootState) => ({
@@ -11,19 +10,21 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = ReactTimeoutProps & PropsFromRedux & {
+type Props = PropsFromRedux & {
   heroname: string
 };
 
 const Hero = (props: Props) => {
 
+  const { heroname, focusedHero } = props;
+
   const [isHovering, setIsHovering] = useState(false);
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
 
-  const isFocused = props.focusedHero && props.focusedHero.heroname === props.heroname;
-  const isPicked = Object.values(heroes).find(hero => hero.heroname === props.heroname)?.picked === 1;
+  const isFocused = focusedHero && focusedHero.heroname === heroname;
+  const isPicked = Object.values(heroes).find(hero => hero.heroname === heroname)?.picked === 1;
   const steamIds = Object.values(heroes)
-    .filter(hero => hero.heroname === props.heroname)
+    .filter(hero => hero.heroname === heroname)
     .filter(hero => hero.picked === 1)
     .map(hero => Game.GetPlayerInfo(hero.playerID).player_steamid);
 
@@ -33,13 +34,13 @@ const Hero = (props: Props) => {
         className={'heroSelectionSelectedHeroBorder'}
         style={{ visibility: isFocused ? 'visible' : 'collapse' }}
       />
-      { isPicked && (
+      {isPicked && (
         <Image
           className={'heroSelectionSelectedHeroLock'}
           src="s2r://panorama/images/lock_white_png.vtex"
         />
       )}
-      { steamIds.length === 1 && (
+      {steamIds.length === 1 && (
         <Panel style={{ width: '100%', height: '100%', zIndex: 10 }}>
           <DOTAAvatarImage
             steamid={steamIds[0]}
@@ -59,13 +60,13 @@ const Hero = (props: Props) => {
         onmouseout={() => setIsHovering(false)}
         onactivate={() => {
           if (!isFocused) {
-            GameEvents.SendCustomGameEventToServer("on_focus_hero", { heroname: props.heroname })
+            GameEvents.SendCustomGameEventToServer("on_focus_hero", { heroname: heroname })
           }
         }}
       >
         <DOTAHeroImage
           className={'heroSelectionHeroImage'}
-          heroname={props.heroname}
+          heroname={heroname}
           heroimagestyle={'portrait'}
           style={{
             transform: (isFocused || isHovering) ? 'scaleX(1.025) scaleY(1.025)' : 'scaleX(1) scaleY(1)',
@@ -79,4 +80,4 @@ const Hero = (props: Props) => {
 
 }
 
-export default connector(withReactTimeout(Hero));
+export default React.memo(connector(Hero));

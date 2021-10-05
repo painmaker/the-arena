@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SCHEDULE_THINK_MEDIUM } from "../../../App";
+import { cancelSchedule } from "../../../utils/Schedule";
 import { Styles as ParentStyles } from "../Styles";
 import { Styles } from "./Styles";
 
@@ -31,7 +32,7 @@ const Level = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, Level.name);
   }, [selectedUnit]);
 
   return (
