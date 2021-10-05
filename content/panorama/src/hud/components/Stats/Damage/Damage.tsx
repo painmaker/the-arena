@@ -20,7 +20,6 @@ const Damage = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      $.Msg("Update Damage");
       setMinDamage(Entities.GetDamageMin(selectedUnit));
       setMaxDamage(Entities.GetDamageMax(selectedUnit));
       setBonusDamage(Entities.GetDamageBonus(selectedUnit));

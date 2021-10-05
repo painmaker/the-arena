@@ -57268,7 +57268,6 @@ const Cooldown = (props) => {
         } ; };
     }, [ability]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        $.Msg("useEffect!");
         let scheduleX = -1;
         const endtime = Game.GetGameTime() + castPoint;
         const update = () => {
@@ -61461,6 +61460,14 @@ const Inventory = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_3__.default, { index: 5, item: items[5] || -1, selectedUnit: selectedUnit }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Inventory)));
+/*
+<Item index={0} item={items[0] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
+<Item index={1} item={items[1] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
+<Item index={2} item={items[2] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
+<Item index={3} item={items[3] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
+<Item index={4} item={items[4] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
+<Item index={5} item={items[5] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
+*/ 
 
 
 /***/ }),
@@ -63972,7 +63979,6 @@ const Armor = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            $.Msg("Update Armor");
             setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
             setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_SLOW, update);
@@ -64043,7 +64049,6 @@ const Damage = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            $.Msg("Update Damage");
             setMinDamage(Entities.GetDamageMin(selectedUnit));
             setMaxDamage(Entities.GetDamageMax(selectedUnit));
             setBonusDamage(Entities.GetDamageBonus(selectedUnit));
@@ -64114,7 +64119,6 @@ const Level = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            $.Msg("Update Level");
             if (Entities.IsHero(selectedUnit)) {
                 const currentXp = Entities.GetCurrentXP(selectedUnit);
                 const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
@@ -64212,7 +64216,6 @@ const MagicResistance = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            $.Msg("Update MagicResistance");
             setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_SLOW, update);
         };
@@ -64279,7 +64282,6 @@ const MoveSpeed = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            $.Msg("Update MoveSpeed");
             setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_SLOW, update);
         };

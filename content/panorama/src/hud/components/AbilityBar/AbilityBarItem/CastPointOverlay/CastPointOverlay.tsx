@@ -30,8 +30,6 @@ const Cooldown = (props: Props) => {
 
   useEffect(() => {
 
-    $.Msg("useEffect!");
-
     let scheduleX = -1 as ScheduleID;
 
     const endtime = Game.GetGameTime() + castPoint;

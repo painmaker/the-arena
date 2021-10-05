@@ -19,7 +19,6 @@ const Level = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      $.Msg("Update Level");
       if (Entities.IsHero(selectedUnit)) {
         const currentXp = Entities.GetCurrentXP(selectedUnit);
         const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);

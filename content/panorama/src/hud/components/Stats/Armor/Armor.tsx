@@ -19,7 +19,6 @@ const Armor = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      $.Msg("Update Armor");
       setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
       setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
       schedule = $.Schedule(SCHEDULE_THINK_SLOW, update);

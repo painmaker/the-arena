@@ -18,7 +18,6 @@ const MoveSpeed = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      $.Msg("Update MoveSpeed");
       setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
       schedule = $.Schedule(SCHEDULE_THINK_SLOW, update);
     };
