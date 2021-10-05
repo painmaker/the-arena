@@ -6,6 +6,7 @@ import { Styles } from "./Styles";
 import { SCHEDULE_THINK_FAST } from "../../App";
 import { RootState } from "../../reducers/rootReducer";
 import { connect, ConnectedProps } from "react-redux";
+import { cancelSchedule } from "../../utils/Schedule";
 
 const mapStateToProps = (state: RootState) => ({
   selectedUnit: state.selectedUnitReducer.selectedUnit,
@@ -40,7 +41,7 @@ const Inventory = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     }
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, Inventory.name);
   }, [selectedUnit, items]);
 
   return (

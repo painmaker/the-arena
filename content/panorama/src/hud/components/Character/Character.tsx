@@ -9,6 +9,7 @@ import Level from "./Level/Level";
 import Avatar from "./Avatar/Avatar";
 import Attack from "./Attack/Attack";
 import { SCHEDULE_THINK_SLOW } from "../../App";
+import { cancelSchedule } from "../../utils/Schedule";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.characterReducer.visible,
@@ -37,7 +38,7 @@ const Character = (props: Props) => {
     } else {
       setRenderComponent(true);
     }
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Character schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, Character.name);
   }, [visible]);
 
   return (

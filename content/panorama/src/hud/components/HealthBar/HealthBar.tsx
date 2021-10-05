@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { SCHEDULE_THINK_FAST } from "../../App";
 import { RootState } from "../../reducers/rootReducer";
+import { cancelSchedule } from "../../utils/Schedule";
 import { Styles } from "./Styles";
 
 const mapStateToProps = (state: RootState) => ({
@@ -42,7 +43,7 @@ const HealthBar = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, HealthBar.name);
   }, [selectedUnit]);
 
   return (

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SCHEDULE_THINK_MEDIUM } from "../../../../App";
+import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles as ParentStyles } from "../Styles";
 
 type Props = {
@@ -33,7 +34,7 @@ const HealthRegen = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, HealthRegen.name);
   }, [selectedUnit]);
 
   const increasedRegen = regen - baseRegen;

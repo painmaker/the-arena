@@ -13,6 +13,8 @@ interface Props {
 
 const Chat = (props: Props) => {
 
+  const { hasPickedHero } = props;
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [isChatActive, setIsChatActive] = useState(false);
 
@@ -59,7 +61,7 @@ const Chat = (props: Props) => {
 
   useEffect(() => {
     const chat = getHudElement('HudChat');
-    if (props.hasPickedHero) {
+    if (hasPickedHero) {
       chat!.style.marginBottom = '380px'
       chat!.style.marginLeft = '10px'
       chat!.style.horizontalAlign = 'left'
@@ -76,7 +78,7 @@ const Chat = (props: Props) => {
       chat!.style.width = '565px'
       chat!.style.y = '0px'
     }
-  }, [props.hasPickedHero]);
+  }, [hasPickedHero]);
 
   useGameEvent('custom_player_chat', (event: Message) => {
     const isMuted = Game.IsPlayerMuted(event.playerid);
@@ -93,7 +95,7 @@ const Chat = (props: Props) => {
 
   return (
     <Container>
-      { messages.map(message => (
+      {messages.map(message => (
         <ChatMessage
           key={message.uuid}
           message={message}

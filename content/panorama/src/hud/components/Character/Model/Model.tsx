@@ -28,11 +28,12 @@ const Model = (props: Props) => {
     scenePanel.SetPostProcessFade(100);
   }, [selectedUnit])
 
-  const name = $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase();
-
   return (
     <Panel style={Styles.Container()}>
-      <Label text={name} style={Styles.Label()} />
+      <Label
+        style={Styles.Label()}
+        text={$.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()}
+      />
       <DOTAScenePanel
         id={'modelPanelScene'}
         key={Entities.GetUnitName(selectedUnit)}

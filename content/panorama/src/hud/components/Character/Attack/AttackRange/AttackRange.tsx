@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { SCHEDULE_THINK_MEDIUM } from "../../../../App";
+import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles as ParentStyles } from "../Styles";
 
 type Props = {
   selectedUnit: EntityIndex,
 };
 
-const AttackSpeed = (props: Props) => {
+const AttackRange = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - AttackRange rendered");
 
@@ -21,7 +22,7 @@ const AttackSpeed = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, AttackRange.name);
   }, [selectedUnit]);
 
   return (
@@ -40,4 +41,4 @@ const AttackSpeed = (props: Props) => {
 
 };
 
-export default React.memo(AttackSpeed);
+export default React.memo(AttackRange);

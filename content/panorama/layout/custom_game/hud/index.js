@@ -56290,7 +56290,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilitiesPoints/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilitiesPoints/Styles.tsx");
+
 
 
 
@@ -56305,17 +56307,12 @@ const AbilitiesPoints = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AbilitiesPoints.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LabelContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: text, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel() }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: abilityPoints, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.NumberLabel(abilityPoints !== 0) }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LabelContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: text, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TextLabel() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: abilityPoints, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.NumberLabel(abilityPoints !== 0) }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilitiesPoints));
 
@@ -56404,6 +56401,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./AbilitiesPoints/AbilitiesPoints */ "./hud/components/AbilitiesShop/AbilitiesPoints/AbilitiesPoints.tsx");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../utils/Schedule */ "./hud/utils/Schedule.ts");
+
 
 
 
@@ -56439,13 +56438,8 @@ const AbilitiesShop = (props) => {
         else {
             setRenderComponent(true);
         }
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("AbilitiesShop schedule not found: " + schedule);
-        } ; };
-    }, [visible, clearTimeout, setTimeout]);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_11__.cancelSchedule)(schedule, AbilitiesShop.name);
+    }, [visible]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         if (visible) {
             setRegularAbilities([]);
@@ -56508,7 +56502,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilityImage/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilityImage/Styles.tsx");
+
 
 
 
@@ -56535,12 +56531,7 @@ const AbilityImage = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AbilityImage.name);
     }, [selectedUnit]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let isSearched = false;
@@ -56552,7 +56543,7 @@ const AbilityImage = (props) => {
         setIsSearched(isSearched);
     }, [aliases, searchValue]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilityImage(searchValue.length > 0, isSearched, isRequiredLevel), oncontextmenu: () => onRightClick(selectedUnit, name), onmouseout: () => onMouseOut(name), onmouseover: () => onMouseOver(selectedUnit, name) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityImage(searchValue.length > 0, isSearched, isRequiredLevel), oncontextmenu: () => onRightClick(selectedUnit, name), onmouseout: () => onMouseOut(name), onmouseover: () => onMouseOver(selectedUnit, name) },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: 'ability_shop_image_' + name, abilityname: name }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilityImage));
@@ -57003,7 +56994,7 @@ const mapStateToProps = (state) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
 const AbilityBar = (props) => {
-    $.Msg("REACT-RENDER: AbilityBar rendered");
+    // $.Msg("REACT-RENDER: AbilityBar rendered");
     const { selectedUnit } = props;
     const [abilities, setAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -58284,11 +58275,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
 
 
 
-const AttackSpeed = (props) => {
+
+const AttackRange = (props) => {
     // $.Msg("REACT-RENDER: Character - AttackRange rendered");
     const { selectedUnit } = props;
     const [attackRange, setAttackRange] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackRange(selectedUnit));
@@ -58299,20 +58292,15 @@ const AttackSpeed = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AttackRange.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Range:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: attackRange.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Range:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: attackRange.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AttackSpeed));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AttackRange));
 
 
 /***/ }),
@@ -58330,7 +58318,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
+
 
 
 
@@ -58347,18 +58337,13 @@ const AttackSpeed = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AttackSpeed.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AttackSpeed));
 
@@ -58378,7 +58363,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
+
 
 
 
@@ -58397,19 +58384,14 @@ const Damage = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Damage.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Damage:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: minDamage.toFixed(0) + " - " + maxDamage.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }),
-            bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusDamage > 0 ? ' + ' : ' - ') + Math.abs(bonusDamage), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel()), { color: bonusDamage > 0 ? 'green' : 'red' }) })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Damage:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: minDamage.toFixed(0) + " - " + maxDamage.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+            bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusDamage > 0 ? ' + ' : ' - ') + Math.abs(bonusDamage), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: bonusDamage > 0 ? 'green' : 'red' }) })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Damage));
 
@@ -58429,11 +58411,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
 
 
 
-const AttackSpeed = (props) => {
+
+const ManaRegen = (props) => {
     // $.Msg("REACT-RENDER: Character - ManaRegen rendered");
     const { selectedUnit } = props;
     const [manaRegen, setManaRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetManaThinkRegen(selectedUnit));
@@ -58444,20 +58428,15 @@ const AttackSpeed = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaRegen.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Mana Regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: manaRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Mana Regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: manaRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AttackSpeed));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ManaRegen));
 
 
 /***/ }),
@@ -58475,7 +58454,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
+
 
 
 
@@ -58493,20 +58474,15 @@ const MoveSpeed = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, MoveSpeed.name);
     }, [selectedUnit]);
     const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Movement Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseMoveSpeed.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }),
-            increasedMoveSpeed !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedMoveSpeed > 0 ? ' + ' : ' - ') + Math.abs(increasedMoveSpeed).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel()), { color: increasedMoveSpeed > 0 ? 'green' : 'red' }) })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Movement Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseMoveSpeed.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+            increasedMoveSpeed !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedMoveSpeed > 0 ? ' + ' : ' - ') + Math.abs(increasedMoveSpeed).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: increasedMoveSpeed > 0 ? 'green' : 'red' }) })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(MoveSpeed));
 
@@ -58526,7 +58502,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
+
 
 
 
@@ -58548,18 +58526,13 @@ const SpellAmplification = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, SpellAmplification.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Spell Amplification:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: spellAmp + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Spell Amplification:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: spellAmp + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(SpellAmplification));
 
@@ -58735,6 +58708,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Avatar_Avatar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Avatar/Avatar */ "./hud/components/Character/Avatar/Avatar.tsx");
 /* harmony import */ var _Attack_Attack__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Attack/Attack */ "./hud/components/Character/Attack/Attack.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../utils/Schedule */ "./hud/utils/Schedule.ts");
+
 
 
 
@@ -58762,12 +58737,7 @@ const Character = (props) => {
         else {
             setRenderComponent(true);
         }
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Character schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_10__.cancelSchedule)(schedule, Character.name);
     }, [visible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.InnerContainer(visible) },
@@ -58799,7 +58769,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+
 
 
 
@@ -58816,19 +58788,14 @@ const Armor = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Armor.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Armor:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (armor - bonusArmor).toFixed(1), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }),
-            bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusArmor > 0 ? ' + ' : ' - ') + Math.abs(bonusArmor).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel()), { color: bonusArmor > 0 ? 'green' : 'red' }) })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Armor:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (armor - bonusArmor).toFixed(1), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+            bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusArmor > 0 ? ' + ' : ' - ') + Math.abs(bonusArmor).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: bonusArmor > 0 ? 'green' : 'red' }) })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Armor));
 
@@ -58896,7 +58863,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+
 
 
 
@@ -58918,18 +58887,13 @@ const Evasion = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Evasion.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Evasion:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (evasion > 0 ? (evasion / 100).toFixed(0) : 0) + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Evasion:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (evasion > 0 ? (evasion / 100).toFixed(0) : 0) + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Evasion));
 
@@ -58949,7 +58913,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+
 
 
 
@@ -58976,20 +58942,15 @@ const HealthRegen = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, HealthRegen.name);
     }, [selectedUnit]);
     const increasedRegen = regen - baseRegen;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Health Regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }),
-            increasedRegen !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedRegen > 0 ? ' + ' : ' - ') + Math.abs(increasedRegen).toFixed(2), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel()), { color: increasedRegen > 0 ? 'green' : 'red' }) })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Health Regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+            increasedRegen !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedRegen > 0 ? ' + ' : ' - ') + Math.abs(increasedRegen).toFixed(2), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: increasedRegen > 0 ? 'green' : 'red' }) })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(HealthRegen));
 
@@ -59009,7 +58970,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+
 
 
 
@@ -59024,18 +58987,13 @@ const MagicalResistance = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, MagicalResistance.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Magical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Magical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(MagicalResistance));
 
@@ -59055,7 +59013,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+
 
 
 
@@ -59070,18 +59030,13 @@ const PyshicalResistance = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, PyshicalResistance.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Pyshical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Pyshical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(PyshicalResistance));
 
@@ -59101,7 +59056,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
+
 
 
 
@@ -59123,18 +59080,13 @@ const StatusResistance = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, StatusResistance.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Pyshical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance !== 0 ? (resistance / 100).toFixed(2) : 0) + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Pyshical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance !== 0 ? (resistance / 100).toFixed(2) : 0) + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(StatusResistance));
 
@@ -59264,7 +59216,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Level/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Level/Styles.ts");
+
 
 
 
@@ -59289,19 +59243,14 @@ const Level = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Level.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.CircleContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.CircleBackground() }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'EmptyCircle', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.CircleForeground(degree) }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.CircleLevelLabel(), text: level })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LevelLabel(), text: 'level' })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleBackground() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'EmptyCircle', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleForeground(degree) }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CircleLevelLabel(), text: level })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LevelLabel(), text: 'level' })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Level));
 
@@ -59404,9 +59353,8 @@ const Model = (props) => {
         }
         scenePanel.SetPostProcessFade(100);
     }, [selectedUnit]);
-    const name = $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase();
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: name, style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Label() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Label(), text: $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'modelPanelScene', key: Entities.GetUnitName(selectedUnit), unit: Entities.GetUnitName(selectedUnit), style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Screen(), allowrotation: true })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Model));
@@ -59608,8 +59556,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var _utils_ObjectUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/ObjectUtils */ "./hud/utils/ObjectUtils.ts");
+/* harmony import */ var _utils_ObjectUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/ObjectUtils */ "./hud/utils/ObjectUtils.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/Schedule */ "./hud/utils/Schedule.ts");
 /* harmony import */ var _utils_TableUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/TableUtils */ "./hud/utils/TableUtils.ts");
 /* harmony import */ var _HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./HealthBar/HealthBar */ "./hud/components/FloatingBars/HealthBar/HealthBar.tsx");
 /* harmony import */ var _ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ManaBar/ManaBar */ "./hud/components/FloatingBars/ManaBar/ManaBar.tsx");
@@ -59654,18 +59602,13 @@ const FloatingBars = () => {
                 };
             })
                 .filter(screenPosition => screenPosition.visible);
-            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_4__.TableUtils.isEqual(mFloatingBars, floatingBars, _utils_ObjectUtils__WEBPACK_IMPORTED_MODULE_3__.objectsEqual)) {
+            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_4__.TableUtils.isEqual(mFloatingBars, floatingBars, _utils_ObjectUtils__WEBPACK_IMPORTED_MODULE_2__.objectsEqual)) {
                 setFloatingBars(mFloatingBars);
             }
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_FAST, update);
+            schedule = $.Schedule(0.01, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, FloatingBars.name);
     }, [units, floatingBars]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, floatingBars.map(floatingBar => {
         const { unit, screenX, screenY } = floatingBar;
@@ -59692,7 +59635,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingBars/HealthBar/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingBars/HealthBar/Styles.ts");
+
 
 
 
@@ -59709,15 +59654,10 @@ const HealthBar = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, HealthBar.name);
     }, [unit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: Entities.IsEnemy(unit) ? 'healthProgressBarEnemy' : 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: Entities.IsEnemy(unit) ? 'healthProgressBarEnemy' : 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(HealthBar));
 
@@ -59765,7 +59705,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingBars/ManaBar/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingBars/ManaBar/Styles.ts");
+
 
 
 
@@ -59782,15 +59724,10 @@ const ManaBar = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaBar.name);
     }, [unit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(maxMana > 0) },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(maxMana > 0) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ManaBar));
 
@@ -59869,7 +59806,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils */ "./utils.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/GameTime/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/GameTime/Styles.tsx");
+
 
 
 
@@ -59892,15 +59831,10 @@ const GameTime = () => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_SLOW, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, GameTime.name);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: formatGameTime(gameTime) })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Label(), text: formatGameTime(gameTime) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(GameTime));
 
@@ -59952,7 +59886,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/HealthBar/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/HealthBar/Styles.tsx");
+
 
 
 
@@ -59984,18 +59920,13 @@ const HealthBar = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, HealthBar.name);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Scene(health, maxHealth), map: 'scenes/hud/healthbarburner' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.HealthLabel(), text: health + " / " + maxHealth }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RegenLabel(), text: '+ ' + healthRegen.toFixed(1) })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Progressbar() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Scene(health, maxHealth), map: 'scenes/hud/healthbarburner' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.HealthLabel(), text: health + " / " + maxHealth }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.RegenLabel(), text: '+ ' + healthRegen.toFixed(1) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(HealthBar)));
 
@@ -60954,7 +60885,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Health/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Health/Styles.tsx");
+
 
 
 
@@ -60971,15 +60904,10 @@ const Health = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Health.name);
     }, [hero]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Health));
 
@@ -61075,7 +61003,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Image/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Image/Styles.tsx");
+
 
 
 
@@ -61155,16 +61085,11 @@ const ImageImpl = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, Image.name);
     }, [hero]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isHovering) },
-        isDisconnected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/hud/reborn/icon_disconnect_png.vtex", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Disconnected() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), heroname: Entities.GetUnitName(hero), heroimagestyle: "landscape", onactivate: () => onHeroImageClicked(hero, cameraLocked), oncontextmenu: () => onHeroImageClicked(hero, cameraLocked), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Image(washColor) })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container(isHovering) },
+        isDisconnected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/hud/reborn/icon_disconnect_png.vtex", style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Disconnected() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), heroname: Entities.GetUnitName(hero), heroimagestyle: "landscape", onactivate: () => onHeroImageClicked(hero, cameraLocked), oncontextmenu: () => onHeroImageClicked(hero, cameraLocked), style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Image(washColor) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(ImageImpl)));
 
@@ -61222,7 +61147,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Mana/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Mana/Styles.tsx");
+
 
 
 
@@ -61239,15 +61166,10 @@ const Mana = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
-    }, [hero, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() })));
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Mana.name);
+    }, [hero]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Mana));
 
@@ -61389,6 +61311,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Styles.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../utils/Schedule */ "./hud/utils/Schedule.ts");
+
 
 
 
@@ -61417,12 +61341,7 @@ const Inventory = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_5__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_7__.cancelSchedule)(schedule, Inventory.name);
     }, [selectedUnit, items]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemOptions_ItemOptions__WEBPACK_IMPORTED_MODULE_2__.default, null),
@@ -61646,7 +61565,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Charges/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Charges/Styles.tsx");
+
 
 
 
@@ -61663,14 +61584,9 @@ const Charges = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Charges.name);
     }, [item]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, shouldDisplayCharges && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(), text: charges }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, shouldDisplayCharges && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(), text: charges }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Charges));
 
@@ -61717,7 +61633,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Cooldown/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Cooldown/Styles.tsx");
+
 
 
 
@@ -61734,20 +61652,15 @@ const Cooldown = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Cooldown.name);
     }, [item]);
     let degree = Math.min(0, -(remainingCooldown / totalCooldown) * 360);
     if (Number.isNaN(degree) || !Number.isFinite(degree)) {
         degree = 0;
     }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(degree) }),
-        remainingCooldown > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: remainingCooldown > 1.0 ? Math.round(remainingCooldown) : remainingCooldown.toFixed(1) }))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(degree) }),
+        remainingCooldown > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: remainingCooldown > 1.0 ? Math.round(remainingCooldown) : remainingCooldown.toFixed(1) }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Cooldown));
 
@@ -61800,7 +61713,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Image/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Image/Styles.tsx");
+
 
 
 
@@ -61826,16 +61741,11 @@ const Image = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Image.name);
     }, [selectedUnit, item]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        (isCooldownReady && showLock) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LockIcon() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { itemname: texture, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(showLock, isCooldownReady, hasEnoughMana) })));
+        (isCooldownReady && showLock) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LockIcon() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { itemname: texture, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(showLock, isCooldownReady, hasEnoughMana) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Image));
 
@@ -62085,7 +61995,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Keybind/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Keybind/Styles.tsx");
+
 
 
 
@@ -62100,14 +62012,9 @@ const Keybind = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Keybind.name);
     }, [item]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: keybind }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: keybind }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Keybind));
 
@@ -62154,7 +62061,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/ManaCost/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/ManaCost/Styles.tsx");
+
 
 
 
@@ -62169,14 +62078,9 @@ const ManaCost = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaCost.name);
     }, [item]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: manaCost > 0 ? manaCost.toFixed(0) : '' }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: manaCost > 0 ? manaCost.toFixed(0) : '' }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ManaCost));
 
@@ -62279,26 +62183,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
 /* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Loading/Styles.ts");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/Loading/Styles.ts");
+
 
 
 
 
 const Loading = props => {
-    $.Msg("REACT-RENDER: Loading rendered");
+    // $.Msg("REACT-RENDER: Loading rendered");
     const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_SLOW, () => setIsLoading(false));
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, Loading.name);
     }, []);
     if (isLoading) {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: 'LOADING...' })));
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Label(), text: 'LOADING...' })));
     }
     else {
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, props.children));
@@ -64180,7 +64081,7 @@ const MagicResistance = (props) => {
         let schedule = -1;
         const update = () => {
             setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_SLOW, update);
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
         return () => { try {
@@ -65269,15 +65170,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "cancelSchedule": () => (/* binding */ cancelSchedule)
 /* harmony export */ });
 const debug = true;
+const logMinusOneSchedules = false;
 const cancelSchedule = (schedule, context, log) => {
     try {
         if (log || debug) {
-            $.Msg("Info: Canceling schedule " + schedule + " for " + context);
+            if (context) {
+                $.Msg("Info: Canceling schedule " + schedule + " for " + context);
+            }
+            else {
+                $.Msg("Info: Canceling schedule " + schedule);
+            }
         }
         $.CancelScheduled(schedule);
     }
     catch (_a) {
-        $.Msg("Error: Schedule not found: " + schedule);
+        if (logMinusOneSchedules || schedule !== -1) {
+            $.Msg("Error: Schedule not found: " + schedule);
+        }
     }
     ;
 };

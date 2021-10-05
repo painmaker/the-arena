@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SCHEDULE_THINK_FAST } from "../../../App";
+import { cancelSchedule } from "../../../utils/Schedule";
 import { Styles } from "./Styles";
 
 type Props = {
@@ -23,7 +24,7 @@ const HealthBar = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, HealthBar.name);
   }, [unit]);
 
   return (

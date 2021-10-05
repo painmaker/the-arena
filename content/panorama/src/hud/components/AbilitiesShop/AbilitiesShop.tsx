@@ -12,6 +12,7 @@ import UltimateAbilities from "./UltimateAbilities/UltimateAbilities";
 import AbilitiesPoints from "./AbilitiesPoints/AbilitiesPoints";
 import { useGameEvent } from "react-panorama";
 import { SCHEDULE_THINK_SLOW } from "../../App";
+import { cancelSchedule } from "../../utils/Schedule";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.abilitiesShopReducer.visible,
@@ -48,8 +49,8 @@ const AbilitiesShop = (props: Props) => {
     } else {
       setRenderComponent(true);
     }
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("AbilitiesShop schedule not found: " + schedule) }; }
-  }, [visible, clearTimeout, setTimeout]);
+    return () => cancelSchedule(schedule, AbilitiesShop.name);
+  }, [visible]);
 
   useEffect(() => {
     if (visible) {

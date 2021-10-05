@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SCHEDULE_THINK_FAST, SCHEDULE_THINK_SLOW } from "../../../../App";
+import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles } from "./Styles";
 
 type Props = {
@@ -23,7 +24,7 @@ const Cooldown = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, Cooldown.name);
   }, [item]);
 
   let degree = Math.min(0, - (remainingCooldown / totalCooldown) * 360);

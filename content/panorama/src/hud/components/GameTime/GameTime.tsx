@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { formatTime } from "../../../utils";
 import { SCHEDULE_THINK_SLOW } from "../../App";
+import { cancelSchedule } from "../../utils/Schedule";
 import { Styles } from "./Styles";
 
 const formatGameTime = (dotaTime: number) => {
@@ -24,7 +25,7 @@ const GameTime = () => {
       schedule = $.Schedule(SCHEDULE_THINK_SLOW, update);
     };
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, GameTime.name);
   }, []);
 
   return (

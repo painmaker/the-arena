@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import withReactTimeout, { ReactTimeoutProps } from '../../../hoc/ReactTimeout';
+import { SCHEDULE_THINK_FAST } from '../../../App';
 import { Message } from '../../../types/chatTypes';
 import { getHudElement } from '../../../utils/HudElements';
+import { cancelSchedule } from '../../../utils/Schedule';
 import { Styles } from './Styles';
 
-type Props = ReactTimeoutProps & {
+type Props = {
   message: Message,
 }
 
@@ -14,18 +15,19 @@ const ChatMessage = (props: Props) => {
   const [isChatActive, setIsChatActive] = useState(false);
 
   useEffect(() => {
-    const id = props.setInterval(() => {
+    let schedule = -1 as ScheduleID;
+    const update = () => {
       const isActive = getHudElement('HudChat')?.BHasClass('Active');
       setIsChatActive(isActive !== undefined ? isActive : false);
-    }, 100);
-    return () => props.clearInterval(id);
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update)
+    };
+    update();
+    return () => cancelSchedule(schedule, ChatMessage.name);
   }, []);
 
   useEffect(() => {
-    const opacityTimeoutID = props.setTimeout(() => {
-      setOpacity('0');
-    }, 10000);
-    return () => props.clearTimeout(opacityTimeoutID);
+    const schedule = $.Schedule(10, () => setOpacity('0'));
+    return () => cancelSchedule(schedule, ChatMessage.name);
   }, []);
 
   return (
@@ -60,4 +62,4 @@ const ChatMessage = (props: Props) => {
 
 
 
-export default withReactTimeout(ChatMessage);
+export default React.memo(ChatMessage);

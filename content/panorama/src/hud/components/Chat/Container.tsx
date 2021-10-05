@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNetTableValues } from "react-panorama";
-import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../App";
 import { getHudElement } from "../../utils/HudElements";
+import { cancelSchedule } from "../../utils/Schedule";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   children?: React.ReactNode,
 }
 
@@ -15,11 +16,14 @@ const Container = (props: Props) => {
   const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
 
   useEffect(() => {
-    const id = props.setInterval(() => {
+    let schedule = -1 as ScheduleID;
+    const update = () => {
       const isActive = getHudElement('HudChat')?.BHasClass('Active');
       setIsChatActive(isActive !== undefined ? isActive : false);
-    }, 50);
-    return () => props.clearInterval(id);
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update)
+    };
+    update();
+    return () => cancelSchedule(schedule, Container.name);
   }, []);
 
   return (
@@ -45,4 +49,4 @@ const Container = (props: Props) => {
 
 }
 
-export default withReactTimeout(Container);
+export default React.memo(Container);

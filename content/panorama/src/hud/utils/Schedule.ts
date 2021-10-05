@@ -1,13 +1,20 @@
-const debug = true;
+const debug = false;
+const logMinusOneSchedules = false;
 
-export const cancelSchedule = (schedule: ScheduleID, context: String, log?: boolean) => {
+export const cancelSchedule = (schedule: ScheduleID, context?: String, log?: boolean) => {
   try {
     if (log || debug) {
-      $.Msg("Info: Canceling schedule " + schedule + " for " + context);
+      if (context) {
+        $.Msg("Info: Canceling schedule " + schedule + " for " + context);
+      } else {
+        $.Msg("Info: Canceling schedule " + schedule);
+      }
     }
     $.CancelScheduled(schedule);
   } catch {
-    $.Msg("Error: Schedule not found: " + schedule);
+    if (logMinusOneSchedules || schedule !== -1) {
+      $.Msg("Error: Schedule not found: " + schedule);
+    }
   };
 };
 

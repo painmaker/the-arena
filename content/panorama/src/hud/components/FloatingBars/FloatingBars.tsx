@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNetTableValues } from "react-panorama";
 import { SCHEDULE_THINK_FAST } from "../../App";
 import { objectsEqual } from "../../utils/ObjectUtils";
+import { cancelSchedule } from "../../utils/Schedule";
 import { TableUtils } from "../../utils/TableUtils";
 import HealthBar from "./HealthBar/HealthBar";
 import ManaBar from "./ManaBar/ManaBar";
@@ -73,13 +74,10 @@ const FloatingBars = () => {
       if (!TableUtils.isEqual(mFloatingBars, floatingBars, objectsEqual)) {
         setFloatingBars(mFloatingBars);
       }
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update)
+      schedule = $.Schedule(0.01, update)
     };
-
     update();
-
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
-
+    return () => cancelSchedule(schedule, FloatingBars.name);
   }, [units, floatingBars]);
 
   return (
