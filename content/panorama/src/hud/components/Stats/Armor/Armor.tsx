@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
-import { SCHEDULE_THINK_MEDIUM, SCHEDULE_THINK_SLOW } from "../../../App";
+import { SCHEDULE_THINK_MEDIUM } from "../../../App";
 
 type Props = {
   selectedUnit: EntityIndex
@@ -21,7 +21,7 @@ const Armor = (props: Props) => {
     const update = () => {
       setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
       setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
-      schedule = $.Schedule(SCHEDULE_THINK_SLOW, update);
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
     update();
     return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }

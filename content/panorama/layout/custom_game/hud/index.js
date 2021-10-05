@@ -57019,7 +57019,7 @@ const AbilityBar = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, AbilityBar.name, true);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, AbilityBar.name);
     }, [selectedUnit, abilities]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         if (Entities.GetAbilityPoints(selectedUnit) <= 0) {
@@ -57130,7 +57130,7 @@ const AbilityBarItem = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_11__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_12__.cancelSchedule)(schedule, AbilityBarItem.name, true);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_12__.cancelSchedule)(schedule, AbilityBarItem.name);
     }, [ability, selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Container(), id: 'ability_' + ability },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LevelUpButtonContainer() },
@@ -57180,7 +57180,7 @@ const Autocast = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Autocast.name, true);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Autocast.name);
     }, [ability]);
     if (!isAutocastEnabled) {
         return null;
@@ -57255,7 +57255,7 @@ const CastPointOverlay = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, CastPointOverlay.name, true);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, CastPointOverlay.name);
     }, [ability]);
     if (degree === 0) {
         return null;
@@ -57331,7 +57331,7 @@ const Cooldown = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Cooldown.name, true);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Cooldown.name);
     }, [ability]);
     if (cooldownTimeRemaining === 0) {
         return null;
@@ -57448,7 +57448,7 @@ const Image = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Image.name, true);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Image.name);
     }, [ability, selectedUnit, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityImage(washColor, saturation), contextEntityIndex: ability })));
@@ -57523,7 +57523,7 @@ const Keybind = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Keybind.name, true);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Keybind.name);
     }, [ability, selectedUnit]);
     if (!keybind) {
         return null;
@@ -57599,7 +57599,7 @@ const LevelUpButton = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, LevelUpButton.name, true);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, LevelUpButton.name);
     }, [ability, selectedUnit]);
     if (!isAbilityUpgradeable) {
         return null;
@@ -57699,7 +57699,7 @@ const LockoutIcon = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, LockoutIcon.name, true);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, LockoutIcon.name);
     }, [ability, selectedUnit]);
     if (!showLock) {
         return null;
@@ -57776,7 +57776,7 @@ const ManaCost = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaCost.name, true);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaCost.name);
     }, [ability, setInterval, clearInterval]);
     if (manaCost === 0) {
         return null;
@@ -57853,7 +57853,7 @@ const Skillpoints = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Skillpoints.name, true);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Skillpoints.name);
     }, [ability]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, Array.from({ length: maxAbilityLevel }, (_, index) => index + 1).map(index => {
         const columnWidth = 100 / maxAbilityLevel;
@@ -63944,7 +63944,7 @@ const Armor = (props) => {
         const update = () => {
             setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
             setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_SLOW, update);
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
         return () => { try {
@@ -64015,7 +64015,7 @@ const Damage = (props) => {
             setMinDamage(Entities.GetDamageMin(selectedUnit));
             setMaxDamage(Entities.GetDamageMax(selectedUnit));
             setBonusDamage(Entities.GetDamageBonus(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_SLOW, update);
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
         return () => { try {
@@ -64092,7 +64092,7 @@ const Level = (props) => {
                 setPercentage(100);
             }
             setLevel(Entities.GetLevel(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_SLOW, update);
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
         return () => { try {
@@ -64246,7 +64246,7 @@ const MoveSpeed = (props) => {
         let schedule = -1;
         const update = () => {
             setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_SLOW, update);
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
         };
         update();
         return () => { try {
@@ -65268,9 +65268,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "cancelSchedule": () => (/* binding */ cancelSchedule)
 /* harmony export */ });
+const debug = true;
 const cancelSchedule = (schedule, context, log) => {
     try {
-        if (log) {
+        if (log || debug) {
             $.Msg("Info: Canceling schedule " + schedule + " for " + context);
         }
         $.CancelScheduled(schedule);

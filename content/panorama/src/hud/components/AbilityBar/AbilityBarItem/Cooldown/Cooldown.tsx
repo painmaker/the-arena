@@ -31,7 +31,7 @@ const Cooldown = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => cancelSchedule(schedule, Cooldown.name, true);
+    return () => cancelSchedule(schedule, Cooldown.name);
   }, [ability]);
 
   if (cooldownTimeRemaining === 0) {

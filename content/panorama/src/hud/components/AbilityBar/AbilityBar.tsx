@@ -39,7 +39,7 @@ const AbilityBar = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => cancelSchedule(schedule, AbilityBar.name, true);
+    return () => cancelSchedule(schedule, AbilityBar.name);
   }, [selectedUnit, abilities])
 
   useEffect(() => {

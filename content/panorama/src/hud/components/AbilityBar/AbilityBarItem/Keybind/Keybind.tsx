@@ -31,7 +31,7 @@ const Keybind = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => cancelSchedule(schedule, Keybind.name, true);
+    return () => cancelSchedule(schedule, Keybind.name);
   }, [ability, selectedUnit]);
 
   if (!keybind) {

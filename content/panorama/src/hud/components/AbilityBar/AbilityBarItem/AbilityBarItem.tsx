@@ -85,7 +85,7 @@ const AbilityBarItem = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => cancelSchedule(schedule, AbilityBarItem.name, true);
+    return () => cancelSchedule(schedule, AbilityBarItem.name);
   }, [ability, selectedUnit])
 
   return (

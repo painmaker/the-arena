@@ -22,7 +22,7 @@ const ManaCost = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => cancelSchedule(schedule, ManaCost.name, true);
+    return () => cancelSchedule(schedule, ManaCost.name);
   }, [ability, setInterval, clearInterval])
 
   if (manaCost === 0) {

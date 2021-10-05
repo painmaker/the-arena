@@ -64,7 +64,7 @@ const Image = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => cancelSchedule(schedule, Image.name, true);
+    return () => cancelSchedule(schedule, Image.name);
   }, [ability, selectedUnit, setInterval, clearInterval]);
 
   return (

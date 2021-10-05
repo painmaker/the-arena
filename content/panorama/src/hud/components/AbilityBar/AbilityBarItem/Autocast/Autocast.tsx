@@ -22,7 +22,7 @@ const Autocast = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => cancelSchedule(schedule, Autocast.name, true);
+    return () => cancelSchedule(schedule, Autocast.name);
   }, [ability]);
 
   if (!isAutocastEnabled) {

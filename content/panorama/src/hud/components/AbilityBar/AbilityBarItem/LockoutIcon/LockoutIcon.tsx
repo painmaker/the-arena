@@ -30,7 +30,7 @@ const LockoutIcon = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => cancelSchedule(schedule, LockoutIcon.name, true);
+    return () => cancelSchedule(schedule, LockoutIcon.name);
   }, [ability, selectedUnit]);
 
   if (!showLock) {

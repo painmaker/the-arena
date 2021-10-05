@@ -24,7 +24,7 @@ const Skillpoints = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => cancelSchedule(schedule, Skillpoints.name, true);
+    return () => cancelSchedule(schedule, Skillpoints.name);
   }, [ability]);
 
   return (

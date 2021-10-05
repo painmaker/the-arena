@@ -26,7 +26,7 @@ const CastPointOverlay = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => cancelSchedule(schedule, CastPointOverlay.name, true);
+    return () => cancelSchedule(schedule, CastPointOverlay.name);
   }, [ability]);
 
   if (degree === 0) {

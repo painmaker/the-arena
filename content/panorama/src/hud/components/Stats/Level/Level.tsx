@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_MEDIUM, SCHEDULE_THINK_SLOW } from "../../../App";
+import { SCHEDULE_THINK_MEDIUM } from "../../../App";
 import { Styles as ParentStyles } from "../Styles";
 import { Styles } from "./Styles";
 
@@ -28,7 +28,7 @@ const Level = (props: Props) => {
         setPercentage(100);
       }
       setLevel(Entities.GetLevel(selectedUnit));
-      schedule = $.Schedule(SCHEDULE_THINK_SLOW, update);
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
     update();
     return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
