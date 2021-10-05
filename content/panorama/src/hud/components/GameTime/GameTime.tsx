@@ -20,7 +20,6 @@ const GameTime = () => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      $.Msg("Tick!")
       setGameTime(Game.GetDOTATime(false, false));
       schedule = $.Schedule(SCHEDULE_THINK_SLOW, update);
     };

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_FAST } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../../../App";
+import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   ability: AbilityEntityIndex,
   selectedUnit: EntityIndex,
 }
@@ -12,12 +12,12 @@ const Keybind = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - Keybind rendered");
 
-  const { ability, selectedUnit, setInterval, clearInterval } = props;
+  const { ability, selectedUnit } = props;
 
   const [keybind, setKeybind] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
       const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
@@ -28,14 +28,11 @@ const Keybind = (props: Props) => {
       if (isControllable && !isPassive && !isTrainable) {
         setKeybind(Abilities.GetKeybind(ability));
       }
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
     update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
-  }, [ability, selectedUnit, setInterval, clearInterval]);
+    return () => cancelSchedule(schedule, Keybind.name, true);
+  }, [ability, selectedUnit]);
 
   if (!keybind) {
     return null;
@@ -49,4 +46,4 @@ const Keybind = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(Keybind));
+export default React.memo(Keybind);

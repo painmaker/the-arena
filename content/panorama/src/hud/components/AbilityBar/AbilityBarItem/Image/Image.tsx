@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_FAST } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../../../App";
+import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   ability: AbilityEntityIndex,
   selectedUnit: EntityIndex,
 }
@@ -42,15 +42,14 @@ const Image = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
 
-  const { ability, selectedUnit, setInterval, clearInterval } = props;
+  const { ability, selectedUnit } = props;
 
   const [saturation, setSaturation] = useState('1.0');
   const [washColor, setWashColor] = useState('#303030');
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
-
       const level = Abilities.GetLevel(ability);
       const unitMana = Entities.GetMana(selectedUnit);
       const manaCost = Abilities.GetManaCost(ability);
@@ -60,17 +59,12 @@ const Image = (props: Props) => {
       const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
       const isInLearningMode = Game.IsInAbilityLearnMode();
       const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
-
       setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
       setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
-
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
+    update();
+    return () => cancelSchedule(schedule, Image.name, true);
   }, [ability, selectedUnit, setInterval, clearInterval]);
 
   return (
@@ -84,4 +78,4 @@ const Image = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(Image));
+export default React.memo(Image);

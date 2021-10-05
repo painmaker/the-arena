@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { SCHEDULE_THINK_FAST } from "../../App";
 import { RootState } from "../../reducers/rootReducer";
+import { cancelSchedule } from "../../utils/Schedule";
 import { TableUtils } from "../../utils/TableUtils";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
 import { Styles } from "./Styles";
@@ -19,7 +20,7 @@ type Props = PropsFromRedux & {
 
 const AbilityBar = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: AbilityBar rendered");
+  $.Msg("REACT-RENDER: AbilityBar rendered");
 
   const { selectedUnit } = props;
 
@@ -38,7 +39,7 @@ const AbilityBar = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, AbilityBar.name, true);
   }, [selectedUnit, abilities])
 
   useEffect(() => {
@@ -49,9 +50,9 @@ const AbilityBar = (props: Props) => {
 
   return (
     <Panel hittest={false} style={Styles.Container()}>
-      {abilities.map((ability, index) => (
+      {abilities.map((ability) => (
         <AbilityBarItem
-          key={ability + "_" + index}
+          key={ability}
           ability={ability}
           selectedUnit={selectedUnit}
         />

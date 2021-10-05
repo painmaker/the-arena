@@ -10,6 +10,7 @@ import { Styles } from "./Styles";
 import LevelUpButton from "./LevelUpButton/LevelUpButton";
 import CastPointOverlay from "./CastPointOverlay/CastPointOverlay";
 import { SCHEDULE_THINK_FAST } from "../../../App";
+import { cancelSchedule } from "../../../utils/Schedule";
 
 const onMouseOver = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
   $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_" + ability), Abilities.GetAbilityName(ability), selectedUnit);
@@ -66,6 +67,7 @@ const AbilityBarItem = (props: Props) => {
   const [isToggled, setIsToggled] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [isTrainable, setIsTrainable] = useState(false);
+  const [isInAbilityPhase, setIsInAbilityPhase] = useState(false);
 
   useEffect(() => {
     let schedule = -1 as ScheduleID;
@@ -79,10 +81,11 @@ const AbilityBarItem = (props: Props) => {
       setIsAutoCastEnabled(Abilities.GetAutoCastState(ability))
       setIsToggled(Abilities.GetToggleState(ability))
       setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
+      setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, AbilityBarItem.name, true);
   }, [ability, selectedUnit])
 
   return (
@@ -104,7 +107,9 @@ const AbilityBarItem = (props: Props) => {
         <Cooldown ability={ability} />
         <Autocast ability={ability} />
         <LockoutIcon ability={ability} selectedUnit={selectedUnit} />
-        <CastPointOverlay ability={ability} />
+        {isInAbilityPhase && (
+          <CastPointOverlay ability={ability} />
+        )}
       </Panel>
       <Skillpoints ability={ability} />
     </Panel>

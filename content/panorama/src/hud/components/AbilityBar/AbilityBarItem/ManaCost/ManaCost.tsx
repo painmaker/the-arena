@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_FAST } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../../../App";
+import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   ability: AbilityEntityIndex,
 }
 
@@ -11,20 +11,18 @@ const ManaCost = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - ManaCost rendered");
 
-  const { ability, setInterval, clearInterval } = props;
+  const { ability } = props;
 
   const [manaCost, setManaCost] = useState(0);
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       setManaCost(Abilities.GetManaCost(ability));
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
+    update();
+    return () => cancelSchedule(schedule, ManaCost.name, true);
   }, [ability, setInterval, clearInterval])
 
   if (manaCost === 0) {
@@ -39,4 +37,4 @@ const ManaCost = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(ManaCost));
+export default React.memo(ManaCost);

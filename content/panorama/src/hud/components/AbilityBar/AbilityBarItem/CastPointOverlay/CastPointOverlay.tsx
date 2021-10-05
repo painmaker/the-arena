@@ -1,55 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { SCHEDULE_THINK_FAST } from "../../../../App";
+import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles } from "./Styles";
 
 type Props = {
   ability: AbilityEntityIndex,
 }
 
-const Cooldown = (props: Props) => {
+const CastPointOverlay = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
 
   const { ability } = props;
 
-  const [castPoint, setCastPoint] = useState(Math.max(0, Abilities.GetCastPoint(ability)));
-  const [isInAbilityPhase, setIsInAbilityPhase] = useState(Abilities.IsInAbilityPhase(ability));
   const [degree, setDegree] = useState(0);
 
   useEffect(() => {
     let schedule = -1 as ScheduleID;
+    const offsetCastPoint = Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1);
+    const endtime = Game.GetGameTime() + offsetCastPoint;
     const update = () => {
-      const offsetCastPoint = Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1);
-      setCastPoint(offsetCastPoint);
-      setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
+      const gameTimeDifference = endtime - Game.GetGameTime();
+      const degree = Math.min(0, -(360 - ((gameTimeDifference / offsetCastPoint) * 360)));
+      setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+    return () => cancelSchedule(schedule, CastPointOverlay.name, true);
   }, [ability]);
-
-  useEffect(() => {
-
-    let scheduleX = -1 as ScheduleID;
-
-    const endtime = Game.GetGameTime() + castPoint;
-
-    const update = () => {
-      if (isInAbilityPhase) {
-        const gameTimeDifference = endtime - Game.GetGameTime();
-        const degree = Math.min(0, -(360 - ((gameTimeDifference / castPoint) * 360)));
-        setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
-      } else {
-        setDegree(0);
-      }
-      scheduleX = $.Schedule(SCHEDULE_THINK_FAST, update);
-    };
-
-    update();
-
-    return () => { try { $.CancelScheduled(scheduleX) } catch { $.Msg("3 Schedule not found: " + scheduleX) }; }
-
-  }, [isInAbilityPhase, castPoint])
 
   if (degree === 0) {
     return null;
@@ -61,4 +39,4 @@ const Cooldown = (props: Props) => {
 
 };
 
-export default React.memo(Cooldown);
+export default React.memo(CastPointOverlay);

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_FAST } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../../../App";
+import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   ability: AbilityEntityIndex,
   selectedUnit: EntityIndex,
 }
@@ -12,12 +12,12 @@ const LockoutIcon = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
 
-  const { ability, selectedUnit, setInterval, clearInterval } = props;
+  const { ability, selectedUnit } = props;
 
   const [showLock, setShowLock] = useState(false);
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       const isStunned = Entities.IsStunned(selectedUnit);
       const isSilenced = Entities.IsSilenced(selectedUnit);
@@ -27,14 +27,11 @@ const LockoutIcon = (props: Props) => {
       const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
       const showLock = cooldownRemaining !== 0 && (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
       setShowLock(showLock);
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
-  }, [ability, selectedUnit, setInterval, clearInterval]);
+    update();
+    return () => cancelSchedule(schedule, LockoutIcon.name, true);
+  }, [ability, selectedUnit]);
 
   if (!showLock) {
     return null;
@@ -48,4 +45,4 @@ const LockoutIcon = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(LockoutIcon));
+export default React.memo(LockoutIcon);

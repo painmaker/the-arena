@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_FAST } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../../../App";
+import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   ability: AbilityEntityIndex,
 }
 
@@ -11,13 +11,13 @@ const Cooldown = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - Cooldown rendered");
 
-  const { ability, setInterval, clearInterval } = props;
+  const { ability } = props;
 
   const [degree, setDegree] = useState(0);
   const [cooldownTimeRemaining, setCooldownTimeRemaining] = useState(0);
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       const totalCooldown = Abilities.GetCooldown(ability);
       const cooldownTimeRemaining = Abilities.GetCooldownTimeRemaining(ability);
@@ -28,14 +28,11 @@ const Cooldown = (props: Props) => {
         setDegree(degree);
       }
       setCooldownTimeRemaining(cooldownTimeRemaining);
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
-  }, [ability, setInterval, clearInterval]);
+    update();
+    return () => cancelSchedule(schedule, Cooldown.name, true);
+  }, [ability]);
 
   if (cooldownTimeRemaining === 0) {
     return null;
@@ -53,4 +50,4 @@ const Cooldown = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(Cooldown));
+export default React.memo(Cooldown);

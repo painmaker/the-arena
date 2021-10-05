@@ -56987,9 +56987,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var _utils_TableUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/TableUtils */ "./hud/utils/TableUtils.ts");
-/* harmony import */ var _AbilityBarItem_AbilityBarItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AbilityBarItem/AbilityBarItem */ "./hud/components/AbilityBar/AbilityBarItem/AbilityBarItem.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _utils_TableUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/TableUtils */ "./hud/utils/TableUtils.ts");
+/* harmony import */ var _AbilityBarItem_AbilityBarItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AbilityBarItem/AbilityBarItem */ "./hud/components/AbilityBar/AbilityBarItem/AbilityBarItem.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/Styles.tsx");
+
 
 
 
@@ -57001,7 +57003,7 @@ const mapStateToProps = (state) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
 const AbilityBar = (props) => {
-    // $.Msg("REACT-RENDER: AbilityBar rendered");
+    $.Msg("REACT-RENDER: AbilityBar rendered");
     const { selectedUnit } = props;
     const [abilities, setAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -57011,25 +57013,20 @@ const AbilityBar = (props) => {
                 .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
                 .filter(index => index !== -1)
                 .filter(index => Abilities.IsDisplayedAbility(index));
-            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_3__.TableUtils.isEqual(newAbilities, abilities)) {
+            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_4__.TableUtils.isEqual(newAbilities, abilities)) {
                 setAbilities(newAbilities);
             }
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, AbilityBar.name, true);
     }, [selectedUnit, abilities]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         if (Entities.GetAbilityPoints(selectedUnit) <= 0) {
             Game.EndAbilityLearnMode();
         }
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Container() }, abilities.map((ability, index) => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityBarItem_AbilityBarItem__WEBPACK_IMPORTED_MODULE_4__.default, { key: ability + "_" + index, ability: ability, selectedUnit: selectedUnit })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.Container() }, abilities.map((ability) => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityBarItem_AbilityBarItem__WEBPACK_IMPORTED_MODULE_5__.default, { key: ability, ability: ability, selectedUnit: selectedUnit })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(AbilityBar)));
 
@@ -57059,6 +57056,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _LevelUpButton_LevelUpButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./LevelUpButton/LevelUpButton */ "./hud/components/AbilityBar/AbilityBarItem/LevelUpButton/LevelUpButton.tsx");
 /* harmony import */ var _CastPointOverlay_CastPointOverlay__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./CastPointOverlay/CastPointOverlay */ "./hud/components/AbilityBar/AbilityBarItem/CastPointOverlay/CastPointOverlay.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+
 
 
 
@@ -57114,6 +57113,7 @@ const AbilityBarItem = (props) => {
     const [isToggled, setIsToggled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isActive, setIsActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isTrainable, setIsTrainable] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    const [isInAbilityPhase, setIsInAbilityPhase] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
@@ -57126,15 +57126,11 @@ const AbilityBarItem = (props) => {
             setIsAutoCastEnabled(Abilities.GetAutoCastState(ability));
             setIsToggled(Abilities.GetToggleState(ability));
             setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
+            setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_11__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_12__.cancelSchedule)(schedule, AbilityBarItem.name, true);
     }, [ability, selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Container(), id: 'ability_' + ability },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LevelUpButtonContainer() },
@@ -57146,7 +57142,7 @@ const AbilityBarItem = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Cooldown_Cooldown__WEBPACK_IMPORTED_MODULE_1__.default, { ability: ability }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Autocast_Autocast__WEBPACK_IMPORTED_MODULE_2__.default, { ability: ability }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockoutIcon_LockoutIcon__WEBPACK_IMPORTED_MODULE_3__.default, { ability: ability, selectedUnit: selectedUnit }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CastPointOverlay_CastPointOverlay__WEBPACK_IMPORTED_MODULE_10__.default, { ability: ability })),
+            isInAbilityPhase && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CastPointOverlay_CastPointOverlay__WEBPACK_IMPORTED_MODULE_10__.default, { ability: ability }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Skillpoints_Skillpoints__WEBPACK_IMPORTED_MODULE_4__.default, { ability: ability })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilityBarItem));
@@ -57167,7 +57163,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Autocast/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Autocast/Styles.tsx");
+
 
 
 
@@ -57182,19 +57180,14 @@ const Autocast = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Autocast.name, true);
     }, [ability]);
     if (!isAutocastEnabled) {
         return null;
     }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { map: 'scenes/hud/autocasting', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AutocastScene() }))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { map: 'scenes/hud/autocasting', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AutocastScene() }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Autocast));
 
@@ -57241,60 +57234,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/CastPointOverlay/Styles.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/CastPointOverlay/Styles.tsx");
 
 
 
-const Cooldown = (props) => {
+
+const CastPointOverlay = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
     const { ability } = props;
-    const [castPoint, setCastPoint] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Math.max(0, Abilities.GetCastPoint(ability)));
-    const [isInAbilityPhase, setIsInAbilityPhase] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsInAbilityPhase(ability));
     const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
+        const offsetCastPoint = Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1);
+        const endtime = Game.GetGameTime() + offsetCastPoint;
         const update = () => {
-            const offsetCastPoint = Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1);
-            setCastPoint(offsetCastPoint);
-            setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
+            const gameTimeDifference = endtime - Game.GetGameTime();
+            const degree = Math.min(0, -(360 - ((gameTimeDifference / offsetCastPoint) * 360)));
+            setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => { try {
-            $.CancelScheduled(schedule);
-        }
-        catch (_a) {
-            $.Msg("Schedule not found: " + schedule);
-        } ; };
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, CastPointOverlay.name, true);
     }, [ability]);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let scheduleX = -1;
-        const endtime = Game.GetGameTime() + castPoint;
-        const update = () => {
-            if (isInAbilityPhase) {
-                const gameTimeDifference = endtime - Game.GetGameTime();
-                const degree = Math.min(0, -(360 - ((gameTimeDifference / castPoint) * 360)));
-                setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
-            }
-            else {
-                setDegree(0);
-            }
-            scheduleX = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
-        };
-        update();
-        return () => { try {
-            $.CancelScheduled(scheduleX);
-        }
-        catch (_a) {
-            $.Msg("3 Schedule not found: " + scheduleX);
-        } ; };
-    }, [isInAbilityPhase, castPoint]);
     if (degree === 0) {
         return null;
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(degree) }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(degree) }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Cooldown));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(CastPointOverlay));
 
 
 /***/ }),
@@ -57336,7 +57304,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Cooldown/Styles.tsx");
 
 
@@ -57344,10 +57312,11 @@ __webpack_require__.r(__webpack_exports__);
 
 const Cooldown = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - Cooldown rendered");
-    const { ability, setInterval, clearInterval } = props;
+    const { ability } = props;
     const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     const [cooldownTimeRemaining, setCooldownTimeRemaining] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             const totalCooldown = Abilities.GetCooldown(ability);
             const cooldownTimeRemaining = Abilities.GetCooldownTimeRemaining(ability);
@@ -57359,11 +57328,11 @@ const Cooldown = (props) => {
                 setDegree(degree);
             }
             setCooldownTimeRemaining(cooldownTimeRemaining);
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, setInterval, clearInterval]);
+        update();
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Cooldown.name, true);
+    }, [ability]);
     if (cooldownTimeRemaining === 0) {
         return null;
     }
@@ -57371,7 +57340,7 @@ const Cooldown = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Background(degree) }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: Math.ceil(cooldownTimeRemaining) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Cooldown)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Cooldown));
 
 
 /***/ }),
@@ -57424,7 +57393,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Image/Styles.tsx");
 
 
@@ -57459,10 +57428,11 @@ const getWashColor = (isTrainable, manaCost, unitMana, cooldownTimeRemaining, le
 };
 const Image = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
-    const { ability, selectedUnit, setInterval, clearInterval } = props;
+    const { ability, selectedUnit } = props;
     const [saturation, setSaturation] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('1.0');
     const [washColor, setWashColor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('#303030');
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             const level = Abilities.GetLevel(ability);
             const unitMana = Entities.GetMana(selectedUnit);
@@ -57475,15 +57445,15 @@ const Image = (props) => {
             const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
             setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
             setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
+        update();
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Image.name, true);
     }, [ability, selectedUnit, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityImage(washColor, saturation), contextEntityIndex: ability })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Image)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Image));
 
 
 /***/ }),
@@ -57528,7 +57498,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Keybind/Styles.tsx");
 
 
@@ -57536,9 +57506,10 @@ __webpack_require__.r(__webpack_exports__);
 
 const Keybind = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - Keybind rendered");
-    const { ability, selectedUnit, setInterval, clearInterval } = props;
+    const { ability, selectedUnit } = props;
     const [keybind, setKeybind] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
             const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
@@ -57549,18 +57520,18 @@ const Keybind = (props) => {
             if (isControllable && !isPassive && !isTrainable) {
                 setKeybind(Abilities.GetKeybind(ability));
             }
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, selectedUnit, setInterval, clearInterval]);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Keybind.name, true);
+    }, [ability, selectedUnit]);
     if (!keybind) {
         return null;
     }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: keybind })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Keybind)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Keybind));
 
 
 /***/ }),
@@ -57607,7 +57578,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/LevelUpButton/Styles.tsx");
 
 
@@ -57615,20 +57586,21 @@ __webpack_require__.r(__webpack_exports__);
 
 const LevelUpButton = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - LevelUpButton rendered");
-    const { ability, selectedUnit, setInterval, clearInterval } = props;
+    const { ability, selectedUnit } = props;
     const [isAbilityUpgradeable, setIsAbilityUpgradeable] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
             const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
             const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
             const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints;
             setIsAbilityUpgradeable(isAbilityUpgradeable);
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, selectedUnit, setInterval, clearInterval]);
+        update();
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, LevelUpButton.name, true);
+    }, [ability, selectedUnit]);
     if (!isAbilityUpgradeable) {
         return null;
     }
@@ -57637,7 +57609,7 @@ const LevelUpButton = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { onactivate: () => Abilities.AttemptToUpgrade(ability), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ButtonBackground() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LockIcon() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(LevelUpButton)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(LevelUpButton));
 
 
 /***/ }),
@@ -57703,7 +57675,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/LockoutIcon/Styles.tsx");
 
 
@@ -57711,9 +57683,10 @@ __webpack_require__.r(__webpack_exports__);
 
 const LockoutIcon = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
-    const { ability, selectedUnit, setInterval, clearInterval } = props;
+    const { ability, selectedUnit } = props;
     const [showLock, setShowLock] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             const isStunned = Entities.IsStunned(selectedUnit);
             const isSilenced = Entities.IsSilenced(selectedUnit);
@@ -57723,18 +57696,18 @@ const LockoutIcon = (props) => {
             const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
             const showLock = cooldownRemaining !== 0 && (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
             setShowLock(showLock);
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, selectedUnit, setInterval, clearInterval]);
+        update();
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, LockoutIcon.name, true);
+    }, [ability, selectedUnit]);
     if (!showLock) {
         return null;
     }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(showLock) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Icon() })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(LockoutIcon)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(LockoutIcon));
 
 
 /***/ }),
@@ -57786,7 +57759,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/ManaCost/Styles.tsx");
 
 
@@ -57794,14 +57767,16 @@ __webpack_require__.r(__webpack_exports__);
 
 const ManaCost = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - ManaCost rendered");
-    const { ability, setInterval, clearInterval } = props;
+    const { ability } = props;
     const [manaCost, setManaCost] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             setManaCost(Abilities.GetManaCost(ability));
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
+        update();
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaCost.name, true);
     }, [ability, setInterval, clearInterval]);
     if (manaCost === 0) {
         return null;
@@ -57809,7 +57784,7 @@ const ManaCost = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: manaCost })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(ManaCost)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ManaCost));
 
 
 /***/ }),
@@ -57859,7 +57834,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
+/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Schedule */ "./hud/utils/Schedule.ts");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Skillpoints/Styles.tsx");
 
 
@@ -57867,25 +57842,26 @@ __webpack_require__.r(__webpack_exports__);
 
 const Skillpoints = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - Skillpoints rendered");
-    const { ability, setInterval, clearInterval } = props;
+    const { ability } = props;
     const [abilityLevel, setAbilityLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetLevel(ability));
     const [maxAbilityLevel, setMaxAbilityLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetMaxLevel(ability));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             setAbilityLevel(Abilities.GetLevel(ability));
             setMaxAbilityLevel(Abilities.GetMaxLevel(ability));
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, setInterval, clearInterval]);
+        update();
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Skillpoints.name, true);
+    }, [ability]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, Array.from({ length: maxAbilityLevel }, (_, index) => index + 1).map(index => {
         const columnWidth = 100 / maxAbilityLevel;
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { key: ability + '_level_' + index, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Column(columnWidth) },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Skillpoint(abilityLevel, index) })));
     })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Skillpoints)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Skillpoints));
 
 
 /***/ }),
@@ -59912,7 +59888,6 @@ const GameTime = () => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            $.Msg("Tick!");
             setGameTime(Game.GetDOTATime(false, false));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_SLOW, update);
         };
@@ -61451,23 +61426,11 @@ const Inventory = (props) => {
     }, [selectedUnit, items]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemOptions_ItemOptions__WEBPACK_IMPORTED_MODULE_2__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container(hasInventory) },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_3__.default, { index: 0, item: items[0] || -1, selectedUnit: selectedUnit }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_3__.default, { index: 1, item: items[1] || -1, selectedUnit: selectedUnit }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_3__.default, { index: 2, item: items[2] || -1, selectedUnit: selectedUnit }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_3__.default, { index: 3, item: items[3] || -1, selectedUnit: selectedUnit }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_3__.default, { index: 4, item: items[4] || -1, selectedUnit: selectedUnit }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_3__.default, { index: 5, item: items[5] || -1, selectedUnit: selectedUnit }))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container(hasInventory) }, items.map((item, index) => {
+            return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_3__.default, { key: index, index: index, item: item || -1, selectedUnit: selectedUnit }));
+        }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Inventory)));
-/*
-<Item index={0} item={items[0] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-<Item index={1} item={items[1] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-<Item index={2} item={items[2] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-<Item index={3} item={items[3] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-<Item index={4} item={items[4] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-<Item index={5} item={items[5] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-*/ 
 
 
 /***/ }),
@@ -65290,6 +65253,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const objectsEqual = (o1, o2) => Object.keys(o1).length === Object.keys(o2).length &&
     Object.keys(o1).every(p => o1[p] === o2[p]);
+
+
+/***/ }),
+
+/***/ "./hud/utils/Schedule.ts":
+/*!*******************************!*\
+  !*** ./hud/utils/Schedule.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "cancelSchedule": () => (/* binding */ cancelSchedule)
+/* harmony export */ });
+const cancelSchedule = (schedule, context, log) => {
+    try {
+        if (log) {
+            $.Msg("Info: Canceling schedule " + schedule + " for " + context);
+        }
+        $.CancelScheduled(schedule);
+    }
+    catch (_a) {
+        $.Msg("Error: Schedule not found: " + schedule);
+    }
+    ;
+};
 
 
 /***/ }),

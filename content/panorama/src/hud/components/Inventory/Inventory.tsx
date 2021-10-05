@@ -47,12 +47,16 @@ const Inventory = (props: Props) => {
     <React.Fragment>
       <ItemOptions />
       <Panel style={Styles.Container(hasInventory)}>
-        <Item index={0} item={items[0] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-        <Item index={1} item={items[1] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-        <Item index={2} item={items[2] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-        <Item index={3} item={items[3] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-        <Item index={4} item={items[4] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-        <Item index={5} item={items[5] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
+        {items.map((item, index) => {
+          return (
+            <Item
+              key={index}
+              index={index}
+              item={item || -1 as ItemEntityIndex}
+              selectedUnit={selectedUnit}
+            />
+          )
+        })}
       </Panel>
     </React.Fragment>
   )
@@ -60,12 +64,3 @@ const Inventory = (props: Props) => {
 }
 
 export default React.memo(connector(Inventory));
-
-/*
-<Item index={0} item={items[0] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-<Item index={1} item={items[1] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-<Item index={2} item={items[2] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-<Item index={3} item={items[3] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-<Item index={4} item={items[4] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-<Item index={5} item={items[5] || -1 as ItemEntityIndex} selectedUnit={selectedUnit} />
-*/
