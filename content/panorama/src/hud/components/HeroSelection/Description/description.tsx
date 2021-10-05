@@ -75,4 +75,4 @@ const Description = (props: Props) => {
   );
 }
 
-export default connector(Description);
+export default React.memo(connector(Description));

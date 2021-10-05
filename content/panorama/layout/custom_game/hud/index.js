@@ -55814,7 +55814,7 @@ const App = (props) => {
         };
         update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_23__.cancelSchedule)(schedule, App.name);
-    }, [setSelectedUnit, setInterval, clearInterval]);
+    }, [setSelectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: 'root', hittest: false, className: "appContainer" },
         (!hasPickedHero) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_17__.default, null)),
         hasPickedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Loading_Loading__WEBPACK_IMPORTED_MODULE_19__.default, null,
@@ -57245,7 +57245,7 @@ const Image = (props) => {
         };
         update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Image.name);
-    }, [ability, selectedUnit, setInterval, clearInterval]);
+    }, [ability, selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityImage(washColor, saturation), contextEntityIndex: ability })));
 };
@@ -57573,7 +57573,7 @@ const ManaCost = (props) => {
         };
         update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaCost.name);
-    }, [ability, setInterval, clearInterval]);
+    }, [ability]);
     if (manaCost === 0) {
         return null;
     }
@@ -60285,7 +60285,7 @@ const Description = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Lore_Lore__WEBPACK_IMPORTED_MODULE_4__.default, { focusedHero: focusedHero }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Buttons_Buttons__WEBPACK_IMPORTED_MODULE_3__.default, { focusedHero: focusedHero })))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Description));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Description)));
 
 
 /***/ }),
@@ -60498,7 +60498,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const RandomHeroDialog = (props) => {
-    const { randomHeroDialogVisible } = props;
+    const { randomHeroDialogVisible, setRandomHeroDialogVisible } = props;
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
@@ -60520,12 +60520,12 @@ const RandomHeroDialog = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionRandomHeroDialogButtonContainer' },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionRandomHeroDialogButton', onactivate: () => {
                         GameEvents.SendCustomGameEventToServer("on_random_hero", {});
-                        (0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_2__.setRandomHeroDialogVisible)(false);
+                        setRandomHeroDialogVisible(false);
                         Game.EmitSound("ui_topmenu_select");
                     } },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionRandomHeroDialogButtonLabel', text: 'YES' })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'heroSelectionRandomHeroDialogButton', onactivate: () => {
-                        (0,_actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_2__.setRandomHeroDialogVisible)(false);
+                        setRandomHeroDialogVisible(false);
                         Game.EmitSound("ui_topmenu_select");
                     } },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionRandomHeroDialogButtonLabel', text: 'NO' })))),
@@ -63385,7 +63385,7 @@ const Item = (props) => {
         };
         update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_4__.cancelSchedule)(schedule, Item.name);
-    }, [selectedUnit, setInterval, clearInterval]);
+    }, [selectedUnit]);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("attempt_item_purchase_success", () => {
         Game.EmitSound("General.CourierGivesItem");
         Game.EmitSound("Item.PickUpShop");
@@ -64937,7 +64937,7 @@ const cancelSchedule = (schedule, context, log) => {
     }
     catch (_a) {
         if (logMinusOneSchedules || schedule !== -1) {
-            $.Msg("Error: Schedule not found: " + schedule);
+            $.Msg("Error: Schedule " + schedule + " not found for " + context);
         }
     }
     ;

@@ -13,7 +13,7 @@ export const cancelSchedule = (schedule: ScheduleID, context?: String, log?: boo
     $.CancelScheduled(schedule);
   } catch {
     if (logMinusOneSchedules || schedule !== -1) {
-      $.Msg("Error: Schedule not found: " + schedule);
+      $.Msg("Error: Schedule " + schedule + " not found for " + context);
     }
   };
 };

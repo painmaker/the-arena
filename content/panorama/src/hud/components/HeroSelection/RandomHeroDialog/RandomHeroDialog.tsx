@@ -24,7 +24,7 @@ type Props = PropsFromRedux & {
 
 const RandomHeroDialog = (props: Props) => {
 
-  const { randomHeroDialogVisible } = props;
+  const { randomHeroDialogVisible, setRandomHeroDialogVisible } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
