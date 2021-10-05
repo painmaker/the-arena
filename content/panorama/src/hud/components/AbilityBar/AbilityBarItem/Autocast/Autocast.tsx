@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_FAST } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../../../App";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   ability: AbilityEntityIndex,
 }
 
@@ -11,22 +10,19 @@ const Autocast = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilityBarItem - Autocast rendered");
 
-  const { ability, setInterval, clearInterval } = props;
+  const { ability } = props;
 
   const [isAutocastEnabled, setIsAutocastEnabled] = useState(false);
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       setIsAutocastEnabled(Abilities.GetAutoCastState(ability));
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
-  }, [ability, setInterval, clearInterval]);
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [ability]);
 
   if (!isAutocastEnabled) {
     return null;
@@ -45,4 +41,4 @@ const Autocast = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(Autocast));
+export default React.memo(Autocast);

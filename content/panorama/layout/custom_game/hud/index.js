@@ -55903,9 +55903,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Loading_Loading__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/Loading/Loading */ "./hud/components/Loading/Loading.tsx");
 /* harmony import */ var _components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/AbilitiesShop/AbilitiesShop */ "./hud/components/AbilitiesShop/AbilitiesShop.tsx");
 /* harmony import */ var _actions_selectedUnitActions__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./actions/selectedUnitActions */ "./hud/actions/selectedUnitActions.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _components_FloatingBars_FloatingBars__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/FloatingBars/FloatingBars */ "./hud/components/FloatingBars/FloatingBars.tsx");
-
+/* harmony import */ var _components_FloatingBars_FloatingBars__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/FloatingBars/FloatingBars */ "./hud/components/FloatingBars/FloatingBars.tsx");
 
 
 
@@ -55960,7 +55958,7 @@ const getGameUnitSelected = () => {
 };
 const App = (props) => {
     var _a;
-    const { useCustomUI, setCameraZoom, setSelectedUnit, setInterval, clearInterval, setUseCustomUI } = props;
+    const { useCustomUI, setCameraZoom, setSelectedUnit, setUseCustomUI } = props;
     const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_18__.useNetTableValues)('HeroSelectionHeroes').heroes;
     const hasPickedHero = ((_a = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())) === null || _a === void 0 ? void 0 : _a.picked) === 1;
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -55996,15 +55994,21 @@ const App = (props) => {
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !useCustomUI);
     }, [useCustomUI]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             const unitToSelect = getGameUnitSelected();
             if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
                 setSelectedUnit(unitToSelect);
             }
+            schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
         };
         update();
-        const id = setInterval(update, HUD_THINK_FAST);
-        return () => clearInterval(id);
+        return () => { try {
+            $.CancelScheduled(schedule);
+        }
+        catch (_a) {
+            $.Msg("App schedule not found: " + schedule);
+        } ; };
     }, [setSelectedUnit, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: 'root', hittest: false, className: "appContainer" },
         (!hasPickedHero) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_17__.default, null)),
@@ -56027,9 +56031,9 @@ const App = (props) => {
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_13__.default, null),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Stats_Stats__WEBPACK_IMPORTED_MODULE_9__.default, null),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_20__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_FloatingBars_FloatingBars__WEBPACK_IMPORTED_MODULE_23__.default, null)))))));
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_FloatingBars_FloatingBars__WEBPACK_IMPORTED_MODULE_22__.default, null)))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_22__.default)(App)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(App));
 
 
 /***/ }),
@@ -56286,30 +56290,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilitiesPoints/Styles.tsx");
-
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilitiesPoints/Styles.tsx");
 
 
 
 const AbilitiesPoints = (props) => {
     $.Msg("REACT-RENDER: AbilitiesShop - AbilitiesPoints rendered");
-    const { selectedUnit, text, setInterval, clearInterval } = props;
+    const { selectedUnit, text } = props;
     const [abilityPoints, setAbilityPoints] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAbilityPoints(selectedUnit));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LabelContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: text, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TextLabel() }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: abilityPoints, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.NumberLabel(abilityPoints !== 0) }))));
+        update();
+        return () => { try {
+            $.CancelScheduled(schedule);
+        }
+        catch (_a) {
+            $.Msg("Schedule not found: " + schedule);
+        } ; };
+    }, [selectedUnit]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LabelContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: text, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: abilityPoints, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.NumberLabel(abilityPoints !== 0) }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AbilitiesPoints)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilitiesPoints));
 
 
 /***/ }),
@@ -56387,15 +56395,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _actions_abilitiesShopActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/abilitiesShopActions */ "./hud/actions/abilitiesShopActions.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/Styles.tsx");
-/* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/AbilitiesShop/Title/Title.tsx");
-/* harmony import */ var _Search_Search__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Search/Search */ "./hud/components/AbilitiesShop/Search/Search.tsx");
-/* harmony import */ var _RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./RegularAbilities/RegularAbilities */ "./hud/components/AbilitiesShop/RegularAbilities/RegularAbilities.tsx");
-/* harmony import */ var _UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./UltimateAbilities/UltimateAbilities */ "./hud/components/AbilitiesShop/UltimateAbilities/UltimateAbilities.tsx");
-/* harmony import */ var _AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./AbilitiesPoints/AbilitiesPoints */ "./hud/components/AbilitiesShop/AbilitiesPoints/AbilitiesPoints.tsx");
-/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _actions_abilitiesShopActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/abilitiesShopActions */ "./hud/actions/abilitiesShopActions.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/Styles.tsx");
+/* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/AbilitiesShop/Title/Title.tsx");
+/* harmony import */ var _Search_Search__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Search/Search */ "./hud/components/AbilitiesShop/Search/Search.tsx");
+/* harmony import */ var _RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./RegularAbilities/RegularAbilities */ "./hud/components/AbilitiesShop/RegularAbilities/RegularAbilities.tsx");
+/* harmony import */ var _UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./UltimateAbilities/UltimateAbilities */ "./hud/components/AbilitiesShop/UltimateAbilities/UltimateAbilities.tsx");
+/* harmony import */ var _AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./AbilitiesPoints/AbilitiesPoints */ "./hud/components/AbilitiesShop/AbilitiesPoints/AbilitiesPoints.tsx");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
 
 
 
@@ -56412,28 +56420,31 @@ const mapStateToProps = (state) => ({
     selectedUnit: state.selectedUnitReducer.selectedUnit,
 });
 const mapDispatchToProps = (dispatch) => ({
-    setShopVisible: (visible) => dispatch((0,_actions_abilitiesShopActions__WEBPACK_IMPORTED_MODULE_3__.setAbilitiesShopVisible)(visible)),
+    setShopVisible: (visible) => dispatch((0,_actions_abilitiesShopActions__WEBPACK_IMPORTED_MODULE_2__.setAbilitiesShopVisible)(visible)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const AbilitiesShop = (props) => {
     $.Msg("REACT-RENDER: AbilitiesShop rendered");
-    const { visible, selectedUnit, setShopVisible, setTimeout, clearTimeout } = props;
+    const { visible, selectedUnit, setShopVisible } = props;
     const [regularAbilities, setRegularAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [ultimateAbilities, setUltimateAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [isLoadingAbilities, setIsLoadingAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [searchValue, setSearchValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let timer = -1;
+        let schedule = -1;
         if (visible === false) {
-            timer = setTimeout(() => {
-                setRenderComponent(false);
-            }, 1000);
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_10__.SCHEDULE_THINK_SLOW, () => setRenderComponent(false));
         }
         else {
             setRenderComponent(true);
         }
-        return () => clearTimeout(timer);
+        return () => { try {
+            $.CancelScheduled(schedule);
+        }
+        catch (_a) {
+            $.Msg("AbilitiesShop schedule not found: " + schedule);
+        } ; };
     }, [visible, clearTimeout, setTimeout]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         if (visible) {
@@ -56443,43 +56454,43 @@ const AbilitiesShop = (props) => {
             GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: selectedUnit });
         }
     }, [selectedUnit, visible]);
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)('fetch_shop_abilities_ok', (event) => {
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_9__.useGameEvent)('fetch_shop_abilities_ok', (event) => {
         setRegularAbilities(Object.values(event.regularAbilities));
         setUltimateAbilities(Object.values(event.ultimateAbilities));
         setIsLoadingAbilities(false);
     }, []);
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("fetch_shop_abilities_error", (event) => {
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_9__.useGameEvent)("fetch_shop_abilities_error", (event) => {
         GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
         setIsLoadingAbilities(false);
     }, []);
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("purchase_ability_error", (event) => {
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_9__.useGameEvent)("purchase_ability_error", (event) => {
         GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
     }, []);
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("purchase_ability_ok", (event) => {
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_9__.useGameEvent)("purchase_ability_ok", (event) => {
         Game.EmitSound("General.Buy");
     }, []);
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("dota_player_update_query_unit", (event) => {
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_9__.useGameEvent)("dota_player_update_query_unit", (event) => {
         const unit = Players.GetQueryUnit(Players.GetLocalPlayer());
         if (Entities.GetUnitName(unit) === 'shopkeeper_abilities') {
             setShopVisible(true);
         }
     }, [setShopVisible]);
-    (0,react_panorama__WEBPACK_IMPORTED_MODULE_10__.useGameEvent)("dota_player_update_selected_unit", (event) => {
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_9__.useGameEvent)("dota_player_update_selected_unit", (event) => {
         const unit = Players.GetLocalPlayerPortraitUnit();
         if (Entities.GetUnitName(unit) === 'shopkeeper_abilities') {
             setShopVisible(true);
         }
     }, [setShopVisible]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'Invisible', style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.InnerContainer(visible) },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.TopContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_6__.default, { setSearchValue: setSearchValue }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_9__.default, { selectedUnit: selectedUnit, text: 'Ability Points:' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.AbilitiesContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit, regularAbilities: regularAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit, ultimateAbilities: ultimateAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }))))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'Invisible', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.InnerContainer(visible) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TopContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_5__.default, { setSearchValue: setSearchValue }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit, text: 'Ability Points:' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit, regularAbilities: regularAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit, ultimateAbilities: ultimateAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AbilitiesShop))));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(AbilitiesShop)));
 
 
 /***/ }),
@@ -56497,9 +56508,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilityImage/Styles.tsx");
-
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilityImage/Styles.tsx");
 
 
 
@@ -56515,18 +56524,24 @@ const onRightClick = (selectedUnit, abilityname) => {
 };
 const AbilityImage = (props) => {
     $.Msg("REACT-RENDER: AbilitiesShop - AbilityImage rendered");
-    const { selectedUnit, shopAbility, searchValue, setInterval, clearInterval } = props;
+    const { selectedUnit, shopAbility, searchValue } = props;
     const { name, aliases, requiredLevel } = shopAbility;
     const [isRequiredLevel, setIsRequiredLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit) >= requiredLevel);
     const [isSearched, setIsSearched] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+        update();
+        return () => { try {
+            $.CancelScheduled(schedule);
+        }
+        catch (_a) {
+            $.Msg("Schedule not found: " + schedule);
+        } ; };
+    }, [selectedUnit]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let isSearched = false;
         Object.values(aliases).forEach(alias => {
@@ -56537,10 +56552,10 @@ const AbilityImage = (props) => {
         setIsSearched(isSearched);
     }, [aliases, searchValue]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityImage(searchValue.length > 0, isSearched, isRequiredLevel), oncontextmenu: () => onRightClick(selectedUnit, name), onmouseout: () => onMouseOut(name), onmouseover: () => onMouseOver(selectedUnit, name) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilityImage(searchValue.length > 0, isSearched, isRequiredLevel), oncontextmenu: () => onRightClick(selectedUnit, name), onmouseout: () => onMouseOut(name), onmouseover: () => onMouseOver(selectedUnit, name) },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: 'ability_shop_image_' + name, abilityname: name }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(AbilityImage)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilityImage));
 
 
 /***/ }),
@@ -56972,11 +56987,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _utils_TableUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/TableUtils */ "./hud/utils/TableUtils.ts");
-/* harmony import */ var _AbilityBarItem_AbilityBarItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AbilityBarItem/AbilityBarItem */ "./hud/components/AbilityBar/AbilityBarItem/AbilityBarItem.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/Styles.tsx");
-
+/* harmony import */ var _utils_TableUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/TableUtils */ "./hud/utils/TableUtils.ts");
+/* harmony import */ var _AbilityBarItem_AbilityBarItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AbilityBarItem/AbilityBarItem */ "./hud/components/AbilityBar/AbilityBarItem/AbilityBarItem.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/Styles.tsx");
 
 
 
@@ -56989,30 +57002,36 @@ const mapStateToProps = (state) => ({
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
 const AbilityBar = (props) => {
     $.Msg("REACT-RENDER: AbilityBar rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [abilities, setAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
                 .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
                 .filter(index => index !== -1)
                 .filter(index => Abilities.IsDisplayedAbility(index));
-            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_4__.TableUtils.isEqual(newAbilities, abilities)) {
+            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_3__.TableUtils.isEqual(newAbilities, abilities)) {
                 setAbilities(newAbilities);
             }
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [selectedUnit, abilities, setInterval, clearInterval]);
+        return () => { try {
+            $.CancelScheduled(schedule);
+        }
+        catch (_a) {
+            $.Msg("Schedule not found: " + schedule);
+        } ; };
+    }, [selectedUnit, abilities]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         if (Entities.GetAbilityPoints(selectedUnit) <= 0) {
             Game.EndAbilityLearnMode();
         }
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_6__.Styles.Container() }, abilities.map(ability => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityBarItem_AbilityBarItem__WEBPACK_IMPORTED_MODULE_5__.default, { key: ability, ability: ability, selectedUnit: selectedUnit })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Container() }, abilities.map((ability, index) => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityBarItem_AbilityBarItem__WEBPACK_IMPORTED_MODULE_4__.default, { key: ability + "_" + index, ability: ability, selectedUnit: selectedUnit })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(AbilityBar))));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(AbilityBar)));
 
 
 /***/ }),
@@ -57029,19 +57048,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Cooldown_Cooldown__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Cooldown/Cooldown */ "./hud/components/AbilityBar/AbilityBarItem/Cooldown/Cooldown.tsx");
-/* harmony import */ var _Autocast_Autocast__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Autocast/Autocast */ "./hud/components/AbilityBar/AbilityBarItem/Autocast/Autocast.tsx");
-/* harmony import */ var _LockoutIcon_LockoutIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./LockoutIcon/LockoutIcon */ "./hud/components/AbilityBar/AbilityBarItem/LockoutIcon/LockoutIcon.tsx");
-/* harmony import */ var _Skillpoints_Skillpoints__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Skillpoints/Skillpoints */ "./hud/components/AbilityBar/AbilityBarItem/Skillpoints/Skillpoints.tsx");
-/* harmony import */ var _ManaCost_ManaCost__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ManaCost/ManaCost */ "./hud/components/AbilityBar/AbilityBarItem/ManaCost/ManaCost.tsx");
-/* harmony import */ var _Keybind_Keybind__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Keybind/Keybind */ "./hud/components/AbilityBar/AbilityBarItem/Keybind/Keybind.tsx");
-/* harmony import */ var _Image_Image__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Image/Image */ "./hud/components/AbilityBar/AbilityBarItem/Image/Image.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Styles.tsx");
-/* harmony import */ var _LevelUpButton_LevelUpButton__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./LevelUpButton/LevelUpButton */ "./hud/components/AbilityBar/AbilityBarItem/LevelUpButton/LevelUpButton.tsx");
-/* harmony import */ var _CastPointOverlay_CastPointOverlay__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./CastPointOverlay/CastPointOverlay */ "./hud/components/AbilityBar/AbilityBarItem/CastPointOverlay/CastPointOverlay.tsx");
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-
+/* harmony import */ var _Cooldown_Cooldown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Cooldown/Cooldown */ "./hud/components/AbilityBar/AbilityBarItem/Cooldown/Cooldown.tsx");
+/* harmony import */ var _Autocast_Autocast__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Autocast/Autocast */ "./hud/components/AbilityBar/AbilityBarItem/Autocast/Autocast.tsx");
+/* harmony import */ var _LockoutIcon_LockoutIcon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./LockoutIcon/LockoutIcon */ "./hud/components/AbilityBar/AbilityBarItem/LockoutIcon/LockoutIcon.tsx");
+/* harmony import */ var _Skillpoints_Skillpoints__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Skillpoints/Skillpoints */ "./hud/components/AbilityBar/AbilityBarItem/Skillpoints/Skillpoints.tsx");
+/* harmony import */ var _ManaCost_ManaCost__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ManaCost/ManaCost */ "./hud/components/AbilityBar/AbilityBarItem/ManaCost/ManaCost.tsx");
+/* harmony import */ var _Keybind_Keybind__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Keybind/Keybind */ "./hud/components/AbilityBar/AbilityBarItem/Keybind/Keybind.tsx");
+/* harmony import */ var _Image_Image__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Image/Image */ "./hud/components/AbilityBar/AbilityBarItem/Image/Image.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Styles.tsx");
+/* harmony import */ var _LevelUpButton_LevelUpButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./LevelUpButton/LevelUpButton */ "./hud/components/AbilityBar/AbilityBarItem/LevelUpButton/LevelUpButton.tsx");
+/* harmony import */ var _CastPointOverlay_CastPointOverlay__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./CastPointOverlay/CastPointOverlay */ "./hud/components/AbilityBar/AbilityBarItem/CastPointOverlay/CastPointOverlay.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
 
 
 
@@ -57091,13 +57108,14 @@ const onRightClick = (ability) => {
 };
 const AbilityBarItem = (props) => {
     $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
-    const { ability, selectedUnit, setInterval, clearInterval } = props;
+    const { ability, selectedUnit } = props;
     const [isPassive, setIsPassive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isAutoCastEnabled, setIsAutoCastEnabled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isToggled, setIsToggled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isActive, setIsActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isTrainable, setIsTrainable] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
             const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
@@ -57108,25 +57126,30 @@ const AbilityBarItem = (props) => {
             setIsAutoCastEnabled(Abilities.GetAutoCastState(ability));
             setIsToggled(Abilities.GetToggleState(ability));
             setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_11__.SCHEDULE_THINK_FAST, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_12__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.Container(), id: 'ability_' + ability },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.LevelUpButtonContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LevelUpButton_LevelUpButton__WEBPACK_IMPORTED_MODULE_10__.default, { ability: ability, selectedUnit: selectedUnit })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, onactivate: () => onLeftClick(ability, selectedUnit), oncontextmenu: () => onRightClick(ability), onmouseover: () => onMouseOver(ability, selectedUnit), onmouseout: () => onMouseOut(ability), style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.AbilityContainer(isTrainable, isActive, isAutoCastEnabled, isToggled, isPassive) },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Image_Image__WEBPACK_IMPORTED_MODULE_8__.default, { ability: ability, selectedUnit: selectedUnit }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Keybind_Keybind__WEBPACK_IMPORTED_MODULE_7__.default, { ability: ability, selectedUnit: selectedUnit }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaCost_ManaCost__WEBPACK_IMPORTED_MODULE_6__.default, { ability: ability }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Cooldown_Cooldown__WEBPACK_IMPORTED_MODULE_2__.default, { ability: ability }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Autocast_Autocast__WEBPACK_IMPORTED_MODULE_3__.default, { ability: ability }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockoutIcon_LockoutIcon__WEBPACK_IMPORTED_MODULE_4__.default, { ability: ability, selectedUnit: selectedUnit }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CastPointOverlay_CastPointOverlay__WEBPACK_IMPORTED_MODULE_11__.default, { ability: ability })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Skillpoints_Skillpoints__WEBPACK_IMPORTED_MODULE_5__.default, { ability: ability })));
+        update();
+        return () => { try {
+            $.CancelScheduled(schedule);
+        }
+        catch (_a) {
+            $.Msg("Schedule not found: " + schedule);
+        } ; };
+    }, [ability, selectedUnit]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Container(), id: 'ability_' + ability },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LevelUpButtonContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LevelUpButton_LevelUpButton__WEBPACK_IMPORTED_MODULE_9__.default, { ability: ability, selectedUnit: selectedUnit })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: true, onactivate: () => onLeftClick(ability, selectedUnit), oncontextmenu: () => onRightClick(ability), onmouseover: () => onMouseOver(ability, selectedUnit), onmouseout: () => onMouseOut(ability), style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.AbilityContainer(isTrainable, isActive, isAutoCastEnabled, isToggled, isPassive) },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Image_Image__WEBPACK_IMPORTED_MODULE_7__.default, { ability: ability, selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Keybind_Keybind__WEBPACK_IMPORTED_MODULE_6__.default, { ability: ability, selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaCost_ManaCost__WEBPACK_IMPORTED_MODULE_5__.default, { ability: ability }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Cooldown_Cooldown__WEBPACK_IMPORTED_MODULE_1__.default, { ability: ability }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Autocast_Autocast__WEBPACK_IMPORTED_MODULE_2__.default, { ability: ability }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockoutIcon_LockoutIcon__WEBPACK_IMPORTED_MODULE_3__.default, { ability: ability, selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CastPointOverlay_CastPointOverlay__WEBPACK_IMPORTED_MODULE_10__.default, { ability: ability })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Skillpoints_Skillpoints__WEBPACK_IMPORTED_MODULE_4__.default, { ability: ability })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_1__.default)(AbilityBarItem)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilityBarItem));
 
 
 /***/ }),
@@ -57144,32 +57167,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Autocast/Styles.tsx");
-
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Autocast/Styles.tsx");
 
 
 
 const Autocast = (props) => {
     $.Msg("REACT-RENDER: AbilityBarItem - Autocast rendered");
-    const { ability, setInterval, clearInterval } = props;
+    const { ability } = props;
     const [isAutocastEnabled, setIsAutocastEnabled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             setIsAutocastEnabled(Abilities.GetAutoCastState(ability));
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, setInterval, clearInterval]);
+        update();
+        return () => { try {
+            $.CancelScheduled(schedule);
+        }
+        catch (_a) {
+            $.Msg("Schedule not found: " + schedule);
+        } ; };
+    }, [ability]);
     if (!isAutocastEnabled) {
         return null;
     }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { map: 'scenes/hud/autocasting', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AutocastScene() }))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { map: 'scenes/hud/autocasting', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AutocastScene() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Autocast)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Autocast));
 
 
 /***/ }),
@@ -57214,51 +57241,61 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/CastPointOverlay/Styles.tsx");
-
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/CastPointOverlay/Styles.tsx");
 
 
 
 const Cooldown = (props) => {
     $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
-    const { ability, setInterval, clearInterval } = props;
+    const { ability } = props;
     const [castPoint, setCastPoint] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Math.max(0, Abilities.GetCastPoint(ability)));
     const [isInAbilityPhase, setIsInAbilityPhase] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsInAbilityPhase(ability));
     const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
-            setCastPoint(Math.max(0, Abilities.GetCastPoint(ability)));
+            const offsetCastPoint = Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1);
+            setCastPoint(offsetCastPoint);
             setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, setInterval, clearInterval]);
+        update();
+        return () => { try {
+            $.CancelScheduled(schedule);
+        }
+        catch (_a) {
+            $.Msg("Schedule not found: " + schedule);
+        } ; };
+    }, [ability]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let id = -1;
-        if (isInAbilityPhase) {
-            const offsetCastPoint = Math.max(0, castPoint > 0.1 ? castPoint - 0.1 : castPoint);
-            const endtime = Game.GetGameTime() + offsetCastPoint;
-            const update = () => {
+        $.Msg("useEffect!");
+        let scheduleX = -1;
+        const endtime = Game.GetGameTime() + castPoint;
+        const update = () => {
+            if (isInAbilityPhase) {
                 const gameTimeDifference = endtime - Game.GetGameTime();
-                const degree = Math.min(0, -(360 - ((gameTimeDifference / offsetCastPoint) * 360)));
+                const degree = Math.min(0, -(360 - ((gameTimeDifference / castPoint) * 360)));
                 setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
-            };
-            // update();
-            id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
+            }
+            else {
+                setDegree(0);
+            }
+            scheduleX = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
+        };
+        update();
+        return () => { try {
+            $.CancelScheduled(scheduleX);
         }
-        else {
-            setDegree(0);
-        }
-        return () => clearInterval(id);
-    }, [isInAbilityPhase, castPoint, setInterval, clearInterval]);
+        catch (_a) {
+            $.Msg("3 Schedule not found: " + scheduleX);
+        } ; };
+    }, [isInAbilityPhase, castPoint]);
     if (degree === 0) {
         return null;
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(degree) }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(degree) }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Cooldown)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Cooldown));
 
 
 /***/ }),
@@ -61392,14 +61429,7 @@ const ITEM_SLOTS = [0, 1, 2, 3, 4, 5];
 const Inventory = (props) => {
     $.Msg("REACT-RENDER: Inventory rendered");
     const { selectedUnit } = props;
-    const [items, setItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1
-    ]);
+    const [items, setItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [hasInventory, setHasInventory] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsInventoryEnabled(selectedUnit));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
@@ -62349,9 +62379,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/ManaBar/Styles.tsx");
-
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/ManaBar/Styles.tsx");
 
 
 
@@ -62362,27 +62390,33 @@ const mapStateToProps = (state) => ({
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
 const ManaBar = (props) => {
     $.Msg("REACT-RENDER: ManaBar rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [mana, setMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMana(selectedUnit));
     const [maxMana, setMaxMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxMana(selectedUnit));
     const [manaRegen, setManaRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetManaThinkRegen(selectedUnit));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             setMana(Entities.GetMana(selectedUnit));
             setMaxMana(Entities.GetMaxMana(selectedUnit));
             setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_FAST, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container(maxMana > 0) },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Progressbar() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Scene(mana, maxMana), map: 'scenes/hud/healthbarburner' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.ManaLabel(), text: mana + " / " + maxMana }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.RegenLabel(), text: '+ ' + manaRegen.toFixed(1) })));
+        update();
+        return () => { try {
+            $.CancelScheduled(schedule);
+        }
+        catch (_a) {
+            $.Msg("Schedule not found: " + schedule);
+        } ; };
+    }, [selectedUnit]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(maxMana > 0) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Scene(mana, maxMana), map: 'scenes/hud/healthbarburner' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ManaLabel(), text: mana + " / " + maxMana }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RegenLabel(), text: '+ ' + manaRegen.toFixed(1) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_3__.default)(ManaBar))));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(ManaBar)));
 
 
 /***/ }),
@@ -62791,31 +62825,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Modifiers/Modifier/Stacks/Styles.tsx");
-
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Modifiers/Modifier/Stacks/Styles.tsx");
 
 
 
 const Stacks = (props) => {
     $.Msg("REACT-RENDER: Modifier rendered");
-    const { unit, buff, setInterval, clearInterval } = props;
+    const { unit, buff } = props;
     const [stacks, setStacks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Buffs.GetStackCount(unit, buff));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             setStacks(Buffs.GetStackCount(unit, buff));
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [unit, buff, setInterval, clearInterval]);
+        update();
+        return () => { try {
+            $.CancelScheduled(schedule);
+        }
+        catch (_a) {
+            $.Msg("Schedule not found: " + schedule);
+        } ; };
+    }, [unit, buff]);
     if (stacks === 0) {
         return null;
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.StackLabel(), text: stacks })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.StackLabel(), text: stacks })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(Stacks)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Stacks));
 
 
 /***/ }),
@@ -62947,33 +62985,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Modifiers/Modifier/TimedBackground/Styles.tsx");
-
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Modifiers/Modifier/TimedBackground/Styles.tsx");
 
 
 
 const TimedBackground = (props) => {
     $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
-    const { buff, selectedUnit, isDebuff, setInterval, clearInterval } = props;
+    const { buff, selectedUnit, isDebuff } = props;
     const [remaining, setRemaining] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
     const [duration, setDuration] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        let schedule = -1;
         const update = () => {
             setRemaining(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
             setDuration(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        // update();
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [buff, selectedUnit, setInterval, clearInterval]);
+        update();
+        return () => { try {
+            $.CancelScheduled(schedule);
+        }
+        catch (_a) {
+            $.Msg("Schedule not found: " + schedule);
+        } ; };
+    }, [buff, selectedUnit]);
     let degree = Math.max(0, (remaining / duration) * 360);
     if (Number.isNaN(degree) || !Number.isFinite(degree)) {
         degree = 0;
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isDebuff, degree) }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(isDebuff, degree) }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_2__.default)(TimedBackground)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(TimedBackground));
 
 
 /***/ }),
@@ -63274,9 +63316,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MapZoomSlider_MapZoomSlider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MapZoomSlider/MapZoomSlider */ "./hud/components/Settings/MapZoomSlider/MapZoomSlider.tsx");
 /* harmony import */ var _Divider_Divider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Divider/Divider */ "./hud/components/Settings/Divider/Divider.tsx");
 /* harmony import */ var _Title_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Title/Title */ "./hud/components/Settings/Title/Title.tsx");
-/* harmony import */ var _hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../hoc/ReactTimeout */ "./hud/hoc/ReactTimeout.tsx");
-/* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Styles */ "./hud/components/Settings/Styles.tsx");
+/* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Styles */ "./hud/components/Settings/Styles.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
 
 
 
@@ -63291,44 +63333,47 @@ const mapStateToProps = (state) => ({
     visible: state.settingsReducer.visible,
 });
 const mapDispatchToProps = (dispatch) => ({
-    setCameraLocked: (locked) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_8__.setCameraLocked)(locked)),
-    setCameraZoom: (zoom) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_8__.setCameraZoom)(zoom)),
+    setCameraLocked: (locked) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_7__.setCameraLocked)(locked)),
+    setCameraZoom: (zoom) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_7__.setCameraZoom)(zoom)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const Settings = (props) => {
     $.Msg("REACT-RENDER: Settings rendered");
-    const { visible, setCameraLocked, setCameraZoom, setTimeout, clearTimeout } = props;
+    const { visible, setCameraLocked, setCameraZoom } = props;
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         setCameraLocked(true);
         setCameraZoom(1600);
     }, [setCameraLocked, setCameraZoom]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let timer = -1;
+        let schedule = -1;
         if (visible === false) {
-            timer = setTimeout(() => {
-                setRenderComponent(false);
-            }, 1000);
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_9__.SCHEDULE_THINK_SLOW, () => setRenderComponent(false));
         }
         else {
             setRenderComponent(true);
         }
-        return () => clearTimeout(timer);
-    }, [visible, setTimeout, clearTimeout]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.InnerContainer(visible) },
+        return () => { try {
+            $.CancelScheduled(schedule);
+        }
+        catch (_a) {
+            $.Msg("Settings schedule not found: " + schedule);
+        } ; };
+    }, [visible]);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.InnerContainer(visible) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.EntryContainer() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.EntryContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CameraZoomSlider_CameraZoomSlider__WEBPACK_IMPORTED_MODULE_2__.default, null)),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.EntryContainer() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.EntryContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MapZoomSlider_MapZoomSlider__WEBPACK_IMPORTED_MODULE_4__.default, null)),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_9__.Styles.EntryContainer() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.EntryContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_3__.default, null)),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null)))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector((0,_hoc_ReactTimeout__WEBPACK_IMPORTED_MODULE_7__.default)(Settings))));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Settings)));
 
 
 /***/ }),

@@ -24,7 +24,6 @@ import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
 import { setSelectedUnit } from "./actions/selectedUnitActions";
 import { Dispatch } from "redux";
 import { SelectedUnitActionTypes } from "./types/selectedUnitTypes";
-import withReactTimeout, { ReactTimeoutProps } from "./hoc/ReactTimeout";
 import FloatingBars from "./components/FloatingBars/FloatingBars";
 
 export const HUD_THINK_FAST = 50;
@@ -47,7 +46,7 @@ const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes | SelectedUni
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   // ownProps
 };
 
@@ -73,7 +72,7 @@ const getGameUnitSelected = () => {
 
 const App = (props: Props) => {
 
-  const { useCustomUI, setCameraZoom, setSelectedUnit, setInterval, clearInterval, setUseCustomUI } = props;
+  const { useCustomUI, setCameraZoom, setSelectedUnit, setUseCustomUI } = props;
 
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
   const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
@@ -113,15 +112,16 @@ const App = (props: Props) => {
   }, [useCustomUI]);
 
   useEffect(() => {
+    let schedule = -1 as ScheduleID;
     const update = () => {
       const unitToSelect = getGameUnitSelected();
       if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
         setSelectedUnit(unitToSelect)
       }
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    const id = setInterval(update, HUD_THINK_FAST);
-    return () => clearInterval(id);
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("App schedule not found: " + schedule) }; }
   }, [setSelectedUnit, setInterval, clearInterval]);
 
   return (
@@ -170,4 +170,4 @@ const App = (props: Props) => {
 
 }
 
-export default connector(withReactTimeout(App));
+export default connector(App);

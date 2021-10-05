@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_FAST } from "../../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../../../App";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   ability: AbilityEntityIndex,
 }
 
@@ -11,43 +10,48 @@ const Cooldown = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
 
-  const { ability, setInterval, clearInterval } = props;
+  const { ability } = props;
 
   const [castPoint, setCastPoint] = useState(Math.max(0, Abilities.GetCastPoint(ability)));
   const [isInAbilityPhase, setIsInAbilityPhase] = useState(Abilities.IsInAbilityPhase(ability));
   const [degree, setDegree] = useState(0);
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
-      setCastPoint(Math.max(0, Abilities.GetCastPoint(ability)));
+      const offsetCastPoint = Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1);
+      setCastPoint(offsetCastPoint);
       setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
-  }, [ability, setInterval, clearInterval]);
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [ability]);
 
   useEffect(() => {
-    let id = -1;
-    if (isInAbilityPhase) {
-      const offsetCastPoint = Math.max(0, castPoint > 0.1 ? castPoint - 0.1 : castPoint);
-      const endtime = Game.GetGameTime() + offsetCastPoint;
-      const update = () => {
+
+    $.Msg("useEffect!");
+
+    let scheduleX = -1 as ScheduleID;
+
+    const endtime = Game.GetGameTime() + castPoint;
+
+    const update = () => {
+      if (isInAbilityPhase) {
         const gameTimeDifference = endtime - Game.GetGameTime();
-        const degree = Math.min(0, -(360 - ((gameTimeDifference / offsetCastPoint) * 360)));
+        const degree = Math.min(0, -(360 - ((gameTimeDifference / castPoint) * 360)));
         setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
-      };
-      // update();
-      id = setInterval(update, HUD_THINK_FAST);
-    } else {
-      setDegree(0)
-    }
-    return () => clearInterval(id);
-  }, [isInAbilityPhase, castPoint, setInterval, clearInterval])
+      } else {
+        setDegree(0);
+      }
+      scheduleX = $.Schedule(SCHEDULE_THINK_FAST, update);
+    };
+
+    update();
+
+    return () => { try { $.CancelScheduled(scheduleX) } catch { $.Msg("3 Schedule not found: " + scheduleX) }; }
+
+  }, [isInAbilityPhase, castPoint])
 
   if (degree === 0) {
     return null;
@@ -59,4 +63,4 @@ const Cooldown = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(Cooldown));
+export default React.memo(Cooldown);

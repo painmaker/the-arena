@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../reducers/rootReducer";
-import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
-import { Timer } from "react-timeout";
 import { Dispatch } from "redux";
 import { AbilitiesShopTypes } from "../../types/abilitiesShopTypes";
 import { setAbilitiesShopVisible } from "../../actions/abilitiesShopActions";
@@ -13,6 +11,7 @@ import RegularAbilities from "./RegularAbilities/RegularAbilities";
 import UltimateAbilities from "./UltimateAbilities/UltimateAbilities";
 import AbilitiesPoints from "./AbilitiesPoints/AbilitiesPoints";
 import { useGameEvent } from "react-panorama";
+import { SCHEDULE_THINK_SLOW } from "../../App";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.abilitiesShopReducer.visible,
@@ -26,7 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AbilitiesShopTypes>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   // ownProps
 };
 
@@ -34,7 +33,7 @@ const AbilitiesShop = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilitiesShop rendered");
 
-  const { visible, selectedUnit, setShopVisible, setTimeout, clearTimeout } = props;
+  const { visible, selectedUnit, setShopVisible } = props;
 
   const [regularAbilities, setRegularAbilities] = useState<ShopAbility[]>([]);
   const [ultimateAbilities, setUltimateAbilities] = useState<ShopAbility[]>([]);
@@ -43,15 +42,13 @@ const AbilitiesShop = (props: Props) => {
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
-    let timer = -1 as Timer;
+    let schedule = -1 as ScheduleID;
     if (visible === false) {
-      timer = setTimeout(() => {
-        setRenderComponent(false);
-      }, 1000);
+      schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => setRenderComponent(false));
     } else {
       setRenderComponent(true);
     }
-    return () => clearTimeout(timer);
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("AbilitiesShop schedule not found: " + schedule) }; }
   }, [visible, clearTimeout, setTimeout]);
 
   useEffect(() => {
@@ -129,4 +126,4 @@ const AbilitiesShop = (props: Props) => {
 
 };
 
-export default React.memo(connector(withReactTimeout(AbilitiesShop)));
+export default React.memo(connector(AbilitiesShop));

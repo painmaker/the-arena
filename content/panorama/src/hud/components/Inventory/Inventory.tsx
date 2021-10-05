@@ -26,14 +26,7 @@ const Inventory = (props: Props) => {
 
   const { selectedUnit } = props;
 
-  const [items, setItems] = useState<ItemEntityIndex[]>([
-    -1 as ItemEntityIndex,
-    -1 as ItemEntityIndex,
-    -1 as ItemEntityIndex,
-    -1 as ItemEntityIndex,
-    -1 as ItemEntityIndex,
-    -1 as ItemEntityIndex
-  ]);
+  const [items, setItems] = useState<ItemEntityIndex[]>([]);
   const [hasInventory, setHasInventory] = useState(Entities.IsInventoryEnabled(selectedUnit));
 
   useEffect(() => {

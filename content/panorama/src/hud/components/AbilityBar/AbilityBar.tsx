@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { HUD_THINK_FAST } from "../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../App";
 import { RootState } from "../../reducers/rootReducer";
 import { TableUtils } from "../../utils/TableUtils";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
@@ -14,7 +13,7 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   // ownProps
 };
 
@@ -22,12 +21,12 @@ const AbilityBar = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilityBar rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [abilities, setAbilities] = useState<AbilityEntityIndex[]>([]);
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
         .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
@@ -36,14 +35,11 @@ const AbilityBar = (props: Props) => {
       if (!TableUtils.isEqual(newAbilities, abilities)) {
         setAbilities(newAbilities);
       }
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
     update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
-  }, [selectedUnit, abilities, setInterval, clearInterval])
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit, abilities])
 
   useEffect(() => {
     if (Entities.GetAbilityPoints(selectedUnit) <= 0) {
@@ -53,9 +49,9 @@ const AbilityBar = (props: Props) => {
 
   return (
     <Panel hittest={false} style={Styles.Container()}>
-      {abilities.map(ability => (
+      {abilities.map((ability, index) => (
         <AbilityBarItem
-          key={ability}
+          key={ability + "_" + index}
           ability={ability}
           selectedUnit={selectedUnit}
         />
@@ -65,4 +61,4 @@ const AbilityBar = (props: Props) => {
 
 }
 
-export default React.memo(connector(withReactTimeout(AbilityBar)));
+export default React.memo(connector(AbilityBar));

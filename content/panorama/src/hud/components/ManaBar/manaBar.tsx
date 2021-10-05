@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { HUD_THINK_FAST } from "../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_FAST } from "../../App";
 import { RootState } from "../../reducers/rootReducer";
 import { Styles } from "./Styles";
 
@@ -12,7 +11,7 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   // ownProps
 };
 
@@ -20,26 +19,23 @@ const ManaBar = (props: Props) => {
 
   $.Msg("REACT-RENDER: ManaBar rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [mana, setMana] = useState(Entities.GetMana(selectedUnit));
   const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(selectedUnit));
   const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(selectedUnit));
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       setMana(Entities.GetMana(selectedUnit));
       setMaxMana(Entities.GetMaxMana(selectedUnit));
       setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
-  }, [selectedUnit, setInterval, clearInterval]);
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit]);
 
   return (
     <Panel hittest={false} style={Styles.Container(maxMana > 0)}>
@@ -62,4 +58,4 @@ const ManaBar = (props: Props) => {
 
 };
 
-export default React.memo(connector(withReactTimeout(ManaBar)));
+export default React.memo(connector(ManaBar));

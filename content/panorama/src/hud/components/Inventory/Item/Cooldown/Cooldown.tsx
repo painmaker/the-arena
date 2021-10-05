@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../../../App";
+import { SCHEDULE_THINK_FAST, SCHEDULE_THINK_SLOW } from "../../../../App";
 import { Styles } from "./Styles";
 
 type Props = {

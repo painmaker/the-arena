@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
 import Cooldown from "./Cooldown/Cooldown";
 import Autocast from "./Autocast/Autocast";
 import LockoutIcon from "./LockoutIcon/LockoutIcon";
@@ -10,7 +9,7 @@ import Image from "./Image/Image";
 import { Styles } from "./Styles";
 import LevelUpButton from "./LevelUpButton/LevelUpButton";
 import CastPointOverlay from "./CastPointOverlay/CastPointOverlay";
-import { HUD_THINK_FAST } from "../../../App";
+import { SCHEDULE_THINK_FAST } from "../../../App";
 
 const onMouseOver = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
   $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_" + ability), Abilities.GetAbilityName(ability), selectedUnit);
@@ -51,7 +50,7 @@ const onRightClick = (ability: AbilityEntityIndex) => {
   }
 }
 
-type Props = ReactTimeoutProps & {
+type Props = {
   ability: AbilityEntityIndex,
   selectedUnit: EntityIndex,
 }
@@ -60,7 +59,7 @@ const AbilityBarItem = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
 
-  const { ability, selectedUnit, setInterval, clearInterval } = props;
+  const { ability, selectedUnit } = props;
 
   const [isPassive, setIsPassive] = useState(false);
   const [isAutoCastEnabled, setIsAutoCastEnabled] = useState(false);
@@ -69,7 +68,7 @@ const AbilityBarItem = (props: Props) => {
   const [isTrainable, setIsTrainable] = useState(false);
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
       const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
@@ -80,13 +79,11 @@ const AbilityBarItem = (props: Props) => {
       setIsAutoCastEnabled(Abilities.GetAutoCastState(ability))
       setIsToggled(Abilities.GetToggleState(ability))
       setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-  }, [ability, selectedUnit, setInterval, clearInterval])
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [ability, selectedUnit])
 
   return (
     <Panel style={Styles.Container()} id={'ability_' + ability} >
@@ -115,6 +112,6 @@ const AbilityBarItem = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(AbilityBarItem));
+export default React.memo(AbilityBarItem);
 
 

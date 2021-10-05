@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_MEDIUM } from "../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_MEDIUM } from "../../../App";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex
   text: string,
 }
@@ -12,22 +11,19 @@ const AbilitiesPoints = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilitiesShop - AbilitiesPoints rendered");
 
-  const { selectedUnit, text, setInterval, clearInterval } = props;
+  const { selectedUnit, text } = props;
 
   const [abilityPoints, setAbilityPoints] = useState(Entities.GetAbilityPoints(selectedUnit));
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_MEDIUM);
-
-    return () => clearInterval(id);
-
-  }, [selectedUnit, setInterval, clearInterval]);
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit]);
 
   return (
     <Panel style={Styles.Container()}>
@@ -46,4 +42,4 @@ const AbilitiesPoints = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(AbilitiesPoints));
+export default React.memo(AbilitiesPoints);

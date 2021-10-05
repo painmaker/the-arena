@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_MEDIUM } from "../../../App";
-import withReactTimeout, { ReactTimeoutProps } from "../../../hoc/ReactTimeout";
+import { SCHEDULE_THINK_MEDIUM } from "../../../App";
 import { Styles } from "./Styles";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
   shopAbility: ShopAbility,
   searchValue: string,
@@ -31,24 +30,21 @@ const AbilityImage = (props: Props) => {
 
   $.Msg("REACT-RENDER: AbilitiesShop - AbilityImage rendered");
 
-  const { selectedUnit, shopAbility, searchValue, setInterval, clearInterval } = props;
+  const { selectedUnit, shopAbility, searchValue } = props;
   const { name, aliases, requiredLevel } = shopAbility;
 
   const [isRequiredLevel, setIsRequiredLevel] = useState(Entities.GetLevel(selectedUnit) >= requiredLevel);
   const [isSearched, setIsSearched] = useState(false);
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
       setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
-
-    // update();
-    const id = setInterval(update, HUD_THINK_MEDIUM);
-
-    return () => clearInterval(id);
-
-  }, [selectedUnit, setInterval, clearInterval]);
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [selectedUnit]);
 
   useEffect(() => {
     let isSearched = false;
@@ -78,4 +74,4 @@ const AbilityImage = (props: Props) => {
 
 };
 
-export default React.memo(withReactTimeout(AbilityImage));
+export default React.memo(AbilityImage);

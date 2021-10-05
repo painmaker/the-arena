@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { HUD_THINK_FAST } from "../../../../App"
-import withReactTimeout, { ReactTimeoutProps } from "../../../../hoc/ReactTimeout"
+import { SCHEDULE_THINK_FAST } from "../../../../App"
 import { Styles } from "./Styles"
 
-type Props = ReactTimeoutProps & {
+type Props = {
   unit: EntityIndex,
   buff: BuffID,
 }
@@ -12,22 +11,19 @@ const Stacks = (props: Props) => {
 
   $.Msg("REACT-RENDER: Modifier rendered");
 
-  const { unit, buff, setInterval, clearInterval } = props;
+  const { unit, buff } = props;
 
   const [stacks, setStacks] = useState(Buffs.GetStackCount(unit, buff))
 
   useEffect(() => {
-
+    let schedule = -1 as ScheduleID;
     const update = () => {
-      setStacks(Buffs.GetStackCount(unit, buff))
+      setStacks(Buffs.GetStackCount(unit, buff));
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     }
-
-    // update();
-    const id = setInterval(update, HUD_THINK_FAST);
-
-    return () => clearInterval(id);
-
-  }, [unit, buff, setInterval, clearInterval]);
+    update();
+    return () => { try { $.CancelScheduled(schedule) } catch { $.Msg("Schedule not found: " + schedule) }; }
+  }, [unit, buff]);
 
   if (stacks === 0) {
     return null;
@@ -41,4 +37,4 @@ const Stacks = (props: Props) => {
 
 }
 
-export default React.memo(withReactTimeout(Stacks));
+export default React.memo(Stacks);
