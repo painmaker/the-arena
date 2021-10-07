@@ -62169,7 +62169,10 @@ const Loading = (props) => {
     // $.Msg("REACT-RENDER: Loading rendered");
     const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_SLOW, () => setIsLoading(false));
+        let schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_SLOW, () => {
+            setIsLoading(false);
+            schedule = -1;
+        });
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Loading.name);
     }, []);
     if (isLoading) {

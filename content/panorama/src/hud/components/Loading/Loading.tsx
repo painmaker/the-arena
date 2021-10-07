@@ -14,7 +14,10 @@ const Loading = (props: Props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => setIsLoading(false));
+    let schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => {
+      setIsLoading(false);
+      schedule = -1 as ScheduleID;
+    });
     return () => cancelSchedule(schedule, Loading.name);
   }, []);
 
