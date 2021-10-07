@@ -45,7 +45,10 @@ const AbilitiesShop = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     if (visible === false) {
-      schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => setRenderComponent(false));
+      schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => {
+        setRenderComponent(false);
+        schedule = -1 as ScheduleID;
+      });
     } else {
       setRenderComponent(true);
     }

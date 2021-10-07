@@ -24,7 +24,7 @@ import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
 import { setSelectedUnit } from "./actions/selectedUnitActions";
 import { Dispatch } from "redux";
 import { SelectedUnitActionTypes } from "./types/selectedUnitTypes";
-import FloatingBars from "./components/FloatingBars/FloatingBars";
+import FloatingContainer from "./components/FloatingContainer/FloatingContainer";
 import { cancelSchedule } from "./utils/Schedule";
 
 export const HUD_THINK_FAST = 50;
@@ -161,7 +161,7 @@ const App = (props: Props) => {
               {/* <SelectedUnit /> */}
               <Stats />
               <AbilitiesShop />
-              <FloatingBars />
+              <FloatingContainer />
             </React.Fragment>
           )}
         </Loading>

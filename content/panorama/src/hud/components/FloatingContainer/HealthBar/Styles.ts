@@ -1,10 +1,11 @@
 export const Styles = {
 
   Container: (): Partial<VCSSStyleDeclaration> => ({
-    width: "100%",
+    width: "80px",
     height: "5px",
     backgroundColor: 'black',
     borderRadius: '14px',
+    horizontalAlign: 'center',
   }),
 
   Progressbar: (): Partial<VCSSStyleDeclaration> => ({

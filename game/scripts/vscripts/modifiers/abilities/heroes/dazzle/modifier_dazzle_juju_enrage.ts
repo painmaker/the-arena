@@ -22,6 +22,9 @@ export class modifier_dazzle_juju_enrage extends BaseModifier {
     this.bonuseDamage = this.GetAbility()!.GetSpecialValueFor("bonus_damage");
     this.damage = this.GetAbility()!.GetSpecialValueFor("damage");
     this.interval = this.GetAbility()!.GetSpecialValueFor("damage_interval");
+    if (IsServer()) {
+      this.GetParent().EmitSoundParams("Hero_Dazzle.Poison_Touch", 2.2, 2.2, 0.25);
+    }
   }
 
   OnCreated(): void {

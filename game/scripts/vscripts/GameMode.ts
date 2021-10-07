@@ -79,6 +79,10 @@ export class GameMode {
     ListenToGameEvent("player_connect_full", event => this.OnPlayerConnectFull(event), undefined);
     ListenToGameEvent("dota_player_gained_level", event => this.OnLevelUp(event), undefined);
 
+    ListenToGameEvent("dota_player_used_ability", event => {
+      CustomGameEventManager.Send_ServerToAllClients("on_ability_used", { abilityname: event.abilityname, unit: event.caster_entindex });
+    }, undefined);
+
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, MAX_PLAYERS);
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, MAX_PLAYERS);
     GameRules.SetSameHeroSelectionEnabled(false);

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNetTableValues } from "react-panorama";
-import { SCHEDULE_THINK_FAST } from "../../App";
 import { objectsEqual } from "../../utils/ObjectUtils";
 import { cancelSchedule } from "../../utils/Schedule";
 import { TableUtils } from "../../utils/TableUtils";
 import HealthBar from "./HealthBar/HealthBar";
 import ManaBar from "./ManaBar/ManaBar";
+import Stunned from "./Stunned/Stunned";
+import Abilities from "./Abilities/Abilities";
 import { Styles } from "./Styles";
 
 interface IFloatingBar {
@@ -15,7 +16,7 @@ interface IFloatingBar {
   visible: boolean,
 }
 
-const FloatingBars = () => {
+const FloatingContainer = () => {
 
   // $.Msg("REACT-RENDER: FloatingBars rendered");
 
@@ -77,7 +78,7 @@ const FloatingBars = () => {
       schedule = $.Schedule(0.01, update)
     };
     update();
-    return () => cancelSchedule(schedule, FloatingBars.name);
+    return () => cancelSchedule(schedule, FloatingContainer.name);
   }, [units, floatingBars]);
 
   return (
@@ -85,11 +86,13 @@ const FloatingBars = () => {
       {floatingBars.map(floatingBar => {
         const { unit, screenX, screenY } = floatingBar;
         return (
-          <Panel key={unit} style={Styles.Container(screenX - 40, screenY, 0)}>
-            <HealthBar unit={unit} />
+          <Panel key={unit} style={Styles.Container(screenX - 125, screenY - 500, 0)}>
             {Entities.GetMaxMana(unit) > 0 && (
               <ManaBar unit={unit} />
             )}
+            <HealthBar unit={unit} />
+            {/* <Stunned unit={unit} /> */}
+            <Abilities unit={unit} />
           </Panel>
         )
       })}
@@ -98,4 +101,4 @@ const FloatingBars = () => {
 
 }
 
-export default React.memo(FloatingBars);
+export default React.memo(FloatingContainer);

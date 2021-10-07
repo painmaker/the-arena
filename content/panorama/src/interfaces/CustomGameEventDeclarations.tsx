@@ -55,4 +55,6 @@ interface CustomGameEventDeclarations {
   fetch_shop_abilities_ok: ShopAbilities,
   fetch_shop_abilities_error: { errorMsg: string },
 
+  on_ability_used: { abilityname: String, unit: EntityIndex }
+
 }
