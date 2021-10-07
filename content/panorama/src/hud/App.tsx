@@ -61,8 +61,6 @@ const App = () => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !useCustomUI);
   }, [useCustomUI]);
 
-  $.Msg(selectedUnit);
-
   return (
     <Panel id={'root'} hittest={false} className={"appContainer"} >
       {/* <Chat hasPickedHero={hasPickedHero} /> */}

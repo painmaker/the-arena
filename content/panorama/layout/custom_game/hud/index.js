@@ -55766,7 +55766,6 @@ const App = () => {
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_CUSTOMUI_BEHIND_HUD_ELEMENTS, !useCustomUI);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !useCustomUI);
     }, [useCustomUI]);
-    $.Msg(selectedUnit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: 'root', hittest: false, className: "appContainer" },
         (!hasPickedHero) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_15__.default, null)),
         hasPickedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Loading_Loading__WEBPACK_IMPORTED_MODULE_17__.default, null,
@@ -59773,15 +59772,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+let schedule = -1;
 const HealthBar = (props) => {
     // $.Msg("REACT-RENDER: HealthBar rendered");
     const { selectedUnit } = props;
+    $.Msg("Rerender with : " + selectedUnit);
     const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(selectedUnit));
     const [maxHealth, setMaxHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxHealth(selectedUnit));
     const [healthRegen, setHealthRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealthThinkRegen(selectedUnit));
+    const [schedule, setSchedule] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(-1);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let schedule = -1;
+        $.Msg("UseEffect");
         const update = () => {
+            $.Msg("update: " + selectedUnit);
             setHealth(Entities.GetHealth(selectedUnit));
             setMaxHealth(Entities.GetMaxHealth(selectedUnit));
             // Hack because panorama API method for health regen is bugged
@@ -59793,11 +59796,15 @@ const HealthBar = (props) => {
                     setHealthRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
                 }
             }
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
+            setSchedule($.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update));
         };
         update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, HealthBar.name);
-    }, [selectedUnit]);
+        return () => {
+            $.Msg("CleanUp");
+            (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, HealthBar.name, true);
+            setSchedule(-1);
+        };
+    }, [selectedUnit, schedule]);
     const isEnemy = Entities.IsEnemy(selectedUnit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: isEnemy ? 'healthProgressBarEnemy' : 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() },
@@ -64946,8 +64953,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "cancelSchedule": () => (/* binding */ cancelSchedule)
 /* harmony export */ });
-const debug = true;
-const logMinusOneSchedules = true;
+const debug = false;
+const logMinusOneSchedules = false;
 const cancelSchedule = (schedule, context, log) => {
     try {
         if (log || debug) {
@@ -64960,10 +64967,10 @@ const cancelSchedule = (schedule, context, log) => {
         }
         $.CancelScheduled(schedule);
     }
-    catch (e) {
+    catch (error) {
         if (logMinusOneSchedules || schedule !== -1) {
             $.Msg("Error: Schedule " + schedule + " not found for " + context);
-            $.Msg(e);
+            $.Msg(error);
         }
     }
     ;

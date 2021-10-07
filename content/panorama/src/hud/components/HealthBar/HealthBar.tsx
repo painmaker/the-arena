@@ -7,6 +7,7 @@ type Props = {
   selectedUnit: EntityIndex,
 };
 
+
 const HealthBar = (props: Props) => {
 
   // $.Msg("REACT-RENDER: HealthBar rendered");
@@ -34,7 +35,7 @@ const HealthBar = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => cancelSchedule(schedule, HealthBar.name);
+    return () => cancelSchedule(schedule, HealthBar.name, true);
   }, [selectedUnit]);
 
   const isEnemy = Entities.IsEnemy(selectedUnit);
