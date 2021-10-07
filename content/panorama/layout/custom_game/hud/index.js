@@ -59424,8 +59424,8 @@ const Ability = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setPosY(prevState => prevState - 1);
-            schedule = $.Schedule(0.02, update);
+            setPosY(prevState => prevState - 0.5);
+            schedule = $.Schedule(0.01, update);
         };
         update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_1__.cancelSchedule)(schedule, Ability.name);
@@ -59890,11 +59890,12 @@ const HealthBar = (props) => {
         update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, HealthBar.name);
     }, [selectedUnit]);
+    const isEnemy = Entities.IsEnemy(selectedUnit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Progressbar() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Scene(health, maxHealth), map: 'scenes/hud/healthbarburner' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: isEnemy ? 'healthProgressBarEnemy' : 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Progressbar() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'HealthBurner', className: 'SceneLoaded', style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Scene(health, maxHealth, isEnemy), map: 'scenes/hud/healthbarburner' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.HealthLabel(), text: health + " / " + maxHealth }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.RegenLabel(), text: '+ ' + healthRegen.toFixed(1) })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.RegenLabel(isEnemy), text: '+ ' + healthRegen.toFixed(1) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(HealthBar)));
 
@@ -59927,10 +59928,11 @@ const Styles = {
         borderRadius: "0px",
         horizontalAlign: "center",
     }),
-    Scene: (health, maxHealth) => ({
+    Scene: (health, maxHealth, isEnemy) => ({
         width: (health / maxHealth) * 100 + "%",
         height: '100%',
         opacity: '0.8',
+        washColor: isEnemy ? 'red' : 'none',
     }),
     HealthLabel: () => ({
         fontSize: "14px",
@@ -59943,9 +59945,9 @@ const Styles = {
         fontFamily: "monospaceNumbersFont",
         opacity: '0.8',
     }),
-    RegenLabel: () => ({
+    RegenLabel: (isEnemy) => ({
         fontSize: "14px",
-        color: "#3ED038",
+        color: isEnemy ? '#ff4433' : '#3ED038',
         marginTop: "-0.25px",
         marginRight: "3px",
         textShadow: "1px 1px 2px 2.5 #000000",

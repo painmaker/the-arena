@@ -83,6 +83,10 @@ export class GameMode {
       CustomGameEventManager.Send_ServerToAllClients("on_ability_used", { abilityname: event.abilityname, unit: event.caster_entindex });
     }, undefined);
 
+    ListenToGameEvent("dota_non_player_used_ability", event => {
+      CustomGameEventManager.Send_ServerToAllClients("on_ability_used", { abilityname: event.abilityname, unit: event.caster_entindex });
+    }, undefined);
+
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, MAX_PLAYERS);
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, MAX_PLAYERS);
     GameRules.SetSameHeroSelectionEnabled(false);

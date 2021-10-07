@@ -16,10 +16,11 @@ export const Styles = {
     horizontalAlign: "center",
   }),
 
-  Scene: (health: number, maxHealth: number): Partial<VCSSStyleDeclaration> => ({
+  Scene: (health: number, maxHealth: number, isEnemy: boolean): Partial<VCSSStyleDeclaration> => ({
     width: (health / maxHealth) * 100 + "%",
     height: '100%',
     opacity: '0.8',
+    washColor: isEnemy ? 'red' : 'none',
   }),
 
   HealthLabel: (): Partial<VCSSStyleDeclaration> => ({
@@ -34,9 +35,9 @@ export const Styles = {
     opacity: '0.8',
   }),
 
-  RegenLabel: (): Partial<VCSSStyleDeclaration> => ({
+  RegenLabel: (isEnemy: boolean): Partial<VCSSStyleDeclaration> => ({
     fontSize: "14px",
-    color: "#3ED038",
+    color: isEnemy ? '#ff4433' : '#3ED038',
     marginTop: "-0.25px",
     marginRight: "3px",
     textShadow: "1px 1px 2px 2.5 #000000",

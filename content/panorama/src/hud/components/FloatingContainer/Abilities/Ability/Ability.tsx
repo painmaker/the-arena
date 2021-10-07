@@ -17,8 +17,8 @@ const Ability = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setPosY(prevState => prevState - 1)
-      schedule = $.Schedule(0.02, update);
+      setPosY(prevState => prevState - 0.5)
+      schedule = $.Schedule(0.01, update);
     }
     update();
     return () => cancelSchedule(schedule, Ability.name)

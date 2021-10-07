@@ -46,22 +46,32 @@ const HealthBar = (props: Props) => {
     return () => cancelSchedule(schedule, HealthBar.name);
   }, [selectedUnit]);
 
+  const isEnemy = Entities.IsEnemy(selectedUnit);
+
   return (
     <Panel hittest={false} style={Styles.Container()}>
       <ProgressBar
         min={0}
         max={maxHealth}
         value={health}
-        className={'healthProgressBar'}
+        className={isEnemy ? 'healthProgressBarEnemy' : 'healthProgressBar'}
         style={Styles.Progressbar()}
       >
         <DOTAScenePanel
-          style={Styles.Scene(health, maxHealth)}
+          id={'HealthBurner'}
+          className={'SceneLoaded'}
+          style={Styles.Scene(health, maxHealth, isEnemy)}
           map={'scenes/hud/healthbarburner'}
         />
       </ProgressBar>
-      <Label style={Styles.HealthLabel()} text={health + " / " + maxHealth} />
-      <Label style={Styles.RegenLabel()} text={'+ ' + healthRegen.toFixed(1)} />
+      <Label
+        style={Styles.HealthLabel()}
+        text={health + " / " + maxHealth}
+      />
+      <Label
+        style={Styles.RegenLabel(isEnemy)}
+        text={'+ ' + healthRegen.toFixed(1)}
+      />
     </Panel>
   );
 
