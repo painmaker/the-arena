@@ -64946,8 +64946,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "cancelSchedule": () => (/* binding */ cancelSchedule)
 /* harmony export */ });
-const debug = false;
-const logMinusOneSchedules = false;
+const debug = true;
+const logMinusOneSchedules = true;
 const cancelSchedule = (schedule, context, log) => {
     try {
         if (log || debug) {
@@ -64960,9 +64960,10 @@ const cancelSchedule = (schedule, context, log) => {
         }
         $.CancelScheduled(schedule);
     }
-    catch (_a) {
+    catch (e) {
         if (logMinusOneSchedules || schedule !== -1) {
             $.Msg("Error: Schedule " + schedule + " not found for " + context);
+            $.Msg(e);
         }
     }
     ;
