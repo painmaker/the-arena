@@ -1,28 +1,11 @@
-import React, { Dispatch } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { setCameraLocked } from "../../../actions/settingsAction";
-import { RootState } from "../../../reducers/rootReducer";
-import { SettingsActionTypes } from "../../../types/settingsTypes";
+import React, { useState } from "react";
 import { Styles } from "./Styles";
 
-const mapStateToProps = (state: RootState) => ({
-  locked: state.settingsReducer.cameraLocked,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
-  setCameraLocked: (locked: boolean) => dispatch(setCameraLocked(locked)),
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  // ownProps
-};
-
-const LockCameraBtn = (props: Props) => {
+const LockCameraBtn = () => {
 
   // $.Msg("REACT-RENDER: Settings - LockCameraBtn rendered");
+
+  const [isLocked, setIsLocked] = useState(true);
 
   return (
     <Panel style={Styles.Container()}>
@@ -32,13 +15,20 @@ const LockCameraBtn = (props: Props) => {
       />
       <Panel style={Styles.ToggleBtnContainer()}>
         <ToggleButton
-          selected={props.locked}
-          onactivate={() => props.setCameraLocked(!props.locked)}
+          selected={isLocked}
+          onactivate={() => {
+            if (isLocked) {
+              GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+            } else {
+              GameUI.SetCameraTarget(-1 as EntityIndex);
+            }
+            setIsLocked(prevState => !prevState);
+          }}
         />
       </Panel>
       <Label
         style={Styles.RightLabel()}
-        text={props.locked ? "Locked" : "Unlocked"}
+        text={isLocked ? "Locked" : "Unlocked"}
       />
     </Panel>
 
