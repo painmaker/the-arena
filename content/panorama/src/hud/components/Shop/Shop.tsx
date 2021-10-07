@@ -15,7 +15,6 @@ import { cancelSchedule } from "../../utils/Schedule";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.shopReducer.visible,
-  selectedUnit: state.selectedUnitReducer.selectedUnit,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ShopActionTypes>) => ({
@@ -26,7 +25,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  // ownProps
+  selectedUnit: EntityIndex,
 };
 
 const Shop = (props: Props) => {

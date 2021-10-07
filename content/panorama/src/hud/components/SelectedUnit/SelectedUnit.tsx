@@ -1,26 +1,13 @@
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { RootState } from '../../reducers/rootReducer';
 import { Styles } from './Styles';
 
-
-const mapStateToProps = (state: RootState) => ({
-  selectedUnit: state.selectedUnitReducer.selectedUnit,
-});
-
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  // ownProps
+type Props = {
+  selectedUnit: EntityIndex,
 };
 
 const SelectedUnit = (props: Props) => {
-
   // $.Msg("REACT-RENDER: SelectedUnit rendered");
-
   const { selectedUnit } = props;
-
   return (
     <Panel style={Styles.Container()}>
       <Label
@@ -29,7 +16,6 @@ const SelectedUnit = (props: Props) => {
       />
     </Panel>
   )
-
 };
 
-export default React.memo(connector(SelectedUnit));
+export default React.memo(SelectedUnit);

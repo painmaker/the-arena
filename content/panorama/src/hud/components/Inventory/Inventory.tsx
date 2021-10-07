@@ -4,19 +4,10 @@ import ItemOptions from "./ItemOptions/ItemOptions";
 import Item from "./Item/Item";
 import { Styles } from "./Styles";
 import { SCHEDULE_THINK_FAST } from "../../App";
-import { RootState } from "../../reducers/rootReducer";
-import { connect, ConnectedProps } from "react-redux";
 import { cancelSchedule } from "../../utils/Schedule";
 
-const mapStateToProps = (state: RootState) => ({
-  selectedUnit: state.selectedUnitReducer.selectedUnit,
-});
-
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  // ownProps
+type Props = {
+  selectedUnit: EntityIndex,
 };
 
 const ITEM_SLOTS = [0, 1, 2, 3, 4, 5];
@@ -64,4 +55,4 @@ const Inventory = (props: Props) => {
 
 }
 
-export default React.memo(connector(Inventory));
+export default React.memo(Inventory);

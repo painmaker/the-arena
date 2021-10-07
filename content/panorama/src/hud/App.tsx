@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Minimap from "./components/Minimap/Minimap";
 import Settings from "./components/Settings/Settings";
 import ButtonGroup from "./components/ButtonGroup/ButtonGroup";
@@ -12,75 +12,24 @@ import Character from "./components/Character/Character";
 import Debuffs from "./components/Modifiers/Debuffs/Debuffs";
 import Buffs from "./components/Modifiers/Buffs/Buffs";
 import Inventory from "./components/Inventory/Inventory";
-import { connect, ConnectedProps } from "react-redux";
-import { RootState } from "./reducers/rootReducer";
-import { setCameraZoom, setUseCustomUI } from "./actions/settingsAction";
-import { SettingsActionTypes } from "./types/settingsTypes";
 import Shop from "./components/Shop/Shop";
 import HeroSelection from "./components/HeroSelection/HeroSelection";
 import { useNetTableValues } from "react-panorama";
 import Loading from "./components/Loading/Loading";
 import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
-import { setSelectedUnit } from "./actions/selectedUnitActions";
-import { Dispatch } from "redux";
-import { SelectedUnitActionTypes } from "./types/selectedUnitTypes";
 import FloatingContainer from "./components/FloatingContainer/FloatingContainer";
-import { cancelSchedule } from "./utils/Schedule";
+import { useSelectedUnit } from "./hooks/useSelectedUnit";
 
-export const HUD_THINK_FAST = 50;
-export const HUD_THINK_MEDIUM = 100;
-export const HUD_THINK_SLOW = 1000;
 export const SCHEDULE_THINK_FAST = 0.03;
 export const SCHEDULE_THINK_MEDIUM = 0.1;
 export const SCHEDULE_THINK_SLOW = 1.0;
 
-const mapStateToProps = (state: RootState) => ({
-  useCustomUI: state.settingsReducer.useCustomUI,
-});
+const App = () => {
 
-const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes | SelectedUnitActionTypes>) => ({
-  setUseCustomUI: (useCustomUI: boolean) => dispatch(setUseCustomUI(useCustomUI)),
-  setCameraZoom: (zoom: number) => dispatch(setCameraZoom(zoom)),
-  setSelectedUnit: (selectedUnit: EntityIndex) => dispatch(setSelectedUnit(selectedUnit)),
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  // ownProps
-};
-
-const excludedUnits = [
-  "shopkeeper_abilities"
-]
-
-const getGameUnitSelected = () => {
-
-  const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
-  if (queryUnit !== -1) {
-    return queryUnit;
-  }
-
-  const portraitUnit = Players.GetLocalPlayerPortraitUnit();
-  if (portraitUnit !== -1) {
-    return portraitUnit
-  }
-
-  return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
-
-}
-
-const App = (props: Props) => {
-
-  const { useCustomUI, setCameraZoom, setSelectedUnit, setUseCustomUI } = props;
-
+  const selectedUnit = useSelectedUnit();
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
+  const [useCustomUI, setUseCustomUI] = useState(true);
   const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
-
-  useEffect(() => {
-    setCameraZoom(1600);
-  }, [setCameraZoom]);
 
   useEffect(() => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !useCustomUI);
@@ -112,18 +61,7 @@ const App = (props: Props) => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !useCustomUI);
   }, [useCustomUI]);
 
-  useEffect(() => {
-    let schedule = -1 as ScheduleID;
-    const update = () => {
-      const unitToSelect = getGameUnitSelected();
-      if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
-        setSelectedUnit(unitToSelect)
-      }
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
-    };
-    update();
-    return () => cancelSchedule(schedule, App.name);
-  }, [setSelectedUnit]);
+  $.Msg(selectedUnit);
 
   return (
     <Panel id={'root'} hittest={false} className={"appContainer"} >
@@ -136,7 +74,7 @@ const App = (props: Props) => {
           <ToggleButton
             className={'useCustomUIBtn'}
             selected={useCustomUI}
-            onactivate={() => setUseCustomUI(!useCustomUI)}
+            onactivate={() => setUseCustomUI(prevState => !prevState)}
           >
             <Label
               className={'useCustomUILabel'}
@@ -148,19 +86,19 @@ const App = (props: Props) => {
               <Heroes />
               <GameTime />
               <Settings />
-              <Character />
-              <Shop />
-              <AbilityBar />
-              <ManaBar />
-              <HealthBar />
+              <Character selectedUnit={selectedUnit} />
+              <Shop selectedUnit={selectedUnit} />
+              <AbilityBar selectedUnit={selectedUnit} />
+              <ManaBar selectedUnit={selectedUnit} />
+              <HealthBar selectedUnit={selectedUnit} />
               <ButtonGroup />
               <Minimap />
-              <Buffs />
-              <Debuffs />
-              <Inventory />
+              <Buffs selectedUnit={selectedUnit} />
+              <Debuffs selectedUnit={selectedUnit} />
+              <Inventory selectedUnit={selectedUnit} />
               {/* <SelectedUnit /> */}
-              <Stats />
-              <AbilitiesShop />
+              <Stats selectedUnit={selectedUnit} />
+              <AbilitiesShop selectedUnit={selectedUnit} />
               <FloatingContainer />
             </React.Fragment>
           )}
@@ -171,4 +109,4 @@ const App = (props: Props) => {
 
 }
 
-export default connector(App);
+export default App;

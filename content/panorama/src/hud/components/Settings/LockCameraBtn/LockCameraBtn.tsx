@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Styles } from "./Styles";
 
-const LockCameraBtn = () => {
+type Props = {
+  isLocked: boolean,
+  setIsLocked: Dispatch<SetStateAction<boolean>>
+}
+
+const LockCameraBtn = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Settings - LockCameraBtn rendered");
 
-  const [isLocked, setIsLocked] = useState(true);
+  const { isLocked, setIsLocked } = props;
 
   return (
     <Panel style={Styles.Container()}>
@@ -16,14 +21,7 @@ const LockCameraBtn = () => {
       <Panel style={Styles.ToggleBtnContainer()}>
         <ToggleButton
           selected={isLocked}
-          onactivate={() => {
-            if (isLocked) {
-              GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
-            } else {
-              GameUI.SetCameraTarget(-1 as EntityIndex);
-            }
-            setIsLocked(prevState => !prevState);
-          }}
+          onactivate={() => setIsLocked(prevState => !prevState)}
         />
       </Panel>
       <Label
@@ -35,4 +33,4 @@ const LockCameraBtn = () => {
   );
 }
 
-export default React.memo(connector(LockCameraBtn));
+export default React.memo(LockCameraBtn);

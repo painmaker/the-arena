@@ -21,9 +21,3 @@ export function setCameraZoom(zoom: number): SettingsActionTypes {
   }
 }
 
-export function setUseCustomUI(useCustomUI: boolean): SettingsActionTypes {
-  return {
-    type: SET_USE_CUSTOM_UI,
-    payload: { useCustomUI }
-  }
-}

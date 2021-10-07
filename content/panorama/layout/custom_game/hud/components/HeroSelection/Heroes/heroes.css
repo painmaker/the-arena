@@ -1,0 +1,48 @@
+.heroSelectionHeroesOuterContainer {
+  vertical-align: bottom;
+  horizontal-align: left;
+  margin-bottom: 58px;
+  margin-left: 75px;
+  flow-children: down;
+}
+
+.heroSelectionHeroesLabel {
+  font-size: 16px;
+  color: rgb(200, 200, 200);
+  vertical-align: center;
+  horizontal-align: left;
+  text-shadow: 1px 1px 2px 2 #000000;
+  letter-spacing: 0.9px;
+  margin-bottom: -8px;
+  z-index: 10;
+  padding-left: 5px;
+} 
+
+.heroSelectionHeroesInnerContainer {
+  background-color: rgba(0, 0, 0, 0.85);
+  flow-children: right;
+  padding: 5px;
+}
+
+.heroSelectionHeroesRandomBtnContainer {
+  width: 70px;
+  height: 84px;
+  border: 2px solid black;
+  margin: 5px;
+}
+
+.heroSelectionHeroesRandomBtnImage {
+  width: 100%;
+  height: 100%;
+  background-image: url("file://panorama/images/random_dice.png");
+  background-size: contain;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  wash-color: rgba(0, 0, 0, 0.5);
+  transition: transform 0.1s ease-in-out 0.0s;
+}
+
+.heroSelectionHeroesRandomBtnImage:hover {
+  transform: scale3d(1.05, 1.05, 0);
+}

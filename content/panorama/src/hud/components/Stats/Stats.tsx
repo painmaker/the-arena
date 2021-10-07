@@ -5,18 +5,9 @@ import Damage from "./Damage/Damage";
 import MagicResistance from "./MagicResistance/MagicResistance";
 import MoveSpeed from "./MoveSpeed/MoveSpeed";
 import { Styles } from "./Styles";
-import { RootState } from "../../reducers/rootReducer";
-import { connect, ConnectedProps } from "react-redux";
 
-const mapStateToProps = (state: RootState) => ({
-  selectedUnit: state.selectedUnitReducer.selectedUnit,
-});
-
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  // ownProps
+type Props = {
+  selectedUnit: EntityIndex,
 };
 
 const Stats = (props: Props) => {
@@ -37,4 +28,4 @@ const Stats = (props: Props) => {
 
 };
 
-export default React.memo(connector(Stats));
+export default React.memo(Stats);

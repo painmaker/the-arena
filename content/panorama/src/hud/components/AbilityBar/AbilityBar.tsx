@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { connect, ConnectedProps } from "react-redux";
 import { SCHEDULE_THINK_FAST } from "../../App";
-import { RootState } from "../../reducers/rootReducer";
 import { cancelSchedule } from "../../utils/Schedule";
 import { TableUtils } from "../../utils/TableUtils";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
 import { Styles } from "./Styles";
 
-const mapStateToProps = (state: RootState) => ({
-  selectedUnit: state.selectedUnitReducer.selectedUnit,
-});
-
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  // ownProps
+type Props = {
+  selectedUnit: EntityIndex,
 };
 
 const AbilityBar = (props: Props) => {
@@ -62,4 +53,4 @@ const AbilityBar = (props: Props) => {
 
 }
 
-export default React.memo(connector(AbilityBar));
+export default React.memo(AbilityBar);

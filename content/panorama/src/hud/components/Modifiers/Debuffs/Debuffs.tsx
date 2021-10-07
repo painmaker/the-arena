@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
-import { connect, ConnectedProps } from "react-redux";
-import { RootState } from "../../../reducers/rootReducer";
 import Modifier from "../Modifier/Modifier";
 import { Styles } from "./Styles";
 
@@ -24,15 +22,8 @@ const getDebuffs = (unit: EntityIndex) => {
   return debuffs;
 }
 
-const mapStateToProps = (state: RootState) => ({
-  selectedUnit: state.selectedUnitReducer.selectedUnit,
-});
-
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  // ownProps
+type Props = {
+  selectedUnit: EntityIndex,
 };
 
 const Debuffs = (props: Props) => {
@@ -66,4 +57,4 @@ const Debuffs = (props: Props) => {
 
 };
 
-export default React.memo(connector(Debuffs));
+export default React.memo(Debuffs);

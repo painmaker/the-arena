@@ -1,0 +1,57 @@
+.heroSelectionDescriptionHealthAndManaOuterContainer {
+  width: fill-parent-flow(1);
+  margin-left: 6.25px;
+  margin-right: 12.5px;
+  margin-top: 10px;
+  flow-children: down;
+  min-width: 200px;
+}
+
+.heroSelectionDescriptionHealthAndManaTitleLabel {
+  color: rgba(160, 160, 160, 0.35);
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin-bottom: 2.5px;
+  margin-left: 7.5px;
+}
+
+.heroSelectionDescriptionHealthAndManaInnerContainer {
+  width: 100%;
+  background-color: rgba(50, 50, 50, 0.75);
+  border-radius: 5px;
+  padding: 5px;
+  flow-children: down;
+  height: 65px;
+}
+
+.heroSelectionDescriptionHealthContainer {
+  width: 100%;
+  height: fill-parent-flow(1);
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#1A3D1A), color-stop(0.2, #67A163), color-stop(0.5,#187019), to(#175D17));
+  border-radius: 5px;
+}
+
+.heroSelectionDescriptionManaContainer {
+  width: 100%;
+  height: fill-parent-flow(1);
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#6A90BA ), color-stop(0.4, #144B91), to(#2E5187));
+  border-radius: 5px;
+  margin-top: 3px;
+}
+
+.heroSelectionDescriptionHealthAndManaLabel {
+  vertical-align: center;
+  horizontal-align: center;
+  color: white;
+  font-size: 16px;
+}
+
+.heroSelectionDescriptionRegenLabel {
+  color: white;
+  font-size: 16px;
+  padding-right: 5px;
+  vertical-align: center;
+  horizontal-align: right;
+}

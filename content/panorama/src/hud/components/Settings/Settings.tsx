@@ -32,14 +32,23 @@ const Settings = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Settings rendered");
 
-  const { visible, setCameraLocked, setCameraZoom } = props;
+  const { visible } = props;
 
+  const [zoom, setZoom] = useState(1600);
+  const [isLocked, setIsLocked] = useState(true);
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
-    setCameraLocked(true);
-    setCameraZoom(1600);
-  }, [setCameraLocked, setCameraZoom]);
+    GameUI.SetCameraDistance(zoom);
+  }, [zoom]);
+
+  useEffect(() => {
+    if (isLocked) {
+      GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+    } else {
+      GameUI.SetCameraTarget(-1 as EntityIndex);
+    }
+  }, [isLocked]);
 
   useEffect(() => {
     let schedule = -1 as ScheduleID;
@@ -61,7 +70,10 @@ const Settings = (props: Props) => {
           <Title />
           <Divider />
           <Panel style={Styles.EntryContainer()}>
-            <CameraZoomSlider />
+            <CameraZoomSlider
+              zoom={zoom}
+              setZoom={setZoom}
+            />
           </Panel>
           <Divider />
           <Panel style={Styles.EntryContainer()}>
@@ -69,7 +81,10 @@ const Settings = (props: Props) => {
           </Panel>
           <Divider />
           <Panel style={Styles.EntryContainer()}>
-            <LockCameraBtn />
+            <LockCameraBtn
+              isLocked={isLocked}
+              setIsLocked={setIsLocked}
+            />
           </Panel>
           <Divider />
         </Panel>

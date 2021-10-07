@@ -1,0 +1,33 @@
+.heroSelectionDescriptionAbilitiesOuterContainer {
+  margin-left: 12.5px;
+  margin-right: 6.25px;
+  margin-top: 10px;
+  flow-children: down;
+}
+
+.heroSelectionDescriptionAbilitiesTitleLabel {
+  color: rgba(160, 160, 160, 0.35);
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin-bottom: 2.5px;
+  margin-left: 7.5px;
+}
+
+.heroSelectionDescriptionAbilitiesInnerContainer {
+  /* width: 100%; */
+  background-color: rgba(50, 50, 50, 0.75);
+  border-radius: 5px;
+  flow-children: right;
+  padding: 5px;
+}
+
+.heroSelectionDescriptionAbilitiesLabel {
+  font-style: italic;
+  margin: 12.5px;
+  font-size: 16px;
+  color: rgb(161, 163, 140);
+  font-weight: lighter;
+  text-shadow: 1px 1px 2px 2 #000000;   
+}

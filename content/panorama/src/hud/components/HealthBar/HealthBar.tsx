@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { connect, ConnectedProps } from "react-redux";
 import { SCHEDULE_THINK_FAST } from "../../App";
-import { RootState } from "../../reducers/rootReducer";
 import { cancelSchedule } from "../../utils/Schedule";
 import { Styles } from "./Styles";
 
-const mapStateToProps = (state: RootState) => ({
-  selectedUnit: state.selectedUnitReducer.selectedUnit,
-});
-
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  // ownProps
+type Props = {
+  selectedUnit: EntityIndex,
 };
 
 const HealthBar = (props: Props) => {
@@ -77,4 +68,4 @@ const HealthBar = (props: Props) => {
 
 };
 
-export default React.memo(connector(HealthBar));
+export default React.memo(HealthBar);

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useGameEvent } from "react-panorama";
-import { SCHEDULE_THINK_FAST } from "../../../App";
 import { cancelSchedule } from "../../../utils/Schedule";
 import Ability from "./Ability/Ability";
 import { Styles } from "./Styles";

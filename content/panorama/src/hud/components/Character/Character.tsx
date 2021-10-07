@@ -13,14 +13,13 @@ import { cancelSchedule } from "../../utils/Schedule";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.characterReducer.visible,
-  selectedUnit: state.selectedUnitReducer.selectedUnit,
 });
 
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  // ownProps
+  selectedUnit: EntityIndex,
 };
 
 const Character = (props: Props) => {

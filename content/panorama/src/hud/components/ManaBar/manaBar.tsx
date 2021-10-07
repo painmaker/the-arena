@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { connect, ConnectedProps } from "react-redux";
 import { SCHEDULE_THINK_FAST } from "../../App";
-import { RootState } from "../../reducers/rootReducer";
 import { cancelSchedule } from "../../utils/Schedule";
 import { Styles } from "./Styles";
 
-const mapStateToProps = (state: RootState) => ({
-  selectedUnit: state.selectedUnitReducer.selectedUnit,
-});
-
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  // ownProps
+type Props = {
+  selectedUnit: EntityIndex,
 };
 
 const ManaBar = (props: Props) => {
@@ -52,11 +43,17 @@ const ManaBar = (props: Props) => {
           map={'scenes/hud/healthbarburner'}
         />
       </ProgressBar>
-      <Label style={Styles.ManaLabel()} text={mana + " / " + maxMana} />
-      <Label style={Styles.RegenLabel()} text={'+ ' + manaRegen.toFixed(1)} />
+      <Label
+        style={Styles.ManaLabel()}
+        text={mana + " / " + maxMana}
+      />
+      <Label
+        style={Styles.RegenLabel()}
+        text={'+ ' + manaRegen.toFixed(1)}
+      />
     </Panel>
   );
 
 };
 
-export default React.memo(connector(ManaBar));
+export default React.memo(ManaBar);
