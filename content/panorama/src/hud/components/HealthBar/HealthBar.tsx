@@ -35,7 +35,7 @@ const HealthBar = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
     update();
-    return () => cancelSchedule(schedule, HealthBar.name, true);
+    return () => cancelSchedule(schedule, HealthBar.name);
   }, [selectedUnit]);
 
   const isEnemy = Entities.IsEnemy(selectedUnit);

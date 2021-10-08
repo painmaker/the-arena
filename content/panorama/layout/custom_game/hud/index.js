@@ -59772,19 +59772,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let schedule = -1;
 const HealthBar = (props) => {
     // $.Msg("REACT-RENDER: HealthBar rendered");
     const { selectedUnit } = props;
-    $.Msg("Rerender with : " + selectedUnit);
     const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(selectedUnit));
     const [maxHealth, setMaxHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxHealth(selectedUnit));
     const [healthRegen, setHealthRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealthThinkRegen(selectedUnit));
-    const [schedule, setSchedule] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(-1);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        $.Msg("UseEffect");
+        let schedule = -1;
         const update = () => {
-            $.Msg("update: " + selectedUnit);
             setHealth(Entities.GetHealth(selectedUnit));
             setMaxHealth(Entities.GetMaxHealth(selectedUnit));
             // Hack because panorama API method for health regen is bugged
@@ -59796,15 +59792,11 @@ const HealthBar = (props) => {
                     setHealthRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
                 }
             }
-            setSchedule($.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update));
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
         update();
-        return () => {
-            $.Msg("CleanUp");
-            (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, HealthBar.name, true);
-            setSchedule(-1);
-        };
-    }, [selectedUnit, schedule]);
+        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, HealthBar.name);
+    }, [selectedUnit]);
     const isEnemy = Entities.IsEnemy(selectedUnit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: isEnemy ? 'healthProgressBarEnemy' : 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() },
