@@ -23,7 +23,7 @@ const Charges = (props: Props) => {
       setShouldDisplayCharges(Items.ShouldDisplayCharges(item));
       setCharges(Items.GetCurrentCharges(item));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Charges.name);
   }, [item]);
 

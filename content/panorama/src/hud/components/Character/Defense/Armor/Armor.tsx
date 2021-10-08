@@ -23,7 +23,7 @@ const Armor = (props: Props) => {
       setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
       setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Armor.name);
   }, [selectedUnit]);
 

@@ -25,7 +25,7 @@ const CastPointOverlay = (props: Props) => {
       const degree = Math.min(0, -(360 - ((gameTimeDifference / offsetCastPoint) * 360)));
       setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, CastPointOverlay.name);
   }, [ability]);
 

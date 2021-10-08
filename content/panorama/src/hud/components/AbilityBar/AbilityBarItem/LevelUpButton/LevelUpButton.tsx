@@ -26,7 +26,7 @@ const LevelUpButton = (props: Props) => {
       const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints;
       setIsAbilityUpgradeable(isAbilityUpgradeable);
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, LevelUpButton.name);
   }, [ability, selectedUnit])
 

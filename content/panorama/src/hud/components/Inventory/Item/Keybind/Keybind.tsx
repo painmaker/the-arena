@@ -21,7 +21,7 @@ const Keybind = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setKeybind(Abilities.IsPassive(item) ? '' : Abilities.GetKeybind(item));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Keybind.name);
   }, [item]);
 

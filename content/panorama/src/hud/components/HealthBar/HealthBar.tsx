@@ -34,7 +34,7 @@ const HealthBar = (props: Props) => {
         }
       }
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, HealthBar.name);
   }, [selectedUnit]);
 

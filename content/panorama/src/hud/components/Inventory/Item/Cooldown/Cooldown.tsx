@@ -23,7 +23,7 @@ const Cooldown = (props: Props) => {
       setTotalCooldown(Abilities.GetCooldownLength(item));
       setRemainingCooldown(Abilities.GetCooldownTimeRemaining(item));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Cooldown.name);
   }, [item]);
 

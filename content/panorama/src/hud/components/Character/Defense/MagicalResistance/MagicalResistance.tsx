@@ -21,7 +21,7 @@ const MagicalResistance = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, MagicalResistance.name);
   }, [selectedUnit]);
 

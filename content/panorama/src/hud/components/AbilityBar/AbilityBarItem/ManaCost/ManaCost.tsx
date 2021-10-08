@@ -21,7 +21,7 @@ const ManaCost = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setManaCost(Abilities.GetManaCost(ability));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, ManaCost.name);
   }, [ability])
 

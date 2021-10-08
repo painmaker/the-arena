@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../App";
+import { HUD_THINK_FAST, SCHEDULE_THINK_FAST } from "../../App";
 import { cancelSchedule } from "../../utils/Schedule";
 import { Styles } from "./Styles";
+import ReactTimeout from 'react-timeout'
 
 type Props = {
   selectedUnit: EntityIndex,
@@ -18,18 +19,12 @@ const ManaBar = (props: Props) => {
   const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(selectedUnit));
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
-    const update = () => {
-      $.Msg("")
-      $.Msg("Update 1 " + Entities.GetUnitName(selectedUnit));
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
+    const id = setInterval(() => {
       setMana(Entities.GetMana(selectedUnit));
       setMaxMana(Entities.GetMaxMana(selectedUnit));
       setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
-      $.Msg("Update 2 " + Entities.GetUnitName(selectedUnit));
-    };
-    schedule = $.Schedule(0, update);
-    return () => cancelSchedule(schedule, ManaBar.name);
+    }, HUD_THINK_FAST)
+    return () => clearInterval!(id);
   }, [selectedUnit]);
 
   return (
@@ -59,4 +54,4 @@ const ManaBar = (props: Props) => {
 
 };
 
-export default React.memo(ManaBar);
+export default React.memo(ReactTimeout(ManaBar));

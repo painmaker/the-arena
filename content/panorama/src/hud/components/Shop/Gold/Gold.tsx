@@ -20,7 +20,7 @@ const Gold = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Gold.name);
   }, [selectedUnit])
 

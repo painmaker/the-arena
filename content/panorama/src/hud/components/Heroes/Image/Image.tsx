@@ -97,7 +97,7 @@ const ImageImpl = (props: Props) => {
         }
       }
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Image.name);
   }, [hero])
 

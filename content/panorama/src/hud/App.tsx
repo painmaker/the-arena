@@ -20,6 +20,9 @@ import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
 import FloatingContainer from "./components/FloatingContainer/FloatingContainer";
 import { useSelectedUnit } from "./hooks/useSelectedUnit";
 
+export const HUD_THINK_FAST = 30;
+export const HUD_THINK_MEDIUM = 100;
+export const HUD_THINK_SLOW = 1000;
 export const SCHEDULE_THINK_FAST = 0.03;
 export const SCHEDULE_THINK_MEDIUM = 0.1;
 export const SCHEDULE_THINK_SLOW = 1.0;

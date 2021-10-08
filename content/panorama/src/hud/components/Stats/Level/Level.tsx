@@ -31,7 +31,7 @@ const Level = (props: Props) => {
       }
       setLevel(Entities.GetLevel(selectedUnit));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Level.name);
   }, [selectedUnit]);
 

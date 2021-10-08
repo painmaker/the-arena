@@ -28,7 +28,7 @@ const SpellAmplification = (props: Props) => {
         }
       }
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, SpellAmplification.name);
   }, [selectedUnit]);
 

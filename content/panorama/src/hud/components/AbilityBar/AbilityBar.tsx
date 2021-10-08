@@ -29,7 +29,7 @@ const AbilityBar = (props: Props) => {
         setAbilities(newAbilities);
       }
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, AbilityBar.name);
   }, [selectedUnit, abilities])
 

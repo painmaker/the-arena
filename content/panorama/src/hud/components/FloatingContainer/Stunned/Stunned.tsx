@@ -21,7 +21,7 @@ const Stunned = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setIsStunned(Entities.IsStunned(unit));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Stunned.name);
   }, [unit]);
 

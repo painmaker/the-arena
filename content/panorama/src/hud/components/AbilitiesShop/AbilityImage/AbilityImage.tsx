@@ -43,7 +43,7 @@ const AbilityImage = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, AbilityImage.name);
   }, [selectedUnit]);
 

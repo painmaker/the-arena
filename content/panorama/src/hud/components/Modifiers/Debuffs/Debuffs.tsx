@@ -16,7 +16,6 @@ const getDebuffs = (unit: EntityIndex) => {
     if (!Buffs.IsDebuff(unit, buff)) {
       continue;
     }
-    $.Msg(Buffs.GetName(unit, buff))
     debuffs.push(buff);
   }
   return debuffs;

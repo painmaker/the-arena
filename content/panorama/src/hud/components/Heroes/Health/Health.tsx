@@ -23,7 +23,7 @@ const Health = (props: Props) => {
       setHealth(Entities.GetHealth(hero));
       setMaxHealth(Entities.GetMaxHealth(hero));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Health.name);
   }, [hero]);
 

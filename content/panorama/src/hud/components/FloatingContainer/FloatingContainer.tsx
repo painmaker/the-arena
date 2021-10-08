@@ -78,7 +78,7 @@ const FloatingContainer = () => {
         setFloatingBars(mFloatingBars);
       }
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, FloatingContainer.name);
   }, [units, floatingBars]);
 

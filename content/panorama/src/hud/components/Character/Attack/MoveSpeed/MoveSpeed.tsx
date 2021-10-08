@@ -24,7 +24,7 @@ const MoveSpeed = (props: Props) => {
       setBaseMoveSpeed(baseMoveSpeed);
       setTotalMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, baseMoveSpeed));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, MoveSpeed.name);
   }, [selectedUnit]);
 

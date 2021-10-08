@@ -27,7 +27,7 @@ const StatusResistance = (props: Props) => {
         }
       }
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, StatusResistance.name);
   }, [selectedUnit]);
 

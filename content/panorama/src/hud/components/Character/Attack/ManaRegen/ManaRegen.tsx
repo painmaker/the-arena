@@ -21,7 +21,7 @@ const ManaRegen = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update)
       setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, ManaRegen.name);
   }, [selectedUnit]);
 

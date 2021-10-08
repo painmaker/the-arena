@@ -21,7 +21,7 @@ const Autocast = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setIsAutocastEnabled(Abilities.GetAutoCastState(ability));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Autocast.name);
   }, [ability]);
 

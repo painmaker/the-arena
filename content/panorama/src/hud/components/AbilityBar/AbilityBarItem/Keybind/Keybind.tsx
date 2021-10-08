@@ -30,7 +30,7 @@ const Keybind = (props: Props) => {
         setKeybind(Abilities.GetKeybind(ability));
       }
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Keybind.name);
   }, [ability, selectedUnit]);
 

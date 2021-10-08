@@ -31,7 +31,7 @@ const Inventory = (props: Props) => {
         setItems(newItems);
       }
     }
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Inventory.name);
   }, [selectedUnit, items]);
 

@@ -22,7 +22,7 @@ const AbilitiesPoints = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, AbilitiesPoints.name);
   }, [selectedUnit]);
 

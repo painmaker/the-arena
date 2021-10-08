@@ -22,7 +22,7 @@ const MoveSpeed = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, MoveSpeed.name);
   }, [selectedUnit]);
 

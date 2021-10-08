@@ -23,7 +23,7 @@ const HealthBar = (props: Props) => {
       setHealth(Entities.GetHealth(unit));
       setMaxHealth(Entities.GetMaxHealth(unit));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, HealthBar.name);
   }, [unit]);
 

@@ -22,7 +22,7 @@ const MagicResistance = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, MagicResistance.name);
   }, [selectedUnit]);
 

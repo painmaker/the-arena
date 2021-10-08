@@ -26,7 +26,7 @@ const Damage = (props: Props) => {
       setMaxDamage(Entities.GetDamageMax(selectedUnit));
       setBonusDamage(Entities.GetDamageBonus(selectedUnit));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Damage.name);
   }, [selectedUnit]);
 

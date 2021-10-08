@@ -24,7 +24,7 @@ const GameTime = () => {
       schedule = $.Schedule(SCHEDULE_THINK_SLOW, update);
       setGameTime(Game.GetDOTATime(false, false));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, GameTime.name);
   }, []);
 

@@ -28,7 +28,7 @@ const Evasion = (props: Props) => {
         }
       }
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Evasion.name);
   }, [selectedUnit]);
 

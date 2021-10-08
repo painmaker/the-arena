@@ -29,7 +29,7 @@ const LockoutIcon = (props: Props) => {
       const showLock = cooldownRemaining !== 0 && (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
       setShowLock(showLock);
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, LockoutIcon.name);
   }, [ability, selectedUnit]);
 

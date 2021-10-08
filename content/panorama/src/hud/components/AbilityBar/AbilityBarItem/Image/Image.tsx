@@ -63,7 +63,7 @@ const Image = (props: Props) => {
       setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
       setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Image.name);
   }, [ability, selectedUnit]);
 

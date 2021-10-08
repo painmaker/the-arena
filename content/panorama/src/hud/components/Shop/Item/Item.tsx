@@ -34,7 +34,7 @@ const Item = (props: Props) => {
       setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
       setIsShopInRange(Entities.IsInRangeOfShop(selectedUnit, 0, false));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Item.name);
   }, [selectedUnit]);
 

@@ -23,7 +23,7 @@ const Mana = (props: Props) => {
       setMana(Entities.GetMana(hero));
       setMaxMana(Entities.GetMaxMana(hero));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Mana.name);
   }, [hero]);
 

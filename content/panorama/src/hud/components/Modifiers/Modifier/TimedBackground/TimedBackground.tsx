@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SCHEDULE_THINK_FAST } from "../../../../App";
 import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles } from "./Styles";
@@ -25,7 +25,7 @@ const TimedBackground = (props: Props) => {
       setRemaining(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
       setDuration(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, TimedBackground.name);
   }, [buff, selectedUnit]);
 

@@ -23,7 +23,7 @@ const AttackSpeed = (props: Props) => {
       setAttackSpeed(Entities.GetAttackSpeed(selectedUnit));
       setSecondsPerAttack(Entities.GetSecondsPerAttack(selectedUnit));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, AttackSpeed.name);
   }, [selectedUnit]);
 

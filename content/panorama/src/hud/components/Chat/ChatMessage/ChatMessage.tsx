@@ -21,7 +21,7 @@ const ChatMessage = (props: Props) => {
       const isActive = getHudElement('HudChat')?.BHasClass('Active');
       setIsChatActive(isActive !== undefined ? isActive : false);
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, ChatMessage.name);
   }, []);
 

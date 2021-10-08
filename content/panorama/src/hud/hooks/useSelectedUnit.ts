@@ -31,7 +31,7 @@ export const useSelectedUnit = () => {
         setSelectedUnit(unitToSelect)
       }
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, useSelectedUnit.name);
   }, []);
 

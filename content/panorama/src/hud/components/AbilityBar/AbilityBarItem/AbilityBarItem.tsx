@@ -84,7 +84,7 @@ const AbilityBarItem = (props: Props) => {
       setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
       setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, AbilityBarItem.name);
   }, [ability, selectedUnit])
 

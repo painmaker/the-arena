@@ -21,7 +21,7 @@ const AttackRange = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       setAttackRange(Entities.GetAttackRange(selectedUnit));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, AttackRange.name);
   }, [selectedUnit]);
 

@@ -23,7 +23,7 @@ const Skillpoints = (props: Props) => {
       setAbilityLevel(Abilities.GetLevel(ability));
       setMaxAbilityLevel(Abilities.GetMaxLevel(ability));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Skillpoints.name);
   }, [ability]);
 

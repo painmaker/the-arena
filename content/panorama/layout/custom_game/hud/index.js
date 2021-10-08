@@ -51484,6 +51484,198 @@ function warning(message) {
 
 /***/ }),
 
+/***/ "../../../node_modules/react-timeout/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js":
+/*!********************************************************************************************************************!*\
+  !*** ../../../node_modules/react-timeout/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js ***!
+  \********************************************************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Copyright 2015, Yahoo! Inc.
+ * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+ */
+var REACT_STATICS = {
+    childContextTypes: true,
+    contextTypes: true,
+    defaultProps: true,
+    displayName: true,
+    getDefaultProps: true,
+    getDerivedStateFromProps: true,
+    mixins: true,
+    propTypes: true,
+    type: true
+};
+
+var KNOWN_STATICS = {
+    name: true,
+    length: true,
+    prototype: true,
+    caller: true,
+    callee: true,
+    arguments: true,
+    arity: true
+};
+
+var defineProperty = Object.defineProperty;
+var getOwnPropertyNames = Object.getOwnPropertyNames;
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+var getPrototypeOf = Object.getPrototypeOf;
+var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
+
+function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
+    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
+
+        if (objectPrototype) {
+            var inheritedComponent = getPrototypeOf(sourceComponent);
+            if (inheritedComponent && inheritedComponent !== objectPrototype) {
+                hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
+            }
+        }
+
+        var keys = getOwnPropertyNames(sourceComponent);
+
+        if (getOwnPropertySymbols) {
+            keys = keys.concat(getOwnPropertySymbols(sourceComponent));
+        }
+
+        for (var i = 0; i < keys.length; ++i) {
+            var key = keys[i];
+            if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
+                var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+                try { // Avoid failures from read-only properties
+                    defineProperty(targetComponent, key, descriptor);
+                } catch (e) {}
+            }
+        }
+
+        return targetComponent;
+    }
+
+    return targetComponent;
+}
+
+module.exports = hoistNonReactStatics;
+
+
+/***/ }),
+
+/***/ "../../../node_modules/react-timeout/src/index.js":
+/*!********************************************************!*\
+  !*** ../../../node_modules/react-timeout/src/index.js ***!
+  \********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var React = __webpack_require__(/*! react */ "../../../node_modules/react/index.js")
+
+var objectAssign = __webpack_require__(/*! object-assign */ "../../../node_modules/object-assign/index.js")
+var hoistNonReactStatics = __webpack_require__(/*! hoist-non-react-statics */ "../../../node_modules/react-timeout/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js")
+
+var GLOBAL = typeof window === 'undefined' ? __webpack_require__.g : window
+
+var setter = function (_setter, _clearer, arrayKey, timerState) {
+  return function (callback, delta) {
+    var optionalArguments = Array.prototype.slice.call(arguments, 2)
+    var id = _setter(function () {
+      if (_clearer) {
+        _clearer.call(this, id)
+      }
+      if (typeof callback === 'function') {
+        callback.apply(this, optionalArguments)
+      }
+    }.bind(this), delta)
+
+    if (!timerState[arrayKey]) {
+      timerState[arrayKey] = [id]
+    } else {
+      timerState[arrayKey].push(id)
+    }
+    return id
+  }
+}
+
+var clearer = function (_clearer, array, timerState) {
+  return function (id) {
+    if (timerState[array]) {
+      var index = timerState[array].indexOf(id)
+      if (index !== -1) {
+        timerState[array].splice(index, 1)
+      }
+    }
+    _clearer(id)
+  }
+}
+
+var cloneArray = function (a) {
+  return (!a || typeof a.slice !== 'function') ? [] : a.slice(0)
+}
+
+function getDisplayName (WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component'
+}
+
+var _timeouts = '_ReactTimeout_timeouts'
+var _intervals = '_ReactTimeout_intervals'
+var _immediates = '_ReactTimeout_immediates'
+var _rafs = '_ReactTimeout_rafs'
+
+function withReactTimeout (WrappedComponent) {
+  var ReactTimeout = hoistNonReactStatics(React.forwardRef(function (props, ref) {
+    var timerState = {}
+
+    var clearTimeout = React.useCallback(clearer(GLOBAL.clearTimeout, _timeouts, timerState), [])
+    var setTimeout = React.useCallback(setter(GLOBAL.setTimeout, clearTimeout, _timeouts, timerState), [])
+
+    var clearInterval = React.useCallback(clearer(GLOBAL.clearInterval, _intervals, timerState), [])
+    var setInterval = React.useCallback(setter(GLOBAL.setInterval, null, _intervals, timerState), [])
+
+    var clearImmediate = React.useCallback(clearer(GLOBAL.clearImmediate, _immediates, timerState), [])
+    var setImmediate = React.useCallback(setter(GLOBAL.setImmediate, clearImmediate, _immediates, timerState), [])
+
+    var cancelAnimationFrame = React.useCallback(clearer(GLOBAL.cancelAnimationFrame, _rafs, timerState), [])
+    var requestAnimationFrame = React.useCallback(setter(GLOBAL.requestAnimationFrame, cancelAnimationFrame, _rafs, timerState), [])
+
+    React.useEffect(function () {
+      return function cleanUp () {
+        cloneArray(timerState[_timeouts]).forEach(clearTimeout)
+        cloneArray(timerState[_intervals]).forEach(clearInterval)
+        cloneArray(timerState[_immediates]).forEach(clearImmediate)
+        cloneArray(timerState[_rafs]).forEach(cancelAnimationFrame)
+      }
+    }, [])
+    var newProps = objectAssign(
+      {},
+      props,
+      {
+        ref: ref,
+
+        setTimeout: setTimeout,
+        clearTimeout: clearTimeout,
+
+        setInterval: setInterval,
+        clearInterval: clearInterval,
+
+        setImmediate: setImmediate,
+        clearImmediate: clearImmediate,
+
+        requestAnimationFrame: requestAnimationFrame,
+        cancelAnimationFrame: cancelAnimationFrame
+      }
+    )
+    return React.createElement(WrappedComponent, newProps)
+  }), WrappedComponent)
+  ReactTimeout.displayName = 'ReactTimeout(' + getDisplayName(WrappedComponent) + ')'
+  return ReactTimeout
+}
+
+module.exports = withReactTimeout
+
+
+/***/ }),
+
 /***/ "../../../node_modules/react/cjs/react.development.js":
 /*!************************************************************!*\
   !*** ../../../node_modules/react/cjs/react.development.js ***!
@@ -55681,6 +55873,9 @@ if (false) {} else {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "HUD_THINK_FAST": () => (/* binding */ HUD_THINK_FAST),
+/* harmony export */   "HUD_THINK_MEDIUM": () => (/* binding */ HUD_THINK_MEDIUM),
+/* harmony export */   "HUD_THINK_SLOW": () => (/* binding */ HUD_THINK_SLOW),
 /* harmony export */   "SCHEDULE_THINK_FAST": () => (/* binding */ SCHEDULE_THINK_FAST),
 /* harmony export */   "SCHEDULE_THINK_MEDIUM": () => (/* binding */ SCHEDULE_THINK_MEDIUM),
 /* harmony export */   "SCHEDULE_THINK_SLOW": () => (/* binding */ SCHEDULE_THINK_SLOW),
@@ -55728,6 +55923,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const HUD_THINK_FAST = 30;
+const HUD_THINK_MEDIUM = 100;
+const HUD_THINK_SLOW = 1000;
 const SCHEDULE_THINK_FAST = 0.03;
 const SCHEDULE_THINK_MEDIUM = 0.1;
 const SCHEDULE_THINK_SLOW = 1.0;
@@ -56032,7 +56230,7 @@ const AbilitiesPoints = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
             setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AbilitiesPoints.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -56258,7 +56456,7 @@ const AbilityImage = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
             setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AbilityImage.name);
     }, [selectedUnit]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -56722,6 +56920,7 @@ const AbilityBar = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
                 .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
                 .filter(index => index !== -1)
@@ -56729,9 +56928,8 @@ const AbilityBar = (props) => {
             if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_3__.TableUtils.isEqual(newAbilities, abilities)) {
                 setAbilities(newAbilities);
             }
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AbilityBar.name);
     }, [selectedUnit, abilities]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -56842,7 +57040,7 @@ const AbilityBarItem = (props) => {
             setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
             setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_12__.cancelSchedule)(schedule, AbilityBarItem.name);
     }, [ability, selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Container(), id: 'ability_' + ability },
@@ -56892,7 +57090,7 @@ const Autocast = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setIsAutocastEnabled(Abilities.GetAutoCastState(ability));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Autocast.name);
     }, [ability]);
     if (!isAutocastEnabled) {
@@ -56967,7 +57165,7 @@ const CastPointOverlay = (props) => {
             const degree = Math.min(0, -(360 - ((gameTimeDifference / offsetCastPoint) * 360)));
             setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, CastPointOverlay.name);
     }, [ability]);
     if (degree === 0) {
@@ -57043,7 +57241,7 @@ const Cooldown = (props) => {
             }
             setCooldownTimeRemaining(cooldownTimeRemaining);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Cooldown.name);
     }, [ability]);
     if (cooldownTimeRemaining === 0) {
@@ -57160,7 +57358,7 @@ const Image = (props) => {
             setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
             setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Image.name);
     }, [ability, selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -57235,7 +57433,7 @@ const Keybind = (props) => {
                 setKeybind(Abilities.GetKeybind(ability));
             }
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Keybind.name);
     }, [ability, selectedUnit]);
     if (!keybind) {
@@ -57311,7 +57509,7 @@ const LevelUpButton = (props) => {
             const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints;
             setIsAbilityUpgradeable(isAbilityUpgradeable);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, LevelUpButton.name);
     }, [ability, selectedUnit]);
     if (!isAbilityUpgradeable) {
@@ -57411,7 +57609,7 @@ const LockoutIcon = (props) => {
             const showLock = cooldownRemaining !== 0 && (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
             setShowLock(showLock);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, LockoutIcon.name);
     }, [ability, selectedUnit]);
     if (!showLock) {
@@ -57488,7 +57686,7 @@ const ManaCost = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setManaCost(Abilities.GetManaCost(ability));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaCost.name);
     }, [ability]);
     if (manaCost === 0) {
@@ -57565,7 +57763,7 @@ const Skillpoints = (props) => {
             setAbilityLevel(Abilities.GetLevel(ability));
             setMaxAbilityLevel(Abilities.GetMaxLevel(ability));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Skillpoints.name);
     }, [ability]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, Array.from({ length: maxAbilityLevel }, (_, index) => index + 1).map(index => {
@@ -58010,10 +58208,10 @@ const AttackRange = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setAttackRange(Entities.GetAttackRange(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
+            setAttackRange(Entities.GetAttackRange(selectedUnit));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AttackRange.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58054,11 +58252,11 @@ const AttackSpeed = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
             setAttackSpeed(Entities.GetAttackSpeed(selectedUnit));
             setSecondsPerAttack(Entities.GetSecondsPerAttack(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AttackSpeed.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58100,12 +58298,12 @@ const Damage = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
             setMinDamage(Entities.GetDamageMin(selectedUnit));
             setMaxDamage(Entities.GetDamageMax(selectedUnit));
             setBonusDamage(Entities.GetDamageBonus(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Damage.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58146,10 +58344,10 @@ const ManaRegen = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
+            setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaRegen.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58190,12 +58388,12 @@ const MoveSpeed = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
             const baseMoveSpeed = Entities.GetBaseMoveSpeed(selectedUnit);
             setBaseMoveSpeed(baseMoveSpeed);
             setTotalMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, baseMoveSpeed));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, MoveSpeed.name);
     }, [selectedUnit]);
     const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
@@ -58237,6 +58435,7 @@ const SpellAmplification = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
             const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
             for (let i = 0; i < numberOfBuffs; i++) {
                 const buff = Entities.GetBuff(selectedUnit, i);
@@ -58245,9 +58444,8 @@ const SpellAmplification = (props) => {
                     setSpellAmp(Buffs.GetStackCount(selectedUnit, buff) / 100);
                 }
             }
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, SpellAmplification.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58507,11 +58705,11 @@ const Armor = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
             setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
             setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Armor.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58600,6 +58798,7 @@ const Evasion = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
             const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
             for (let i = 0; i < numberOfBuffs; i++) {
                 const buff = Entities.GetBuff(selectedUnit, i);
@@ -58608,9 +58807,8 @@ const Evasion = (props) => {
                     setEvasion(Buffs.GetStackCount(selectedUnit, buff));
                 }
             }
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Evasion.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58651,6 +58849,7 @@ const HealthRegen = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
             // Hack because panorama API method for health regen is bugged
             const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
             for (let i = 0; i < numberOfBuffs; i++) {
@@ -58663,9 +58862,8 @@ const HealthRegen = (props) => {
                     setBaseRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
                 }
             }
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, HealthRegen.name);
     }, [selectedUnit]);
     const increasedRegen = regen - baseRegen;
@@ -58707,10 +58905,10 @@ const MagicalResistance = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
+            setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, MagicalResistance.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58750,10 +58948,10 @@ const PyshicalResistance = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
+            setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, PyshicalResistance.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58793,6 +58991,7 @@ const StatusResistance = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
             const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
             for (let i = 0; i < numberOfBuffs; i++) {
                 const buff = Entities.GetBuff(selectedUnit, i);
@@ -58801,9 +59000,8 @@ const StatusResistance = (props) => {
                     setResistance(Buffs.GetStackCount(selectedUnit, buff));
                 }
             }
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, StatusResistance.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58954,6 +59152,7 @@ const Level = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
             if (Entities.IsHero(selectedUnit)) {
                 const currentXp = Entities.GetCurrentXP(selectedUnit);
                 const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
@@ -58964,9 +59163,8 @@ const Level = (props) => {
                 setDegree(360);
             }
             setLevel(Entities.GetLevel(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Level.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -59301,7 +59499,7 @@ const Abilities = (props) => {
         const update = () => {
             setAbilities(prevState => prevState.filter(ability => ability.id !== id));
         };
-        let schedule = $.Schedule(1, update);
+        const schedule = $.Schedule(1, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Abilities.name);
     }, [unit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() }, abilities.map((ability) => {
@@ -59337,10 +59535,10 @@ const Ability = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setPosY(prevState => prevState - 0.5);
             schedule = $.Schedule(0.01, update);
+            setPosY(prevState => prevState - 0.5);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_1__.cancelSchedule)(schedule, Ability.name);
     }, []);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -59459,6 +59657,7 @@ const FloatingContainer = () => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(0.01, update);
             const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
             const scale = 1080 / Game.GetScreenHeight();
             const mFloatingBars = Entities.GetAllEntities()
@@ -59487,9 +59686,8 @@ const FloatingContainer = () => {
             if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_4__.TableUtils.isEqual(mFloatingBars, floatingBars, _utils_ObjectUtils__WEBPACK_IMPORTED_MODULE_2__.objectsEqual)) {
                 setFloatingBars(mFloatingBars);
             }
-            schedule = $.Schedule(0.01, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, FloatingContainer.name);
     }, [units, floatingBars]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, floatingBars.map(floatingBar => {
@@ -59532,11 +59730,11 @@ const HealthBar = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setHealth(Entities.GetHealth(unit));
             setMaxHealth(Entities.GetMaxHealth(unit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, HealthBar.name);
     }, [unit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -59603,11 +59801,11 @@ const ManaBar = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setMana(Entities.GetMana(unit));
             setMaxMana(Entities.GetMaxMana(unit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaBar.name);
     }, [unit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(maxMana > 0) },
@@ -59708,10 +59906,10 @@ const GameTime = () => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setGameTime(Game.GetDOTATime(false, false));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_SLOW, update);
+            setGameTime(Game.GetDOTATime(false, false));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, GameTime.name);
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() },
@@ -59794,7 +59992,7 @@ const HealthBar = (props) => {
                 }
             }
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, HealthBar.name);
     }, [selectedUnit]);
     const isEnemy = Entities.IsEnemy(selectedUnit);
@@ -60783,11 +60981,11 @@ const Health = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setHealth(Entities.GetHealth(hero));
             setMaxHealth(Entities.GetMaxHealth(hero));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Health.name);
     }, [hero]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -60956,6 +61154,7 @@ const ImageImpl = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_FAST, update);
             const playerInfo = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(hero));
             if (playerInfo) {
                 const isDisconnected = playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED ||
@@ -60966,9 +61165,8 @@ const ImageImpl = (props) => {
                     setWashColor("grey");
                 }
             }
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_FAST, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, Image.name);
     }, [hero]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container(isHovering) },
@@ -61045,11 +61243,11 @@ const Mana = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setMana(Entities.GetMana(hero));
             setMaxMana(Entities.GetMaxMana(hero));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Mana.name);
     }, [hero]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -61218,7 +61416,7 @@ const Inventory = (props) => {
                 setItems(newItems);
             }
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_6__.cancelSchedule)(schedule, Inventory.name);
     }, [selectedUnit, items]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
@@ -61461,7 +61659,7 @@ const Charges = (props) => {
             setShouldDisplayCharges(Items.ShouldDisplayCharges(item));
             setCharges(Items.GetCurrentCharges(item));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Charges.name);
     }, [item]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, shouldDisplayCharges && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(), text: charges }))));
@@ -61529,7 +61727,7 @@ const Cooldown = (props) => {
             setTotalCooldown(Abilities.GetCooldownLength(item));
             setRemainingCooldown(Abilities.GetCooldownTimeRemaining(item));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Cooldown.name);
     }, [item]);
     let degree = Math.min(0, -(remainingCooldown / totalCooldown) * 360);
@@ -61618,7 +61816,7 @@ const Image = (props) => {
             const isHexed = Entities.IsHexed(selectedUnit);
             setShowLock(isMuted || isStunned || isCommandRestricted || isNightmared || isHexed);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Image.name);
     }, [selectedUnit, item]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
@@ -61889,7 +62087,7 @@ const Keybind = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setKeybind(Abilities.IsPassive(item) ? '' : Abilities.GetKeybind(item));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Keybind.name);
     }, [item]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: keybind }));
@@ -61955,7 +62153,7 @@ const ManaCost = (props) => {
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setManaCost(Abilities.GetManaCost(item));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaCost.name);
     }, [item]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: manaCost > 0 ? manaCost.toFixed(0) : '' }));
@@ -62129,8 +62327,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/Schedule */ "./hud/utils/Schedule.ts");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/ManaBar/Styles.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/ManaBar/Styles.tsx");
+/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
+/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
@@ -62142,26 +62341,21 @@ const ManaBar = (props) => {
     const [maxMana, setMaxMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxMana(selectedUnit));
     const [manaRegen, setManaRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetManaThinkRegen(selectedUnit));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let schedule = -1;
-        const update = () => {
-            $.Msg("");
-            $.Msg("Update 1 " + Entities.GetUnitName(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
+        const id = setInterval(() => {
+            $.Msg("Update: " + Entities.GetUnitName(selectedUnit));
             setMana(Entities.GetMana(selectedUnit));
             setMaxMana(Entities.GetMaxMana(selectedUnit));
             setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
-            $.Msg("Update 2 " + Entities.GetUnitName(selectedUnit));
-        };
-        schedule = $.Schedule(0, update);
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaBar.name);
+        }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
+        return () => clearInterval(id);
     }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(maxMana > 0) },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Scene(mana, maxMana), map: 'scenes/hud/healthbarburner' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ManaLabel(), text: mana + " / " + maxMana }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RegenLabel(), text: '+ ' + manaRegen.toFixed(1) })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(maxMana > 0) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Scene(mana, maxMana), map: 'scenes/hud/healthbarburner' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ManaLabel(), text: mana + " / " + maxMana }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RegenLabel(), text: '+ ' + manaRegen.toFixed(1) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ManaBar));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(ManaBar)));
 
 
 /***/ }),
@@ -62426,7 +62620,6 @@ const getDebuffs = (unit) => {
         if (!Buffs.IsDebuff(unit, buff)) {
             continue;
         }
-        $.Msg(Buffs.GetName(unit, buff));
         debuffs.push(buff);
     }
     return debuffs;
@@ -62517,8 +62710,6 @@ const Modifier = (props) => {
     const isAura = _data_auras__WEBPACK_IMPORTED_MODULE_1__.aura_modifiers.includes(Buffs.GetName(selectedUnit, buff));
     const isEnemy = Entities.IsEnemy(selectedUnit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: panelId, hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isMounted, isHovering), onactivate: () => {
-            $.Msg("Modifier clicked: " + Buffs.GetName(selectedUnit, buff));
-            $.Msg(Buffs.IsHidden(selectedUnit, buff));
             Players.BuffClicked(selectedUnit, buff, GameUI.IsAltDown());
         }, onmouseout: () => {
             const thisPanel = $("#" + panelId);
@@ -62571,10 +62762,10 @@ const Stacks = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setStacks(Buffs.GetStackCount(unit, buff));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
+            setStacks(Buffs.GetStackCount(unit, buff));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Stacks.name);
     }, [unit, buff]);
     if (stacks === 0) {
@@ -62733,7 +62924,7 @@ const TimedBackground = (props) => {
             setRemaining(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
             setDuration(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, TimedBackground.name);
     }, [buff, selectedUnit]);
     let degree = Math.max(0, (remaining / duration) * 360);
@@ -63383,10 +63574,10 @@ const Gold = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
+            setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Gold.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopGoldContainer' },
@@ -63431,11 +63622,11 @@ const Item = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_FAST, update);
             setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
             setIsShopInRange(Entities.IsInRangeOfShop(selectedUnit, 0, false));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_FAST, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_4__.cancelSchedule)(schedule, Item.name);
     }, [selectedUnit]);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("attempt_item_purchase_success", () => {
@@ -63693,11 +63884,11 @@ const Armor = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
             setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
             setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_4__.cancelSchedule)(schedule, Armor.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
@@ -63760,12 +63951,12 @@ const Damage = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
             setMinDamage(Entities.GetDamageMin(selectedUnit));
             setMaxDamage(Entities.GetDamageMax(selectedUnit));
             setBonusDamage(Entities.GetDamageBonus(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_4__.cancelSchedule)(schedule, Damage.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
@@ -63827,6 +64018,7 @@ const Level = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
             if (Entities.IsHero(selectedUnit)) {
                 const currentXp = Entities.GetCurrentXP(selectedUnit);
                 const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
@@ -63837,9 +64029,8 @@ const Level = (props) => {
                 setPercentage(100);
             }
             setLevel(Entities.GetLevel(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Level.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
@@ -63921,10 +64112,10 @@ const MagicResistance = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
+            setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_4__.cancelSchedule)(schedule, MagicResistance.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
@@ -63984,10 +64175,10 @@ const MoveSpeed = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
+            setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_4__.cancelSchedule)(schedule, MoveSpeed.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
@@ -64236,13 +64427,13 @@ const useSelectedUnit = () => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             const unitToSelect = getGameUnitSelected();
             if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
                 setSelectedUnit(unitToSelect);
             }
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        schedule = $.Schedule(0, update);
+        update();
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, useSelectedUnit.name);
     }, []);
     return selectedUnit;
@@ -65073,6 +65264,18 @@ const formatTime = (time) => time < 10 ? '0' + time : time;
 /******/ 				}
 /******/ 			}
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

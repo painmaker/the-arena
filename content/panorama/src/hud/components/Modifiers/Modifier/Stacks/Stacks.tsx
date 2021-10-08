@@ -22,7 +22,7 @@ const Stacks = (props: Props) => {
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setStacks(Buffs.GetStackCount(unit, buff));
     }
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, Stacks.name);
   }, [unit, buff]);
 

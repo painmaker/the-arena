@@ -23,7 +23,7 @@ const ManaBar = (props: Props) => {
       setMana(Entities.GetMana(unit));
       setMaxMana(Entities.GetMaxMana(unit));
     };
-    schedule = $.Schedule(0, update);
+    update();
     return () => cancelSchedule(schedule, ManaBar.name);
   }, [unit]);
 
