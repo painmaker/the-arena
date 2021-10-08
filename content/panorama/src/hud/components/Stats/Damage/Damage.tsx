@@ -21,12 +21,12 @@ const Damage = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       setMinDamage(Entities.GetDamageMin(selectedUnit));
       setMaxDamage(Entities.GetDamageMax(selectedUnit));
       setBonusDamage(Entities.GetDamageBonus(selectedUnit));
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Damage.name);
   }, [selectedUnit]);
 

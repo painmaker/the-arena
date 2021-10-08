@@ -19,10 +19,10 @@ const MoveSpeed = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
+      setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, MoveSpeed.name);
   }, [selectedUnit]);
 

@@ -19,6 +19,7 @@ const LockoutIcon = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const isStunned = Entities.IsStunned(selectedUnit);
       const isSilenced = Entities.IsSilenced(selectedUnit);
       const isCommandRestricted = Entities.IsCommandRestricted(selectedUnit);
@@ -27,9 +28,8 @@ const LockoutIcon = (props: Props) => {
       const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
       const showLock = cooldownRemaining !== 0 && (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
       setShowLock(showLock);
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, LockoutIcon.name);
   }, [ability, selectedUnit]);
 

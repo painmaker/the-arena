@@ -85,6 +85,7 @@ const ImageImpl = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const playerInfo = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(hero));
       if (playerInfo) {
         const isDisconnected = playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED ||
@@ -95,9 +96,8 @@ const ImageImpl = (props: Props) => {
           setWashColor("grey");
         }
       }
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Image.name);
   }, [hero])
 

@@ -30,11 +30,11 @@ const Item = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
       setIsShopInRange(Entities.IsInRangeOfShop(selectedUnit, 0, false));
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Item.name);
   }, [selectedUnit]);
 

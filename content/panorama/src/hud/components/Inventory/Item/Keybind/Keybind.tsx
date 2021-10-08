@@ -18,10 +18,10 @@ const Keybind = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setKeybind(Abilities.IsPassive(item) ? '' : Abilities.GetKeybind(item));
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
+      setKeybind(Abilities.IsPassive(item) ? '' : Abilities.GetKeybind(item));
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Keybind.name);
   }, [item]);
 

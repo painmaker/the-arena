@@ -20,12 +20,12 @@ const CastPointOverlay = (props: Props) => {
     const offsetCastPoint = Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1);
     const endtime = Game.GetGameTime() + offsetCastPoint;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const gameTimeDifference = endtime - Game.GetGameTime();
       const degree = Math.min(0, -(360 - ((gameTimeDifference / offsetCastPoint) * 360)));
       setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, CastPointOverlay.name);
   }, [ability]);
 

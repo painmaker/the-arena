@@ -18,10 +18,10 @@ const Stunned = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setIsStunned(Entities.IsStunned(unit));
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
+      setIsStunned(Entities.IsStunned(unit));
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Stunned.name);
   }, [unit]);
 

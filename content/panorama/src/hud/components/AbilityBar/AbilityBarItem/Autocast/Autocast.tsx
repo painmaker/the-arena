@@ -18,10 +18,10 @@ const Autocast = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setIsAutocastEnabled(Abilities.GetAutoCastState(ability));
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
+      setIsAutocastEnabled(Abilities.GetAutoCastState(ability));
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Autocast.name);
   }, [ability]);
 

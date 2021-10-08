@@ -18,6 +18,7 @@ const Evasion = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
       for (let i = 0; i < numberOfBuffs; i++) {
         const buff = Entities.GetBuff(selectedUnit, i);
@@ -26,9 +27,8 @@ const Evasion = (props: Props) => {
           setEvasion(Buffs.GetStackCount(selectedUnit, buff));
         }
       }
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Evasion.name);
   }, [selectedUnit]);
 

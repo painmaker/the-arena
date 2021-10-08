@@ -17,11 +17,11 @@ const ChatMessage = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update)
       const isActive = getHudElement('HudChat')?.BHasClass('Active');
       setIsChatActive(isActive !== undefined ? isActive : false);
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update)
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, ChatMessage.name);
   }, []);
 

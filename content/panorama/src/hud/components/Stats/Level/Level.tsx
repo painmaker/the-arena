@@ -20,6 +20,7 @@ const Level = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       if (Entities.IsHero(selectedUnit)) {
         const currentXp = Entities.GetCurrentXP(selectedUnit);
         const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
@@ -29,9 +30,8 @@ const Level = (props: Props) => {
         setPercentage(100);
       }
       setLevel(Entities.GetLevel(selectedUnit));
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Level.name);
   }, [selectedUnit]);
 

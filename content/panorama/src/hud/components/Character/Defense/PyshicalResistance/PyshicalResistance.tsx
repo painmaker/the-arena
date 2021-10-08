@@ -18,10 +18,10 @@ const PyshicalResistance = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
+      setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, PyshicalResistance.name);
   }, [selectedUnit]);
 

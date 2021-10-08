@@ -24,14 +24,14 @@ const Inventory = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setHasInventory(Entities.IsInventoryEnabled(selectedUnit));
       const newItems = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(selectedUnit, slot));
       if (!TableUtils.isEqual(items, newItems)) {
         setItems(newItems);
       }
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     }
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Inventory.name);
   }, [selectedUnit, items]);
 

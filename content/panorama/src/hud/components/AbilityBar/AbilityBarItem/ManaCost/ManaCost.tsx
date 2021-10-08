@@ -18,10 +18,10 @@ const ManaCost = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setManaCost(Abilities.GetManaCost(ability));
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
+      setManaCost(Abilities.GetManaCost(ability));
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, ManaCost.name);
   }, [ability])
 

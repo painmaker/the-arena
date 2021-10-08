@@ -19,11 +19,11 @@ const AttackSpeed = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       setAttackSpeed(Entities.GetAttackSpeed(selectedUnit));
       setSecondsPerAttack(Entities.GetSecondsPerAttack(selectedUnit));
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, AttackSpeed.name);
   }, [selectedUnit]);
 

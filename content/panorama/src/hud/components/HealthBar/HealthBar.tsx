@@ -21,6 +21,7 @@ const HealthBar = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setHealth(Entities.GetHealth(selectedUnit));
       setMaxHealth(Entities.GetMaxHealth(selectedUnit));
       // Hack because panorama API method for health regen is bugged
@@ -32,9 +33,8 @@ const HealthBar = (props: Props) => {
           setHealthRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
         }
       }
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, HealthBar.name);
   }, [selectedUnit]);
 

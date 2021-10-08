@@ -19,10 +19,10 @@ const AbilitiesPoints = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
+      setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, AbilitiesPoints.name);
   }, [selectedUnit]);
 

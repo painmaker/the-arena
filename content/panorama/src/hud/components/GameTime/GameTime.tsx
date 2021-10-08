@@ -21,10 +21,10 @@ const GameTime = () => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setGameTime(Game.GetDOTATime(false, false));
       schedule = $.Schedule(SCHEDULE_THINK_SLOW, update);
+      setGameTime(Game.GetDOTATime(false, false));
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, GameTime.name);
   }, []);
 

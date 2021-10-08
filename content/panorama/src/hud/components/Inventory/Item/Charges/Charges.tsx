@@ -19,11 +19,11 @@ const Charges = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setShouldDisplayCharges(Items.ShouldDisplayCharges(item));
       setCharges(Items.GetCurrentCharges(item));
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Charges.name);
   }, [item]);
 

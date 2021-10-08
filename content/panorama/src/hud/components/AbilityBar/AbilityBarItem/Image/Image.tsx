@@ -50,6 +50,7 @@ const Image = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const level = Abilities.GetLevel(ability);
       const unitMana = Entities.GetMana(selectedUnit);
       const manaCost = Abilities.GetManaCost(ability);
@@ -61,9 +62,8 @@ const Image = (props: Props) => {
       const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
       setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
       setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Image.name);
   }, [ability, selectedUnit]);
 

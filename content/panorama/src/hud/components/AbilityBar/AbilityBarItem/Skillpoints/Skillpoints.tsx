@@ -19,11 +19,11 @@ const Skillpoints = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setAbilityLevel(Abilities.GetLevel(ability));
       setMaxAbilityLevel(Abilities.GetMaxLevel(ability));
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Skillpoints.name);
   }, [ability]);
 

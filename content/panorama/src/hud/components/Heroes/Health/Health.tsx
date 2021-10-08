@@ -19,11 +19,11 @@ const Health = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setHealth(Entities.GetHealth(hero));
       setMaxHealth(Entities.GetMaxHealth(hero));
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Health.name);
   }, [hero]);
 

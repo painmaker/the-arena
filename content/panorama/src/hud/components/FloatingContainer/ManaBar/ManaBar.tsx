@@ -19,11 +19,11 @@ const ManaBar = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setMana(Entities.GetMana(unit));
       setMaxMana(Entities.GetMaxMana(unit));
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, ManaBar.name);
   }, [unit]);
 

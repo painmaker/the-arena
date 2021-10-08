@@ -35,7 +35,7 @@ const Abilities = (props: Props) => {
       setAbilities(prevState => prevState.filter(ability => ability.id !== id));
     }
 
-    let schedule = $.Schedule(1, update);
+    const schedule = $.Schedule(1, update);
 
     return () => cancelSchedule(schedule, Abilities.name)
 

@@ -40,10 +40,10 @@ const AbilityImage = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
+      setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, AbilityImage.name);
   }, [selectedUnit]);
 

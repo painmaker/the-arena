@@ -17,10 +17,10 @@ const Gold = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
+      setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Gold.name);
   }, [selectedUnit])
 

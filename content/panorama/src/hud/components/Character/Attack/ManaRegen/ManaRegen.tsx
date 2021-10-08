@@ -18,10 +18,10 @@ const ManaRegen = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update)
+      setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, ManaRegen.name);
   }, [selectedUnit]);
 

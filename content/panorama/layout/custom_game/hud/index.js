@@ -56029,10 +56029,10 @@ const AbilitiesPoints = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
+            setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AbilitiesPoints.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -56255,10 +56255,10 @@ const AbilityImage = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
+            setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AbilityImage.name);
     }, [selectedUnit]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -56731,7 +56731,7 @@ const AbilityBar = (props) => {
             }
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AbilityBar.name);
     }, [selectedUnit, abilities]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -56830,6 +56830,7 @@ const AbilityBarItem = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_11__.SCHEDULE_THINK_FAST, update);
             const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
             const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
             const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
@@ -56840,9 +56841,8 @@ const AbilityBarItem = (props) => {
             setIsToggled(Abilities.GetToggleState(ability));
             setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
             setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_11__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_12__.cancelSchedule)(schedule, AbilityBarItem.name);
     }, [ability, selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Container(), id: 'ability_' + ability },
@@ -56889,10 +56889,10 @@ const Autocast = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setIsAutocastEnabled(Abilities.GetAutoCastState(ability));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
+            setIsAutocastEnabled(Abilities.GetAutoCastState(ability));
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Autocast.name);
     }, [ability]);
     if (!isAutocastEnabled) {
@@ -56962,12 +56962,12 @@ const CastPointOverlay = (props) => {
         const offsetCastPoint = Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1);
         const endtime = Game.GetGameTime() + offsetCastPoint;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             const gameTimeDifference = endtime - Game.GetGameTime();
             const degree = Math.min(0, -(360 - ((gameTimeDifference / offsetCastPoint) * 360)));
             setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, CastPointOverlay.name);
     }, [ability]);
     if (degree === 0) {
@@ -57031,6 +57031,7 @@ const Cooldown = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             const totalCooldown = Abilities.GetCooldown(ability);
             const cooldownTimeRemaining = Abilities.GetCooldownTimeRemaining(ability);
             const degree = Math.min(0, -(cooldownTimeRemaining / totalCooldown) * 360);
@@ -57041,9 +57042,8 @@ const Cooldown = (props) => {
                 setDegree(degree);
             }
             setCooldownTimeRemaining(cooldownTimeRemaining);
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Cooldown.name);
     }, [ability]);
     if (cooldownTimeRemaining === 0) {
@@ -57147,6 +57147,7 @@ const Image = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             const level = Abilities.GetLevel(ability);
             const unitMana = Entities.GetMana(selectedUnit);
             const manaCost = Abilities.GetManaCost(ability);
@@ -57158,9 +57159,8 @@ const Image = (props) => {
             const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
             setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
             setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Image.name);
     }, [ability, selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -57224,6 +57224,7 @@ const Keybind = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
             const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
             const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
@@ -57233,9 +57234,8 @@ const Keybind = (props) => {
             if (isControllable && !isPassive && !isTrainable) {
                 setKeybind(Abilities.GetKeybind(ability));
             }
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Keybind.name);
     }, [ability, selectedUnit]);
     if (!keybind) {
@@ -57304,14 +57304,14 @@ const LevelUpButton = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
             const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
             const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
             const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints;
             setIsAbilityUpgradeable(isAbilityUpgradeable);
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, LevelUpButton.name);
     }, [ability, selectedUnit]);
     if (!isAbilityUpgradeable) {
@@ -57401,6 +57401,7 @@ const LockoutIcon = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             const isStunned = Entities.IsStunned(selectedUnit);
             const isSilenced = Entities.IsSilenced(selectedUnit);
             const isCommandRestricted = Entities.IsCommandRestricted(selectedUnit);
@@ -57409,9 +57410,8 @@ const LockoutIcon = (props) => {
             const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
             const showLock = cooldownRemaining !== 0 && (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
             setShowLock(showLock);
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, LockoutIcon.name);
     }, [ability, selectedUnit]);
     if (!showLock) {
@@ -57485,10 +57485,10 @@ const ManaCost = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setManaCost(Abilities.GetManaCost(ability));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
+            setManaCost(Abilities.GetManaCost(ability));
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaCost.name);
     }, [ability]);
     if (manaCost === 0) {
@@ -57561,11 +57561,11 @@ const Skillpoints = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setAbilityLevel(Abilities.GetLevel(ability));
             setMaxAbilityLevel(Abilities.GetMaxLevel(ability));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Skillpoints.name);
     }, [ability]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, Array.from({ length: maxAbilityLevel }, (_, index) => index + 1).map(index => {
@@ -58013,7 +58013,7 @@ const AttackRange = (props) => {
             setAttackRange(Entities.GetAttackRange(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AttackRange.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58058,7 +58058,7 @@ const AttackSpeed = (props) => {
             setSecondsPerAttack(Entities.GetSecondsPerAttack(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, AttackSpeed.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58105,7 +58105,7 @@ const Damage = (props) => {
             setBonusDamage(Entities.GetDamageBonus(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Damage.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58149,7 +58149,7 @@ const ManaRegen = (props) => {
             setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaRegen.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58195,7 +58195,7 @@ const MoveSpeed = (props) => {
             setTotalMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, baseMoveSpeed));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, MoveSpeed.name);
     }, [selectedUnit]);
     const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
@@ -58247,7 +58247,7 @@ const SpellAmplification = (props) => {
             }
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, SpellAmplification.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58511,7 +58511,7 @@ const Armor = (props) => {
             setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Armor.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58610,7 +58610,7 @@ const Evasion = (props) => {
             }
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Evasion.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58665,7 +58665,7 @@ const HealthRegen = (props) => {
             }
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, HealthRegen.name);
     }, [selectedUnit]);
     const increasedRegen = regen - baseRegen;
@@ -58710,7 +58710,7 @@ const MagicalResistance = (props) => {
             setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, MagicalResistance.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58753,7 +58753,7 @@ const PyshicalResistance = (props) => {
             setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, PyshicalResistance.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58803,7 +58803,7 @@ const StatusResistance = (props) => {
             }
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, StatusResistance.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
@@ -58966,7 +58966,7 @@ const Level = (props) => {
             setLevel(Entities.GetLevel(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Level.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -59340,7 +59340,7 @@ const Ability = (props) => {
             setPosY(prevState => prevState - 0.5);
             schedule = $.Schedule(0.01, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_1__.cancelSchedule)(schedule, Ability.name);
     }, []);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -59489,7 +59489,7 @@ const FloatingContainer = () => {
             }
             schedule = $.Schedule(0.01, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, FloatingContainer.name);
     }, [units, floatingBars]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, floatingBars.map(floatingBar => {
@@ -59536,7 +59536,7 @@ const HealthBar = (props) => {
             setMaxHealth(Entities.GetMaxHealth(unit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, HealthBar.name);
     }, [unit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -59607,7 +59607,7 @@ const ManaBar = (props) => {
             setMaxMana(Entities.GetMaxMana(unit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaBar.name);
     }, [unit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(maxMana > 0) },
@@ -59711,7 +59711,7 @@ const GameTime = () => {
             setGameTime(Game.GetDOTATime(false, false));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_SLOW, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, GameTime.name);
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container() },
@@ -59781,6 +59781,7 @@ const HealthBar = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setHealth(Entities.GetHealth(selectedUnit));
             setMaxHealth(Entities.GetMaxHealth(selectedUnit));
             // Hack because panorama API method for health regen is bugged
@@ -59792,9 +59793,8 @@ const HealthBar = (props) => {
                     setHealthRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
                 }
             }
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, HealthBar.name);
     }, [selectedUnit]);
     const isEnemy = Entities.IsEnemy(selectedUnit);
@@ -60787,7 +60787,7 @@ const Health = (props) => {
             setMaxHealth(Entities.GetMaxHealth(hero));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Health.name);
     }, [hero]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -60968,7 +60968,7 @@ const ImageImpl = (props) => {
             }
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_2__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_3__.cancelSchedule)(schedule, Image.name);
     }, [hero]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container(isHovering) },
@@ -61049,7 +61049,7 @@ const Mana = (props) => {
             setMaxMana(Entities.GetMaxMana(hero));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Mana.name);
     }, [hero]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
@@ -61211,14 +61211,14 @@ const Inventory = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_5__.SCHEDULE_THINK_FAST, update);
             setHasInventory(Entities.IsInventoryEnabled(selectedUnit));
             const newItems = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(selectedUnit, slot));
             if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_1__.TableUtils.isEqual(items, newItems)) {
                 setItems(newItems);
             }
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_5__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_6__.cancelSchedule)(schedule, Inventory.name);
     }, [selectedUnit, items]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
@@ -61457,11 +61457,11 @@ const Charges = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setShouldDisplayCharges(Items.ShouldDisplayCharges(item));
             setCharges(Items.GetCurrentCharges(item));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Charges.name);
     }, [item]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, shouldDisplayCharges && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(), text: charges }))));
@@ -61525,11 +61525,11 @@ const Cooldown = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setTotalCooldown(Abilities.GetCooldownLength(item));
             setRemainingCooldown(Abilities.GetCooldownTimeRemaining(item));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Cooldown.name);
     }, [item]);
     let degree = Math.min(0, -(remainingCooldown / totalCooldown) * 360);
@@ -61607,6 +61607,7 @@ const Image = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setIsCooldownReady(Abilities.IsCooldownReady(item));
             setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
             setTexutre(Abilities.GetAbilityTextureName(item));
@@ -61616,9 +61617,8 @@ const Image = (props) => {
             const isNightmared = Entities.IsNightmared(selectedUnit);
             const isHexed = Entities.IsHexed(selectedUnit);
             setShowLock(isMuted || isStunned || isCommandRestricted || isNightmared || isHexed);
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Image.name);
     }, [selectedUnit, item]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
@@ -61886,10 +61886,10 @@ const Keybind = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setKeybind(Abilities.IsPassive(item) ? '' : Abilities.GetKeybind(item));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
+            setKeybind(Abilities.IsPassive(item) ? '' : Abilities.GetKeybind(item));
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Keybind.name);
     }, [item]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: keybind }));
@@ -61952,10 +61952,10 @@ const ManaCost = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
-            setManaCost(Abilities.GetManaCost(item));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
+            setManaCost(Abilities.GetManaCost(item));
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaCost.name);
     }, [item]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: manaCost > 0 ? manaCost.toFixed(0) : '' }));
@@ -62144,12 +62144,15 @@ const ManaBar = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            $.Msg("");
+            $.Msg("Update 1 " + Entities.GetUnitName(selectedUnit));
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setMana(Entities.GetMana(selectedUnit));
             setMaxMana(Entities.GetMaxMana(selectedUnit));
             setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
+            $.Msg("Update 2 " + Entities.GetUnitName(selectedUnit));
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, ManaBar.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(maxMana > 0) },
@@ -62571,7 +62574,7 @@ const Stacks = (props) => {
             setStacks(Buffs.GetStackCount(unit, buff));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Stacks.name);
     }, [unit, buff]);
     if (stacks === 0) {
@@ -62726,11 +62729,11 @@ const TimedBackground = (props) => {
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let schedule = -1;
         const update = () => {
+            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
             setRemaining(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
             setDuration(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, TimedBackground.name);
     }, [buff, selectedUnit]);
     let degree = Math.max(0, (remaining / duration) * 360);
@@ -63383,7 +63386,7 @@ const Gold = (props) => {
             setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Gold.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopGoldContainer' },
@@ -63432,7 +63435,7 @@ const Item = (props) => {
             setIsShopInRange(Entities.IsInRangeOfShop(selectedUnit, 0, false));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_4__.cancelSchedule)(schedule, Item.name);
     }, [selectedUnit]);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("attempt_item_purchase_success", () => {
@@ -63694,7 +63697,7 @@ const Armor = (props) => {
             setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_4__.cancelSchedule)(schedule, Armor.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
@@ -63762,7 +63765,7 @@ const Damage = (props) => {
             setBonusDamage(Entities.GetDamageBonus(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_4__.cancelSchedule)(schedule, Damage.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
@@ -63836,7 +63839,7 @@ const Level = (props) => {
             setLevel(Entities.GetLevel(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, Level.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
@@ -63921,7 +63924,7 @@ const MagicResistance = (props) => {
             setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_4__.cancelSchedule)(schedule, MagicResistance.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
@@ -63984,7 +63987,7 @@ const MoveSpeed = (props) => {
             setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_3__.SCHEDULE_THINK_MEDIUM, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_4__.cancelSchedule)(schedule, MoveSpeed.name);
     }, [selectedUnit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
@@ -64239,7 +64242,7 @@ const useSelectedUnit = () => {
             }
             schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
         };
-        update();
+        schedule = $.Schedule(0, update);
         return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, useSelectedUnit.name);
     }, []);
     return selectedUnit;

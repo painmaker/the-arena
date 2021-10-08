@@ -30,6 +30,8 @@ const FloatingContainer = () => {
 
     const update = () => {
 
+      schedule = $.Schedule(0.01, update)
+
       const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
       const scale = 1080 / Game.GetScreenHeight();
 
@@ -75,9 +77,8 @@ const FloatingContainer = () => {
       if (!TableUtils.isEqual(mFloatingBars, floatingBars, objectsEqual)) {
         setFloatingBars(mFloatingBars);
       }
-      schedule = $.Schedule(0.01, update)
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, FloatingContainer.name);
   }, [units, floatingBars]);
 

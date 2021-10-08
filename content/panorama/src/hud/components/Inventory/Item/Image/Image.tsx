@@ -25,6 +25,8 @@ const Image = (props: Props) => {
 
     const update = () => {
 
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
+
       setIsCooldownReady(Abilities.IsCooldownReady(item));
       setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
       setTexutre(Abilities.GetAbilityTextureName(item));
@@ -36,11 +38,9 @@ const Image = (props: Props) => {
       const isHexed = Entities.IsHexed(selectedUnit);
       setShowLock(isMuted || isStunned || isCommandRestricted || isNightmared || isHexed);
 
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
-
     };
 
-    update();
+    schedule = $.Schedule(0, update);
 
     return () => cancelSchedule(schedule, Image.name);
 

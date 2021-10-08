@@ -19,6 +19,7 @@ const HealthRegen = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       // Hack because panorama API method for health regen is bugged
       const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
       for (let i = 0; i < numberOfBuffs; i++) {
@@ -31,9 +32,8 @@ const HealthRegen = (props: Props) => {
           setBaseRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
         }
       }
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, HealthRegen.name);
   }, [selectedUnit]);
 

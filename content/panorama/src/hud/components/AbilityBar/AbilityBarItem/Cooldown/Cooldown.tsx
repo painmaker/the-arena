@@ -19,6 +19,7 @@ const Cooldown = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const totalCooldown = Abilities.GetCooldown(ability);
       const cooldownTimeRemaining = Abilities.GetCooldownTimeRemaining(ability);
       const degree = Math.min(0, - (cooldownTimeRemaining / totalCooldown) * 360);
@@ -28,9 +29,8 @@ const Cooldown = (props: Props) => {
         setDegree(degree);
       }
       setCooldownTimeRemaining(cooldownTimeRemaining);
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Cooldown.name);
   }, [ability]);
 

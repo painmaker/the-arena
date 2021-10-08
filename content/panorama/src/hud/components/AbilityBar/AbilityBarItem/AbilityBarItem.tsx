@@ -72,6 +72,7 @@ const AbilityBarItem = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
       const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
       const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
@@ -82,9 +83,8 @@ const AbilityBarItem = (props: Props) => {
       setIsToggled(Abilities.GetToggleState(ability))
       setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
       setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, AbilityBarItem.name);
   }, [ability, selectedUnit])
 

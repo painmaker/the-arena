@@ -19,10 +19,10 @@ const Stacks = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setStacks(Buffs.GetStackCount(unit, buff));
       schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
+      setStacks(Buffs.GetStackCount(unit, buff));
     }
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, Stacks.name);
   }, [unit, buff]);
 

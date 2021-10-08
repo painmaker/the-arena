@@ -19,14 +19,14 @@ const LevelUpButton = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
       const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
       const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
       const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints;
       setIsAbilityUpgradeable(isAbilityUpgradeable);
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, LevelUpButton.name);
   }, [ability, selectedUnit])
 

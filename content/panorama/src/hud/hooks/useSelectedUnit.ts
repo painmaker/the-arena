@@ -25,13 +25,13 @@ export const useSelectedUnit = () => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const unitToSelect = getGameUnitSelected();
       if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
         setSelectedUnit(unitToSelect)
       }
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, useSelectedUnit.name);
   }, []);
 

@@ -19,10 +19,10 @@ const MagicResistance = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
+      setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, MagicResistance.name);
   }, [selectedUnit]);
 

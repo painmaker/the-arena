@@ -21,11 +21,11 @@ const TimedBackground = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
+      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setRemaining(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
       setDuration(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, TimedBackground.name);
   }, [buff, selectedUnit]);
 

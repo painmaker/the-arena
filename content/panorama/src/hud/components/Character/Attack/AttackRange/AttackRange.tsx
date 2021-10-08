@@ -18,10 +18,10 @@ const AttackRange = (props: Props) => {
   useEffect(() => {
     let schedule = -1 as ScheduleID;
     const update = () => {
-      setAttackRange(Entities.GetAttackRange(selectedUnit));
       schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
+      setAttackRange(Entities.GetAttackRange(selectedUnit));
     };
-    update();
+    schedule = $.Schedule(0, update);
     return () => cancelSchedule(schedule, AttackRange.name);
   }, [selectedUnit]);
 
