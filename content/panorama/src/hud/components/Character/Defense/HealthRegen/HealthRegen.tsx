@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_MEDIUM } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
+import { HUD_THINK_MEDIUM } from "../../../../App";
 import { Styles as ParentStyles } from "../Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   selectedUnit: EntityIndex,
 };
 
@@ -11,15 +11,13 @@ const HealthRegen = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - HealthRegen rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
   const [regen, setRegen] = useState(0)
   const [baseRegen, setBaseRegen] = useState(0)
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       // Hack because panorama API method for health regen is bugged
       const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
       for (let i = 0; i < numberOfBuffs; i++) {
@@ -33,9 +31,9 @@ const HealthRegen = (props: Props) => {
         }
       }
     };
-    update();
-    return () => cancelSchedule(schedule, HealthRegen.name);
-  }, [selectedUnit]);
+    const id = setInterval!(update, HUD_THINK_MEDIUM);
+    return () => clearInterval!(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   const increasedRegen = regen - baseRegen;
 
@@ -64,4 +62,4 @@ const HealthRegen = (props: Props) => {
 
 };
 
-export default React.memo(HealthRegen);
+export default React.memo(ReactTimeout(HealthRegen));

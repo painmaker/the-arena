@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_MEDIUM } from "../../../App";
-import { cancelSchedule } from "../../../utils/Schedule";
+import { HUD_THINK_MEDIUM } from "../../../App";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   selectedUnit: EntityIndex,
   shopAbility: ShopAbility,
   searchValue: string,
@@ -31,21 +31,17 @@ const AbilityImage = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilitiesShop - AbilityImage rendered");
 
-  const { selectedUnit, shopAbility, searchValue } = props;
+  const { selectedUnit, shopAbility, searchValue, setInterval, clearInterval } = props;
   const { name, aliases, requiredLevel } = shopAbility;
 
   const [isRequiredLevel, setIsRequiredLevel] = useState(Entities.GetLevel(selectedUnit) >= requiredLevel);
   const [isSearched, setIsSearched] = useState(false);
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
-    const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
-      setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
-    };
-    update();
-    return () => cancelSchedule(schedule, AbilityImage.name);
-  }, [selectedUnit]);
+    const update = () => setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
+    const id = setInterval!(update, HUD_THINK_MEDIUM);
+    return () => clearInterval!(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   useEffect(() => {
     let isSearched = false;
@@ -75,4 +71,4 @@ const AbilityImage = (props: Props) => {
 
 };
 
-export default React.memo(AbilityImage);
+export default React.memo(ReactTimeout(AbilityImage));

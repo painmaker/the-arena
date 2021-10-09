@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNetTableValues } from "react-panorama";
 import { objectsEqual } from "../../utils/ObjectUtils";
-import { cancelSchedule } from "../../utils/Schedule";
 import { TableUtils } from "../../utils/TableUtils";
 import HealthBar from "./HealthBar/HealthBar";
 import ManaBar from "./ManaBar/ManaBar";
-import Stunned from "./Stunned/Stunned";
 import Abilities from "./Abilities/Abilities";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
 interface IFloatingBar {
   unit: EntityIndex,
@@ -16,9 +15,15 @@ interface IFloatingBar {
   visible: boolean,
 }
 
-const FloatingContainer = () => {
+type Props = ReactTimeoutProps & {
+  // ownProps
+}
+
+const FloatingContainer = (props: Props) => {
 
   // $.Msg("REACT-RENDER: FloatingBars rendered");
+
+  const { setInterval, clearInterval } = props;
 
   const units = useNetTableValues('FloatingBarUnits').units;
 
@@ -26,11 +31,7 @@ const FloatingContainer = () => {
 
   useEffect(() => {
 
-    let schedule = -1 as ScheduleID;
-
     const update = () => {
-
-      schedule = $.Schedule(0.01, update)
 
       const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
       const scale = 1080 / Game.GetScreenHeight();
@@ -78,9 +79,12 @@ const FloatingContainer = () => {
         setFloatingBars(mFloatingBars);
       }
     };
-    update();
-    return () => cancelSchedule(schedule, FloatingContainer.name);
-  }, [units, floatingBars]);
+
+    const id = setInterval!(update, 10);
+
+    return () => clearInterval!(id);
+
+  }, [units, floatingBars, setInterval, clearInterval]);
 
   return (
     <React.Fragment>
@@ -92,7 +96,6 @@ const FloatingContainer = () => {
               <ManaBar unit={unit} />
             )}
             <HealthBar unit={unit} />
-            {/* <Stunned unit={unit} /> */}
             <Abilities unit={unit} />
           </Panel>
         )
@@ -102,4 +105,4 @@ const FloatingContainer = () => {
 
 }
 
-export default React.memo(FloatingContainer);
+export default React.memo(ReactTimeout(FloatingContainer));

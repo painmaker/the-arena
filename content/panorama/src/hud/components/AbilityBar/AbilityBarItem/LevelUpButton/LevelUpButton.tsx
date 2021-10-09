@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { HUD_THINK_FAST } from "../../../../App";
 
-type Props = {
+type Props = ReactTimeoutProps & {
   ability: AbilityEntityIndex,
   selectedUnit: EntityIndex
 }
@@ -12,23 +12,21 @@ const LevelUpButton = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - LevelUpButton rendered");
 
-  const { ability, selectedUnit } = props;
+  const { ability, selectedUnit, setInterval, clearInterval } = props;
 
   const [isAbilityUpgradeable, setIsAbilityUpgradeable] = useState(false);
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
       const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
       const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
       const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints;
       setIsAbilityUpgradeable(isAbilityUpgradeable);
     };
-    update();
-    return () => cancelSchedule(schedule, LevelUpButton.name);
-  }, [ability, selectedUnit])
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [ability, selectedUnit, setInterval, clearInterval])
 
   if (!isAbilityUpgradeable) {
     return null;
@@ -51,4 +49,4 @@ const LevelUpButton = (props: Props) => {
 
 };
 
-export default React.memo(LevelUpButton);
+export default React.memo(ReactTimeout(LevelUpButton));

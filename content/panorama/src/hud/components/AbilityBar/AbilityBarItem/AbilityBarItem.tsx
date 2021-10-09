@@ -9,8 +9,8 @@ import Image from "./Image/Image";
 import { Styles } from "./Styles";
 import LevelUpButton from "./LevelUpButton/LevelUpButton";
 import CastPointOverlay from "./CastPointOverlay/CastPointOverlay";
-import { SCHEDULE_THINK_FAST } from "../../../App";
-import { cancelSchedule } from "../../../utils/Schedule";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { HUD_THINK_FAST } from "../../../App";
 
 const onMouseOver = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
   $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_" + ability), Abilities.GetAbilityName(ability), selectedUnit);
@@ -51,7 +51,7 @@ const onRightClick = (ability: AbilityEntityIndex) => {
   }
 }
 
-type Props = {
+type Props = ReactTimeoutProps & {
   ability: AbilityEntityIndex,
   selectedUnit: EntityIndex,
 }
@@ -60,7 +60,7 @@ const AbilityBarItem = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
 
-  const { ability, selectedUnit } = props;
+  const { ability, selectedUnit, setInterval, clearInterval } = props;
 
   const [isPassive, setIsPassive] = useState(false);
   const [isAutoCastEnabled, setIsAutoCastEnabled] = useState(false);
@@ -70,9 +70,7 @@ const AbilityBarItem = (props: Props) => {
   const [isInAbilityPhase, setIsInAbilityPhase] = useState(false);
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
       const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
       const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
@@ -84,9 +82,9 @@ const AbilityBarItem = (props: Props) => {
       setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
       setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
     };
-    update();
-    return () => cancelSchedule(schedule, AbilityBarItem.name);
-  }, [ability, selectedUnit])
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [ability, selectedUnit, setInterval, clearInterval])
 
   return (
     <Panel style={Styles.Container()} id={'ability_' + ability} >
@@ -117,6 +115,6 @@ const AbilityBarItem = (props: Props) => {
 
 };
 
-export default React.memo(AbilityBarItem);
+export default React.memo(ReactTimeout(AbilityBarItem));
 
 

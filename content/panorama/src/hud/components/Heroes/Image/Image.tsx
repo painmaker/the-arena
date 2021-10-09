@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { SCHEDULE_THINK_FAST } from "../../../App";
+import { HUD_THINK_FAST } from "../../../App";
 import { RootState } from "../../../reducers/rootReducer";
-import { cancelSchedule } from "../../../utils/Schedule";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
 const mapStateToProps = (state: RootState) => ({
   cameraLocked: state.settingsReducer.cameraLocked,
@@ -12,7 +12,7 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & {
+type Props = PropsFromRedux & ReactTimeoutProps & {
   hero: EntityIndex;
 };
 
@@ -58,7 +58,7 @@ const ImageImpl = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
 
-  const { hero, cameraLocked } = props;
+  const { hero, cameraLocked, setInterval, clearInterval } = props;
 
   const [washColor, setWashColor] = useState("none");
   const [isHovering, setIsHovering] = useState(false);
@@ -83,9 +83,7 @@ const ImageImpl = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const playerInfo = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(hero));
       if (playerInfo) {
         const isDisconnected = playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED ||
@@ -97,9 +95,9 @@ const ImageImpl = (props: Props) => {
         }
       }
     };
-    update();
-    return () => cancelSchedule(schedule, Image.name);
-  }, [hero])
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [hero, setInterval, clearInterval])
 
   return (
     <Panel hittest={false} style={Styles.Container(isHovering)}>
@@ -123,4 +121,4 @@ const ImageImpl = (props: Props) => {
 
 };
 
-export default React.memo(connector(ImageImpl));
+export default React.memo(connector(ReactTimeout(ImageImpl)));

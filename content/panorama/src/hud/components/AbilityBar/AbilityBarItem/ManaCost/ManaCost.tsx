@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { HUD_THINK_FAST } from "../../../../App";
 
-type Props = {
+type Props = ReactTimeoutProps & {
   ability: AbilityEntityIndex,
 }
 
@@ -11,19 +11,15 @@ const ManaCost = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - ManaCost rendered");
 
-  const { ability } = props;
+  const { ability, setInterval, clearInterval } = props;
 
   const [manaCost, setManaCost] = useState(0);
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
-    const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
-      setManaCost(Abilities.GetManaCost(ability));
-    };
-    update();
-    return () => cancelSchedule(schedule, ManaCost.name);
-  }, [ability])
+    const update = () => setManaCost(Abilities.GetManaCost(ability));
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [ability, setInterval, clearInterval])
 
   if (manaCost === 0) {
     return null;
@@ -37,4 +33,4 @@ const ManaCost = (props: Props) => {
 
 };
 
-export default React.memo(ManaCost);
+export default React.memo(ReactTimeout(ManaCost));

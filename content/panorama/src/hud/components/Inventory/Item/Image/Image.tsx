@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
+import { HUD_THINK_FAST } from "../../../../App";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   item: ItemEntityIndex,
   selectedUnit: EntityIndex,
 };
@@ -12,7 +12,7 @@ const Image = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Inventory - Image rendered");
 
-  const { item, selectedUnit } = props;
+  const { item, selectedUnit, setInterval, clearInterval } = props;
 
   const [isCooldownReady, setIsCooldownReady] = useState(Abilities.IsCooldownReady(item));
   const [hasEnoughMana, setHasEnoughMana] = useState(Abilities.IsOwnersManaEnough(item));
@@ -20,31 +20,20 @@ const Image = (props: Props) => {
   const [showLock, setShowLock] = useState(false);
 
   useEffect(() => {
-
-    let schedule = -1 as ScheduleID;
-
     const update = () => {
-
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
-
-      setIsCooldownReady(Abilities.IsCooldownReady(item));
-      setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
-      setTexutre(Abilities.GetAbilityTextureName(item));
-
       const isMuted = Entities.IsMuted(selectedUnit);
       const isStunned = Entities.IsStunned(selectedUnit);
       const isCommandRestricted = Entities.IsCommandRestricted(selectedUnit);
       const isNightmared = Entities.IsNightmared(selectedUnit);
       const isHexed = Entities.IsHexed(selectedUnit);
       setShowLock(isMuted || isStunned || isCommandRestricted || isNightmared || isHexed);
-
+      setIsCooldownReady(Abilities.IsCooldownReady(item));
+      setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
+      setTexutre(Abilities.GetAbilityTextureName(item));
     };
-
-    update();
-
-    return () => cancelSchedule(schedule, Image.name);
-
-  }, [selectedUnit, item]);
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [selectedUnit, item, setInterval, clearInterval]);
 
   return (
     <React.Fragment>
@@ -60,4 +49,4 @@ const Image = (props: Props) => {
 
 };
 
-export default React.memo(Image);
+export default React.memo(ReactTimeout(Image));

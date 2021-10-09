@@ -9,8 +9,8 @@ import Title from "./Title/Title";
 import { setCameraLocked, setCameraZoom } from "../../actions/settingsAction";
 import { SettingsActionTypes } from "../../types/settingsTypes";
 import { Styles } from "./Styles";
-import { SCHEDULE_THINK_SLOW } from "../../App";
-import { cancelSchedule } from "../../utils/Schedule";
+import { HUD_THINK_SLOW } from "../../App";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & {
+type Props = PropsFromRedux & ReactTimeoutProps & {
   // ownProps
 };
 
@@ -32,7 +32,7 @@ const Settings = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Settings rendered");
 
-  const { visible } = props;
+  const { visible, setTimeout, clearTimeout } = props;
 
   const [zoom, setZoom] = useState(1600);
   const [isLocked, setIsLocked] = useState(true);
@@ -51,17 +51,19 @@ const Settings = (props: Props) => {
   }, [isLocked]);
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
+    let id: ReactTimeout.Timer | undefined = undefined;
     if (visible === false) {
-      schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => {
-        setRenderComponent(false);
-        schedule = -1 as ScheduleID;
-      });
+      const update = () => setRenderComponent(false);
+      id = setTimeout!(update, HUD_THINK_SLOW);
     } else {
       setRenderComponent(true);
     }
-    return () => cancelSchedule(schedule, Settings.name);
-  }, [visible]);
+    return () => {
+      if (id) {
+        clearTimeout!(id)
+      }
+    }
+  }, [visible, setTimeout, clearTimeout]);
 
   return (
     <Panel style={Styles.OuterContainer()}>
@@ -94,4 +96,4 @@ const Settings = (props: Props) => {
 
 };
 
-export default React.memo(connector(Settings));
+export default React.memo(connector(ReactTimeout(Settings)));

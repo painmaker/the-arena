@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../App";
-import { cancelSchedule } from "../../utils/Schedule";
 import { TableUtils } from "../../utils/TableUtils";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { HUD_THINK_FAST } from "../../App";
 
-type Props = {
+type Props = ReactTimeoutProps & {
   selectedUnit: EntityIndex,
 };
 
@@ -13,14 +13,12 @@ const AbilityBar = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBar rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
   const [abilities, setAbilities] = useState<AbilityEntityIndex[]>([]);
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
         .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
         .filter(index => index !== -1)
@@ -29,9 +27,9 @@ const AbilityBar = (props: Props) => {
         setAbilities(newAbilities);
       }
     };
-    update();
-    return () => cancelSchedule(schedule, AbilityBar.name);
-  }, [selectedUnit, abilities])
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [selectedUnit, abilities, setInterval, clearInterval])
 
   useEffect(() => {
     if (Entities.GetAbilityPoints(selectedUnit) <= 0) {
@@ -53,4 +51,4 @@ const AbilityBar = (props: Props) => {
 
 }
 
-export default React.memo(AbilityBar);
+export default React.memo(ReactTimeout(AbilityBar));

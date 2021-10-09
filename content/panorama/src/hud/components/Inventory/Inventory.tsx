@@ -3,10 +3,10 @@ import { TableUtils } from "../../utils/TableUtils";
 import ItemOptions from "./ItemOptions/ItemOptions";
 import Item from "./Item/Item";
 import { Styles } from "./Styles";
-import { SCHEDULE_THINK_FAST } from "../../App";
-import { cancelSchedule } from "../../utils/Schedule";
+import { HUD_THINK_FAST } from "../../App";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   selectedUnit: EntityIndex,
 };
 
@@ -16,24 +16,22 @@ const Inventory = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Inventory rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
   const [items, setItems] = useState<ItemEntityIndex[]>([]);
   const [hasInventory, setHasInventory] = useState(Entities.IsInventoryEnabled(selectedUnit));
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setHasInventory(Entities.IsInventoryEnabled(selectedUnit));
       const newItems = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(selectedUnit, slot));
       if (!TableUtils.isEqual(items, newItems)) {
         setItems(newItems);
       }
     }
-    update();
-    return () => cancelSchedule(schedule, Inventory.name);
-  }, [selectedUnit, items]);
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [selectedUnit, items, setInterval, clearInterval]);
 
   return (
     <React.Fragment>
@@ -55,4 +53,4 @@ const Inventory = (props: Props) => {
 
 }
 
-export default React.memo(Inventory);
+export default React.memo(ReactTimeout(Inventory));

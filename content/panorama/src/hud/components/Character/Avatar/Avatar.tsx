@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Styles } from "./Styles";
-
 interface Props {
   selectedUnit: EntityIndex,
 }

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_MEDIUM } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles as ParentStyles } from "../Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { HUD_THINK_MEDIUM } from "../../../../App";
 
-type Props = {
+type Props = ReactTimeoutProps & {
   selectedUnit: EntityIndex,
 };
 
@@ -11,21 +11,19 @@ const AttackSpeed = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - AttackSpeed rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
   const [attackSpeed, setAttackSpeed] = useState(Entities.GetAttackSpeed(selectedUnit))
   const [secondsPerAttack, setSecondsPerAttack] = useState(Entities.GetSecondsPerAttack(selectedUnit))
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       setAttackSpeed(Entities.GetAttackSpeed(selectedUnit));
       setSecondsPerAttack(Entities.GetSecondsPerAttack(selectedUnit));
     };
-    update();
-    return () => cancelSchedule(schedule, AttackSpeed.name);
-  }, [selectedUnit]);
+    const id = setInterval!(update, HUD_THINK_MEDIUM);
+    return () => clearInterval!(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel style={ParentStyles.Row()}>
@@ -43,4 +41,4 @@ const AttackSpeed = (props: Props) => {
 
 };
 
-export default React.memo(AttackSpeed);
+export default React.memo(ReactTimeout(AttackSpeed));

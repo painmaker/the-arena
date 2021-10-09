@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { SCHEDULE_THINK_FAST } from "../../../../App"
-import { cancelSchedule } from "../../../../utils/Schedule"
+import { HUD_THINK_FAST } from "../../../../App"
 import { Styles } from "./Styles"
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   unit: EntityIndex,
   buff: BuffID,
 }
@@ -12,19 +12,15 @@ const Stacks = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Modifier rendered");
 
-  const { unit, buff } = props;
+  const { unit, buff, setInterval, clearInterval } = props;
 
   const [stacks, setStacks] = useState(Buffs.GetStackCount(unit, buff))
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
-    const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
-      setStacks(Buffs.GetStackCount(unit, buff));
-    }
-    update();
-    return () => cancelSchedule(schedule, Stacks.name);
-  }, [unit, buff]);
+    const update = () => setStacks(Buffs.GetStackCount(unit, buff));
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [unit, buff, setInterval, clearInterval]);
 
   if (stacks === 0) {
     return null;
@@ -38,4 +34,4 @@ const Stacks = (props: Props) => {
 
 }
 
-export default React.memo(Stacks);
+export default React.memo(ReactTimeout(Stacks));

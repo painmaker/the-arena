@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
 import { setRandomHeroDialogVisible } from "../../../actions/heroSelectionActions";
-import { SCHEDULE_THINK_SLOW } from "../../../App";
+import { HUD_THINK_SLOW } from "../../../App";
 import { RootState } from "../../../reducers/rootReducer";
 import { HeroSelectionActionTypes } from "../../../types/heroSelectionTypes";
-import { cancelSchedule } from "../../../utils/Schedule";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
 const mapStateToProps = (state: RootState) => ({
   randomHeroDialogVisible: state.heroSelectionReducer.randomHeroDialogVisible
@@ -18,28 +18,30 @@ const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & {
+type Props = PropsFromRedux & ReactTimeoutProps & {
   // ownProps
 };
 
 const RandomHeroDialog = (props: Props) => {
 
-  const { randomHeroDialogVisible, setRandomHeroDialogVisible } = props;
+  const { randomHeroDialogVisible, setRandomHeroDialogVisible, setTimeout, clearTimeout } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
+    let id: ReactTimeout.Timer | undefined = undefined;
     if (randomHeroDialogVisible === false) {
-      schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => {
-        setRenderComponent(false);
-        schedule = -1 as ScheduleID;
-      });
+      const update = () => setRenderComponent(false);
+      id = setTimeout!(update, HUD_THINK_SLOW);
     } else {
       setRenderComponent(true);
     }
-    return () => cancelSchedule(schedule, RandomHeroDialog.name);
-  }, [randomHeroDialogVisible]);
+    return () => {
+      if (id) {
+        clearTimeout!(id)
+      }
+    }
+  }, [randomHeroDialogVisible, setTimeout, clearTimeout]);
 
   return (
     <React.Fragment>
@@ -85,4 +87,4 @@ const RandomHeroDialog = (props: Props) => {
 
 }
 
-export default connector(RandomHeroDialog);
+export default connector(ReactTimeout(RandomHeroDialog));

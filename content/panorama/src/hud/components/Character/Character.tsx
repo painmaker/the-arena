@@ -8,8 +8,8 @@ import Title from "./Title/Title"
 import Level from "./Level/Level";
 import Avatar from "./Avatar/Avatar";
 import Attack from "./Attack/Attack";
-import { SCHEDULE_THINK_SLOW } from "../../App";
-import { cancelSchedule } from "../../utils/Schedule";
+import { HUD_THINK_SLOW } from "../../App";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.characterReducer.visible,
@@ -18,7 +18,7 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & {
+type Props = PropsFromRedux & ReactTimeoutProps & {
   selectedUnit: EntityIndex,
 };
 
@@ -26,22 +26,24 @@ const Character = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character rendered");
 
-  const { selectedUnit, visible } = props;
+  const { selectedUnit, visible, setTimeout, clearTimeout } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
+    let id: ReactTimeout.Timer | undefined = undefined;
     if (visible === false) {
-      schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => {
-        setRenderComponent(false);
-        schedule = -1 as ScheduleID;
-      });
+      const update = () => setRenderComponent(false);
+      id = setTimeout!(update, HUD_THINK_SLOW);
     } else {
       setRenderComponent(true);
     }
-    return () => cancelSchedule(schedule, Character.name);
-  }, [visible]);
+    return () => {
+      if (id) {
+        clearTimeout!(id)
+      }
+    }
+  }, [visible, setTimeout, clearTimeout]);
 
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>
@@ -68,4 +70,4 @@ const Character = (props: Props) => {
 
 };
 
-export default React.memo(connector(Character));
+export default React.memo(connector(ReactTimeout(Character)));

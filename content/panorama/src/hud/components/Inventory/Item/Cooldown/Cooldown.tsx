@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST, SCHEDULE_THINK_SLOW } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
+import { HUD_THINK_FAST } from "../../../../App";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   item: ItemEntityIndex
 };
 
@@ -11,21 +11,19 @@ const Cooldown = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Inventory - Cooldown rendered");
 
-  const { item } = props;
+  const { item, setInterval, clearInterval } = props;
 
   const [totalCooldown, setTotalCooldown] = useState(Abilities.GetCooldownLength(item))
   const [remainingCooldown, setRemainingCooldown] = useState(Abilities.GetCooldownTimeRemaining(item))
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setTotalCooldown(Abilities.GetCooldownLength(item));
       setRemainingCooldown(Abilities.GetCooldownTimeRemaining(item));
     };
-    update();
-    return () => cancelSchedule(schedule, Cooldown.name);
-  }, [item]);
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [item, setInterval, clearInterval]);
 
   let degree = Math.min(0, - (remainingCooldown / totalCooldown) * 360);
   if (Number.isNaN(degree) || !Number.isFinite(degree)) {
@@ -46,4 +44,4 @@ const Cooldown = (props: Props) => {
 
 };
 
-export default React.memo(Cooldown);
+export default React.memo(ReactTimeout(Cooldown));

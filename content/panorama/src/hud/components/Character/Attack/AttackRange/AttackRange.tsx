@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_MEDIUM } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
 import { Styles as ParentStyles } from "../Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { HUD_THINK_MEDIUM } from "../../../../App";
 
-type Props = {
+type Props = ReactTimeoutProps & {
   selectedUnit: EntityIndex,
 };
 
@@ -11,19 +11,15 @@ const AttackRange = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - AttackRange rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
   const [attackRange, setAttackRange] = useState(Entities.GetAttackRange(selectedUnit))
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
-    const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
-      setAttackRange(Entities.GetAttackRange(selectedUnit));
-    };
-    update();
-    return () => cancelSchedule(schedule, AttackRange.name);
-  }, [selectedUnit]);
+    const update = () => setAttackRange(Entities.GetAttackRange(selectedUnit));
+    const id = setInterval!(update, HUD_THINK_MEDIUM);
+    return () => clearInterval!(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel style={ParentStyles.Row()}>
@@ -41,4 +37,4 @@ const AttackRange = (props: Props) => {
 
 };
 
-export default React.memo(AttackRange);
+export default React.memo(ReactTimeout(AttackRange));

@@ -11,8 +11,8 @@ import Title from "./Title/Title";
 import Abilities from "./Abilities/Abilities";
 import HealthAndMana from "./HealthAndMana/HealthAndMana";
 import Attributes from "./Attributes/Attributes";
-import { cancelSchedule } from "../../../utils/Schedule";
-import { SCHEDULE_THINK_SLOW } from "../../../App";
+import { HUD_THINK_SLOW } from "../../../App";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
   resetFocusedHero: () => dispatch(resetFocusedHero()),
@@ -21,28 +21,30 @@ const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
 const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & {
+type Props = PropsFromRedux & ReactTimeoutProps & {
   focusedHero: FocusedHero | undefined
 }
 
 const Description = (props: Props) => {
 
-  const { focusedHero } = props;
+  const { focusedHero, setTimeout, clearTimeout } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
+    let id: ReactTimeout.Timer | undefined = undefined;
     if (focusedHero === undefined) {
-      schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => {
-        setRenderComponent(false);
-        schedule = -1 as ScheduleID;
-      });
+      const update = () => setRenderComponent(false);
+      id = setTimeout!(update, HUD_THINK_SLOW);
     } else {
       setRenderComponent(true);
     }
-    return () => cancelSchedule(schedule, Description.name);
-  }, [focusedHero]);
+    return () => {
+      if (id) {
+        clearTimeout!(id)
+      }
+    }
+  }, [focusedHero, setTimeout, clearTimeout]);
 
   return (
     <React.Fragment>
@@ -78,4 +80,4 @@ const Description = (props: Props) => {
   );
 }
 
-export default React.memo(connector(Description));
+export default React.memo(connector(ReactTimeout(Description)));

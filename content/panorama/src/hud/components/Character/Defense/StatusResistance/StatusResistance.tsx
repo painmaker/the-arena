@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_MEDIUM } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
+import { HUD_THINK_MEDIUM } from "../../../../App";
 import { Styles as ParentStyles } from "../Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   selectedUnit: EntityIndex,
 };
 
@@ -11,13 +11,11 @@ const StatusResistance = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - StatusResistance rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
   const [resistance, setResistance] = useState(0)
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update)
       const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
       for (let i = 0; i < numberOfBuffs; i++) {
         const buff = Entities.GetBuff(selectedUnit, i);
@@ -27,9 +25,9 @@ const StatusResistance = (props: Props) => {
         }
       }
     };
-    update();
-    return () => cancelSchedule(schedule, StatusResistance.name);
-  }, [selectedUnit]);
+    const id = setInterval!(update, HUD_THINK_MEDIUM);
+    return () => clearInterval!(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel style={ParentStyles.Row()}>
@@ -50,4 +48,4 @@ const StatusResistance = (props: Props) => {
 
 };
 
-export default React.memo(StatusResistance);
+export default React.memo(ReactTimeout(StatusResistance));

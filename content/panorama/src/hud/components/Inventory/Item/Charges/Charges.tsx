@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
+import { HUD_THINK_FAST } from "../../../../App";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   item: ItemEntityIndex
 };
 
@@ -11,21 +11,19 @@ const Charges = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Inventory - Charges rendered");
 
-  const { item } = props;
+  const { item, setInterval, clearInterval } = props;
 
   const [shouldDisplayCharges, setShouldDisplayCharges] = useState(Items.ShouldDisplayCharges(item))
   const [charges, setCharges] = useState(Items.GetCurrentCharges(item))
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setShouldDisplayCharges(Items.ShouldDisplayCharges(item));
       setCharges(Items.GetCurrentCharges(item));
     };
-    update();
-    return () => cancelSchedule(schedule, Charges.name);
-  }, [item]);
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [item, setInterval, clearInterval]);
 
   return (
     <React.Fragment>
@@ -37,4 +35,4 @@ const Charges = (props: Props) => {
 
 };
 
-export default React.memo(Charges);
+export default React.memo(ReactTimeout(Charges));

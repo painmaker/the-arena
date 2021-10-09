@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_MEDIUM } from "../../../App";
-import { cancelSchedule } from "../../../utils/Schedule";
+import { HUD_THINK_MEDIUM } from "../../../App";
 import { Styles as ParentStyles } from "../Styles";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   selectedUnit: EntityIndex,
 }
 
@@ -12,15 +12,13 @@ const Level = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Stats - Level rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
   const [level, setLevel] = useState(Entities.GetLevel(selectedUnit));
   const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       if (Entities.IsHero(selectedUnit)) {
         const currentXp = Entities.GetCurrentXP(selectedUnit);
         const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
@@ -31,9 +29,9 @@ const Level = (props: Props) => {
       }
       setLevel(Entities.GetLevel(selectedUnit));
     };
-    update();
-    return () => cancelSchedule(schedule, Level.name);
-  }, [selectedUnit]);
+    const id = setInterval!(update, HUD_THINK_MEDIUM);
+    return () => clearInterval!(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <React.Fragment>
@@ -55,4 +53,4 @@ const Level = (props: Props) => {
 
 };
 
-export default React.memo(Level);
+export default React.memo(ReactTimeout(Level));

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useGameEvent } from "react-panorama";
-import { cancelSchedule } from "../../../utils/Schedule";
 import Ability from "./Ability/Ability";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   unit: EntityIndex,
 };
 
@@ -17,7 +17,7 @@ const Abilities = (props: Props) => {
 
   // $.Msg("REACT-RENDER: CloatingContainer - Abilities rendered");
 
-  const { unit } = props;
+  const { unit, setTimeout, clearTimeout } = props;
 
   const [abilities, setAbilities] = useState<Ability[]>([]);
 
@@ -27,19 +27,17 @@ const Abilities = (props: Props) => {
       return;
     }
 
-    const id = Math.random();
+    const abilityId = Math.random();
 
-    setAbilities(prevState => [...prevState, { name: event.abilityname, id }] as Ability[]);
+    setAbilities(prevState => [...prevState, { name: event.abilityname, id: abilityId }] as Ability[]);
 
-    const update = () => {
-      setAbilities(prevState => prevState.filter(ability => ability.id !== id));
-    }
+    const update = () => setAbilities(prevState => prevState.filter(ability => ability.id !== abilityId));
 
-    const schedule = $.Schedule(1, update);
+    const id = setTimeout!(update, 1000);
 
-    return () => cancelSchedule(schedule, Abilities.name)
+    return () => clearTimeout!(id);
 
-  }, [unit]);
+  }, [unit, setTimeout, clearTimeout]);
 
   return (
     <Panel hittest={false} style={Styles.Container()}>
@@ -56,4 +54,4 @@ const Abilities = (props: Props) => {
 
 }
 
-export default React.memo(Abilities);
+export default React.memo(ReactTimeout(Abilities));

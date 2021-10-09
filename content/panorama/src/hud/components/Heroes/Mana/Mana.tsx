@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../../App";
-import { cancelSchedule } from "../../../utils/Schedule";
+import { HUD_THINK_FAST } from "../../../App";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   hero: EntityIndex,
 }
 
@@ -11,21 +11,19 @@ const Mana = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Heroes - Mana rendered");
 
-  const { hero } = props;
+  const { hero, setInterval, clearInterval } = props;
 
   const [mana, setMana] = useState(Entities.GetMana(hero));
   const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(hero));
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setMana(Entities.GetMana(hero));
       setMaxMana(Entities.GetMaxMana(hero));
     };
-    update();
-    return () => cancelSchedule(schedule, Mana.name);
-  }, [hero]);
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [hero, setInterval, clearInterval]);
 
   return (
     <Panel style={Styles.Container()}>
@@ -41,4 +39,4 @@ const Mana = (props: Props) => {
 
 };
 
-export default React.memo(Mana);
+export default React.memo(ReactTimeout(Mana));

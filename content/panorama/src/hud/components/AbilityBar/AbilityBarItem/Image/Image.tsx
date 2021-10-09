@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
+import { HUD_THINK_FAST } from "../../../../App";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   ability: AbilityEntityIndex,
   selectedUnit: EntityIndex,
 }
@@ -42,15 +42,13 @@ const Image = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
 
-  const { ability, selectedUnit } = props;
+  const { ability, selectedUnit, setInterval, clearInterval } = props;
 
   const [saturation, setSaturation] = useState('1.0');
   const [washColor, setWashColor] = useState('#303030');
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const level = Abilities.GetLevel(ability);
       const unitMana = Entities.GetMana(selectedUnit);
       const manaCost = Abilities.GetManaCost(ability);
@@ -63,9 +61,9 @@ const Image = (props: Props) => {
       setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
       setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
     };
-    update();
-    return () => cancelSchedule(schedule, Image.name);
-  }, [ability, selectedUnit]);
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [ability, selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel style={Styles.Container()}>
@@ -78,4 +76,4 @@ const Image = (props: Props) => {
 
 };
 
-export default React.memo(Image);
+export default React.memo(ReactTimeout(Image));

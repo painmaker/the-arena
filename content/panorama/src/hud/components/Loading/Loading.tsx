@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { SCHEDULE_THINK_SLOW } from '../../App';
-import { cancelSchedule } from '../../utils/Schedule';
 import { Styles } from './Styles';
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   children: React.ReactNode
 }
 
@@ -11,15 +10,15 @@ const Loading = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Loading rendered");
 
+  const { setTimeout, clearTimeout } = props;
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let schedule = $.Schedule(SCHEDULE_THINK_SLOW, () => {
-      setIsLoading(false);
-      schedule = -1 as ScheduleID;
-    });
-    return () => cancelSchedule(schedule, Loading.name);
-  }, []);
+    const update = () => setIsLoading(false);
+    const id = setTimeout!(update, 1000);
+    return () => clearTimeout!(id);
+  }, [setTimeout, clearTimeout]);
 
   if (isLoading) {
     return (
@@ -40,4 +39,4 @@ const Loading = (props: Props) => {
 
 };
 
-export default React.memo(Loading);
+export default React.memo(ReactTimeout(Loading));

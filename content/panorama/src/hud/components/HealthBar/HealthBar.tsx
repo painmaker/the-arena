@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../App";
-import { cancelSchedule } from "../../utils/Schedule";
+import { HUD_THINK_FAST } from "../../App";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   selectedUnit: EntityIndex,
 };
-
 
 const HealthBar = (props: Props) => {
 
   // $.Msg("REACT-RENDER: HealthBar rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
   const [health, setHealth] = useState(Entities.GetHealth(selectedUnit));
   const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(selectedUnit));
   const [healthRegen, setHealthRegen] = useState(Entities.GetHealthThinkRegen(selectedUnit));
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setHealth(Entities.GetHealth(selectedUnit));
       setMaxHealth(Entities.GetMaxHealth(selectedUnit));
       // Hack because panorama API method for health regen is bugged
@@ -34,9 +31,9 @@ const HealthBar = (props: Props) => {
         }
       }
     };
-    update();
-    return () => cancelSchedule(schedule, HealthBar.name);
-  }, [selectedUnit]);
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   const isEnemy = Entities.IsEnemy(selectedUnit);
 
@@ -69,4 +66,4 @@ const HealthBar = (props: Props) => {
 
 };
 
-export default React.memo(HealthBar);
+export default React.memo(ReactTimeout(HealthBar));

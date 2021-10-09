@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_MEDIUM } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
+import { HUD_THINK_MEDIUM } from "../../../../App";
 import { Styles as ParentStyles } from "../Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   selectedUnit: EntityIndex,
 };
 
@@ -11,22 +11,20 @@ const MoveSpeed = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
   const [baseMoveSpeed, setBaseMoveSpeed] = useState(Entities.GetBaseMoveSpeed(selectedUnit));
   const [totalMoveSpeed, setTotalMoveSpeed] = useState(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       const baseMoveSpeed = Entities.GetBaseMoveSpeed(selectedUnit);
       setBaseMoveSpeed(baseMoveSpeed);
       setTotalMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, baseMoveSpeed));
     };
-    update();
-    return () => cancelSchedule(schedule, MoveSpeed.name);
-  }, [selectedUnit]);
+    const id = setInterval!(update, HUD_THINK_MEDIUM);
+    return () => clearInterval!(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
 
@@ -55,4 +53,4 @@ const MoveSpeed = (props: Props) => {
 
 };
 
-export default React.memo(MoveSpeed);
+export default React.memo(ReactTimeout(MoveSpeed));

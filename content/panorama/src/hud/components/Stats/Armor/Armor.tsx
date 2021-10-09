@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
-import { SCHEDULE_THINK_MEDIUM } from "../../../App";
-import { cancelSchedule } from "../../../utils/Schedule";
+import { HUD_THINK_MEDIUM } from "../../../App";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   selectedUnit: EntityIndex
 }
 
@@ -12,21 +12,19 @@ const Armor = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Stats - Armor rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
   const [armor, setArmor] = useState(Entities.GetPhysicalArmorValue(selectedUnit));
   const [bonusArmor, setBonusArmor] = useState(Entities.GetBonusPhysicalArmor(selectedUnit));
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
       setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
       setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
     };
-    update();
-    return () => cancelSchedule(schedule, Armor.name);
-  }, [selectedUnit]);
+    const id = setInterval!(update, HUD_THINK_MEDIUM);
+    return () => clearInterval!(id);
+  }, [selectedUnit, setInterval, clearInterval]);
 
   return (
     <Panel style={ParentStyles.Entry()}>
@@ -46,4 +44,4 @@ const Armor = (props: Props) => {
 
 };
 
-export default React.memo(Armor);
+export default React.memo(ReactTimeout(Armor));

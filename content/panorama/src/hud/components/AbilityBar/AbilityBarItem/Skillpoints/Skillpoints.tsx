@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
+import { HUD_THINK_FAST } from "../../../../App";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   ability: AbilityEntityIndex
 }
 
@@ -11,21 +11,19 @@ const Skillpoints = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - Skillpoints rendered");
 
-  const { ability } = props;
+  const { ability, setInterval, clearInterval } = props;
 
   const [abilityLevel, setAbilityLevel] = useState(Abilities.GetLevel(ability));
   const [maxAbilityLevel, setMaxAbilityLevel] = useState(Abilities.GetMaxLevel(ability));
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setAbilityLevel(Abilities.GetLevel(ability));
       setMaxAbilityLevel(Abilities.GetMaxLevel(ability));
     };
-    update();
-    return () => cancelSchedule(schedule, Skillpoints.name);
-  }, [ability]);
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [ability, setInterval, clearInterval]);
 
   return (
     <Panel style={Styles.Container()}>
@@ -45,4 +43,4 @@ const Skillpoints = (props: Props) => {
 
 };
 
-export default React.memo(Skillpoints);
+export default React.memo(ReactTimeout(Skillpoints));

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_MEDIUM } from "../../../App";
-import { cancelSchedule } from "../../../utils/Schedule";
+import { HUD_THINK_FAST } from "../../../App";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   selectedUnit: EntityIndex,
 };
 
@@ -10,19 +10,15 @@ const Gold = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Shop - Gold rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit, setInterval, clearInterval } = props;
 
   const [playerGold, setPlayerGold] = useState(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
-    const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_MEDIUM, update);
-      setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
-    };
-    update();
-    return () => cancelSchedule(schedule, Gold.name);
-  }, [selectedUnit])
+    const update = () => setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [selectedUnit, setInterval, clearInterval])
 
   return (
     <Panel className={'shopGoldContainer'}>
@@ -33,4 +29,4 @@ const Gold = (props: Props) => {
 
 };
 
-export default React.memo(Gold);
+export default React.memo(ReactTimeout(Gold));

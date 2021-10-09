@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
+import { HUD_THINK_FAST } from "../../../../App";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   ability: AbilityEntityIndex,
 }
 
@@ -11,23 +11,21 @@ const CastPointOverlay = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
 
-  const { ability } = props;
+  const { ability, setInterval, clearInterval } = props;
 
   const [degree, setDegree] = useState(0);
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const offsetCastPoint = Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1);
     const endtime = Game.GetGameTime() + offsetCastPoint;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       const gameTimeDifference = endtime - Game.GetGameTime();
       const degree = Math.min(0, -(360 - ((gameTimeDifference / offsetCastPoint) * 360)));
       setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
     };
-    update();
-    return () => cancelSchedule(schedule, CastPointOverlay.name);
-  }, [ability]);
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [ability, setInterval, clearInterval]);
 
   if (degree === 0) {
     return null;
@@ -39,4 +37,4 @@ const CastPointOverlay = (props: Props) => {
 
 };
 
-export default React.memo(CastPointOverlay);
+export default React.memo(ReactTimeout(CastPointOverlay));

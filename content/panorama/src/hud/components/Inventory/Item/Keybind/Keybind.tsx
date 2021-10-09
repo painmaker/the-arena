@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../../../App";
-import { cancelSchedule } from "../../../../utils/Schedule";
+import { HUD_THINK_FAST } from "../../../../App";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   item: ItemEntityIndex,
 };
 
@@ -11,19 +11,15 @@ const Keybind = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Inventory - Keybind rendered");
 
-  const { item } = props;
+  const { item, setInterval, clearInterval } = props;
 
   const [keybind, setKeybind] = useState('');
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
-    const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
-      setKeybind(Abilities.IsPassive(item) ? '' : Abilities.GetKeybind(item));
-    };
-    update();
-    return () => cancelSchedule(schedule, Keybind.name);
-  }, [item]);
+    const update = () => setKeybind(Abilities.IsPassive(item) ? '' : Abilities.GetKeybind(item));
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [item, setInterval, clearInterval]);
 
   return (
     <Label
@@ -34,4 +30,4 @@ const Keybind = (props: Props) => {
 
 };
 
-export default React.memo(Keybind);
+export default React.memo(ReactTimeout(Keybind));

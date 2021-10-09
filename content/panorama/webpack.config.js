@@ -8,10 +8,10 @@ const isProduction = false;
 /** @type {import('webpack').Configuration} */
 module.exports = {
   mode: isProduction ? 'production' : 'development',
-  // optimization: {
-  //   minimize: true,
-  //   minimizer: [new TerserPlugin({})],
-  // },
+  optimization: {
+    minimize: isProduction,
+    minimizer: [new TerserPlugin({})],
+  },
   context: path.resolve(__dirname, "src"),
   output: {
     path: path.resolve(__dirname, "layout/custom_game"),

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SCHEDULE_THINK_FAST } from "../../../App";
-import { cancelSchedule } from "../../../utils/Schedule";
+import { HUD_THINK_FAST } from "../../../App";
 import { Styles } from "./Styles";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = {
+type Props = ReactTimeoutProps & {
   hero: EntityIndex,
 }
 
@@ -11,21 +11,19 @@ const Health = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Heroes - Health rendered");
 
-  const { hero } = props;
+  const { hero, setInterval, clearInterval } = props;
 
   const [health, setHealth] = useState(Entities.GetHealth(hero));
   const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(hero));
 
   useEffect(() => {
-    let schedule = -1 as ScheduleID;
     const update = () => {
-      schedule = $.Schedule(SCHEDULE_THINK_FAST, update);
       setHealth(Entities.GetHealth(hero));
       setMaxHealth(Entities.GetMaxHealth(hero));
     };
-    update();
-    return () => cancelSchedule(schedule, Health.name);
-  }, [hero]);
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [hero, setInterval, clearInterval]);
 
   return (
     <Panel hittest={false} style={Styles.Container()}>
@@ -41,4 +39,4 @@ const Health = (props: Props) => {
 
 };
 
-export default React.memo(Health);
+export default React.memo(ReactTimeout(Health));
