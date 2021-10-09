@@ -18,21 +18,52 @@ import { useNetTableValues } from "react-panorama";
 import Loading from "./components/Loading/Loading";
 import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
 import FloatingContainer from "./components/FloatingContainer/FloatingContainer";
-import { useSelectedUnit } from "./hooks/useSelectedUnit";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
 export const HUD_THINK_FAST = 30;
 export const HUD_THINK_MEDIUM = 100;
 export const HUD_THINK_SLOW = 1000;
-export const SCHEDULE_THINK_FAST = 0.03;
-export const SCHEDULE_THINK_MEDIUM = 0.1;
-export const SCHEDULE_THINK_SLOW = 1.0;
 
-const App = () => {
+const excludedUnits = [
+  "shopkeeper_abilities"
+]
 
-  const selectedUnit = useSelectedUnit();
+const getGameUnitSelected = () => {
+  const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
+  if (queryUnit !== -1) {
+    return queryUnit;
+  }
+  const portraitUnit = Players.GetLocalPlayerPortraitUnit();
+  if (portraitUnit !== -1) {
+    return portraitUnit
+  }
+  return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
+}
+
+type Props = ReactTimeoutProps & {
+  // ownProps
+}
+
+const App = (props: Props) => {
+
+  const { setInterval, clearInterval } = props;
+
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
   const [useCustomUI, setUseCustomUI] = useState(true);
   const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
+
+  const [selectedUnit, setSelectedUnit] = useState(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+
+  useEffect(() => {
+    const update = () => {
+      const unitToSelect = getGameUnitSelected();
+      if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
+        setSelectedUnit(unitToSelect)
+      }
+    };
+    const id = setInterval!(update, HUD_THINK_FAST);
+    return () => clearInterval!(id);
+  }, [setInterval, clearInterval]);
 
   useEffect(() => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !useCustomUI);
@@ -97,7 +128,6 @@ const App = () => {
               <Buffs selectedUnit={selectedUnit} />
               <Debuffs selectedUnit={selectedUnit} />
               <Inventory selectedUnit={selectedUnit} />
-              {/* <SelectedUnit /> */}
               <Stats selectedUnit={selectedUnit} />
               <AbilitiesShop selectedUnit={selectedUnit} />
               <FloatingContainer />
@@ -110,4 +140,4 @@ const App = () => {
 
 }
 
-export default App;
+export default ReactTimeout(App);

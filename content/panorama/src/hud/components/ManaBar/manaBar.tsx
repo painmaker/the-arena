@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { HUD_THINK_FAST, SCHEDULE_THINK_FAST } from "../../App";
+import { HUD_THINK_FAST } from "../../App";
 import { Styles } from "./Styles";
 import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 

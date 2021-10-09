@@ -51588,10 +51588,6 @@ var setter = function (_setter, _clearer, arrayKey, timerState) {
       }
     }.bind(this), delta)
 
-    $.Msg("Setter START")
-    $.Msg(timerState)
-    $.Msg("Setter END")
-
     if (!timerState[arrayKey]) {
       timerState[arrayKey] = [id]
     } else {
@@ -51603,9 +51599,6 @@ var setter = function (_setter, _clearer, arrayKey, timerState) {
 
 var clearer = function (_clearer, array, timerState) {
   return function (id) {
-    $.Msg("Clearer START")
-    $.Msg(timerState)
-    $.Msg("Clearer END")
     if (timerState[array]) {
       var index = timerState[array].indexOf(id)
       if (index !== -1) {
@@ -55883,9 +55876,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "HUD_THINK_FAST": () => (/* binding */ HUD_THINK_FAST),
 /* harmony export */   "HUD_THINK_MEDIUM": () => (/* binding */ HUD_THINK_MEDIUM),
 /* harmony export */   "HUD_THINK_SLOW": () => (/* binding */ HUD_THINK_SLOW),
-/* harmony export */   "SCHEDULE_THINK_FAST": () => (/* binding */ SCHEDULE_THINK_FAST),
-/* harmony export */   "SCHEDULE_THINK_MEDIUM": () => (/* binding */ SCHEDULE_THINK_MEDIUM),
-/* harmony export */   "SCHEDULE_THINK_SLOW": () => (/* binding */ SCHEDULE_THINK_SLOW),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
@@ -55908,7 +55898,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Loading_Loading__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Loading/Loading */ "./hud/components/Loading/Loading.tsx");
 /* harmony import */ var _components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/AbilitiesShop/AbilitiesShop */ "./hud/components/AbilitiesShop/AbilitiesShop.tsx");
 /* harmony import */ var _components_FloatingContainer_FloatingContainer__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/FloatingContainer/FloatingContainer */ "./hud/components/FloatingContainer/FloatingContainer.tsx");
-/* harmony import */ var _hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./hooks/useSelectedUnit */ "./hud/hooks/useSelectedUnit.ts");
+/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
+/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_20__);
 
 
 
@@ -55933,15 +55924,37 @@ __webpack_require__.r(__webpack_exports__);
 const HUD_THINK_FAST = 30;
 const HUD_THINK_MEDIUM = 100;
 const HUD_THINK_SLOW = 1000;
-const SCHEDULE_THINK_FAST = 0.03;
-const SCHEDULE_THINK_MEDIUM = 0.1;
-const SCHEDULE_THINK_SLOW = 1.0;
-const App = () => {
+const excludedUnits = [
+    "shopkeeper_abilities"
+];
+const getGameUnitSelected = () => {
+    const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
+    if (queryUnit !== -1) {
+        return queryUnit;
+    }
+    const portraitUnit = Players.GetLocalPlayerPortraitUnit();
+    if (portraitUnit !== -1) {
+        return portraitUnit;
+    }
+    return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
+};
+const App = (props) => {
     var _a;
-    const selectedUnit = (0,_hooks_useSelectedUnit__WEBPACK_IMPORTED_MODULE_20__.useSelectedUnit)();
+    const { setInterval, clearInterval } = props;
     const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_16__.useNetTableValues)('HeroSelectionHeroes').heroes;
     const [useCustomUI, setUseCustomUI] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
     const hasPickedHero = ((_a = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())) === null || _a === void 0 ? void 0 : _a.picked) === 1;
+    const [selectedUnit, setSelectedUnit] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        const update = () => {
+            const unitToSelect = getGameUnitSelected();
+            if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
+                setSelectedUnit(unitToSelect);
+            }
+        };
+        const id = setInterval(update, HUD_THINK_FAST);
+        return () => clearInterval(id);
+    }, [setInterval, clearInterval]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !useCustomUI);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, !useCustomUI);
@@ -55994,7 +56007,7 @@ const App = () => {
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_18__.default, { selectedUnit: selectedUnit }),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_FloatingContainer_FloatingContainer__WEBPACK_IMPORTED_MODULE_19__.default, null)))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react_timeout__WEBPACK_IMPORTED_MODULE_20___default()(App));
 
 
 /***/ }),
@@ -56922,6 +56935,7 @@ const AbilityBar = (props) => {
     // $.Msg("REACT-RENDER: AbilityBar rendered");
     const { selectedUnit, setInterval, clearInterval } = props;
     const [abilities, setAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+    const [abilityPoints, setAbilityPoints] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
             const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
@@ -56931,15 +56945,16 @@ const AbilityBar = (props) => {
             if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_1__.TableUtils.isEqual(newAbilities, abilities)) {
                 setAbilities(newAbilities);
             }
+            setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
         };
         const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_5__.HUD_THINK_FAST);
         return () => clearInterval(id);
     }, [selectedUnit, abilities, setInterval, clearInterval]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        if (Entities.GetAbilityPoints(selectedUnit) <= 0) {
+        if (abilityPoints <= 0) {
             Game.EndAbilityLearnMode();
         }
-    }, [selectedUnit]);
+    }, [abilityPoints]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, abilities.map((ability) => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityBarItem_AbilityBarItem__WEBPACK_IMPORTED_MODULE_2__.default, { key: ability, ability: ability, selectedUnit: selectedUnit })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_4___default()(AbilityBar)));
@@ -64331,57 +64346,6 @@ const items = {
 
 /***/ }),
 
-/***/ "./hud/hooks/useSelectedUnit.ts":
-/*!**************************************!*\
-  !*** ./hud/hooks/useSelectedUnit.ts ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "useSelectedUnit": () => (/* binding */ useSelectedUnit)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../App */ "./hud/App.tsx");
-/* harmony import */ var _utils_Schedule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/Schedule */ "./hud/utils/Schedule.ts");
-
-
-
-const excludedUnits = [
-    "shopkeeper_abilities"
-];
-const getGameUnitSelected = () => {
-    const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
-    if (queryUnit !== -1) {
-        return queryUnit;
-    }
-    const portraitUnit = Players.GetLocalPlayerPortraitUnit();
-    if (portraitUnit !== -1) {
-        return portraitUnit;
-    }
-    return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
-};
-const useSelectedUnit = () => {
-    const [selectedUnit, setSelectedUnit] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getGameUnitSelected());
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let schedule = -1;
-        const update = () => {
-            schedule = $.Schedule(_App__WEBPACK_IMPORTED_MODULE_1__.SCHEDULE_THINK_FAST, update);
-            const unitToSelect = getGameUnitSelected();
-            if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
-                setSelectedUnit(unitToSelect);
-            }
-        };
-        update();
-        return () => (0,_utils_Schedule__WEBPACK_IMPORTED_MODULE_2__.cancelSchedule)(schedule, useSelectedUnit.name);
-    }, []);
-    return selectedUnit;
-};
-
-
-/***/ }),
-
 /***/ "./hud/reducers/abilitiesShopReducer.tsx":
 /*!***********************************************!*\
   !*** ./hud/reducers/abilitiesShopReducer.tsx ***!
@@ -65064,43 +65028,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const objectsEqual = (o1, o2) => Object.keys(o1).length === Object.keys(o2).length &&
     Object.keys(o1).every(p => o1[p] === o2[p]);
-
-
-/***/ }),
-
-/***/ "./hud/utils/Schedule.ts":
-/*!*******************************!*\
-  !*** ./hud/utils/Schedule.ts ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "cancelSchedule": () => (/* binding */ cancelSchedule)
-/* harmony export */ });
-const debug = false;
-const logMinusOneSchedules = false;
-const cancelSchedule = (schedule, context, log) => {
-    try {
-        if (log || debug) {
-            if (context) {
-                $.Msg("Info: Canceling schedule " + schedule + " for " + context);
-            }
-            else {
-                $.Msg("Info: Canceling schedule " + schedule);
-            }
-        }
-        $.CancelScheduled(schedule);
-    }
-    catch (error) {
-        if (logMinusOneSchedules || schedule !== -1) {
-            $.Msg("Error: Schedule " + schedule + " not found for " + context);
-            $.Msg(error);
-        }
-    }
-    ;
-};
 
 
 /***/ }),

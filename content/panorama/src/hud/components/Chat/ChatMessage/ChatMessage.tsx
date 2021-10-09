@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { HUD_THINK_FAST } from '../../../App';
 import { Message } from '../../../types/chatTypes';
 import { getHudElement } from '../../../utils/HudElements';
-import { cancelSchedule } from '../../../utils/Schedule';
 import { Styles } from './Styles';
 import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 

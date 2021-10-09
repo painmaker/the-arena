@@ -16,6 +16,7 @@ const AbilityBar = (props: Props) => {
   const { selectedUnit, setInterval, clearInterval } = props;
 
   const [abilities, setAbilities] = useState<AbilityEntityIndex[]>([]);
+  const [abilityPoints, setAbilityPoints] = useState(0);
 
   useEffect(() => {
     const update = () => {
@@ -26,16 +27,17 @@ const AbilityBar = (props: Props) => {
       if (!TableUtils.isEqual(newAbilities, abilities)) {
         setAbilities(newAbilities);
       }
+      setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
     };
     const id = setInterval!(update, HUD_THINK_FAST);
     return () => clearInterval!(id);
   }, [selectedUnit, abilities, setInterval, clearInterval])
 
   useEffect(() => {
-    if (Entities.GetAbilityPoints(selectedUnit) <= 0) {
+    if (abilityPoints <= 0) {
       Game.EndAbilityLearnMode();
     }
-  }, [selectedUnit])
+  }, [abilityPoints])
 
   return (
     <Panel hittest={false} style={Styles.Container()}>
