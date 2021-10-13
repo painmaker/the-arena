@@ -14,7 +14,7 @@ type Props = ReactTimeoutProps & {
 const Message = (props: Props) => {
 
   const { message, setMessages, setTimeout, clearTimeout } = props;
-  const { id, type, data, broadcaster } = message;
+  const { id, type, data } = message;
 
   const [opacity, setOpacity] = useState('1.0');
 
@@ -37,22 +37,13 @@ const Message = (props: Props) => {
   return (
     <Panel style={Styles.Container(opacity)}>
       {type === MessageType.ABILITY && (
-        <AbilityMessage
-          broadcaster={broadcaster}
-          data={data as AbilityMessageData}
-        />
+        <AbilityMessage data={data as AbilityMessageData} />
       )}
       {type === MessageType.ITEM && (
-        <ItemMessage
-          broadcaster={broadcaster}
-          data={data as ItemMessageData}
-        />
+        <ItemMessage data={data as ItemMessageData} />
       )}
       {type === MessageType.MODIFIER && (
-        <ModifierMessage
-          broadcaster={broadcaster}
-          data={data as ModifierMessageData}
-        />
+        <ModifierMessage data={data as ModifierMessageData} />
       )}
     </Panel>
   );

@@ -80,7 +80,7 @@ const FloatingContainer = (props: Props) => {
       }
     };
 
-    const id = setInterval!(update, 10);
+    const id = setInterval!(update, 5);
 
     return () => clearInterval!(id);
 

@@ -4,16 +4,21 @@ import { Styles } from './Styles';
 import { AbilityMessageData } from '../../Messages';
 
 type Props = {
-  broadcaster: PlayerID,
   data: AbilityMessageData,
 }
 
 const getText = (ability: AbilityEntityIndex, unit: EntityIndex) => {
+
   const localizedAbilityName = $.Localize("DOTA_Tooltip_Ability_" + Abilities.GetAbilityName(ability));
   const cooldown = Abilities.GetCooldownTimeRemaining(ability);
   const abilityLevel = Abilities.GetLevel(ability);
   const manaCost = Abilities.GetManaCost(ability);
   const currentMana = Entities.GetMana(unit);
+  const isEnemy = Entities.IsEnemy(unit);
+
+  if (isEnemy) {
+    return localizedAbilityName + ': Beware'
+  }
   if (abilityLevel === 0) {
     return localizedAbilityName + ': Not Learned - ( Level ' + abilityLevel + ' )';
   }
@@ -24,14 +29,16 @@ const getText = (ability: AbilityEntityIndex, unit: EntityIndex) => {
     return localizedAbilityName + ': Not Enough Mana - ( Need ' + (manaCost - currentMana) + ' More )'
   }
   return localizedAbilityName + ': Ready - ( Level ' + abilityLevel + ' )';
+
 }
 
 const AbilityMessage = (props: Props) => {
 
-  const { data, broadcaster } = props;
-  const { unit, ability } = data;
+  const { data } = props;
+  const { unit, ability, broadcaster } = data;
 
   const unitPlayerID = Entities.GetPlayerOwnerID(unit);
+  const isEnemy = Entities.IsEnemy(unit);
 
   return (
     <Panel style={Styles.Container()}>
@@ -49,6 +56,11 @@ const AbilityMessage = (props: Props) => {
           <Image
             style={Styles.ArrowImage()}
             src={'file://{images}/control_icons/chat_wheel_icon.png'}
+          />
+          <Label
+            html={true}
+            style={Styles.EnemyOrAllyLabel()}
+            text={isEnemy ? 'Enemy' : 'Ally'}
           />
           <DOTAHeroImage
             heroimagestyle={'icon'}

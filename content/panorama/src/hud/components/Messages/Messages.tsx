@@ -11,22 +11,24 @@ export enum MessageType {
 
 export interface Message {
   id: number,
-  broadcaster: PlayerID,
   type: MessageType,
   data: AbilityMessageData | ItemMessageData | ModifierMessageData
 }
 
 export interface AbilityMessageData {
+  broadcaster: PlayerID,
   unit: EntityIndex,
   ability: AbilityEntityIndex,
 }
 
 export interface ItemMessageData {
+  broadcaster: PlayerID,
   unit: EntityIndex,
   item: ItemEntityIndex,
 }
 
 export interface ModifierMessageData {
+  broadcaster: PlayerID,
   unit: EntityIndex,
   modifier: BuffID,
 }
@@ -45,9 +47,12 @@ const Messages = (props: Props) => {
     setMessages(prevState => {
       return [...prevState, {
         id: messageID.current,
-        broadcaster: event.broadcaster,
         type: MessageType.ABILITY,
-        data: { unit: event.selectedUnit, ability: event.ability }
+        data: {
+          broadcaster: event.broadcaster,
+          unit: event.selectedUnit,
+          ability: event.ability
+        }
       }]
     })
   }, []);
@@ -57,9 +62,12 @@ const Messages = (props: Props) => {
     setMessages(prevState => {
       return [...prevState, {
         id: messageID.current,
-        broadcaster: event.broadcaster,
         type: MessageType.ITEM,
-        data: { unit: event.selectedUnit, item: event.item }
+        data: {
+          broadcaster: event.broadcaster,
+          unit: event.selectedUnit,
+          item: event.item
+        }
       }]
     })
   }, []);
@@ -69,9 +77,12 @@ const Messages = (props: Props) => {
     setMessages(prevState => {
       return [...prevState, {
         id: messageID.current,
-        broadcaster: event.broadcaster,
         type: MessageType.MODIFIER,
-        data: { unit: event.selectedUnit, modifier: event.modifier }
+        data: {
+          broadcaster: event.broadcaster,
+          unit: event.selectedUnit,
+          modifier: event.modifier
+        }
       }]
     })
   }, []);

@@ -59675,7 +59675,7 @@ const FloatingContainer = (props) => {
                 setFloatingBars(mFloatingBars);
             }
         };
-        const id = setInterval(update, 10);
+        const id = setInterval(update, 5);
         return () => clearInterval(id);
     }, [units, floatingBars, setInterval, clearInterval]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, floatingBars.map(floatingBar => {
@@ -62425,6 +62425,10 @@ const getText = (ability, unit) => {
     const abilityLevel = Abilities.GetLevel(ability);
     const manaCost = Abilities.GetManaCost(ability);
     const currentMana = Entities.GetMana(unit);
+    const isEnemy = Entities.IsEnemy(unit);
+    if (isEnemy) {
+        return localizedAbilityName + ': Beware';
+    }
     if (abilityLevel === 0) {
         return localizedAbilityName + ': Not Learned - ( Level ' + abilityLevel + ' )';
     }
@@ -62440,11 +62444,13 @@ const AbilityMessage = (props) => {
     const { data, broadcaster } = props;
     const { unit, ability } = data;
     const unitPlayerID = Entities.GetPlayerOwnerID(unit);
+    const isEnemy = Entities.IsEnemy(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
         unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isEnemy ? 'Enemy' : 'Ally' }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(unit), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
@@ -62503,6 +62509,11 @@ const Styles = {
         color: '#CDCDCD',
         textShadow: "1px 1px 2px 2 #000000",
     }),
+    EnemyOrAllyLabel: () => ({
+        color: '#CDCDCD',
+        textShadow: "1px 1px 2px 2 #000000",
+        marginRight: '1px',
+    }),
 };
 
 
@@ -62530,8 +62541,12 @@ const getText = (item, unit) => {
     const cooldown = Abilities.GetCooldownTimeRemaining(item);
     const manaCost = Abilities.GetManaCost(item);
     const currentMana = Entities.GetMana(unit);
+    const isEnemy = Entities.IsEnemy(unit);
+    if (isEnemy) {
+        return localizedItemName + ': Beware';
+    }
     if (cooldown > 0) {
-        return localizedItemName + ': On Cooldown - ( ' + cooldown.toFixed(0) + " Seconds Remain )";
+        return localizedItemName + ': On Cooldown - ( ' + Math.ceil(cooldown).toFixed(0) + " Seconds Remain )";
     }
     if (manaCost > currentMana) {
         return localizedItemName + ': Not Enough Mana - ( Need ' + (manaCost - currentMana) + ' More )';
@@ -62542,11 +62557,13 @@ const ItemMessage = (props) => {
     const { data, broadcaster } = props;
     const { unit, item } = data;
     const unitPlayerID = Entities.GetPlayerOwnerID(unit);
+    const isEnemy = Entities.IsEnemy(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
         unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isEnemy ? 'Enemy' : 'Ally' }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(unit), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
@@ -62604,6 +62621,11 @@ const Styles = {
     TextLabel: () => ({
         color: '#CDCDCD',
         textShadow: "1px 1px 2px 2 #000000",
+    }),
+    EnemyOrAllyLabel: () => ({
+        color: '#CDCDCD',
+        textShadow: "1px 1px 2px 2 #000000",
+        marginRight: '1px',
     }),
 };
 
@@ -62685,7 +62707,7 @@ const getText = (modifier, unit) => {
     const localizedItemName = $.Localize("DOTA_Tooltip_" + Buffs.GetName(unit, modifier));
     const remaining = Buffs.GetRemainingTime(unit, modifier);
     if (remaining > 0) {
-        return localizedItemName + ' ( ' + remaining.toFixed(0) + " Seconds Remain )";
+        return localizedItemName + ' ( ' + Math.ceil(remaining).toFixed(0) + " Seconds Remain )";
     }
     return localizedItemName;
 };
@@ -62693,11 +62715,13 @@ const ModifierMessage = (props) => {
     const { data, broadcaster } = props;
     const { unit, modifier } = data;
     const unitPlayerID = Entities.GetPlayerOwnerID(unit);
+    const isEnemy = Entities.IsEnemy(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
         unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isEnemy ? 'Enemy' : 'Ally' }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(unit), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
@@ -62760,6 +62784,11 @@ const Styles = {
     ModifierLabel: (isDebuff) => ({
         color: isDebuff ? 'red' : 'green',
         textShadow: "1px 1px 2px 2 #000000",
+    }),
+    EnemyOrAllyLabel: () => ({
+        color: '#CDCDCD',
+        textShadow: "1px 1px 2px 2 #000000",
+        marginRight: '1px',
     }),
 };
 

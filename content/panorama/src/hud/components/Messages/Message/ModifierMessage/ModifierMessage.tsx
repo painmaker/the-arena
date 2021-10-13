@@ -4,7 +4,6 @@ import { ModifierMessageData } from '../../Messages';
 import { Styles } from './Styles';
 
 type Props = {
-  broadcaster: PlayerID,
   data: ModifierMessageData,
 }
 
@@ -19,10 +18,11 @@ const getText = (modifier: BuffID, unit: EntityIndex) => {
 
 const ModifierMessage = (props: Props) => {
 
-  const { data, broadcaster } = props;
-  const { unit, modifier } = data;
+  const { data } = props;
+  const { unit, modifier, broadcaster } = data;
 
   const unitPlayerID = Entities.GetPlayerOwnerID(unit);
+  const isEnemy = Entities.IsEnemy(unit);
 
   return (
     <Panel style={Styles.Container()}>
@@ -40,6 +40,11 @@ const ModifierMessage = (props: Props) => {
           <Image
             style={Styles.ArrowImage()}
             src={'file://{images}/control_icons/chat_wheel_icon.png'}
+          />
+          <Label
+            html={true}
+            style={Styles.EnemyOrAllyLabel()}
+            text={isEnemy ? 'Enemy' : 'Ally'}
           />
           <DOTAHeroImage
             heroimagestyle={'icon'}
