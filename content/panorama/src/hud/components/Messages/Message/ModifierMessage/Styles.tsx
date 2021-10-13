@@ -11,13 +11,13 @@ export const Styles = {
     height: '18px',
   }),
 
-  AbilityImage: (): Partial<VCSSStyleDeclaration> => ({
+  ItemImage: (): Partial<VCSSStyleDeclaration> => ({
     horizontalAlign: 'center',
-    marginTop: '2px',
+    marginTop: '4.5px',
     width: '18px',
-    height: '18px',
+    height: '14px',
     borderRadius: '5px',
-    marginLeft: '2px',
+    marginLeft: '1px',
     marginRight: '2px',
   }),
 
@@ -40,5 +40,11 @@ export const Styles = {
     color: '#CDCDCD',
     textShadow: "1px 1px 2px 2 #000000",
   }),
+
+  ModifierLabel: (isDebuff: boolean): Partial<VCSSStyleDeclaration> => ({
+    color: isDebuff ? 'red' : 'green',
+    textShadow: "1px 1px 2px 2 #000000",
+  }),
+
 
 }

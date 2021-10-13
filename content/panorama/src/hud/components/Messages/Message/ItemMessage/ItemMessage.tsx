@@ -1,35 +1,31 @@
 import React from 'react';
 import { toColor } from '../../../../utils/Color';
 import { Styles } from './Styles';
-import { AbilityMessageData } from '../../Messages';
+import { ItemMessageData } from '../../Messages';
 
 type Props = {
   broadcaster: PlayerID,
-  data: AbilityMessageData,
+  data: ItemMessageData,
 }
 
-const getText = (ability: AbilityEntityIndex, unit: EntityIndex) => {
-  const localizedAbilityName = $.Localize("DOTA_Tooltip_Ability_" + Abilities.GetAbilityName(ability));
-  const cooldown = Abilities.GetCooldownTimeRemaining(ability);
-  const abilityLevel = Abilities.GetLevel(ability);
-  const manaCost = Abilities.GetManaCost(ability);
+const getText = (item: ItemEntityIndex, unit: EntityIndex) => {
+  const localizedItemName = $.Localize("DOTA_Tooltip_ability_" + Abilities.GetAbilityName(item));
+  const cooldown = Abilities.GetCooldownTimeRemaining(item);
+  const manaCost = Abilities.GetManaCost(item);
   const currentMana = Entities.GetMana(unit);
-  if (abilityLevel === 0) {
-    return localizedAbilityName + ': Not Learned - ( Level ' + abilityLevel + ' )';
-  }
   if (cooldown > 0) {
-    return localizedAbilityName + ': On Cooldown - ( ' + Math.ceil(cooldown).toFixed(0) + " Seconds Remain )";
+    return localizedItemName + ': On Cooldown - ( ' + Math.ceil(cooldown).toFixed(0) + " Seconds Remain )";
   }
   if (manaCost > currentMana) {
-    return localizedAbilityName + ': Not Enough Mana - ( Need ' + (manaCost - currentMana) + ' More )'
+    return localizedItemName + ': Not Enough Mana - ( Need ' + (manaCost - currentMana) + ' More )'
   }
-  return localizedAbilityName + ': Ready - ( Level ' + abilityLevel + ' )';
+  return localizedItemName + ': Ready';
 }
 
-const AbilityMessage = (props: Props) => {
+const ItemMessage = (props: Props) => {
 
   const { data, broadcaster } = props;
-  const { unit, ability } = data;
+  const { unit, item } = data;
 
   const unitPlayerID = Entities.GetPlayerOwnerID(unit);
 
@@ -65,19 +61,19 @@ const AbilityMessage = (props: Props) => {
         style={Styles.ArrowImage()}
         src={'file://{images}/control_icons/chat_wheel_icon.png'}
       />
-      <DOTAAbilityImage
-        style={Styles.AbilityImage()}
-        abilityname={Abilities.GetAbilityName(ability)}
+      <DOTAItemImage
+        style={Styles.ItemImage()}
+        itemname={Abilities.GetAbilityName(item)}
         showtooltip={false}
       />
       <Label
         html={true}
         style={Styles.TextLabel()}
-        text={getText(ability, unit)}
+        text={getText(item, unit)}
       />
     </Panel>
   );
 
 }
 
-export default React.memo(AbilityMessage);
+export default React.memo(ItemMessage);

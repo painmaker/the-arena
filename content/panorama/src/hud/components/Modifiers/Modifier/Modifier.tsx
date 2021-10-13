@@ -41,7 +41,11 @@ const Modifier = (props: Props) => {
       hittest={true}
       style={Styles.Container(isMounted, isHovering)}
       onactivate={() => {
-        Players.BuffClicked(selectedUnit, buff, GameUI.IsAltDown());
+        GameEvents.SendCustomGameEventToAllClients("on_modifier_alerted", {
+          broadcaster: Players.GetLocalPlayer(),
+          selectedUnit,
+          modifier: buff
+        })
       }}
       onmouseout={() => {
         const thisPanel = $("#" + panelId);

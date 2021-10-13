@@ -61973,7 +61973,11 @@ class InventoryItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
             return;
         }
         if (GameUI.IsAltDown()) {
-            Items.LocalPlayerItemAlertAllies(this.props.item);
+            GameEvents.SendCustomGameEventToAllClients("on_item_alerted", {
+                broadcaster: Players.GetLocalPlayer(),
+                selectedUnit: this.props.selectedUnit,
+                item: this.props.item
+            });
             return;
         }
         if (!Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer())) {
@@ -62425,7 +62429,7 @@ const getText = (ability, unit) => {
         return localizedAbilityName + ': Not Learned - ( Level ' + abilityLevel + ' )';
     }
     if (cooldown > 0) {
-        return localizedAbilityName + ': On Cooldown - ( ' + cooldown.toFixed(0) + " Seconds Remain )";
+        return localizedAbilityName + ': On Cooldown - ( ' + Math.ceil(cooldown).toFixed(0) + " Seconds Remain )";
     }
     if (manaCost > currentMana) {
         return localizedAbilityName + ': Not Enough Mana - ( Need ' + (manaCost - currentMana) + ' More )';
@@ -62445,7 +62449,7 @@ const AbilityMessage = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilityImage(), abilityname: Abilities.GetAbilityName(ability), showtooltip: false }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, text: getText(ability, unit) })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: getText(ability, unit) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilityMessage));
 
@@ -62493,6 +62497,113 @@ const Styles = {
     PlayernameLabel: (color) => ({
         marginLeft: '3px',
         color: color,
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    TextLabel: () => ({
+        color: '#CDCDCD',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Messages/Message/ItemMessage/ItemMessage.tsx":
+/*!*********************************************************************!*\
+  !*** ./hud/components/Messages/Message/ItemMessage/ItemMessage.tsx ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _utils_Color__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/Color */ "./hud/utils/Color.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Messages/Message/ItemMessage/Styles.tsx");
+
+
+
+const getText = (item, unit) => {
+    const localizedItemName = $.Localize("DOTA_Tooltip_ability_" + Abilities.GetAbilityName(item));
+    const cooldown = Abilities.GetCooldownTimeRemaining(item);
+    const manaCost = Abilities.GetManaCost(item);
+    const currentMana = Entities.GetMana(unit);
+    if (cooldown > 0) {
+        return localizedItemName + ': On Cooldown - ( ' + cooldown.toFixed(0) + " Seconds Remain )";
+    }
+    if (manaCost > currentMana) {
+        return localizedItemName + ': Not Enough Mana - ( Need ' + (manaCost - currentMana) + ' More )';
+    }
+    return localizedItemName + ': Ready';
+};
+const ItemMessage = (props) => {
+    const { data, broadcaster } = props;
+    const { unit, item } = data;
+    const unitPlayerID = Entities.GetPlayerOwnerID(unit);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
+        unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(unit), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ItemImage(), itemname: Abilities.GetAbilityName(item), showtooltip: false }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: getText(item, unit) })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ItemMessage));
+
+
+/***/ }),
+
+/***/ "./hud/components/Messages/Message/ItemMessage/Styles.tsx":
+/*!****************************************************************!*\
+  !*** ./hud/components/Messages/Message/ItemMessage/Styles.tsx ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        flowChildren: 'right',
+    }),
+    HeroImage: () => ({
+        horizontalAlign: 'center',
+        marginTop: '2px',
+        width: '18px',
+        height: '18px',
+    }),
+    ItemImage: () => ({
+        horizontalAlign: 'center',
+        marginTop: '4.5px',
+        width: '18px',
+        height: '14px',
+        borderRadius: '5px',
+        marginLeft: '1px',
+        marginRight: '2px',
+    }),
+    ArrowImage: () => ({
+        horizontalAlign: 'center',
+        marginTop: '5px',
+        width: '10px',
+        height: '14px',
+        marginLeft: '4px',
+        marginRight: '2px',
+    }),
+    PlayernameLabel: (color) => ({
+        marginLeft: '3px',
+        color: color,
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    TextLabel: () => ({
+        color: '#CDCDCD',
+        textShadow: "1px 1px 2px 2 #000000",
     }),
 };
 
@@ -62516,6 +62627,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
 /* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AbilityMessage/AbilityMessage */ "./hud/components/Messages/Message/AbilityMessage/AbilityMessage.tsx");
+/* harmony import */ var _ItemMessage_ItemMessage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ItemMessage/ItemMessage */ "./hud/components/Messages/Message/ItemMessage/ItemMessage.tsx");
+/* harmony import */ var _ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ModifierMessage/ModifierMessage */ "./hud/components/Messages/Message/ModifierMessage/ModifierMessage.tsx");
+
+
 
 
 
@@ -62539,9 +62654,114 @@ const Message = (props) => {
         const timerId = setTimeout(update, 5000);
         return () => clearTimeout(timerId);
     }, [setTimeout, clearTimeout]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(opacity) }, type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ABILITY && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_4__.default, { broadcaster: broadcaster, data: data }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(opacity) },
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ABILITY && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_4__.default, { broadcaster: broadcaster, data: data })),
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ITEM && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemMessage_ItemMessage__WEBPACK_IMPORTED_MODULE_5__.default, { broadcaster: broadcaster, data: data })),
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.MODIFIER && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_6__.default, { broadcaster: broadcaster, data: data }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Message)));
+
+
+/***/ }),
+
+/***/ "./hud/components/Messages/Message/ModifierMessage/ModifierMessage.tsx":
+/*!*****************************************************************************!*\
+  !*** ./hud/components/Messages/Message/ModifierMessage/ModifierMessage.tsx ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _utils_Color__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/Color */ "./hud/utils/Color.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Messages/Message/ModifierMessage/Styles.tsx");
+
+
+
+const getText = (modifier, unit) => {
+    const localizedItemName = $.Localize("DOTA_Tooltip_" + Buffs.GetName(unit, modifier));
+    const remaining = Buffs.GetRemainingTime(unit, modifier);
+    if (remaining > 0) {
+        return localizedItemName + ' ( ' + remaining.toFixed(0) + " Seconds Remain )";
+    }
+    return localizedItemName;
+};
+const ModifierMessage = (props) => {
+    const { data, broadcaster } = props;
+    const { unit, modifier } = data;
+    const unitPlayerID = Entities.GetPlayerOwnerID(unit);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
+        unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(unit), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ItemImage(), abilityname: Abilities.GetAbilityName(Buffs.GetAbility(unit, modifier)), showtooltip: false }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: 'Affected By: ' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ModifierLabel(Buffs.IsDebuff(unit, modifier)), text: getText(modifier, unit) })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ModifierMessage));
+
+
+/***/ }),
+
+/***/ "./hud/components/Messages/Message/ModifierMessage/Styles.tsx":
+/*!********************************************************************!*\
+  !*** ./hud/components/Messages/Message/ModifierMessage/Styles.tsx ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        flowChildren: 'right',
+    }),
+    HeroImage: () => ({
+        horizontalAlign: 'center',
+        marginTop: '2px',
+        width: '18px',
+        height: '18px',
+    }),
+    ItemImage: () => ({
+        horizontalAlign: 'center',
+        marginTop: '4.5px',
+        width: '18px',
+        height: '14px',
+        borderRadius: '5px',
+        marginLeft: '1px',
+        marginRight: '2px',
+    }),
+    ArrowImage: () => ({
+        horizontalAlign: 'center',
+        marginTop: '5px',
+        width: '10px',
+        height: '14px',
+        marginLeft: '4px',
+        marginRight: '2px',
+    }),
+    PlayernameLabel: (color) => ({
+        marginLeft: '3px',
+        color: color,
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    TextLabel: () => ({
+        color: '#CDCDCD',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    ModifierLabel: (isDebuff) => ({
+        color: isDebuff ? 'red' : 'green',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+};
 
 
 /***/ }),
@@ -62592,20 +62812,42 @@ var MessageType;
 (function (MessageType) {
     MessageType["ABILITY"] = "ABILITY";
     MessageType["ITEM"] = "ITEM";
+    MessageType["MODIFIER"] = "MODIFIER";
 })(MessageType || (MessageType = {}));
 const Messages = (props) => {
     const [messages, setMessages] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-    const messageID = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(-1000000);
+    const messageID = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(Number.MIN_SAFE_INTEGER);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_ability_alerted", (event) => {
         messageID.current = messageID.current + 1;
         setMessages(prevState => {
-            const newState = [...prevState, {
+            return [...prevState, {
                     id: messageID.current,
                     broadcaster: event.broadcaster,
                     type: MessageType.ABILITY,
                     data: { unit: event.selectedUnit, ability: event.ability }
                 }];
-            return newState;
+        });
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_item_alerted", (event) => {
+        messageID.current = messageID.current + 1;
+        setMessages(prevState => {
+            return [...prevState, {
+                    id: messageID.current,
+                    broadcaster: event.broadcaster,
+                    type: MessageType.ITEM,
+                    data: { unit: event.selectedUnit, item: event.item }
+                }];
+        });
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_modifier_alerted", (event) => {
+        messageID.current = messageID.current + 1;
+        setMessages(prevState => {
+            return [...prevState, {
+                    id: messageID.current,
+                    broadcaster: event.broadcaster,
+                    type: MessageType.MODIFIER,
+                    data: { unit: event.selectedUnit, modifier: event.modifier }
+                }];
         });
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, messages.sort((m1, m2) => m2.id - m1.id).map(message => {
@@ -62930,7 +63172,11 @@ const Modifier = (props) => {
     const isAura = _data_auras__WEBPACK_IMPORTED_MODULE_1__.aura_modifiers.includes(Buffs.GetName(selectedUnit, buff));
     const isEnemy = Entities.IsEnemy(selectedUnit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: panelId, hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isMounted, isHovering), onactivate: () => {
-            Players.BuffClicked(selectedUnit, buff, GameUI.IsAltDown());
+            GameEvents.SendCustomGameEventToAllClients("on_modifier_alerted", {
+                broadcaster: Players.GetLocalPlayer(),
+                selectedUnit,
+                modifier: buff
+            });
         }, onmouseout: () => {
             const thisPanel = $("#" + panelId);
             if (thisPanel) {

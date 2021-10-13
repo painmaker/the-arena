@@ -1,35 +1,26 @@
 import React from 'react';
 import { toColor } from '../../../../utils/Color';
+import { ModifierMessageData } from '../../Messages';
 import { Styles } from './Styles';
-import { AbilityMessageData } from '../../Messages';
 
 type Props = {
   broadcaster: PlayerID,
-  data: AbilityMessageData,
+  data: ModifierMessageData,
 }
 
-const getText = (ability: AbilityEntityIndex, unit: EntityIndex) => {
-  const localizedAbilityName = $.Localize("DOTA_Tooltip_Ability_" + Abilities.GetAbilityName(ability));
-  const cooldown = Abilities.GetCooldownTimeRemaining(ability);
-  const abilityLevel = Abilities.GetLevel(ability);
-  const manaCost = Abilities.GetManaCost(ability);
-  const currentMana = Entities.GetMana(unit);
-  if (abilityLevel === 0) {
-    return localizedAbilityName + ': Not Learned - ( Level ' + abilityLevel + ' )';
+const getText = (modifier: BuffID, unit: EntityIndex) => {
+  const localizedItemName = $.Localize("DOTA_Tooltip_" + Buffs.GetName(unit, modifier));
+  const remaining = Buffs.GetRemainingTime(unit, modifier);
+  if (remaining > 0) {
+    return localizedItemName + ' ( ' + Math.ceil(remaining).toFixed(0) + " Seconds Remain )";
   }
-  if (cooldown > 0) {
-    return localizedAbilityName + ': On Cooldown - ( ' + Math.ceil(cooldown).toFixed(0) + " Seconds Remain )";
-  }
-  if (manaCost > currentMana) {
-    return localizedAbilityName + ': Not Enough Mana - ( Need ' + (manaCost - currentMana) + ' More )'
-  }
-  return localizedAbilityName + ': Ready - ( Level ' + abilityLevel + ' )';
+  return localizedItemName;
 }
 
-const AbilityMessage = (props: Props) => {
+const ModifierMessage = (props: Props) => {
 
   const { data, broadcaster } = props;
-  const { unit, ability } = data;
+  const { unit, modifier } = data;
 
   const unitPlayerID = Entities.GetPlayerOwnerID(unit);
 
@@ -66,18 +57,23 @@ const AbilityMessage = (props: Props) => {
         src={'file://{images}/control_icons/chat_wheel_icon.png'}
       />
       <DOTAAbilityImage
-        style={Styles.AbilityImage()}
-        abilityname={Abilities.GetAbilityName(ability)}
+        style={Styles.ItemImage()}
+        abilityname={Abilities.GetAbilityName(Buffs.GetAbility(unit, modifier))}
         showtooltip={false}
       />
       <Label
         html={true}
         style={Styles.TextLabel()}
-        text={getText(ability, unit)}
+        text={'Affected By: '}
+      />
+      <Label
+        html={true}
+        style={Styles.ModifierLabel(Buffs.IsDebuff(unit, modifier))}
+        text={getText(modifier, unit)}
       />
     </Panel>
   );
 
 }
 
-export default React.memo(AbilityMessage);
+export default React.memo(ModifierMessage);

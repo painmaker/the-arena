@@ -58,5 +58,7 @@ interface CustomGameEventDeclarations {
   on_ability_used: { abilityname: String, unit: EntityIndex }
 
   on_ability_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex, ability: AbilityEntityIndex }
+  on_item_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex, item: ItemEntityIndex }
+  on_modifier_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex, modifier: BuffID }
 
 }

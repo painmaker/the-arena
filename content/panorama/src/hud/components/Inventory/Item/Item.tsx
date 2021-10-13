@@ -144,7 +144,11 @@ class InventoryItem extends React.Component<Props, State> {
       return;
     }
     if (GameUI.IsAltDown()) {
-      Items.LocalPlayerItemAlertAllies(this.props.item);
+      GameEvents.SendCustomGameEventToAllClients("on_item_alerted", {
+        broadcaster: Players.GetLocalPlayer(),
+        selectedUnit: this.props.selectedUnit,
+        item: this.props.item
+      })
       return;
     }
     if (!Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer())) {

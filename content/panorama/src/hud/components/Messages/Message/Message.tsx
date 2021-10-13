@@ -1,8 +1,10 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Message as IMessage, AbilityMessageData, MessageType } from '../Messages';
+import { Message as IMessage, AbilityMessageData, MessageType, ItemMessageData, ModifierMessageData } from '../Messages';
 import { Styles } from './Styles';
 import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 import AbilityMessage from './AbilityMessage/AbilityMessage';
+import ItemMessage from './ItemMessage/ItemMessage';
+import ModifierMessage from './ModifierMessage/ModifierMessage';
 
 type Props = ReactTimeoutProps & {
   message: IMessage,
@@ -38,6 +40,18 @@ const Message = (props: Props) => {
         <AbilityMessage
           broadcaster={broadcaster}
           data={data as AbilityMessageData}
+        />
+      )}
+      {type === MessageType.ITEM && (
+        <ItemMessage
+          broadcaster={broadcaster}
+          data={data as ItemMessageData}
+        />
+      )}
+      {type === MessageType.MODIFIER && (
+        <ModifierMessage
+          broadcaster={broadcaster}
+          data={data as ModifierMessageData}
         />
       )}
     </Panel>
