@@ -62441,8 +62441,8 @@ const getText = (ability, unit) => {
     return localizedAbilityName + ': Ready - ( Level ' + abilityLevel + ' )';
 };
 const AbilityMessage = (props) => {
-    const { data, broadcaster } = props;
-    const { unit, ability } = data;
+    const { data } = props;
+    const { unit, ability, broadcaster } = data;
     const unitPlayerID = Entities.GetPlayerOwnerID(unit);
     const isEnemy = Entities.IsEnemy(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
@@ -62554,8 +62554,8 @@ const getText = (item, unit) => {
     return localizedItemName + ': Ready';
 };
 const ItemMessage = (props) => {
-    const { data, broadcaster } = props;
-    const { unit, item } = data;
+    const { data } = props;
+    const { unit, item, broadcaster } = data;
     const unitPlayerID = Entities.GetPlayerOwnerID(unit);
     const isEnemy = Entities.IsEnemy(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
@@ -62660,7 +62660,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const Message = (props) => {
     const { message, setMessages, setTimeout, clearTimeout } = props;
-    const { id, type, data, broadcaster } = message;
+    const { id, type, data } = message;
     const [opacity, setOpacity] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('1.0');
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
@@ -62677,9 +62677,9 @@ const Message = (props) => {
         return () => clearTimeout(timerId);
     }, [setTimeout, clearTimeout]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(opacity) },
-        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ABILITY && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_4__.default, { broadcaster: broadcaster, data: data })),
-        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ITEM && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemMessage_ItemMessage__WEBPACK_IMPORTED_MODULE_5__.default, { broadcaster: broadcaster, data: data })),
-        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.MODIFIER && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_6__.default, { broadcaster: broadcaster, data: data }))));
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ABILITY && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_4__.default, { data: data })),
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ITEM && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemMessage_ItemMessage__WEBPACK_IMPORTED_MODULE_5__.default, { data: data })),
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.MODIFIER && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_6__.default, { data: data }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Message)));
 
@@ -62712,8 +62712,8 @@ const getText = (modifier, unit) => {
     return localizedItemName;
 };
 const ModifierMessage = (props) => {
-    const { data, broadcaster } = props;
-    const { unit, modifier } = data;
+    const { data } = props;
+    const { unit, modifier, broadcaster } = data;
     const unitPlayerID = Entities.GetPlayerOwnerID(unit);
     const isEnemy = Entities.IsEnemy(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
@@ -62851,9 +62851,12 @@ const Messages = (props) => {
         setMessages(prevState => {
             return [...prevState, {
                     id: messageID.current,
-                    broadcaster: event.broadcaster,
                     type: MessageType.ABILITY,
-                    data: { unit: event.selectedUnit, ability: event.ability }
+                    data: {
+                        broadcaster: event.broadcaster,
+                        unit: event.selectedUnit,
+                        ability: event.ability
+                    }
                 }];
         });
     }, []);
@@ -62862,9 +62865,12 @@ const Messages = (props) => {
         setMessages(prevState => {
             return [...prevState, {
                     id: messageID.current,
-                    broadcaster: event.broadcaster,
                     type: MessageType.ITEM,
-                    data: { unit: event.selectedUnit, item: event.item }
+                    data: {
+                        broadcaster: event.broadcaster,
+                        unit: event.selectedUnit,
+                        item: event.item
+                    }
                 }];
         });
     }, []);
@@ -62873,9 +62879,12 @@ const Messages = (props) => {
         setMessages(prevState => {
             return [...prevState, {
                     id: messageID.current,
-                    broadcaster: event.broadcaster,
                     type: MessageType.MODIFIER,
-                    data: { unit: event.selectedUnit, modifier: event.modifier }
+                    data: {
+                        broadcaster: event.broadcaster,
+                        unit: event.selectedUnit,
+                        modifier: event.modifier
+                    }
                 }];
         });
     }, []);
@@ -62902,7 +62911,7 @@ __webpack_require__.r(__webpack_exports__);
 const Styles = {
     Container: () => ({
         width: '800px',
-        minHeight: '350px',
+        height: '350px',
         flowChildren: 'up',
         verticalAlign: 'center',
         horizontalAlign: 'left',
