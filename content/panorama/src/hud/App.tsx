@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNetTableValues } from "react-panorama";
+import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 import Minimap from "./components/Minimap/Minimap";
 import Settings from "./components/Settings/Settings";
 import ButtonGroup from "./components/ButtonGroup/ButtonGroup";
@@ -14,11 +16,10 @@ import Buffs from "./components/Modifiers/Buffs/Buffs";
 import Inventory from "./components/Inventory/Inventory";
 import Shop from "./components/Shop/Shop";
 import HeroSelection from "./components/HeroSelection/HeroSelection";
-import { useNetTableValues } from "react-panorama";
 import Loading from "./components/Loading/Loading";
 import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
 import FloatingContainer from "./components/FloatingContainer/FloatingContainer";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import Messages from "./components/Messages/Messages";
 
 export const HUD_THINK_FAST = 30;
 export const HUD_THINK_MEDIUM = 100;
@@ -49,9 +50,9 @@ const App = (props: Props) => {
   const { setInterval, clearInterval } = props;
 
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
-  const [useCustomUI, setUseCustomUI] = useState(true);
   const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
 
+  const [useCustomUI, setUseCustomUI] = useState(true);
   const [selectedUnit, setSelectedUnit] = useState(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
 
   useEffect(() => {
@@ -131,6 +132,7 @@ const App = (props: Props) => {
               <Stats selectedUnit={selectedUnit} />
               <AbilitiesShop selectedUnit={selectedUnit} />
               <FloatingContainer />
+              <Messages />
             </React.Fragment>
           )}
         </Loading>
