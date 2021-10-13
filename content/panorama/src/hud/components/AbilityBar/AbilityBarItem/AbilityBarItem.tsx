@@ -22,7 +22,11 @@ const onMouseOut = (ability: AbilityEntityIndex) => {
 
 const onLeftClick = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
   if (GameUI.IsAltDown()) {
-    GameEvents.SendCustomGameEventToAllClients("on_ability_alerted", { selectedUnit, ability })
+    GameEvents.SendCustomGameEventToAllClients("on_ability_alerted", {
+      broadcaster: Players.GetLocalPlayer(),
+      selectedUnit,
+      ability
+    })
     return;
   }
   if (Game.IsInAbilityLearnMode()) {

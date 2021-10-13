@@ -57011,7 +57011,11 @@ const onMouseOut = (ability) => {
 };
 const onLeftClick = (ability, selectedUnit) => {
     if (GameUI.IsAltDown()) {
-        GameEvents.SendCustomGameEventToAllClients("on_ability_alerted", { selectedUnit, ability });
+        GameEvents.SendCustomGameEventToAllClients("on_ability_alerted", {
+            broadcaster: Players.GetLocalPlayer(),
+            selectedUnit,
+            ability
+        });
         return;
     }
     if (Game.IsInAbilityLearnMode()) {
@@ -62411,25 +62415,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const getAbilityComponent = (ability) => {
-    const cooldown = Abilities.GetCooldownTimeRemaining(ability);
+const getText = (ability, unit) => {
     const localizedAbilityName = $.Localize("DOTA_Tooltip_Ability_" + Abilities.GetAbilityName(ability));
-    if (cooldown > 0) {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilityImage(), abilityname: Abilities.GetAbilityName(ability), showtooltip: false }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, text: localizedAbilityName + ' on cooldown (' + cooldown.toFixed(1) + "s remain)." })));
+    const cooldown = Abilities.GetCooldownTimeRemaining(ability);
+    const abilityLevel = Abilities.GetLevel(ability);
+    const manaCost = Abilities.GetManaCost(ability);
+    const currentMana = Entities.GetMana(unit);
+    if (abilityLevel === 0) {
+        return localizedAbilityName + ': Not Learned - ( Level ' + abilityLevel + ' )';
     }
-    return null;
+    if (cooldown > 0) {
+        return localizedAbilityName + ': On Cooldown - ( ' + cooldown.toFixed(0) + " Seconds Remain )";
+    }
+    if (manaCost > currentMana) {
+        return localizedAbilityName + ': Not Enough Mana - ( Need ' + (manaCost - currentMana) + ' More )';
+    }
+    return localizedAbilityName + ': Ready - ( Level ' + abilityLevel + ' )';
 };
 const AbilityMessage = (props) => {
-    const { data } = props;
+    const { data, broadcaster } = props;
     const { unit, ability } = data;
-    const playerId = Entities.GetPlayerOwnerID(unit);
-    const playername = Players.GetPlayerName(playerId);
+    const unitPlayerID = Entities.GetPlayerOwnerID(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(unit), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: playername + ": ", style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(playerId)) }),
-        getAbilityComponent(ability)));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
+        unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(unit), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilityImage(), abilityname: Abilities.GetAbilityName(ability), showtooltip: false }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, text: getText(ability, unit) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilityMessage));
 
@@ -62466,6 +62482,14 @@ const Styles = {
         marginLeft: '2px',
         marginRight: '2px',
     }),
+    ArrowImage: () => ({
+        horizontalAlign: 'center',
+        marginTop: '5px',
+        width: '10px',
+        height: '14px',
+        marginLeft: '4px',
+        marginRight: '2px',
+    }),
     PlayernameLabel: (color) => ({
         marginLeft: '3px',
         color: color,
@@ -62499,23 +62523,23 @@ __webpack_require__.r(__webpack_exports__);
 
 const Message = (props) => {
     const { message, setMessages, setTimeout, clearTimeout } = props;
-    const { id, type, data } = message;
+    const { id, type, data, broadcaster } = message;
     const [opacity, setOpacity] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('1.0');
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
             setMessages(prevState => prevState.filter(msg => msg.id !== id));
         };
-        const timerId = setTimeout(update, 3250);
+        const timerId = setTimeout(update, 5600);
         return () => clearTimeout(timerId);
     }, [id, setMessages, setTimeout, clearTimeout]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
             setOpacity('0.0');
         };
-        const timerId = setTimeout(update, 2500);
+        const timerId = setTimeout(update, 5000);
         return () => clearTimeout(timerId);
     }, [setTimeout, clearTimeout]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(opacity) }, type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ABILITY && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_4__.default, { data: data }))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(opacity) }, type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ABILITY && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_4__.default, { broadcaster: broadcaster, data: data }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Message)));
 
@@ -62577,13 +62601,14 @@ const Messages = (props) => {
         setMessages(prevState => {
             const newState = [...prevState, {
                     id: messageID.current,
+                    broadcaster: event.broadcaster,
                     type: MessageType.ABILITY,
                     data: { unit: event.selectedUnit, ability: event.ability }
                 }];
             return newState;
         });
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, messages.reverse().map(message => {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, messages.sort((m1, m2) => m2.id - m1.id).map(message => {
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Message_Message__WEBPACK_IMPORTED_MODULE_2__.default, { key: message.id, message: message, setMessages: setMessages }));
     })));
 };
@@ -62605,14 +62630,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const Styles = {
     Container: () => ({
-        width: '700px',
+        width: '800px',
         minHeight: '350px',
         flowChildren: 'up',
         verticalAlign: 'center',
         horizontalAlign: 'left',
         marginTop: '0px',
         marginLeft: '10px',
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
         zIndex: 10,
     })
 };

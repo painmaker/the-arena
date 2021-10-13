@@ -57,6 +57,6 @@ interface CustomGameEventDeclarations {
 
   on_ability_used: { abilityname: String, unit: EntityIndex }
 
-  on_ability_alerted: { selectedUnit: EntityIndex, ability: AbilityEntityIndex }
+  on_ability_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex, ability: AbilityEntityIndex }
 
 }

@@ -10,6 +10,7 @@ export enum MessageType {
 
 export interface Message {
   id: number,
+  broadcaster: PlayerID,
   type: MessageType,
   data: AbilityMessageData | ItemMessageData
 }
@@ -38,6 +39,7 @@ const Messages = (props: Props) => {
     setMessages(prevState => {
       const newState = [...prevState, {
         id: messageID.current,
+        broadcaster: event.broadcaster,
         type: MessageType.ABILITY,
         data: { unit: event.selectedUnit, ability: event.ability }
       }]
@@ -47,7 +49,7 @@ const Messages = (props: Props) => {
 
   return (
     <Panel style={Styles.Container()}>
-      {messages.reverse().map(message => {
+      {messages.sort((m1, m2) => m2.id - m1.id).map(message => {
         return (
           <Message
             key={message.id}
