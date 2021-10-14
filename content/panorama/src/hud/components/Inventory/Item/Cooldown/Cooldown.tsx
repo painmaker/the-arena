@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import { useInterval } from "../../../../hooks/useInterval";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = ReactTimeoutProps & {
+type Props = {
   item: ItemEntityIndex
 };
 
@@ -11,24 +11,18 @@ const Cooldown = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Inventory - Cooldown rendered");
 
-  const { item, setInterval, clearInterval } = props;
+  const { item } = props;
 
-  const [totalCooldown, setTotalCooldown] = useState(Abilities.GetCooldownLength(item))
-  const [remainingCooldown, setRemainingCooldown] = useState(Abilities.GetCooldownTimeRemaining(item))
+  const [degree, setDegree] = useState(0);
+  const [remainingCooldown, setRemainingCooldown] = useState(Abilities.GetCooldownTimeRemaining(item));
 
-  useEffect(() => {
-    const update = () => {
-      setTotalCooldown(Abilities.GetCooldownLength(item));
-      setRemainingCooldown(Abilities.GetCooldownTimeRemaining(item));
-    };
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [item, setInterval, clearInterval]);
-
-  let degree = Math.min(0, - (remainingCooldown / totalCooldown) * 360);
-  if (Number.isNaN(degree) || !Number.isFinite(degree)) {
-    degree = 0;
-  }
+  useInterval(() => {
+    const total = Abilities.GetCooldownLength(item);
+    const remaining = Abilities.GetCooldownTimeRemaining(item);
+    const degree = Math.min(0, - (remainingCooldown / total) * 360);
+    setDegree(Number.isFinite(degree) ? degree : 0);
+    setRemainingCooldown(remaining);
+  }, HUD_THINK_FAST)
 
   return (
     <React.Fragment>
@@ -44,4 +38,4 @@ const Cooldown = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(Cooldown));
+export default React.memo(Cooldown);

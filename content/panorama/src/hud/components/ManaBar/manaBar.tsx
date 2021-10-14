@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../App";
+import { useInterval } from "../../hooks/useInterval";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
@@ -17,15 +17,11 @@ const ManaBar = (props: Props) => {
   const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(selectedUnit));
   const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(selectedUnit));
 
-  useEffect(() => {
-    const update = () => {
-      setMana(Entities.GetMana(selectedUnit));
-      setMaxMana(Entities.GetMaxMana(selectedUnit));
-      setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
-    };
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [selectedUnit]);
+  useInterval(() => {
+    setMana(Entities.GetMana(selectedUnit));
+    setMaxMana(Entities.GetMaxMana(selectedUnit));
+    setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
+  }, HUD_THINK_FAST);
 
   return (
     <Panel hittest={false} style={Styles.Container(maxMana > 0)}>
@@ -54,4 +50,4 @@ const ManaBar = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(ManaBar));
+export default React.memo(ManaBar);

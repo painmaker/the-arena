@@ -43,6 +43,9 @@ const Messages = (props: Props) => {
   const messageID = useRef(Number.MIN_SAFE_INTEGER);
 
   useGameEvent("on_ability_alerted", (event) => {
+    if (Game.IsPlayerMuted(event.broadcaster)) {
+      return;
+    }
     messageID.current = messageID.current + 1;
     setMessages(prevState => {
       return [...prevState, {
@@ -54,10 +57,13 @@ const Messages = (props: Props) => {
           ability: event.ability
         }
       }]
-    })
+    });
   }, []);
 
   useGameEvent("on_item_alerted", (event) => {
+    if (Game.IsPlayerMuted(event.broadcaster)) {
+      return;
+    }
     messageID.current = messageID.current + 1;
     setMessages(prevState => {
       return [...prevState, {
@@ -73,6 +79,9 @@ const Messages = (props: Props) => {
   }, []);
 
   useGameEvent("on_modifier_alerted", (event) => {
+    if (Game.IsPlayerMuted(event.broadcaster)) {
+      return;
+    }
     messageID.current = messageID.current + 1;
     setMessages(prevState => {
       return [...prevState, {

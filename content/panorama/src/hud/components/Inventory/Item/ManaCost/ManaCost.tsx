@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import { useInterval } from "../../../../hooks/useInterval";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = ReactTimeoutProps & {
+type Props = {
   item: ItemEntityIndex,
 };
 
@@ -11,15 +11,13 @@ const ManaCost = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Inventory - ManaCost rendered");
 
-  const { item, setInterval, clearInterval } = props;
+  const { item } = props;
 
   const [manaCost, setManaCost] = useState(Abilities.GetManaCost(item));
 
-  useEffect(() => {
-    const update = () => setManaCost(Abilities.GetManaCost(item));
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [item, setInterval, clearInterval]);
+  useInterval(() => {
+    setManaCost(Abilities.GetManaCost(item));
+  }, HUD_THINK_FAST);
 
   return (
     <Label
@@ -30,4 +28,4 @@ const ManaCost = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(ManaCost));
+export default React.memo(ManaCost);

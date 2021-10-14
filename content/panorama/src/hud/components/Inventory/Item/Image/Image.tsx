@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import { useInterval } from "../../../../hooks/useInterval";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = ReactTimeoutProps & {
+type Props = {
   item: ItemEntityIndex,
   selectedUnit: EntityIndex,
 };
@@ -12,28 +12,24 @@ const Image = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Inventory - Image rendered");
 
-  const { item, selectedUnit, setInterval, clearInterval } = props;
+  const { item, selectedUnit } = props;
 
   const [isCooldownReady, setIsCooldownReady] = useState(Abilities.IsCooldownReady(item));
   const [hasEnoughMana, setHasEnoughMana] = useState(Abilities.IsOwnersManaEnough(item));
   const [texture, setTexutre] = useState(Abilities.GetAbilityTextureName(item));
   const [showLock, setShowLock] = useState(false);
 
-  useEffect(() => {
-    const update = () => {
-      const isMuted = Entities.IsMuted(selectedUnit);
-      const isStunned = Entities.IsStunned(selectedUnit);
-      const isCommandRestricted = Entities.IsCommandRestricted(selectedUnit);
-      const isNightmared = Entities.IsNightmared(selectedUnit);
-      const isHexed = Entities.IsHexed(selectedUnit);
-      setShowLock(isMuted || isStunned || isCommandRestricted || isNightmared || isHexed);
-      setIsCooldownReady(Abilities.IsCooldownReady(item));
-      setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
-      setTexutre(Abilities.GetAbilityTextureName(item));
-    };
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [selectedUnit, item, setInterval, clearInterval]);
+  useInterval(() => {
+    const isMuted = Entities.IsMuted(selectedUnit);
+    const isStunned = Entities.IsStunned(selectedUnit);
+    const isCommandRestricted = Entities.IsCommandRestricted(selectedUnit);
+    const isNightmared = Entities.IsNightmared(selectedUnit);
+    const isHexed = Entities.IsHexed(selectedUnit);
+    setShowLock(isMuted || isStunned || isCommandRestricted || isNightmared || isHexed);
+    setIsCooldownReady(Abilities.IsCooldownReady(item));
+    setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
+    setTexutre(Abilities.GetAbilityTextureName(item));
+  }, HUD_THINK_FAST);
 
   return (
     <React.Fragment>
@@ -49,4 +45,4 @@ const Image = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(Image));
+export default React.memo(Image);

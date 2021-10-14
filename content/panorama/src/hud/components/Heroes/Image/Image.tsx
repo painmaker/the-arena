@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { HUD_THINK_FAST } from "../../../App";
+import { useInterval } from "../../../hooks/useInterval";
 import { RootState } from "../../../reducers/rootReducer";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
 const mapStateToProps = (state: RootState) => ({
   cameraLocked: state.settingsReducer.cameraLocked,
@@ -12,7 +12,7 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   hero: EntityIndex;
 };
 
@@ -58,7 +58,7 @@ const ImageImpl = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
 
-  const { hero, cameraLocked, setInterval, clearInterval } = props;
+  const { hero, cameraLocked } = props;
 
   const [washColor, setWashColor] = useState("none");
   const [isHovering, setIsHovering] = useState(false);
@@ -82,22 +82,18 @@ const ImageImpl = (props: Props) => {
     return () => GameEvents.Unsubscribe(handle);
   }, []);
 
-  useEffect(() => {
-    const update = () => {
-      const playerInfo = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(hero));
-      if (playerInfo) {
-        const isDisconnected = playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED ||
-          playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_ABANDONED ||
-          playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_FAILED;
-        setIsDisconnected(isDisconnected);
-        if (isDisconnected) {
-          setWashColor("grey");
-        }
+  useInterval(() => {
+    const playerInfo = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(hero));
+    if (playerInfo) {
+      const isDisconnected = playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED ||
+        playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_ABANDONED ||
+        playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_FAILED;
+      setIsDisconnected(isDisconnected);
+      if (isDisconnected) {
+        setWashColor("grey");
       }
-    };
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [hero, setInterval, clearInterval])
+    }
+  }, HUD_THINK_FAST);
 
   return (
     <Panel hittest={false} style={Styles.Container(isHovering)}>
@@ -121,4 +117,4 @@ const ImageImpl = (props: Props) => {
 
 };
 
-export default React.memo(connector(ReactTimeout(ImageImpl)));
+export default React.memo(connector(ImageImpl));

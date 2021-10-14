@@ -7,13 +7,12 @@ type Props = {
   data: ModifierMessageData,
 }
 
-const getText = (modifier: BuffID, unit: EntityIndex) => {
-  const localizedItemName = $.Localize("DOTA_Tooltip_" + Buffs.GetName(unit, modifier));
+const getExtraText = (modifier: BuffID, unit: EntityIndex) => {
   const remaining = Buffs.GetRemainingTime(unit, modifier);
   if (remaining > 0) {
-    return localizedItemName + ' ( ' + Math.ceil(remaining).toFixed(0) + " Seconds Remain )";
+    return ' ( ' + Math.ceil(remaining).toFixed(0) + " Seconds Remain )";
   }
-  return localizedItemName;
+  return '';
 }
 
 const ModifierMessage = (props: Props) => {
@@ -61,20 +60,23 @@ const ModifierMessage = (props: Props) => {
         style={Styles.ArrowImage()}
         src={'file://{images}/control_icons/chat_wheel_icon.png'}
       />
-      <DOTAAbilityImage
-        style={Styles.ItemImage()}
-        abilityname={Abilities.GetAbilityName(Buffs.GetAbility(unit, modifier))}
-        showtooltip={false}
-      />
       <Label
         html={true}
         style={Styles.TextLabel()}
         text={'Affected By: '}
       />
+      <DOTAAbilityImage
+        style={Styles.ModifierImage()}
+        abilityname={Abilities.GetAbilityName(Buffs.GetAbility(unit, modifier))}
+        showtooltip={false}
+      />
       <Label
-        html={true}
         style={Styles.ModifierLabel(Buffs.IsDebuff(unit, modifier))}
-        text={getText(modifier, unit)}
+        text={$.Localize("DOTA_Tooltip_" + Buffs.GetName(unit, modifier))}
+      />
+      <Label
+        style={Styles.ModifierExtraLabel()}
+        text={getExtraText(modifier, unit)}
       />
     </Panel>
   );

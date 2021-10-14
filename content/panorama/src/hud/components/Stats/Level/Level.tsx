@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HUD_THINK_MEDIUM } from "../../../App";
 import { Styles as ParentStyles } from "../Styles";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { useInterval } from "../../../hooks/useInterval";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 }
 
@@ -12,26 +12,22 @@ const Level = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Stats - Level rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [level, setLevel] = useState(Entities.GetLevel(selectedUnit));
   const [percentage, setPercentage] = useState(0);
 
-  useEffect(() => {
-    const update = () => {
-      if (Entities.IsHero(selectedUnit)) {
-        const currentXp = Entities.GetCurrentXP(selectedUnit);
-        const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
-        const percentage = Math.floor(Math.max(0, Math.min(100, currentXp / requiredXp * 100)))
-        setPercentage(Number.isNaN(percentage) ? 100 : percentage)
-      } else {
-        setPercentage(100);
-      }
-      setLevel(Entities.GetLevel(selectedUnit));
-    };
-    const id = setInterval!(update, HUD_THINK_MEDIUM);
-    return () => clearInterval!(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+  useInterval(() => {
+    if (Entities.IsHero(selectedUnit)) {
+      const currentXp = Entities.GetCurrentXP(selectedUnit);
+      const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
+      const percentage = Math.floor(Math.max(0, Math.min(100, currentXp / requiredXp * 100)))
+      setPercentage(Number.isNaN(percentage) ? 100 : percentage)
+    } else {
+      setPercentage(100);
+    }
+    setLevel(Entities.GetLevel(selectedUnit));
+  }, HUD_THINK_MEDIUM);
 
   return (
     <React.Fragment>
@@ -53,4 +49,4 @@ const Level = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(Level));
+export default React.memo(Level);

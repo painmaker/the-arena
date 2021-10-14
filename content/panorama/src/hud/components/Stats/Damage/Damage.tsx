@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
 import { HUD_THINK_MEDIUM } from "../../../App";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { useInterval } from "../../../hooks/useInterval";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 }
 
@@ -12,21 +12,17 @@ const Damage = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Stats - Damage rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [minDamage, setMinDamage] = useState(Entities.GetDamageMin(selectedUnit));
   const [maxDamage, setMaxDamage] = useState(Entities.GetDamageMax(selectedUnit));
   const [bonusDamage, setBonusDamage] = useState(Entities.GetDamageBonus(selectedUnit));
 
-  useEffect(() => {
-    const update = () => {
-      setMinDamage(Entities.GetDamageMin(selectedUnit));
-      setMaxDamage(Entities.GetDamageMax(selectedUnit));
-      setBonusDamage(Entities.GetDamageBonus(selectedUnit));
-    };
-    const id = setInterval!(update, HUD_THINK_MEDIUM);
-    return () => clearInterval!(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+  useInterval(() => {
+    setMinDamage(Entities.GetDamageMin(selectedUnit));
+    setMaxDamage(Entities.GetDamageMax(selectedUnit));
+    setBonusDamage(Entities.GetDamageBonus(selectedUnit));
+  }, HUD_THINK_MEDIUM)
 
   return (
     <Panel style={ParentStyles.Entry()}>
@@ -46,4 +42,4 @@ const Damage = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(Damage));
+export default React.memo(Damage);

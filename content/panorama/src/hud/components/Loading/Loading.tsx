@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { HUD_THINK_SLOW } from '../../App';
+import { useTimeout } from '../../hooks/useTimeout';
 import { Styles } from './Styles';
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = ReactTimeoutProps & {
+type Props = {
   children: React.ReactNode
 }
 
@@ -10,15 +11,11 @@ const Loading = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Loading rendered");
 
-  const { setTimeout, clearTimeout } = props;
-
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const update = () => setIsLoading(false);
-    const id = setTimeout!(update, 1000);
-    return () => clearTimeout!(id);
-  }, [setTimeout, clearTimeout]);
+  useTimeout(() => {
+    setIsLoading(false);
+  }, HUD_THINK_SLOW);
 
   if (isLoading) {
     return (
@@ -39,4 +36,4 @@ const Loading = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(Loading));
+export default React.memo(Loading);

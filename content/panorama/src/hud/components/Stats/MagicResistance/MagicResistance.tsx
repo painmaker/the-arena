@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Styles } from "./Styles";
 import { Styles as ParentStyles } from "../Styles";
 import { HUD_THINK_MEDIUM } from "../../../App";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { useInterval } from "../../../hooks/useInterval";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
@@ -12,15 +12,13 @@ const MagicResistance = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Stats - MagicalResistance rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [magicResistance, setMagicResistance] = useState(Entities.GetMagicalArmorValue(selectedUnit));
 
-  useEffect(() => {
-    const update = () => setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
-    const id = setInterval!(update, HUD_THINK_MEDIUM);
-    return () => clearInterval!(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+  useInterval(() => {
+    setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit))
+  }, HUD_THINK_MEDIUM);
 
   return (
     <Panel style={ParentStyles.Entry()}>
@@ -34,4 +32,4 @@ const MagicResistance = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(MagicResistance));
+export default React.memo(MagicResistance);

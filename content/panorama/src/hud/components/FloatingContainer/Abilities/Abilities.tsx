@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import Ability from "./Ability/Ability";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = ReactTimeoutProps & {
+type Props = {
   unit: EntityIndex,
 };
 
-type Ability = {
+export type Ability = {
   name: string,
   id: number,
 }
@@ -17,27 +16,17 @@ const Abilities = (props: Props) => {
 
   // $.Msg("REACT-RENDER: CloatingContainer - Abilities rendered");
 
-  const { unit, setTimeout, clearTimeout } = props;
+  const { unit } = props;
 
   const [abilities, setAbilities] = useState<Ability[]>([]);
+  const id = useRef(Number.MIN_SAFE_INTEGER);
 
   useGameEvent('on_ability_used', (event) => {
-
-    if (unit !== event.unit) {
-      return;
+    if (unit === event.unit) {
+      id.current = id.current + 1;
+      setAbilities(prevState => [...prevState, { name: event.abilityname, id: id.current }] as Ability[]);
     }
-
-    const abilityId = Math.random();
-
-    setAbilities(prevState => [...prevState, { name: event.abilityname, id: abilityId }] as Ability[]);
-
-    const update = () => setAbilities(prevState => prevState.filter(ability => ability.id !== abilityId));
-
-    const id = setTimeout!(update, 1000);
-
-    return () => clearTimeout!(id);
-
-  }, [unit, setTimeout, clearTimeout]);
+  }, [unit]);
 
   return (
     <Panel hittest={false} style={Styles.Container()}>
@@ -45,7 +34,9 @@ const Abilities = (props: Props) => {
         return (
           <Ability
             key={ability.id}
+            id={ability.id}
             name={ability.name}
+            setAbilities={setAbilities}
           />
         )
       })}
@@ -54,4 +45,4 @@ const Abilities = (props: Props) => {
 
 }
 
-export default React.memo(ReactTimeout(Abilities));
+export default React.memo(Abilities);

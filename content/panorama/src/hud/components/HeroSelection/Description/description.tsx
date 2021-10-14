@@ -11,8 +11,8 @@ import Title from "./Title/Title";
 import Abilities from "./Abilities/Abilities";
 import HealthAndMana from "./HealthAndMana/HealthAndMana";
 import Attributes from "./Attributes/Attributes";
-import { HUD_THINK_SLOW } from "../../../App";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { HUD_THINK_FAST, HUD_THINK_SLOW } from "../../../App";
+import { useTimeout } from "../../../hooks/useTimeout";
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
   resetFocusedHero: () => dispatch(resetFocusedHero()),
@@ -21,30 +21,19 @@ const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
 const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   focusedHero: FocusedHero | undefined
 }
 
 const Description = (props: Props) => {
 
-  const { focusedHero, setTimeout, clearTimeout } = props;
+  const { focusedHero } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
-  useEffect(() => {
-    let id: ReactTimeout.Timer | undefined = undefined;
-    if (focusedHero === undefined) {
-      const update = () => setRenderComponent(false);
-      id = setTimeout!(update, HUD_THINK_SLOW);
-    } else {
-      setRenderComponent(true);
-    }
-    return () => {
-      if (id) {
-        clearTimeout!(id)
-      }
-    }
-  }, [focusedHero, setTimeout, clearTimeout]);
+  useTimeout(() => {
+    setRenderComponent(focusedHero === undefined ? false : true);
+  }, focusedHero === undefined ? 0 : HUD_THINK_FAST);
 
   return (
     <React.Fragment>
@@ -80,4 +69,4 @@ const Description = (props: Props) => {
   );
 }
 
-export default React.memo(connector(ReactTimeout(Description)));
+export default React.memo(connector(Description));

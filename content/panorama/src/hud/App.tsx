@@ -56,6 +56,11 @@ const App = (props: Props) => {
   const [selectedUnit, setSelectedUnit] = useState(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
 
   useEffect(() => {
+    GameUI.SetCameraDistance(1600);
+    GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+  }, []);
+
+  useEffect(() => {
     const update = () => {
       const unitToSelect = getGameUnitSelected();
       if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
@@ -98,7 +103,6 @@ const App = (props: Props) => {
 
   return (
     <Panel id={'root'} hittest={false} className={"appContainer"} >
-      {/* <Chat hasPickedHero={hasPickedHero} /> */}
       {(!hasPickedHero) && (
         <HeroSelection />
       )}

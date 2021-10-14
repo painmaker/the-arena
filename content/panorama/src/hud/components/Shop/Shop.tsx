@@ -11,7 +11,7 @@ import Artifacts from "./Artifacts/Artifacts";
 import { setShopVisible } from "../../actions/shopActions";
 import { ShopActionTypes } from "../../types/shopTypes";
 import { HUD_THINK_SLOW } from "../../App";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { useTimeout } from "../../hooks/useTimeout";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.shopReducer.visible,
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch<ShopActionTypes>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   selectedUnit: EntityIndex,
 };
 
@@ -32,24 +32,13 @@ const Shop = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Shop rendered");
 
-  const { selectedUnit, visible, setTimeout, clearTimeout } = props;
+  const { selectedUnit, visible } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
-  useEffect(() => {
-    let id: ReactTimeout.Timer | undefined = undefined;
-    if (visible === false) {
-      const update = () => setRenderComponent(false);
-      id = setTimeout!(update, HUD_THINK_SLOW);
-    } else {
-      setRenderComponent(true);
-    }
-    return () => {
-      if (id) {
-        clearTimeout!(id)
-      }
-    }
-  }, [visible, setTimeout, clearTimeout]);
+  useTimeout(() => {
+    setRenderComponent(visible);
+  }, visible === false ? HUD_THINK_SLOW : 0)
 
   return (
     <React.Fragment>
@@ -82,4 +71,4 @@ const Shop = (props: Props) => {
 
 };
 
-export default connector(ReactTimeout(Shop));
+export default connector(Shop);

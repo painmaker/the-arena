@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 import { HUD_THINK_FAST } from "../../../App";
+import { useInterval } from "../../../hooks/useInterval";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   unit: EntityIndex,
 };
 
@@ -11,19 +11,15 @@ const HealthBar = (props: Props) => {
 
   // $.Msg("REACT-RENDER: FloatingBars - HealthBar rendered");
 
-  const { unit, setInterval, clearInterval } = props;
+  const { unit } = props;
 
   const [health, setHealth] = useState(Entities.GetHealth(unit));
   const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(unit));
 
-  useEffect(() => {
-    const update = () => {
-      setHealth(Entities.GetHealth(unit));
-      setMaxHealth(Entities.GetMaxHealth(unit));
-    };
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [unit, setInterval, clearInterval]);
+  useInterval(() => {
+    setHealth(Entities.GetHealth(unit));
+    setMaxHealth(Entities.GetMaxHealth(unit));
+  }, HUD_THINK_FAST);
 
   return (
     <Panel hittest={false} style={Styles.Container()}>
@@ -39,4 +35,4 @@ const HealthBar = (props: Props) => {
 
 }
 
-export default React.memo(ReactTimeout(HealthBar));
+export default React.memo(HealthBar);

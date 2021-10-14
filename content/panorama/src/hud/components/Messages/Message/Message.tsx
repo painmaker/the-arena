@@ -1,38 +1,30 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Message as IMessage, AbilityMessageData, MessageType, ItemMessageData, ModifierMessageData } from '../Messages';
 import { Styles } from './Styles';
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 import AbilityMessage from './AbilityMessage/AbilityMessage';
 import ItemMessage from './ItemMessage/ItemMessage';
 import ModifierMessage from './ModifierMessage/ModifierMessage';
+import { useTimeout } from '../../../hooks/useTimeout';
 
-type Props = ReactTimeoutProps & {
+type Props = {
   message: IMessage,
   setMessages: Dispatch<SetStateAction<IMessage[]>>,
 }
 
 const Message = (props: Props) => {
 
-  const { message, setMessages, setTimeout, clearTimeout } = props;
+  const { message, setMessages } = props;
   const { id, type, data } = message;
 
   const [opacity, setOpacity] = useState('1.0');
 
-  useEffect(() => {
-    const update = () => {
-      setMessages(prevState => prevState.filter(msg => msg.id !== id));
-    }
-    const timerId = setTimeout!(update, 5600);
-    return () => clearTimeout!(timerId);
-  }, [id, setMessages, setTimeout, clearTimeout]);
+  useTimeout(() => {
+    setMessages(prevState => prevState.filter(msg => msg.id !== id));
+  }, 5600);
 
-  useEffect(() => {
-    const update = () => {
-      setOpacity('0.0');
-    }
-    const timerId = setTimeout!(update, 5000);
-    return () => clearTimeout!(timerId);
-  }, [setTimeout, clearTimeout]);
+  useTimeout(() => {
+    setOpacity('0.0');
+  }, 5000);
 
   return (
     <Panel style={Styles.Container(opacity)}>
@@ -50,4 +42,4 @@ const Message = (props: Props) => {
 
 }
 
-export default React.memo(ReactTimeout(Message));
+export default React.memo(Message);

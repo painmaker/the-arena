@@ -1,29 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { useInterval } from "../../../../hooks/useInterval";
+import { useTimeout } from "../../../../hooks/useTimeout";
+import { Ability as IAbility } from "../Abilities";
 
-type Props = ReactTimeoutProps & {
+type Props = {
+  id: number,
   name: string,
+  setAbilities: Dispatch<SetStateAction<IAbility[]>>
 };
 
 const Ability = (props: Props) => {
 
-  const { name, setInterval, clearInterval, setTimeout, clearTimeout } = props;
+  const { id, name, setAbilities } = props;
 
   const [posY, setPosY] = useState(75);
   const [opacity, setOpacity] = useState('1.0');
 
-  useEffect(() => {
-    const update = () => setPosY(prevState => prevState - 0.5)
-    const id = setInterval!(update, 10);
-    return () => clearInterval!(id);
-  }, [setInterval, clearInterval]);
+  useInterval(() => {
+    setPosY(prevState => prevState - 0.5)
+  }, 10);
 
-  useEffect(() => {
-    const update = () => setOpacity('0.0');
-    const id = setTimeout!(update, 750)
-    return () => clearTimeout!(id);
-  }, [setTimeout, clearTimeout]);
+  useTimeout(() => {
+    setOpacity('0.0');
+  }, 750);
+
+  useTimeout(() => {
+    setAbilities(prevState => prevState.filter(ability => ability.id !== id))
+  }, 1000);
 
   return (
     <Panel style={Styles.Container(posY, opacity)}>
@@ -42,4 +46,4 @@ const Ability = (props: Props) => {
 
 }
 
-export default React.memo(ReactTimeout(Ability));
+export default React.memo(Ability);

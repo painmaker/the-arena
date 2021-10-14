@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../App";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { useInterval } from "../../../hooks/useInterval";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
@@ -10,15 +10,13 @@ const Gold = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Shop - Gold rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [playerGold, setPlayerGold] = useState(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
 
-  useEffect(() => {
-    const update = () => setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [selectedUnit, setInterval, clearInterval])
+  useInterval(() => {
+    setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)))
+  }, HUD_THINK_FAST);
 
   return (
     <Panel className={'shopGoldContainer'}>
@@ -29,4 +27,4 @@ const Gold = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(Gold));
+export default React.memo(Gold);

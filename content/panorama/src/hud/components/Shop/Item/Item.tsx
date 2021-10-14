@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useGameEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
 import { HUD_THINK_FAST } from "../../../App";
+import { useInterval } from "../../../hooks/useInterval";
 import { RootState } from "../../../reducers/rootReducer";
 import { Item } from "../../../types/shopTypes";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
 const mapStateToProps = (state: RootState) => ({
   searchValue: state.shopReducer.searchValue,
@@ -13,7 +13,7 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   item: Item,
   selectedUnit: EntityIndex,
 };
@@ -22,19 +22,15 @@ const Item = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Shop - Item rendered");
 
-  const { item, selectedUnit, setInterval, clearInterval } = props;
+  const { item, selectedUnit } = props;
 
   const [playerGold, setPlayerGold] = useState(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
   const [isShopInRange, setIsShopInRange] = useState(Entities.IsInRangeOfShop(selectedUnit, 0, false));
 
-  useEffect(() => {
-    const update = () => {
-      setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
-      setIsShopInRange(Entities.IsInRangeOfShop(selectedUnit, 0, false));
-    };
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+  useInterval(() => {
+    setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
+    setIsShopInRange(Entities.IsInRangeOfShop(selectedUnit, 0, false));
+  }, HUD_THINK_FAST)
 
   useGameEvent("attempt_item_purchase_success", () => {
     Game.EmitSound("General.CourierGivesItem");
@@ -97,4 +93,4 @@ const Item = (props: Props) => {
 
 };
 
-export default React.memo(connector(ReactTimeout(Item)));
+export default React.memo(connector(Item));

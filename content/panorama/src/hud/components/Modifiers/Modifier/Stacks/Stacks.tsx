@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { HUD_THINK_FAST } from "../../../../App"
+import { useInterval } from "../../../../hooks/useInterval"
 import { Styles } from "./Styles"
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = ReactTimeoutProps & {
+type Props = {
   unit: EntityIndex,
   buff: BuffID,
 }
@@ -12,15 +12,13 @@ const Stacks = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Modifier rendered");
 
-  const { unit, buff, setInterval, clearInterval } = props;
+  const { unit, buff } = props;
 
   const [stacks, setStacks] = useState(Buffs.GetStackCount(unit, buff))
 
-  useEffect(() => {
-    const update = () => setStacks(Buffs.GetStackCount(unit, buff));
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [unit, buff, setInterval, clearInterval]);
+  useInterval(() => {
+    setStacks(Buffs.GetStackCount(unit, buff));
+  }, HUD_THINK_FAST)
 
   if (stacks === 0) {
     return null;
@@ -34,4 +32,4 @@ const Stacks = (props: Props) => {
 
 }
 
-export default React.memo(ReactTimeout(Stacks));
+export default React.memo(Stacks);

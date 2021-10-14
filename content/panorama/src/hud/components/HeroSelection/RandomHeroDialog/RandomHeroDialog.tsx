@@ -3,9 +3,9 @@ import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
 import { setRandomHeroDialogVisible } from "../../../actions/heroSelectionActions";
 import { HUD_THINK_SLOW } from "../../../App";
+import { useTimeout } from "../../../hooks/useTimeout";
 import { RootState } from "../../../reducers/rootReducer";
 import { HeroSelectionActionTypes } from "../../../types/heroSelectionTypes";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
 const mapStateToProps = (state: RootState) => ({
   randomHeroDialogVisible: state.heroSelectionReducer.randomHeroDialogVisible
@@ -18,30 +18,19 @@ const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   // ownProps
 };
 
 const RandomHeroDialog = (props: Props) => {
 
-  const { randomHeroDialogVisible, setRandomHeroDialogVisible, setTimeout, clearTimeout } = props;
+  const { randomHeroDialogVisible, setRandomHeroDialogVisible } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
-  useEffect(() => {
-    let id: ReactTimeout.Timer | undefined = undefined;
-    if (randomHeroDialogVisible === false) {
-      const update = () => setRenderComponent(false);
-      id = setTimeout!(update, HUD_THINK_SLOW);
-    } else {
-      setRenderComponent(true);
-    }
-    return () => {
-      if (id) {
-        clearTimeout!(id)
-      }
-    }
-  }, [randomHeroDialogVisible, setTimeout, clearTimeout]);
+  useTimeout(() => {
+    setRenderComponent(randomHeroDialogVisible)
+  }, randomHeroDialogVisible === false ? HUD_THINK_SLOW : 0)
 
   return (
     <React.Fragment>
@@ -87,4 +76,4 @@ const RandomHeroDialog = (props: Props) => {
 
 }
 
-export default connector(ReactTimeout(RandomHeroDialog));
+export default connector(RandomHeroDialog);

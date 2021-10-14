@@ -55948,6 +55948,10 @@ const App = (props) => {
     const [useCustomUI, setUseCustomUI] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
     const [selectedUnit, setSelectedUnit] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        GameUI.SetCameraDistance(1600);
+        GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+    }, []);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const update = () => {
             const unitToSelect = getGameUnitSelected();
             if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
@@ -59474,32 +59478,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 /* harmony import */ var _Ability_Ability__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Ability/Ability */ "./hud/components/FloatingContainer/Abilities/Ability/Ability.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingContainer/Abilities/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_4__);
-
 
 
 
 
 const Abilities = (props) => {
     // $.Msg("REACT-RENDER: CloatingContainer - Abilities rendered");
-    const { unit, setTimeout, clearTimeout } = props;
+    const { unit } = props;
     const [abilities, setAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+    const id = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(Number.MIN_SAFE_INTEGER);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)('on_ability_used', (event) => {
-        if (unit !== event.unit) {
-            return;
+        if (unit === event.unit) {
+            id.current = id.current + 1;
+            setAbilities(prevState => [...prevState, { name: event.abilityname, id: id.current }]);
         }
-        const abilityId = Math.random();
-        setAbilities(prevState => [...prevState, { name: event.abilityname, id: abilityId }]);
-        const update = () => setAbilities(prevState => prevState.filter(ability => ability.id !== abilityId));
-        const id = setTimeout(update, 1000);
-        return () => clearTimeout(id);
-    }, [unit, setTimeout, clearTimeout]);
+    }, [unit]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, abilities.map((ability) => {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Ability_Ability__WEBPACK_IMPORTED_MODULE_2__.default, { key: ability.id, name: ability.name }));
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Ability_Ability__WEBPACK_IMPORTED_MODULE_2__.default, { key: ability.id, id: ability.id, name: ability.name, setAbilities: setAbilities }));
     })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_4___default()(Abilities)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Abilities));
 
 
 /***/ }),
@@ -59517,30 +59515,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingContainer/Abilities/Ability/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
+
 
 
 
 const Ability = (props) => {
-    const { name, setInterval, clearInterval, setTimeout, clearTimeout } = props;
+    const { id, name, setAbilities } = props;
     const [posY, setPosY] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(75);
     const [opacity, setOpacity] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('1.0');
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setPosY(prevState => prevState - 0.5);
-        const id = setInterval(update, 10);
-        return () => clearInterval(id);
-    }, [setInterval, clearInterval]);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setOpacity('0.0');
-        const id = setTimeout(update, 750);
-        return () => clearTimeout(id);
-    }, [setTimeout, clearTimeout]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setPosY(prevState => prevState - 0.5);
+    }, 10);
+    (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_3__.useTimeout)(() => {
+        setOpacity('0.0');
+    }, 750);
+    (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_3__.useTimeout)(() => {
+        setAbilities(prevState => prevState.filter(ability => ability.id !== id));
+    }, 1000);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container(posY, opacity) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { showtooltip: false, abilityname: name, style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Image() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, text: $.Localize("DOTA_Tooltip_Ability_" + name), style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Label() })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(Ability)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Ability));
 
 
 /***/ }),
@@ -59628,8 +59626,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ManaBar/ManaBar */ "./hud/components/FloatingContainer/ManaBar/ManaBar.tsx");
 /* harmony import */ var _Abilities_Abilities__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Abilities/Abilities */ "./hud/components/FloatingContainer/Abilities/Abilities.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingContainer/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
@@ -59641,43 +59638,38 @@ __webpack_require__.r(__webpack_exports__);
 
 const FloatingContainer = (props) => {
     // $.Msg("REACT-RENDER: FloatingBars rendered");
-    const { setInterval, clearInterval } = props;
     const units = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('FloatingBarUnits').units;
     const [floatingBars, setFloatingBars] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
-            const scale = 1080 / Game.GetScreenHeight();
-            const mFloatingBars = Entities.GetAllEntities()
-                .filter(entity => Entities.IsSelectable(entity))
-                .filter(entity => Object.values(units).includes(entity))
-                .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < 3500)
-                .map(unit => {
-                const unitOrigin = Entities.GetAbsOrigin(unit);
-                const offsetX = (centerOrigin[0] - unitOrigin[0]) / 20;
-                const offsetY = (centerOrigin[1] - unitOrigin[1]) / 20;
-                const offsetZ = Entities.GetHealthBarOffset(unit) + 100;
-                const offsetScreenX = scale * Game.WorldToScreenX(unitOrigin[0] + offsetX, unitOrigin[1] + offsetY, unitOrigin[2] + offsetZ);
-                const offsetScreenY = scale * Game.WorldToScreenY(unitOrigin[0] + offsetX, unitOrigin[1] + offsetY, unitOrigin[2] + offsetZ);
-                const screenWorldPosition = GameUI.GetScreenWorldPosition([
-                    Game.WorldToScreenX(unitOrigin[0], unitOrigin[1], unitOrigin[2]),
-                    Game.WorldToScreenY(unitOrigin[0], unitOrigin[1], unitOrigin[2])
-                ]);
-                return {
-                    unit,
-                    screenX: offsetScreenX,
-                    screenY: offsetScreenY,
-                    visible: screenWorldPosition !== null
-                };
-            })
-                .filter(screenPosition => screenPosition.visible);
-            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_3__.TableUtils.isEqual(mFloatingBars, floatingBars, _utils_ObjectUtils__WEBPACK_IMPORTED_MODULE_2__.objectsEqual)) {
-                setFloatingBars(mFloatingBars);
-            }
-        };
-        const id = setInterval(update, 5);
-        return () => clearInterval(id);
-    }, [units, floatingBars, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_8__.useInterval)(() => {
+        const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
+        const scale = 1080 / Game.GetScreenHeight();
+        const mFloatingBars = Entities.GetAllEntities()
+            .filter(entity => Entities.IsSelectable(entity))
+            .filter(entity => Object.values(units).includes(entity))
+            .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < 3500)
+            .map(unit => {
+            const unitOrigin = Entities.GetAbsOrigin(unit);
+            const offsetX = (centerOrigin[0] - unitOrigin[0]) / 20;
+            const offsetY = (centerOrigin[1] - unitOrigin[1]) / 20;
+            const offsetZ = Entities.GetHealthBarOffset(unit) + 100;
+            const offsetScreenX = scale * Game.WorldToScreenX(unitOrigin[0] + offsetX, unitOrigin[1] + offsetY, unitOrigin[2] + offsetZ);
+            const offsetScreenY = scale * Game.WorldToScreenY(unitOrigin[0] + offsetX, unitOrigin[1] + offsetY, unitOrigin[2] + offsetZ);
+            const screenWorldPosition = GameUI.GetScreenWorldPosition([
+                Game.WorldToScreenX(unitOrigin[0], unitOrigin[1], unitOrigin[2]),
+                Game.WorldToScreenY(unitOrigin[0], unitOrigin[1], unitOrigin[2])
+            ]);
+            return {
+                unit,
+                screenX: offsetScreenX,
+                screenY: offsetScreenY,
+                visible: screenWorldPosition !== null
+            };
+        })
+            .filter(screenPosition => screenPosition.visible);
+        if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_3__.TableUtils.isEqual(mFloatingBars, floatingBars, _utils_ObjectUtils__WEBPACK_IMPORTED_MODULE_2__.objectsEqual)) {
+            setFloatingBars(mFloatingBars);
+        }
+    }, 5);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, floatingBars.map(floatingBar => {
         const { unit, screenX, screenY } = floatingBar;
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { key: unit, style: _Styles__WEBPACK_IMPORTED_MODULE_7__.Styles.Container(screenX - 125, screenY - 500, 0) },
@@ -59686,7 +59678,7 @@ const FloatingContainer = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Abilities_Abilities__WEBPACK_IMPORTED_MODULE_6__.default, { unit: unit })));
     })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_8___default()(FloatingContainer)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(FloatingContainer));
 
 
 /***/ }),
@@ -59704,30 +59696,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingContainer/HealthBar/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const HealthBar = (props) => {
     // $.Msg("REACT-RENDER: FloatingBars - HealthBar rendered");
-    const { unit, setInterval, clearInterval } = props;
+    const { unit } = props;
     const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(unit));
     const [maxHealth, setMaxHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxHealth(unit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setHealth(Entities.GetHealth(unit));
-            setMaxHealth(Entities.GetMaxHealth(unit));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [unit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        setHealth(Entities.GetHealth(unit));
+        setMaxHealth(Entities.GetMaxHealth(unit));
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_FAST);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: Entities.IsEnemy(unit) ? 'healthProgressBarEnemy' : 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Progressbar() })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(HealthBar)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(HealthBar));
 
 
 /***/ }),
@@ -59774,30 +59761,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingContainer/ManaBar/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const ManaBar = (props) => {
     // $.Msg("REACT-RENDER: FloatingBars - ManaBar rendered");
-    const { unit, setInterval, clearInterval } = props;
+    const { unit } = props;
     const [mana, setMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMana(unit));
     const [maxMana, setMaxMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxMana(unit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setMana(Entities.GetMana(unit));
-            setMaxMana(Entities.GetMaxMana(unit));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [unit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        setMana(Entities.GetMana(unit));
+        setMaxMana(Entities.GetMaxMana(unit));
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_FAST);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container(maxMana > 0) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Progressbar() })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(ManaBar)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ManaBar));
 
 
 /***/ }),
@@ -59871,9 +59853,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils */ "./utils.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/GameTime/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
@@ -59889,17 +59870,14 @@ const formatGameTime = (dotaTime) => {
     return hours + ":" + minutes + ":" + seconds;
 };
 const GameTime = (props) => {
-    const { setInterval, clearInterval } = props;
     const [gameTime, setGameTime] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Game.GetDOTATime(false, false));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setGameTime(Game.GetDOTATime(false, false));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_4__.HUD_THINK_SLOW);
-        return () => clearInterval(id);
-    }, [setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__.useInterval)(() => {
+        setGameTime(Game.GetDOTATime(false, false));
+    }, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_SLOW);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: formatGameTime(gameTime) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(GameTime)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(GameTime));
 
 
 /***/ }),
@@ -59949,35 +59927,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/HealthBar/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const HealthBar = (props) => {
     // $.Msg("REACT-RENDER: HealthBar rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(selectedUnit));
     const [maxHealth, setMaxHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxHealth(selectedUnit));
     const [healthRegen, setHealthRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealthThinkRegen(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setHealth(Entities.GetHealth(selectedUnit));
-            setMaxHealth(Entities.GetMaxHealth(selectedUnit));
-            // Hack because panorama API method for health regen is bugged
-            const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
-            for (let i = 0; i < numberOfBuffs; i++) {
-                const buff = Entities.GetBuff(selectedUnit, i);
-                const name = Buffs.GetName(selectedUnit, buff);
-                if (name === 'modifier_ui_health_regen') {
-                    setHealthRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
-                }
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        setHealth(Entities.GetHealth(selectedUnit));
+        setMaxHealth(Entities.GetMaxHealth(selectedUnit));
+        // Hack because panorama API method for health regen is bugged
+        const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
+        for (let i = 0; i < numberOfBuffs; i++) {
+            const buff = Entities.GetBuff(selectedUnit, i);
+            const name = Buffs.GetName(selectedUnit, buff);
+            if (name === 'modifier_ui_health_regen') {
+                setHealthRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
             }
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+        }
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
     const isEnemy = Entities.IsEnemy(selectedUnit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: isEnemy ? 'healthProgressBarEnemy' : 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() },
@@ -59985,7 +59958,7 @@ const HealthBar = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HealthLabel(), text: health + " / " + maxHealth }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RegenLabel(isEnemy), text: '+ ' + healthRegen.toFixed(1) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(HealthBar)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(HealthBar));
 
 
 /***/ }),
@@ -60492,8 +60465,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _HealthAndMana_HealthAndMana__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./HealthAndMana/HealthAndMana */ "./hud/components/HeroSelection/Description/HealthAndMana/HealthAndMana.tsx");
 /* harmony import */ var _Attributes_Attributes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Attributes/Attributes */ "./hud/components/HeroSelection/Description/Attributes/Attributes.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
 
 
 
@@ -60512,23 +60484,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps);
 const Description = (props) => {
-    const { focusedHero, setTimeout, clearTimeout } = props;
+    const { focusedHero } = props;
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let id = undefined;
-        if (focusedHero === undefined) {
-            const update = () => setRenderComponent(false);
-            id = setTimeout(update, _App__WEBPACK_IMPORTED_MODULE_11__.HUD_THINK_SLOW);
-        }
-        else {
-            setRenderComponent(true);
-        }
-        return () => {
-            if (id) {
-                clearTimeout(id);
-            }
-        };
-    }, [focusedHero, setTimeout, clearTimeout]);
+    (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_12__.useTimeout)(() => {
+        setRenderComponent(focusedHero === undefined ? false : true);
+    }, focusedHero === undefined ? 0 : _App__WEBPACK_IMPORTED_MODULE_11__.HUD_THINK_FAST);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "heroSelectionDescriptionContainer", style: {
             opacity: focusedHero ? '1.0' : '0.0',
             preTransformScale2d: focusedHero ? '1.0' : '0.5',
@@ -60544,7 +60504,7 @@ const Description = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Lore_Lore__WEBPACK_IMPORTED_MODULE_4__.default, { focusedHero: focusedHero }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Buttons_Buttons__WEBPACK_IMPORTED_MODULE_3__.default, { focusedHero: focusedHero })))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(react_timeout__WEBPACK_IMPORTED_MODULE_12___default()(Description))));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Description)));
 
 
 /***/ }),
@@ -60743,8 +60703,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_heroSelectionActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/heroSelectionActions */ "./hud/actions/heroSelectionActions.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
 
 
 
@@ -60758,23 +60717,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const RandomHeroDialog = (props) => {
-    const { randomHeroDialogVisible, setRandomHeroDialogVisible, setTimeout, clearTimeout } = props;
+    const { randomHeroDialogVisible, setRandomHeroDialogVisible } = props;
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let id = undefined;
-        if (randomHeroDialogVisible === false) {
-            const update = () => setRenderComponent(false);
-            id = setTimeout(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_SLOW);
-        }
-        else {
-            setRenderComponent(true);
-        }
-        return () => {
-            if (id) {
-                clearTimeout(id);
-            }
-        };
-    }, [randomHeroDialogVisible, setTimeout, clearTimeout]);
+    (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_4__.useTimeout)(() => {
+        setRenderComponent(randomHeroDialogVisible);
+    }, randomHeroDialogVisible === false ? _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_SLOW : 0);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionRandomHeroDialogOuterContainer', style: {
             opacity: randomHeroDialogVisible ? '1.0' : '0.0',
             preTransformScale2d: randomHeroDialogVisible ? '1.0' : '0.5',
@@ -60796,7 +60743,7 @@ const RandomHeroDialog = (props) => {
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'heroSelectionRandomHeroDialogButtonLabel', text: 'NO' })))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'heroSelectionRandomHeroDialogArrow' })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(react_timeout__WEBPACK_IMPORTED_MODULE_4___default()(RandomHeroDialog)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(RandomHeroDialog));
 
 
 /***/ }),
@@ -60956,30 +60903,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Health/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Health/Styles.tsx");
 
 
 
 
 const Health = (props) => {
     // $.Msg("REACT-RENDER: Heroes - Health rendered");
-    const { hero, setInterval, clearInterval } = props;
+    const { hero } = props;
     const [health, setHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetHealth(hero));
     const [maxHealth, setMaxHealth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxHealth(hero));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setHealth(Entities.GetHealth(hero));
-            setMaxHealth(Entities.GetMaxHealth(hero));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [hero, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() })));
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setHealth(Entities.GetHealth(hero));
+        setMaxHealth(Entities.GetMaxHealth(hero));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Health)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Health));
 
 
 /***/ }),
@@ -61073,9 +61015,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Image/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Image/Styles.tsx");
 
 
 
@@ -61120,7 +61061,7 @@ const onHeroImageClicked = (hero, cameraLocked) => {
 };
 const ImageImpl = (props) => {
     // $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
-    const { hero, cameraLocked, setInterval, clearInterval } = props;
+    const { hero, cameraLocked } = props;
     const [washColor, setWashColor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("none");
     const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isDisconnected, setIsDisconnected] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -61140,27 +61081,23 @@ const ImageImpl = (props) => {
         });
         return () => GameEvents.Unsubscribe(handle);
     }, []);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const playerInfo = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(hero));
-            if (playerInfo) {
-                const isDisconnected = playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED ||
-                    playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_ABANDONED ||
-                    playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_FAILED;
-                setIsDisconnected(isDisconnected);
-                if (isDisconnected) {
-                    setWashColor("grey");
-                }
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        const playerInfo = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(hero));
+        if (playerInfo) {
+            const isDisconnected = playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED ||
+                playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_ABANDONED ||
+                playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_FAILED;
+            setIsDisconnected(isDisconnected);
+            if (isDisconnected) {
+                setWashColor("grey");
             }
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [hero, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isHovering) },
-        isDisconnected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/hud/reborn/icon_disconnect_png.vtex", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Disconnected() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), heroname: Entities.GetUnitName(hero), heroimagestyle: "landscape", onactivate: () => onHeroImageClicked(hero, cameraLocked), oncontextmenu: () => onHeroImageClicked(hero, cameraLocked), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Image(washColor) })));
+        }
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_FAST);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container(isHovering) },
+        isDisconnected && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/hud/reborn/icon_disconnect_png.vtex", style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Disconnected() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { onmouseover: () => setIsHovering(true), onmouseout: () => setIsHovering(false), heroname: Entities.GetUnitName(hero), heroimagestyle: "landscape", onactivate: () => onHeroImageClicked(hero, cameraLocked), oncontextmenu: () => onHeroImageClicked(hero, cameraLocked), style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Image(washColor) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(react_timeout__WEBPACK_IMPORTED_MODULE_4___default()(ImageImpl))));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(ImageImpl)));
 
 
 /***/ }),
@@ -61216,30 +61153,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Mana/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Heroes/Mana/Styles.tsx");
 
 
 
 
 const Mana = (props) => {
     // $.Msg("REACT-RENDER: Heroes - Mana rendered");
-    const { hero, setInterval, clearInterval } = props;
+    const { hero } = props;
     const [mana, setMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMana(hero));
     const [maxMana, setMaxMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxMana(hero));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setMana(Entities.GetMana(hero));
-            setMaxMana(Entities.GetMaxMana(hero));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [hero, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() })));
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setMana(Entities.GetMana(hero));
+        setMaxMana(Entities.GetMaxMana(hero));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Mana)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Mana));
 
 
 /***/ }),
@@ -61378,8 +61310,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Item_Item__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Item/Item */ "./hud/components/Inventory/Item/Item.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Styles.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
@@ -61390,27 +61321,23 @@ __webpack_require__.r(__webpack_exports__);
 const ITEM_SLOTS = [0, 1, 2, 3, 4, 5];
 const Inventory = (props) => {
     // $.Msg("REACT-RENDER: Inventory rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [items, setItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [hasInventory, setHasInventory] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsInventoryEnabled(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setHasInventory(Entities.IsInventoryEnabled(selectedUnit));
-            const newItems = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(selectedUnit, slot));
-            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_1__.TableUtils.isEqual(items, newItems)) {
-                setItems(newItems);
-            }
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_5__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [selectedUnit, items, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_6__.useInterval)(() => {
+        setHasInventory(Entities.IsInventoryEnabled(selectedUnit));
+        const newItems = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(selectedUnit, slot));
+        if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_1__.TableUtils.isEqual(items, newItems)) {
+            setItems(newItems);
+        }
+    }, _App__WEBPACK_IMPORTED_MODULE_5__.HUD_THINK_FAST);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemOptions_ItemOptions__WEBPACK_IMPORTED_MODULE_2__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container(hasInventory) }, items.map((item, index) => {
             return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_3__.default, { key: index, index: index, item: item || -1, selectedUnit: selectedUnit }));
         }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_6___default()(Inventory)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Inventory));
 
 
 /***/ }),
@@ -61626,29 +61553,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Charges/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Charges/Styles.tsx");
 
 
 
 
 const Charges = (props) => {
     // $.Msg("REACT-RENDER: Inventory - Charges rendered");
-    const { item, setInterval, clearInterval } = props;
+    const { item } = props;
     const [shouldDisplayCharges, setShouldDisplayCharges] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Items.ShouldDisplayCharges(item));
     const [charges, setCharges] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Items.GetCurrentCharges(item));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setShouldDisplayCharges(Items.ShouldDisplayCharges(item));
-            setCharges(Items.GetCurrentCharges(item));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [item, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, shouldDisplayCharges && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(), text: charges }))));
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setShouldDisplayCharges(Items.ShouldDisplayCharges(item));
+        setCharges(Items.GetCurrentCharges(item));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, shouldDisplayCharges && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(), text: charges }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Charges)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Charges));
 
 
 /***/ }),
@@ -61693,35 +61615,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Cooldown/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Cooldown/Styles.tsx");
 
 
 
 
 const Cooldown = (props) => {
     // $.Msg("REACT-RENDER: Inventory - Cooldown rendered");
-    const { item, setInterval, clearInterval } = props;
-    const [totalCooldown, setTotalCooldown] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetCooldownLength(item));
+    const { item } = props;
+    const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     const [remainingCooldown, setRemainingCooldown] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetCooldownTimeRemaining(item));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setTotalCooldown(Abilities.GetCooldownLength(item));
-            setRemainingCooldown(Abilities.GetCooldownTimeRemaining(item));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [item, setInterval, clearInterval]);
-    let degree = Math.min(0, -(remainingCooldown / totalCooldown) * 360);
-    if (Number.isNaN(degree) || !Number.isFinite(degree)) {
-        degree = 0;
-    }
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        const total = Abilities.GetCooldownLength(item);
+        const remaining = Abilities.GetCooldownTimeRemaining(item);
+        const degree = Math.min(0, -(remainingCooldown / total) * 360);
+        setDegree(Number.isFinite(degree) ? degree : 0);
+        setRemainingCooldown(remaining);
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(degree) }),
-        remainingCooldown > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: remainingCooldown > 1.0 ? Math.round(remainingCooldown) : remainingCooldown.toFixed(1) }))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(degree) }),
+        remainingCooldown > 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: remainingCooldown > 1.0 ? Math.round(remainingCooldown) : remainingCooldown.toFixed(1) }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Cooldown)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Cooldown));
 
 
 /***/ }),
@@ -61772,40 +61688,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Image/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Image/Styles.tsx");
 
 
 
 
 const Image = (props) => {
     // $.Msg("REACT-RENDER: Inventory - Image rendered");
-    const { item, selectedUnit, setInterval, clearInterval } = props;
+    const { item, selectedUnit } = props;
     const [isCooldownReady, setIsCooldownReady] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsCooldownReady(item));
     const [hasEnoughMana, setHasEnoughMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.IsOwnersManaEnough(item));
     const [texture, setTexutre] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetAbilityTextureName(item));
     const [showLock, setShowLock] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const isMuted = Entities.IsMuted(selectedUnit);
-            const isStunned = Entities.IsStunned(selectedUnit);
-            const isCommandRestricted = Entities.IsCommandRestricted(selectedUnit);
-            const isNightmared = Entities.IsNightmared(selectedUnit);
-            const isHexed = Entities.IsHexed(selectedUnit);
-            setShowLock(isMuted || isStunned || isCommandRestricted || isNightmared || isHexed);
-            setIsCooldownReady(Abilities.IsCooldownReady(item));
-            setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
-            setTexutre(Abilities.GetAbilityTextureName(item));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [selectedUnit, item, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        const isMuted = Entities.IsMuted(selectedUnit);
+        const isStunned = Entities.IsStunned(selectedUnit);
+        const isCommandRestricted = Entities.IsCommandRestricted(selectedUnit);
+        const isNightmared = Entities.IsNightmared(selectedUnit);
+        const isHexed = Entities.IsHexed(selectedUnit);
+        setShowLock(isMuted || isStunned || isCommandRestricted || isNightmared || isHexed);
+        setIsCooldownReady(Abilities.IsCooldownReady(item));
+        setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
+        setTexutre(Abilities.GetAbilityTextureName(item));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        (isCooldownReady && showLock) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LockIcon() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { itemname: texture, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(showLock, isCooldownReady, hasEnoughMana) })));
+        (isCooldownReady && showLock) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LockIcon() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { itemname: texture, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(showLock, isCooldownReady, hasEnoughMana) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Image)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Image));
 
 
 /***/ }),
@@ -62057,25 +61968,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Keybind/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/Keybind/Styles.tsx");
 
 
 
 
 const Keybind = (props) => {
     // $.Msg("REACT-RENDER: Inventory - Keybind rendered");
-    const { item, setInterval, clearInterval } = props;
+    const { item } = props;
     const [keybind, setKeybind] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setKeybind(Abilities.IsPassive(item) ? '' : Abilities.GetKeybind(item));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [item, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: keybind }));
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setKeybind(Abilities.IsPassive(item) ? '' : Abilities.GetKeybind(item));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: keybind }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Keybind)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Keybind));
 
 
 /***/ }),
@@ -62120,25 +62028,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/ManaCost/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Inventory/Item/ManaCost/Styles.tsx");
 
 
 
 
 const ManaCost = (props) => {
     // $.Msg("REACT-RENDER: Inventory - ManaCost rendered");
-    const { item, setInterval, clearInterval } = props;
+    const { item } = props;
     const [manaCost, setManaCost] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetManaCost(item));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setManaCost(Abilities.GetManaCost(item));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [item, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: manaCost > 0 ? manaCost.toFixed(0) : '' }));
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setManaCost(Abilities.GetManaCost(item));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: manaCost > 0 ? manaCost.toFixed(0) : '' }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(ManaCost)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ManaCost));
 
 
 /***/ }),
@@ -62237,30 +62142,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/Loading/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Loading/Styles.ts");
+
 
 
 
 const Loading = (props) => {
     // $.Msg("REACT-RENDER: Loading rendered");
-    const { setTimeout, clearTimeout } = props;
     const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setIsLoading(false);
-        const id = setTimeout(update, 1000);
-        return () => clearTimeout(id);
-    }, [setTimeout, clearTimeout]);
+    (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_2__.useTimeout)(() => {
+        setIsLoading(false);
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_SLOW);
     if (isLoading) {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Label(), text: 'LOADING...' })));
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: 'LOADING...' })));
     }
     else {
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, props.children));
     }
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(Loading)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Loading));
 
 
 /***/ }),
@@ -62305,9 +62208,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/ManaBar/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/ManaBar/Styles.tsx");
 
 
 
@@ -62318,22 +62220,18 @@ const ManaBar = (props) => {
     const [mana, setMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMana(selectedUnit));
     const [maxMana, setMaxMana] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMaxMana(selectedUnit));
     const [manaRegen, setManaRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetManaThinkRegen(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setMana(Entities.GetMana(selectedUnit));
-            setMaxMana(Entities.GetMaxMana(selectedUnit));
-            setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [selectedUnit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(maxMana > 0) },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Scene(mana, maxMana), map: 'scenes/hud/healthbarburner' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ManaLabel(), text: mana + " / " + maxMana }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RegenLabel(), text: '+ ' + manaRegen.toFixed(1) })));
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setMana(Entities.GetMana(selectedUnit));
+        setMaxMana(Entities.GetMaxMana(selectedUnit));
+        setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(maxMana > 0) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Scene(mana, maxMana), map: 'scenes/hud/healthbarburner' })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ManaLabel(), text: mana + " / " + maxMana }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RegenLabel(), text: '+ ' + manaRegen.toFixed(1) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(ManaBar)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ManaBar));
 
 
 /***/ }),
@@ -62646,11 +62544,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Messages */ "./hud/components/Messages/Messages.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Messages/Message/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AbilityMessage/AbilityMessage */ "./hud/components/Messages/Message/AbilityMessage/AbilityMessage.tsx");
-/* harmony import */ var _ItemMessage_ItemMessage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ItemMessage/ItemMessage */ "./hud/components/Messages/Message/ItemMessage/ItemMessage.tsx");
-/* harmony import */ var _ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ModifierMessage/ModifierMessage */ "./hud/components/Messages/Message/ModifierMessage/ModifierMessage.tsx");
+/* harmony import */ var _AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AbilityMessage/AbilityMessage */ "./hud/components/Messages/Message/AbilityMessage/AbilityMessage.tsx");
+/* harmony import */ var _ItemMessage_ItemMessage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ItemMessage/ItemMessage */ "./hud/components/Messages/Message/ItemMessage/ItemMessage.tsx");
+/* harmony import */ var _ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ModifierMessage/ModifierMessage */ "./hud/components/Messages/Message/ModifierMessage/ModifierMessage.tsx");
+/* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
 
 
 
@@ -62659,29 +62556,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Message = (props) => {
-    const { message, setMessages, setTimeout, clearTimeout } = props;
+    const { message, setMessages } = props;
     const { id, type, data } = message;
     const [opacity, setOpacity] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('1.0');
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setMessages(prevState => prevState.filter(msg => msg.id !== id));
-        };
-        const timerId = setTimeout(update, 5600);
-        return () => clearTimeout(timerId);
-    }, [id, setMessages, setTimeout, clearTimeout]);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setOpacity('0.0');
-        };
-        const timerId = setTimeout(update, 5000);
-        return () => clearTimeout(timerId);
-    }, [setTimeout, clearTimeout]);
+    (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_6__.useTimeout)(() => {
+        setMessages(prevState => prevState.filter(msg => msg.id !== id));
+    }, 5600);
+    (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_6__.useTimeout)(() => {
+        setOpacity('0.0');
+    }, 5000);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(opacity) },
-        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ABILITY && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_4__.default, { data: data })),
-        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ITEM && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemMessage_ItemMessage__WEBPACK_IMPORTED_MODULE_5__.default, { data: data })),
-        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.MODIFIER && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_6__.default, { data: data }))));
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ABILITY && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_3__.default, { data: data })),
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ITEM && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemMessage_ItemMessage__WEBPACK_IMPORTED_MODULE_4__.default, { data: data })),
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.MODIFIER && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_5__.default, { data: data }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Message)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Message));
 
 
 /***/ }),
@@ -62703,13 +62592,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const getText = (modifier, unit) => {
-    const localizedItemName = $.Localize("DOTA_Tooltip_" + Buffs.GetName(unit, modifier));
+const getExtraText = (modifier, unit) => {
     const remaining = Buffs.GetRemainingTime(unit, modifier);
     if (remaining > 0) {
-        return localizedItemName + ' ( ' + Math.ceil(remaining).toFixed(0) + " Seconds Remain )";
+        return ' ( ' + Math.ceil(remaining).toFixed(0) + " Seconds Remain )";
     }
-    return localizedItemName;
+    return '';
 };
 const ModifierMessage = (props) => {
     const { data } = props;
@@ -62725,9 +62613,10 @@ const ModifierMessage = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(unit), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ItemImage(), abilityname: Abilities.GetAbilityName(Buffs.GetAbility(unit, modifier)), showtooltip: false }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: 'Affected By: ' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ModifierLabel(Buffs.IsDebuff(unit, modifier)), text: getText(modifier, unit) })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ModifierImage(), abilityname: Abilities.GetAbilityName(Buffs.GetAbility(unit, modifier)), showtooltip: false }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ModifierLabel(Buffs.IsDebuff(unit, modifier)), text: $.Localize("DOTA_Tooltip_" + Buffs.GetName(unit, modifier)) }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ModifierExtraLabel(), text: getExtraText(modifier, unit) })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ModifierMessage));
 
@@ -62755,14 +62644,14 @@ const Styles = {
         width: '18px',
         height: '18px',
     }),
-    ItemImage: () => ({
+    ModifierImage: () => ({
         horizontalAlign: 'center',
         marginTop: '4.5px',
         width: '18px',
         height: '14px',
         borderRadius: '5px',
         marginLeft: '1px',
-        marginRight: '2px',
+        marginRight: '3px',
     }),
     ArrowImage: () => ({
         horizontalAlign: 'center',
@@ -62783,6 +62672,10 @@ const Styles = {
     }),
     ModifierLabel: (isDebuff) => ({
         color: isDebuff ? 'red' : 'green',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    ModifierExtraLabel: () => ({
+        color: '#CDCDCD',
         textShadow: "1px 1px 2px 2 #000000",
     }),
     EnemyOrAllyLabel: () => ({
@@ -62847,6 +62740,9 @@ const Messages = (props) => {
     const [messages, setMessages] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const messageID = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(Number.MIN_SAFE_INTEGER);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_ability_alerted", (event) => {
+        if (Game.IsPlayerMuted(event.broadcaster)) {
+            return;
+        }
         messageID.current = messageID.current + 1;
         setMessages(prevState => {
             return [...prevState, {
@@ -62861,6 +62757,9 @@ const Messages = (props) => {
         });
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_item_alerted", (event) => {
+        if (Game.IsPlayerMuted(event.broadcaster)) {
+            return;
+        }
         messageID.current = messageID.current + 1;
         setMessages(prevState => {
             return [...prevState, {
@@ -62875,6 +62774,9 @@ const Messages = (props) => {
         });
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_modifier_alerted", (event) => {
+        if (Game.IsPlayerMuted(event.broadcaster)) {
+            return;
+        }
         messageID.current = messageID.current + 1;
         setMessages(prevState => {
             return [...prevState, {
@@ -62911,7 +62813,7 @@ __webpack_require__.r(__webpack_exports__);
 const Styles = {
     Container: () => ({
         width: '800px',
-        height: '350px',
+        minHeight: '350px',
         flowChildren: 'up',
         verticalAlign: 'center',
         horizontalAlign: 'left',
@@ -63253,29 +63155,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Modifiers/Modifier/Stacks/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Modifiers/Modifier/Stacks/Styles.tsx");
 
 
 
 
 const Stacks = (props) => {
     // $.Msg("REACT-RENDER: Modifier rendered");
-    const { unit, buff, setInterval, clearInterval } = props;
+    const { unit, buff } = props;
     const [stacks, setStacks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Buffs.GetStackCount(unit, buff));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setStacks(Buffs.GetStackCount(unit, buff));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [unit, buff, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setStacks(Buffs.GetStackCount(unit, buff));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
     if (stacks === 0) {
         return null;
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.StackLabel(), text: stacks })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.StackLabel(), text: stacks })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Stacks)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Stacks));
 
 
 /***/ }),
@@ -63408,32 +63307,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Modifiers/Modifier/TimedBackground/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const TimedBackground = (props) => {
     // $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
-    const { buff, selectedUnit, isDebuff, setInterval, clearInterval } = props;
-    const [remaining, setRemaining] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
-    const [duration, setDuration] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setRemaining(Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff)));
-            setDuration(Math.max(0, Buffs.GetDuration(selectedUnit, buff)));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [buff, selectedUnit, setInterval, clearInterval]);
-    let degree = Math.max(0, (remaining / duration) * 360);
-    if (Number.isNaN(degree) || !Number.isFinite(degree)) {
-        degree = 0;
-    }
+    const { buff, selectedUnit, isDebuff } = props;
+    const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        const remaining = Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff));
+        const duration = Math.max(0, Buffs.GetDuration(selectedUnit, buff));
+        const degree = Math.max(0, (remaining / duration) * 360);
+        setDegree(Number.isFinite(degree) ? degree : 0);
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(isDebuff, degree) }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(TimedBackground)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(TimedBackground));
 
 
 /***/ }),
@@ -63717,8 +63608,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_settingsAction__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/settingsAction */ "./hud/actions/settingsAction.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Styles */ "./hud/components/Settings/Styles.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
 
 
 
@@ -63740,7 +63630,7 @@ const mapDispatchToProps = (dispatch) => ({
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const Settings = (props) => {
     // $.Msg("REACT-RENDER: Settings rendered");
-    const { visible, setTimeout, clearTimeout } = props;
+    const { visible } = props;
     const [zoom, setZoom] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1600);
     const [isLocked, setIsLocked] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -63755,21 +63645,9 @@ const Settings = (props) => {
             GameUI.SetCameraTarget(-1);
         }
     }, [isLocked]);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let id = undefined;
-        if (visible === false) {
-            const update = () => setRenderComponent(false);
-            id = setTimeout(update, _App__WEBPACK_IMPORTED_MODULE_9__.HUD_THINK_SLOW);
-        }
-        else {
-            setRenderComponent(true);
-        }
-        return () => {
-            if (id) {
-                clearTimeout(id);
-            }
-        };
-    }, [visible, setTimeout, clearTimeout]);
+    (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_10__.useTimeout)(() => {
+        setRenderComponent(visible);
+    }, visible === false ? _App__WEBPACK_IMPORTED_MODULE_9__.HUD_THINK_SLOW : 0);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.InnerContainer(visible) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
@@ -63783,7 +63661,7 @@ const Settings = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockCameraBtn_LockCameraBtn__WEBPACK_IMPORTED_MODULE_3__.default, { isLocked: isLocked, setIsLocked: setIsLocked })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null)))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(react_timeout__WEBPACK_IMPORTED_MODULE_10___default()(Settings))));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Settings)));
 
 
 /***/ }),
@@ -64066,25 +63944,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 const Gold = (props) => {
     // $.Msg("REACT-RENDER: Shop - Gold rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [playerGold, setPlayerGold] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopGoldContainer' },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'shopGoldImage' }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'shopGoldLabel', text: playerGold })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(Gold)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Gold));
 
 
 /***/ }),
@@ -64104,8 +63979,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "../../../node_modules/react-redux/es/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
@@ -64117,17 +63991,13 @@ const mapStateToProps = (state) => ({
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps);
 const Item = (props) => {
     // $.Msg("REACT-RENDER: Shop - Item rendered");
-    const { item, selectedUnit, setInterval, clearInterval } = props;
+    const { item, selectedUnit } = props;
     const [playerGold, setPlayerGold] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
     const [isShopInRange, setIsShopInRange] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.IsInRangeOfShop(selectedUnit, 0, false));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
-            setIsShopInRange(Entities.IsInRangeOfShop(selectedUnit, 0, false));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__.useInterval)(() => {
+        setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
+        setIsShopInRange(Entities.IsInRangeOfShop(selectedUnit, 0, false));
+    }, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_FAST);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("attempt_item_purchase_success", () => {
         Game.EmitSound("General.CourierGivesItem");
         Game.EmitSound("Item.PickUpShop");
@@ -64168,7 +64038,7 @@ const Item = (props) => {
         } },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { className: 'shopItemImage', itemname: item.itemname })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(react_timeout__WEBPACK_IMPORTED_MODULE_4___default()(Item))));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Item)));
 
 
 /***/ }),
@@ -64232,8 +64102,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Artifacts_Artifacts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Artifacts/Artifacts */ "./hud/components/Shop/Artifacts/Artifacts.tsx");
 /* harmony import */ var _actions_shopActions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions/shopActions */ "./hud/actions/shopActions.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
 
 
 
@@ -64255,23 +64124,11 @@ const mapDispatchToProps = (dispatch) => ({
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const Shop = (props) => {
     // $.Msg("REACT-RENDER: Shop rendered");
-    const { selectedUnit, visible, setTimeout, clearTimeout } = props;
+    const { selectedUnit, visible } = props;
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let id = undefined;
-        if (visible === false) {
-            const update = () => setRenderComponent(false);
-            id = setTimeout(update, _App__WEBPACK_IMPORTED_MODULE_10__.HUD_THINK_SLOW);
-        }
-        else {
-            setRenderComponent(true);
-        }
-        return () => {
-            if (id) {
-                clearTimeout(id);
-            }
-        };
-    }, [visible, setTimeout, clearTimeout]);
+    (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_11__.useTimeout)(() => {
+        setRenderComponent(visible);
+    }, visible === false ? _App__WEBPACK_IMPORTED_MODULE_10__.HUD_THINK_SLOW : 0);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopContainer", style: visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {} },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_2__.default, { selectedUnit: selectedUnit }),
@@ -64286,7 +64143,7 @@ const Shop = (props) => {
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Armor_Armor__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit }),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Weapons_Weapons__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit }))))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(react_timeout__WEBPACK_IMPORTED_MODULE_11___default()(Shop)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connector(Shop));
 
 
 /***/ }),
@@ -64372,8 +64229,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/Stats/Armor/Styles.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Stats/Styles.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
@@ -64381,23 +64237,19 @@ __webpack_require__.r(__webpack_exports__);
 
 const Armor = (props) => {
     // $.Msg("REACT-RENDER: Stats - Armor rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [armor, setArmor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetPhysicalArmorValue(selectedUnit));
     const [bonusArmor, setBonusArmor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetBonusPhysicalArmor(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
-            setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__.useInterval)(() => {
+        setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
+        setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Image() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: (armor - bonusArmor).toFixed(1) }),
-        bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusArmor > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusArmor > 0 ? "+" : "") + "(" + bonusArmor.toFixed(1) + ")" }))));
+        bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusArmor > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusArmor > 0 ? "+" : " ") + "(" + bonusArmor.toFixed(1) + ")" }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_4___default()(Armor)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Armor));
 
 
 /***/ }),
@@ -64437,8 +64289,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/Stats/Damage/Styles.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Stats/Styles.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
@@ -64446,25 +64297,21 @@ __webpack_require__.r(__webpack_exports__);
 
 const Damage = (props) => {
     // $.Msg("REACT-RENDER: Stats - Damage rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [minDamage, setMinDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageMin(selectedUnit));
     const [maxDamage, setMaxDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageMax(selectedUnit));
     const [bonusDamage, setBonusDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageBonus(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setMinDamage(Entities.GetDamageMin(selectedUnit));
-            setMaxDamage(Entities.GetDamageMax(selectedUnit));
-            setBonusDamage(Entities.GetDamageBonus(selectedUnit));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__.useInterval)(() => {
+        setMinDamage(Entities.GetDamageMin(selectedUnit));
+        setMaxDamage(Entities.GetDamageMax(selectedUnit));
+        setBonusDamage(Entities.GetDamageBonus(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Image() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: minDamage.toFixed(0) + "-" + maxDamage.toFixed(0) }),
         bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: { color: bonusDamage > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }, text: (bonusDamage > 0 ? '+' : '') + "(" + bonusDamage.toFixed(0) + ")" }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_4___default()(Damage)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Damage));
 
 
 /***/ }),
@@ -64504,8 +64351,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Stats/Styles.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/Stats/Level/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
@@ -64513,25 +64359,21 @@ __webpack_require__.r(__webpack_exports__);
 
 const Level = (props) => {
     // $.Msg("REACT-RENDER: Stats - Level rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [level, setLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit));
     const [percentage, setPercentage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            if (Entities.IsHero(selectedUnit)) {
-                const currentXp = Entities.GetCurrentXP(selectedUnit);
-                const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
-                const percentage = Math.floor(Math.max(0, Math.min(100, currentXp / requiredXp * 100)));
-                setPercentage(Number.isNaN(percentage) ? 100 : percentage);
-            }
-            else {
-                setPercentage(100);
-            }
-            setLevel(Entities.GetLevel(selectedUnit));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__.useInterval)(() => {
+        if (Entities.IsHero(selectedUnit)) {
+            const currentXp = Entities.GetCurrentXP(selectedUnit);
+            const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
+            const percentage = Math.floor(Math.max(0, Math.min(100, currentXp / requiredXp * 100)));
+            setPercentage(Number.isNaN(percentage) ? 100 : percentage);
+        }
+        else {
+            setPercentage(100);
+        }
+        setLevel(Entities.GetLevel(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LevelLabel(), text: 'Lvl. ' + level }),
@@ -64539,7 +64381,7 @@ const Level = (props) => {
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Levelbar(percentage) })),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LevelPctLabel(), text: Number.isFinite(percentage) ? percentage + "%" : '100%' }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_4___default()(Level)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Level));
 
 
 /***/ }),
@@ -64598,8 +64440,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/Stats/MagicResistance/Styles.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Stats/Styles.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
@@ -64607,18 +64448,16 @@ __webpack_require__.r(__webpack_exports__);
 
 const MagicResistance = (props) => {
     // $.Msg("REACT-RENDER: Stats - MagicalResistance rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [magicResistance, setMagicResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMagicalArmorValue(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__.useInterval)(() => {
+        setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Image() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: (magicResistance * 100).toFixed(1) + "%" })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_4___default()(MagicResistance)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(MagicResistance));
 
 
 /***/ }),
@@ -64658,8 +64497,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/Stats/MoveSpeed/Styles.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Stats/Styles.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
@@ -64667,18 +64505,16 @@ __webpack_require__.r(__webpack_exports__);
 
 const MoveSpeed = (props) => {
     // $.Msg("REACT-RENDER: Stats - MoveSpeed rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [moveSpeed, setMoveSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_4__.useInterval)(() => {
+        setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
+    }, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Entry() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Image() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: moveSpeed.toFixed(0) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_4___default()(MoveSpeed)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(MoveSpeed));
 
 
 /***/ }),
@@ -64879,6 +64715,66 @@ const items = {
             aliases: ['bloodstone']
         },
     ]
+};
+
+
+/***/ }),
+
+/***/ "./hud/hooks/useInterval.ts":
+/*!**********************************!*\
+  !*** ./hud/hooks/useInterval.ts ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useInterval": () => (/* binding */ useInterval)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const useInterval = (callback, delay = 0) => {
+    const savedCallback = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(() => { });
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        function update() {
+            savedCallback.current();
+        }
+        let id = setInterval(update, delay);
+        return () => clearInterval(id);
+    }, [delay]);
+};
+
+
+/***/ }),
+
+/***/ "./hud/hooks/useTimeout.ts":
+/*!*********************************!*\
+  !*** ./hud/hooks/useTimeout.ts ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useTimeout": () => (/* binding */ useTimeout)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+
+const useTimeout = (callback, delay = 0) => {
+    const savedCallback = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(() => { });
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        function update() {
+            savedCallback.current();
+        }
+        let id = setTimeout(update, delay);
+        return () => clearTimeout(id);
+    }, [delay]);
 };
 
 

@@ -10,7 +10,7 @@ import { setCameraLocked, setCameraZoom } from "../../actions/settingsAction";
 import { SettingsActionTypes } from "../../types/settingsTypes";
 import { Styles } from "./Styles";
 import { HUD_THINK_SLOW } from "../../App";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { useTimeout } from "../../hooks/useTimeout";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   // ownProps
 };
 
@@ -32,7 +32,7 @@ const Settings = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Settings rendered");
 
-  const { visible, setTimeout, clearTimeout } = props;
+  const { visible } = props;
 
   const [zoom, setZoom] = useState(1600);
   const [isLocked, setIsLocked] = useState(true);
@@ -50,20 +50,9 @@ const Settings = (props: Props) => {
     }
   }, [isLocked]);
 
-  useEffect(() => {
-    let id: ReactTimeout.Timer | undefined = undefined;
-    if (visible === false) {
-      const update = () => setRenderComponent(false);
-      id = setTimeout!(update, HUD_THINK_SLOW);
-    } else {
-      setRenderComponent(true);
-    }
-    return () => {
-      if (id) {
-        clearTimeout!(id)
-      }
-    }
-  }, [visible, setTimeout, clearTimeout]);
+  useTimeout(() => {
+    setRenderComponent(visible)
+  }, visible === false ? HUD_THINK_SLOW : 0)
 
   return (
     <Panel style={Styles.OuterContainer()}>
@@ -96,4 +85,4 @@ const Settings = (props: Props) => {
 
 };
 
-export default React.memo(connector(ReactTimeout(Settings)));
+export default React.memo(connector(Settings));
