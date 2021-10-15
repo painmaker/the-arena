@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HUD_THINK_MEDIUM } from "../../../../App";
+import { useInterval } from "../../../../hooks/useInterval";
 import { Styles as ParentStyles } from "../Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
@@ -11,24 +11,20 @@ const Evasion = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Evasion rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [evasion, setEvasion] = useState(0);
 
-  useEffect(() => {
-    const update = () => {
-      const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
-      for (let i = 0; i < numberOfBuffs; i++) {
-        const buff = Entities.GetBuff(selectedUnit, i);
-        const name = Buffs.GetName(selectedUnit, buff);
-        if (name === 'modifier_ui_evasion') {
-          setEvasion(Buffs.GetStackCount(selectedUnit, buff));
-        }
+  useInterval(() => {
+    const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
+    for (let i = 0; i < numberOfBuffs; i++) {
+      const buff = Entities.GetBuff(selectedUnit, i);
+      const name = Buffs.GetName(selectedUnit, buff);
+      if (name === 'modifier_ui_evasion') {
+        setEvasion(Buffs.GetStackCount(selectedUnit, buff));
       }
-    };
-    const id = setInterval!(update, HUD_THINK_MEDIUM);
-    return () => clearInterval!(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+    }
+  }, HUD_THINK_MEDIUM);
 
   return (
     <Panel style={ParentStyles.Row()}>
@@ -46,4 +42,4 @@ const Evasion = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(Evasion));
+export default React.memo(Evasion);

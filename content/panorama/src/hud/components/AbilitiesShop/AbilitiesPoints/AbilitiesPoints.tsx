@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HUD_THINK_MEDIUM } from "../../../App";
+import { useInterval } from "../../../hooks/useInterval";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex
   text: string,
 }
@@ -12,15 +12,13 @@ const AbilitiesPoints = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilitiesShop - AbilitiesPoints rendered");
 
-  const { selectedUnit, text, setInterval, clearInterval } = props;
+  const { selectedUnit, text } = props;
 
   const [abilityPoints, setAbilityPoints] = useState(Entities.GetAbilityPoints(selectedUnit));
 
-  useEffect(() => {
-    const update = () => setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
-    const id = setInterval!(update, HUD_THINK_MEDIUM);
-    return () => clearInterval!(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+  useInterval(() => {
+    setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
+  }, HUD_THINK_MEDIUM);
 
   return (
     <Panel style={Styles.Container()}>
@@ -39,4 +37,4 @@ const AbilitiesPoints = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(AbilitiesPoints));
+export default React.memo(AbilitiesPoints);

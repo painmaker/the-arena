@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HUD_THINK_MEDIUM } from "../../../../App";
+import { useInterval } from "../../../../hooks/useInterval";
 import { Styles as ParentStyles } from "../Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
@@ -11,20 +11,16 @@ const MoveSpeed = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [baseMoveSpeed, setBaseMoveSpeed] = useState(Entities.GetBaseMoveSpeed(selectedUnit));
   const [totalMoveSpeed, setTotalMoveSpeed] = useState(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
 
-  useEffect(() => {
-    const update = () => {
-      const baseMoveSpeed = Entities.GetBaseMoveSpeed(selectedUnit);
-      setBaseMoveSpeed(baseMoveSpeed);
-      setTotalMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, baseMoveSpeed));
-    };
-    const id = setInterval!(update, HUD_THINK_MEDIUM);
-    return () => clearInterval!(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+  useInterval(() => {
+    const baseMoveSpeed = Entities.GetBaseMoveSpeed(selectedUnit);
+    setBaseMoveSpeed(baseMoveSpeed);
+    setTotalMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, baseMoveSpeed));
+  }, HUD_THINK_MEDIUM);
 
   const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
 
@@ -53,4 +49,4 @@ const MoveSpeed = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(MoveSpeed));
+export default React.memo(MoveSpeed);

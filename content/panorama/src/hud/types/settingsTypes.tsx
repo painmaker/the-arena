@@ -5,7 +5,7 @@ export const SET_USE_CUSTOM_UI = 'SET_USE_CUSTOM_UI'
 
 export interface SetSettingsVisibleAction {
   type: typeof SET_SETTINGS_VISIBLE
-  payload: boolean
+  payload: { visible: boolean }
 }
 
 export interface SetCameraLockedAction {

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import { useInterval } from "../../../../hooks/useInterval";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = ReactTimeoutProps & {
+type Props = {
   ability: AbilityEntityIndex,
   selectedUnit: EntityIndex,
 }
@@ -42,28 +42,24 @@ const Image = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
 
-  const { ability, selectedUnit, setInterval, clearInterval } = props;
+  const { ability, selectedUnit } = props;
 
   const [saturation, setSaturation] = useState('1.0');
   const [washColor, setWashColor] = useState('#303030');
 
-  useEffect(() => {
-    const update = () => {
-      const level = Abilities.GetLevel(ability);
-      const unitMana = Entities.GetMana(selectedUnit);
-      const manaCost = Abilities.GetManaCost(ability);
-      const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
-      const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
-      const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
-      const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
-      const isInLearningMode = Game.IsInAbilityLearnMode();
-      const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
-      setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
-      setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
-    };
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [ability, selectedUnit, setInterval, clearInterval]);
+  useInterval(() => {
+    const level = Abilities.GetLevel(ability);
+    const unitMana = Entities.GetMana(selectedUnit);
+    const manaCost = Abilities.GetManaCost(ability);
+    const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
+    const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+    const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
+    const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
+    const isInLearningMode = Game.IsInAbilityLearnMode();
+    const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
+    setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
+    setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
+  }, HUD_THINK_FAST);
 
   return (
     <Panel style={Styles.Container()}>
@@ -76,4 +72,4 @@ const Image = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(Image));
+export default React.memo(Image);

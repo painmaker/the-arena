@@ -18,7 +18,7 @@ const Ability = (props: Props) => {
   const [opacity, setOpacity] = useState('1.0');
 
   useInterval(() => {
-    setPosY(prevState => prevState - 0.5)
+    setPosY(prevState => prevState - 0.5);
   }, 10);
 
   useTimeout(() => {
@@ -26,7 +26,7 @@ const Ability = (props: Props) => {
   }, 750);
 
   useTimeout(() => {
-    setAbilities(prevState => prevState.filter(ability => ability.id !== id))
+    setAbilities(prevState => prevState.filter(ability => ability.id !== id));
   }, 1000);
 
   return (

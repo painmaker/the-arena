@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Styles as ParentStyles } from "../Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 import { HUD_THINK_MEDIUM } from "../../../../App";
+import { useInterval } from "../../../../hooks/useInterval";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
@@ -11,15 +11,13 @@ const PyshicalResistance = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - PhysicalResistance rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [resistance, setResistance] = useState(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL))
 
-  useEffect(() => {
-    const update = () => setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
-    const id = setInterval!(update, HUD_THINK_MEDIUM);
-    return () => clearInterval!(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+  useInterval(() => {
+    setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
+  }, HUD_THINK_MEDIUM);
 
   return (
     <Panel style={ParentStyles.Row()}>
@@ -40,4 +38,4 @@ const PyshicalResistance = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(PyshicalResistance));
+export default React.memo(PyshicalResistance);

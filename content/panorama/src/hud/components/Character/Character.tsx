@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../reducers/rootReducer";
 import { Styles } from "./Styles";
@@ -9,7 +9,7 @@ import Level from "./Level/Level";
 import Avatar from "./Avatar/Avatar";
 import Attack from "./Attack/Attack";
 import { HUD_THINK_SLOW } from "../../App";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { useTimeout } from "../../hooks/useTimeout";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.characterReducer.visible,
@@ -18,7 +18,7 @@ const mapStateToProps = (state: RootState) => ({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   selectedUnit: EntityIndex,
 };
 
@@ -26,24 +26,13 @@ const Character = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character rendered");
 
-  const { selectedUnit, visible, setTimeout, clearTimeout } = props;
+  const { selectedUnit, visible } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
-  useEffect(() => {
-    let id: ReactTimeout.Timer | undefined = undefined;
-    if (visible === false) {
-      const update = () => setRenderComponent(false);
-      id = setTimeout!(update, HUD_THINK_SLOW);
-    } else {
-      setRenderComponent(true);
-    }
-    return () => {
-      if (id) {
-        clearTimeout!(id)
-      }
-    }
-  }, [visible, setTimeout, clearTimeout]);
+  useTimeout(() => {
+    setRenderComponent(visible);
+  }, visible === false ? HUD_THINK_SLOW : 0);
 
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>
@@ -70,4 +59,4 @@ const Character = (props: Props) => {
 
 };
 
-export default React.memo(connector(ReactTimeout(Character)));
+export default React.memo(connector(Character));

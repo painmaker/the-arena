@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNetTableValues } from "react-panorama";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 import Minimap from "./components/Minimap/Minimap";
 import Settings from "./components/Settings/Settings";
 import ButtonGroup from "./components/ButtonGroup/ButtonGroup";
@@ -20,6 +19,7 @@ import Loading from "./components/Loading/Loading";
 import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
 import FloatingContainer from "./components/FloatingContainer/FloatingContainer";
 import Messages from "./components/Messages/Messages";
+import { useInterval } from "./hooks/useInterval";
 
 export const HUD_THINK_FAST = 30;
 export const HUD_THINK_MEDIUM = 100;
@@ -41,13 +41,7 @@ const getGameUnitSelected = () => {
   return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
 }
 
-type Props = ReactTimeoutProps & {
-  // ownProps
-}
-
-const App = (props: Props) => {
-
-  const { setInterval, clearInterval } = props;
+const App = () => {
 
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
   const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
@@ -60,16 +54,12 @@ const App = (props: Props) => {
     GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
   }, []);
 
-  useEffect(() => {
-    const update = () => {
-      const unitToSelect = getGameUnitSelected();
-      if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
-        setSelectedUnit(unitToSelect)
-      }
-    };
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [setInterval, clearInterval]);
+  useInterval(() => {
+    const unitToSelect = getGameUnitSelected();
+    if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
+      setSelectedUnit(unitToSelect)
+    }
+  }, HUD_THINK_FAST)
 
   useEffect(() => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !useCustomUI);
@@ -146,4 +136,4 @@ const App = (props: Props) => {
 
 }
 
-export default ReactTimeout(App);
+export default App;

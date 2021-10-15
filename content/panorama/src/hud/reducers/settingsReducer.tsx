@@ -12,7 +12,7 @@ export default function (state = initialState, action: SettingsActionTypes) {
     case SET_SETTINGS_VISIBLE: {
       return {
         ...state,
-        visible: action.payload
+        visible: action.payload.visible
       };
     }
     case SET_CAMERA_LOCKED: {

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { TableUtils } from "../../utils/TableUtils";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 import { HUD_THINK_FAST } from "../../App";
+import { useInterval } from "../../hooks/useInterval";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
@@ -13,25 +13,21 @@ const AbilityBar = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBar rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [abilities, setAbilities] = useState<AbilityEntityIndex[]>([]);
   const [abilityPoints, setAbilityPoints] = useState(0);
 
-  useEffect(() => {
-    const update = () => {
-      const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
-        .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
-        .filter(index => index !== -1)
-        .filter(index => Abilities.IsDisplayedAbility(index));
-      if (!TableUtils.isEqual(newAbilities, abilities)) {
-        setAbilities(newAbilities);
-      }
-      setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
-    };
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [selectedUnit, abilities, setInterval, clearInterval])
+  useInterval(() => {
+    const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
+      .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
+      .filter(index => index !== -1)
+      .filter(index => Abilities.IsDisplayedAbility(index));
+    if (!TableUtils.isEqual(newAbilities, abilities)) {
+      setAbilities(newAbilities);
+    }
+    setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
+  }, HUD_THINK_FAST);
 
   useEffect(() => {
     if (abilityPoints <= 0) {
@@ -53,4 +49,4 @@ const AbilityBar = (props: Props) => {
 
 }
 
-export default React.memo(ReactTimeout(AbilityBar));
+export default React.memo(AbilityBar);

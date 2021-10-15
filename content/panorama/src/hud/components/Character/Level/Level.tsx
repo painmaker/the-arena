@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 import { HUD_THINK_MEDIUM } from "../../../App";
+import { useInterval } from "../../../hooks/useInterval";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 }
 
@@ -11,26 +11,22 @@ const Level = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Level rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [level, setLevel] = useState(Entities.GetLevel(selectedUnit));
   const [degree, setDegree] = useState(0);
 
-  useEffect(() => {
-    const update = () => {
-      if (Entities.IsHero(selectedUnit)) {
-        const currentXp = Entities.GetCurrentXP(selectedUnit);
-        const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
-        const degree = Math.floor(Math.max(0, Math.min(360, currentXp / requiredXp * 360)));
-        setDegree(Number.isNaN(degree) ? 360 : degree);
-      } else {
-        setDegree(360);
-      }
-      setLevel(Entities.GetLevel(selectedUnit));
-    };
-    const id = setInterval!(update, HUD_THINK_MEDIUM);
-    return () => clearInterval!(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+  useInterval(() => {
+    if (Entities.IsHero(selectedUnit)) {
+      const currentXp = Entities.GetCurrentXP(selectedUnit);
+      const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
+      const degree = Math.floor(Math.max(0, Math.min(360, currentXp / requiredXp * 360)));
+      setDegree(Number.isNaN(degree) ? 360 : degree);
+    } else {
+      setDegree(360);
+    }
+    setLevel(Entities.GetLevel(selectedUnit));
+  }, HUD_THINK_MEDIUM);
 
   return (
     <Panel style={Styles.Container()}>
@@ -45,4 +41,4 @@ const Level = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(Level));
+export default React.memo(Level);

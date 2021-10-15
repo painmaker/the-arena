@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Cooldown from "./Cooldown/Cooldown";
 import Autocast from "./Autocast/Autocast";
 import LockoutIcon from "./LockoutIcon/LockoutIcon";
@@ -9,8 +9,8 @@ import Image from "./Image/Image";
 import { Styles } from "./Styles";
 import LevelUpButton from "./LevelUpButton/LevelUpButton";
 import CastPointOverlay from "./CastPointOverlay/CastPointOverlay";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 import { HUD_THINK_FAST } from "../../../App";
+import { useInterval } from "../../../hooks/useInterval";
 
 const onMouseOver = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
   $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_" + ability), Abilities.GetAbilityName(ability), selectedUnit);
@@ -56,7 +56,7 @@ const onRightClick = (ability: AbilityEntityIndex) => {
   }
 }
 
-type Props = ReactTimeoutProps & {
+type Props = {
   ability: AbilityEntityIndex,
   selectedUnit: EntityIndex,
 }
@@ -65,7 +65,7 @@ const AbilityBarItem = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
 
-  const { ability, selectedUnit, setInterval, clearInterval } = props;
+  const { ability, selectedUnit } = props;
 
   const [isPassive, setIsPassive] = useState(false);
   const [isAutoCastEnabled, setIsAutoCastEnabled] = useState(false);
@@ -73,23 +73,21 @@ const AbilityBarItem = (props: Props) => {
   const [isActive, setIsActive] = useState(false);
   const [isTrainable, setIsTrainable] = useState(false);
   const [isInAbilityPhase, setIsInAbilityPhase] = useState(false);
+  const [castPoint, setCastPoint] = useState(Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1));
 
-  useEffect(() => {
-    const update = () => {
-      const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
-      const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
-      const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
-      const isInLearningMode = Game.IsInAbilityLearnMode();
-      setIsTrainable(isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints);
-      setIsPassive(Abilities.IsPassive(ability));
-      setIsAutoCastEnabled(Abilities.GetAutoCastState(ability))
-      setIsToggled(Abilities.GetToggleState(ability))
-      setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
-      setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
-    };
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [ability, selectedUnit, setInterval, clearInterval])
+  useInterval(() => {
+    const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+    const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
+    const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
+    const isInLearningMode = Game.IsInAbilityLearnMode();
+    setIsTrainable(isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints);
+    setIsPassive(Abilities.IsPassive(ability));
+    setIsAutoCastEnabled(Abilities.GetAutoCastState(ability))
+    setIsToggled(Abilities.GetToggleState(ability))
+    setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
+    setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
+    setCastPoint(Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1));
+  }, HUD_THINK_FAST);
 
   return (
     <Panel style={Styles.Container()} id={'ability_' + ability} >
@@ -111,7 +109,10 @@ const AbilityBarItem = (props: Props) => {
         <Autocast ability={ability} />
         <LockoutIcon ability={ability} selectedUnit={selectedUnit} />
         {isInAbilityPhase && (
-          <CastPointOverlay ability={ability} />
+          <CastPointOverlay
+            castPoint={castPoint}
+            endTime={Game.GetGameTime() + castPoint}
+          />
         )}
       </Panel>
       <Skillpoints ability={ability} />
@@ -120,6 +121,6 @@ const AbilityBarItem = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(AbilityBarItem));
+export default React.memo(AbilityBarItem);
 
 

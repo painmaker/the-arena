@@ -12,7 +12,7 @@ import UltimateAbilities from "./UltimateAbilities/UltimateAbilities";
 import AbilitiesPoints from "./AbilitiesPoints/AbilitiesPoints";
 import { useGameEvent } from "react-panorama";
 import { HUD_THINK_SLOW } from "../../App";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
+import { useTimeout } from "../../hooks/useTimeout";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.abilitiesShopReducer.visible,
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AbilitiesShopTypes>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & ReactTimeoutProps & {
+type Props = PropsFromRedux & {
   selectedUnit: EntityIndex,
 };
 
@@ -33,7 +33,7 @@ const AbilitiesShop = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilitiesShop rendered");
 
-  const { visible, selectedUnit, setShopVisible, setTimeout, clearTimeout } = props;
+  const { visible, selectedUnit, setShopVisible } = props;
 
   const [regularAbilities, setRegularAbilities] = useState<ShopAbility[]>([]);
   const [ultimateAbilities, setUltimateAbilities] = useState<ShopAbility[]>([]);
@@ -41,20 +41,9 @@ const AbilitiesShop = (props: Props) => {
   const [searchValue, setSearchValue] = useState('');
   const [renderComponent, setRenderComponent] = useState(false);
 
-  useEffect(() => {
-    let id: ReactTimeout.Timer | undefined = undefined;
-    if (visible === false) {
-      const update = () => setRenderComponent(false);
-      id = setTimeout!(update, HUD_THINK_SLOW);
-    } else {
-      setRenderComponent(true);
-    }
-    return () => {
-      if (id) {
-        clearTimeout!(id)
-      }
-    }
-  }, [visible, setTimeout, clearTimeout]);
+  useTimeout(() => {
+    setRenderComponent(visible);
+  }, visible === false ? HUD_THINK_SLOW : 0);
 
   useEffect(() => {
     if (visible) {
@@ -131,4 +120,4 @@ const AbilitiesShop = (props: Props) => {
 
 };
 
-export default React.memo(connector(ReactTimeout(AbilitiesShop)));
+export default React.memo(connector(AbilitiesShop));

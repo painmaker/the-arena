@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export const useInterval = (callback: Function, delay: number = 0) => {
+export const useInterval = (callback: Function, delay: number = 0, log?: boolean) => {
 
   const savedCallback = useRef<Function>(() => { });
 
@@ -14,8 +14,15 @@ export const useInterval = (callback: Function, delay: number = 0) => {
       savedCallback.current();
     }
 
-    let id = setInterval(update, delay);
-    return () => clearInterval(id);
+    // @ts-ignore
+    const id = setInterval(update, delay);
+    if (log) $.Msg("Created interval with ID: " + id);
+
+    return () => {
+      // @ts-ignore
+      clearInterval(id);
+      if (log) $.Msg("Clearing interval with ID: " + id);
+    }
 
   }, [delay]);
 

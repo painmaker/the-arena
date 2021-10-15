@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Styles } from "./Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 import { HUD_THINK_FAST } from "../../../../App";
+import { useInterval } from "../../../../hooks/useInterval";
 
-type Props = ReactTimeoutProps & {
+type Props = {
   ability: AbilityEntityIndex,
   selectedUnit: EntityIndex
 }
@@ -12,21 +12,17 @@ const LevelUpButton = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - LevelUpButton rendered");
 
-  const { ability, selectedUnit, setInterval, clearInterval } = props;
+  const { ability, selectedUnit } = props;
 
   const [isAbilityUpgradeable, setIsAbilityUpgradeable] = useState(false);
 
-  useEffect(() => {
-    const update = () => {
-      const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
-      const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
-      const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
-      const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints;
-      setIsAbilityUpgradeable(isAbilityUpgradeable);
-    };
-    const id = setInterval!(update, HUD_THINK_FAST);
-    return () => clearInterval!(id);
-  }, [ability, selectedUnit, setInterval, clearInterval])
+  useInterval(() => {
+    const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+    const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
+    const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
+    const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints;
+    setIsAbilityUpgradeable(isAbilityUpgradeable);
+  }, HUD_THINK_FAST);
 
   if (!isAbilityUpgradeable) {
     return null;
@@ -49,4 +45,4 @@ const LevelUpButton = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(LevelUpButton));
+export default React.memo(LevelUpButton);

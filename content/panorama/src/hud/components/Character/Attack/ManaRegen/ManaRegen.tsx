@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HUD_THINK_MEDIUM } from "../../../../App";
+import { useInterval } from "../../../../hooks/useInterval";
 import { Styles as ParentStyles } from "../Styles";
-import ReactTimeout, { ReactTimeoutProps } from 'react-timeout'
 
-type Props = ReactTimeoutProps & {
+type Props = {
   selectedUnit: EntityIndex,
 };
 
@@ -11,15 +11,13 @@ const ManaRegen = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - ManaRegen rendered");
 
-  const { selectedUnit, setInterval, clearInterval } = props;
+  const { selectedUnit } = props;
 
   const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(selectedUnit))
 
-  useEffect(() => {
-    const update = () => setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
-    const id = setInterval!(update, HUD_THINK_MEDIUM);
-    return () => clearInterval!(id);
-  }, [selectedUnit, setInterval, clearInterval]);
+  useInterval(() => {
+    setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
+  }, HUD_THINK_MEDIUM);
 
   return (
     <Panel style={ParentStyles.Row()}>
@@ -37,4 +35,4 @@ const ManaRegen = (props: Props) => {
 
 };
 
-export default React.memo(ReactTimeout(ManaRegen));
+export default React.memo(ManaRegen);

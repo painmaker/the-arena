@@ -51484,198 +51484,6 @@ function warning(message) {
 
 /***/ }),
 
-/***/ "../../../node_modules/react-timeout/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js":
-/*!********************************************************************************************************************!*\
-  !*** ../../../node_modules/react-timeout/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js ***!
-  \********************************************************************************************************************/
-/***/ ((module) => {
-
-"use strict";
-
-
-/**
- * Copyright 2015, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-var REACT_STATICS = {
-    childContextTypes: true,
-    contextTypes: true,
-    defaultProps: true,
-    displayName: true,
-    getDefaultProps: true,
-    getDerivedStateFromProps: true,
-    mixins: true,
-    propTypes: true,
-    type: true
-};
-
-var KNOWN_STATICS = {
-    name: true,
-    length: true,
-    prototype: true,
-    caller: true,
-    callee: true,
-    arguments: true,
-    arity: true
-};
-
-var defineProperty = Object.defineProperty;
-var getOwnPropertyNames = Object.getOwnPropertyNames;
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-var getPrototypeOf = Object.getPrototypeOf;
-var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
-
-function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
-    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-
-        if (objectPrototype) {
-            var inheritedComponent = getPrototypeOf(sourceComponent);
-            if (inheritedComponent && inheritedComponent !== objectPrototype) {
-                hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
-            }
-        }
-
-        var keys = getOwnPropertyNames(sourceComponent);
-
-        if (getOwnPropertySymbols) {
-            keys = keys.concat(getOwnPropertySymbols(sourceComponent));
-        }
-
-        for (var i = 0; i < keys.length; ++i) {
-            var key = keys[i];
-            if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
-                var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
-                try { // Avoid failures from read-only properties
-                    defineProperty(targetComponent, key, descriptor);
-                } catch (e) {}
-            }
-        }
-
-        return targetComponent;
-    }
-
-    return targetComponent;
-}
-
-module.exports = hoistNonReactStatics;
-
-
-/***/ }),
-
-/***/ "../../../node_modules/react-timeout/src/index.js":
-/*!********************************************************!*\
-  !*** ../../../node_modules/react-timeout/src/index.js ***!
-  \********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var React = __webpack_require__(/*! react */ "../../../node_modules/react/index.js")
-
-var objectAssign = __webpack_require__(/*! object-assign */ "../../../node_modules/object-assign/index.js")
-var hoistNonReactStatics = __webpack_require__(/*! hoist-non-react-statics */ "../../../node_modules/react-timeout/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js")
-
-var GLOBAL = typeof window === 'undefined' ? __webpack_require__.g : window
-
-var setter = function (_setter, _clearer, arrayKey, timerState) {
-  return function (callback, delta) {
-    var optionalArguments = Array.prototype.slice.call(arguments, 2)
-    var id = _setter(function () {
-      if (_clearer) {
-        _clearer.call(this, id)
-      }
-      if (typeof callback === 'function') {
-        callback.apply(this, optionalArguments)
-      }
-    }.bind(this), delta)
-
-    if (!timerState[arrayKey]) {
-      timerState[arrayKey] = [id]
-    } else {
-      timerState[arrayKey].push(id)
-    }
-    return id
-  }
-}
-
-var clearer = function (_clearer, array, timerState) {
-  return function (id) {
-    if (timerState[array]) {
-      var index = timerState[array].indexOf(id)
-      if (index !== -1) {
-        timerState[array].splice(index, 1)
-      }
-    }
-    _clearer(id)
-  }
-}
-
-var cloneArray = function (a) {
-  return (!a || typeof a.slice !== 'function') ? [] : a.slice(0)
-}
-
-function getDisplayName(WrappedComponent) {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component'
-}
-
-var _timeouts = '_ReactTimeout_timeouts'
-var _intervals = '_ReactTimeout_intervals'
-var _immediates = '_ReactTimeout_immediates'
-var _rafs = '_ReactTimeout_rafs'
-
-function withReactTimeout(WrappedComponent) {
-  var ReactTimeout = hoistNonReactStatics(React.forwardRef(function (props, ref) {
-    var timerState = {}
-
-    var clearTimeout = React.useCallback(clearer(GLOBAL.clearTimeout, _timeouts, timerState), [])
-    var setTimeout = React.useCallback(setter(GLOBAL.setTimeout, clearTimeout, _timeouts, timerState), [])
-
-    var clearInterval = React.useCallback(clearer(GLOBAL.clearInterval, _intervals, timerState), [])
-    var setInterval = React.useCallback(setter(GLOBAL.setInterval, null, _intervals, timerState), [])
-
-    var clearImmediate = React.useCallback(clearer(GLOBAL.clearImmediate, _immediates, timerState), [])
-    var setImmediate = React.useCallback(setter(GLOBAL.setImmediate, clearImmediate, _immediates, timerState), [])
-
-    var cancelAnimationFrame = React.useCallback(clearer(GLOBAL.cancelAnimationFrame, _rafs, timerState), [])
-    var requestAnimationFrame = React.useCallback(setter(GLOBAL.requestAnimationFrame, cancelAnimationFrame, _rafs, timerState), [])
-
-    React.useEffect(function () {
-      return function cleanUp() {
-        cloneArray(timerState[_timeouts]).forEach(clearTimeout)
-        cloneArray(timerState[_intervals]).forEach(clearInterval)
-        cloneArray(timerState[_immediates]).forEach(clearImmediate)
-        cloneArray(timerState[_rafs]).forEach(cancelAnimationFrame)
-      }
-    }, [])
-    var newProps = objectAssign(
-      {},
-      props,
-      {
-        ref: ref,
-
-        setTimeout: setTimeout,
-        clearTimeout: clearTimeout,
-
-        setInterval: setInterval,
-        clearInterval: clearInterval,
-
-        setImmediate: setImmediate,
-        clearImmediate: clearImmediate,
-
-        requestAnimationFrame: requestAnimationFrame,
-        cancelAnimationFrame: cancelAnimationFrame
-      }
-    )
-    return React.createElement(WrappedComponent, newProps)
-  }), WrappedComponent)
-  ReactTimeout.displayName = 'ReactTimeout(' + getDisplayName(WrappedComponent) + ')'
-  return ReactTimeout
-}
-
-module.exports = withReactTimeout
-
-
-/***/ }),
-
 /***/ "../../../node_modules/react/cjs/react.development.js":
 /*!************************************************************!*\
   !*** ../../../node_modules/react/cjs/react.development.js ***!
@@ -55880,27 +55688,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_Minimap_Minimap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Minimap/Minimap */ "./hud/components/Minimap/Minimap.tsx");
-/* harmony import */ var _components_Settings_Settings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Settings/Settings */ "./hud/components/Settings/Settings.tsx");
-/* harmony import */ var _components_ButtonGroup_ButtonGroup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/ButtonGroup/ButtonGroup */ "./hud/components/ButtonGroup/ButtonGroup.tsx");
-/* harmony import */ var _components_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Heroes/Heroes */ "./hud/components/Heroes/Heroes.tsx");
-/* harmony import */ var _components_GameTime_GameTime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/GameTime/GameTime */ "./hud/components/GameTime/GameTime.tsx");
-/* harmony import */ var _components_AbilityBar_AbilityBar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/AbilityBar/AbilityBar */ "./hud/components/AbilityBar/AbilityBar.tsx");
-/* harmony import */ var _components_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/HealthBar/HealthBar */ "./hud/components/HealthBar/HealthBar.tsx");
-/* harmony import */ var _components_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/ManaBar/ManaBar */ "./hud/components/ManaBar/ManaBar.tsx");
-/* harmony import */ var _components_Stats_Stats__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Stats/Stats */ "./hud/components/Stats/Stats.tsx");
-/* harmony import */ var _components_Character_Character__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Character/Character */ "./hud/components/Character/Character.tsx");
-/* harmony import */ var _components_Modifiers_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Modifiers/Debuffs/Debuffs */ "./hud/components/Modifiers/Debuffs/Debuffs.tsx");
-/* harmony import */ var _components_Modifiers_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Modifiers/Buffs/Buffs */ "./hud/components/Modifiers/Buffs/Buffs.tsx");
-/* harmony import */ var _components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Inventory/Inventory */ "./hud/components/Inventory/Inventory.tsx");
-/* harmony import */ var _components_Shop_Shop__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/Shop/Shop */ "./hud/components/Shop/Shop.tsx");
-/* harmony import */ var _components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/HeroSelection/HeroSelection */ "./hud/components/HeroSelection/HeroSelection.tsx");
-/* harmony import */ var _components_Loading_Loading__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/Loading/Loading */ "./hud/components/Loading/Loading.tsx");
-/* harmony import */ var _components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/AbilitiesShop/AbilitiesShop */ "./hud/components/AbilitiesShop/AbilitiesShop.tsx");
-/* harmony import */ var _components_FloatingContainer_FloatingContainer__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/FloatingContainer/FloatingContainer */ "./hud/components/FloatingContainer/FloatingContainer.tsx");
-/* harmony import */ var _components_Messages_Messages__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/Messages/Messages */ "./hud/components/Messages/Messages.tsx");
+/* harmony import */ var _components_Minimap_Minimap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Minimap/Minimap */ "./hud/components/Minimap/Minimap.tsx");
+/* harmony import */ var _components_Settings_Settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Settings/Settings */ "./hud/components/Settings/Settings.tsx");
+/* harmony import */ var _components_ButtonGroup_ButtonGroup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/ButtonGroup/ButtonGroup */ "./hud/components/ButtonGroup/ButtonGroup.tsx");
+/* harmony import */ var _components_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Heroes/Heroes */ "./hud/components/Heroes/Heroes.tsx");
+/* harmony import */ var _components_GameTime_GameTime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/GameTime/GameTime */ "./hud/components/GameTime/GameTime.tsx");
+/* harmony import */ var _components_AbilityBar_AbilityBar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/AbilityBar/AbilityBar */ "./hud/components/AbilityBar/AbilityBar.tsx");
+/* harmony import */ var _components_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/HealthBar/HealthBar */ "./hud/components/HealthBar/HealthBar.tsx");
+/* harmony import */ var _components_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/ManaBar/ManaBar */ "./hud/components/ManaBar/ManaBar.tsx");
+/* harmony import */ var _components_Stats_Stats__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Stats/Stats */ "./hud/components/Stats/Stats.tsx");
+/* harmony import */ var _components_Character_Character__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Character/Character */ "./hud/components/Character/Character.tsx");
+/* harmony import */ var _components_Modifiers_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Modifiers/Debuffs/Debuffs */ "./hud/components/Modifiers/Debuffs/Debuffs.tsx");
+/* harmony import */ var _components_Modifiers_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Modifiers/Buffs/Buffs */ "./hud/components/Modifiers/Buffs/Buffs.tsx");
+/* harmony import */ var _components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Inventory/Inventory */ "./hud/components/Inventory/Inventory.tsx");
+/* harmony import */ var _components_Shop_Shop__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Shop/Shop */ "./hud/components/Shop/Shop.tsx");
+/* harmony import */ var _components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/HeroSelection/HeroSelection */ "./hud/components/HeroSelection/HeroSelection.tsx");
+/* harmony import */ var _components_Loading_Loading__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Loading/Loading */ "./hud/components/Loading/Loading.tsx");
+/* harmony import */ var _components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/AbilitiesShop/AbilitiesShop */ "./hud/components/AbilitiesShop/AbilitiesShop.tsx");
+/* harmony import */ var _components_FloatingContainer_FloatingContainer__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/FloatingContainer/FloatingContainer */ "./hud/components/FloatingContainer/FloatingContainer.tsx");
+/* harmony import */ var _components_Messages_Messages__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Messages/Messages */ "./hud/components/Messages/Messages.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
@@ -55940,9 +55747,8 @@ const getGameUnitSelected = () => {
     }
     return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
 };
-const App = (props) => {
+const App = () => {
     var _a;
-    const { setInterval, clearInterval } = props;
     const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes;
     const hasPickedHero = ((_a = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())) === null || _a === void 0 ? void 0 : _a.picked) === 1;
     const [useCustomUI, setUseCustomUI] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
@@ -55951,16 +55757,12 @@ const App = (props) => {
         GameUI.SetCameraDistance(1600);
         GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
     }, []);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const unitToSelect = getGameUnitSelected();
-            if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
-                setSelectedUnit(unitToSelect);
-            }
-        };
-        const id = setInterval(update, HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_21__.useInterval)(() => {
+        const unitToSelect = getGameUnitSelected();
+        if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
+            setSelectedUnit(unitToSelect);
+        }
+    }, HUD_THINK_FAST);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !useCustomUI);
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, !useCustomUI);
@@ -55991,30 +55793,30 @@ const App = (props) => {
         GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !useCustomUI);
     }, [useCustomUI]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: 'root', hittest: false, className: "appContainer" },
-        (!hasPickedHero) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_17__.default, null)),
-        hasPickedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Loading_Loading__WEBPACK_IMPORTED_MODULE_18__.default, null,
+        (!hasPickedHero) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HeroSelection_HeroSelection__WEBPACK_IMPORTED_MODULE_16__.default, null)),
+        hasPickedHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Loading_Loading__WEBPACK_IMPORTED_MODULE_17__.default, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(ToggleButton, { className: 'useCustomUIBtn', selected: useCustomUI, onactivate: () => setUseCustomUI(prevState => !prevState) },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: 'useCustomUILabel', text: 'Use Custom UI' })),
             useCustomUI && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_6__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_GameTime_GameTime__WEBPACK_IMPORTED_MODULE_7__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Settings_Settings__WEBPACK_IMPORTED_MODULE_4__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Character_Character__WEBPACK_IMPORTED_MODULE_12__.default, { selectedUnit: selectedUnit }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Shop_Shop__WEBPACK_IMPORTED_MODULE_16__.default, { selectedUnit: selectedUnit }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilityBar_AbilityBar__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_10__.default, { selectedUnit: selectedUnit }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_9__.default, { selectedUnit: selectedUnit }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ButtonGroup_ButtonGroup__WEBPACK_IMPORTED_MODULE_5__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Minimap_Minimap__WEBPACK_IMPORTED_MODULE_3__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_14__.default, { selectedUnit: selectedUnit }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_13__.default, { selectedUnit: selectedUnit }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_15__.default, { selectedUnit: selectedUnit }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Stats_Stats__WEBPACK_IMPORTED_MODULE_11__.default, { selectedUnit: selectedUnit }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_19__.default, { selectedUnit: selectedUnit }),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_FloatingContainer_FloatingContainer__WEBPACK_IMPORTED_MODULE_20__.default, null),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Messages_Messages__WEBPACK_IMPORTED_MODULE_21__.default, null)))))));
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Heroes_Heroes__WEBPACK_IMPORTED_MODULE_5__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_GameTime_GameTime__WEBPACK_IMPORTED_MODULE_6__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Settings_Settings__WEBPACK_IMPORTED_MODULE_3__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Character_Character__WEBPACK_IMPORTED_MODULE_11__.default, { selectedUnit: selectedUnit }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Shop_Shop__WEBPACK_IMPORTED_MODULE_15__.default, { selectedUnit: selectedUnit }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilityBar_AbilityBar__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ManaBar_ManaBar__WEBPACK_IMPORTED_MODULE_9__.default, { selectedUnit: selectedUnit }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_HealthBar_HealthBar__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ButtonGroup_ButtonGroup__WEBPACK_IMPORTED_MODULE_4__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Minimap_Minimap__WEBPACK_IMPORTED_MODULE_2__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Buffs_Buffs__WEBPACK_IMPORTED_MODULE_13__.default, { selectedUnit: selectedUnit }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Modifiers_Debuffs_Debuffs__WEBPACK_IMPORTED_MODULE_12__.default, { selectedUnit: selectedUnit }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Inventory_Inventory__WEBPACK_IMPORTED_MODULE_14__.default, { selectedUnit: selectedUnit }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Stats_Stats__WEBPACK_IMPORTED_MODULE_10__.default, { selectedUnit: selectedUnit }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AbilitiesShop_AbilitiesShop__WEBPACK_IMPORTED_MODULE_18__.default, { selectedUnit: selectedUnit }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_FloatingContainer_FloatingContainer__WEBPACK_IMPORTED_MODULE_19__.default, null),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Messages_Messages__WEBPACK_IMPORTED_MODULE_20__.default, null)))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(App));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 
 
 /***/ }),
@@ -56179,7 +55981,7 @@ __webpack_require__.r(__webpack_exports__);
 function setSettingsVisible(visible) {
     return {
         type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_SETTINGS_VISIBLE,
-        payload: visible
+        payload: { visible }
     };
 }
 function setCameraLocked(locked) {
@@ -56241,28 +56043,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilitiesPoints/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilitiesPoints/Styles.tsx");
 
 
 
 
 const AbilitiesPoints = (props) => {
     // $.Msg("REACT-RENDER: AbilitiesShop - AbilitiesPoints rendered");
-    const { selectedUnit, text, setInterval, clearInterval } = props;
+    const { selectedUnit, text } = props;
     const [abilityPoints, setAbilityPoints] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAbilityPoints(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LabelContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: text, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel() }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: abilityPoints, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.NumberLabel(abilityPoints !== 0) }))));
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LabelContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: text, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TextLabel() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: abilityPoints, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.NumberLabel(abilityPoints !== 0) }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(AbilitiesPoints)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilitiesPoints));
 
 
 /***/ }),
@@ -56349,8 +56148,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./AbilitiesPoints/AbilitiesPoints */ "./hud/components/AbilitiesShop/AbilitiesPoints/AbilitiesPoints.tsx");
 /* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
 
 
 
@@ -56372,27 +56170,15 @@ const mapDispatchToProps = (dispatch) => ({
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const AbilitiesShop = (props) => {
     // $.Msg("REACT-RENDER: AbilitiesShop rendered");
-    const { visible, selectedUnit, setShopVisible, setTimeout, clearTimeout } = props;
+    const { visible, selectedUnit, setShopVisible } = props;
     const [regularAbilities, setRegularAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [ultimateAbilities, setUltimateAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [isLoadingAbilities, setIsLoadingAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [searchValue, setSearchValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let id = undefined;
-        if (visible === false) {
-            const update = () => setRenderComponent(false);
-            id = setTimeout(update, _App__WEBPACK_IMPORTED_MODULE_10__.HUD_THINK_SLOW);
-        }
-        else {
-            setRenderComponent(true);
-        }
-        return () => {
-            if (id) {
-                clearTimeout(id);
-            }
-        };
-    }, [visible, setTimeout, clearTimeout]);
+    (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_11__.useTimeout)(() => {
+        setRenderComponent(visible);
+    }, visible === false ? _App__WEBPACK_IMPORTED_MODULE_10__.HUD_THINK_SLOW : 0);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         if (visible) {
             setRegularAbilities([]);
@@ -56437,7 +56223,7 @@ const AbilitiesShop = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit, regularAbilities: regularAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit, ultimateAbilities: ultimateAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(react_timeout__WEBPACK_IMPORTED_MODULE_11___default()(AbilitiesShop))));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(AbilitiesShop)));
 
 
 /***/ }),
@@ -56455,9 +56241,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilityImage/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/AbilityImage/Styles.tsx");
 
 
 
@@ -56474,15 +56259,13 @@ const onRightClick = (selectedUnit, abilityname) => {
 };
 const AbilityImage = (props) => {
     // $.Msg("REACT-RENDER: AbilitiesShop - AbilityImage rendered");
-    const { selectedUnit, shopAbility, searchValue, setInterval, clearInterval } = props;
+    const { selectedUnit, shopAbility, searchValue } = props;
     const { name, aliases, requiredLevel } = shopAbility;
     const [isRequiredLevel, setIsRequiredLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit) >= requiredLevel);
     const [isSearched, setIsSearched] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         let isSearched = false;
         Object.values(aliases).forEach(alias => {
@@ -56493,10 +56276,10 @@ const AbilityImage = (props) => {
         setIsSearched(isSearched);
     }, [aliases, searchValue]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilityImage(searchValue.length > 0, isSearched, isRequiredLevel), oncontextmenu: () => onRightClick(selectedUnit, name), onmouseout: () => onMouseOut(name), onmouseover: () => onMouseOver(selectedUnit, name) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityImage(searchValue.length > 0, isSearched, isRequiredLevel), oncontextmenu: () => onRightClick(selectedUnit, name), onmouseout: () => onMouseOut(name), onmouseover: () => onMouseOver(selectedUnit, name) },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: 'ability_shop_image_' + name, abilityname: name }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(AbilityImage)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilityImage));
 
 
 /***/ }),
@@ -56929,9 +56712,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_TableUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/TableUtils */ "./hud/utils/TableUtils.ts");
 /* harmony import */ var _AbilityBarItem_AbilityBarItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AbilityBarItem/AbilityBarItem */ "./hud/components/AbilityBar/AbilityBarItem/AbilityBarItem.tsx");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
@@ -56940,23 +56722,19 @@ __webpack_require__.r(__webpack_exports__);
 
 const AbilityBar = (props) => {
     // $.Msg("REACT-RENDER: AbilityBar rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [abilities, setAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [abilityPoints, setAbilityPoints] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
-                .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
-                .filter(index => index !== -1)
-                .filter(index => Abilities.IsDisplayedAbility(index));
-            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_1__.TableUtils.isEqual(newAbilities, abilities)) {
-                setAbilities(newAbilities);
-            }
-            setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_5__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [selectedUnit, abilities, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_5__.useInterval)(() => {
+        const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
+            .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
+            .filter(index => index !== -1)
+            .filter(index => Abilities.IsDisplayedAbility(index));
+        if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_1__.TableUtils.isEqual(newAbilities, abilities)) {
+            setAbilities(newAbilities);
+        }
+        setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_4__.HUD_THINK_FAST);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         if (abilityPoints <= 0) {
             Game.EndAbilityLearnMode();
@@ -56964,7 +56742,7 @@ const AbilityBar = (props) => {
     }, [abilityPoints]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, abilities.map((ability) => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityBarItem_AbilityBarItem__WEBPACK_IMPORTED_MODULE_2__.default, { key: ability, ability: ability, selectedUnit: selectedUnit })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_4___default()(AbilityBar)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilityBar));
 
 
 /***/ }),
@@ -56991,9 +56769,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Styles.tsx");
 /* harmony import */ var _LevelUpButton_LevelUpButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./LevelUpButton/LevelUpButton */ "./hud/components/AbilityBar/AbilityBarItem/LevelUpButton/LevelUpButton.tsx");
 /* harmony import */ var _CastPointOverlay_CastPointOverlay__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./CastPointOverlay/CastPointOverlay */ "./hud/components/AbilityBar/AbilityBarItem/CastPointOverlay/CastPointOverlay.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
@@ -57049,29 +56826,27 @@ const onRightClick = (ability) => {
 };
 const AbilityBarItem = (props) => {
     // $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
-    const { ability, selectedUnit, setInterval, clearInterval } = props;
+    const { ability, selectedUnit } = props;
     const [isPassive, setIsPassive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isAutoCastEnabled, setIsAutoCastEnabled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isToggled, setIsToggled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isActive, setIsActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isTrainable, setIsTrainable] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     const [isInAbilityPhase, setIsInAbilityPhase] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
-            const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
-            const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
-            const isInLearningMode = Game.IsInAbilityLearnMode();
-            setIsTrainable(isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints);
-            setIsPassive(Abilities.IsPassive(ability));
-            setIsAutoCastEnabled(Abilities.GetAutoCastState(ability));
-            setIsToggled(Abilities.GetToggleState(ability));
-            setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
-            setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_12__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, selectedUnit, setInterval, clearInterval]);
+    const [castPoint, setCastPoint] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1));
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_12__.useInterval)(() => {
+        const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+        const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
+        const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
+        const isInLearningMode = Game.IsInAbilityLearnMode();
+        setIsTrainable(isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints);
+        setIsPassive(Abilities.IsPassive(ability));
+        setIsAutoCastEnabled(Abilities.GetAutoCastState(ability));
+        setIsToggled(Abilities.GetToggleState(ability));
+        setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
+        setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
+        setCastPoint(Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1));
+    }, _App__WEBPACK_IMPORTED_MODULE_11__.HUD_THINK_FAST);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.Container(), id: 'ability_' + ability },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.LevelUpButtonContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LevelUpButton_LevelUpButton__WEBPACK_IMPORTED_MODULE_9__.default, { ability: ability, selectedUnit: selectedUnit })),
@@ -57082,10 +56857,10 @@ const AbilityBarItem = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Cooldown_Cooldown__WEBPACK_IMPORTED_MODULE_1__.default, { ability: ability }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Autocast_Autocast__WEBPACK_IMPORTED_MODULE_2__.default, { ability: ability }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LockoutIcon_LockoutIcon__WEBPACK_IMPORTED_MODULE_3__.default, { ability: ability, selectedUnit: selectedUnit }),
-            isInAbilityPhase && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CastPointOverlay_CastPointOverlay__WEBPACK_IMPORTED_MODULE_10__.default, { ability: ability }))),
+            isInAbilityPhase && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CastPointOverlay_CastPointOverlay__WEBPACK_IMPORTED_MODULE_10__.default, { castPoint: castPoint, endTime: Game.GetGameTime() + castPoint }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Skillpoints_Skillpoints__WEBPACK_IMPORTED_MODULE_4__.default, { ability: ability })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_11___default()(AbilityBarItem)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilityBarItem));
 
 
 /***/ }),
@@ -57103,22 +56878,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Autocast/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const Autocast = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - Autocast rendered");
-    const { ability, setInterval, clearInterval } = props;
+    const { ability } = props;
     const [isAutocastEnabled, setIsAutocastEnabled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setIsAutocastEnabled(Abilities.GetAutoCastState(ability));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        setIsAutocastEnabled(Abilities.GetAutoCastState(ability));
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_FAST);
     if (!isAutocastEnabled) {
         return null;
     }
@@ -57126,7 +56898,7 @@ const Autocast = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { map: 'scenes/hud/autocasting', style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.AutocastScene() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(Autocast)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Autocast));
 
 
 /***/ }),
@@ -57171,34 +56943,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/CastPointOverlay/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/CastPointOverlay/Styles.tsx");
 
 
 
 
 const CastPointOverlay = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
-    const { ability, setInterval, clearInterval } = props;
+    const { castPoint, endTime } = props;
     const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const offsetCastPoint = Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1);
-        const endtime = Game.GetGameTime() + offsetCastPoint;
-        const update = () => {
-            const gameTimeDifference = endtime - Game.GetGameTime();
-            const degree = Math.min(0, -(360 - ((gameTimeDifference / offsetCastPoint) * 360)));
-            setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        const gameTimeDifference = endTime - Game.GetGameTime();
+        const degree = Math.min(0, -(360 - ((gameTimeDifference / castPoint) * 360)));
+        setDegree(Number.isNaN(degree) || !Number.isFinite(degree) ? 0 : Math.round(degree));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
     if (degree === 0) {
         return null;
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(degree) }));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(degree) }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(CastPointOverlay)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(CastPointOverlay));
 
 
 /***/ }),
@@ -57240,34 +57005,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Cooldown/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const Cooldown = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - Cooldown rendered");
-    const { ability, setInterval, clearInterval } = props;
+    const { ability } = props;
     const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     const [cooldownTimeRemaining, setCooldownTimeRemaining] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const totalCooldown = Abilities.GetCooldown(ability);
-            const cooldownTimeRemaining = Abilities.GetCooldownTimeRemaining(ability);
-            const degree = Math.min(0, -(cooldownTimeRemaining / totalCooldown) * 360);
-            if (Number.isNaN(degree) || !Number.isFinite(degree)) {
-                setDegree(0);
-            }
-            else {
-                setDegree(degree);
-            }
-            setCooldownTimeRemaining(cooldownTimeRemaining);
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        const totalCooldown = Abilities.GetCooldown(ability);
+        const cooldownTimeRemaining = Abilities.GetCooldownTimeRemaining(ability);
+        const degree = Math.min(0, -(cooldownTimeRemaining / totalCooldown) * 360);
+        if (Number.isNaN(degree) || !Number.isFinite(degree)) {
+            setDegree(0);
+        }
+        else {
+            setDegree(degree);
+        }
+        setCooldownTimeRemaining(cooldownTimeRemaining);
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_FAST);
     if (cooldownTimeRemaining === 0) {
         return null;
     }
@@ -57275,7 +57035,7 @@ const Cooldown = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Background(degree) }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Label(), text: Math.ceil(cooldownTimeRemaining) })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(Cooldown)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Cooldown));
 
 
 /***/ }),
@@ -57328,9 +57088,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Image/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Image/Styles.tsx");
 
 
 
@@ -57364,30 +57123,26 @@ const getWashColor = (isTrainable, manaCost, unitMana, cooldownTimeRemaining, le
 };
 const Image = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
-    const { ability, selectedUnit, setInterval, clearInterval } = props;
+    const { ability, selectedUnit } = props;
     const [saturation, setSaturation] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('1.0');
     const [washColor, setWashColor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('#303030');
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const level = Abilities.GetLevel(ability);
-            const unitMana = Entities.GetMana(selectedUnit);
-            const manaCost = Abilities.GetManaCost(ability);
-            const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
-            const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
-            const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
-            const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
-            const isInLearningMode = Game.IsInAbilityLearnMode();
-            const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
-            setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
-            setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilityImage(washColor, saturation), contextEntityIndex: ability })));
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        const level = Abilities.GetLevel(ability);
+        const unitMana = Entities.GetMana(selectedUnit);
+        const manaCost = Abilities.GetManaCost(ability);
+        const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
+        const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+        const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
+        const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
+        const isInLearningMode = Game.IsInAbilityLearnMode();
+        const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
+        setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
+        setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityImage(washColor, saturation), contextEntityIndex: ability })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Image)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Image));
 
 
 /***/ }),
@@ -57432,39 +57187,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Keybind/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Keybind/Styles.tsx");
 
 
 
 
 const Keybind = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - Keybind rendered");
-    const { ability, selectedUnit, setInterval, clearInterval } = props;
+    const { ability, selectedUnit } = props;
     const [keybind, setKeybind] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
-            const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
-            const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
-            const isInLearningMode = Game.IsInAbilityLearnMode();
-            const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
-            const isPassive = Abilities.IsPassive(ability);
-            if (isControllable && !isPassive && !isTrainable) {
-                setKeybind(Abilities.GetKeybind(ability));
-            }
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+        const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
+        const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
+        const isInLearningMode = Game.IsInAbilityLearnMode();
+        const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
+        const isPassive = Abilities.IsPassive(ability);
+        if (isControllable && !isPassive && !isTrainable) {
+            setKeybind(Abilities.GetKeybind(ability));
+        }
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
     if (!keybind) {
         return null;
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Label(), text: keybind })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: keybind })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Keybind)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Keybind));
 
 
 /***/ }),
@@ -57511,28 +57261,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/LevelUpButton/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const LevelUpButton = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - LevelUpButton rendered");
-    const { ability, selectedUnit, setInterval, clearInterval } = props;
+    const { ability, selectedUnit } = props;
     const [isAbilityUpgradeable, setIsAbilityUpgradeable] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
-            const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
-            const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
-            const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints;
-            setIsAbilityUpgradeable(isAbilityUpgradeable);
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+        const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
+        const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
+        const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints;
+        setIsAbilityUpgradeable(isAbilityUpgradeable);
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_FAST);
     if (!isAbilityUpgradeable) {
         return null;
     }
@@ -57541,7 +57286,7 @@ const LevelUpButton = (props) => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { onactivate: () => Abilities.AttemptToUpgrade(ability), style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ButtonBackground() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.LockIcon() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(LevelUpButton)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(LevelUpButton));
 
 
 /***/ }),
@@ -57607,38 +57352,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/LockoutIcon/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/LockoutIcon/Styles.tsx");
 
 
 
 
 const LockoutIcon = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
-    const { ability, selectedUnit, setInterval, clearInterval } = props;
+    const { ability, selectedUnit } = props;
     const [showLock, setShowLock] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const isStunned = Entities.IsStunned(selectedUnit);
-            const isSilenced = Entities.IsSilenced(selectedUnit);
-            const isCommandRestricted = Entities.IsCommandRestricted(selectedUnit);
-            const isNightmared = Entities.IsNightmared(selectedUnit);
-            const isHexed = Entities.IsHexed(selectedUnit);
-            const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
-            const showLock = cooldownRemaining !== 0 && (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
-            setShowLock(showLock);
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        const isStunned = Entities.IsStunned(selectedUnit);
+        const isSilenced = Entities.IsSilenced(selectedUnit);
+        const isCommandRestricted = Entities.IsCommandRestricted(selectedUnit);
+        const isNightmared = Entities.IsNightmared(selectedUnit);
+        const isHexed = Entities.IsHexed(selectedUnit);
+        const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
+        const showLock = cooldownRemaining !== 0 && (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
+        setShowLock(showLock);
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
     if (!showLock) {
         return null;
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(showLock) },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Icon() })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(showLock) },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Icon() })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(LockoutIcon)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(LockoutIcon));
 
 
 /***/ }),
@@ -57690,29 +57430,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/ManaCost/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const ManaCost = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - ManaCost rendered");
-    const { ability, setInterval, clearInterval } = props;
+    const { ability } = props;
     const [manaCost, setManaCost] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setManaCost(Abilities.GetManaCost(ability));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        setManaCost(Abilities.GetManaCost(ability));
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_FAST);
     if (manaCost === 0) {
         return null;
     }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Label(), text: manaCost })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(ManaCost)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ManaCost));
 
 
 /***/ }),
@@ -57762,33 +57499,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Skillpoints/Styles.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilityBar/AbilityBarItem/Skillpoints/Styles.tsx");
 
 
 
 
 const Skillpoints = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - Skillpoints rendered");
-    const { ability, setInterval, clearInterval } = props;
+    const { ability } = props;
     const [abilityLevel, setAbilityLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetLevel(ability));
     const [maxAbilityLevel, setMaxAbilityLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Abilities.GetMaxLevel(ability));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setAbilityLevel(Abilities.GetLevel(ability));
-            setMaxAbilityLevel(Abilities.GetMaxLevel(ability));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-        return () => clearInterval(id);
-    }, [ability, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() }, Array.from({ length: maxAbilityLevel }, (_, index) => index + 1).map(index => {
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setAbilityLevel(Abilities.GetLevel(ability));
+        setMaxAbilityLevel(Abilities.GetMaxLevel(ability));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, Array.from({ length: maxAbilityLevel }, (_, index) => index + 1).map(index => {
         const columnWidth = 100 / maxAbilityLevel;
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { key: ability + '_level_' + index, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Column(columnWidth) },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Skillpoint(abilityLevel, index) })));
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { key: ability + '_level_' + index, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Column(columnWidth) },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Skillpoint(abilityLevel, index) })));
     })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Skillpoints)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Skillpoints));
 
 
 /***/ }),
@@ -58211,29 +57943,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const AttackRange = (props) => {
     // $.Msg("REACT-RENDER: Character - AttackRange rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [attackRange, setAttackRange] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackRange(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setAttackRange(Entities.GetAttackRange(selectedUnit));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        setAttackRange(Entities.GetAttackRange(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_MEDIUM);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Row() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.LeftColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Range:', style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ColumnLabel() })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.RightColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: attackRange.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(AttackRange)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AttackRange));
 
 
 /***/ }),
@@ -58251,33 +57980,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const AttackSpeed = (props) => {
     // $.Msg("REACT-RENDER: Character - AttackSpeed rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [attackSpeed, setAttackSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackSpeed(selectedUnit));
     const [secondsPerAttack, setSecondsPerAttack] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetSecondsPerAttack(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setAttackSpeed(Entities.GetAttackSpeed(selectedUnit));
-            setSecondsPerAttack(Entities.GetSecondsPerAttack(selectedUnit));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        setAttackSpeed(Entities.GetAttackSpeed(selectedUnit));
+        setSecondsPerAttack(Entities.GetSecondsPerAttack(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_MEDIUM);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Row() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.LeftColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Attack Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ColumnLabel() })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.RightColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (attackSpeed * 100).toFixed(0) + " (" + (secondsPerAttack).toFixed(2) + 's)', style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(AttackSpeed)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AttackSpeed));
 
 
 /***/ }),
@@ -58295,28 +58019,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const Damage = (props) => {
     // $.Msg("REACT-RENDER: Character - Damage rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [minDamage, setMinDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageMin(selectedUnit));
     const [maxDamage, setMaxDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageMax(selectedUnit));
     const [bonusDamage, setBonusDamage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetDamageBonus(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setMinDamage(Entities.GetDamageMin(selectedUnit));
-            setMaxDamage(Entities.GetDamageMax(selectedUnit));
-            setBonusDamage(Entities.GetDamageBonus(selectedUnit));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        setMinDamage(Entities.GetDamageMin(selectedUnit));
+        setMaxDamage(Entities.GetDamageMax(selectedUnit));
+        setBonusDamage(Entities.GetDamageBonus(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_MEDIUM);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Row() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.LeftColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Damage:', style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ColumnLabel() })),
@@ -58324,7 +58043,7 @@ const Damage = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: minDamage.toFixed(0) + " - " + maxDamage.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ColumnLabel() }),
             bonusDamage !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusDamage > 0 ? ' + ' : ' - ') + Math.abs(bonusDamage), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ColumnLabel()), { color: bonusDamage > 0 ? 'green' : 'red' }) })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(Damage)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Damage));
 
 
 /***/ }),
@@ -58342,29 +58061,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
 
 
 
 
 const ManaRegen = (props) => {
     // $.Msg("REACT-RENDER: Character - ManaRegen rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [manaRegen, setManaRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetManaThinkRegen(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Mana Regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: manaRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }))));
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Mana Regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: manaRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(ManaRegen)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ManaRegen));
 
 
 /***/ }),
@@ -58382,36 +58098,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
 
 
 
 
 const MoveSpeed = (props) => {
     // $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [baseMoveSpeed, setBaseMoveSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetBaseMoveSpeed(selectedUnit));
     const [totalMoveSpeed, setTotalMoveSpeed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const baseMoveSpeed = Entities.GetBaseMoveSpeed(selectedUnit);
-            setBaseMoveSpeed(baseMoveSpeed);
-            setTotalMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, baseMoveSpeed));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        const baseMoveSpeed = Entities.GetBaseMoveSpeed(selectedUnit);
+        setBaseMoveSpeed(baseMoveSpeed);
+        setTotalMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, baseMoveSpeed));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
     const increasedMoveSpeed = totalMoveSpeed - baseMoveSpeed;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Movement Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseMoveSpeed.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }),
-            increasedMoveSpeed !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedMoveSpeed > 0 ? ' + ' : ' - ') + Math.abs(increasedMoveSpeed).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel()), { color: increasedMoveSpeed > 0 ? 'green' : 'red' }) })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Movement Speed:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseMoveSpeed.toFixed(0), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+            increasedMoveSpeed !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedMoveSpeed > 0 ? ' + ' : ' - ') + Math.abs(increasedMoveSpeed).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: increasedMoveSpeed > 0 ? 'green' : 'red' }) })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(MoveSpeed)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(MoveSpeed));
 
 
 /***/ }),
@@ -58429,38 +58140,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Attack/Styles.ts");
 
 
 
 
 const SpellAmplification = (props) => {
     // $.Msg("REACT-RENDER: Character - SpellAmplification rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [spellAmp, setSpellAmp] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetAttackRange(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
-            for (let i = 0; i < numberOfBuffs; i++) {
-                const buff = Entities.GetBuff(selectedUnit, i);
-                const name = Buffs.GetName(selectedUnit, buff);
-                if (name === 'modifier_ui_spell_amp') {
-                    setSpellAmp(Buffs.GetStackCount(selectedUnit, buff) / 100);
-                }
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
+        for (let i = 0; i < numberOfBuffs; i++) {
+            const buff = Entities.GetBuff(selectedUnit, i);
+            const name = Buffs.GetName(selectedUnit, buff);
+            if (name === 'modifier_ui_spell_amp') {
+                setSpellAmp(Buffs.GetStackCount(selectedUnit, buff) / 100);
             }
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Spell Amplification:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: spellAmp + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }))));
+        }
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Spell Amplification:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: spellAmp + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(SpellAmplification)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(SpellAmplification));
 
 
 /***/ }),
@@ -58634,8 +58340,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Avatar_Avatar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Avatar/Avatar */ "./hud/components/Character/Avatar/Avatar.tsx");
 /* harmony import */ var _Attack_Attack__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Attack/Attack */ "./hud/components/Character/Attack/Attack.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
 
 
 
@@ -58653,23 +58358,11 @@ const mapStateToProps = (state) => ({
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
 const Character = (props) => {
     // $.Msg("REACT-RENDER: Character rendered");
-    const { selectedUnit, visible, setTimeout, clearTimeout } = props;
+    const { selectedUnit, visible } = props;
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        let id = undefined;
-        if (visible === false) {
-            const update = () => setRenderComponent(false);
-            id = setTimeout(update, _App__WEBPACK_IMPORTED_MODULE_9__.HUD_THINK_SLOW);
-        }
-        else {
-            setRenderComponent(true);
-        }
-        return () => {
-            if (id) {
-                clearTimeout(id);
-            }
-        };
-    }, [visible, setTimeout, clearTimeout]);
+    (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_10__.useTimeout)(() => {
+        setRenderComponent(visible);
+    }, visible === false ? _App__WEBPACK_IMPORTED_MODULE_9__.HUD_THINK_SLOW : 0);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.InnerContainer(visible) },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }),
@@ -58682,7 +58375,7 @@ const Character = (props) => {
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Attack_Attack__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit }),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Defense_Defense__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }))))))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(react_timeout__WEBPACK_IMPORTED_MODULE_10___default()(Character))));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(Character)));
 
 
 /***/ }),
@@ -58700,34 +58393,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
 
 
 
 
 const Armor = (props) => {
     // $.Msg("REACT-RENDER: Character - Armor rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [armor, setArmor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetPhysicalArmorValue(selectedUnit));
     const [bonusArmor, setBonusArmor] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetBonusPhysicalArmor(selectedUnit));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
-            setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Armor:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (armor - bonusArmor).toFixed(1), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }),
-            bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusArmor > 0 ? ' + ' : ' - ') + Math.abs(bonusArmor).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel()), { color: bonusArmor > 0 ? 'green' : 'red' }) })))));
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
+        setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Armor:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (armor - bonusArmor).toFixed(1), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+            bonusArmor !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (bonusArmor > 0 ? ' + ' : ' - ') + Math.abs(bonusArmor).toFixed(0), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: bonusArmor > 0 ? 'green' : 'red' }) })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Armor)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Armor));
 
 
 /***/ }),
@@ -58793,38 +58481,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
 
 
 
 
 const Evasion = (props) => {
     // $.Msg("REACT-RENDER: Character - Evasion rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [evasion, setEvasion] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
-            for (let i = 0; i < numberOfBuffs; i++) {
-                const buff = Entities.GetBuff(selectedUnit, i);
-                const name = Buffs.GetName(selectedUnit, buff);
-                if (name === 'modifier_ui_evasion') {
-                    setEvasion(Buffs.GetStackCount(selectedUnit, buff));
-                }
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
+        for (let i = 0; i < numberOfBuffs; i++) {
+            const buff = Entities.GetBuff(selectedUnit, i);
+            const name = Buffs.GetName(selectedUnit, buff);
+            if (name === 'modifier_ui_evasion') {
+                setEvasion(Buffs.GetStackCount(selectedUnit, buff));
             }
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Evasion:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (evasion > 0 ? (evasion / 100).toFixed(0) : 0) + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }))));
+        }
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Evasion:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (evasion > 0 ? (evasion / 100).toFixed(0) : 0) + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(Evasion)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Evasion));
 
 
 /***/ }),
@@ -58842,45 +58525,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
 
 
 
 
 const HealthRegen = (props) => {
     // $.Msg("REACT-RENDER: Character - HealthRegen rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [regen, setRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     const [baseRegen, setBaseRegen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            // Hack because panorama API method for health regen is bugged
-            const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
-            for (let i = 0; i < numberOfBuffs; i++) {
-                const buff = Entities.GetBuff(selectedUnit, i);
-                const name = Buffs.GetName(selectedUnit, buff);
-                if (name === 'modifier_ui_health_regen') {
-                    setRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
-                }
-                if (name === 'modifier_ui_base_health_regen') {
-                    setBaseRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
-                }
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
+        for (let i = 0; i < numberOfBuffs; i++) {
+            const buff = Entities.GetBuff(selectedUnit, i);
+            const name = Buffs.GetName(selectedUnit, buff);
+            if (name === 'modifier_ui_health_regen') {
+                setRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
             }
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+            if (name === 'modifier_ui_base_health_regen') {
+                setBaseRegen(Buffs.GetStackCount(selectedUnit, buff) / 100);
+            }
+        }
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
     const increasedRegen = regen - baseRegen;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Health Regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }),
-            increasedRegen !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedRegen > 0 ? ' + ' : ' - ') + Math.abs(increasedRegen).toFixed(2), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel()), { color: increasedRegen > 0 ? 'green' : 'red' }) })))));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Health Regeneration:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: baseRegen.toFixed(2), style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }),
+            increasedRegen !== 0 && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (increasedRegen > 0 ? ' + ' : ' - ') + Math.abs(increasedRegen).toFixed(2), style: Object.assign(Object.assign({}, _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel()), { color: increasedRegen > 0 ? 'green' : 'red' }) })))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(HealthRegen)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(HealthRegen));
 
 
 /***/ }),
@@ -58898,29 +58575,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const MagicalResistance = (props) => {
     // $.Msg("REACT-RENDER: Character - MagicalResistance rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL));
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_MEDIUM);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Row() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.LeftColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Magical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ColumnLabel() })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.RightColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(MagicalResistance)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(MagicalResistance));
 
 
 /***/ }),
@@ -58938,29 +58612,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const PyshicalResistance = (props) => {
     // $.Msg("REACT-RENDER: Character - PhysicalResistance rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        setResistance(Entities.GetArmorReductionForDamageType(selectedUnit, DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL));
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_MEDIUM);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Row() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.LeftColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Pyshical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ColumnLabel() })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.RightColumn() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance * 100).toFixed(2) + " %", style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(PyshicalResistance)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(PyshicalResistance));
 
 
 /***/ }),
@@ -58978,38 +58649,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ "./hud/App.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Styles */ "./hud/components/Character/Defense/Styles.ts");
 
 
 
 
 const StatusResistance = (props) => {
     // $.Msg("REACT-RENDER: Character - StatusResistance rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [resistance, setResistance] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
-            for (let i = 0; i < numberOfBuffs; i++) {
-                const buff = Entities.GetBuff(selectedUnit, i);
-                const name = Buffs.GetName(selectedUnit, buff);
-                if (name === 'modifier_ui_status_resistance') {
-                    setResistance(Buffs.GetStackCount(selectedUnit, buff));
-                }
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
+        const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
+        for (let i = 0; i < numberOfBuffs; i++) {
+            const buff = Entities.GetBuff(selectedUnit, i);
+            const name = Buffs.GetName(selectedUnit, buff);
+            if (name === 'modifier_ui_status_resistance') {
+                setResistance(Buffs.GetStackCount(selectedUnit, buff));
             }
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Row() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.LeftColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Pyshical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RightColumn() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance !== 0 ? (resistance / 100).toFixed(2) : 0) + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ColumnLabel() }))));
+        }
+    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Row() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.LeftColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Pyshical Resistance:', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RightColumn() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: (resistance !== 0 ? (resistance / 100).toFixed(2) : 0) + ' %', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ColumnLabel() }))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_3___default()(StatusResistance)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(StatusResistance));
 
 
 /***/ }),
@@ -59137,34 +58803,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/Character/Level/Styles.ts");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-timeout */ "../../../node_modules/react-timeout/src/index.js");
-/* harmony import */ var react_timeout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_timeout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../App */ "./hud/App.tsx");
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 
 
 
 
 const Level = (props) => {
     // $.Msg("REACT-RENDER: Character - Level rendered");
-    const { selectedUnit, setInterval, clearInterval } = props;
+    const { selectedUnit } = props;
     const [level, setLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit));
     const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const update = () => {
-            if (Entities.IsHero(selectedUnit)) {
-                const currentXp = Entities.GetCurrentXP(selectedUnit);
-                const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
-                const degree = Math.floor(Math.max(0, Math.min(360, currentXp / requiredXp * 360)));
-                setDegree(Number.isNaN(degree) ? 360 : degree);
-            }
-            else {
-                setDegree(360);
-            }
-            setLevel(Entities.GetLevel(selectedUnit));
-        };
-        const id = setInterval(update, _App__WEBPACK_IMPORTED_MODULE_3__.HUD_THINK_MEDIUM);
-        return () => clearInterval(id);
-    }, [selectedUnit, setInterval, clearInterval]);
+    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_3__.useInterval)(() => {
+        if (Entities.IsHero(selectedUnit)) {
+            const currentXp = Entities.GetCurrentXP(selectedUnit);
+            const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
+            const degree = Math.floor(Math.max(0, Math.min(360, currentXp / requiredXp * 360)));
+            setDegree(Number.isNaN(degree) ? 360 : degree);
+        }
+        else {
+            setDegree(360);
+        }
+        setLevel(Entities.GetLevel(selectedUnit));
+    }, _App__WEBPACK_IMPORTED_MODULE_2__.HUD_THINK_MEDIUM);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.CircleContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.CircleBackground() }),
@@ -59172,7 +58833,7 @@ const Level = (props) => {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.CircleLevelLabel(), text: level })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_1__.Styles.LevelLabel(), text: 'level' })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(react_timeout__WEBPACK_IMPORTED_MODULE_2___default()(Level)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Level));
 
 
 /***/ }),
@@ -64733,7 +64394,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 
-const useInterval = (callback, delay = 0) => {
+const useInterval = (callback, delay = 0, log) => {
     const savedCallback = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(() => { });
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         savedCallback.current = callback;
@@ -64742,8 +64403,16 @@ const useInterval = (callback, delay = 0) => {
         function update() {
             savedCallback.current();
         }
-        let id = setInterval(update, delay);
-        return () => clearInterval(id);
+        // @ts-ignore
+        const id = setInterval(update, delay);
+        if (log)
+            $.Msg("Created interval with ID: " + id);
+        return () => {
+            // @ts-ignore
+            clearInterval(id);
+            if (log)
+                $.Msg("Clearing interval with ID: " + id);
+        };
     }, [delay]);
 };
 
@@ -64763,7 +64432,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 
-const useTimeout = (callback, delay = 0) => {
+const useTimeout = (callback, delay = 0, log) => {
     const savedCallback = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(() => { });
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         savedCallback.current = callback;
@@ -64772,8 +64441,16 @@ const useTimeout = (callback, delay = 0) => {
         function update() {
             savedCallback.current();
         }
-        let id = setTimeout(update, delay);
-        return () => clearTimeout(id);
+        // @ts-ignore
+        const id = setTimeout(update, delay);
+        if (log)
+            $.Msg("Created interval with ID: " + id);
+        return () => {
+            // @ts-ignore
+            clearTimeout(id);
+            if (log)
+                $.Msg("Clearing interval with ID: " + id);
+        };
     }, [delay]);
 };
 
@@ -65002,7 +64679,7 @@ const initialState = {
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(state = initialState, action) {
     switch (action.type) {
         case _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_SETTINGS_VISIBLE: {
-            return Object.assign(Object.assign({}, state), { visible: action.payload });
+            return Object.assign(Object.assign({}, state), { visible: action.payload.visible });
         }
         case _types_settingsTypes__WEBPACK_IMPORTED_MODULE_0__.SET_CAMERA_LOCKED: {
             return Object.assign(Object.assign({}, state), { cameraLocked: action.payload });
@@ -65077,7 +64754,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function* abilitiesShopVisible({ payload }) {
     if (payload.visible === true) {
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, visible: false });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, payload: { visible: false } });
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__.SET_SHOP_VISIBLE, payload: { visible: false } });
     }
@@ -65113,7 +64790,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function* characterVisible({ payload }) {
     if (payload.visible === true) {
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, visible: false });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, payload: { visible: false } });
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__.SET_SHOP_VISIBLE, payload: { visible: false } });
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_1__.SET_ABILITIES_SHOP_VISIBLE, payload: { visible: false } });
     }
@@ -65213,8 +64890,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function* settingsVisible({ payload: visible }) {
-    if (visible === true) {
+function* settingsVisible({ payload }) {
+    if (payload.visible === true) {
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_shopTypes__WEBPACK_IMPORTED_MODULE_4__.SET_SHOP_VISIBLE, payload: { visible: false } });
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_1__.SET_ABILITIES_SHOP_VISIBLE, payload: { visible: false } });
@@ -65251,7 +64928,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function* shopVisible({ payload }) {
     if (payload.visible === true) {
-        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, visible: false });
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_settingsTypes__WEBPACK_IMPORTED_MODULE_3__.SET_SETTINGS_VISIBLE, payload: { visible: false } });
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_characterTypes__WEBPACK_IMPORTED_MODULE_2__.SET_CHARACTER_VISIBLE, payload: { visible: false } });
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)({ type: _types_abilitiesShopTypes__WEBPACK_IMPORTED_MODULE_1__.SET_ABILITIES_SHOP_VISIBLE, payload: { visible: false } });
     }
@@ -65565,18 +65242,6 @@ const formatTime = (time) => time < 10 ? '0' + time : time;
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

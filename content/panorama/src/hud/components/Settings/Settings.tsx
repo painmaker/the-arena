@@ -51,8 +51,8 @@ const Settings = (props: Props) => {
   }, [isLocked]);
 
   useTimeout(() => {
-    setRenderComponent(visible)
-  }, visible === false ? HUD_THINK_SLOW : 0)
+    setRenderComponent(visible);
+  }, visible === false ? HUD_THINK_SLOW : 0);
 
   return (
     <Panel style={Styles.OuterContainer()}>

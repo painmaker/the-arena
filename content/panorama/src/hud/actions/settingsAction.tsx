@@ -3,7 +3,7 @@ import { SettingsActionTypes, SET_CAMERA_LOCKED, SET_CAMERA_ZOOM, SET_SETTINGS_V
 export function setSettingsVisible(visible: boolean): SettingsActionTypes {
   return {
     type: SET_SETTINGS_VISIBLE,
-    payload: visible
+    payload: { visible }
   }
 }
 
