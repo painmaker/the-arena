@@ -18,8 +18,8 @@ export const Styles = {
 
   Container: (): Partial<VCSSStyleDeclaration> => ({
     flowChildren: 'down',
-    marginRight: "7.5px",
-    marginLeft: "7.5px",
+    marginRight: "2.5px",
+    marginLeft: "2.5px",
   }),
 
   AbilityContainer: (

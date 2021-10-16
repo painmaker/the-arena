@@ -1,7 +1,7 @@
 export const Styles = {
 
   Container: (): Partial<VCSSStyleDeclaration> => ({
-    width: "330.5px",
+    width: "342.5px",
     height: "18.5px",
     verticalAlign: "bottom",
     horizontalAlign: "center",

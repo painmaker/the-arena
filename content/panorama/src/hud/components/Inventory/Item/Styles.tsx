@@ -12,6 +12,8 @@ export const Styles = {
     saturation: (isItemDragged || isItemDropTarget) ? '0.5' : '1.0',
     washColor: (isItemDragged || isItemDropTarget) ? '#808080' : 'none',
     transform: isHovering ? 'scale3d(1.02, 1.02, 1.0)' : 'scale3d(1.0, 1.0, 1.0)',
+    marginRight: '1px',
+    marginLeft: '1px',
   }),
 
 }

@@ -57634,8 +57634,8 @@ const getContainerBackgroundImage = (isTrainable, isPassive, isActive, isAutoCas
 const Styles = {
     Container: () => ({
         flowChildren: 'down',
-        marginRight: "7.5px",
-        marginLeft: "7.5px",
+        marginRight: "2.5px",
+        marginLeft: "2.5px",
     }),
     AbilityContainer: (isTrainable, isActive, isAutoCastEnabled, isToggled, isPassive) => ({
         width: "48px",
@@ -59693,7 +59693,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const Styles = {
     Container: () => ({
-        width: "330.5px",
+        width: "342.5px",
         height: "18.5px",
         verticalAlign: "bottom",
         horizontalAlign: "center",
@@ -61816,6 +61816,8 @@ const Styles = {
         saturation: (isItemDragged || isItemDropTarget) ? '0.5' : '1.0',
         washColor: (isItemDragged || isItemDropTarget) ? '#808080' : 'none',
         transform: isHovering ? 'scale3d(1.02, 1.02, 1.0)' : 'scale3d(1.0, 1.0, 1.0)',
+        marginRight: '1px',
+        marginLeft: '1px',
     }),
 };
 
@@ -61973,7 +61975,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const Styles = {
     Container: (visible) => ({
-        width: "330.5px",
+        width: "342.5px",
         height: "18.5px",
         verticalAlign: "bottom",
         horizontalAlign: "center",
