@@ -19,12 +19,15 @@ const AbilityBar = (props: Props) => {
   const [abilityPoints, setAbilityPoints] = useState(0);
 
   useInterval(() => {
-    const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
-      .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
-      .filter(index => index !== -1)
-      .filter(index => Abilities.IsDisplayedAbility(index));
-    if (!TableUtils.isEqual(newAbilities, abilities)) {
-      setAbilities(newAbilities);
+    const abilityCount = Entities.GetAbilityCount(selectedUnit);
+    if (abilityCount > 0) {
+      const newAbilities = Array.from(Array(abilityCount).keys())
+        .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
+        .filter(index => index !== -1)
+        .filter(index => Abilities.IsDisplayedAbility(index));
+      if (!TableUtils.isEqual(newAbilities, abilities)) {
+        setAbilities(newAbilities);
+      }
     }
     setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
   }, HUD_THINK_FAST);

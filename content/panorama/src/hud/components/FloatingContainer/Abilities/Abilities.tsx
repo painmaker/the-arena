@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import Ability from "./Ability/Ability";
 import { Styles } from "./Styles";
@@ -7,10 +7,12 @@ type Props = {
   unit: EntityIndex,
 };
 
-export type Ability = {
+type Ability = {
   name: string,
   id: number,
 }
+
+export const SetAbilitiesContext = React.createContext<Dispatch<SetStateAction<Ability[]>>>(() => { });
 
 const Abilities = (props: Props) => {
 
@@ -30,16 +32,17 @@ const Abilities = (props: Props) => {
 
   return (
     <Panel hittest={false} style={Styles.Container()}>
-      {abilities.map((ability) => {
-        return (
-          <Ability
-            key={ability.id}
-            id={ability.id}
-            name={ability.name}
-            setAbilities={setAbilities}
-          />
-        )
-      })}
+      <SetAbilitiesContext.Provider value={setAbilities}>
+        {abilities.map((ability) => {
+          return (
+            <Ability
+              key={ability.id}
+              id={ability.id}
+              name={ability.name}
+            />
+          )
+        })}
+      </SetAbilitiesContext.Provider>
     </Panel>
   );
 

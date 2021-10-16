@@ -6,7 +6,7 @@ export const Styles = {
     flowChildren: 'down',
   }),
 
-  Title: (): Partial<VCSSStyleDeclaration> => ({
+  TitleContainer: (): Partial<VCSSStyleDeclaration> => ({
     width: "100%",
     backgroundColor: "rgba(0, 0, 0, 1.0)",
     borderBottom: "1px solid rgba(50, 50, 50, 0.5)",
@@ -17,6 +17,25 @@ export const Styles = {
     paddingTop: '3px',
     paddingBottom: '3px',
     paddingLeft: '5px',
+    paddingRight: '5px',
+    letterSpacing: "1.35px"
+  }),
+
+  Title: (): Partial<VCSSStyleDeclaration> => ({
+    verticalAlign: 'center',
+    horizontalAlign: 'left',
+    fontSize: "13px",
+    color: "rgb(175, 175, 175)",
+    fontFamily: "fantasy",
+    letterSpacing: "1.35px"
+  }),
+
+  AbilityCountLabel: (): Partial<VCSSStyleDeclaration> => ({
+    verticalAlign: 'center',
+    horizontalAlign: 'right',
+    fontSize: "13px",
+    color: "rgb(175, 175, 175)",
+    fontFamily: "fantasy",
     letterSpacing: "1.35px"
   }),
 

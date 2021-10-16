@@ -41,6 +41,11 @@ export const Styles = {
     textShadow: "1px 1px 2px 2 #000000",
   }),
 
+  UnitLabel: (): Partial<VCSSStyleDeclaration> => ({
+    color: '#9f9f9f',
+    textShadow: "1px 1px 2px 2 #000000",
+  }),
+
   EnemyOrAllyLabel: (): Partial<VCSSStyleDeclaration> => ({
     color: '#CDCDCD',
     textShadow: "1px 1px 2px 2 #000000",

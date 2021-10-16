@@ -11,16 +11,6 @@ export const Styles = {
     height: '18px',
   }),
 
-  ModifierImage: (): Partial<VCSSStyleDeclaration> => ({
-    horizontalAlign: 'center',
-    marginTop: '4.5px',
-    width: '18px',
-    height: '14px',
-    borderRadius: '5px',
-    marginLeft: '1px',
-    marginRight: '3px',
-  }),
-
   ArrowImage: (): Partial<VCSSStyleDeclaration> => ({
     horizontalAlign: 'center',
     marginTop: '5px',
@@ -46,13 +36,8 @@ export const Styles = {
     textShadow: "1px 1px 2px 2 #000000",
   }),
 
-  ModifierLabel: (isDebuff: boolean): Partial<VCSSStyleDeclaration> => ({
-    color: isDebuff ? 'red' : 'green',
-    textShadow: "1px 1px 2px 2 #000000",
-  }),
-
-  ModifierExtraLabel: (): Partial<VCSSStyleDeclaration> => ({
-    color: '#CDCDCD',
+  HealthLabel: (isEnemy: boolean): Partial<VCSSStyleDeclaration> => ({
+    color: isEnemy ? 'red' : 'green',
     textShadow: "1px 1px 2px 2 #000000",
   }),
 

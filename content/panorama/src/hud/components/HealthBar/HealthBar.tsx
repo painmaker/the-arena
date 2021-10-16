@@ -41,6 +41,14 @@ const HealthBar = (props: Props) => {
         value={health}
         className={isEnemy ? 'healthProgressBarEnemy' : 'healthProgressBar'}
         style={Styles.Progressbar()}
+        onactivate={() => {
+          if (GameUI.IsAltDown()) {
+            GameEvents.SendCustomGameEventToAllClients("on_health_alerted", {
+              broadcaster: Players.GetLocalPlayer(),
+              selectedUnit,
+            })
+          }
+        }}
       >
         <DOTAScenePanel
           id={'HealthBurner'}

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNetTableValues } from "react-panorama";
 import AbilityImage from "../AbilityImage/AbilityImage";
 import { Styles } from "./Styles";
 
@@ -15,12 +16,20 @@ const RegularAbilities = (props: Props) => {
 
   const { selectedUnit, regularAbilities, isLoadingAbilities, searchValue } = props;
 
+  const regularAbilitiesCount = Object.values(useNetTableValues('RegularAbilities')[Entities.GetPlayerOwnerID(selectedUnit)]).length;
+
   return (
     <Panel style={Styles.Container()}>
-      <Label
-        text={'Regular Abilities'}
-        style={Styles.Title()}
-      />
+      <Panel style={Styles.TitleContainer()}>
+        <Label
+          text={'Regular Abilities'}
+          style={Styles.Title()}
+        />
+        <Label
+          text={regularAbilitiesCount + ' / 5'}
+          style={Styles.AbilityCountLabel()}
+        />
+      </Panel>
       <Panel style={Styles.AbilitiesContainer()}>
         {(regularAbilities.length === 0 && isLoadingAbilities === false) && (
           <Label

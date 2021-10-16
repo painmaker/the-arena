@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { useGameEvent } from 'react-panorama';
 import Message from './Message/Message';
 import { Styles } from './Styles';
@@ -7,12 +7,13 @@ export enum MessageType {
   ABILITY = "ABILITY",
   ITEM = "ITEM",
   MODIFIER = "MODIFIER",
+  HEALTH = "HEALTH",
 }
 
 export interface Message {
   id: number,
   type: MessageType,
-  data: AbilityMessageData | ItemMessageData | ModifierMessageData
+  data: AbilityMessageData | ItemMessageData | ModifierMessageData | HealthMessageData
 }
 
 export interface AbilityMessageData {
@@ -32,12 +33,14 @@ export interface ModifierMessageData {
   unit: EntityIndex,
   modifier: BuffID,
 }
-
-type Props = {
-  // ownProps
+export interface HealthMessageData {
+  broadcaster: PlayerID,
+  unit: EntityIndex,
 }
 
-const Messages = (props: Props) => {
+export const SetMessagesContext = React.createContext<Dispatch<SetStateAction<Message[]>>>(() => { });
+
+const Messages = () => {
 
   const [messages, setMessages] = useState<Message[]>([]);
   const messageID = useRef(Number.MIN_SAFE_INTEGER);
@@ -96,17 +99,35 @@ const Messages = (props: Props) => {
     })
   }, []);
 
+  useGameEvent("on_health_alerted", (event) => {
+    if (Game.IsPlayerMuted(event.broadcaster)) {
+      return;
+    }
+    messageID.current = messageID.current + 1;
+    setMessages(prevState => {
+      return [...prevState, {
+        id: messageID.current,
+        type: MessageType.HEALTH,
+        data: {
+          broadcaster: event.broadcaster,
+          unit: event.selectedUnit,
+        }
+      }]
+    })
+  }, []);
+
   return (
     <Panel style={Styles.Container()}>
-      {messages.sort((m1, m2) => m2.id - m1.id).map(message => {
-        return (
-          <Message
-            key={message.id}
-            message={message}
-            setMessages={setMessages}
-          />
-        )
-      })}
+      <SetMessagesContext.Provider value={setMessages}>
+        {messages.sort((m1, m2) => m2.id - m1.id).map(message => {
+          return (
+            <Message
+              key={message.id}
+              message={message}
+            />
+          )
+        })}
+      </SetMessagesContext.Provider>
     </Panel>
   );
 

@@ -56321,20 +56321,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../AbilityImage/AbilityImage */ "./hud/components/AbilitiesShop/AbilityImage/AbilityImage.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/RegularAbilities/Styles.tsx");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../AbilityImage/AbilityImage */ "./hud/components/AbilitiesShop/AbilityImage/AbilityImage.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/RegularAbilities/Styles.tsx");
+
 
 
 
 const RegularAbilities = (props) => {
     // $.Msg("REACT-RENDER: AbilitiesShop - RegularAbilities rendered");
     const { selectedUnit, regularAbilities, isLoadingAbilities, searchValue } = props;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Regular Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Title() }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilitiesContainer() },
-            (regularAbilities.length === 0 && isLoadingAbilities === false) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(selectedUnit)) + " Has No Regular Abilities", style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.CenterLabel() })),
+    const regularAbilitiesCount = Object.values((0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('RegularAbilities')[Entities.GetPlayerOwnerID(selectedUnit)]).length;
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TitleContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Regular Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Title() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: regularAbilitiesCount + ' / 5', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityCountLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() },
+            (regularAbilities.length === 0 && isLoadingAbilities === false) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(selectedUnit)) + " Has No Regular Abilities", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CenterLabel() })),
             regularAbilities.map(regularAbility => {
-                return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_1__.default, { key: regularAbility.name, selectedUnit: selectedUnit, shopAbility: regularAbility, searchValue: searchValue }));
+                return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_2__.default, { key: regularAbility.name, selectedUnit: selectedUnit, shopAbility: regularAbility, searchValue: searchValue }));
             }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(RegularAbilities));
@@ -56359,7 +56364,7 @@ const Styles = {
         margin: '5px',
         flowChildren: 'down',
     }),
-    Title: () => ({
+    TitleContainer: () => ({
         width: "100%",
         backgroundColor: "rgba(0, 0, 0, 1.0)",
         borderBottom: "1px solid rgba(50, 50, 50, 0.5)",
@@ -56370,6 +56375,23 @@ const Styles = {
         paddingTop: '3px',
         paddingBottom: '3px',
         paddingLeft: '5px',
+        paddingRight: '5px',
+        letterSpacing: "1.35px"
+    }),
+    Title: () => ({
+        verticalAlign: 'center',
+        horizontalAlign: 'left',
+        fontSize: "13px",
+        color: "rgb(175, 175, 175)",
+        fontFamily: "fantasy",
+        letterSpacing: "1.35px"
+    }),
+    AbilityCountLabel: () => ({
+        verticalAlign: 'center',
+        horizontalAlign: 'right',
+        fontSize: "13px",
+        color: "rgb(175, 175, 175)",
+        fontFamily: "fantasy",
         letterSpacing: "1.35px"
     }),
     AbilitiesContainer: () => ({
@@ -56632,7 +56654,7 @@ const Styles = {
         margin: '5px',
         flowChildren: 'down',
     }),
-    Title: () => ({
+    TitleContainer: () => ({
         width: "100%",
         backgroundColor: "rgba(0, 0, 0, 1.0)",
         borderBottom: "1px solid rgba(50, 50, 50, 0.5)",
@@ -56643,6 +56665,23 @@ const Styles = {
         paddingTop: '3px',
         paddingBottom: '3px',
         paddingLeft: '5px',
+        paddingRight: '5px',
+        letterSpacing: "1.35px"
+    }),
+    Title: () => ({
+        verticalAlign: 'center',
+        horizontalAlign: 'left',
+        fontSize: "13px",
+        color: "rgb(175, 175, 175)",
+        fontFamily: "fantasy",
+        letterSpacing: "1.35px"
+    }),
+    AbilityCountLabel: () => ({
+        verticalAlign: 'center',
+        horizontalAlign: 'right',
+        fontSize: "13px",
+        color: "rgb(175, 175, 175)",
+        fontFamily: "fantasy",
         letterSpacing: "1.35px"
     }),
     AbilitiesContainer: () => ({
@@ -56676,20 +56715,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var _AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../AbilityImage/AbilityImage */ "./hud/components/AbilitiesShop/AbilityImage/AbilityImage.tsx");
-/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/UltimateAbilities/Styles.tsx");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+/* harmony import */ var _AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../AbilityImage/AbilityImage */ "./hud/components/AbilitiesShop/AbilityImage/AbilityImage.tsx");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Styles */ "./hud/components/AbilitiesShop/UltimateAbilities/Styles.tsx");
+
 
 
 
 const UltimateAbilities = (props) => {
     // $.Msg("REACT-RENDER: AbilitiesShop - UltimateAbilities rendered");
     const { selectedUnit, ultimateAbilities, isLoadingAbilities, searchValue } = props;
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Ultimate Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Title() }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilitiesContainer() },
-            (ultimateAbilities.length === 0 && isLoadingAbilities === false) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(selectedUnit)) + " Has No Ultimate Abilities", style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.CenterLabel() })),
+    const ultimateAbilitiesCount = Object.values((0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('UltimateAbilities')[Entities.GetPlayerOwnerID(selectedUnit)]).length;
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TitleContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Ultimate Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Title() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: ultimateAbilitiesCount + ' / 1', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityCountLabel() })),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() },
+            (ultimateAbilities.length === 0 && isLoadingAbilities === false) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(selectedUnit)) + " Has No Ultimate Abilities", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CenterLabel() })),
             ultimateAbilities.map(ultimateAbility => {
-                return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_1__.default, { key: ultimateAbility.name, selectedUnit: selectedUnit, shopAbility: ultimateAbility, searchValue: searchValue }));
+                return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityImage_AbilityImage__WEBPACK_IMPORTED_MODULE_2__.default, { key: ultimateAbility.name, selectedUnit: selectedUnit, shopAbility: ultimateAbility, searchValue: searchValue }));
             }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(UltimateAbilities));
@@ -56726,12 +56770,15 @@ const AbilityBar = (props) => {
     const [abilities, setAbilities] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const [abilityPoints, setAbilityPoints] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
     (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_5__.useInterval)(() => {
-        const newAbilities = Array.from(Array(Entities.GetAbilityCount(selectedUnit)).keys())
-            .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
-            .filter(index => index !== -1)
-            .filter(index => Abilities.IsDisplayedAbility(index));
-        if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_1__.TableUtils.isEqual(newAbilities, abilities)) {
-            setAbilities(newAbilities);
+        const abilityCount = Entities.GetAbilityCount(selectedUnit);
+        if (abilityCount > 0) {
+            const newAbilities = Array.from(Array(abilityCount).keys())
+                .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
+                .filter(index => index !== -1)
+                .filter(index => Abilities.IsDisplayedAbility(index));
+            if (!_utils_TableUtils__WEBPACK_IMPORTED_MODULE_1__.TableUtils.isEqual(newAbilities, abilities)) {
+                setAbilities(newAbilities);
+            }
         }
         setAbilityPoints(Entities.GetAbilityPoints(selectedUnit));
     }, _App__WEBPACK_IMPORTED_MODULE_4__.HUD_THINK_FAST);
@@ -59133,6 +59180,7 @@ const Title = (props) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SetAbilitiesContext": () => (/* binding */ SetAbilitiesContext),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
@@ -59143,6 +59191,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const SetAbilitiesContext = react__WEBPACK_IMPORTED_MODULE_0__.createContext(() => { });
 const Abilities = (props) => {
     // $.Msg("REACT-RENDER: CloatingContainer - Abilities rendered");
     const { unit } = props;
@@ -59154,9 +59203,10 @@ const Abilities = (props) => {
             setAbilities(prevState => [...prevState, { name: event.abilityname, id: id.current }]);
         }
     }, [unit]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, abilities.map((ability) => {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Ability_Ability__WEBPACK_IMPORTED_MODULE_2__.default, { key: ability.id, id: ability.id, name: ability.name, setAbilities: setAbilities }));
-    })));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(SetAbilitiesContext.Provider, { value: setAbilities }, abilities.map((ability) => {
+            return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Ability_Ability__WEBPACK_IMPORTED_MODULE_2__.default, { key: ability.id, id: ability.id, name: ability.name }));
+        }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Abilities));
 
@@ -59178,12 +59228,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Styles */ "./hud/components/FloatingContainer/Abilities/Ability/Styles.ts");
 /* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ "./hud/hooks/useInterval.ts");
 /* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
+/* harmony import */ var _Abilities__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Abilities */ "./hud/components/FloatingContainer/Abilities/Abilities.tsx");
+
 
 
 
 
 const Ability = (props) => {
-    const { id, name, setAbilities } = props;
+    const { id, name } = props;
+    const setAbilities = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_Abilities__WEBPACK_IMPORTED_MODULE_4__.SetAbilitiesContext);
     const [posY, setPosY] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(75);
     const [opacity, setOpacity] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('1.0');
     (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
@@ -59614,7 +59667,14 @@ const HealthBar = (props) => {
     }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
     const isEnemy = Entities.IsEnemy(selectedUnit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: isEnemy ? 'healthProgressBarEnemy' : 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxHealth, value: health, className: isEnemy ? 'healthProgressBarEnemy' : 'healthProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Progressbar(), onactivate: () => {
+                if (GameUI.IsAltDown()) {
+                    GameEvents.SendCustomGameEventToAllClients("on_health_alerted", {
+                        broadcaster: Players.GetLocalPlayer(),
+                        selectedUnit,
+                    });
+                }
+            } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { id: 'HealthBurner', className: 'SceneLoaded', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Scene(health, maxHealth, isEnemy), map: 'scenes/hud/healthbarburner' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HealthLabel(), text: health + " / " + maxHealth }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.RegenLabel(isEnemy), text: '+ ' + healthRegen.toFixed(1) })));
@@ -62004,13 +62064,16 @@ const AbilityMessage = (props) => {
     const { unit, ability, broadcaster } = data;
     const unitPlayerID = Entities.GetPlayerOwnerID(unit);
     const isEnemy = Entities.IsEnemy(unit);
+    const isHero = Entities.IsHero(unit);
+    const unitName = Entities.GetUnitName(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
         unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isEnemy ? 'Enemy' : 'Ally' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(unit), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
+            isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
+            !isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilityImage(), abilityname: Abilities.GetAbilityName(ability), showtooltip: false }),
@@ -62068,6 +62131,108 @@ const Styles = {
         color: '#CDCDCD',
         textShadow: "1px 1px 2px 2 #000000",
     }),
+    UnitLabel: () => ({
+        color: '#9f9f9f',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    EnemyOrAllyLabel: () => ({
+        color: '#CDCDCD',
+        textShadow: "1px 1px 2px 2 #000000",
+        marginRight: '1px',
+    }),
+};
+
+
+/***/ }),
+
+/***/ "./hud/components/Messages/Message/HealthMessage/HealthMessage.tsx":
+/*!*************************************************************************!*\
+  !*** ./hud/components/Messages/Message/HealthMessage/HealthMessage.tsx ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _utils_Color__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/Color */ "./hud/utils/Color.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Messages/Message/HealthMessage/Styles.tsx");
+
+
+
+const HealthMessage = (props) => {
+    const { data } = props;
+    const { unit, broadcaster } = data;
+    const unitPlayerID = Entities.GetPlayerOwnerID(unit);
+    const isEnemy = Entities.IsEnemy(unit);
+    const isHero = Entities.IsHero(unit);
+    const unitName = Entities.GetUnitName(unit);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
+        unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isEnemy ? 'Enemy' : 'Ally' }),
+            isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
+            !isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: 'Health: ' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HealthLabel(isEnemy), text: ((Entities.GetHealth(unit) / Entities.GetMaxHealth(unit)) * 100).toFixed(0) + '%' })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(HealthMessage));
+
+
+/***/ }),
+
+/***/ "./hud/components/Messages/Message/HealthMessage/Styles.tsx":
+/*!******************************************************************!*\
+  !*** ./hud/components/Messages/Message/HealthMessage/Styles.tsx ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        flowChildren: 'right',
+    }),
+    HeroImage: () => ({
+        horizontalAlign: 'center',
+        marginTop: '2px',
+        width: '18px',
+        height: '18px',
+    }),
+    ArrowImage: () => ({
+        horizontalAlign: 'center',
+        marginTop: '5px',
+        width: '10px',
+        height: '14px',
+        marginLeft: '4px',
+        marginRight: '2px',
+    }),
+    PlayernameLabel: (color) => ({
+        marginLeft: '3px',
+        color: color,
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    TextLabel: () => ({
+        color: '#CDCDCD',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    UnitLabel: () => ({
+        color: '#9f9f9f',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    HealthLabel: (isEnemy) => ({
+        color: isEnemy ? 'red' : 'green',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
     EnemyOrAllyLabel: () => ({
         color: '#CDCDCD',
         textShadow: "1px 1px 2px 2 #000000",
@@ -62117,13 +62282,16 @@ const ItemMessage = (props) => {
     const { unit, item, broadcaster } = data;
     const unitPlayerID = Entities.GetPlayerOwnerID(unit);
     const isEnemy = Entities.IsEnemy(unit);
+    const isHero = Entities.IsHero(unit);
+    const unitName = Entities.GetUnitName(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
         unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isEnemy ? 'Enemy' : 'Ally' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(unit), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
+            isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
+            !isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ItemImage(), itemname: Abilities.GetAbilityName(item), showtooltip: false }),
@@ -62181,6 +62349,10 @@ const Styles = {
         color: '#CDCDCD',
         textShadow: "1px 1px 2px 2 #000000",
     }),
+    UnitLabel: () => ({
+        color: '#9f9f9f',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
     EnemyOrAllyLabel: () => ({
         color: '#CDCDCD',
         textShadow: "1px 1px 2px 2 #000000",
@@ -62209,6 +62381,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ItemMessage_ItemMessage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ItemMessage/ItemMessage */ "./hud/components/Messages/Message/ItemMessage/ItemMessage.tsx");
 /* harmony import */ var _ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ModifierMessage/ModifierMessage */ "./hud/components/Messages/Message/ModifierMessage/ModifierMessage.tsx");
 /* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
+/* harmony import */ var _HealthMessage_HealthMessage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./HealthMessage/HealthMessage */ "./hud/components/Messages/Message/HealthMessage/HealthMessage.tsx");
+
 
 
 
@@ -62217,8 +62391,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Message = (props) => {
-    const { message, setMessages } = props;
+    const { message } = props;
     const { id, type, data } = message;
+    const setMessages = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_Messages__WEBPACK_IMPORTED_MODULE_1__.SetMessagesContext);
     const [opacity, setOpacity] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('1.0');
     (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_6__.useTimeout)(() => {
         setMessages(prevState => prevState.filter(msg => msg.id !== id));
@@ -62229,7 +62404,8 @@ const Message = (props) => {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container(opacity) },
         type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ABILITY && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_3__.default, { data: data })),
         type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ITEM && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemMessage_ItemMessage__WEBPACK_IMPORTED_MODULE_4__.default, { data: data })),
-        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.MODIFIER && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_5__.default, { data: data }))));
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.MODIFIER && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_5__.default, { data: data })),
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.HEALTH && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HealthMessage_HealthMessage__WEBPACK_IMPORTED_MODULE_7__.default, { data: data }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Message));
 
@@ -62265,13 +62441,16 @@ const ModifierMessage = (props) => {
     const { unit, modifier, broadcaster } = data;
     const unitPlayerID = Entities.GetPlayerOwnerID(unit);
     const isEnemy = Entities.IsEnemy(unit);
+    const isHero = Entities.IsHero(unit);
+    const unitName = Entities.GetUnitName(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
         unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isEnemy ? 'Enemy' : 'Ally' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(unit), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
+            isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
+            !isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: 'Affected By: ' }),
@@ -62331,6 +62510,10 @@ const Styles = {
         color: '#CDCDCD',
         textShadow: "1px 1px 2px 2 #000000",
     }),
+    UnitLabel: () => ({
+        color: '#9f9f9f',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
     ModifierLabel: (isDebuff) => ({
         color: isDebuff ? 'red' : 'green',
         textShadow: "1px 1px 2px 2 #000000",
@@ -62381,6 +62564,7 @@ const Styles = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "MessageType": () => (/* binding */ MessageType),
+/* harmony export */   "SetMessagesContext": () => (/* binding */ SetMessagesContext),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
@@ -62396,8 +62580,10 @@ var MessageType;
     MessageType["ABILITY"] = "ABILITY";
     MessageType["ITEM"] = "ITEM";
     MessageType["MODIFIER"] = "MODIFIER";
+    MessageType["HEALTH"] = "HEALTH";
 })(MessageType || (MessageType = {}));
-const Messages = (props) => {
+const SetMessagesContext = react__WEBPACK_IMPORTED_MODULE_0__.createContext(() => { });
+const Messages = () => {
     const [messages, setMessages] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
     const messageID = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(Number.MIN_SAFE_INTEGER);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_ability_alerted", (event) => {
@@ -62451,9 +62637,26 @@ const Messages = (props) => {
                 }];
         });
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() }, messages.sort((m1, m2) => m2.id - m1.id).map(message => {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Message_Message__WEBPACK_IMPORTED_MODULE_2__.default, { key: message.id, message: message, setMessages: setMessages }));
-    })));
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_health_alerted", (event) => {
+        if (Game.IsPlayerMuted(event.broadcaster)) {
+            return;
+        }
+        messageID.current = messageID.current + 1;
+        setMessages(prevState => {
+            return [...prevState, {
+                    id: messageID.current,
+                    type: MessageType.HEALTH,
+                    data: {
+                        broadcaster: event.broadcaster,
+                        unit: event.selectedUnit,
+                    }
+                }];
+        });
+    }, []);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(SetMessagesContext.Provider, { value: setMessages }, messages.sort((m1, m2) => m2.id - m1.id).map(message => {
+            return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Message_Message__WEBPACK_IMPORTED_MODULE_2__.default, { key: message.id, message: message }));
+        }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Messages);
 
@@ -62773,11 +62976,13 @@ const Modifier = (props) => {
     const isAura = _data_auras__WEBPACK_IMPORTED_MODULE_1__.aura_modifiers.includes(Buffs.GetName(selectedUnit, buff));
     const isEnemy = Entities.IsEnemy(selectedUnit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: panelId, hittest: true, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(isMounted, isHovering), onactivate: () => {
-            GameEvents.SendCustomGameEventToAllClients("on_modifier_alerted", {
-                broadcaster: Players.GetLocalPlayer(),
-                selectedUnit,
-                modifier: buff
-            });
+            if (GameUI.IsAltDown()) {
+                GameEvents.SendCustomGameEventToAllClients("on_modifier_alerted", {
+                    broadcaster: Players.GetLocalPlayer(),
+                    selectedUnit,
+                    modifier: buff
+                });
+            }
         }, onmouseout: () => {
             const thisPanel = $("#" + panelId);
             if (thisPanel) {

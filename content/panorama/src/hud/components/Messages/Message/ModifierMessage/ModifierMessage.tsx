@@ -22,6 +22,8 @@ const ModifierMessage = (props: Props) => {
 
   const unitPlayerID = Entities.GetPlayerOwnerID(unit);
   const isEnemy = Entities.IsEnemy(unit);
+  const isHero = Entities.IsHero(unit);
+  const unitName = Entities.GetUnitName(unit);
 
   return (
     <Panel style={Styles.Container()}>
@@ -45,11 +47,19 @@ const ModifierMessage = (props: Props) => {
             style={Styles.EnemyOrAllyLabel()}
             text={isEnemy ? 'Enemy' : 'Ally'}
           />
-          <DOTAHeroImage
-            heroimagestyle={'icon'}
-            heroname={Entities.GetUnitName(unit)}
-            style={Styles.HeroImage()}
-          />
+          {isHero && (
+            <DOTAHeroImage
+              heroimagestyle={'icon'}
+              heroname={unitName}
+              style={Styles.HeroImage()}
+            />
+          )}
+          {!isHero && (
+            <Label
+              style={Styles.UnitLabel()}
+              text={$.Localize(unitName)}
+            />
+          )}
           <Label
             text={Players.GetPlayerName(Entities.GetPlayerOwnerID(unit))}
             style={Styles.PlayernameLabel(toColor(unitPlayerID))}

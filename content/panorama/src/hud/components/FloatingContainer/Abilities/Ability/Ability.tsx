@@ -1,18 +1,19 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Styles } from "./Styles";
 import { useInterval } from "../../../../hooks/useInterval";
 import { useTimeout } from "../../../../hooks/useTimeout";
-import { Ability as IAbility } from "../Abilities";
+import { SetAbilitiesContext } from "../Abilities";
 
 type Props = {
   id: number,
   name: string,
-  setAbilities: Dispatch<SetStateAction<IAbility[]>>
 };
 
 const Ability = (props: Props) => {
 
-  const { id, name, setAbilities } = props;
+  const { id, name } = props;
+
+  const setAbilities = useContext(SetAbilitiesContext);
 
   const [posY, setPosY] = useState(75);
   const [opacity, setOpacity] = useState('1.0');
