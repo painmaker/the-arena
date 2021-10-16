@@ -61,5 +61,6 @@ interface CustomGameEventDeclarations {
   on_item_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex, item: ItemEntityIndex }
   on_modifier_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex, modifier: BuffID }
   on_health_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex }
+  on_mana_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex }
 
 }

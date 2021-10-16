@@ -57243,7 +57243,7 @@ __webpack_require__.r(__webpack_exports__);
 const Keybind = (props) => {
     // $.Msg("REACT-RENDER: AbilityBarItem - Keybind rendered");
     const { ability, selectedUnit } = props;
-    const [keybind, setKeybind] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
+    const [keybind, setKeybind] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
     (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
         const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
         const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
@@ -57251,13 +57251,9 @@ const Keybind = (props) => {
         const isInLearningMode = Game.IsInAbilityLearnMode();
         const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
         const isPassive = Abilities.IsPassive(ability);
-        if (isControllable && !isPassive && !isTrainable) {
-            setKeybind(Abilities.GetKeybind(ability));
-        }
+        const hasKeybind = isControllable && (!isPassive || isTrainable);
+        setKeybind(hasKeybind ? Abilities.GetKeybind(ability) : '');
     }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
-    if (!keybind) {
-        return null;
-    }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: keybind })));
 };
@@ -61947,7 +61943,14 @@ const ManaBar = (props) => {
         setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
     }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container(maxMana > 0) },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(ProgressBar, { min: 0, max: maxMana, value: mana, className: 'manaProgressBar', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Progressbar(), onactivate: () => {
+                if (GameUI.IsAltDown()) {
+                    GameEvents.SendCustomGameEventToAllClients("on_mana_alerted", {
+                        broadcaster: Players.GetLocalPlayer(),
+                        selectedUnit,
+                    });
+                }
+            } },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAScenePanel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Scene(mana, maxMana), map: 'scenes/hud/healthbarburner' })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.ManaLabel(), text: mana + " / " + maxMana }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.RegenLabel(), text: '+ ' + manaRegen.toFixed(1) })));
@@ -62062,19 +62065,20 @@ const getText = (ability, unit) => {
 const AbilityMessage = (props) => {
     const { data } = props;
     const { unit, ability, broadcaster } = data;
-    const unitPlayerID = Entities.GetPlayerOwnerID(unit);
-    const isEnemy = Entities.IsEnemy(unit);
-    const isHero = Entities.IsHero(unit);
+    const unitOwnerPlayerID = Entities.GetPlayerOwnerID(unit);
+    const unitOwnerPlayerName = Players.GetPlayerName(Entities.GetPlayerOwnerID(unit));
+    const isUnitEnemy = Entities.IsEnemy(unit);
+    const isUnitHero = Entities.IsHero(unit);
     const unitName = Entities.GetUnitName(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
-        unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        unitOwnerPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isEnemy ? 'Enemy' : 'Ally' }),
-            isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
-            !isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isUnitEnemy ? 'Enemy' : 'Ally' }),
+            isUnitHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
+            !isUnitHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: isUnitHero ? unitOwnerPlayerName : '(' + unitOwnerPlayerName + ')', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitOwnerPlayerID)) }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.AbilityImage(), abilityname: Abilities.GetAbilityName(ability), showtooltip: false }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: getText(ability, unit) })));
@@ -62165,22 +62169,24 @@ __webpack_require__.r(__webpack_exports__);
 const HealthMessage = (props) => {
     const { data } = props;
     const { unit, broadcaster } = data;
-    const unitPlayerID = Entities.GetPlayerOwnerID(unit);
-    const isEnemy = Entities.IsEnemy(unit);
-    const isHero = Entities.IsHero(unit);
+    const unitOwnerPlayerID = Entities.GetPlayerOwnerID(unit);
+    const unitOwnerPlayerName = Players.GetPlayerName(Entities.GetPlayerOwnerID(unit));
+    const isUnitEnemy = Entities.IsEnemy(unit);
+    const isUnitHero = Entities.IsHero(unit);
     const unitName = Entities.GetUnitName(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
-        unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        unitOwnerPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isEnemy ? 'Enemy' : 'Ally' }),
-            isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
-            !isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isUnitEnemy ? 'Enemy' : 'Ally' }),
+            !isUnitHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
+            isUnitHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: isUnitHero ? unitOwnerPlayerName : '(' + unitOwnerPlayerName + ')', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitOwnerPlayerID)) }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: 'Health: ' }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HealthLabel(isEnemy), text: ((Entities.GetHealth(unit) / Entities.GetMaxHealth(unit)) * 100).toFixed(0) + '%' })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: 'Has ' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HealthLabel(isUnitEnemy), text: ((Entities.GetHealth(unit) / Entities.GetMaxHealth(unit)) * 100).toFixed(0) + '% ' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: ' Health' })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(HealthMessage));
 
@@ -62280,19 +62286,20 @@ const getText = (item, unit) => {
 const ItemMessage = (props) => {
     const { data } = props;
     const { unit, item, broadcaster } = data;
-    const unitPlayerID = Entities.GetPlayerOwnerID(unit);
-    const isEnemy = Entities.IsEnemy(unit);
-    const isHero = Entities.IsHero(unit);
+    const unitOwnerPlayerID = Entities.GetPlayerOwnerID(unit);
+    const unitOwnerPlayerName = Players.GetPlayerName(Entities.GetPlayerOwnerID(unit));
+    const isUnitEnemy = Entities.IsEnemy(unit);
+    const isUnitHero = Entities.IsHero(unit);
     const unitName = Entities.GetUnitName(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
-        unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        unitOwnerPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isEnemy ? 'Enemy' : 'Ally' }),
-            isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
-            !isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isUnitEnemy ? 'Enemy' : 'Ally' }),
+            isUnitHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
+            !isUnitHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: isUnitHero ? unitOwnerPlayerName : '(' + unitOwnerPlayerName + ')', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitOwnerPlayerID)) }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ItemImage(), itemname: Abilities.GetAbilityName(item), showtooltip: false }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: getText(item, unit) })));
@@ -62363,6 +62370,106 @@ const Styles = {
 
 /***/ }),
 
+/***/ "./hud/components/Messages/Message/ManaMessage/ManaMessage.tsx":
+/*!*********************************************************************!*\
+  !*** ./hud/components/Messages/Message/ManaMessage/ManaMessage.tsx ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var _utils_Color__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/Color */ "./hud/utils/Color.ts");
+/* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles */ "./hud/components/Messages/Message/ManaMessage/Styles.tsx");
+
+
+
+const ManaMessage = (props) => {
+    const { data } = props;
+    const { unit, broadcaster } = data;
+    const unitOwnerPlayerID = Entities.GetPlayerOwnerID(unit);
+    const unitOwnerPlayerName = Players.GetPlayerName(Entities.GetPlayerOwnerID(unit));
+    const isUnitEnemy = Entities.IsEnemy(unit);
+    const isUnitHero = Entities.IsHero(unit);
+    const unitName = Entities.GetUnitName(unit);
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
+        unitOwnerPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isUnitEnemy ? 'Enemy' : 'Ally' }),
+            !isUnitHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
+            isUnitHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: isUnitHero ? unitOwnerPlayerName : '(' + unitOwnerPlayerName + ')', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitOwnerPlayerID)) }))),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: 'Has ' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ManaLabel(), text: ((Entities.GetMana(unit) / Entities.GetMaxMana(unit)) * 100).toFixed(0) + '% ' }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: ' Mana' })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(ManaMessage));
+
+
+/***/ }),
+
+/***/ "./hud/components/Messages/Message/ManaMessage/Styles.tsx":
+/*!****************************************************************!*\
+  !*** ./hud/components/Messages/Message/ManaMessage/Styles.tsx ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Styles": () => (/* binding */ Styles)
+/* harmony export */ });
+const Styles = {
+    Container: () => ({
+        flowChildren: 'right',
+    }),
+    HeroImage: () => ({
+        horizontalAlign: 'center',
+        marginTop: '2px',
+        width: '18px',
+        height: '18px',
+    }),
+    ArrowImage: () => ({
+        horizontalAlign: 'center',
+        marginTop: '5px',
+        width: '10px',
+        height: '14px',
+        marginLeft: '4px',
+        marginRight: '2px',
+    }),
+    PlayernameLabel: (color) => ({
+        marginLeft: '3px',
+        color: color,
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    TextLabel: () => ({
+        color: '#CDCDCD',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    UnitLabel: () => ({
+        color: '#9f9f9f',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    ManaLabel: () => ({
+        color: '#778ed4',
+        textShadow: "1px 1px 2px 2 #000000",
+    }),
+    EnemyOrAllyLabel: () => ({
+        color: '#CDCDCD',
+        textShadow: "1px 1px 2px 2 #000000",
+        marginRight: '1px',
+    }),
+};
+
+
+/***/ }),
+
 /***/ "./hud/components/Messages/Message/Message.tsx":
 /*!*****************************************************!*\
   !*** ./hud/components/Messages/Message/Message.tsx ***!
@@ -62382,6 +62489,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ModifierMessage/ModifierMessage */ "./hud/components/Messages/Message/ModifierMessage/ModifierMessage.tsx");
 /* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
 /* harmony import */ var _HealthMessage_HealthMessage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./HealthMessage/HealthMessage */ "./hud/components/Messages/Message/HealthMessage/HealthMessage.tsx");
+/* harmony import */ var _ManaMessage_ManaMessage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ManaMessage/ManaMessage */ "./hud/components/Messages/Message/ManaMessage/ManaMessage.tsx");
+
 
 
 
@@ -62405,7 +62514,8 @@ const Message = (props) => {
         type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ABILITY && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilityMessage_AbilityMessage__WEBPACK_IMPORTED_MODULE_3__.default, { data: data })),
         type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.ITEM && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemMessage_ItemMessage__WEBPACK_IMPORTED_MODULE_4__.default, { data: data })),
         type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.MODIFIER && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ModifierMessage_ModifierMessage__WEBPACK_IMPORTED_MODULE_5__.default, { data: data })),
-        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.HEALTH && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HealthMessage_HealthMessage__WEBPACK_IMPORTED_MODULE_7__.default, { data: data }))));
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.HEALTH && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HealthMessage_HealthMessage__WEBPACK_IMPORTED_MODULE_7__.default, { data: data })),
+        type === _Messages__WEBPACK_IMPORTED_MODULE_1__.MessageType.MANA && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManaMessage_ManaMessage__WEBPACK_IMPORTED_MODULE_8__.default, { data: data }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Message));
 
@@ -62439,19 +62549,20 @@ const getExtraText = (modifier, unit) => {
 const ModifierMessage = (props) => {
     const { data } = props;
     const { unit, modifier, broadcaster } = data;
-    const unitPlayerID = Entities.GetPlayerOwnerID(unit);
-    const isEnemy = Entities.IsEnemy(unit);
-    const isHero = Entities.IsHero(unit);
+    const unitOwnerPlayerID = Entities.GetPlayerOwnerID(unit);
+    const unitOwnerPlayerName = Players.GetPlayerName(Entities.GetPlayerOwnerID(unit));
+    const isUnitEnemy = Entities.IsEnemy(unit);
+    const isUnitHero = Entities.IsHero(unit);
     const unitName = Entities.GetUnitName(unit);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(broadcaster), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(broadcaster)) }),
-        unitPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+        unitOwnerPlayerID !== broadcaster && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isEnemy ? 'Enemy' : 'Ally' }),
-            isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
-            !isHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: Players.GetPlayerName(Entities.GetPlayerOwnerID(unit)), style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitPlayerID)) }))),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.EnemyOrAllyLabel(), text: isUnitEnemy ? 'Enemy' : 'Ally' }),
+            isUnitHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHeroImage, { heroimagestyle: 'icon', heroname: unitName, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.HeroImage() })),
+            !isUnitHero && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.UnitLabel(), text: $.Localize(unitName) })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: isUnitHero ? unitOwnerPlayerName : '(' + unitOwnerPlayerName + ')', style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.PlayernameLabel((0,_utils_Color__WEBPACK_IMPORTED_MODULE_1__.toColor)(unitOwnerPlayerID)) }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ArrowImage(), src: 'file://{images}/control_icons/chat_wheel_icon.png' }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { html: true, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.TextLabel(), text: 'Affected By: ' }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.ModifierImage(), abilityname: Abilities.GetAbilityName(Buffs.GetAbility(unit, modifier)), showtooltip: false }),
@@ -62581,6 +62692,7 @@ var MessageType;
     MessageType["ITEM"] = "ITEM";
     MessageType["MODIFIER"] = "MODIFIER";
     MessageType["HEALTH"] = "HEALTH";
+    MessageType["MANA"] = "MANA";
 })(MessageType || (MessageType = {}));
 const SetMessagesContext = react__WEBPACK_IMPORTED_MODULE_0__.createContext(() => { });
 const Messages = () => {
@@ -62646,6 +62758,22 @@ const Messages = () => {
             return [...prevState, {
                     id: messageID.current,
                     type: MessageType.HEALTH,
+                    data: {
+                        broadcaster: event.broadcaster,
+                        unit: event.selectedUnit,
+                    }
+                }];
+        });
+    }, []);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_mana_alerted", (event) => {
+        if (Game.IsPlayerMuted(event.broadcaster)) {
+            return;
+        }
+        messageID.current = messageID.current + 1;
+        setMessages(prevState => {
+            return [...prevState, {
+                    id: messageID.current,
+                    type: MessageType.MANA,
                     data: {
                         broadcaster: event.broadcaster,
                         unit: event.selectedUnit,

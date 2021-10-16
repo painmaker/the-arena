@@ -12,9 +12,10 @@ const HealthMessage = (props: Props) => {
   const { data } = props;
   const { unit, broadcaster } = data;
 
-  const unitPlayerID = Entities.GetPlayerOwnerID(unit);
-  const isEnemy = Entities.IsEnemy(unit);
-  const isHero = Entities.IsHero(unit);
+  const unitOwnerPlayerID = Entities.GetPlayerOwnerID(unit);
+  const unitOwnerPlayerName = Players.GetPlayerName(Entities.GetPlayerOwnerID(unit));
+  const isUnitEnemy = Entities.IsEnemy(unit);
+  const isUnitHero = Entities.IsHero(unit);
   const unitName = Entities.GetUnitName(unit);
 
   return (
@@ -28,7 +29,7 @@ const HealthMessage = (props: Props) => {
         text={Players.GetPlayerName(broadcaster)}
         style={Styles.PlayernameLabel(toColor(broadcaster))}
       />
-      {unitPlayerID !== broadcaster && (
+      {unitOwnerPlayerID !== broadcaster && (
         <React.Fragment>
           <Image
             style={Styles.ArrowImage()}
@@ -37,24 +38,24 @@ const HealthMessage = (props: Props) => {
           <Label
             html={true}
             style={Styles.EnemyOrAllyLabel()}
-            text={isEnemy ? 'Enemy' : 'Ally'}
+            text={isUnitEnemy ? 'Enemy' : 'Ally'}
           />
-          {isHero && (
+          {!isUnitHero && (
+            <Label
+              style={Styles.UnitLabel()}
+              text={$.Localize(unitName)}
+            />
+          )}
+          {isUnitHero && (
             <DOTAHeroImage
               heroimagestyle={'icon'}
               heroname={unitName}
               style={Styles.HeroImage()}
             />
           )}
-          {!isHero && (
-            <Label
-              style={Styles.UnitLabel()}
-              text={$.Localize(unitName)}
-            />
-          )}
           <Label
-            text={Players.GetPlayerName(Entities.GetPlayerOwnerID(unit))}
-            style={Styles.PlayernameLabel(toColor(unitPlayerID))}
+            text={isUnitHero ? unitOwnerPlayerName : '(' + unitOwnerPlayerName + ')'}
+            style={Styles.PlayernameLabel(toColor(unitOwnerPlayerID))}
           />
         </React.Fragment>
       )}
@@ -65,12 +66,17 @@ const HealthMessage = (props: Props) => {
       <Label
         html={true}
         style={Styles.TextLabel()}
-        text={'Health: '}
+        text={'Has '}
       />
       <Label
         html={true}
-        style={Styles.HealthLabel(isEnemy)}
-        text={((Entities.GetHealth(unit) / Entities.GetMaxHealth(unit)) * 100).toFixed(0) + '%'}
+        style={Styles.HealthLabel(isUnitEnemy)}
+        text={((Entities.GetHealth(unit) / Entities.GetMaxHealth(unit)) * 100).toFixed(0) + '% '}
+      />
+      <Label
+        html={true}
+        style={Styles.TextLabel()}
+        text={' Health'}
       />
     </Panel>
   );

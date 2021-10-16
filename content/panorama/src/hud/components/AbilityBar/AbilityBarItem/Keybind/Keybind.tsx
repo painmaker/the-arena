@@ -14,7 +14,7 @@ const Keybind = (props: Props) => {
 
   const { ability, selectedUnit } = props;
 
-  const [keybind, setKeybind] = useState<string | undefined>(undefined);
+  const [keybind, setKeybind] = useState<string>('');
 
   useInterval(() => {
     const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
@@ -23,14 +23,9 @@ const Keybind = (props: Props) => {
     const isInLearningMode = Game.IsInAbilityLearnMode();
     const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
     const isPassive = Abilities.IsPassive(ability);
-    if (isControllable && !isPassive && !isTrainable) {
-      setKeybind(Abilities.GetKeybind(ability));
-    }
+    const hasKeybind = isControllable && (!isPassive || isTrainable);
+    setKeybind(hasKeybind ? Abilities.GetKeybind(ability) : '');
   }, HUD_THINK_FAST);
-
-  if (!keybind) {
-    return null;
-  }
 
   return (
     <Panel style={Styles.Container()}>

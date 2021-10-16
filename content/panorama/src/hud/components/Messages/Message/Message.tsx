@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Message as IMessage, AbilityMessageData, MessageType, ItemMessageData, ModifierMessageData, SetMessagesContext, HealthMessageData } from '../Messages';
+import { Message as IMessage, AbilityMessageData, MessageType, ItemMessageData, ModifierMessageData, SetMessagesContext, HealthMessageData, ManaMessageData } from '../Messages';
 import { Styles } from './Styles';
 import AbilityMessage from './AbilityMessage/AbilityMessage';
 import ItemMessage from './ItemMessage/ItemMessage';
 import ModifierMessage from './ModifierMessage/ModifierMessage';
 import { useTimeout } from '../../../hooks/useTimeout';
 import HealthMessage from './HealthMessage/HealthMessage';
+import ManaMessage from './ManaMessage/ManaMessage';
 
 type Props = {
   message: IMessage,
@@ -41,6 +42,9 @@ const Message = (props: Props) => {
       )}
       {type === MessageType.HEALTH && (
         <HealthMessage data={data as HealthMessageData} />
+      )}
+      {type === MessageType.MANA && (
+        <ManaMessage data={data as ManaMessageData} />
       )}
     </Panel>
   );

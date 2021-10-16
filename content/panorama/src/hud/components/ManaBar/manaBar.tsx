@@ -31,6 +31,14 @@ const ManaBar = (props: Props) => {
         value={mana}
         className={'manaProgressBar'}
         style={Styles.Progressbar()}
+        onactivate={() => {
+          if (GameUI.IsAltDown()) {
+            GameEvents.SendCustomGameEventToAllClients("on_mana_alerted", {
+              broadcaster: Players.GetLocalPlayer(),
+              selectedUnit,
+            })
+          }
+        }}
       >
         <DOTAScenePanel
           style={Styles.Scene(mana, maxMana)}

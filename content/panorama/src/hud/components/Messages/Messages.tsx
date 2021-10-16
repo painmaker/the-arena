@@ -8,12 +8,13 @@ export enum MessageType {
   ITEM = "ITEM",
   MODIFIER = "MODIFIER",
   HEALTH = "HEALTH",
+  MANA = "MANA",
 }
 
 export interface Message {
   id: number,
   type: MessageType,
-  data: AbilityMessageData | ItemMessageData | ModifierMessageData | HealthMessageData
+  data: AbilityMessageData | ItemMessageData | ModifierMessageData | HealthMessageData | ManaMessageData
 }
 
 export interface AbilityMessageData {
@@ -34,6 +35,10 @@ export interface ModifierMessageData {
   modifier: BuffID,
 }
 export interface HealthMessageData {
+  broadcaster: PlayerID,
+  unit: EntityIndex,
+}
+export interface ManaMessageData {
   broadcaster: PlayerID,
   unit: EntityIndex,
 }
@@ -108,6 +113,23 @@ const Messages = () => {
       return [...prevState, {
         id: messageID.current,
         type: MessageType.HEALTH,
+        data: {
+          broadcaster: event.broadcaster,
+          unit: event.selectedUnit,
+        }
+      }]
+    })
+  }, []);
+
+  useGameEvent("on_mana_alerted", (event) => {
+    if (Game.IsPlayerMuted(event.broadcaster)) {
+      return;
+    }
+    messageID.current = messageID.current + 1;
+    setMessages(prevState => {
+      return [...prevState, {
+        id: messageID.current,
+        type: MessageType.MANA,
         data: {
           broadcaster: event.broadcaster,
           unit: event.selectedUnit,

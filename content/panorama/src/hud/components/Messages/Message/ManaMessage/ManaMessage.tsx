@@ -1,37 +1,16 @@
 import React from 'react';
 import { toColor } from '../../../../utils/Color';
+import { ManaMessageData } from '../../Messages';
 import { Styles } from './Styles';
-import { ItemMessageData } from '../../Messages';
 
 type Props = {
-  data: ItemMessageData,
+  data: ManaMessageData,
 }
 
-const getText = (item: ItemEntityIndex, unit: EntityIndex) => {
-
-  const localizedItemName = $.Localize("DOTA_Tooltip_ability_" + Abilities.GetAbilityName(item));
-  const cooldown = Abilities.GetCooldownTimeRemaining(item);
-  const manaCost = Abilities.GetManaCost(item);
-  const currentMana = Entities.GetMana(unit);
-  const isEnemy = Entities.IsEnemy(unit);
-
-  if (isEnemy) {
-    return localizedItemName + ': Beware'
-  }
-  if (cooldown > 0) {
-    return localizedItemName + ': On Cooldown - ( ' + Math.ceil(cooldown).toFixed(0) + " Seconds Remain )";
-  }
-  if (manaCost > currentMana) {
-    return localizedItemName + ': Not Enough Mana - ( Need ' + (manaCost - currentMana) + ' More )'
-  }
-  return localizedItemName + ': Ready';
-
-}
-
-const ItemMessage = (props: Props) => {
+const ManaMessage = (props: Props) => {
 
   const { data } = props;
-  const { unit, item, broadcaster } = data;
+  const { unit, broadcaster } = data;
 
   const unitOwnerPlayerID = Entities.GetPlayerOwnerID(unit);
   const unitOwnerPlayerName = Players.GetPlayerName(Entities.GetPlayerOwnerID(unit));
@@ -61,17 +40,17 @@ const ItemMessage = (props: Props) => {
             style={Styles.EnemyOrAllyLabel()}
             text={isUnitEnemy ? 'Enemy' : 'Ally'}
           />
+          {!isUnitHero && (
+            <Label
+              style={Styles.UnitLabel()}
+              text={$.Localize(unitName)}
+            />
+          )}
           {isUnitHero && (
             <DOTAHeroImage
               heroimagestyle={'icon'}
               heroname={unitName}
               style={Styles.HeroImage()}
-            />
-          )}
-          {!isUnitHero && (
-            <Label
-              style={Styles.UnitLabel()}
-              text={$.Localize(unitName)}
             />
           )}
           <Label
@@ -84,19 +63,24 @@ const ItemMessage = (props: Props) => {
         style={Styles.ArrowImage()}
         src={'file://{images}/control_icons/chat_wheel_icon.png'}
       />
-      <DOTAItemImage
-        style={Styles.ItemImage()}
-        itemname={Abilities.GetAbilityName(item)}
-        showtooltip={false}
+      <Label
+        html={true}
+        style={Styles.TextLabel()}
+        text={'Has '}
+      />
+      <Label
+        html={true}
+        style={Styles.ManaLabel()}
+        text={((Entities.GetMana(unit) / Entities.GetMaxMana(unit)) * 100).toFixed(0) + '% '}
       />
       <Label
         html={true}
         style={Styles.TextLabel()}
-        text={getText(item, unit)}
+        text={' Mana'}
       />
     </Panel>
   );
 
 }
 
-export default React.memo(ItemMessage);
+export default React.memo(ManaMessage);
