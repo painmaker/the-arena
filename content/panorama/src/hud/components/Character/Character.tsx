@@ -10,12 +10,20 @@ import Avatar from "./Avatar/Avatar";
 import Attack from "./Attack/Attack";
 import { HUD_THINK_SLOW } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
+import { setCharacterVisible } from "../../actions/characterActions";
+import { CharacterActionTypes } from "../../types/characterTypes";
+import { Dispatch } from "redux";
+import { useRegisterForUnhandledEvent } from "react-panorama";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.characterReducer.visible,
 });
 
-const connector = connect(mapStateToProps);
+const mapDispatchToProps = (dispatch: Dispatch<CharacterActionTypes>) => ({
+  setCharacterVisible: (visible: boolean) => dispatch(setCharacterVisible(visible)),
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
@@ -26,13 +34,20 @@ const Character = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character rendered");
 
-  const { selectedUnit, visible } = props;
+  const { selectedUnit, visible, setCharacterVisible } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
   useTimeout(() => {
     setRenderComponent(visible);
   }, visible === false ? HUD_THINK_SLOW : 0);
+
+  useRegisterForUnhandledEvent('Cancelled', () => {
+    if (visible) {
+      Game.EmitSound("ui_topmenu_select");
+    }
+    setCharacterVisible(false);
+  }, [visible, setCharacterVisible]);
 
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>

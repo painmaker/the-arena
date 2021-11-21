@@ -17,7 +17,8 @@ const UltimateAbilities = (props: Props) => {
 
   const { selectedUnit, ultimateAbilities, isLoadingAbilities, searchValue } = props;
 
-  const ultimateAbilitiesCount = Object.values(useNetTableValues('UltimateAbilities')[Entities.GetPlayerOwnerID(selectedUnit)]).length;
+  const playerOwnerID = Entities.GetPlayerOwnerID(selectedUnit);
+  const nettable = playerOwnerID !== -1 ? Object.values(useNetTableValues('UltimateAbilities')[playerOwnerID]) : [];
 
   return (
     <Panel style={Styles.Container()}>
@@ -27,7 +28,7 @@ const UltimateAbilities = (props: Props) => {
           style={Styles.Title()}
         />
         <Label
-          text={ultimateAbilitiesCount + ' / 1'}
+          text={nettable.length + ' / 1'}
           style={Styles.AbilityCountLabel()}
         />
       </Panel>

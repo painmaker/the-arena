@@ -1,5 +1,5 @@
 import React, { Dispatch, useState } from "react";
-import { useGameEvent } from "react-panorama";
+import { useGameEvent, useRegisterForUnhandledEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
 import { setItemOptionsVisible } from "../../../actions/itemOptionsActions";
 import { RootState } from "../../../reducers/rootReducer";
@@ -21,38 +21,47 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  // ownProps
+  selectedUnit: EntityIndex,
 };
 
 const ItemOptions = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Inventory - ItemOptions rendered");
 
+  const { selectedUnit, item, visible, posX, setItemOptionsVisible } = props;
+
   const [buttonTypeHovered, setButtonTypeHovered] = useState(ButtonTypes.NONE);
 
   useGameEvent("dota_player_update_query_unit", () => {
-    props.setItemOptionsVisible(false);
-  }, []);
+    setItemOptionsVisible(false);
+  }, [setItemOptionsVisible]);
 
   useGameEvent("dota_player_update_selected_unit", () => {
-    props.setItemOptionsVisible(false);
-  }, []);
+    setItemOptionsVisible(false);
+  }, [setItemOptionsVisible]);
 
-  if (props.item === -1) {
+  useRegisterForUnhandledEvent('Cancelled', () => {
+    if (visible) {
+      Game.EmitSound("ui_topmenu_select");
+    }
+    setItemOptionsVisible(false);
+  }, [visible, setItemOptionsVisible]);
+
+  if (item === -1) {
     return null;
   }
 
   return (
     <React.Fragment>
-      {props.visible && (
-        <Panel style={Styles.OuterContainer(props.posX)}>
+      {visible && (
+        <Panel style={Styles.OuterContainer(posX)}>
           <Panel style={Styles.CloseBtnContainer(buttonTypeHovered === ButtonTypes.CROSS)}>
             <Button
               style={Styles.CloseBtn()}
               onmouseout={() => setButtonTypeHovered(ButtonTypes.NONE)}
               onmouseover={() => setButtonTypeHovered(ButtonTypes.CROSS)}
               onactivate={() => {
-                props.setItemOptionsVisible(false);
+                setItemOptionsVisible(false);
                 Game.EmitSound("ui_topmenu_select");
               }}
             >
@@ -70,8 +79,8 @@ const ItemOptions = (props: Props) => {
               onmouseout={() => setButtonTypeHovered(ButtonTypes.NONE)}
               onmouseover={() => setButtonTypeHovered(ButtonTypes.SELL)}
               onactivate={() => {
-                Items.LocalPlayerSellItem(props.item);
-                props.setItemOptionsVisible(false);
+                Items.LocalPlayerSellItem(item);
+                setItemOptionsVisible(false);
               }}
             />
             <Label
@@ -80,8 +89,12 @@ const ItemOptions = (props: Props) => {
               onmouseout={() => setButtonTypeHovered(ButtonTypes.NONE)}
               onmouseover={() => setButtonTypeHovered(ButtonTypes.ALERT)}
               onactivate={() => {
-                Items.LocalPlayerItemAlertAllies(props.item);
-                props.setItemOptionsVisible(false);
+                GameEvents.SendCustomGameEventToAllClients("on_item_alerted", {
+                  broadcaster: Players.GetLocalPlayer(),
+                  selectedUnit: selectedUnit,
+                  item: item
+                });
+                setItemOptionsVisible(false);
               }}
             />
             <Label
@@ -91,7 +104,7 @@ const ItemOptions = (props: Props) => {
               onmouseover={() => setButtonTypeHovered(ButtonTypes.CANCEL)}
               onactivate={() => {
                 Game.EmitSound("ui_topmenu_select");
-                props.setItemOptionsVisible(false);
+                setItemOptionsVisible(false);
               }}
             />
           </Panel>

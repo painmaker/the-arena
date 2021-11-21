@@ -42,6 +42,7 @@ export class modifier_dazzle_juju_enrage extends BaseModifier {
     this.damage = this.GetAbility()!.GetSpecialValueFor("damage");
     this.interval = this.GetAbility()!.GetSpecialValueFor("damage_interval");
 
+
     if (IsServer()) {
 
       const parent = this.GetParent();

@@ -8,7 +8,6 @@ import "./modifiers/ui/modifier_ui_evasion";
 import "./modifiers/ui/modifier_ui_health_regen";
 import "./modifiers/ui/modifier_ui_base_health_regen";
 import "./modifiers/ui/modifier_ui_spell_amp";
-import "./modifiers/ui/modifier_ui_hero_id";
 import { EXPERIENCE_PER_LEVEL_TABLE, HERO_SELECTION_TIME, MAX_PLAYERS } from "./settings";
 import { HeroSelectionService } from "./services/HeroSelectionService";
 import { ChatService } from "./services/ChatService";
@@ -217,7 +216,6 @@ export class GameMode {
     unit.AddNewModifier(unit, undefined, "modifier_ui_health_regen", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_ui_base_health_regen", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_ui_spell_amp", { duration: -1 });
-    unit.AddNewModifier(unit, undefined, "modifier_ui_hero_id", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_no_statusbar", { duration: -1 });
 
     // @ts-ignore

@@ -9,7 +9,7 @@ export const Styles = {
     flowChildren: 'down',
     width: '175px',
     height: 'fit-children',
-    marginBottom: "75px",
+    marginBottom: "45px",
     position: (posX - POS_X_OFFSET) + "px " + POST_Y_OFFSET + "px " + "0px",
     zIndex: 9999,
   }),

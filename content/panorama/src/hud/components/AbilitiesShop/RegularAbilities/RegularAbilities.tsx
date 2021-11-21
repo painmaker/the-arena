@@ -16,7 +16,8 @@ const RegularAbilities = (props: Props) => {
 
   const { selectedUnit, regularAbilities, isLoadingAbilities, searchValue } = props;
 
-  const regularAbilitiesCount = Object.values(useNetTableValues('RegularAbilities')[Entities.GetPlayerOwnerID(selectedUnit)]).length;
+  const playerOwnerID = Entities.GetPlayerOwnerID(selectedUnit);
+  const nettable = playerOwnerID !== -1 ? Object.values(useNetTableValues('RegularAbilities')[playerOwnerID]) : [];
 
   return (
     <Panel style={Styles.Container()}>
@@ -26,7 +27,11 @@ const RegularAbilities = (props: Props) => {
           style={Styles.Title()}
         />
         <Label
-          text={regularAbilitiesCount + ' / 5'}
+          text={nettable.length + ' / 5'}
+          style={Styles.AbilityCountLabel()}
+        />
+        <Label
+          text={nettable.length + ' / 5'}
           style={Styles.AbilityCountLabel()}
         />
       </Panel>

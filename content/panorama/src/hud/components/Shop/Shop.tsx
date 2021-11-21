@@ -12,6 +12,7 @@ import { setShopVisible } from "../../actions/shopActions";
 import { ShopActionTypes } from "../../types/shopTypes";
 import { HUD_THINK_SLOW } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
+import { useRegisterForUnhandledEvent } from "react-panorama";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.shopReducer.visible,
@@ -32,13 +33,20 @@ const Shop = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Shop rendered");
 
-  const { selectedUnit, visible } = props;
+  const { selectedUnit, visible, setShopVisible } = props;
 
   const [renderComponent, setRenderComponent] = useState(false);
 
   useTimeout(() => {
     setRenderComponent(visible);
-  }, visible === false ? HUD_THINK_SLOW : 0)
+  }, visible === false ? HUD_THINK_SLOW : 0);
+
+  useRegisterForUnhandledEvent('Cancelled', () => {
+    if (visible) {
+      Game.EmitSound("ui_topmenu_select");
+    }
+    setShopVisible(false);
+  }, [visible, setShopVisible]);
 
   return (
     <React.Fragment>

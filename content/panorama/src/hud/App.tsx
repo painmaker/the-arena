@@ -25,22 +25,6 @@ export const HUD_THINK_FAST = 30;
 export const HUD_THINK_MEDIUM = 100;
 export const HUD_THINK_SLOW = 1000;
 
-const excludedUnits = [
-  "shopkeeper_abilities"
-]
-
-const getGameUnitSelected = () => {
-  const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
-  if (queryUnit !== -1) {
-    return queryUnit;
-  }
-  const portraitUnit = Players.GetLocalPlayerPortraitUnit();
-  if (portraitUnit !== -1) {
-    return portraitUnit
-  }
-  return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
-}
-
 const App = () => {
 
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
@@ -55,10 +39,29 @@ const App = () => {
   }, []);
 
   useInterval(() => {
+
+    const excludedUnits = [
+      "shopkeeper_abilities"
+    ]
+
+    const getGameUnitSelected = () => {
+      const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
+      if (queryUnit !== -1) {
+        return queryUnit;
+      }
+      const portraitUnit = Players.GetLocalPlayerPortraitUnit();
+      if (portraitUnit !== -1) {
+        return portraitUnit
+      }
+      return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
+    }
+
     const unitToSelect = getGameUnitSelected();
+
     if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
       setSelectedUnit(unitToSelect)
     }
+
   }, HUD_THINK_FAST)
 
   useEffect(() => {

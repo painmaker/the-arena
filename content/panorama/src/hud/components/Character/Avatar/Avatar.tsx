@@ -12,10 +12,10 @@ const Avatar = (props: Props) => {
   const [steamId, setSteamId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    const isRealHero = Entities.IsRealHero(selectedUnit);
+    const isHero = Entities.IsHero(selectedUnit);
     const playerId = Entities.GetPlayerOwnerID(selectedUnit);
     const isValidPlayerId = Players.IsValidPlayerID(playerId);
-    if (isRealHero && isValidPlayerId) {
+    if (isHero && isValidPlayerId) {
       setSteamId(Game.GetPlayerInfo(playerId).player_steamid);
     } else {
       setSteamId(undefined);

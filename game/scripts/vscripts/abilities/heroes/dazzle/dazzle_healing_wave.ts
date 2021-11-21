@@ -44,13 +44,11 @@ export class dazzle_healing_wave extends BaseAbility {
     let healing = this.GetSpecialValueFor("healing")
     let jumpCount = this.GetSpecialValueFor("jump_count")
     let source = this.GetCaster();
-    let target = this.GetCursorTarget();
+    let target = this.GetCursorTarget()!;
 
     source.EmitSoundParams(SOUNDS[RandomInt(0, SOUNDS.length - 1)], 2.2, 2.2, 0);
 
     Timers.CreateTimer(0, () => {
-
-      target = target ? target : source;
 
       const isTargetHealed = healedUnits.includes(target);
       const isSourceHealed = healedUnits.includes(source);

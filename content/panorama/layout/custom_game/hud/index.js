@@ -55733,20 +55733,6 @@ __webpack_require__.r(__webpack_exports__);
 const HUD_THINK_FAST = 30;
 const HUD_THINK_MEDIUM = 100;
 const HUD_THINK_SLOW = 1000;
-const excludedUnits = [
-    "shopkeeper_abilities"
-];
-const getGameUnitSelected = () => {
-    const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
-    if (queryUnit !== -1) {
-        return queryUnit;
-    }
-    const portraitUnit = Players.GetLocalPlayerPortraitUnit();
-    if (portraitUnit !== -1) {
-        return portraitUnit;
-    }
-    return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
-};
 const App = () => {
     var _a;
     const heroes = (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('HeroSelectionHeroes').heroes;
@@ -55758,6 +55744,20 @@ const App = () => {
         GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
     }, []);
     (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_21__.useInterval)(() => {
+        const excludedUnits = [
+            "shopkeeper_abilities"
+        ];
+        const getGameUnitSelected = () => {
+            const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
+            if (queryUnit !== -1) {
+                return queryUnit;
+            }
+            const portraitUnit = Players.GetLocalPlayerPortraitUnit();
+            if (portraitUnit !== -1) {
+                return portraitUnit;
+            }
+            return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
+        };
         const unitToSelect = getGameUnitSelected();
         if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
             setSelectedUnit(unitToSelect);
@@ -56214,6 +56214,12 @@ const AbilitiesShop = (props) => {
             setShopVisible(true);
         }
     }, [setShopVisible]);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_9__.useRegisterForUnhandledEvent)('Cancelled', () => {
+        if (visible) {
+            Game.EmitSound("ui_topmenu_select");
+        }
+        setShopVisible(false);
+    }, [visible, setShopVisible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'Invisible', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.InnerContainer(visible) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TopContainer() },
@@ -56331,11 +56337,13 @@ __webpack_require__.r(__webpack_exports__);
 const RegularAbilities = (props) => {
     // $.Msg("REACT-RENDER: AbilitiesShop - RegularAbilities rendered");
     const { selectedUnit, regularAbilities, isLoadingAbilities, searchValue } = props;
-    const regularAbilitiesCount = Object.values((0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('RegularAbilities')[Entities.GetPlayerOwnerID(selectedUnit)]).length;
+    const playerOwnerID = Entities.GetPlayerOwnerID(selectedUnit);
+    const nettable = playerOwnerID !== -1 ? Object.values((0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('RegularAbilities')[playerOwnerID]) : [];
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TitleContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Regular Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Title() }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: regularAbilitiesCount + ' / 5', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityCountLabel() })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: nettable.length + ' / 5', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityCountLabel() }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: nettable.length + ' / 5', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityCountLabel() })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() },
             (regularAbilities.length === 0 && isLoadingAbilities === false) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(selectedUnit)) + " Has No Regular Abilities", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CenterLabel() })),
             regularAbilities.map(regularAbility => {
@@ -56725,11 +56733,12 @@ __webpack_require__.r(__webpack_exports__);
 const UltimateAbilities = (props) => {
     // $.Msg("REACT-RENDER: AbilitiesShop - UltimateAbilities rendered");
     const { selectedUnit, ultimateAbilities, isLoadingAbilities, searchValue } = props;
-    const ultimateAbilitiesCount = Object.values((0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('UltimateAbilities')[Entities.GetPlayerOwnerID(selectedUnit)]).length;
+    const playerOwnerID = Entities.GetPlayerOwnerID(selectedUnit);
+    const nettable = playerOwnerID !== -1 ? Object.values((0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useNetTableValues)('UltimateAbilities')[playerOwnerID]) : [];
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TitleContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: 'Ultimate Abilities', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Title() }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: ultimateAbilitiesCount + ' / 1', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityCountLabel() })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: nettable.length + ' / 1', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityCountLabel() })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() },
             (ultimateAbilities.length === 0 && isLoadingAbilities === false) && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: $.Localize(Entities.GetUnitName(selectedUnit)) + " Has No Ultimate Abilities", style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.CenterLabel() })),
             ultimateAbilities.map(ultimateAbility => {
@@ -58297,10 +58306,10 @@ const Avatar = (props) => {
     const { selectedUnit } = props;
     const [steamId, setSteamId] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        const isRealHero = Entities.IsRealHero(selectedUnit);
+        const isHero = Entities.IsHero(selectedUnit);
         const playerId = Entities.GetPlayerOwnerID(selectedUnit);
         const isValidPlayerId = Players.IsValidPlayerID(playerId);
-        if (isRealHero && isValidPlayerId) {
+        if (isHero && isValidPlayerId) {
             setSteamId(Game.GetPlayerInfo(playerId).player_steamid);
         }
         else {
@@ -58384,6 +58393,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Attack_Attack__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Attack/Attack */ "./hud/components/Character/Attack/Attack.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
 /* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
+/* harmony import */ var _actions_characterActions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../actions/characterActions */ "./hud/actions/characterActions.tsx");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+
+
 
 
 
@@ -58398,14 +58411,23 @@ __webpack_require__.r(__webpack_exports__);
 const mapStateToProps = (state) => ({
     visible: state.characterReducer.visible,
 });
-const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps);
+const mapDispatchToProps = (dispatch) => ({
+    setCharacterVisible: (visible) => dispatch((0,_actions_characterActions__WEBPACK_IMPORTED_MODULE_11__.setCharacterVisible)(visible)),
+});
+const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const Character = (props) => {
     // $.Msg("REACT-RENDER: Character rendered");
-    const { selectedUnit, visible } = props;
+    const { selectedUnit, visible, setCharacterVisible } = props;
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_10__.useTimeout)(() => {
         setRenderComponent(visible);
     }, visible === false ? _App__WEBPACK_IMPORTED_MODULE_9__.HUD_THINK_SLOW : 0);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_12__.useRegisterForUnhandledEvent)('Cancelled', () => {
+        if (visible) {
+            Game.EmitSound("ui_topmenu_select");
+        }
+        setCharacterVisible(false);
+    }, [visible, setCharacterVisible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_2__.Styles.InnerContainer(visible) },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_5__.default, { selectedUnit: selectedUnit }),
@@ -58962,15 +58984,9 @@ const Model = (props) => {
     const { selectedUnit } = props;
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         const scenePanel = $('#modelPanelScene');
-        if (Entities.IsRealHero(selectedUnit)) {
-            for (let i = 0; i < Entities.GetNumBuffs(selectedUnit); i++) {
-                const buff = Entities.GetBuff(selectedUnit, i);
-                if (Buffs.GetName(selectedUnit, buff) === 'modifier_ui_hero_id') {
-                    const heroId = Buffs.GetStackCount(selectedUnit, buff);
-                    scenePanel.SetScenePanelToLocalHero(heroId);
-                    scenePanel.SetCustomPostProcessMaterial("materials/dev/deferred_post_process_graphic_ui.vmat");
-                }
-            }
+        if (Entities.IsHero(selectedUnit)) {
+            const heroID = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(selectedUnit)).player_selected_hero_id;
+            scenePanel.SetScenePanelToLocalHero(heroID);
         }
         else {
             scenePanel.SetUnit(Entities.GetUnitName(selectedUnit), "", true);
@@ -61049,7 +61065,7 @@ const Inventory = (props) => {
         }
     }, _App__WEBPACK_IMPORTED_MODULE_5__.HUD_THINK_FAST);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemOptions_ItemOptions__WEBPACK_IMPORTED_MODULE_2__.default, null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ItemOptions_ItemOptions__WEBPACK_IMPORTED_MODULE_2__.default, { selectedUnit: selectedUnit }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_4__.Styles.Container(hasInventory) }, items.map((item, index) => {
             return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_3__.default, { key: index, index: index, item: item || -1, selectedUnit: selectedUnit }));
         }))));
@@ -61115,36 +61131,47 @@ const mapDispatchToProps = (dispatch) => ({
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps, mapDispatchToProps);
 const ItemOptions = (props) => {
     // $.Msg("REACT-RENDER: Inventory - ItemOptions rendered");
+    const { selectedUnit, item, visible, posX, setItemOptionsVisible } = props;
     const [buttonTypeHovered, setButtonTypeHovered] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(_ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.NONE);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_query_unit", () => {
-        props.setItemOptionsVisible(false);
-    }, []);
+        setItemOptionsVisible(false);
+    }, [setItemOptionsVisible]);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("dota_player_update_selected_unit", () => {
-        props.setItemOptionsVisible(false);
-    }, []);
-    if (props.item === -1) {
+        setItemOptionsVisible(false);
+    }, [setItemOptionsVisible]);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useRegisterForUnhandledEvent)('Cancelled', () => {
+        if (visible) {
+            Game.EmitSound("ui_topmenu_select");
+        }
+        setItemOptionsVisible(false);
+    }, [visible, setItemOptionsVisible]);
+    if (item === -1) {
         return null;
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, props.visible && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.OuterContainer(props.posX) },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, visible && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.OuterContainer(posX) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.CloseBtnContainer(buttonTypeHovered === _ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.CROSS) },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.CloseBtn(), onmouseout: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.NONE), onmouseover: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.CROSS), onactivate: () => {
-                    props.setItemOptionsVisible(false);
+                    setItemOptionsVisible(false);
                     Game.EmitSound("ui_topmenu_select");
                 } },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/close_btn_white_png.vtex" }))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.InnerContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "OPTIONS", style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Title() }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Sell", style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Option(buttonTypeHovered === _ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.SELL), onmouseout: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.NONE), onmouseover: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.SELL), onactivate: () => {
-                    Items.LocalPlayerSellItem(props.item);
-                    props.setItemOptionsVisible(false);
+                    Items.LocalPlayerSellItem(item);
+                    setItemOptionsVisible(false);
                 } }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Alert", style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Option(buttonTypeHovered === _ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.ALERT), onmouseout: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.NONE), onmouseover: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.ALERT), onactivate: () => {
-                    Items.LocalPlayerItemAlertAllies(props.item);
-                    props.setItemOptionsVisible(false);
+                    GameEvents.SendCustomGameEventToAllClients("on_item_alerted", {
+                        broadcaster: Players.GetLocalPlayer(),
+                        selectedUnit: selectedUnit,
+                        item: item
+                    });
+                    setItemOptionsVisible(false);
                 } }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { text: "Cancel", style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.Option(buttonTypeHovered === _ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.CANCEL), onmouseout: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.NONE), onmouseover: () => setButtonTypeHovered(_ButtonTypes__WEBPACK_IMPORTED_MODULE_4__.ButtonTypes.CANCEL), onactivate: () => {
                     Game.EmitSound("ui_topmenu_select");
-                    props.setItemOptionsVisible(false);
+                    setItemOptionsVisible(false);
                 } })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.ArrowheadContainer() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Image, { src: "s2r://panorama/images/tooltip_arrow_top.png", style: _Styles__WEBPACK_IMPORTED_MODULE_5__.Styles.ArrowheadImage() }))))));
@@ -61174,7 +61201,7 @@ const Styles = {
         flowChildren: 'down',
         width: '175px',
         height: 'fit-children',
-        marginBottom: "75px",
+        marginBottom: "45px",
         position: (posX - POS_X_OFFSET) + "px " + POST_Y_OFFSET + "px " + "0px",
         zIndex: 9999,
     }),
@@ -62716,6 +62743,7 @@ const Messages = () => {
                     }
                 }];
         });
+        Game.EmitSound("ui_chat_msg_rec");
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_item_alerted", (event) => {
         if (Game.IsPlayerMuted(event.broadcaster)) {
@@ -62733,6 +62761,7 @@ const Messages = () => {
                     }
                 }];
         });
+        Game.EmitSound("ui_chat_msg_rec");
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_modifier_alerted", (event) => {
         if (Game.IsPlayerMuted(event.broadcaster)) {
@@ -62750,6 +62779,7 @@ const Messages = () => {
                     }
                 }];
         });
+        Game.EmitSound("ui_chat_msg_rec");
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_health_alerted", (event) => {
         if (Game.IsPlayerMuted(event.broadcaster)) {
@@ -62766,6 +62796,7 @@ const Messages = () => {
                     }
                 }];
         });
+        Game.EmitSound("ui_chat_msg_rec");
     }, []);
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("on_mana_alerted", (event) => {
         if (Game.IsPlayerMuted(event.broadcaster)) {
@@ -62782,6 +62813,7 @@ const Messages = () => {
                     }
                 }];
         });
+        Game.EmitSound("ui_chat_msg_rec");
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(SetMessagesContext.Provider, { value: setMessages }, messages.sort((m1, m2) => m2.id - m1.id).map(message => {
@@ -63605,6 +63637,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Styles__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Styles */ "./hud/components/Settings/Styles.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
 /* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+
 
 
 
@@ -63620,13 +63654,14 @@ const mapStateToProps = (state) => ({
     visible: state.settingsReducer.visible,
 });
 const mapDispatchToProps = (dispatch) => ({
+    setSettingsVisible: (visible) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_7__.setSettingsVisible)(visible)),
     setCameraLocked: (locked) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_7__.setCameraLocked)(locked)),
     setCameraZoom: (zoom) => dispatch((0,_actions_settingsAction__WEBPACK_IMPORTED_MODULE_7__.setCameraZoom)(zoom)),
 });
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const Settings = (props) => {
     // $.Msg("REACT-RENDER: Settings rendered");
-    const { visible } = props;
+    const { visible, setSettingsVisible } = props;
     const [zoom, setZoom] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1600);
     const [isLocked, setIsLocked] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -63644,6 +63679,12 @@ const Settings = (props) => {
     (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_10__.useTimeout)(() => {
         setRenderComponent(visible);
     }, visible === false ? _App__WEBPACK_IMPORTED_MODULE_9__.HUD_THINK_SLOW : 0);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_11__.useRegisterForUnhandledEvent)('Cancelled', () => {
+        if (visible) {
+            Game.EmitSound("ui_topmenu_select");
+        }
+        setSettingsVisible(false);
+    }, [visible, setSettingsVisible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_8__.Styles.InnerContainer(visible) },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_6__.default, null),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Divider_Divider__WEBPACK_IMPORTED_MODULE_5__.default, null),
@@ -64099,6 +64140,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_shopActions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions/shopActions */ "./hud/actions/shopActions.tsx");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../App */ "./hud/App.tsx");
 /* harmony import */ var _hooks_useTimeout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../hooks/useTimeout */ "./hud/hooks/useTimeout.ts");
+/* harmony import */ var react_panorama__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-panorama */ "../../../node_modules/react-panorama/dist/esm/react-panorama.development.js");
+
 
 
 
@@ -64120,11 +64163,17 @@ const mapDispatchToProps = (dispatch) => ({
 const connector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps);
 const Shop = (props) => {
     // $.Msg("REACT-RENDER: Shop rendered");
-    const { selectedUnit, visible } = props;
+    const { selectedUnit, visible, setShopVisible } = props;
     const [renderComponent, setRenderComponent] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,_hooks_useTimeout__WEBPACK_IMPORTED_MODULE_11__.useTimeout)(() => {
         setRenderComponent(visible);
     }, visible === false ? _App__WEBPACK_IMPORTED_MODULE_10__.HUD_THINK_SLOW : 0);
+    (0,react_panorama__WEBPACK_IMPORTED_MODULE_12__.useRegisterForUnhandledEvent)('Cancelled', () => {
+        if (visible) {
+            Game.EmitSound("ui_topmenu_select");
+        }
+        setShopVisible(false);
+    }, [visible, setShopVisible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: "shopContainer", style: visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {} },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_2__.default, { selectedUnit: selectedUnit }),

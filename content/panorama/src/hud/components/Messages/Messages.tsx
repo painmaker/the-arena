@@ -66,6 +66,7 @@ const Messages = () => {
         }
       }]
     });
+    Game.EmitSound("ui_chat_msg_rec");
   }, []);
 
   useGameEvent("on_item_alerted", (event) => {
@@ -83,7 +84,8 @@ const Messages = () => {
           item: event.item
         }
       }]
-    })
+    });
+    Game.EmitSound("ui_chat_msg_rec");
   }, []);
 
   useGameEvent("on_modifier_alerted", (event) => {
@@ -101,7 +103,8 @@ const Messages = () => {
           modifier: event.modifier
         }
       }]
-    })
+    });
+    Game.EmitSound("ui_chat_msg_rec");
   }, []);
 
   useGameEvent("on_health_alerted", (event) => {
@@ -118,7 +121,8 @@ const Messages = () => {
           unit: event.selectedUnit,
         }
       }]
-    })
+    });
+    Game.EmitSound("ui_chat_msg_rec");
   }, []);
 
   useGameEvent("on_mana_alerted", (event) => {
@@ -135,7 +139,8 @@ const Messages = () => {
           unit: event.selectedUnit,
         }
       }]
-    })
+    });
+    Game.EmitSound("ui_chat_msg_rec");
   }, []);
 
   return (

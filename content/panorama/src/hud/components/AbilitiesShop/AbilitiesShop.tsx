@@ -10,7 +10,7 @@ import Search from "./Search/Search";
 import RegularAbilities from "./RegularAbilities/RegularAbilities";
 import UltimateAbilities from "./UltimateAbilities/UltimateAbilities";
 import AbilitiesPoints from "./AbilitiesPoints/AbilitiesPoints";
-import { useGameEvent } from "react-panorama";
+import { useGameEvent, useRegisterForUnhandledEvent } from "react-panorama";
 import { HUD_THINK_SLOW } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
 
@@ -86,6 +86,13 @@ const AbilitiesShop = (props: Props) => {
       setShopVisible(true);
     }
   }, [setShopVisible]);
+
+  useRegisterForUnhandledEvent('Cancelled', () => {
+    if (visible) {
+      Game.EmitSound("ui_topmenu_select");
+    }
+    setShopVisible(false);
+  }, [visible, setShopVisible]);
 
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>

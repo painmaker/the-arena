@@ -13,15 +13,9 @@ const Model = (props: Props) => {
 
   useEffect(() => {
     const scenePanel = $('#modelPanelScene') as ScenePanel;
-    if (Entities.IsRealHero(selectedUnit)) {
-      for (let i = 0; i < Entities.GetNumBuffs(selectedUnit); i++) {
-        const buff = Entities.GetBuff(selectedUnit, i);
-        if (Buffs.GetName(selectedUnit, buff) === 'modifier_ui_hero_id') {
-          const heroId = Buffs.GetStackCount(selectedUnit, buff) as HeroID;
-          scenePanel.SetScenePanelToLocalHero(heroId);
-          scenePanel.SetCustomPostProcessMaterial("materials/dev/deferred_post_process_graphic_ui.vmat")
-        }
-      }
+    if (Entities.IsHero(selectedUnit)) {
+      const heroID = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(selectedUnit)).player_selected_hero_id;
+      scenePanel.SetScenePanelToLocalHero(heroID);
     } else {
       scenePanel.SetUnit(Entities.GetUnitName(selectedUnit), "", true);
     }

@@ -31,7 +31,7 @@ const Inventory = (props: Props) => {
 
   return (
     <React.Fragment>
-      <ItemOptions />
+      <ItemOptions selectedUnit={selectedUnit} />
       <Panel style={Styles.Container(hasInventory)}>
         {items.map((item, index) => {
           return (
