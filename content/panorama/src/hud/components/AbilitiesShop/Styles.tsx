@@ -1,5 +1,11 @@
 export const Styles = {
 
+  OuterContainer: (): Partial<VCSSStyleDeclaration> => ({
+    width: '100%',
+    height: '100%',
+    transform: 'translateX(500px)',
+  }),
+
   InnerContainer: (visible: boolean): Partial<VCSSStyleDeclaration> => ({
     horizontalAlign: "right",
     verticalAlign: "top",
@@ -18,10 +24,10 @@ export const Styles = {
     opacity: visible ? "1.0" : "0.0",
   }),
 
-  OuterContainer: (): Partial<VCSSStyleDeclaration> => ({
+  UnclickableContainer: (): Partial<VCSSStyleDeclaration> => ({
     width: '100%',
-    height: '100%',
-    transform: 'translateX(500px)',
+    height: 'fit-children',
+    flowChildren: "down"
   }),
 
   TopContainer: (): Partial<VCSSStyleDeclaration> => ({

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import { Styles } from "./Styles";
@@ -9,23 +9,7 @@ type Props = {
   searchValue: string,
 }
 
-const onMouseOver = (selectedUnit: EntityIndex, abilityname: string) => {
-  $.DispatchEvent(
-    "DOTAShowAbilityTooltipForEntityIndex",
-    $("#ability_shop_image_" + abilityname),
-    abilityname,
-    selectedUnit
-  )
-}
-
-const onMouseOut = (abilityname: string) => {
-  $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_shop_image_" + abilityname));
-}
-
-const onRightClick = (selectedUnit: EntityIndex, abilityname: string) => {
-  $.Msg("onRightClick: " + abilityname)
-  GameEvents.SendCustomGameEventToServer("purchase_ability", { entindex: selectedUnit, abilityname });
-}
+let animationSchedule: ScheduleID = -1 as ScheduleID;
 
 const AbilityImage = (props: Props) => {
 
@@ -36,6 +20,7 @@ const AbilityImage = (props: Props) => {
 
   const [isRequiredLevel, setIsRequiredLevel] = useState(Entities.GetLevel(selectedUnit) >= requiredLevel);
   const [isSearched, setIsSearched] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   useInterval(() => {
     setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
@@ -51,20 +36,29 @@ const AbilityImage = (props: Props) => {
     setIsSearched(isSearched);
   }, [aliases, searchValue])
 
+  const hasSearchValue = searchValue.length > 0;
+
   return (
-    <React.Fragment>
-      <Button
-        style={Styles.AbilityImage(searchValue.length > 0, isSearched, isRequiredLevel)}
-        oncontextmenu={() => onRightClick(selectedUnit, name)}
-        onmouseout={() => onMouseOut(name)}
-        onmouseover={() => onMouseOver(selectedUnit, name)}
-      >
-        <DOTAAbilityImage
-          id={'ability_shop_image_' + name}
-          abilityname={name}
-        />
-      </Button>
-    </React.Fragment>
+    <Button
+      className={'container'}
+      id={"ability_shop_image_" + name}
+      style={Styles.AbilityImage(hasSearchValue, isSearched, isRequiredLevel, isHovering)}
+      oncontextmenu={() => {
+        $('#ability_shop_image_' + name).RemoveClass('btnClicked');
+        $('#ability_shop_image_' + name).AddClass('btnClicked');
+        GameEvents.SendCustomGameEventToServer("purchase_ability", { entindex: selectedUnit, abilityname: name });
+      }}
+      onmouseout={() => {
+        setIsHovering(false);
+        $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_shop_image_" + name));
+      }}
+      onmouseover={() => {
+        setIsHovering(true);
+        $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_shop_image_" + name), name, selectedUnit);
+      }}
+    >
+      <DOTAAbilityImage abilityname={name} />
+    </Button>
   );
 
 };

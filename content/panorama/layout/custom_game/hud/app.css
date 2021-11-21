@@ -125,3 +125,20 @@ ProgressBar {
 }
 
 /* MINIMAP END */
+
+@keyframes 'btnClicked' {
+
+  0% {
+    transform: scale3d(0.95, 0.95, 0);
+  }
+
+  100% {
+    transform: scale3d(1.0, 1.0, 0);
+  }
+
+}
+
+.btnClicked {
+  animation-name: btnClicked;
+  animation-duration: 0.05s;
+}

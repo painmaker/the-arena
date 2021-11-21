@@ -97,28 +97,30 @@ const AbilitiesShop = (props: Props) => {
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
-        <Panel className={'Invisible'} style={Styles.InnerContainer(visible)}>
-          <Title selectedUnit={selectedUnit} />
-          <Panel style={Styles.TopContainer()}>
-            <Search setSearchValue={setSearchValue} />
-            <AbilitiesPoints
-              selectedUnit={selectedUnit}
-              text={'Ability Points:'}
-            />
-          </Panel>
-          <Panel style={Styles.AbilitiesContainer()}>
-            <RegularAbilities
-              selectedUnit={selectedUnit}
-              regularAbilities={regularAbilities}
-              isLoadingAbilities={isLoadingAbilities}
-              searchValue={searchValue}
-            />
-            <UltimateAbilities
-              selectedUnit={selectedUnit}
-              ultimateAbilities={ultimateAbilities}
-              isLoadingAbilities={isLoadingAbilities}
-              searchValue={searchValue}
-            />
+        <Panel className={'Invisible'} style={Styles.InnerContainer(visible)} >
+          <Panel onactivate={() => false} style={Styles.UnclickableContainer()}>
+            <Title selectedUnit={selectedUnit} />
+            <Panel style={Styles.TopContainer()}>
+              <Search setSearchValue={setSearchValue} />
+              <AbilitiesPoints
+                selectedUnit={selectedUnit}
+                text={'Ability Points:'}
+              />
+            </Panel>
+            <Panel onactivate={undefined} style={Styles.AbilitiesContainer()}>
+              <RegularAbilities
+                selectedUnit={selectedUnit}
+                regularAbilities={regularAbilities}
+                isLoadingAbilities={isLoadingAbilities}
+                searchValue={searchValue}
+              />
+              <UltimateAbilities
+                selectedUnit={selectedUnit}
+                ultimateAbilities={ultimateAbilities}
+                isLoadingAbilities={isLoadingAbilities}
+                searchValue={searchValue}
+              />
+            </Panel>
           </Panel>
         </Panel>
       )}

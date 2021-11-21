@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export const useTimeout = (callback: Function, delay: number = 0, log?: boolean) => {
+export const useTimeout = (callback: Function, delay: number = 0, deps?: unknown[]) => {
 
   const savedCallback = useRef<Function>(() => { });
 
@@ -16,14 +16,12 @@ export const useTimeout = (callback: Function, delay: number = 0, log?: boolean)
 
     // @ts-ignore
     const id = setTimeout(update, delay);
-    if (log) $.Msg("Created interval with ID: " + id);
 
     return () => {
       // @ts-ignore
       clearTimeout(id);
-      if (log) $.Msg("Clearing interval with ID: " + id);
     }
 
-  }, [delay]);
+  }, [delay, deps]);
 
 }

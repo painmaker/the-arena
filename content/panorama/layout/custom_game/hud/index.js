@@ -56221,13 +56221,14 @@ const AbilitiesShop = (props) => {
         setShopVisible(false);
     }, [visible, setShopVisible]);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { hittest: false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.OuterContainer() }, renderComponent && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'Invisible', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.InnerContainer(visible) },
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TopContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_5__.default, { setSearchValue: setSearchValue }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit, text: 'Ability Points:' })),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit, regularAbilities: regularAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit, ultimateAbilities: ultimateAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }))))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { onactivate: () => false, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.UnclickableContainer() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Title_Title__WEBPACK_IMPORTED_MODULE_4__.default, { selectedUnit: selectedUnit }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.TopContainer() },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search_Search__WEBPACK_IMPORTED_MODULE_5__.default, { setSearchValue: setSearchValue }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AbilitiesPoints_AbilitiesPoints__WEBPACK_IMPORTED_MODULE_8__.default, { selectedUnit: selectedUnit, text: 'Ability Points:' })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { onactivate: undefined, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilitiesContainer() },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RegularAbilities_RegularAbilities__WEBPACK_IMPORTED_MODULE_6__.default, { selectedUnit: selectedUnit, regularAbilities: regularAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue }),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UltimateAbilities_UltimateAbilities__WEBPACK_IMPORTED_MODULE_7__.default, { selectedUnit: selectedUnit, ultimateAbilities: ultimateAbilities, isLoadingAbilities: isLoadingAbilities, searchValue: searchValue })))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(connector(AbilitiesShop)));
 
@@ -56253,22 +56254,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const onMouseOver = (selectedUnit, abilityname) => {
-    $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_shop_image_" + abilityname), abilityname, selectedUnit);
-};
-const onMouseOut = (abilityname) => {
-    $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_shop_image_" + abilityname));
-};
-const onRightClick = (selectedUnit, abilityname) => {
-    $.Msg("onRightClick: " + abilityname);
-    GameEvents.SendCustomGameEventToServer("purchase_ability", { entindex: selectedUnit, abilityname });
-};
+let animationSchedule = -1;
 const AbilityImage = (props) => {
     // $.Msg("REACT-RENDER: AbilitiesShop - AbilityImage rendered");
     const { selectedUnit, shopAbility, searchValue } = props;
     const { name, aliases, requiredLevel } = shopAbility;
     const [isRequiredLevel, setIsRequiredLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Entities.GetLevel(selectedUnit) >= requiredLevel);
     const [isSearched, setIsSearched] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    const [isHovering, setIsHovering] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
     (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {
         setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
     }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_MEDIUM);
@@ -56281,9 +56274,19 @@ const AbilityImage = (props) => {
         });
         setIsSearched(isSearched);
     }, [aliases, searchValue]);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityImage(searchValue.length > 0, isSearched, isRequiredLevel), oncontextmenu: () => onRightClick(selectedUnit, name), onmouseout: () => onMouseOut(name), onmouseover: () => onMouseOver(selectedUnit, name) },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { id: 'ability_shop_image_' + name, abilityname: name }))));
+    const hasSearchValue = searchValue.length > 0;
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Button, { className: 'container', id: "ability_shop_image_" + name, style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.AbilityImage(hasSearchValue, isSearched, isRequiredLevel, isHovering), oncontextmenu: () => {
+            $('#ability_shop_image_' + name).RemoveClass('btnClicked');
+            $('#ability_shop_image_' + name).AddClass('btnClicked');
+            GameEvents.SendCustomGameEventToServer("purchase_ability", { entindex: selectedUnit, abilityname: name });
+        }, onmouseout: () => {
+            setIsHovering(false);
+            $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_shop_image_" + name));
+        }, onmouseover: () => {
+            setIsHovering(true);
+            $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_shop_image_" + name), name, selectedUnit);
+        } },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { abilityname: name })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(AbilityImage));
 
@@ -56302,13 +56305,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Styles": () => (/* binding */ Styles)
 /* harmony export */ });
 const Styles = {
-    AbilityImage: (hasSearchedValue, isSearched, isRequiredLevel) => ({
+    AbilityImage: (hasSearchedValue, isSearched, isRequiredLevel, isHovering) => ({
         width: '36px',
         height: '36px',
         margin: '3px',
+        transition: 'transform 0.05s ease-in-out 0.0s',
         washColor: (hasSearchedValue && !isSearched) || !isRequiredLevel ? 'grey' : 'none',
         border: hasSearchedValue && isSearched ? '1px solid orange' : '0px solid black',
-        padding: '1px',
+        padding: isHovering ? '0px' : '1px',
     }),
 };
 
@@ -56520,6 +56524,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Styles": () => (/* binding */ Styles)
 /* harmony export */ });
 const Styles = {
+    OuterContainer: () => ({
+        width: '100%',
+        height: '100%',
+        transform: 'translateX(500px)',
+    }),
     InnerContainer: (visible) => ({
         horizontalAlign: "right",
         verticalAlign: "top",
@@ -56537,10 +56546,10 @@ const Styles = {
         transform: visible ? "translateX(-510px)" : 'translateX(0px)',
         opacity: visible ? "1.0" : "0.0",
     }),
-    OuterContainer: () => ({
+    UnclickableContainer: () => ({
         width: '100%',
-        height: '100%',
-        transform: 'translateX(500px)',
+        height: 'fit-children',
+        flowChildren: "down"
     }),
     TopContainer: () => ({
         flowChildren: "right",
@@ -64816,7 +64825,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 
-const useTimeout = (callback, delay = 0, log) => {
+const useTimeout = (callback, delay = 0, deps) => {
     const savedCallback = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(() => { });
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         savedCallback.current = callback;
@@ -64827,15 +64836,11 @@ const useTimeout = (callback, delay = 0, log) => {
         }
         // @ts-ignore
         const id = setTimeout(update, delay);
-        if (log)
-            $.Msg("Created interval with ID: " + id);
         return () => {
             // @ts-ignore
             clearTimeout(id);
-            if (log)
-                $.Msg("Clearing interval with ID: " + id);
         };
-    }, [delay]);
+    }, [delay, deps]);
 };
 
 
