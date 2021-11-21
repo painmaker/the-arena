@@ -47,7 +47,7 @@ module.exports = {
           name: "[path][name].css",
           esModule: false
         },
-      },
+      }
     ],
   },
   plugins: [

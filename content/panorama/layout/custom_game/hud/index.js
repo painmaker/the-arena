@@ -62881,7 +62881,7 @@ const Minimap = (props) => {
     (0,react_panorama__WEBPACK_IMPORTED_MODULE_1__.useGameEvent)("set_zone_name", (event) => {
         setZoneName(event.zoneName);
     }, []);
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: 'minimapContainer', style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Container() },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Overlay() },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAHUDOverlayMap, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Minimap(), mapscale: props.zoom, hittest: false, hittestchildren: false, maptexture: "materials/overviews/the_arena_tga_5f0a2a04.vtex" })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { style: _Styles__WEBPACK_IMPORTED_MODULE_3__.Styles.Label(), text: zoneName })));

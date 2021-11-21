@@ -26,7 +26,7 @@ const Minimap = (props: Props) => {
   }, []);
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={'minimapContainer'} style={Styles.Container()}>
       <Panel style={Styles.Overlay()} >
         <DOTAHUDOverlayMap
           style={Styles.Minimap()}
