@@ -1,0 +1,971 @@
+/*!********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Minimap/minimap.module.css ***!
+  \********************************************************************************************************************************/
+.chIrdYtZyblNYYYGOCSI {
+  margin-left: 25px;
+  margin-bottom: 25px;
+  flow-children: down;
+  vertical-align: bottom;
+  z-index: 999;
+}
+/*!****************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/stats.module.css ***!
+  \****************************************************************************************************************************/
+.oC1j0mW0_9JGy6vDTaRi {
+  vertical-align: bottom;
+  horizontal-align: center;
+  height: 30px;
+  flow-children: right;
+  border-radius: 7px;
+  background-color: rgba(25, 25, 25, 0.85);
+  margin-bottom: 5px;
+  width: fit-children;
+  padding-right: 8px;
+  padding-left: 8px;
+} 
+/*!**********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Buttons/buttons.module.css ***!
+  \**********************************************************************************************************************************************************/
+.gJDIkhZ3utFqStslbRd7 {
+  flow-children: right;
+  horizontal-align: right;
+  margin-right: 12.5px;
+  margin-left: 12.5px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.IKfrQWWi2lBmGrJpvF9u {
+  width: 150px;
+  height: 35px;
+  border-radius: 5px;
+  margin-left: 7.5px;
+  padding: 6px 12px 6px 12px;
+  background-image: url("s2r://panorama/images/background_play_button_2x.png");
+  background-size: 228px 50px;
+  border: 1px solid #6e3f3f88;
+  transition-property: brightness, saturation;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  background-color: red;
+  box-shadow: fill black 0px 0px 1.5px 1.5px;
+  saturation: 1.0;
+  brightness: 0.5;
+}
+
+.IKfrQWWi2lBmGrJpvF9u:hover {
+  saturation: 1.1;
+  brightness: 0.75;
+}
+
+.whfmuRCQT5x3_krM3tYZ {
+  width: 150px;
+  height: 35px;
+  border-radius: 5px;
+  margin-right: 7.5px;
+  padding: 6px 12px 6px 12px;
+  background-image: url('s2r://panorama/images/background_play_button_2x.png');
+  background-size: 228px 50px;
+  border: 1px solid #30303088;
+  transition-property: brightness, saturation;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  saturation: 1.0;
+  brightness: 1.0;
+  box-shadow: fill black 0px 0px 1.5px 1.5px;
+}
+
+.whfmuRCQT5x3_krM3tYZ:hover {
+  saturation: 1.1;
+  brightness: 1.25;
+}
+
+.XZlYoPHJC72s0K4pJq_G {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px 2 #000000;
+}
+
+.Bh6SFN3gsa91_OrHaNLi {
+  width: 23px;
+  height: 23px;
+  vertical-align: center;
+  horizontal-align: center;
+}
+
+.R6506jSOCNr7V2AE69Nz {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px 2 #000000;
+}
+/*!****************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Lore/lore.module.css ***!
+  \****************************************************************************************************************************************************/
+.LftvFPwkbDhqYwIYqxeR {
+  width: 100%;
+  margin-left: 12.5px;
+  margin-right: 12.5px;
+  margin-top: 10px;
+  flow-children: down;
+}
+
+.WXcMrdFXkFOYvJ8VzquQ {
+  color: rgba(160, 160, 160, 0.35);
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin-bottom: 2.5px;
+  margin-left: 7.5px;
+}
+
+.PnIHZ3NMme7ikkidc16Q {
+  width: 100%;
+  border-radius: 5px;
+  padding: 12px;
+  background-color: rgba(50, 50, 50, 0.75);
+  /* border: 1px solid black; */
+}
+
+.Z8GXYuUi1_aRG7K2C2KC {
+  font-style: italic;
+  font-size: 16px;
+  color: rgb(161, 163, 140);
+  font-weight: lighter;
+  text-shadow: 1px 1px 2px 2 #000000;   
+  overflow: squish;
+}
+/*!************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Heroname/heroname.module.css ***!
+  \************************************************************************************************************************************************************/
+.FTa_3vMX52nRn1sXAEFl {
+  width: 100%;
+  margin-left: 12.5px;
+  margin-right: 12.5px;
+  margin-top: 10px;
+  padding: 5px;
+  flow-children: right;
+  border-radius: 5px;
+  background-color: rgba(50, 50, 50, 0.5);
+  box-shadow: fill black -2px -1px 3px 4px;
+}
+
+.fxH6DtBgQHRuTXEXzDd8 {
+  width: 32px;
+  height: 32px;
+  background-size: 100%;
+  background-position: center;
+  vertical-align: center;
+  margin-left: 5px;
+}
+
+.iUFKlT2XXc3v2ey9XdeD {
+  color: white;
+  font-size: 34px;
+  padding-left: 12.5px;
+  padding-bottom: 1.5px;
+}
+
+.VBBoC2d4c_OnYJig67MS {
+  flow-children: right;
+  horizontal-align: right;
+  vertical-align: center;
+  margin-right: 5px;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 8px;
+  border-radius: 5px;
+  max-width: 400px;
+}
+
+.XfZsBIFZlylelwwG16HZ {
+  vertical-align: center;
+}
+
+.ztzVqtYaiSBMo6VC5a_S {
+  flow-children: right;
+  margin-left: 5px;
+  height: 100%;
+}
+
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Stats/stats.module.css ***!
+  \******************************************************************************************************************************************************/
+.vTGgzlb6B9XfFPlZUfXY {
+  width: fill-parent-flow(1);
+  margin-left: 7.5px;
+  margin-right: 12.5px;
+  margin-top: 10px;
+  flow-children: down;
+}
+
+.AUEZoyiVz98PhzJEUhyp {
+  color: rgba(160, 160, 160, 0.35);
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin-bottom: 2.5px;
+  margin-left: 7.5px;
+  text-transform: uppercase;
+}
+
+.XGf2sy9QLQrfwP9VxJLP {
+  width: 100%;
+  background-color: rgba(50, 50, 50, 0.75);
+  border-radius: 5px;
+  padding: 2px;
+  flow-children: right;
+}
+
+.cDGGuKFpOz8crlSTUAm4 {
+  width: fill-parent-flow(1);
+  flow-children: down;
+  padding-top: 1px;
+}
+
+.o3T0mfr_JP91VLbeiuOj {
+  flow-children: right;
+  horizontal-align: center;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  margin: 2.5px;
+  border-radius: 5px;
+}
+
+.Ad8hUJ6DZ2eek8ttxfnn {
+  flow-children: right;
+  horizontal-align: center;
+}
+
+.nFsqLuTdFNNBU2zku99G {
+  vertical-align: middle;
+  color: white;
+  font-size: 18px;
+  padding-left: 10px;
+  padding-top: 1px;
+  text-shadow: 1px 1px 2px 2 #000000;   
+  min-width: 40px;
+  text-align: center;
+}
+
+.yfZIEKGOBYoTHLAekxsZ {
+  width: 22px;
+  height: 22px;
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+.mdnauyCLpXm_qaCDZxlF {
+  background-image: url("file://panorama/images/icon_damage_psd.png");
+  margin-right: 2px;
+}
+
+.dOvAWCZtGQPKuYiKeOS6 {
+  background-image: url("file://panorama/images/icon_armor_psd.png");
+  horizontal-align: center;
+}
+
+.D2fSLi1XDjZo2vkp8R1w {
+  background-image: url("file://panorama/images/icon_speed_psd.png");
+}
+
+.IjVaWP4uoZhxHKIH3Stt {
+  background-image: url("file://panorama/images/icon_attack_speed2_psd.png");
+}
+
+.h8ANtCEj1VfmDU_8Q0wt {
+  background-image: url("file://panorama/images/icon_attack_speed3_psd.png");
+}
+
+.yljvvOCvMaXbcJVB1Zld {
+  background-image: url("file://panorama/images/icon_attack_range_psd.png");
+}
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Title/title.module.css ***!
+  \******************************************************************************************************************************************************/
+.atFX8M54hcQvRTizJEo4 {
+  width: 100%;
+  /* background-color: rgba(30, 30, 30, 0.525); */
+  background-color: rgba(40, 40, 40, 0.5);
+  border-bottom: 1px solid black;
+}
+
+.QN8mO4MWeSrUkguEFTwo {
+  color: rgba(200, 200, 200, 0.45);
+  font-size: 15px;
+  vertical-align: center;
+  horizontal-align: left;
+  font-weight: lighter;
+  letter-spacing: 1.5px;
+  padding-top: 2.5px;
+  padding-left: 10px;
+}
+
+.vEVpS9O62JUz9JA3HhK6 {
+  vertical-align: center;
+  horizontal-align: right;
+  height: 24px;
+  width: 24px;
+  padding: 2px;
+  margin-right: 2.5px;
+  opacity: 0.75;
+  transition: transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s;
+  wash-color:  rgba(100, 100, 100, 0.5);
+}
+
+.vEVpS9O62JUz9JA3HhK6:hover {
+  wash-color: rgba(100, 100, 100, 0.25);
+  transform: scale3d(1.1, 1.1, 0);
+}
+
+
+
+/*!********************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Abilities/Ability/ability.module.css ***!
+  \********************************************************************************************************************************************************************/
+
+.oRxWrYenh036i5EbwHgX {
+  width: 48px;
+  height: 48px;
+  margin: 2.5px;
+  border: 1px solid black;
+  brightness: 1.0;
+  transition-property: transform, box-shadow;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  transform: scaleX(1) scaleY(1);
+}
+
+.oRxWrYenh036i5EbwHgX:hover {
+  brightness: 1.25;
+  transform: scaleX(1.025) scaleY(1.025);
+}
+/*!**************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Abilities/abilities.module.css ***!
+  \**************************************************************************************************************************************************************/
+.QW3ujqRrDd7PasQ1EhoS {
+  margin-left: 12.5px;
+  margin-right: 6.25px;
+  margin-top: 10px;
+  flow-children: down;
+}
+
+.f2JjWgTQ31_JRcj9Mr7a {
+  color: rgba(160, 160, 160, 0.35);
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin-bottom: 2.5px;
+  margin-left: 7.5px;
+}
+
+.t5dIvihY7sCf5eidK1Dh {
+  /* width: 100%; */
+  background-color: rgba(50, 50, 50, 0.75);
+  border-radius: 5px;
+  flow-children: right;
+  padding: 5px;
+}
+
+/*!**********************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/HealthAndMana/HealthAndMana.module.css ***!
+  \**********************************************************************************************************************************************************************/
+.Nt9TIfV43WZ9GF4LInRe {
+  width: fill-parent-flow(1);
+  margin-left: 6.25px;
+  margin-right: 12.5px;
+  margin-top: 10px;
+  flow-children: down;
+  min-width: 200px;
+}
+
+.jzhXrRUFzfr4IcTITYO8 {
+  color: rgba(160, 160, 160, 0.35);
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin-bottom: 2.5px;
+  margin-left: 7.5px;
+}
+
+.rN9wQ52nCS1Q5GYtzbbi {
+  width: 100%;
+  background-color: rgba(50, 50, 50, 0.75);
+  border-radius: 5px;
+  padding: 5px;
+  flow-children: down;
+  height: 65px;
+}
+
+.YWiVQ1AfM0hEWh_NmtQh {
+  width: 100%;
+  height: fill-parent-flow(1);
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#1A3D1A), color-stop(0.2, #67A163), color-stop(0.5,#187019), to(#175D17));
+  border-radius: 5px;
+}
+
+.ZaOpJlnxQOGsOdebtiEQ {
+  width: 100%;
+  height: fill-parent-flow(1);
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#6A90BA ), color-stop(0.4, #144B91), to(#2E5187));
+  border-radius: 5px;
+  margin-top: 3px;
+}
+
+.ilXuUwS9R1TRXbxiQ7xg {
+  vertical-align: center;
+  horizontal-align: center;
+  color: white;
+  font-size: 16px;
+}
+
+.Trjc8UofnxqdNO8hzElW {
+  color: white;
+  font-size: 16px;
+  padding-right: 5px;
+  vertical-align: center;
+  horizontal-align: right;
+}
+/*!****************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Attributes/attributes.module.css ***!
+  \****************************************************************************************************************************************************************/
+.hdQJIA4JYL5WvBawXjTs {
+  width: fill-parent-flow(1.75);
+  margin-left: 12.5px;
+  margin-top: 10px;
+  flow-children: down;
+}
+
+.Ni6T_CjIDDJoH6VJr4oS {
+  color: rgba(160, 160, 160, 0.35);
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin-bottom: 2.5px;
+  margin-left: 7.5px;
+  text-transform: uppercase;
+}
+
+.xbrnoJt3163bmzreDxuX {
+  width: 100%;
+  background-color: rgba(50, 50, 50, 0.75);
+  border-radius: 5px;
+  padding: 2px;
+  flow-children: right;
+}
+
+.acm9rVZ6uC6Yq5nG6gM3 {
+  flow-children: down;
+  width: fill-parent-flow(1);  
+}
+
+.P3c7P6tMZYS0OhcGVzQG {
+  flow-children: down;
+  width: fill-parent-flow(2.5);
+}
+
+.MVSoecfo5X8hmTAQ_sNQ {
+  flow-children: right;
+  horizontal-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 2.5px;
+  padding: 5px;
+  border-radius: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.Uj5agWw7khfOdbsBP3c5 {
+  width: fill-parent-flow(1);
+  vertical-align: center;
+}
+
+.ay6Lbb4LEh7ZIzdqL2Bx {
+  width: 22px;
+  height: 22px;
+  vertical-align: center;
+  background-size: contain;
+}
+
+.AB6AiEZ0pv6aLmGucgaH {
+  background-image: url("file://panorama/images/primary_attribute_icon_agility.png");
+}
+
+.INo16oOeJKlzsh27vPtb {
+  background-image: url("file://panorama/images/primary_attribute_icon_strength.png");
+}
+
+.USRmNr8ohVdEirKeRl9b {
+  background-image: url("file://panorama/images/primary_attribute_icon_intelligence.png");
+}
+
+.FVPM1G4mkAPIwqDVHqbf {
+  flow-children: right;
+  height: 100%;
+}
+
+.A3ZWujZx0iJeFtc7du4E {
+  color: white;
+  padding-left: 10px;
+  vertical-align: center;
+  horizontal-align: left;
+  font-size: 16px;  
+}
+
+.v7JHquj0okWOXyOWmjnG {
+  color: green;
+  padding-left: 1px;
+  vertical-align: center;
+  horizontal-align: left;
+  font-size: 16px;  
+}
+
+.z2NXrYEJ0xl1mPU6tPk5 {
+  width: fill-parent-flow(1);
+  text-align: center;
+  padding-top: 2px;
+  font-size: 14px;
+  height: 22px;
+}
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/description.module.css ***!
+  \******************************************************************************************************************************************************/
+.DmBJFNFl3fZp4VFfrrdO {
+  vertical-align: center;
+  horizontal-align: right;
+  width: 800px;
+  margin-right: 100px;
+  margin-bottom: 200px;
+  border-radius: 5px;
+  opacity: 0.0;
+  pre-transform-scale2d: 0.5;
+  transition-property: opacity, pre-transform-scale2d;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+  flow-children: down;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+
+/*!***********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Heroes/Hero/hero.module.css ***!
+  \***********************************************************************************************************************************************/
+.enZWCPv6ejmz3lnsfEhn {
+  width: 70px;
+  height: 84px;
+  margin: 5px;
+  border: 2px solid black;
+  box-shadow: fill rgba(90, 90, 90, 0.2) 0px 0px 1px 1px;
+}
+
+.RmTTLfhzGMHMrAHUrFDP {
+  background-color: whitesmoke;
+  width: 100%;
+  height: 4px;
+  z-index: 10;
+  vertical-align: bottom;
+}
+
+.OYHzLa3YF4KpST_ohRYN {
+  transition-property: transform;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  vertical-align: center;
+  horizontal-align: center;
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-color: rgba(65, 65, 65, 0.5);
+}
+
+.yztuWGuxPqwQiBiJqn8T { 
+  width: 100%;
+  height: 100%; 
+  z-index: 10;
+}
+
+._SJZhLOFc8fgCf2PEl4p {
+  width: 32px;
+  height: 32px;
+  z-index: 10;
+  vertical-align: bottom;
+  horizontal-align: center;
+  margin-bottom: 15px;
+}
+/*!********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Heroes/heroes.module.css ***!
+  \********************************************************************************************************************************************/
+.m6Lfc8iiLkiGx07twUsw {
+  vertical-align: bottom;
+  horizontal-align: left;
+  margin-bottom: 58px;
+  margin-left: 75px;
+  flow-children: down;
+}
+
+.fFWe_lY8Y24pi1ClosRV {
+  font-size: 16px;
+  color: rgb(200, 200, 200);
+  vertical-align: center;
+  horizontal-align: left;
+  text-shadow: 1px 1px 2px 2 #000000;
+  letter-spacing: 0.9px;
+  margin-bottom: -8px;
+  z-index: 10;
+  padding-left: 5px;
+} 
+
+.jacncJS7Wg1l63vEMnww {
+  background-color: rgba(0, 0, 0, 0.85);
+  flow-children: right;
+  padding: 5px;
+}
+
+.tnL9GeruCOgsehAJSHC9 {
+  width: 70px;
+  height: 84px;
+  border: 2px solid black;
+  margin: 5px;
+}
+
+.ZL7ev3qlpDqeCtD2gLkt {
+  width: 100%;
+  height: 100%;
+  background-image: url("file://panorama/images/random_dice.png");
+  background-size: contain;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  wash-color: rgba(0, 0, 0, 0.5);
+  transition: transform 0.1s ease-in-out 0.0s;
+}
+
+.ZL7ev3qlpDqeCtD2gLkt:hover {
+  transform: scale3d(1.05, 1.05, 0);
+}
+
+/*!****************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/RandomHeroDialog/randomHeroDialog.module.css ***!
+  \****************************************************************************************************************************************************************/
+.UQI5cQxOG3lfqnOdPCvK {
+  vertical-align: bottom;
+  margin-bottom: 175px;
+  margin-left: 432px;
+  opacity: 0.0;
+  pre-transform-scale2d: 0.5;
+  transition-property: opacity, pre-transform-scale2d;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  flow-children: down;
+  z-index: 9999;
+}
+
+.MykYAeZT_qVCBuUsT3km {
+  width: 325px;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 5px;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.95);
+}
+
+.wMjLJtzK3tq9SmKK1tZw {
+  flow-children: down;
+  vertical-align: center;
+  horizontal-align: center;
+}
+
+.vP5TO4AaDnOo3zQuxoQ5 {
+  font-size: 18px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  padding-bottom: 25px;
+}
+
+.oouvrI9bObQJwWyQqkYQ {
+  vertical-align: bottom;
+  horizontal-align: center;
+  flow-children: right;
+  margin: 10px;
+}
+
+
+.fLeBGzGHJP4b0nqZWWKK {
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+.HTSVwaBKJUf3hIZnYE3x {
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1.05px;
+}
+
+.HTSVwaBKJUf3hIZnYE3x:hover {
+  color: wheat;
+}
+
+.fOCLGc3UwgoBvOmYvgw7 {
+  background-image: url("file://panorama/images/tooltip_arrow_top.png");
+  background-size: contain;
+  wash-color: rgb(0, 0, 0);
+  horizontal-align: center;
+  width: 30px;
+  height: 30px;
+  margin-top: -5px;
+  pre-transform-rotate2d: 180deg;
+}
+/*!****************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/RemainingPlayers/RemainingPlayers.module.css ***!
+  \****************************************************************************************************************************************************************/
+.jUHEGvF4z0x8URpUmy80 {
+  vertical-align: bottom;
+  horizontal-align: left;
+  margin-bottom: 173px;
+  margin-left: 205px;
+  flow-children: down;
+}
+
+.ZVyj8Q88Go4IWx33io0f {
+  font-size: 14px;
+  color: rgb(200, 200, 200);
+  vertical-align: center;
+  horizontal-align: center;
+  text-shadow: 1px 1px 2px 2 #000000;
+  letter-spacing: 0.9px;
+  margin-bottom: -10px;
+  z-index: 10;
+}
+
+.q2pf0UCvRtQIIjyEQsMn {
+  background-color: rgba(0, 0, 0, 0.85);
+  min-width: 150px;
+  height: 39px;
+  flow-children: right;
+  padding-Top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/*!******************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Timer/timer.module.css ***!
+  \******************************************************************************************************************************************/
+.lQr_Sh80HW69gDfz_WEA {
+  vertical-align: bottom;
+  horizontal-align: left;
+  flow-children: down;
+  margin-left: 75px;
+  margin-bottom: 173px;
+}
+
+.bbJZuL9zaapxLe2R2VAj {
+  font-size: 14px;
+  color: rgb(200, 200, 200);
+  vertical-align: center;
+  horizontal-align: center;
+  text-shadow: 1px 1px 2px 2 #000000;
+  letter-spacing: 0.9px;
+  margin-bottom: -10px;
+  z-index: 10;
+}
+
+.eo7jDUEpcoLndTJ74nFe {
+  width: 125px; 
+  height: 39px;
+  padding: 1px;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.Hgq8WtZoDKv9OqZ5P8NM {
+  font-size: 17px;
+  color: white;
+  vertical-align: center;
+  horizontal-align: center;
+  text-shadow: 1px 1px 2px 2 #000000;
+  letter-spacing: 0.9px;
+  padding-top: 6px;
+  font-family: ui-monospace;
+}
+
+
+/*!********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/heroSelection.module.css ***!
+  \********************************************************************************************************************************************/
+.Ka3RWaSlOAedm6cAtszv {
+  width: fill-parent-flow(1);
+  height: fill-parent-flow(1);
+  background-color: rgb(0, 0, 0);
+}
+
+.qK5omzuGZH2RrKtnOWeF {
+  width: 100%;
+  height: 100%;
+  vertical-align: center;
+  horizontal-align: center;
+  background-color: rgb(29, 39, 46);
+  color: antiquewhite;
+}
+/*!*****************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./hud/global.css ***!
+  \*****************************************************************************************************/
+.root {
+  width: 100%;
+  height: 100%;
+}
+ 
+
+
+.Invisible {
+  opacity: 0.0;
+}
+
+.EmptyCircle {
+  clip: radial(50% 50%, 0.0deg, 0.0deg);
+}
+
+Slider {
+  margin-bottom: 0px;
+}
+
+Slider.HorizontalSlider {
+  width: 420px;
+  height: 30px;
+  vertical-align: center;
+}
+
+ProgressBar {
+  box-shadow: 0px 0px 0px 0 black;
+}
+
+#ChatTargetLabel {
+  visibility: collapse;
+  opacity: 0.0;
+}
+
+.manaProgressBar .ProgressBarLeft {
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #2b4287 ), color-stop(0.2, #4165ce ), color-stop(.5, #314da0), to(#2b4287) );
+  border-radius: 1px;
+  transition-property: width;
+  transition-duration: 0.0s;
+  transition-timing-function: linear;
+}
+ 
+.healthProgressBar .ProgressBarLeft {
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #00ff00 ), to( #004c00 ) );
+  border-radius: 1px;
+  transition-property: width;
+  transition-duration: 0.0s;
+  transition-timing-function: linear;
+}
+
+.healthProgressBarEnemy .ProgressBarLeft {
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #5D2E25 ), color-stop( 0.2, #A54E39 ), color-stop( .5, #904030), to( #5D2C25) );
+  border-radius: 1px;
+  transition-property: width;
+  transition-duration: 0.0s;
+  transition-timing-function: linear;
+}
+
+#inventoryItemDraggedItem {
+  width: 60px;
+  height: 45px;
+  border-radius: 5px;
+}
+
+/* MINIMAP START */
+
+.MinimapImage
+{
+  width: 10px;
+  height: 10px;
+	background-image: url("file://panorama/images/minimap_creep_icon.png");	
+	background-position: center;
+  background-size: contain;	
+  background-repeat: no-repeat;
+  wash-color: #0f0;
+  z-index: 1;
+}
+
+.MinimapImage.Enemy
+{
+  wash-color: red;
+  z-index: 2;
+}
+
+.MinimapImage.Boss
+{
+  width: 35px;
+  height: 35px;
+  z-index: 3;
+  background-image: url("file://panorama/images/minimap_boss_icon.png");		
+}
+
+.MinimapImage.shopkeeper_abilities
+{
+  wash-color: orange;
+  width: 20px;
+  height: 20px;
+  background-image: url("s2r://panorama/images/book_open_page_variant_outline_png.vtex");	
+}
+
+.minimap > DOTAHeroImage
+{
+	width: 30px;
+	height: 30px;
+	opacity: 1.0;
+	z-index: 1;
+}
+
+/* MINIMAP END */
+
+@keyframes 'btnClicked' {
+
+  0% {
+    transform: scale3d(0.95, 0.95, 0);
+  }
+
+  100% {
+    transform: scale3d(1.0, 1.0, 0);
+  }
+
+}
+
+.btnClicked {
+  animation-name: btnClicked;
+  animation-duration: 0.05s;
+}
+/*!*********************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/app.module.css ***!
+  \*********************************************************************************************************/
+.Mq7q2v4FcXEkxx3KS7_R {
+  width: 100%;
+  height: 100%;
+}
+
+.qUIA03sEiYytt60Alfl5 {
+  vertical-align: top;
+  horizontal-align: right;
+  margin-top: 50px;
+  margin-right: 10px;
+}
+
+.TwhFbl98P1nuj4pIMQTZ {
+  color: white;
+  font-size: 16px;
+  text-shadow: 1px 1px 2px 2 black;
+  padding-bottom: 3px;
+}

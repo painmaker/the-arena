@@ -1,5 +1,6 @@
 import React from "react";
 import { FocusedHero } from "../../../../types/heroSelectionTypes";
+import Styles from './HealthAndMana.module.css';
 
 type Props = {
   focusedHero: FocusedHero,
@@ -8,26 +9,26 @@ type Props = {
 const HealthAndMana = (props: Props) => {
 
   return (
-    <Panel className={'heroSelectionDescriptionHealthAndManaOuterContainer'}>
-      <Label className={'heroSelectionDescriptionHealthAndManaTitleLabel'} text={"HEALTH & MANA"} />
-      <Panel className={'heroSelectionDescriptionHealthAndManaInnerContainer'}>
-        <Panel className={'heroSelectionDescriptionHealthContainer'}>
+    <Panel className={Styles.outerContainer}>
+      <Label className={Styles.titleLabel} text={"HEALTH & MANA"} />
+      <Panel className={Styles.innerContainer}>
+        <Panel className={Styles.healthContainer}>
           <Label
-            className={'heroSelectionDescriptionHealthAndManaLabel'}
+            className={Styles.healthAndManaLabel}
             text={props.focusedHero.health + ' / ' + props.focusedHero.health}
           />
           <Label
-            className={'heroSelectionDescriptionRegenLabel'}
+            className={Styles.regenLabel}
             text={'+ ' + props.focusedHero.healthRegen}
           />
         </Panel>
-        <Panel className={'heroSelectionDescriptionManaContainer'}>
+        <Panel className={Styles.manaContainer}>
           <Label
-            className={'heroSelectionDescriptionHealthAndManaLabel'}
+            className={Styles.healthAndManaLabel}
             text={props.focusedHero.mana + ' / ' + props.focusedHero.mana}
           />
           <Label
-            className={'heroSelectionDescriptionRegenLabel'}
+            className={Styles.regenLabel}
             text={'+ ' + props.focusedHero.manaRegen}
           />
         </Panel>

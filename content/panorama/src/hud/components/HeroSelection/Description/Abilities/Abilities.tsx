@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { FocusedHero } from "../../../../types/heroSelectionTypes";
 import Ability from "./Ability/Ability";
+import Styles from './abilities.module.css'
 
 type Props = {
   focusedHero: FocusedHero,
@@ -8,9 +9,9 @@ type Props = {
 
 const Abilities = (props: Props) => {
   return (
-    <Panel className={'heroSelectionDescriptionAbilitiesOuterContainer'}>
-      <Label className={'heroSelectionDescriptionAbilitiesTitleLabel'} text={"ABILITIES"} />
-      <Panel className={'heroSelectionDescriptionAbilitiesInnerContainer'}>
+    <Panel className={Styles.container}>
+      <Label className={Styles.label} text={"ABILITIES"} />
+      <Panel className={Styles.abilitiesContainer}>
         {Object.values(props.focusedHero.abilities).map((ability) => (
           <Ability
             key={ability}

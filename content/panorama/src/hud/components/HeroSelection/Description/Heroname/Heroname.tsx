@@ -1,6 +1,7 @@
 import React from "react";
 import { useNetTableValues } from "react-panorama";
 import { FocusedHero } from "../../../../types/heroSelectionTypes";
+import Styles from './heroname.module.css';
 
 const attributeToImage = (attribute: string) => {
   if (attribute === 'DOTA_ATTRIBUTE_AGILITY') {
@@ -19,6 +20,15 @@ type Props = {
   focusedHero: FocusedHero,
 }
 
+const avatar: Partial<VCSSStyleDeclaration> = {
+  width: '24px',
+  height: '24px',
+  border: '1px solid rgba(0, 0, 0, 0.5)',
+  borderRadius: '5px',
+  verticalAlign: 'center',
+  horizontalAlign: 'right',
+};
+
 const Heroname = (props: Props) => {
 
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
@@ -29,32 +39,27 @@ const Heroname = (props: Props) => {
     .map(hero => Game.GetPlayerInfo(hero.playerID).player_steamid);
 
   return (
-    <Panel className={'heroSelectionDescriptionNameContainer'}>
+    <Panel className={Styles.container}>
       <Panel
-        className={'heroSelectionDescriptionNameAttributeImage'}
-        style={{
-          backgroundImage: attributeToImage(props.focusedHero.attribute)
-        }} />
+        className={Styles.attributeImage}
+        style={{ backgroundImage: attributeToImage(props.focusedHero.attribute) }}
+      />
       <Label
-        className={'heroSelectionDescriptionNameLabel'}
+        className={Styles.heronameLabel}
         text={$.Localize(props.focusedHero.heroname)}
       />
       {steamIds.length > 0 && (
-        <Panel className={'heroSelectionDescriptionPlayerContainer'}>
-          <Label text={'Selected by: '} style={{ verticalAlign: 'center' }} />
-          <Panel style={{ flowChildren: 'right', marginLeft: '5px', height: '100%' }}>
+        <Panel className={Styles.avatarOuterContainer}>
+          <Label
+            className={Styles.selectedByLabel}
+            text={'Selected by: '}
+          />
+          <Panel className={Styles.avatarInnerContainer}>
             {steamIds.map(steamid => (
               <DOTAAvatarImage
                 key={steamid}
                 steamid={steamid}
-                style={{
-                  width: '24px',
-                  height: '24px',
-                  border: '1px solid rgba(0, 0, 0, 0.5)',
-                  borderRadius: '5px',
-                  verticalAlign: 'center',
-                  horizontalAlign: 'right',
-                }}
+                style={avatar}
               />
             ))}
           </Panel>

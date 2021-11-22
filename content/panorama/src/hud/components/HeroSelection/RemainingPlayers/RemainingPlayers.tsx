@@ -1,34 +1,6 @@
 import React from 'react'
 import { useNetTableValues } from 'react-panorama';
-
-const wrapper: Partial<VCSSStyleDeclaration> = {
-  verticalAlign: 'bottom',
-  horizontalAlign: 'left',
-  marginBottom: '173px',
-  marginLeft: '205px',
-  flowChildren: 'down',
-}
-
-const label: Partial<VCSSStyleDeclaration> = {
-  fontSize: '14px',
-  color: 'rgb(200, 200, 200)',
-  verticalAlign: 'center',
-  horizontalAlign: 'center',
-  textShadow: '1px 1px 2px 2 #000000',
-  letterSpacing: '0.9px',
-  marginBottom: '-10px',
-  zIndex: 10,
-}
-
-const imagesContainer: Partial<VCSSStyleDeclaration> = {
-  backgroundColor: 'rgba(0, 0, 0, 0.85)',
-  minWidth: '150px',
-  height: '39px',
-  flowChildren: 'right',
-  paddingTop: '5px',
-  paddingLeft: '5px',
-  paddingRight: '5px',
-}
+import Styles from './RemainingPlayers.module.css';
 
 const avatar: Partial<VCSSStyleDeclaration> = {
   width: '20px',
@@ -56,9 +28,9 @@ const RemainingPlayers = () => {
   }
 
   return (
-    <Panel style={wrapper}>
-      <Label style={label} text={'Players Remaining'} />
-      <Panel style={imagesContainer} >
+    <Panel className={Styles.container}>
+      <Label className={Styles.label} text={'Players Remaining'} />
+      <Panel className={Styles.imagesContainer} >
         {unpickedPlayerIDs.map(id => (
           <DOTAAvatarImage
             key={id}

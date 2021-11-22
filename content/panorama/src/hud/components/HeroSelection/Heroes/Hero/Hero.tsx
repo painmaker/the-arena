@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNetTableValues } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../../../reducers/rootReducer";
+import Styles from "./hero.module.css";
 
 const mapStateToProps = (state: RootState) => ({
   focusedHero: state.heroSelectionReducer.focusedHero,
@@ -29,19 +30,19 @@ const Hero = (props: Props) => {
     .map(hero => Game.GetPlayerInfo(hero.playerID).player_steamid);
 
   return (
-    <Panel className={"heroSelectionHeroContainer"}>
+    <Panel className={Styles.container}>
       <Panel
-        className={'heroSelectionSelectedHeroBorder'}
+        className={Styles.border}
         style={{ visibility: isFocused ? 'visible' : 'collapse' }}
       />
       {isPicked && (
         <Image
-          className={'heroSelectionSelectedHeroLock'}
+          className={Styles.lock}
           src="s2r://panorama/images/lock_white_png.vtex"
         />
       )}
       {steamIds.length === 1 && (
-        <Panel style={{ width: '100%', height: '100%', zIndex: 10 }}>
+        <Panel className={Styles.avatarContainer}>
           <DOTAAvatarImage
             steamid={steamIds[0]}
             style={{
@@ -65,7 +66,7 @@ const Hero = (props: Props) => {
         }}
       >
         <DOTAHeroImage
-          className={'heroSelectionHeroImage'}
+          className={Styles.image}
           heroname={heroname}
           heroimagestyle={'portrait'}
           style={{

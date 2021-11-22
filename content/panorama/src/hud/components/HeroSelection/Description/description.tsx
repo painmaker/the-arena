@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
 import { resetFocusedHero } from "../../../actions/heroSelectionActions";
@@ -11,8 +11,9 @@ import Title from "./Title/Title";
 import Abilities from "./Abilities/Abilities";
 import HealthAndMana from "./HealthAndMana/HealthAndMana";
 import Attributes from "./Attributes/Attributes";
-import { HUD_THINK_FAST, HUD_THINK_SLOW } from "../../../App";
+import { HUD_THINK_FAST } from "../../../App";
 import { useTimeout } from "../../../hooks/useTimeout";
+import Styles from './description.module.css'
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
   resetFocusedHero: () => dispatch(resetFocusedHero()),
@@ -39,7 +40,7 @@ const Description = (props: Props) => {
     <React.Fragment>
       {renderComponent && (
         <Panel
-          className={"heroSelectionDescriptionContainer"}
+          className={Styles.container}
           style={{
             opacity: focusedHero ? '1.0' : '0.0',
             preTransformScale2d: focusedHero ? '1.0' : '0.5',

@@ -1,5 +1,6 @@
 import React from "react";
 import { FocusedHero } from "../../../../types/heroSelectionTypes";
+import Styles from './lore.module.css';
 
 type Props = {
   focusedHero: FocusedHero,
@@ -8,10 +9,10 @@ type Props = {
 const Lore = (props: Props) => {
 
   return (
-    <Panel className={'heroSelectionDescriptionLoreOuterContainer'}>
-      <Label className={'heroSelectionDescriptionLoreTitleLabel'} text={"LORE"} />
-      <Panel className={'heroSelectionDescriptionLoreInnerContainer'}>
-        <Label className={'heroSelectionDescriptionLoreLabel'} text={$.Localize(props.focusedHero.lore)} />
+    <Panel className={Styles.outerContainer}>
+      <Label className={Styles.titleLabel} text={"LORE"} />
+      <Panel className={Styles.innerContainer}>
+        <Label className={Styles.loreLabel} text={$.Localize(props.focusedHero.lore)} />
       </Panel>
     </Panel>
   );

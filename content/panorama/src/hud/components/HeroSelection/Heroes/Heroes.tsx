@@ -4,6 +4,7 @@ import { Dispatch } from "redux";
 import { HeroSelectionActionTypes } from "../../../types/heroSelectionTypes";
 import Hero from "./Hero/Hero";
 import { setRandomHeroDialogVisible } from "../../../actions/heroSelectionActions";
+import Styles from './heroes.module.css';
 
 const selectableHeronames = [
   'npc_dota_hero_dragon_knight',
@@ -27,9 +28,9 @@ type Props = PropsFromRedux & {
 
 const Heroes = (props: Props) => {
   return (
-    <Panel className={"heroSelectionHeroesOuterContainer"}>
-      <Label className={'heroSelectionHeroesLabel'} text={'Heroes'} />
-      <Panel className={"heroSelectionHeroesInnerContainer"}>
+    <Panel className={Styles.outerContainer}>
+      <Label className={Styles.label} text={'Heroes'} />
+      <Panel className={Styles.innerContainer}>
         {selectableHeronames.map(heroname => (
           <Hero
             key={heroname}
@@ -37,13 +38,13 @@ const Heroes = (props: Props) => {
           />
         ))}
         <Button
-          className={'heroSelectionHeroesRandomBtnContainer'}
+          className={Styles.btnContainer}
           onactivate={() => {
             Game.EmitSound("ui_topmenu_select");
             props.setRandomHeroDialogVisible(true);
           }}
         >
-          <Image className={'heroSelectionHeroesRandomBtnImage'} />
+          <Image className={Styles.btnImage} />
         </Button>
       </Panel>
     </Panel>

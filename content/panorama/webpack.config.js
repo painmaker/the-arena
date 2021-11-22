@@ -1,7 +1,7 @@
 const path = require("path");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const { PanoramaManifestPlugin, PanoramaTargetPlugin } = require("@aabao/webpack-panorama");
 const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const isProduction = false;
 
@@ -12,10 +12,12 @@ module.exports = {
     minimize: isProduction,
     minimizer: [new TerserPlugin({})],
   },
+  entry: "./hud/index.tsx",
   context: path.resolve(__dirname, "src"),
   output: {
-    path: path.resolve(__dirname, "layout/custom_game"),
-    publicPath: "file://{resources}/layout/custom_game/",
+    filename: 'index.js',
+    path: path.resolve(__dirname, "layout/custom_game/hud"),
+    publicPath: "file://{resources}/layout/custom_game/hud",
   },
   resolve: {
     extensions: [".ts", ".tsx", "..."],
@@ -24,38 +26,42 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.xml$/,
-        loader: "@aabao/webpack-panorama/lib/layout-loader"
+        test: /\.css$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              url: false,
+              importLoaders: 1,
+              modules: true,
+            },
+          },
+        ],
+        include: /\.module\.css$/,
       },
       {
-        test: /\.[jt]sx?$/,
-        issuer: /\.xml$/,
-        loader: "@aabao/webpack-panorama/lib/entry-loader"
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              url: false,
+            },
+          }
+        ],
+        exclude: /\.module\.css$/,
       },
       {
         test: /\.tsx?$/,
         loader: "ts-loader",
-        options: {
-          transpileOnly: true
-        }
-      },
-      {
-        test: /\.css$/,
-        issuer: /\.xml$/,
-        loader: "file-loader",
-        options: {
-          name: "[path][name].css",
-          esModule: false
-        },
       }
     ],
   },
   plugins: [
-    new PanoramaTargetPlugin(),
-    new PanoramaManifestPlugin({
-      entries: [
-        { import: "./hud/index.xml", type: "Hud" },
-      ],
+    new MiniCssExtractPlugin({
+      filename: "index.css",
     }),
     new ForkTsCheckerWebpackPlugin({
       typescript: {

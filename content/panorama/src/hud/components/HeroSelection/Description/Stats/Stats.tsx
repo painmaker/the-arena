@@ -1,5 +1,6 @@
 import React from "react";
 import { FocusedHero } from "../../../../types/heroSelectionTypes";
+import Styles from './stats.module.css'
 
 type Props = {
   focusedHero: FocusedHero,
@@ -7,46 +8,46 @@ type Props = {
 
 const Stats = (props: Props) => {
   return (
-    <Panel className={'heroSelectionDescriptionStatsOuterContainer'}>
-      <Label className={'heroSelectionDescriptionStatsTitleLabel'} text={"Stats"} />
-      <Panel className={'heroSelectionDescriptionStatsInnerContainer'}>
-        <Panel className={'heroSelectionDescriptionStatsColumn'}>
-          <Panel className={'heroSelectionDescriptionStatsColumnEntry'} style={{ marginTop: '1px' }}>
-            <Panel style={{ flowChildren: 'right', horizontalAlign: 'center' }}>
-              <Panel className={'heroSelectionDescriptionStatsImage heroSelectionDescriptionStatsDamageImage'} />
-              <Label className={'heroSelectionDescriptionStatsLabel'} text={props.focusedHero.damage} />
+    <Panel className={Styles.outerContainer}>
+      <Label className={Styles.title} text={"Stats"} />
+      <Panel className={Styles.innerContainer}>
+        <Panel className={Styles.column}>
+          <Panel className={Styles.columnEntryOuterContainer}>
+            <Panel className={Styles.columnEntryInnerContainer}>
+              <Panel className={`${Styles.image} ${Styles.damageImage}`} />
+              <Label className={Styles.columnEntryLabel} text={props.focusedHero.damage} />
             </Panel>
           </Panel>
-          <Panel className={'heroSelectionDescriptionStatsColumnEntry'}>
-            <Panel style={{ flowChildren: 'right', horizontalAlign: 'center' }}>
-              <Panel className={'heroSelectionDescriptionStatsImage heroSelectionDescriptionStatsArmorImage'} />
-              <Label className={'heroSelectionDescriptionStatsLabel '} text={props.focusedHero.armor} />
+          <Panel className={Styles.columnEntryOuterContainer}>
+            <Panel className={Styles.columnEntryInnerContainer}>
+              <Panel className={`${Styles.image} ${Styles.armorImage}`} />
+              <Label className={Styles.columnEntryLabel} text={props.focusedHero.armor} />
             </Panel>
           </Panel>
-          <Panel className={'heroSelectionDescriptionStatsColumnEntry'}>
-            <Panel style={{ flowChildren: 'right', horizontalAlign: 'center' }}>
-              <Panel className={'heroSelectionDescriptionStatsImage heroSelectionDescriptionStatsMoveSpeedImage'} />
-              <Label className={'heroSelectionDescriptionStatsLabel'} text={props.focusedHero.movespeed.toFixed(0)} />
+          <Panel className={Styles.columnEntryOuterContainer}>
+            <Panel className={Styles.columnEntryInnerContainer}>
+              <Panel className={`${Styles.image} ${Styles.moveSpeedImage}`} />
+              <Label className={Styles.columnEntryLabel} text={props.focusedHero.movespeed.toFixed(0)} />
             </Panel>
           </Panel>
         </Panel>
-        <Panel className={'heroSelectionDescriptionStatsColumn'}>
-          <Panel className={'heroSelectionDescriptionStatsColumnEntry'} style={{ marginTop: '0px' }}>
-            <Panel style={{ flowChildren: 'right', horizontalAlign: 'center' }}>
-              <Panel className={'heroSelectionDescriptionStatsImage heroSelectionDescriptionStatsAttackRateImage'} />
-              <Label className={'heroSelectionDescriptionStatsLabel'} text={props.focusedHero.attackRate.toFixed(1)} />
+        <Panel className={Styles.column}>
+          <Panel className={Styles.columnEntryOuterContainer}>
+            <Panel className={Styles.columnEntryInnerContainer}>
+              <Panel className={`${Styles.image} ${Styles.attackRateImage}`} />
+              <Label className={Styles.columnEntryLabel} text={props.focusedHero.attackRate.toFixed(1)} />
             </Panel>
           </Panel>
-          <Panel className={'heroSelectionDescriptionStatsColumnEntry'}>
-            <Panel style={{ flowChildren: 'right', horizontalAlign: 'center' }}>
-              <Panel className={'heroSelectionDescriptionStatsImage heroSelectionDescriptionStatsAttackSpeedImage'} />
-              <Label className={'heroSelectionDescriptionStatsLabel'} text={props.focusedHero.attackSpeed.toFixed(0)} />
+          <Panel className={Styles.columnEntryOuterContainer}>
+            <Panel className={Styles.columnEntryInnerContainer}>
+              <Panel className={`${Styles.image} ${Styles.attackSpeedImage}`} />
+              <Label className={Styles.columnEntryLabel} text={props.focusedHero.attackSpeed.toFixed(0)} />
             </Panel>
           </Panel>
-          <Panel className={'heroSelectionDescriptionStatsColumnEntry'}>
-            <Panel style={{ flowChildren: 'right', horizontalAlign: 'center' }}>
-              <Panel className={'heroSelectionDescriptionStatsImage heroSelectionDescriptionStatsAttackRangeImage'} />
-              <Label className={'heroSelectionDescriptionStatsLabel'} text={props.focusedHero.attackRange.toFixed(0)} />
+          <Panel className={Styles.columnEntryOuterContainer}>
+            <Panel className={Styles.columnEntryInnerContainer}>
+              <Panel className={`${Styles.image} ${Styles.attackRangeImage}`} />
+              <Label className={Styles.columnEntryLabel} text={props.focusedHero.attackRange.toFixed(0)} />
             </Panel>
           </Panel>
         </Panel>

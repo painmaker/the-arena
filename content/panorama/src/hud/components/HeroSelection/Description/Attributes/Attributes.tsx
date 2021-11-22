@@ -1,5 +1,6 @@
 import React from "react";
 import { FocusedHero } from "../../../../types/heroSelectionTypes";
+import Styles from './attributes.module.css';
 
 type Props = {
   focusedHero: FocusedHero,
@@ -7,61 +8,61 @@ type Props = {
 
 const Attributes = (props: Props) => {
   return (
-    <Panel className={'heroSelectionDescriptionAttributesOuterContainer'}>
-      <Label className={'heroSelectionDescriptionAttributesTitleLabel'} text={"Attributes"} />
-      <Panel className={'heroSelectionDescriptionAttributesInnerContainer'}>
-        <Panel className={'heroSelectionDescriptionAttributesLeftColumn'}>
-          <Panel className={'heroSelectionDescriptionAttributesColumnEntryContainer'}>
-            <Panel className={'heroSelectionDescriptionAttributesColumnEntry'}>
-              <Panel className={'heroSelectionDescriptionAttributesIcon heroSelectionDescriptionAttributesIconAgility'} />
+    <Panel className={Styles.outerContainer}>
+      <Label className={Styles.titleLabel} text={"Attributes"} />
+      <Panel className={Styles.innerContainer}>
+        <Panel className={Styles.leftColumn}>
+          <Panel className={Styles.columnEntryContainer}>
+            <Panel className={Styles.columnEntry}>
+              <Panel className={`${Styles.icon} ${Styles.iconAgility}`} />
             </Panel>
-            <Panel className={'heroSelectionDescriptionAttributesColumnEntry'}>
-              <Label className={'heroSelectionDescriptionAttributesBaseLabel'} text={props.focusedHero.agility} />
+            <Panel className={Styles.columnEntry}>
+              <Label className={Styles.baseLabel} text={props.focusedHero.agility} />
             </Panel>
-            <Panel className={'heroSelectionDescriptionAttributesColumnEntry'}>
-              <Label className={'heroSelectionDescriptionAttributesGainLabel'} text={'+' + props.focusedHero.agilityGain.toFixed(1)} />
-            </Panel>
-          </Panel>
-          <Panel className={'heroSelectionDescriptionAttributesColumnEntryContainer'}>
-            <Panel className={'heroSelectionDescriptionAttributesColumnEntry'}>
-              <Panel className={'heroSelectionDescriptionAttributesIcon heroSelectionDescriptionAttributesIconStrength'} />
-            </Panel>
-            <Panel className={'heroSelectionDescriptionAttributesColumnEntry'}>
-              <Label className={'heroSelectionDescriptionAttributesBaseLabel'} text={props.focusedHero.strength} />
-            </Panel>
-            <Panel className={'heroSelectionDescriptionAttributesColumnEntry'}>
-              <Label className={'heroSelectionDescriptionAttributesGainLabel'} text={'+' + props.focusedHero.strengthGain.toFixed(1)} />
+            <Panel className={Styles.columnEntry}>
+              <Label className={Styles.gainLabel} text={'+' + props.focusedHero.agilityGain.toFixed(1)} />
             </Panel>
           </Panel>
-          <Panel className={'heroSelectionDescriptionAttributesColumnEntryContainer'}>
-            <Panel className={'heroSelectionDescriptionAttributesColumnEntry'}>
+          <Panel className={Styles.columnEntryContainer}>
+            <Panel className={Styles.columnEntry}>
+              <Panel className={`${Styles.icon} ${Styles.iconStrength}`} />
+            </Panel>
+            <Panel className={Styles.columnEntry}>
+              <Label className={Styles.baseLabel} text={props.focusedHero.strength} />
+            </Panel>
+            <Panel className={Styles.columnEntry}>
+              <Label className={Styles.gainLabel} text={'+' + props.focusedHero.strengthGain.toFixed(1)} />
+            </Panel>
+          </Panel>
+          <Panel className={Styles.columnEntryContainer}>
+            <Panel className={Styles.columnEntry}>
 
-              <Panel className={'heroSelectionDescriptionAttributesIcon heroSelectionDescriptionAttributesIconIntelligence'} />
+              <Panel className={`${Styles.icon} ${Styles.iconIntelligence}`} />
             </Panel>
-            <Panel className={'heroSelectionDescriptionAttributesColumnEntry'}>
-              <Label className={'heroSelectionDescriptionAttributesBaseLabel'} text={props.focusedHero.intelligence} />
+            <Panel className={Styles.columnEntry}>
+              <Label className={Styles.baseLabel} text={props.focusedHero.intelligence} />
             </Panel>
-            <Panel className={'heroSelectionDescriptionAttributesColumnEntry'}>
-              <Label className={'heroSelectionDescriptionAttributesGainLabel'} text={'+' + props.focusedHero.intelligenceGain.toFixed(1)} />
+            <Panel className={Styles.columnEntry}>
+              <Label className={Styles.gainLabel} text={'+' + props.focusedHero.intelligenceGain.toFixed(1)} />
             </Panel>
           </Panel>
         </Panel>
-        <Panel className={'heroSelectionDescriptionAttributesRightColumn'}>
-          <Panel className={'heroSelectionDescriptionAttributesColumnEntryContainer'}>
+        <Panel className={Styles.rightColumn}>
+          <Panel className={Styles.columnEntryContainer}>
             <Label
-              className={'heroSelectionDescriptionAttributesAdditionInformationLabel'}
+              className={Styles.informationLabel}
               text={props.focusedHero.attribute === 'DOTA_ATTRIBUTE_AGILITY' ? '+ 0.5 move speed. + 0.5 attack speed. + 1.0 damage.' : '+ 0.5 move speed. + 0.5 attack speed.'}
             />
           </Panel>
-          <Panel className={'heroSelectionDescriptionAttributesColumnEntryContainer'}>
+          <Panel className={Styles.columnEntryContainer}>
             <Label
-              className={'heroSelectionDescriptionAttributesAdditionInformationLabel'}
+              className={Styles.informationLabel}
               text={props.focusedHero.attribute === 'DOTA_ATTRIBUTE_STRENGTH' ? '+ 1.0 health. + 0.5 health regen. + 1.0 damage.' : '+ 1.0 health. + 0.5 health regen.'}
             />
           </Panel>
-          <Panel className={'heroSelectionDescriptionAttributesColumnEntryContainer'}>
+          <Panel className={Styles.columnEntryContainer}>
             <Label
-              className={'heroSelectionDescriptionAttributesAdditionInformationLabel'}
+              className={Styles.informationLabel}
               text={props.focusedHero.attribute === 'DOTA_ATTRIBUTE_INTELLECT' ? '+ 1.0 mana. + 0.5 mana regen. + 1.0 damage.' : '+ 1.0 mana. + 0.5 mana regen.'}
             />
           </Panel>

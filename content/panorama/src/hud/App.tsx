@@ -20,6 +20,8 @@ import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
 import FloatingContainer from "./components/FloatingContainer/FloatingContainer";
 import Messages from "./components/Messages/Messages";
 import { useInterval } from "./hooks/useInterval";
+import "./global.css";
+import Styles from "./app.module.css";
 
 export const HUD_THINK_FAST = 30;
 export const HUD_THINK_MEDIUM = 100;
@@ -95,21 +97,18 @@ const App = () => {
   }, [useCustomUI]);
 
   return (
-    <Panel id={'root'} hittest={false} className={"appContainer"} >
-      {(!hasPickedHero) && (
+    <Panel id={'root'} className={Styles.container} >
+      {(true) && (
         <HeroSelection />
       )}
-      {hasPickedHero && (
+      {false && (
         <Loading>
           <ToggleButton
-            className={'useCustomUIBtn'}
+            className={Styles.useCustomUIBtn}
             selected={useCustomUI}
             onactivate={() => setUseCustomUI(prevState => !prevState)}
           >
-            <Label
-              className={'useCustomUILabel'}
-              text={'Use Custom UI'}
-            />
+            <Label className={Styles.useCustomUILabel} text={'Use Custom UI'} />
           </ToggleButton>
           {useCustomUI && (
             <React.Fragment>

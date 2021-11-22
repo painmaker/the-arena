@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
 import { resetFocusedHero } from "../../../../actions/heroSelectionActions";
 import { HeroSelectionActionTypes } from "../../../../types/heroSelectionTypes";
+import Styles from './title.module.css'
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
   resetFocusedHero: () => dispatch(resetFocusedHero()),
@@ -17,10 +18,10 @@ type Props = PropsFromRedux & {
 
 const Title = (props: Props) => {
   return (
-    <Panel className={"heroSelectionDescriptionTitleContainer"}>
-      <Label className={"heroSelectionDescriptionTitleLabel"} text={"HERO DESCRIPTION"} />
+    <Panel className={Styles.container}>
+      <Label className={Styles.label} text={"HERO DESCRIPTION"} />
       <Button
-        className="heroSelectionDescriptionTitleCloseBtn"
+        className={Styles.closeBtn}
         onactivate={() => {
           props.resetFocusedHero();
           Game.EmitSound("ui_topmenu_select");

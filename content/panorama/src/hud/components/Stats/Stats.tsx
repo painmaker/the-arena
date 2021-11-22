@@ -4,7 +4,7 @@ import Armor from "./Armor/Armor";
 import Damage from "./Damage/Damage";
 import MagicResistance from "./MagicResistance/MagicResistance";
 import MoveSpeed from "./MoveSpeed/MoveSpeed";
-import { Styles } from "./Styles";
+import styles from "./stats.module.css"
 
 type Props = {
   selectedUnit: EntityIndex,
@@ -17,7 +17,7 @@ const Stats = (props: Props) => {
   const { selectedUnit } = props;
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={styles.container}>
       <Level selectedUnit={selectedUnit} />
       <Armor selectedUnit={selectedUnit} />
       <MagicResistance selectedUnit={selectedUnit} />

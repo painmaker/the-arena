@@ -4,13 +4,12 @@ import { connect, ConnectedProps } from "react-redux";
 import { setFocusedHero } from "../../actions/heroSelectionActions";
 import { RootState } from "../../reducers/rootReducer";
 import { FocusedHero, HeroSelectionActionTypes } from "../../types/heroSelectionTypes";
-import Chat from "../Messages/Messages";
 import Description from "./Description/description";
 import Heroes from "./Heroes/Heroes";
 import RandomHeroDialog from "./RandomHeroDialog/RandomHeroDialog";
 import RemainingPlayers from "./RemainingPlayers/RemainingPlayers";
 import Timer from "./Timer/Timer";
-
+import Styles from "./heroSelection.module.css";
 
 const mapStateToProps = (state: RootState) => ({
   focusedHero: state.heroSelectionReducer.focusedHero,
@@ -58,11 +57,11 @@ const HeroSelection = (props: Props) => {
   $.Msg("HeroSelection rendered");
 
   return (
-    <Panel className={'heroSelectionContainer'} hittest={false} >
+    <Panel className={Styles.container} hittest={false} >
       <DOTAScenePanel
         hittest={false}
         id={'heroSelectionScene'}
-        className={'heroSelectionBackground'}
+        className={Styles.background}
         map="heroSelection"
         particleonly={false}
         light={'light'}

@@ -1,9 +1,9 @@
-import React, { Dispatch, useState } from "react";
+import React, { Dispatch } from "react";
 import { useNetTableValues } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
 import { resetFocusedHero } from "../../../../actions/heroSelectionActions";
 import { FocusedHero, HeroSelectionActionTypes } from "../../../../types/heroSelectionTypes";
-import { Styles } from "./Styles";
+import Styles from "./buttons.module.css";
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
   resetFocusedHero: () => dispatch(resetFocusedHero()),
@@ -18,48 +18,44 @@ type Props = PropsFromRedux & {
 
 const Buttons = (props: Props) => {
 
-  const [isHoveringCancel, setHoveringCancel] = useState(false);
-  const [isHoveringSelect, setHoveringSelect] = useState(false);
-
   const heroes = useNetTableValues('HeroSelectionHeroes').heroes;
 
   const isPicked = Object.values(heroes).find(hero => hero.heroname === props.focusedHero.heroname)?.picked === 1;
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={Styles.container}>
       <Button
-        onmouseover={() => setHoveringSelect(true)}
-        onmouseout={() => setHoveringSelect(false)}
+        className={Styles.selectButton}
         onactivate={() => {
           Game.EmitSound("ui_topmenu_select");
           GameEvents.SendCustomGameEventToServer("on_select_hero", { heroname: props.focusedHero.heroname })
         }}
-        style={Styles.SelectButton(isPicked, isHoveringSelect)}
+        style={{
+          backgroundColor: isPicked ? 'rgb(50, 50, 50)' : 'gradient( linear, 0% 0%, 0% 100%, from( #5aa15e ), to( #87d69533 ) )'
+        }}
       >
         {!isPicked && (
           <Label
-            style={Styles.SelectButtonLabel()}
+            className={Styles.selectButtonLabel}
             text={'SELECT HERO'}
           />
         )}
         {isPicked && (
           <Image
-            style={Styles.SelectButtonLockIcon()}
+            className={Styles.selectButtonLockIcon}
             src="s2r://panorama/images/lock_white_png.vtex"
           />
         )}
       </Button>
       <Button
-        style={Styles.CancelButton(isHoveringCancel)}
-        onmouseover={() => setHoveringCancel(true)}
-        onmouseout={() => setHoveringCancel(false)}
+        className={Styles.cancelButton}
         onactivate={() => {
           Game.EmitSound("ui_topmenu_select");
           props.resetFocusedHero();
         }}
       >
         <Label
-          style={Styles.CancelButtonLabel()}
+          className={Styles.cancelButtonLabel}
           text={'CANCEL'}
         />
       </Button>

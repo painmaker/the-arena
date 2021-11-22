@@ -1,0 +1,12 @@
+.container {
+  vertical-align: bottom;
+  horizontal-align: center;
+  height: 30px;
+  flow-children: right;
+  border-radius: 7px;
+  background-color: rgba(25, 25, 25, 0.85);
+  margin-bottom: 5px;
+  width: fit-children;
+  padding-right: 8px;
+  padding-left: 8px;
+} 

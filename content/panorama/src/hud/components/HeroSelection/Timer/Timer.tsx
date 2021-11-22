@@ -1,42 +1,6 @@
 import React, { useState } from 'react'
 import { useGameEvent } from 'react-panorama';
-
-const wrapper: Partial<VCSSStyleDeclaration> = {
-  verticalAlign: 'bottom',
-  horizontalAlign: 'left',
-  flowChildren: 'down',
-  marginLeft: '75px',
-  marginBottom: '173px',
-}
-
-const timeContainer: Partial<VCSSStyleDeclaration> = {
-  width: '125px',
-  height: '39px',
-  padding: '1px',
-  backgroundColor: 'rgba(0, 0, 0, 0.85)',
-}
-
-const timeLabel: Partial<VCSSStyleDeclaration> = {
-  fontSize: '17px',
-  color: 'white',
-  verticalAlign: 'center',
-  horizontalAlign: 'center',
-  textShadow: '1px 1px 2px 2 #000000',
-  letterSpacing: '0.9px',
-  paddingTop: '6px',
-  fontFamily: 'ui-monospace',
-}
-
-const timeRemainingLabel: Partial<VCSSStyleDeclaration> = {
-  fontSize: '14px',
-  color: 'rgb(200, 200, 200)',
-  verticalAlign: 'center',
-  horizontalAlign: 'center',
-  textShadow: '1px 1px 2px 2 #000000',
-  letterSpacing: '0.9px',
-  marginBottom: '-10px',
-  zIndex: 10,
-}
+import Styles from "./timer.module.css";
 
 function formatTime(time: number) {
   let minutes = Math.floor(time % 3600 / 60);
@@ -58,14 +22,12 @@ const RemainingPlayers = () => {
   }, []);
 
   return (
-    <Panel style={wrapper}>
-      <Label style={timeRemainingLabel} text={'Time Remaining'} />
-      <Panel style={timeContainer}>
+    <Panel className={Styles.container}>
+      <Label className={Styles.title} text={'Time Remaining'} />
+      <Panel className={Styles.timeContainer}>
         <Label
-          style={{
-            ...timeLabel,
-            color: time <= 30 ? time <= 10 ? 'red' : 'orange' : 'white',
-          }}
+          className={Styles.timeLabel}
+          style={{ color: time <= 30 ? time <= 10 ? 'red' : 'orange' : 'white' }}
           text={formatTime(time)}
         />
       </Panel>
