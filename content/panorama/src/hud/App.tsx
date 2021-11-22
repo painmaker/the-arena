@@ -98,10 +98,10 @@ const App = () => {
 
   return (
     <Panel id={'root'} className={Styles.container} >
-      {(true) && (
+      {(!hasPickedHero) && (
         <HeroSelection />
       )}
-      {false && (
+      {hasPickedHero && (
         <Loading>
           <ToggleButton
             className={Styles.useCustomUIBtn}
