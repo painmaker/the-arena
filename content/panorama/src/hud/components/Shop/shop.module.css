@@ -1,4 +1,4 @@
-.shopContainer {
+.container {
   horizontal-align: right;
   vertical-align: top;
   margin-right: 0px;
@@ -16,12 +16,12 @@
   transform: translateX(490px);
 }
 
-.shopTopBarContainer {
+.topBarContainer {
   flow-children: right;
   width: 100%;
 }
 
-.shopItemsContainer {
+.itemsContainer {
   background-color: rgba(0, 0, 0, 0.45);
   width: 100%;
   height: 100%;
@@ -29,7 +29,13 @@
   margin: 15px;
 }
 
-.shopCategory {
+.itemsColumn {
+  width: 50%;
+  height: 100%;
+  flow-children: down;
+}
+
+.category {
   flow-children: down;
   margin-left: 7.5px;
   margin-right: 7.5px;
@@ -37,7 +43,7 @@
   width: 100%;
 }
 
-.shopCategoryTitleContainer {
+.categoryTitleContainer {
   width: 100%;
   background-image: url("file://panorama/images/inventory_item_well.png");
   background-size: 100%;
@@ -47,7 +53,7 @@
   flow-children: right;
 }
 
-.shopCategoryTitleLabel {
+.categoryTitleLabel {
   width: 100%;
   background-color: rgba(0, 0, 0, 1.0);
   border-bottom: 1px solid rgba(50, 50, 50, 0.5);
@@ -61,7 +67,7 @@
   letter-spacing: 1.35px;
 }
 
-.shopCategoryItems {
+.categoryItems {
   width: 100%;
   flow-children: right-wrap;
   background-image: url("file://panorama/images/inventory_item_well.png");

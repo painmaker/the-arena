@@ -1,9 +1,9 @@
-.shopTitleContainer {
+.container {
   width: 100%;
   background-color: rgba(30, 30, 30, 0.525);
 }
 
-.shopTitleLabel {
+.label {
   color: rgba(200, 200, 200, 0.45);
   font-size: 15px;
   vertical-align: center;
@@ -14,7 +14,7 @@
   padding-left: 10px;
 }
 
-.shopTitleCloseBtn {
+.closeBtn {
   vertical-align: center;
   horizontal-align: right;
   height: 24px;
@@ -26,7 +26,7 @@
   wash-color:  rgba(100, 100, 100, 0.5);
 }
 
-.shopTitleCloseBtn:hover {
+.closeBtn:hover {
   wash-color: rgba(100, 100, 100, 0.25);
   transform: scale3d(1.1, 1.1, 0);
 }

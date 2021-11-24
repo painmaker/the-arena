@@ -1,4 +1,4 @@
-.shopGoldContainer {
+.container {
   height: 100%;
   width: 125px;
   margin-right: 15px;
@@ -11,14 +11,14 @@
   flow-children: right;
 }
 
-.shopGoldLabel {
+.label {
   color: gold;
   vertical-align: center;
   width: 100%;
   text-align: center;
 }
 
-.shopGoldImage {
+.image {
   background-image: url("file://panorama/images/gold_small.png");
   background-size: 100% 100%;
   width: 16px;

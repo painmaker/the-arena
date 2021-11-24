@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
 import { setShopSearchValue } from "../../../actions/shopActions";
 import { ShopActionTypes } from "../../../types/shopTypes";
+import Styles from './search.module.css';
 
 const mapDispatchToProps = (dispatch: Dispatch<ShopActionTypes>) => ({
   setShopSearchValue: (searchValue: string) => dispatch(setShopSearchValue(searchValue)),
@@ -25,17 +26,17 @@ const Search = (props: Props) => {
   const { setShopSearchValue } = props;
 
   return (
-    <Panel className={'shopSearchContainer'}>
-      <Panel className={'shopSearchIcon'} />
+    <Panel className={Styles.container}>
+      <Panel className={Styles.icon} />
       <TextEntry
         id="shopSearchFieldId"
-        className={'shopSearchField'}
+        className={Styles.searchField}
         maxchars={50}
         placeholder={'Search...'}
         ontextentrychange={(event) => setShopSearchValue(event.text.toLocaleLowerCase().trim())}
       />
       <Button
-        className={'shopSearchClearBtn'}
+        className={Styles.clearBtn}
         onactivate={() => ($("#shopSearchFieldId") as TextEntry).text = ''}
       />
     </Panel>

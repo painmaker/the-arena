@@ -5,6 +5,7 @@ import { HUD_THINK_FAST } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import { RootState } from "../../../reducers/rootReducer";
 import { Item } from "../../../types/shopTypes";
+import Styles from './item.module.css';
 
 const mapStateToProps = (state: RootState) => ({
   searchValue: state.shopReducer.searchValue,
@@ -52,7 +53,7 @@ const Item = (props: Props) => {
 
   return (
     <Button
-      className={'shopItemContainer'}
+      className={Styles.container}
       style={{
         border: hasEnoughCold ? '1.5px solid rgba(200, 175, 0, 0.5)' : '0.5px solid black',
         washColor: props.searchValue.length > 0 && !isSearched ? 'rgba(0, 0, 0, 0.9)' : 'none'
@@ -85,7 +86,7 @@ const Item = (props: Props) => {
       }}
     >
       <DOTAItemImage
-        className={'shopItemImage'}
+        className={Styles.image}
         itemname={item.itemname}
       />
     </Button>

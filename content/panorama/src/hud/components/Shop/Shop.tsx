@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useState } from "react";
+import React, { Dispatch, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../reducers/rootReducer";
 import Title from "./Title/Title";
@@ -13,6 +13,7 @@ import { ShopActionTypes } from "../../types/shopTypes";
 import { HUD_THINK_SLOW } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
 import { useRegisterForUnhandledEvent } from "react-panorama";
+import Styles from './shop.module.css';
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.shopReducer.visible,
@@ -53,20 +54,20 @@ const Shop = (props: Props) => {
       {renderComponent && (
         <React.Fragment>
           <Panel
-            className={"shopContainer"}
+            className={Styles.container}
             style={visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
           >
             <Title selectedUnit={selectedUnit} />
-            <Panel className={'shopTopBarContainer'}>
+            <Panel className={Styles.topBarContainer}>
               <Search />
               <Gold selectedUnit={selectedUnit} />
             </Panel>
-            <Panel className={'shopItemsContainer'}>
-              <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
+            <Panel className={Styles.itemsContainer}>
+              <Panel className={Styles.itemsColumn}>
                 <Consumables selectedUnit={selectedUnit} />
                 <Artifacts selectedUnit={selectedUnit} />
               </Panel>
-              <Panel style={{ width: '50%', height: '100%', flowChildren: 'down' }}>
+              <Panel className={Styles.itemsColumn}>
                 <Armor selectedUnit={selectedUnit} />
                 <Weapons selectedUnit={selectedUnit} />
               </Panel>

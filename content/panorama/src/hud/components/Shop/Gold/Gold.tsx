@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
+import Styles from './gold.module.css';
 
 type Props = {
   selectedUnit: EntityIndex,
@@ -19,9 +20,9 @@ const Gold = (props: Props) => {
   }, HUD_THINK_FAST);
 
   return (
-    <Panel className={'shopGoldContainer'}>
-      <Panel className={'shopGoldImage'} />
-      <Label className={'shopGoldLabel'} text={playerGold} />
+    <Panel className={Styles.container}>
+      <Panel className={Styles.image} />
+      <Label className={Styles.label} text={playerGold} />
     </Panel>
   );
 

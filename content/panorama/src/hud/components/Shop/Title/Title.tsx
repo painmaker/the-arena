@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
 import { setShopVisible } from "../../../actions/shopActions";
 import { ShopActionTypes } from "../../../types/shopTypes";
+import Styles from './title.module.css';
 
 const mapDispatchToProps = (dispatch: Dispatch<ShopActionTypes>) => ({
   setShopVisible: (visible: boolean) => dispatch(setShopVisible(visible)),
@@ -22,10 +23,13 @@ const Title = (props: Props) => {
   const { selectedUnit, setShopVisible } = props;
 
   return (
-    <Panel className={"shopTitleContainer"}>
-      <Label className={"shopTitleLabel"} text={"SHOP - " + $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()} />
+    <Panel className={Styles.container}>
+      <Label
+        className={Styles.label}
+        text={"SHOP - " + $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()}
+      />
       <Button
-        className="shopTitleCloseBtn"
+        className={Styles.closeBtn}
         onactivate={() => {
           setShopVisible(false);
           Game.EmitSound("ui_topmenu_select");

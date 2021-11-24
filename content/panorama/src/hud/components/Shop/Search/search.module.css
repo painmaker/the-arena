@@ -1,4 +1,4 @@
-.shopSearchContainer {
+.container {
   width: 600px;
   margin-top: 10px;
   margin-left: 15px;
@@ -8,7 +8,7 @@
   border: 1px solid #3d464c;
 }
 
-.shopSearchIcon {
+.icon {
   background-image: url("file://panorama/images/icon_search_shadow.png");
   background-size: 100% 100%;
   background-position: center;
@@ -20,7 +20,7 @@
   margin-left: 4px;
 }
 
-.shopSearchField {
+.searchField {
   height: 36px;
   color: white;
   font-size: 20px;
@@ -31,7 +31,7 @@
   background-color: black;
 }
 
-.shopSearchClearBtn {
+.clearBtn {
   background-image: url("file://panorama/images/x_close_grey.png");
   background-size: contain;
   height: 18px;
@@ -43,7 +43,7 @@
   transition-timing-function: ease-in-out;
 }
 
-.shopSearchClearBtn:hover {
+.clearBtn:hover {
   wash-color: rgba(100, 100, 100, 0.25);
   transform: scale3d(1.1, 1.1, 0);
 }

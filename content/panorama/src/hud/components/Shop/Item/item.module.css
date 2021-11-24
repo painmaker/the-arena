@@ -1,10 +1,10 @@
-.shopItemContainer {
+.container {
   width: 48px;
   height: 35px;
   margin: 2px;
 }
 
-.shopItemImage {
+.image {
   vertical-align: center;
   horizontal-align: center;
 }
