@@ -8,10 +8,10 @@ import Divider from "./Divider/Divider";
 import Title from "./Title/Title";
 import { setCameraLocked, setCameraZoom, setSettingsVisible } from "../../actions/settingsAction";
 import { SettingsActionTypes } from "../../types/settingsTypes";
-import { Styles } from "./Styles";
 import { HUD_THINK_SLOW } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
 import { useRegisterForUnhandledEvent } from "react-panorama";
+import Styles from './styles.module.css';
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,
@@ -64,23 +64,26 @@ const Settings = (props: Props) => {
   }, [visible, setSettingsVisible]);
 
   return (
-    <Panel style={Styles.OuterContainer()}>
+    <React.Fragment>
       {renderComponent && (
-        <Panel style={Styles.InnerContainer(visible)}>
+        <Panel
+          className={Styles.container}
+          style={visible ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
+        >
           <Title />
           <Divider />
-          <Panel style={Styles.EntryContainer()}>
+          <Panel className={Styles.entry}>
             <CameraZoomSlider
               zoom={zoom}
               setZoom={setZoom}
             />
           </Panel>
           <Divider />
-          <Panel style={Styles.EntryContainer()}>
+          <Panel className={Styles.entry}>
             <MapZoomSlider />
           </Panel>
           <Divider />
-          <Panel style={Styles.EntryContainer()}>
+          <Panel className={Styles.entry}>
             <LockCameraBtn
               isLocked={isLocked}
               setIsLocked={setIsLocked}
@@ -89,7 +92,7 @@ const Settings = (props: Props) => {
           <Divider />
         </Panel>
       )}
-    </Panel>
+    </React.Fragment>
   );
 
 };

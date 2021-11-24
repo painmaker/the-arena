@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { Styles } from "./Styles";
+import Styles from './styles.module.css';
 
 type Props = {
   isLocked: boolean,
@@ -13,19 +13,19 @@ const LockCameraBtn = (props: Props) => {
   const { isLocked, setIsLocked } = props;
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={Styles.Container}>
       <Label
-        style={Styles.LeftLabel()}
+        className={Styles.leftLabel}
         text={"Lock Camera:"}
       />
-      <Panel style={Styles.ToggleBtnContainer()}>
+      <Panel className={Styles.toggleBtnContainer}>
         <ToggleButton
           selected={isLocked}
           onactivate={() => setIsLocked(prevState => !prevState)}
         />
       </Panel>
       <Label
-        style={Styles.RightLabel()}
+        className={Styles.rightLabel}
         text={isLocked ? "Locked" : "Unlocked"}
       />
     </Panel>

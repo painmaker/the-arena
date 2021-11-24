@@ -1,16 +1,16 @@
 import React from "react";
 import CloseBtn from "./CloseBtn/CloseBtn";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
 const Title = () => {
 
   // $.Msg("REACT-RENDER: Settings - Title rendered");
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={Styles.container}>
       <Label
         text={"SETTINGS"}
-        style={Styles.Label()}
+        className={Styles.label}
       />
       <CloseBtn />
     </Panel>

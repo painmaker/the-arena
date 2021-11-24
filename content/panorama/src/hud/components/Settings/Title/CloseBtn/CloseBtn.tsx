@@ -1,9 +1,9 @@
-import React, { Dispatch, useState } from "react";
+import React, { Dispatch, } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { setSettingsVisible } from "../../../../actions/settingsAction";
 import { RootState } from "../../../../reducers/rootReducer";
 import { SettingsActionTypes } from "../../../../types/settingsTypes";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,
@@ -24,14 +24,10 @@ const CloseBtn = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Settings - CloseBtn rendered");
 
-  const [isHovering, setIsHovering] = useState(false);
-
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={Styles.container}>
       <Button
-        onmouseover={() => setIsHovering(true)}
-        onmouseout={() => setIsHovering(false)}
-        style={Styles.Btn(isHovering)}
+        className={Styles.btn}
         onactivate={() => {
           props.setSettingsVisible(!props.visible);
           Game.EmitSound("ui_topmenu_select");

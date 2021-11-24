@@ -3,7 +3,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { setMinimapZoom } from "../../../actions/minimapActions";
 import { RootState } from "../../../reducers/rootReducer";
 import { MinimapActionTypes } from "../../../types/minimapTypes";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
 const mapStateToProps = (state: RootState) => ({
   zoom: state.minimapReducer.zoom,
@@ -33,10 +33,10 @@ const MapZoomSlider = (props: Props) => {
   return (
     <React.Fragment>
       <Label
-        style={Styles.TextLabel()}
+        className={Styles.textLabel}
         text={"Minimap Zoom:"}
       />
-      <Panel style={Styles.SliderContainer()}>
+      <Panel className={Styles.sliderContainer}>
         <Slider
           id={"map_zoom_slider"}
           className={"HorizontalSlider"}
@@ -48,7 +48,7 @@ const MapZoomSlider = (props: Props) => {
         />
       </Panel>
       <Label
-        style={Styles.NumberLabel()}
+        className={Styles.numberLabel}
         text={props.zoom}
       />
     </React.Fragment>

@@ -1,0 +1,15 @@
+.container {
+  width: 100%;
+  background-color: rgba(30, 30, 30, 0.925);
+  flow-children: right;
+}
+
+.label {
+  color: rgba(200, 200, 200, 0.45);
+  font-size: 14px;
+  vertical-align: center;
+  font-weight: light;
+  letter-spacing: 1.5px;
+  padding-top: 2.5px;
+  padding-left: 10px;
+}

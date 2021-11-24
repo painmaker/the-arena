@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect } from "react";
-import { Styles } from "./Styles";
+import Styles from './styles.module.css';
 
 type Props = {
   zoom: number,
@@ -24,10 +24,10 @@ const CameraZoomSlider = (props: Props) => {
   return (
     <React.Fragment>
       <Label
-        style={Styles.TextLabel()}
+        className={Styles.textLabel}
         text={"Camera Zoom:"}
       />
-      <Panel style={Styles.SliderContainer()}>
+      <Panel className={Styles.sliderContainer}>
         <Slider
           id={"camera_zoom_slider"}
           className={"HorizontalSlider"}
@@ -39,7 +39,7 @@ const CameraZoomSlider = (props: Props) => {
         />
       </Panel>
       <Label
-        style={Styles.NumberLabel()}
+        className={Styles.numberLabel}
         text={zoom}
       />
     </React.Fragment>
