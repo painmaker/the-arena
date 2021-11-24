@@ -36,13 +36,13 @@ const Settings = (props: Props) => {
 
   const { visible, setSettingsVisible } = props;
 
-  const [zoom, setZoom] = useState(1600);
+  const [cameraZoom, setCameraZoom] = useState(1600);
   const [isLocked, setIsLocked] = useState(true);
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
-    GameUI.SetCameraDistance(zoom);
-  }, [zoom]);
+    GameUI.SetCameraDistance(cameraZoom);
+  }, [cameraZoom]);
 
   useEffect(() => {
     if (isLocked) {
@@ -74,8 +74,8 @@ const Settings = (props: Props) => {
           <Divider />
           <Panel className={Styles.entry}>
             <CameraZoomSlider
-              zoom={zoom}
-              setZoom={setZoom}
+              cameraZoom={cameraZoom}
+              setCameraZoom={setCameraZoom}
             />
           </Panel>
           <Divider />

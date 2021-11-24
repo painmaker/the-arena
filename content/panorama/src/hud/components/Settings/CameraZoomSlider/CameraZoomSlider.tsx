@@ -2,8 +2,8 @@ import React, { Dispatch, SetStateAction, useEffect } from "react";
 import Styles from './styles.module.css';
 
 type Props = {
-  zoom: number,
-  setZoom: Dispatch<SetStateAction<number>>
+  cameraZoom: number,
+  setCameraZoom: Dispatch<SetStateAction<number>>
 }
 
 /**
@@ -13,12 +13,12 @@ const CameraZoomSlider = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Settings - CameraZoomSlider rendered");
 
-  const { zoom, setZoom } = props;
+  const { cameraZoom, setCameraZoom } = props;
 
   useEffect(() => {
     // Hack to initalize the slider caret correctly
     const panel = $("#camera_zoom_slider") as any;
-    panel.value = 1600;
+    panel.value = cameraZoom || 1600;
   }, []);
 
   return (
@@ -32,15 +32,15 @@ const CameraZoomSlider = (props: Props) => {
           id={"camera_zoom_slider"}
           className={"HorizontalSlider"}
           direction={"horizontal"}
-          value={zoom}
+          value={cameraZoom}
           min={800}
           max={2000}
-          onvaluechanged={(event) => setZoom(Math.round(event.value))}
+          onvaluechanged={(event) => setCameraZoom(Math.round(event.value))}
         />
       </Panel>
       <Label
         className={Styles.numberLabel}
-        text={zoom}
+        text={cameraZoom}
       />
     </React.Fragment>
   );
