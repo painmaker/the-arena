@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { HUD_THINK_MEDIUM } from "../../../App";
-import { Styles as ParentStyles } from "../Styles";
-import { Styles } from "./Styles";
 import { useInterval } from "../../../hooks/useInterval";
+import Styles from './level.module.css';
+import ParentStyles from './../stats.module.css';
 
 type Props = {
   selectedUnit: EntityIndex,
@@ -31,16 +31,19 @@ const Level = (props: Props) => {
 
   return (
     <React.Fragment>
-      <Panel style={ParentStyles.Entry()}>
+      <Panel className={ParentStyles.entry}>
         <Label
-          style={Styles.LevelLabel()}
+          className={ParentStyles.label}
           text={'Lvl. ' + level}
         />
-        <Panel style={Styles.LevelbarContainer()}>
-          <Panel style={Styles.Levelbar(percentage)} />
+        <Panel className={Styles.levelBarContainer}>
+          <Panel
+            className={Styles.levelBar}
+            style={{ width: percentage + "%" }}
+          />
         </Panel>
         <Label
-          style={Styles.LevelPctLabel()}
+          className={`${Styles.levelPctLabel} ${ParentStyles.label}`}
           text={Number.isFinite(percentage) ? percentage + "%" : '100%'}
         />
       </Panel>

@@ -8,6 +8,34 @@
   vertical-align: bottom;
   z-index: 999;
 }
+/*!**********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Level/level.module.css ***!
+  \**********************************************************************************************************************************/
+
+.JXQyEf4ZmIVx54alsapk {
+  width: 100px;
+  height: 100%;
+  vertical-align: center;
+  background-color: rgba(0, 0, 0, 0.65);
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-left: 4px;
+  border-radius: 4px;
+}
+
+.BciUpAbogLA0n9b61wJb {
+  background-color: orange;
+  height: 100%;
+  vertical-align: middle;
+  margin: 4px;
+  transition: width 0.2s ease-in-out 0.0s;
+}
+
+.TAd15y9KOLziRLp0b0gg {
+  font-size: 14px;
+  vertical-align: middle;
+  margin-left: 4px;
+}
 /*!****************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/stats.module.css ***!
   \****************************************************************************************************************************/
@@ -23,6 +51,53 @@
   padding-right: 8px;
   padding-left: 8px;
 } 
+
+.H6TAG5JpSntZ0naNF1nw {
+  width: 15px;
+  height: 15px;
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  margin-right: 2px;
+  horizontal-align: center;
+}
+
+.Gn4LgS5tAAgOJCBuE4FW {
+  flow-children: right;
+  vertical-align: center;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.vyfRuPA7ygACF45F2ZxX {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/*!**********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Armor/armor.module.css ***!
+  \**********************************************************************************************************************************/
+.TTN9sjS3NetyVeFCTfVA {
+  background-image: url("s2r://panorama/images/icon_armor.png");
+}
+/*!************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Damage/damage.module.css ***!
+  \************************************************************************************************************************************/
+.mrn27cU6evosGA2fjLqF {
+  background-image: url("s2r://panorama/images/icon_damage.png");
+}
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/MagicResistance/magicresistance.module.css ***!
+  \******************************************************************************************************************************************************/
+.FYqremml3PHQsjFOLJIR {
+  background-image: url("s2r://panorama/images/icon_magic_resist.png");
+}
+/*!******************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/MoveSpeed/movespeed.module.css ***!
+  \******************************************************************************************************************************************/
+.rx5gFLbNXGBFl2NHU1cX {
+  background-image: url("s2r://panorama/images/icon_speed.png");
+}
 /*!**********************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Buttons/buttons.module.css ***!
   \**********************************************************************************************************************************************************/

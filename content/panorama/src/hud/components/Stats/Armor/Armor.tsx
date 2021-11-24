@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Styles } from "./Styles";
-import { Styles as ParentStyles } from "../Styles";
 import { HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
+import Styles from './armor.module.css';
+import ParentStyles from './../stats.module.css';
 
 type Props = {
   selectedUnit: EntityIndex
@@ -23,10 +23,10 @@ const Armor = (props: Props) => {
   }, HUD_THINK_MEDIUM);
 
   return (
-    <Panel style={ParentStyles.Entry()}>
-      <Panel style={Styles.Image()} />
+    <Panel className={ParentStyles.entry}>
+      <Panel className={`${Styles.image} ${ParentStyles.image}`} />
       <Label
-        style={ParentStyles.Label()}
+        className={ParentStyles.label}
         text={(armor - bonusArmor).toFixed(1)}
       />
       {bonusArmor !== 0 && (
