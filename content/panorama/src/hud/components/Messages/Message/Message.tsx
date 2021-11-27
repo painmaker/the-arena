@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Message as IMessage, AbilityMessageData, MessageType, ItemMessageData, ModifierMessageData, SetMessagesContext, HealthMessageData, ManaMessageData } from '../Messages';
-import { Styles } from './Styles';
+import Styles from './styles.module.css';
 import AbilityMessage from './AbilityMessage/AbilityMessage';
 import ItemMessage from './ItemMessage/ItemMessage';
 import ModifierMessage from './ModifierMessage/ModifierMessage';
@@ -30,7 +30,10 @@ const Message = (props: Props) => {
   }, 5000);
 
   return (
-    <Panel style={Styles.Container(opacity)}>
+    <Panel
+      className={Styles.container}
+      style={{ opacity: opacity }}
+    >
       {type === MessageType.ABILITY && (
         <AbilityMessage data={data as AbilityMessageData} />
       )}

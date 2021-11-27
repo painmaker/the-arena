@@ -1,0 +1,10 @@
+.container {
+	width: 800px;
+	min-height: 350px;
+	flow-children: up;
+	vertical-align: center;
+	horizontal-align: left;
+	margin-top: 0px;
+	margin-left: 10px;
+	z-index: 10;
+}

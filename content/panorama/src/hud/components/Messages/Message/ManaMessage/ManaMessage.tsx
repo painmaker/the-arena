@@ -1,7 +1,8 @@
 import React from 'react';
 import { toColor } from '../../../../utils/Color';
 import { ManaMessageData } from '../../Messages';
-import { Styles } from './Styles';
+import Styles from './styles.module.css';
+import ParentStyles from './../styles.module.css';
 
 type Props = {
   data: ManaMessageData,
@@ -19,30 +20,31 @@ const ManaMessage = (props: Props) => {
   const unitName = Entities.GetUnitName(unit);
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={ParentStyles.messageContainer}>
       <DOTAHeroImage
         heroimagestyle={'icon'}
         heroname={Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster))}
-        style={Styles.HeroImage()}
+        className={ParentStyles.heroImage}
       />
       <Label
         text={Players.GetPlayerName(broadcaster)}
-        style={Styles.PlayernameLabel(toColor(broadcaster))}
+        className={ParentStyles.playernameLabel}
+        style={{ color: toColor(broadcaster) }}
       />
       {unitOwnerPlayerID !== broadcaster && (
         <React.Fragment>
           <Image
-            style={Styles.ArrowImage()}
+            className={ParentStyles.arrowImage}
             src={'file://{images}/control_icons/chat_wheel_icon.png'}
           />
           <Label
             html={true}
-            style={Styles.EnemyOrAllyLabel()}
+            className={ParentStyles.enemyOrAllyLabel}
             text={isUnitEnemy ? 'Enemy' : 'Ally'}
           />
           {!isUnitHero && (
             <Label
-              style={Styles.UnitLabel()}
+              className={ParentStyles.unitLabel}
               text={$.Localize(unitName)}
             />
           )}
@@ -50,32 +52,33 @@ const ManaMessage = (props: Props) => {
             <DOTAHeroImage
               heroimagestyle={'icon'}
               heroname={unitName}
-              style={Styles.HeroImage()}
+              className={ParentStyles.heroImage}
             />
           )}
           <Label
             text={isUnitHero ? unitOwnerPlayerName : '(' + unitOwnerPlayerName + ')'}
-            style={Styles.PlayernameLabel(toColor(unitOwnerPlayerID))}
+            className={ParentStyles.playernameLabel}
+            style={{ color: toColor(unitOwnerPlayerID) }}
           />
         </React.Fragment>
       )}
       <Image
-        style={Styles.ArrowImage()}
+        className={ParentStyles.arrowImage}
         src={'file://{images}/control_icons/chat_wheel_icon.png'}
       />
       <Label
         html={true}
-        style={Styles.TextLabel()}
+        className={ParentStyles.textLabel}
         text={'Has '}
       />
       <Label
         html={true}
-        style={Styles.ManaLabel()}
+        className={Styles.manaLabel}
         text={((Entities.GetMana(unit) / Entities.GetMaxMana(unit)) * 100).toFixed(0) + '% '}
       />
       <Label
         html={true}
-        style={Styles.TextLabel()}
+        className={ParentStyles.textLabel}
         text={' Mana'}
       />
     </Panel>

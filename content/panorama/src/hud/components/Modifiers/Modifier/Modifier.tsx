@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { aura_modifiers } from "../../../data/auras";
 import Stacks from "./Stacks/Stacks";
-import { Styles } from "./Styles";
 import TimedBackground from "./TimedBackground/TimedBackground";
+import Styles from './styles.module.css';
+import { useTimeout } from "../../../hooks/useTimeout";
 
 type Props = {
   buff: BuffID,
@@ -17,7 +18,12 @@ const Modifier = (props: Props) => {
   const { buff, selectedUnit, isDebuff } = props;
 
   const [isMounted, setIsMounted] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
+
+  const panelId = isDebuff ? "debuff_" + buff : "buff_" + buff;
+  const ability = Buffs.GetAbility(selectedUnit, buff);
+  const isItem = Abilities.IsItem(ability);
+  const isAura = aura_modifiers.includes(Buffs.GetName(selectedUnit, buff));
+  const isEnemy = Entities.IsEnemy(selectedUnit);
 
   useEffect(() => {
     setIsMounted(true);
@@ -29,17 +35,15 @@ const Modifier = (props: Props) => {
     }
   }, []);
 
-  const panelId = isDebuff ? "debuff_" + buff : "buff_" + buff;
-  const ability = Buffs.GetAbility(selectedUnit, buff);
-  const isItem = Abilities.IsItem(ability);
-  const isAura = aura_modifiers.includes(Buffs.GetName(selectedUnit, buff));
-  const isEnemy = Entities.IsEnemy(selectedUnit);
-
   return (
     <Panel
       id={panelId}
       hittest={true}
-      style={Styles.Container(isMounted, isHovering)}
+      className={Styles.container}
+      style={{
+        opacity: isMounted ? "1.0" : "0.0",
+        preTransformScale2d: isMounted ? "1.0" : "0.0",
+      }}
       onactivate={() => {
         if (GameUI.IsAltDown()) {
           GameEvents.SendCustomGameEventToAllClients("on_modifier_alerted", {
@@ -54,18 +58,19 @@ const Modifier = (props: Props) => {
         if (thisPanel) {
           $.DispatchEvent("DOTAHideBuffTooltip", thisPanel)
         }
-        setIsHovering(false)
       }}
       onmouseover={() => {
         const thisPanel = $("#" + panelId);
         if (thisPanel) {
           $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, selectedUnit, buff, isEnemy)
         }
-        setIsHovering(true);
       }}
     >
       {isAura && (
-        <Panel style={Styles.Background(isDebuff)} />
+        <Panel
+          className={Styles.background}
+          style={{ backgroundColor: isDebuff ? 'rgba(200, 50, 50, 0.9)' : 'rgba(0, 200, 20, 0.9)' }}
+        />
       )}
       {!isAura && (
         <TimedBackground
@@ -74,7 +79,7 @@ const Modifier = (props: Props) => {
           isDebuff={isDebuff}
         />
       )}
-      <Panel style={Styles.Foreground()}>
+      <Panel className={Styles.foreground}>
         <Stacks
           unit={selectedUnit}
           buff={buff}
@@ -82,14 +87,14 @@ const Modifier = (props: Props) => {
         {!isItem && (
           <DOTAAbilityImage
             key={panelId}
-            style={Styles.Image()}
+            className={Styles.image}
             abilityname={Abilities.GetAbilityName(ability)}
           />
         )}
         {isItem && (
           <DOTAItemImage
             key={panelId}
-            style={Styles.PaddedImage()}
+            className={Styles.paddedImage}
             itemname={Buffs.GetTexture(selectedUnit, buff)}
             showtooltip={false}
           />

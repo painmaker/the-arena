@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import Modifier from "../Modifier/Modifier";
-import { Styles } from "./Styles";
+import Styles from './styles.module.css';
 
 const getBuffs = (unit: EntityIndex) => {
   const buffs = [];
@@ -41,7 +41,7 @@ const BuffsPanel = (props: Props) => {
   }, [selectedUnit])
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={Styles.container}>
       {buffs.map((buff) =>
         <Modifier
           key={buff}

@@ -2,12 +2,44 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Minimap/minimap.module.css ***!
   \********************************************************************************************************************************/
 .chIrdYtZyblNYYYGOCSI {
-  margin-left: 25px;
-  margin-bottom: 25px;
-  flow-children: down;
-  vertical-align: bottom;
-  z-index: 999;
+	margin-left: 25px;
+	margin-bottom: 25px;
+	flow-children: down;
+	vertical-align: bottom;
+	z-index: 999;
 }
+
+.QJp6qFKPkiSjQtp4IWYu {
+	width: 100%;
+	height: 100%;
+}
+
+.FsTpjUYsXR18vjlgG0Ms {
+	border-radius: 50%;
+	opacity-mask: url('s2r://panorama/images/softedge_circle_sharper.png') 1.5;
+	background-color: gradient(
+		radial,
+		50% 50%,
+		0% 0%,
+		300px 300px,
+		from(#000d),
+		color-stop(0.5, #000d),
+		to(#000d)
+	);
+	width: 300px;
+	height: 300px;
+}
+
+.MMYyKjPgWvMQW3zcTxSA {
+	width: 100%;
+	height: 20px;
+	text-align: center;
+	color: orange;
+	font-size: 18px;
+	text-overflow: ellipsis;
+	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.5);
+}
+
 /*!*************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Settings/CameraZoomSlider/styles.module.css ***!
   \*************************************************************************************************************************************************/
@@ -248,6 +280,120 @@
 .rx5gFLbNXGBFl2NHU1cX {
   background-image: url("s2r://panorama/images/icon_speed.png");
 }
+/*!*************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/Stacks/styles.module.css ***!
+  \*************************************************************************************************************************************************/
+.livhQlkdnHZPe_TLd5af {
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+}
+
+.bHf0Fk83RimCrwKPcWqe {
+	font-size: 25px;
+	color: white;
+	font-weight: bold;
+	vertical-align: center;
+	horizontal-align: center;
+	text-shadow: 1px 1px 2px 5 #000000;
+	text-overflow: clip;
+}
+
+/*!**********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/TimedBackground/styles.module.css ***!
+  \**********************************************************************************************************************************************************/
+.QmBvdkG1ODC4WqyGP8a5{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+/*!******************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/styles.module.css ***!
+  \******************************************************************************************************************************************/
+.hP53l9q7lqT_sneNCQgJ {
+	width: 36px;
+	height: 36px;
+	margin-right: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 50%;
+	box-shadow: fill rgba(0, 0, 0, 0.3) 0px 0px 5px 2px;
+	transform: none;
+	opacity: 0;
+	pre-transform-scale2d: 0;
+	transition-property: pre-transform-scale2d, opacity, transform;
+	transition-duration: 0.2s;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hP53l9q7lqT_sneNCQgJ:hover {
+	transform: scale3d(1.075, 1.075, 0);
+}
+
+.hP53l9q7lqT_sneNCQgJ:active {
+	transform: scale3d(0.95, 0.95, 0);
+}
+
+.mTu2M3Jd7k14DxJOs13Q {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	clip: radial(50% 50%, 0deg, 360deg);
+	horizontal-align: center;
+	vertical-align: center;
+}
+
+.np7FM4WNLj5f6yKD9QBG {
+	width: 100%;
+	height: 100%;
+	padding: 2px;
+}
+
+.cPY03BjEcqqesJ9VT8cF {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	border: 1px solid black;
+}
+
+.SevajsebwIipgDcXYdJ1 {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	padding: -10px;
+	border: 4px solid rgba(0, 0, 0, 0.5);
+}
+
+/*!*****************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Debuffs/styles.module.css ***!
+  \*****************************************************************************************************************************************/
+.pWcuWOn3wOVyHKlIURE4 {
+	vertical-align: bottom;
+	horizontal-align: center;
+	flow-children: right-wrap;
+	max-width: 300px;
+	height: fit-children;
+	width: 300px;
+	padding: 2px;
+	margin-left: 665px;
+	margin-bottom: 80px;
+}
+
+/*!***************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Buffs/styles.module.css ***!
+  \***************************************************************************************************************************************/
+.z2EEBFDfSVxYEuMmWdCX {
+	vertical-align: bottom;
+	horizontal-align: center;
+	flow-children: left-wrap;
+	max-width: 300px;
+	height: fit-children;
+	width: 300px;
+	padding: 2px;
+	margin-right: 660px;
+	margin-bottom: 80px;
+}
+
 /*!*********************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Shop/Title/title.module.css ***!
   \*********************************************************************************************************************************/
@@ -1258,135 +1404,275 @@
   background-color: rgb(29, 39, 46);
   color: antiquewhite;
 }
+/*!****************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/styles.module.css ***!
+  \****************************************************************************************************************************************/
+.Qm0Gz9cXpfuJL9XFfaew {
+	flow-children: up;
+	transition: opacity 0.5s ease-in-out 0s;
+}
+
+._9hqRW4Wk5UWQAPLS6BX {
+	flow-children: right;
+}
+
+.GN276OBerpLoUddazK3_ {
+	horizontal-align: center;
+	margin-top: 2px;
+	width: 18px;
+	height: 18px;
+}
+
+.fR1XxDdhIsEzlkiCWEv2 {
+	horizontal-align: center;
+	margin-top: 5px;
+	width: 10px;
+	height: 14px;
+	margin-left: 4px;
+	margin-right: 2px;
+}
+
+.zICe0uDq6NUvo9ADJ8fQ {
+	margin-left: 3px;
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+.e482FRTP_pyZP0FI4Wzt {
+	color: #cdcdcd;
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+.EZ2t5FRDo4vW2fxgtxfQ {
+	color: #9f9f9f;
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+.P7CvFs15hWbprJtHzvWF {
+	color: #cdcdcd;
+	text-shadow: 1px 1px 2px 2 #000000;
+	margin-right: 1px;
+}
+
+/*!*******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/AbilityMessage/styles.module.css ***!
+  \*******************************************************************************************************************************************************/
+.O4SZDqMbSbGjXFYpKSU5 {
+	horizontal-align: center;
+	margin-top: 2px;
+	width: 18px;
+	height: 18px;
+	border-radius: 5px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+/*!****************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/ItemMessage/styles.module.css ***!
+  \****************************************************************************************************************************************************/
+.LxsBJ3HItXKabicrARm8 {
+	horizontal-align: center;
+	margin-top: 4.5px;
+	width: 18px;
+	height: 14px;
+	border-radius: 5px;
+	margin-left: 1px;
+	margin-right: 2px;
+}
+
+/*!********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/ModifierMessage/styles.module.css ***!
+  \********************************************************************************************************************************************************/
+.zAuZAilOPlJYIt2x7f6k {
+	horizontal-align: center;
+	margin-top: 4.5px;
+	width: 18px;
+	height: 14px;
+	border-radius: 5px;
+	margin-left: 1px;
+	margin-right: 3px;
+}
+
+.eXvfdQmRngiXURS76WNS {
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+.dOeb8CzK6wcC1LDrvhwe {
+	color: #cdcdcd;
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/HealthMessage/styles.module.css ***!
+  \******************************************************************************************************************************************************/
+.zgs7CbszT6cmSH1mNwzu {
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+/*!****************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/ManaMessage/styles.module.css ***!
+  \****************************************************************************************************************************************************/
+.awBcjoAcvbvwLuEypKkU {
+	color: #778ed4;
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+/*!********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/styles.module.css ***!
+  \********************************************************************************************************************************/
+.Cmf_Gpikd73EhApUW1k2 {
+	width: 800px;
+	min-height: 350px;
+	flow-children: up;
+	vertical-align: center;
+	horizontal-align: left;
+	margin-top: 0px;
+	margin-left: 10px;
+	z-index: 10;
+}
+
 /*!*****************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./hud/global.css ***!
   \*****************************************************************************************************/
 .root {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
- 
-
 
 .Invisible {
-  opacity: 0.0;
+	opacity: 0;
 }
 
 .EmptyCircle {
-  clip: radial(50% 50%, 0.0deg, 0.0deg);
+	clip: radial(50% 50%, 0deg, 0deg);
 }
 
 Slider {
-  margin-bottom: 0px;
+	margin-bottom: 0px;
 }
 
 Slider.HorizontalSlider {
-  width: 420px;
-  height: 30px;
-  vertical-align: center;
+	width: 420px;
+	height: 30px;
+	vertical-align: center;
 }
 
 ProgressBar {
-  box-shadow: 0px 0px 0px 0 black;
+	box-shadow: 0px 0px 0px 0 black;
 }
 
 #ChatTargetLabel {
-  visibility: collapse;
-  opacity: 0.0;
+	visibility: collapse;
+	opacity: 0;
 }
 
 .manaProgressBar .ProgressBarLeft {
-  background-color: gradient( linear, 0% 0%, 0% 100%, from( #2b4287 ), color-stop(0.2, #4165ce ), color-stop(.5, #314da0), to(#2b4287) );
-  border-radius: 1px;
-  transition-property: width;
-  transition-duration: 0.0s;
-  transition-timing-function: linear;
+	background-color: gradient(
+		linear,
+		0% 0%,
+		0% 100%,
+		from(#2b4287),
+		color-stop(0.2, #4165ce),
+		color-stop(0.5, #314da0),
+		to(#2b4287)
+	);
+	border-radius: 1px;
+	transition-property: width;
+	transition-duration: 0s;
+	transition-timing-function: linear;
 }
- 
+
 .healthProgressBar .ProgressBarLeft {
-  background-color: gradient( linear, 0% 0%, 0% 100%, from( #00ff00 ), to( #004c00 ) );
-  border-radius: 1px;
-  transition-property: width;
-  transition-duration: 0.0s;
-  transition-timing-function: linear;
+	background-color: gradient(
+		linear,
+		0% 0%,
+		0% 100%,
+		from(#00ff00),
+		to(#004c00)
+	);
+	border-radius: 1px;
+	transition-property: width;
+	transition-duration: 0s;
+	transition-timing-function: linear;
 }
 
 .healthProgressBarEnemy .ProgressBarLeft {
-  background-color: gradient( linear, 0% 0%, 0% 100%, from( #5D2E25 ), color-stop( 0.2, #A54E39 ), color-stop( .5, #904030), to( #5D2C25) );
-  border-radius: 1px;
-  transition-property: width;
-  transition-duration: 0.0s;
-  transition-timing-function: linear;
+	background-color: gradient(
+		linear,
+		0% 0%,
+		0% 100%,
+		from(#5d2e25),
+		color-stop(0.2, #a54e39),
+		color-stop(0.5, #904030),
+		to(#5d2c25)
+	);
+	border-radius: 1px;
+	transition-property: width;
+	transition-duration: 0s;
+	transition-timing-function: linear;
 }
 
 #inventoryItemDraggedItem {
-  width: 60px;
-  height: 45px;
-  border-radius: 5px;
+	width: 60px;
+	height: 45px;
+	border-radius: 5px;
 }
 
 /* MINIMAP START */
 
-.MinimapImage
-{
-  width: 10px;
-  height: 10px;
-	background-image: url("file://panorama/images/minimap_creep_icon.png");	
+.MinimapImage {
+	width: 10px;
+	height: 10px;
+	background-image: url('file://panorama/images/minimap_creep_icon.png');
 	background-position: center;
-  background-size: contain;	
-  background-repeat: no-repeat;
-  wash-color: #0f0;
-  z-index: 1;
+	background-size: contain;
+	background-repeat: no-repeat;
+	wash-color: #0f0;
+	z-index: 1;
 }
 
-.MinimapImage.Enemy
-{
-  wash-color: red;
-  z-index: 2;
+.MinimapImage.Enemy {
+	wash-color: red;
+	z-index: 2;
 }
 
-.MinimapImage.Boss
-{
-  width: 35px;
-  height: 35px;
-  z-index: 3;
-  background-image: url("file://panorama/images/minimap_boss_icon.png");		
+.MinimapImage.Boss {
+	width: 35px;
+	height: 35px;
+	z-index: 3;
+	background-image: url('file://panorama/images/minimap_boss_icon.png');
 }
 
-.MinimapImage.shopkeeper_abilities
-{
-  wash-color: orange;
-  width: 20px;
-  height: 20px;
-  background-image: url("s2r://panorama/images/book_open_page_variant_outline_png.vtex");	
+.MinimapImage.shopkeeper_abilities {
+	wash-color: orange;
+	width: 20px;
+	height: 20px;
+	background-image: url('s2r://panorama/images/book_open_page_variant_outline_png.vtex');
 }
 
-.minimap > DOTAHeroImage
-{
+.minimap > DOTAHeroImage {
 	width: 30px;
 	height: 30px;
-	opacity: 1.0;
+	opacity: 1;
 	z-index: 1;
 }
 
 /* MINIMAP END */
 
 @keyframes 'btnClicked' {
+	0% {
+		transform: scale3d(0.95, 0.95, 0);
+	}
 
-  0% {
-    transform: scale3d(0.95, 0.95, 0);
-  }
-
-  100% {
-    transform: scale3d(1.0, 1.0, 0);
-  }
-
+	100% {
+		transform: scale3d(1, 1, 0);
+	}
 }
 
 .btnClicked {
-  animation-name: btnClicked;
-  animation-duration: 0.05s;
+	animation-name: btnClicked;
+	animation-duration: 0.05s;
 }
+
 /*!*********************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/app.module.css ***!
   \*********************************************************************************************************/

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
-import { Styles } from "./Styles";
 import { useInterval } from "../../../../hooks/useInterval";
+import Styles from './styles.module.css';
 
 type Props = {
   buff: BuffID,
@@ -25,7 +25,13 @@ const TimedBackground = (props: Props) => {
   }, HUD_THINK_FAST)
 
   return (
-    <Panel style={Styles.Container(isDebuff, degree)} />
+    <Panel
+      className={Styles.container}
+      style={{
+        backgroundColor: isDebuff ? 'rgba(200, 50, 50, 0.9)' : 'rgba(0, 200, 20, 0.9)',
+        clip: 'radial(50% 50%, 0deg, ' + -degree + 'deg)'
+      }}
+    />
   );
 
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import Modifier from "../Modifier/Modifier";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
 const getDebuffs = (unit: EntityIndex) => {
   const debuffs = [];
@@ -42,7 +42,7 @@ const Debuffs = (props: Props) => {
   }, [selectedUnit])
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={Styles.container}>
       {debuffs.map((debuff) =>
         <Modifier
           key={debuff}

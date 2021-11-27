@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { useGameEvent } from 'react-panorama';
 import Message from './Message/Message';
-import { Styles } from './Styles';
+import Styles from './styles.module.css';
 
 export enum MessageType {
   ABILITY = "ABILITY",
@@ -144,7 +144,7 @@ const Messages = () => {
   }, []);
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={Styles.container}>
       <SetMessagesContext.Provider value={setMessages}>
         {messages.sort((m1, m2) => m2.id - m1.id).map(message => {
           return (

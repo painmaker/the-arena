@@ -1,7 +1,8 @@
 import React from 'react';
 import { toColor } from '../../../../utils/Color';
 import { ModifierMessageData } from '../../Messages';
-import { Styles } from './Styles';
+import Styles from './styles.module.css';
+import ParentStyles from './../styles.module.css';
 
 type Props = {
   data: ModifierMessageData,
@@ -27,66 +28,69 @@ const ModifierMessage = (props: Props) => {
   const unitName = Entities.GetUnitName(unit);
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={ParentStyles.messageContainer}>
       <DOTAHeroImage
         heroimagestyle={'icon'}
         heroname={Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(broadcaster))}
-        style={Styles.HeroImage()}
+        className={ParentStyles.heroImage}
       />
       <Label
         text={Players.GetPlayerName(broadcaster)}
-        style={Styles.PlayernameLabel(toColor(broadcaster))}
+        className={ParentStyles.playernameLabel}
+        style={{ color: toColor(broadcaster) }}
       />
       {unitOwnerPlayerID !== broadcaster && (
         <React.Fragment>
           <Image
-            style={Styles.ArrowImage()}
+            className={ParentStyles.arrowImage}
             src={'file://{images}/control_icons/chat_wheel_icon.png'}
           />
           <Label
             html={true}
-            style={Styles.EnemyOrAllyLabel()}
+            className={ParentStyles.enemyOrAllyLabel}
             text={isUnitEnemy ? 'Enemy' : 'Ally'}
           />
           {isUnitHero && (
             <DOTAHeroImage
               heroimagestyle={'icon'}
               heroname={unitName}
-              style={Styles.HeroImage()}
+              className={ParentStyles.heroImage}
             />
           )}
           {!isUnitHero && (
             <Label
-              style={Styles.UnitLabel()}
+              className={ParentStyles.unitLabel}
               text={$.Localize(unitName)}
             />
           )}
           <Label
             text={isUnitHero ? unitOwnerPlayerName : '(' + unitOwnerPlayerName + ')'}
-            style={Styles.PlayernameLabel(toColor(unitOwnerPlayerID))}
+            className={ParentStyles.playernameLabel}
+            style={{ color: toColor(unitOwnerPlayerID) }}
           />
         </React.Fragment>
       )}
       <Image
-        style={Styles.ArrowImage()}
+        className={ParentStyles.arrowImage}
         src={'file://{images}/control_icons/chat_wheel_icon.png'}
       />
       <Label
         html={true}
-        style={Styles.TextLabel()}
+        className={ParentStyles.textLabel}
         text={'Affected By: '}
       />
       <DOTAAbilityImage
-        style={Styles.ModifierImage()}
+        className={Styles.modifierImage}
         abilityname={Abilities.GetAbilityName(Buffs.GetAbility(unit, modifier))}
         showtooltip={false}
       />
       <Label
-        style={Styles.ModifierLabel(Buffs.IsDebuff(unit, modifier))}
+        className={Styles.modifierLabel}
+        style={{ color: Buffs.IsDebuff(unit, modifier) ? 'red' : 'green' }}
         text={$.Localize("DOTA_Tooltip_" + Buffs.GetName(unit, modifier))}
       />
       <Label
-        style={Styles.ModifierExtraLabel()}
+        className={Styles.modifierExtraLabel}
         text={getExtraText(modifier, unit)}
       />
     </Panel>
