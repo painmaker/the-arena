@@ -190,6 +190,50 @@
   padding-top: 8.5px;
   padding-bottom: 8.5px;
 }
+/*!*******************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ManaBar/styles.module.css ***!
+  \*******************************************************************************************************************************/
+.lmSadXOv8dn4_iAErJ2E {
+	width: 342.5px;
+	height: 18.5px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 85px;
+	border-radius: 4px;
+	background-color: red;
+}
+
+.TV6lAJTYNIb5hYQe8617 {
+	height: 100%;
+	hue-rotation: 100deg;
+	opacity: 0.8;
+}
+
+.IPrSE00jcHjUUl7qXYgs {
+	font-size: 14px;
+	color: white;
+	margin-top: 0.25px;
+	text-shadow: 1px 1px 2px 2.5 #000000;
+	vertical-align: middle;
+	horizontal-align: center;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.6;
+}
+
+.jvDXnYHe6hfhZY73oN4s {
+	font-size: 14px;
+	color: #83c2fe;
+	margin-top: 0.5px;
+	margin-right: 3px;
+	text-shadow: 2px 2px 0px 1 #00000066;
+	vertical-align: middle;
+	horizontal-align: right;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.8;
+}
+
 /*!**********************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Level/level.module.css ***!
   \**********************************************************************************************************************************/
@@ -1581,6 +1625,18 @@ ProgressBar {
 	transition-timing-function: linear;
 }
 
+.manaProgressBar .ProgressBarRight {
+	background-color: gradient(
+		linear,
+		0% 0%,
+		0% 100%,
+		from(#101932),
+		color-stop(0.2, #172447),
+		color-stop(0.5, #162244),
+		to(#101932)
+	);
+}
+
 .healthProgressBar .ProgressBarLeft {
 	background-color: gradient(
 		linear,
@@ -1593,6 +1649,30 @@ ProgressBar {
 	transition-property: width;
 	transition-duration: 0s;
 	transition-timing-function: linear;
+}
+
+.healthProgressBar .ProgressBarRight {
+	background-color: gradient(
+		linear,
+		0% 0%,
+		0% 100%,
+		from(#17200d),
+		color-stop(0.2, #222e13),
+		color-stop(0.5, #1e2911),
+		to(#17200d)
+	);
+}
+
+.healthProgressBarEnemy .ProgressBarRight {
+	background-color: gradient(
+		linear,
+		0% 0%,
+		0% 100%,
+		from(#2d1713),
+		color-stop(0.2, #391d18),
+		color-stop(0.5, #3c1e19),
+		to(#2d1713)
+	);
 }
 
 .healthProgressBarEnemy .ProgressBarLeft {

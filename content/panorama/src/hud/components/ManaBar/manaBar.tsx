@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../App";
 import { useInterval } from "../../hooks/useInterval";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
 type Props = {
   selectedUnit: EntityIndex,
@@ -23,14 +23,25 @@ const ManaBar = (props: Props) => {
     setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
   }, HUD_THINK_FAST);
 
+  const width = (mana / maxMana) * 100
+
   return (
-    <Panel hittest={false} style={Styles.Container(maxMana > 0)}>
+    <Panel
+      hittest={false}
+      className={Styles.container}
+      style={{ visibility: maxMana > 0 ? 'visible' : 'collapse' }}
+    >
       <ProgressBar
         min={0}
         max={maxMana}
         value={mana}
-        className={'manaProgressBar'}
-        style={Styles.Progressbar()}
+        className={`manaProgressBar`}
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: "0px",
+          horizontalAlign: "center",
+        }}
         onactivate={() => {
           if (GameUI.IsAltDown()) {
             GameEvents.SendCustomGameEventToAllClients("on_mana_alerted", {
@@ -41,16 +52,17 @@ const ManaBar = (props: Props) => {
         }}
       >
         <DOTAScenePanel
-          style={Styles.Scene(mana, maxMana)}
+          className={Styles.scene}
+          style={{ width: Number.isNaN(width) || !Number.isFinite(width) ? '100%' : width + "%" }}
           map={'scenes/hud/healthbarburner'}
         />
       </ProgressBar>
       <Label
-        style={Styles.ManaLabel()}
+        className={Styles.manaLabel}
         text={mana + " / " + maxMana}
       />
       <Label
-        style={Styles.RegenLabel()}
+        className={Styles.regenLabel}
         text={'+ ' + manaRegen.toFixed(1)}
       />
     </Panel>

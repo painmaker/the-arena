@@ -46,6 +46,18 @@ ProgressBar {
 	transition-timing-function: linear;
 }
 
+.manaProgressBar .ProgressBarRight {
+	background-color: gradient(
+		linear,
+		0% 0%,
+		0% 100%,
+		from(#101932),
+		color-stop(0.2, #172447),
+		color-stop(0.5, #162244),
+		to(#101932)
+	);
+}
+
 .healthProgressBar .ProgressBarLeft {
 	background-color: gradient(
 		linear,
@@ -58,6 +70,30 @@ ProgressBar {
 	transition-property: width;
 	transition-duration: 0s;
 	transition-timing-function: linear;
+}
+
+.healthProgressBar .ProgressBarRight {
+	background-color: gradient(
+		linear,
+		0% 0%,
+		0% 100%,
+		from(#17200d),
+		color-stop(0.2, #222e13),
+		color-stop(0.5, #1e2911),
+		to(#17200d)
+	);
+}
+
+.healthProgressBarEnemy .ProgressBarRight {
+	background-color: gradient(
+		linear,
+		0% 0%,
+		0% 100%,
+		from(#2d1713),
+		color-stop(0.2, #391d18),
+		color-stop(0.5, #3c1e19),
+		to(#2d1713)
+	);
 }
 
 .healthProgressBarEnemy .ProgressBarLeft {

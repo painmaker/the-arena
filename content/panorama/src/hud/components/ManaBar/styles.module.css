@@ -1,0 +1,40 @@
+.container {
+	width: 342.5px;
+	height: 18.5px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 85px;
+	border-radius: 4px;
+	background-color: red;
+}
+
+.scene {
+	height: 100%;
+	hue-rotation: 100deg;
+	opacity: 0.8;
+}
+
+.manaLabel {
+	font-size: 14px;
+	color: white;
+	margin-top: 0.25px;
+	text-shadow: 1px 1px 2px 2.5 #000000;
+	vertical-align: middle;
+	horizontal-align: center;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.6;
+}
+
+.regenLabel {
+	font-size: 14px;
+	color: #83c2fe;
+	margin-top: 0.5px;
+	margin-right: 3px;
+	text-shadow: 2px 2px 0px 1 #00000066;
+	vertical-align: middle;
+	horizontal-align: right;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.8;
+}
