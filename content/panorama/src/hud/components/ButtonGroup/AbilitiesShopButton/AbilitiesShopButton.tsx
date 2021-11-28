@@ -29,8 +29,11 @@ const AbilitiesShopButton = (props: Props) => {
 
   return (
     <Button
+      id={'abilities_shop_btn'}
       className={ParentStyles.btn}
       onactivate={() => {
+        $('#abilities_shop_btn').RemoveClass('btnClicked');
+        $('#abilities_shop_btn').AddClass('btnClicked');
         setAbilitiesShopVisible(!visible);
         Game.EmitSound("ui_topmenu_select");
       }}>

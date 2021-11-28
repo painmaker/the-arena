@@ -1,0 +1,11 @@
+.container {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+}
+
+.label {
+	vertical-align: center;
+	horizontal-align: center;
+	font-size: 25px;
+}

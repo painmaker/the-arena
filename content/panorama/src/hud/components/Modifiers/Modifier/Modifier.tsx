@@ -46,6 +46,8 @@ const Modifier = (props: Props) => {
       }}
       onactivate={() => {
         if (GameUI.IsAltDown()) {
+          $('#' + panelId).RemoveClass('btnClicked');
+          $('#' + panelId).AddClass('btnClicked');
           GameEvents.SendCustomGameEventToAllClients("on_modifier_alerted", {
             broadcaster: Players.GetLocalPlayer(),
             selectedUnit,

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
 type Props = {
   item: ItemEntityIndex,
@@ -21,7 +21,7 @@ const Keybind = (props: Props) => {
 
   return (
     <Label
-      style={Styles.Label()}
+      className={Styles.label}
       text={keybind}
     />
   );

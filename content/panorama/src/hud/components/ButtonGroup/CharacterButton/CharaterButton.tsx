@@ -29,8 +29,11 @@ const CharaterButton = (props: Props) => {
 
   return (
     <Button
+      id={'character_btn'}
       className={ParentStyles.btn}
       onactivate={() => {
+        $('#character_btn').RemoveClass('btnClicked');
+        $('#character_btn').AddClass('btnClicked');
         setCharacterPanelVisible(!visible);
         Game.EmitSound("ui_topmenu_select");
       }}

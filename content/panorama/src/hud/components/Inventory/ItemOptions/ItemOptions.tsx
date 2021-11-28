@@ -1,11 +1,13 @@
-import React, { Dispatch, useState } from "react";
+import React, { Dispatch } from "react";
 import { useGameEvent, useRegisterForUnhandledEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
 import { setItemOptionsVisible } from "../../../actions/itemOptionsActions";
 import { RootState } from "../../../reducers/rootReducer";
 import { ItemOptionsActionTypes } from "../../../types/itemOptionsTypes";
-import { ButtonTypes } from "./ButtonTypes";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
+
+const POS_X_OFFSET = 138;
+const POST_Y_OFFSET = -40;
 
 const mapStateToProps = (state: RootState) => ({
   item: state.itemOptionsReducer.item,
@@ -30,8 +32,6 @@ const ItemOptions = (props: Props) => {
 
   const { selectedUnit, item, visible, posX, setItemOptionsVisible } = props;
 
-  const [buttonTypeHovered, setButtonTypeHovered] = useState(ButtonTypes.NONE);
-
   useGameEvent("dota_player_update_query_unit", () => {
     setItemOptionsVisible(false);
   }, [setItemOptionsVisible]);
@@ -54,12 +54,13 @@ const ItemOptions = (props: Props) => {
   return (
     <React.Fragment>
       {visible && (
-        <Panel style={Styles.OuterContainer(posX)}>
-          <Panel style={Styles.CloseBtnContainer(buttonTypeHovered === ButtonTypes.CROSS)}>
+        <Panel
+          className={Styles.outerContainer}
+          style={{ position: (posX - POS_X_OFFSET) + "px " + POST_Y_OFFSET + "px " + "0px" }}
+        >
+          <Panel className={Styles.closeBtnContainer}>
             <Button
-              style={Styles.CloseBtn()}
-              onmouseout={() => setButtonTypeHovered(ButtonTypes.NONE)}
-              onmouseover={() => setButtonTypeHovered(ButtonTypes.CROSS)}
+              className={Styles.closeBtn}
               onactivate={() => {
                 setItemOptionsVisible(false);
                 Game.EmitSound("ui_topmenu_select");
@@ -68,16 +69,14 @@ const ItemOptions = (props: Props) => {
               <Image src="s2r://panorama/images/close_btn_white_png.vtex" />
             </Button>
           </Panel>
-          <Panel style={Styles.InnerContainer()}>
+          <Panel className={Styles.innerContainer}>
             <Label
               text={"OPTIONS"}
-              style={Styles.Title()}
+              className={Styles.title}
             />
             <Label
               text={"Sell"}
-              style={Styles.Option(buttonTypeHovered === ButtonTypes.SELL)}
-              onmouseout={() => setButtonTypeHovered(ButtonTypes.NONE)}
-              onmouseover={() => setButtonTypeHovered(ButtonTypes.SELL)}
+              className={Styles.option}
               onactivate={() => {
                 Items.LocalPlayerSellItem(item);
                 setItemOptionsVisible(false);
@@ -85,9 +84,7 @@ const ItemOptions = (props: Props) => {
             />
             <Label
               text={"Alert"}
-              style={Styles.Option(buttonTypeHovered === ButtonTypes.ALERT)}
-              onmouseout={() => setButtonTypeHovered(ButtonTypes.NONE)}
-              onmouseover={() => setButtonTypeHovered(ButtonTypes.ALERT)}
+              className={Styles.option}
               onactivate={() => {
                 GameEvents.SendCustomGameEventToAllClients("on_item_alerted", {
                   broadcaster: Players.GetLocalPlayer(),
@@ -99,19 +96,17 @@ const ItemOptions = (props: Props) => {
             />
             <Label
               text={"Cancel"}
-              style={Styles.Option(buttonTypeHovered === ButtonTypes.CANCEL)}
-              onmouseout={() => setButtonTypeHovered(ButtonTypes.NONE)}
-              onmouseover={() => setButtonTypeHovered(ButtonTypes.CANCEL)}
+              className={Styles.option}
               onactivate={() => {
                 Game.EmitSound("ui_topmenu_select");
                 setItemOptionsVisible(false);
               }}
             />
           </Panel>
-          <Panel style={Styles.ArrowheadContainer()}>
+          <Panel className={Styles.arrowheadContainer}>
             <Image
               src="s2r://panorama/images/tooltip_arrow_top.png"
-              style={Styles.ArrowheadImage()} />
+              className={Styles.arrowheadImage} />
           </Panel>
         </Panel>
       )}

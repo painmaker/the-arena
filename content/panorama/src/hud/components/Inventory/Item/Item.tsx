@@ -8,7 +8,7 @@ import { ItemOptionsActionTypes } from "../../../types/itemOptionsTypes";
 import { setItemOptionsItem, setItemOptionsPositionX, setItemOptionsVisible } from "../../../actions/itemOptionsActions";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../../reducers/rootReducer";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
 const mapStateToProps = (state: RootState) => ({
   itemOptionsVisible: state.itemOptionsReducer.visible,
@@ -154,7 +154,9 @@ class InventoryItem extends React.Component<Props, State> {
     if (!Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer())) {
       return;
     }
-    Abilities.ExecuteAbility(this.props.item, this.props.selectedUnit, false);
+    if (Items.CanBeExecuted(this.props.item)) {
+      Abilities.ExecuteAbility(this.props.item, this.props.selectedUnit, false);
+    }
   }
 
   onItemRightClicked(): void {
@@ -218,7 +220,11 @@ class InventoryItem extends React.Component<Props, State> {
         onactivate={this.onItemLeftClicked}
         oncontextmenu={this.onItemRightClicked}
         draggable={true}
-        style={Styles.Container(this.state.isItemDragged, this.state.isItemDropTarget, this.state.isHovering)}
+        className={Styles.container}
+        style={{
+          saturation: (this.state.isItemDragged || this.state.isItemDropTarget) ? '0.5' : '1.0',
+          washColor: (this.state.isItemDragged || this.state.isItemDropTarget) ? '#808080' : 'none',
+        }}
       >
         {this.props.item !== -1 && (
           <React.Fragment>

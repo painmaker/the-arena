@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
 type Props = {
   item: ItemEntityIndex
@@ -24,7 +24,10 @@ const Charges = (props: Props) => {
   return (
     <React.Fragment>
       {shouldDisplayCharges && (
-        <Label style={Styles.Container()} text={charges} />
+        <Label
+          className={Styles.container}
+          text={charges}
+        />
       )}
     </React.Fragment>
   );

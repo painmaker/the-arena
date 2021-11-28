@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { TableUtils } from "../../utils/TableUtils";
 import ItemOptions from "./ItemOptions/ItemOptions";
 import Item from "./Item/Item";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 import { HUD_THINK_FAST } from "../../App";
 import { useInterval } from "../../hooks/useInterval";
 
@@ -32,7 +32,10 @@ const Inventory = (props: Props) => {
   return (
     <React.Fragment>
       <ItemOptions selectedUnit={selectedUnit} />
-      <Panel style={Styles.Container(hasInventory)}>
+      <Panel
+        className={Styles.container}
+        style={{ visibility: hasInventory ? 'visible' : 'collapse' }}
+      >
         {items.map((item, index) => {
           return (
             <Item

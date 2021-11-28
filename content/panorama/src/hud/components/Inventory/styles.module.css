@@ -1,0 +1,7 @@
+.container {
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 40px;
+	flow-children: right;
+	margin-right: 0px;
+}

@@ -29,8 +29,11 @@ const SettingsButton = (props: Props) => {
 
   return (
     <Button
+      id={'settings_btn'}
       className={ParentStyles.btn}
       onactivate={() => {
+        $('#settings_btn').RemoveClass('btnClicked');
+        $('#settings_btn').AddClass('btnClicked');
         setSettingsVisible(!visible);
         Game.EmitSound("ui_topmenu_select");
       }}

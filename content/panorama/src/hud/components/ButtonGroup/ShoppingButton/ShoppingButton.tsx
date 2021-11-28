@@ -29,8 +29,11 @@ const ShoppingButton = (props: Props) => {
 
   return (
     <Button
+      id={'item_shopping_btn'}
       className={ParentStyles.btn}
       onactivate={() => {
+        $('#item_shopping_btn').RemoveClass('btnClicked');
+        $('#item_shopping_btn').AddClass('btnClicked');
         setShopVisible(!visible);
         Game.EmitSound("ui_topmenu_select");
       }}

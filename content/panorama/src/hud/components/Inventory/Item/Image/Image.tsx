@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
 type Props = {
   item: ItemEntityIndex,
@@ -34,11 +34,16 @@ const Image = (props: Props) => {
   return (
     <React.Fragment>
       {(isCooldownReady && showLock) && (
-        <Panel style={Styles.LockIcon()} />
+        <Panel className={Styles.lockIcon} />
       )}
       <DOTAItemImage
         itemname={texture}
-        style={Styles.Container(showLock, isCooldownReady, hasEnoughMana)}
+        className={Styles.container}
+        style={{
+          saturation: isCooldownReady ? '1.0' : '0.5',
+          border: !isCooldownReady ? '3px solid rgba(50, 50, 50, 0.75)' : '0px solid black',
+          washColor: showLock ? 'rgba(0, 0, 0, 0.8)' : hasEnoughMana ? 'none' : '#1569be',
+        }}
       />
     </React.Fragment>
   );

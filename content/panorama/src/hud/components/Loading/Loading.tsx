@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { HUD_THINK_SLOW } from '../../App';
 import { useTimeout } from '../../hooks/useTimeout';
-import { Styles } from './Styles';
+import Styles from './styles.module.css';
 
 type Props = {
   children: React.ReactNode
@@ -19,9 +19,9 @@ const Loading = (props: Props) => {
 
   if (isLoading) {
     return (
-      <Panel style={Styles.Container()}>
+      <Panel className={Styles.container}>
         <Label
-          style={Styles.Label()}
+          className={Styles.label}
           text={'LOADING...'}
         />
       </Panel>

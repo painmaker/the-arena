@@ -212,15 +212,11 @@
 	width: 35px;
 	height: 35px;
 	padding: 1.5px;
-	/* transition: padding 0.5s ease-in-out 0s; */
+	pre-transform-scale2d: 1;
 }
 
 .UJCvjFyZXXNKwJOrhwa4:hover {
 	padding: 0px;
-}
-
-.UJCvjFyZXXNKwJOrhwa4:active {
-	padding: 2px;
 }
 
 /*!*******************************************************************************************************************************!*\
@@ -408,7 +404,7 @@
 }
 
 .hP53l9q7lqT_sneNCQgJ:active {
-	transform: scale3d(0.95, 0.95, 0);
+	/* transform: scale3d(0.95, 0.95, 0); */
 }
 
 .mTu2M3Jd7k14DxJOs13Q {
@@ -469,6 +465,226 @@
 	padding: 2px;
 	margin-right: 660px;
 	margin-bottom: 80px;
+}
+
+/*!*********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/ItemOptions/styles.module.css ***!
+  \*********************************************************************************************************************************************/
+.U58wDQZ7vmkzEZcNiZ51 {
+	vertical-align: bottom;
+	horizontal-align: center;
+	flow-children: down;
+	width: 175px;
+	height: fit-children;
+	margin-bottom: 45px;
+	z-index: 9999;
+}
+
+.iecvapkiXSzu3kEMuO4x {
+	vertical-align: bottom;
+	horizontal-align: center;
+	flow-children: down;
+	width: 100%;
+	height: fit-children;
+	background-color: black;
+	border: 1px solid black;
+	border-radius: 1px;
+	z-index: 9999;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.J953_atEDxTEbfV4_X6v {
+	width: 100%;
+	text-align: center;
+	font-size: 16px;
+	color: rgba(200, 200, 200, 0.45);
+	letter-spacing: 1px;
+	text-shadow: 1px 1px 2px 2 #000000;
+	padding-left: 2px;
+	padding-top: 6px;
+	padding-bottom: 4px;
+	background-color: rgba(48, 66, 80, 0.5);
+}
+
+.zK2ahgxspEVc3pDGePwg {
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 100%;
+	height: 1px;
+}
+
+.XI9h9tFwGBMEDvP8UoW2 {
+	width: 100%;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 2.5px;
+	padding-bottom: 2.5px;
+	border-top: 2px solid rgba(44, 53, 60, 1);
+	background-color: rgba(24, 33, 40, 1);
+	color: #acaaaa;
+	letter-spacing: 1px;
+	saturation: 1.1;
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+.XI9h9tFwGBMEDvP8UoW2:hover {
+	saturation: 0.5;
+}
+
+.reDnWP725L1o70H4kWz6 {
+	width: fit-children;
+	height: fit-children;
+	horizontal-align: right;
+	padding: 1.2px;
+	margin-bottom: -15px;
+	margin-right: 14px;
+	z-index: 99999;
+	border-radius: 50%;
+	background-color: rgba(24, 33, 40, 1);
+	border: 2px solid black;
+	saturation: 1.5;
+}
+
+.reDnWP725L1o70H4kWz6:hover {
+	saturation: 0.5;
+	background-color: rgba(40, 40, 40, 1);
+}
+
+.l7LX_50dCrJy6E6YOOHh {
+	width: 15px;
+	height: 15px;
+	wash-color: rgba(50, 50, 50, 0.7);
+	margin-left: 1px;
+}
+
+.oumae9PTa7A_SRzxbZGZ {
+	width: 100%;
+	height: fit-children;
+}
+
+.CCDKSWjF9KDiVCElPlGL {
+	width: 20px;
+	height: 10px;
+	wash-color: rgba(24, 33, 40, 1);
+	z-index: 9999;
+	pre-transform-rotate2d: 180deg;
+	horizontal-align: center;
+}
+
+/*!**********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/Item/Keybind/styles.module.css ***!
+  \**********************************************************************************************************************************************/
+.Mc1Qw06z2ds5AmoL7ycQ {
+	font-size: 16px;
+	color: white;
+	z-index: 50;
+	vertical-align: top;
+	horizontal-align: left;
+	margin-left: 4px;
+	margin-top: 1px;
+	text-shadow: 1px 1px 2px 4 #000000;
+}
+
+/*!***********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/Item/Cooldown/styles.module.css ***!
+  \***********************************************************************************************************************************************/
+.HfeZhl84mGUn9WJBIZLc {
+	width: 100%;
+	height: 100%;
+	z-index: 40;
+	background-color: rgba(20, 20, 20, 0.85);
+}
+
+.VTUFpbDDtk_oPVForZmw {
+	font-size: 24px;
+	color: white;
+	text-shadow: 1px 1px 2px 4 #000000;
+	horizontal-align: middle;
+	vertical-align: middle;
+	z-index: 60;
+	text-align: center;
+}
+
+/*!********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/Item/Image/styles.module.css ***!
+  \********************************************************************************************************************************************/
+.TWZ2pG_xtGBykJ_kpppR {
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	background-image: url('s2r://panorama/images/softedge_circle.png');
+}
+
+.QTjhPejGQka7jR3Y8SW_ {
+	width: 25px;
+	height: 25px;
+	vertical-align: center;
+	horizontal-align: center;
+	background-image: url('s2r://panorama/images/lock_white.png');
+	background-size: 100% 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	z-index: 9999;
+}
+
+/*!**********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/Item/Charges/styles.module.css ***!
+  \**********************************************************************************************************************************************/
+.QH9bS8IwqETVesaFDNh1 {
+	vertical-align: bottom;
+	horizontal-align: left;
+	margin-left: 5px;
+	margin-bottom: 2px;
+	font-size: 12px;
+	color: white;
+	z-index: 50;
+	text-shadow: 1px 1px 2px 4 #000000;
+}
+
+/*!***********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/Item/ManaCost/styles.module.css ***!
+  \***********************************************************************************************************************************************/
+.VA8o8XePr24qBvJDgZIQ {
+	vertical-align: bottom;
+	horizontal-align: right;
+	font-size: 14px;
+	color: #88d2f5;
+	margin-right: 2px;
+	margin-bottom: 1px;
+	text-shadow: 1px 1px 2px 4 #000000;
+	font-weight: bold;
+}
+
+/*!**************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/Item/styles.module.css ***!
+  \**************************************************************************************************************************************/
+.HMwcE6dRfetA6ujKyCKN {
+	width: 55px;
+	height: 40px;
+	border-radius: 5px;
+	border: 1px solid black;
+	background-color: rgba(0, 0, 0, 0.85);
+	background-image: url('s2r://panorama/images/emptyitembg.png');
+	background-size: 100%;
+	transition: transform 0.1s ease-in-out 0s;
+	margin-right: 1px;
+	margin-left: 1px;
+	transform: scale3d(1, 1, 1);
+}
+
+.HMwcE6dRfetA6ujKyCKN:hover {
+	transform: scale3d(1.02, 1.02, 1);
+}
+
+/*!*********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/styles.module.css ***!
+  \*********************************************************************************************************************************/
+.FxnDiUvbItTwkCodN9Du {
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 40px;
+	flow-children: right;
+	margin-right: 0px;
 }
 
 /*!*********************************************************************************************************************************!*\
@@ -1481,6 +1697,21 @@
   background-color: rgb(29, 39, 46);
   color: antiquewhite;
 }
+/*!*******************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Loading/styles.module.css ***!
+  \*******************************************************************************************************************************/
+.OuUe92r3khA53lMXfW0Z {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+}
+
+.WSwmo00PLY9oEgm0tJPJ {
+	vertical-align: center;
+	horizontal-align: center;
+	font-size: 25px;
+}
+
 /*!****************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/styles.module.css ***!
   \****************************************************************************************************************************************/
@@ -1773,17 +2004,17 @@ ProgressBar {
 
 @keyframes 'btnClicked' {
 	0% {
-		transform: scale3d(0.95, 0.95, 0);
+		pre-transform-scale2d: 0.9;
 	}
 
 	100% {
-		transform: scale3d(1, 1, 0);
+		pre-transform-scale2d: 1;
 	}
 }
 
 .btnClicked {
 	animation-name: btnClicked;
-	animation-duration: 0.05s;
+	animation-duration: 0.1s;
 }
 
 /*!*********************************************************************************************************!*\
