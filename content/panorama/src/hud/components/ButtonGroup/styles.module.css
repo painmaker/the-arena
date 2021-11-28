@@ -1,0 +1,29 @@
+.container {
+	vertical-align: bottom;
+	horizontal-align: right;
+	width: 250px;
+	margin-bottom: 25px;
+	margin-right: 25px;
+	flow-children: left;
+	z-index: 9999;
+}
+
+.btn {
+	vertical-align: center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-right: 10px;
+	margin-left: 10px;
+	width: 35px;
+	height: 35px;
+	padding: 1.5px;
+	/* transition: padding 0.5s ease-in-out 0s; */
+}
+
+.btn:hover {
+	padding: 0px;
+}
+
+.btn:active {
+	padding: 2px;
+}

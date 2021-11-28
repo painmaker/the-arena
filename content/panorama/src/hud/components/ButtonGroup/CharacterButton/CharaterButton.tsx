@@ -1,9 +1,10 @@
-import React, { Dispatch, useState } from "react";
+import React from "react";
 import { connect, ConnectedProps } from "react-redux";
+import { Dispatch } from "redux";
 import { setCharacterVisible } from "../../../actions/characterActions";
 import { RootState } from "../../../reducers/rootReducer";
 import { CharacterActionTypes } from "../../../types/characterTypes";
-import { Styles } from "../Styles";
+import ParentStyles from './../styles.module.css';
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.characterReducer.visible,
@@ -26,18 +27,16 @@ const CharaterButton = (props: Props) => {
 
   const { visible, setCharacterPanelVisible } = props;
 
-  const [isHovering, setIsHovering] = useState(false);
-
   return (
-    <Button>
+    <Button
+      className={ParentStyles.btn}
+      onactivate={() => {
+        setCharacterPanelVisible(!visible);
+        Game.EmitSound("ui_topmenu_select");
+      }}
+    >
       <Image
-        style={Styles.EntryHover(visible, isHovering)}
-        onmouseover={() => setIsHovering(true)}
-        onmouseout={() => setIsHovering(false)}
-        onactivate={() => {
-          setCharacterPanelVisible(!visible);
-          Game.EmitSound("ui_topmenu_select");
-        }}
+        style={{ washColor: visible ? 'orange' : 'white' }}
         src="s2r://panorama/images/character_btn_white_png.vtex"
       />
     </Button>

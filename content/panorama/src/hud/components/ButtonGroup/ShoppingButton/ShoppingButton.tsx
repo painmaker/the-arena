@@ -1,9 +1,10 @@
-import React, { Dispatch, useState } from "react";
+import React from "react";
 import { connect, ConnectedProps } from "react-redux";
+import { Dispatch } from "redux";
 import { setShopVisible } from "../../../actions/shopActions";
 import { RootState } from "../../../reducers/rootReducer";
 import { ShopActionTypes } from "../../../types/shopTypes";
-import { Styles } from "../Styles";
+import ParentStyles from './../styles.module.css';
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.shopReducer.visible,
@@ -26,18 +27,16 @@ const ShoppingButton = (props: Props) => {
 
   const { visible, setShopVisible } = props;
 
-  const [isHovering, setIsHovering] = useState(false);
-
   return (
-    <Button>
+    <Button
+      className={ParentStyles.btn}
+      onactivate={() => {
+        setShopVisible(!visible);
+        Game.EmitSound("ui_topmenu_select");
+      }}
+    >
       <Image
-        style={Styles.EntryHover(visible, isHovering)}
-        onmouseover={() => setIsHovering(true)}
-        onmouseout={() => setIsHovering(false)}
-        onactivate={() => {
-          setShopVisible(!visible);
-          Game.EmitSound("ui_topmenu_select");
-        }}
+        style={{ washColor: visible ? 'orange' : 'white' }}
         src="s2r://panorama/images/shop_btn_white_png.vtex"
       />
     </Button>

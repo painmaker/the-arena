@@ -1,9 +1,10 @@
-import React, { Dispatch, useState } from "react";
+import React from "react";
 import { connect, ConnectedProps } from "react-redux";
+import { Dispatch } from "redux";
 import { setSettingsVisible } from "../../../actions/settingsAction";
 import { RootState } from "../../../reducers/rootReducer";
 import { SettingsActionTypes } from "../../../types/settingsTypes";
-import { Styles } from "../Styles";
+import ParentStyles from './../styles.module.css';
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.settingsReducer.visible,
@@ -26,18 +27,16 @@ const SettingsButton = (props: Props) => {
 
   const { visible, setSettingsVisible } = props;
 
-  const [isHovering, setIsHovering] = useState(false);
-
   return (
-    <Button>
+    <Button
+      className={ParentStyles.btn}
+      onactivate={() => {
+        setSettingsVisible(!visible);
+        Game.EmitSound("ui_topmenu_select");
+      }}
+    >
       <Image
-        style={Styles.EntryHover(visible, isHovering)}
-        onmouseover={() => setIsHovering(true)}
-        onmouseout={() => setIsHovering(false)}
-        onactivate={() => {
-          setSettingsVisible(!visible);
-          Game.EmitSound("ui_topmenu_select");
-        }}
+        style={{ washColor: visible ? 'orange' : 'white' }}
         src="s2r://panorama/images/settings_btn_white_png.vtex"
       />
     </Button>

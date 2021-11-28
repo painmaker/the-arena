@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
 import { setAbilitiesShopVisible } from "../../../actions/abilitiesShopActions";
 import { RootState } from "../../../reducers/rootReducer";
 import { AbilitiesShopTypes } from "../../../types/abilitiesShopTypes";
-import { Styles } from "../Styles";
+import ParentStyles from './../styles.module.css';
 
 const mapStateToProps = (state: RootState) => ({
   visible: state.abilitiesShopReducer.visible,
@@ -27,18 +27,15 @@ const AbilitiesShopButton = (props: Props) => {
 
   const { visible, setAbilitiesShopVisible } = props;
 
-  const [isHovering, setIsHovering] = useState(false);
-
   return (
-    <Button>
+    <Button
+      className={ParentStyles.btn}
+      onactivate={() => {
+        setAbilitiesShopVisible(!visible);
+        Game.EmitSound("ui_topmenu_select");
+      }}>
       <Image
-        style={Styles.EntryHover(visible, isHovering)}
-        onmouseover={() => setIsHovering(true)}
-        onmouseout={() => setIsHovering(false)}
-        onactivate={() => {
-          setAbilitiesShopVisible(!visible);
-          Game.EmitSound("ui_topmenu_select");
-        }}
+        style={{ washColor: visible ? 'orange' : 'white' }}
         src="s2r://panorama/images/book_open_page_variant_outline_png.vtex"
       />
     </Button>
