@@ -1,0 +1,8 @@
+.container {
+	margin-top: 1px;
+	width: 80px;
+	height: 5px;
+	background-color: black;
+	border-radius: 14px;
+	horizontal-align: center;
+}

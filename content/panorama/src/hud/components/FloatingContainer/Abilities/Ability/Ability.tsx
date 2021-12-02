@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import { Styles } from "./Styles";
 import { useInterval } from "../../../../hooks/useInterval";
 import { useTimeout } from "../../../../hooks/useTimeout";
 import { SetAbilitiesContext } from "../Abilities";
+import Styles from './styles.module.css';
 
 type Props = {
   id: number,
@@ -31,16 +31,22 @@ const Ability = (props: Props) => {
   }, 1000);
 
   return (
-    <Panel style={Styles.Container(posY, opacity)}>
+    <Panel
+      className={Styles.container}
+      style={{
+        position: "0px " + posY + "px " + "0px",
+        opacity: opacity,
+      }}
+    >
       <DOTAAbilityImage
         showtooltip={false}
         abilityname={name}
-        style={Styles.Image()}
+        className={Styles.image}
       />
       <Label
         html={true}
         text={$.Localize("DOTA_Tooltip_Ability_" + name)}
-        style={Styles.Label()}
+        className={Styles.label}
       />
     </Panel>
   );

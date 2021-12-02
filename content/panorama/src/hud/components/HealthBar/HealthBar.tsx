@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../App";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 import { useInterval } from "../../hooks/useInterval";
 
 type Props = {
@@ -34,13 +34,18 @@ const HealthBar = (props: Props) => {
   const isEnemy = Entities.IsEnemy(selectedUnit);
 
   return (
-    <Panel hittest={false} style={Styles.Container()}>
+    <Panel className={Styles.container}>
       <ProgressBar
         min={0}
         max={maxHealth}
         value={health}
         className={isEnemy ? 'healthProgressBarEnemy' : 'healthProgressBar'}
-        style={Styles.Progressbar()}
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: "0px",
+          horizontalAlign: "center",
+        }}
         onactivate={() => {
           if (GameUI.IsAltDown()) {
             GameEvents.SendCustomGameEventToAllClients("on_health_alerted", {
@@ -52,17 +57,21 @@ const HealthBar = (props: Props) => {
       >
         <DOTAScenePanel
           id={'HealthBurner'}
-          className={'SceneLoaded'}
-          style={Styles.Scene(health, maxHealth, isEnemy)}
+          className={`${Styles.scene} + SceneLoaded`}
+          style={{
+            width: (health / maxHealth) * 100 + "%",
+            washColor: isEnemy ? 'red' : 'none',
+          }}
           map={'scenes/hud/healthbarburner'}
         />
       </ProgressBar>
       <Label
-        style={Styles.HealthLabel()}
+        className={Styles.healthLabel}
         text={health + " / " + maxHealth}
       />
       <Label
-        style={Styles.RegenLabel(isEnemy)}
+        className={Styles.regenLabel}
+        style={{ color: isEnemy ? '#ff4433' : '#3ED038' }}
         text={'+ ' + healthRegen.toFixed(1)}
       />
     </Panel>

@@ -4,24 +4,20 @@ import Health from "./Health/Health";
 import Image from "./Image/Image";
 import Mana from "./Mana/Mana";
 import Playername from "./Playername/Playername";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
-type Props = {
-  // ownProps
-};
-
-const Heroes = (props: Props) => {
+const Heroes = () => {
 
   // $.Msg("REACT-RENDER: Heroes rendered");
 
   const pickedHeroes = Object.values(useNetTableValues('HeroSelectionHeroes').heroes).filter(hero => hero.picked === 1)
 
   return (
-    <Panel style={Styles.HeroesContainer()}>
+    <Panel className={Styles.heroesContainer}>
       {pickedHeroes.map((pickedHero) => {
         const hero = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
         return (
-          <Panel style={Styles.HeroContainer()} key={hero} >
+          <Panel className={Styles.heroContainer} key={hero} >
             <Image hero={hero} />
             <Health hero={hero} />
             <Mana hero={hero} />

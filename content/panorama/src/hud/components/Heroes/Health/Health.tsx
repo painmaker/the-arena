@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
 type Props = {
   hero: EntityIndex,
@@ -22,13 +22,18 @@ const Health = (props: Props) => {
   }, HUD_THINK_FAST);
 
   return (
-    <Panel hittest={false} style={Styles.Container()}>
+    <Panel className={Styles.container}>
       <ProgressBar
         min={0}
         max={maxHealth}
         value={health}
         className='healthProgressBar'
-        style={Styles.Progressbar()}
+        style={{
+          width: "100%",
+          height: "6px",
+          borderRadius: "0px",
+          horizontalAlign: "center",
+        }}
       />
     </Panel>
   );

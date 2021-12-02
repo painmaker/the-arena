@@ -3,7 +3,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { HUD_THINK_FAST } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import { RootState } from "../../../reducers/rootReducer";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
 const mapStateToProps = (state: RootState) => ({
   cameraLocked: state.settingsReducer.cameraLocked,
@@ -61,7 +61,6 @@ const ImageImpl = (props: Props) => {
   const { hero, cameraLocked } = props;
 
   const [washColor, setWashColor] = useState("none");
-  const [isHovering, setIsHovering] = useState(false);
   const [isDisconnected, setIsDisconnected] = useState(false);
 
   useEffect(() => {
@@ -96,21 +95,20 @@ const ImageImpl = (props: Props) => {
   }, HUD_THINK_FAST);
 
   return (
-    <Panel hittest={false} style={Styles.Container(isHovering)}>
+    <Panel className={Styles.container}  >
       {isDisconnected && (
         <Image
           src={"s2r://panorama/images/hud/reborn/icon_disconnect_png.vtex"}
-          style={Styles.Disconnected()}
+          className={Styles.disconnected}
         />
       )}
       <DOTAHeroImage
-        onmouseover={() => setIsHovering(true)}
-        onmouseout={() => setIsHovering(false)}
         heroname={Entities.GetUnitName(hero)}
         heroimagestyle="landscape"
         onactivate={() => onHeroImageClicked(hero, cameraLocked)}
         oncontextmenu={() => onHeroImageClicked(hero, cameraLocked)}
-        style={Styles.Image(washColor)}
+        className={Styles.image}
+        style={{ washColor: washColor }}
       />
     </Panel>
   );

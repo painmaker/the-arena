@@ -5,9 +5,8 @@ import { TableUtils } from "../../utils/TableUtils";
 import HealthBar from "./HealthBar/HealthBar";
 import ManaBar from "./ManaBar/ManaBar";
 import Abilities from "./Abilities/Abilities";
-import { Styles } from "./Styles";
 import { useInterval } from "../../hooks/useInterval";
-
+import Styles from './styles.module.css';
 interface IFloatingBar {
   unit: EntityIndex,
   screenX: number,
@@ -80,7 +79,11 @@ const FloatingContainer = (props: Props) => {
       {floatingBars.map(floatingBar => {
         const { unit, screenX, screenY } = floatingBar;
         return (
-          <Panel key={unit} style={Styles.Container(screenX - 125, screenY - 500, 0)}>
+          <Panel
+            key={unit}
+            className={Styles.container}
+            style={{ position: (screenX - 125) + "px " + (screenY - 500) + "px " + 0 + "px" }}
+          >
             {Entities.GetMaxMana(unit) > 0 && (
               <ManaBar unit={unit} />
             )}

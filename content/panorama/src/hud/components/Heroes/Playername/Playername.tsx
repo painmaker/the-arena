@@ -1,6 +1,6 @@
 import React from "react";
-import { Styles } from "./Styles";
-
+import { toColor } from "../../../utils/Color";
+import Styles from "./styles.module.css";
 interface Props {
   playerId: PlayerID;
 }
@@ -12,12 +12,11 @@ const Playername = (props: Props) => {
   const { playerId } = props;
 
   return (
-    <Panel hittest={false} style={{ width: '100%' }}>
-      <Label
-        text={Players.GetPlayerName(playerId)}
-        style={Styles.Label(playerId)}
-      />
-    </Panel>
+    <Label
+      text={Players.GetPlayerName(playerId)}
+      className={Styles.label}
+      style={{ color: toColor(playerId) }}
+    />
   );
 
 };

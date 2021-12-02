@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import Ability from "./Ability/Ability";
-import { Styles } from "./Styles";
+import Styles from './styles.module.css';
 
 type Props = {
   unit: EntityIndex,
@@ -31,7 +31,7 @@ const Abilities = (props: Props) => {
   }, [unit]);
 
   return (
-    <Panel hittest={false} style={Styles.Container()}>
+    <Panel hittest={false} className={Styles.container}>
       <SetAbilitiesContext.Provider value={setAbilities}>
         {abilities.map((ability) => {
           return (

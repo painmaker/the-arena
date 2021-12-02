@@ -1,0 +1,6 @@
+.container {
+	min-height: 500px;
+	width: 250px;
+	flow-children: up;
+	z-index: -1;
+}

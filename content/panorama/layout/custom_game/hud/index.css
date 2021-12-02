@@ -219,6 +219,142 @@
 	padding: 0px;
 }
 
+/*!*************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Heroes/Health/styles.module.css ***!
+  \*************************************************************************************************************************************/
+.f5tPV5CzsnGZse09Jd3H {
+	width: 100%;
+	height: fit-children;
+	margin-top: 1px;
+}
+
+/*!************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Heroes/Image/styles.module.css ***!
+  \************************************************************************************************************************************/
+.HghwT4F3Upk6ZZxs3RGH {
+	width: 100%;
+	height: 41.4px;
+	background-color: black;
+	transition: border 0.15s ease-in-out 0s;
+	border: 2px solid rgba(0, 0, 0, 0.75);
+	z-index: 998;
+}
+
+.HghwT4F3Upk6ZZxs3RGH:hover {
+	border: 1.5px solid rgba(0, 0, 0, 0.75);
+}
+
+.y3mao5EPMJ_BUMYw9yF_ {
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+.ecRPyTj5GQqyvUNoa2TI {
+	z-index: 999;
+	width: 80%;
+	height: 50%;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+/*!***********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Heroes/Mana/styles.module.css ***!
+  \***********************************************************************************************************************************/
+.q1L5JKSgUrfoBLrvvYIp {
+	width: 100%;
+	height: fit-children;
+}
+
+/*!*****************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Heroes/Playername/styles.module.css ***!
+  \*****************************************************************************************************************************************/
+.n3KtCag5Ep7H3f7Qu9Bg {
+	width: 100%;
+	height: 20px;
+	font-size: 16px;
+	text-align: center;
+	text-overflow: ellipsis;
+	text-shadow: 1px 1px 2px 1.5 rgba(0, 0, 0, 0.75);
+}
+
+/*!******************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Heroes/styles.module.css ***!
+  \******************************************************************************************************************************/
+.GfoKrcTEyRDAnLfLmlIm {
+	vertical-align: top;
+	horizontal-align: middle;
+	flow-children: right;
+	margin-top: 5px;
+}
+
+.LSBLkVdl0SLhCGxcmNxE {
+	width: 80px;
+	flow-children: down;
+	margin-right: 12.5px;
+	margin-left: 12.5px;
+	padding: 5px;
+}
+
+/*!********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/GameTime/styles.module.css ***!
+  \********************************************************************************************************************************/
+.UqxlWvoDM9ivnuHT6GDt {
+	flow-children: down;
+	horizontal-align: right;
+	width: 100px;
+	margin-top: 90px;
+	margin-right: 25px;
+}
+
+.u9zrcHhU8YuhR6YiRAmZ {
+	color: rgba(255, 255, 255, 0.75);
+	font-size: 18px;
+	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.5);
+	width: 100%;
+	padding-left: 20px;
+}
+
+/*!*********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HealthBar/styles.module.css ***!
+  \*********************************************************************************************************************************/
+.rV87EGQiWNRNHbG9vdNq {
+	width: 342.5px;
+	height: 18.5px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 105px;
+	border-radius: 4px;
+}
+
+.C11fXGMWVtHFBK80TN8S {
+	font-size: 14px;
+	color: white;
+	margin-top: 0.25px;
+	text-shadow: 1px 1px 2px 2.5 #000000;
+	vertical-align: middle;
+	horizontal-align: center;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.8;
+}
+
+.Po_h580u26mGbnsfAeYn {
+	font-size: 14px;
+	margin-top: -0.25px;
+	margin-right: 3px;
+	text-shadow: 1px 1px 2px 2.5 #000000;
+	vertical-align: middle;
+	horizontal-align: right;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.8;
+}
+
+.eJFtzSbKz6BPT0EBp_pU {
+	height: 100%;
+	opacity: 0.8;
+}
+
 /*!*******************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ManaBar/styles.module.css ***!
   \*******************************************************************************************************************************/
@@ -1710,6 +1846,77 @@
 	vertical-align: center;
 	horizontal-align: center;
 	font-size: 25px;
+}
+
+/*!***************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/HealthBar/styles.module.css ***!
+  \***************************************************************************************************************************************************/
+.DUu5zaS_QmbcNqAlrUqi {
+	width: 80px;
+	height: 5px;
+	background-color: black;
+	border-radius: 14px;
+	horizontal-align: center;
+}
+
+/*!*************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/ManaBar/styles.module.css ***!
+  \*************************************************************************************************************************************************/
+.V2ljavdVMtjkKST7Q2LA {
+	margin-top: 1px;
+	width: 80px;
+	height: 5px;
+	background-color: black;
+	border-radius: 14px;
+	horizontal-align: center;
+}
+
+/*!***********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/Abilities/Ability/styles.module.css ***!
+  \***********************************************************************************************************************************************************/
+.I9CsTvbuRcg3wKQxlqxx {
+	height: 25px;
+	flow-children: right;
+	horizontal-align: center;
+	transition: opacity 0.25s ease-in-out 0s;
+}
+
+.hY1zGmuZILkJENYK5bnG {
+	vertical-align: center;
+	horizontal-align: center;
+	font-size: 12px;
+	color: white;
+	margin-left: 4px;
+	margin-bottom: 2px;
+	text-shadow: 1px 1px 2px 2 rgba(0, 0, 0, 0.8);
+	text-overflow: ellipsis;
+}
+
+.rJqIQZlVhQ31JPuOtzMM {
+	vertical-align: center;
+	horizontal-align: center;
+	height: 18px;
+	width: 18px;
+	padding: -2px;
+}
+
+/*!***************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/Abilities/styles.module.css ***!
+  \***************************************************************************************************************************************************/
+.NP_gCkcrMo_3Wk3nIZpv {
+	width: 100%;
+	height: 100px;
+	margin-bottom: 2px;
+}
+
+/*!*****************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/styles.module.css ***!
+  \*****************************************************************************************************************************************/
+.FPU_305Ax2d42cgpcYZE {
+	min-height: 500px;
+	width: 250px;
+	flow-children: up;
+	z-index: -1;
 }
 
 /*!****************************************************************************************************************************************!*\

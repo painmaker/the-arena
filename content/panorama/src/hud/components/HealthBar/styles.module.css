@@ -1,0 +1,37 @@
+.container {
+	width: 342.5px;
+	height: 18.5px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 105px;
+	border-radius: 4px;
+}
+
+.healthLabel {
+	font-size: 14px;
+	color: white;
+	margin-top: 0.25px;
+	text-shadow: 1px 1px 2px 2.5 #000000;
+	vertical-align: middle;
+	horizontal-align: center;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.8;
+}
+
+.regenLabel {
+	font-size: 14px;
+	margin-top: -0.25px;
+	margin-right: 3px;
+	text-shadow: 1px 1px 2px 2.5 #000000;
+	vertical-align: middle;
+	horizontal-align: right;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.8;
+}
+
+.scene {
+	height: 100%;
+	opacity: 0.8;
+}

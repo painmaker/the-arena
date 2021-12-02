@@ -1,0 +1,5 @@
+.container {
+	width: 100%;
+	height: fit-children;
+	margin-top: 1px;
+}

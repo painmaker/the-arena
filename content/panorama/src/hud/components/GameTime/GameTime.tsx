@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { formatTime } from "../../../utils";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 import { HUD_THINK_SLOW } from "../../App";
 import { useInterval } from "../../hooks/useInterval";
 
@@ -14,11 +14,7 @@ const formatGameTime = (dotaTime: number) => {
   return hours + ":" + minutes + ":" + seconds;
 }
 
-type Props = {
-  // ownProps
-}
-
-const GameTime = (props: Props) => {
+const GameTime = () => {
 
   const [gameTime, setGameTime] = useState(Game.GetDOTATime(false, false));
 
@@ -27,9 +23,9 @@ const GameTime = (props: Props) => {
   }, HUD_THINK_SLOW);
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={Styles.container}>
       <Label
-        style={Styles.Label()}
+        className={Styles.label}
         text={formatGameTime(gameTime)}
       />
     </Panel>

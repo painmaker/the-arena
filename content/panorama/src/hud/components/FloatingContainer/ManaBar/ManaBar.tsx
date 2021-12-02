@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Styles } from "./Styles";
 import { HUD_THINK_FAST } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
+import Styles from './styles.module.css';
 
 type Props = {
   unit: EntityIndex,
@@ -22,13 +22,21 @@ const ManaBar = (props: Props) => {
   }, HUD_THINK_FAST);
 
   return (
-    <Panel hittest={false} style={Styles.Container(maxMana > 0)}>
+    <Panel
+      hittest={false}
+      className={Styles.container}
+      style={{ visibility: maxMana > 0 ? 'visible' : 'collapse' }}
+    >
       <ProgressBar
         min={0}
         max={maxMana}
         value={mana}
         className={'manaProgressBar'}
-        style={Styles.Progressbar()}
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: "0px",
+        }}
       />
     </Panel>
   );
