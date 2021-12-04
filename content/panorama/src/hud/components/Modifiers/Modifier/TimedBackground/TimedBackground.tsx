@@ -28,7 +28,7 @@ const TimedBackground = (props: Props) => {
     <Panel
       className={Styles.container}
       style={{
-        backgroundColor: isDebuff ? 'rgba(200, 50, 50, 0.9)' : 'rgba(0, 200, 20, 0.9)',
+        backgroundColor: isDebuff ? 'rgba(195, 40, 40, 0.9)' : 'rgba(0, 200, 20, 0.9)',
         clip: 'radial(50% 50%, 0deg, ' + -degree + 'deg)'
       }}
     />

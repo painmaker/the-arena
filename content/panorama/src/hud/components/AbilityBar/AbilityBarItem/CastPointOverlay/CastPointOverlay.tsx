@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
-import { Styles } from "./Styles";
+import Styles from "./styles.module.css";
 
 type Props = {
   castPoint: number;
@@ -27,7 +27,10 @@ const CastPointOverlay = (props: Props) => {
   }
 
   return (
-    <Panel style={Styles.Container(degree)} />
+    <Panel
+      className={Styles.container}
+      style={{ clip: 'radial(50% 50%, 0deg, ' + degree + 'deg)' }}
+    />
   );
 
 };

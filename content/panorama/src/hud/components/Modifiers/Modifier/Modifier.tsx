@@ -71,7 +71,7 @@ const Modifier = (props: Props) => {
       {isAura && (
         <Panel
           className={Styles.background}
-          style={{ backgroundColor: isDebuff ? 'rgba(200, 50, 50, 0.9)' : 'rgba(0, 200, 20, 0.9)' }}
+          style={{ backgroundColor: isDebuff ? 'rgba(195, 40, 40, 0.9)' : 'rgba(0, 200, 20, 0.9)' }}
         />
       )}
       {!isAura && (

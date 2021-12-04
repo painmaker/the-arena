@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNetTableValues } from "react-panorama";
-import { objectsEqual } from "../../utils/ObjectUtils";
-import { TableUtils } from "../../utils/TableUtils";
 import HealthBar from "./HealthBar/HealthBar";
 import ManaBar from "./ManaBar/ManaBar";
 import Abilities from "./Abilities/Abilities";
 import { useInterval } from "../../hooks/useInterval";
 import Styles from './styles.module.css';
+import { TableUtils } from "../../utils/TableUtils";
+import { ObjectUtils } from "../../utils/ObjectUtils";
 interface IFloatingBar {
   unit: EntityIndex,
   screenX: number,
@@ -69,7 +69,7 @@ const FloatingContainer = (props: Props) => {
       })
       .filter(screenPosition => screenPosition.visible);
 
-    if (!TableUtils.isEqual(mFloatingBars, floatingBars, objectsEqual)) {
+    if (!TableUtils.areTablesEqual(mFloatingBars, floatingBars, ObjectUtils.areObjectsEqual)) {
       setFloatingBars(mFloatingBars);
     }
   }, 5)

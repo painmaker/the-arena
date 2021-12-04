@@ -1,0 +1,36 @@
+.container {
+	flow-children: down;
+}
+
+.particleScene {
+	width: 48px;
+	height: 20px;
+	margin-top: 2px;
+	vertical-align: bottom;
+}
+
+.buttonBackground {
+	width: 48px;
+	height: 20px;
+	background-image: url('s2r://panorama/images/hud/reborn/levelup_button_2_psd.vtex');
+	background-size: 100% 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	margin-bottom: -5px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	wash-color: rgba(0, 0, 0, 0.1);
+	box-shadow: fill rgba(0, 0, 0, 0.3) 0px 0px 14px 1px;
+}
+
+.icon {
+	height: 12px;
+	width: 12px;
+	background-image: url('s2r://panorama/images/hud/reborn/levelup_plus_well_psd.vtex');
+	background-size: 100% 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	vertical-align: center;
+	horizontal-align: center;
+	margin-bottom: 2px;
+}

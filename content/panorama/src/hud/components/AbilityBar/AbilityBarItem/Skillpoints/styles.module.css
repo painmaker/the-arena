@@ -1,0 +1,19 @@
+.container {
+	width: 48px;
+	height: 5px;
+	margin-top: 4px;
+	flow-children: right;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.column {
+	height: 5px;
+}
+
+.skillpoint {
+	width: 5px;
+	height: 5px;
+	horizontal-align: center;
+	border: 1px solid black;
+}

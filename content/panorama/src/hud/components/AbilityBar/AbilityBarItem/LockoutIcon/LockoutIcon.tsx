@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
-import { Styles } from "./Styles";
+import Styles from './styles.module.css';
 
 type Props = {
   ability: AbilityEntityIndex,
@@ -23,7 +23,7 @@ const LockoutIcon = (props: Props) => {
     const isNightmared = Entities.IsNightmared(selectedUnit);
     const isHexed = Entities.IsHexed(selectedUnit);
     const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
-    const showLock = cooldownRemaining !== 0 && (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
+    const showLock = cooldownRemaining === 0 && (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
     setShowLock(showLock);
   }, HUD_THINK_FAST);
 
@@ -32,8 +32,11 @@ const LockoutIcon = (props: Props) => {
   }
 
   return (
-    <Panel style={Styles.Container(showLock)}>
-      <Panel style={Styles.Icon()} />
+    <Panel
+      className={Styles.container}
+      style={{ backgroundColor: showLock ? 'rgba(0, 0, 0, 0.9)' : 'none' }}
+    >
+      <Panel className={Styles.icon} />
     </Panel>
   );
 

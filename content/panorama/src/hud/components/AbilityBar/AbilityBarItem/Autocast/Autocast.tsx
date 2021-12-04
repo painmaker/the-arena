@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Styles } from "./Styles";
 import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
+import Styles from './styles.module.css';
 
 type Props = {
   ability: AbilityEntityIndex,
@@ -25,10 +25,10 @@ const Autocast = (props: Props) => {
 
   return (
     <React.Fragment>
-      <Panel style={Styles.Container()}>
+      <Panel className={Styles.container}>
         <DOTAScenePanel
           map={'scenes/hud/autocasting'}
-          style={Styles.AutocastScene()}
+          className={Styles.scene}
         />
       </Panel>
     </React.Fragment>

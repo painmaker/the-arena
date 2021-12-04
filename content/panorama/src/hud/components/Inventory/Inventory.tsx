@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { TableUtils } from "../../utils/TableUtils";
 import ItemOptions from "./ItemOptions/ItemOptions";
 import Item from "./Item/Item";
 import Styles from "./styles.module.css";
 import { HUD_THINK_FAST } from "../../App";
 import { useInterval } from "../../hooks/useInterval";
+import { TableUtils } from "../../utils/TableUtils";
 
 type Props = {
   selectedUnit: EntityIndex,
@@ -24,7 +24,7 @@ const Inventory = (props: Props) => {
   useInterval(() => {
     setHasInventory(Entities.IsInventoryEnabled(selectedUnit));
     const newItems = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(selectedUnit, slot));
-    if (!TableUtils.isEqual(items, newItems)) {
+    if (!TableUtils.areTablesEqual(items, newItems)) {
       setItems(newItems);
     }
   }, HUD_THINK_FAST)

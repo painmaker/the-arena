@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
-import { Styles } from "./Styles";
+import Styles from './styles.module.css';
 
 type Props = {
   ability: AbilityEntityIndex,
@@ -62,9 +62,13 @@ const Image = (props: Props) => {
   }, HUD_THINK_FAST);
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={Styles.container}>
       <DOTAAbilityImage
-        style={Styles.AbilityImage(washColor, saturation)}
+        className={Styles.image}
+        style={{
+          washColor: washColor,
+          saturation: saturation,
+        }}
         contextEntityIndex={ability}
       />
     </Panel>

@@ -1,0 +1,13 @@
+.container {
+	width: 100%;
+	height: 100%;
+}
+
+.label {
+	font-size: 18px;
+	color: white;
+	margin-left: 5px;
+	margin-top: 1px;
+	text-shadow: 1px 1px 4px 4 black;
+	font-weight: bold;
+}

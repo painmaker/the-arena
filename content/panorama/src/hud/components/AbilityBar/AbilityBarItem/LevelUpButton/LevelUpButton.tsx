@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Styles } from "./Styles";
 import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
+import Styles from './styles.module.css';
 
 type Props = {
   ability: AbilityEntityIndex,
@@ -29,16 +29,16 @@ const LevelUpButton = (props: Props) => {
   }
 
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={Styles.container}>
       <DOTAScenePanel
         map={'scenes/hud/levelupburst'}
-        style={Styles.ParticleScene()}
+        className={Styles.particleScene}
       />
       <Panel
         onactivate={() => Abilities.AttemptToUpgrade(ability)}
-        style={Styles.ButtonBackground()}
+        className={Styles.buttonBackground}
       >
-        <Panel style={Styles.LockIcon()} />
+        <Panel className={Styles.icon} />
       </Panel>
     </Panel>
   );

@@ -6,11 +6,11 @@ import Skillpoints from "./Skillpoints/Skillpoints";
 import ManaCost from "./ManaCost/ManaCost";
 import Keybind from "./Keybind/Keybind";
 import Image from "./Image/Image";
-import { Styles } from "./Styles";
 import LevelUpButton from "./LevelUpButton/LevelUpButton";
 import CastPointOverlay from "./CastPointOverlay/CastPointOverlay";
 import { HUD_THINK_FAST } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
+import Styles from './styles.module.css';
 
 const onMouseOver = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
   $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_" + ability), Abilities.GetAbilityName(ability), selectedUnit);
@@ -56,6 +56,23 @@ const onRightClick = (ability: AbilityEntityIndex) => {
   }
 }
 
+const getContainerBackgroundImage = (isTrainable: boolean, isPassive: boolean, isActive: boolean, isAutoCastEnabled: boolean, isToggled: boolean): string => {
+  if (isTrainable) {
+    return 'url("s2r://panorama/images/hud/reborn/levelup_button_learnmode_psd.vtex")';
+  }
+  if (isPassive) {
+    return 'url("s2r://panorama/images/hud/passive_ability_border_png.vtex")';
+  }
+  if (isActive) {
+    return 'url("s2r://panorama/images/hud/reborn/active_ability_border_psd.vtex")';
+  }
+  if (isAutoCastEnabled || isToggled) {
+    return 'url("s2r://panorama/images/hud/reborn/autocastable_ability_border_psd.vtex")'
+  }
+  return 'none'
+}
+
+
 type Props = {
   ability: AbilityEntityIndex,
   selectedUnit: EntityIndex,
@@ -90,8 +107,8 @@ const AbilityBarItem = (props: Props) => {
   }, HUD_THINK_FAST);
 
   return (
-    <Panel style={Styles.Container()} id={'ability_' + ability} >
-      <Panel style={Styles.LevelUpButtonContainer()}>
+    <Panel className={Styles.container} id={'ability_' + ability} >
+      <Panel className={Styles.levelUpButtonContainer}>
         <LevelUpButton ability={ability} selectedUnit={selectedUnit} />
       </Panel>
       <Panel
@@ -100,7 +117,12 @@ const AbilityBarItem = (props: Props) => {
         oncontextmenu={() => onRightClick(ability)}
         onmouseover={() => onMouseOver(ability, selectedUnit)}
         onmouseout={() => onMouseOut(ability)}
-        style={Styles.AbilityContainer(isTrainable, isActive, isAutoCastEnabled, isToggled, isPassive)}
+        className={Styles.abilityContainer}
+        style={{
+          backgroundColor: isActive ? '#a0a0a0' : "rgba(0, 0, 0, 0.7)",
+          backgroundImage: getContainerBackgroundImage(isTrainable, isPassive, isActive, isAutoCastEnabled, isToggled),
+          padding: isTrainable ? '4px' : isActive || isAutoCastEnabled || isToggled ? '2px' : '1px',
+        }}
       >
         <Image ability={ability} selectedUnit={selectedUnit} />
         <Keybind ability={ability} selectedUnit={selectedUnit} />

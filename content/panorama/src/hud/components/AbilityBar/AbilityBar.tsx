@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { TableUtils } from "../../utils/TableUtils";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
-import { Styles } from "./Styles";
 import { HUD_THINK_FAST } from "../../App";
 import { useInterval } from "../../hooks/useInterval";
+import Styles from './styles.module.css';
 
 type Props = {
   selectedUnit: EntityIndex,
@@ -25,7 +25,7 @@ const AbilityBar = (props: Props) => {
         .map(abilityNumber => Entities.GetAbility(selectedUnit, abilityNumber))
         .filter(index => index !== -1)
         .filter(index => Abilities.IsDisplayedAbility(index));
-      if (!TableUtils.isEqual(newAbilities, abilities)) {
+      if (!TableUtils.areTablesEqual(newAbilities, abilities)) {
         setAbilities(newAbilities);
       }
     }
@@ -39,7 +39,7 @@ const AbilityBar = (props: Props) => {
   }, [abilityPoints])
 
   return (
-    <Panel hittest={false} style={Styles.Container()}>
+    <Panel className={Styles.container}>
       {abilities.map((ability) => (
         <AbilityBarItem
           key={ability}

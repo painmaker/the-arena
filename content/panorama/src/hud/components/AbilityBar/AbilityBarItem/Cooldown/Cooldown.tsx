@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Styles } from "./Styles";
 import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
+import Styles from './styles.module.css';
 
 type Props = {
   ability: AbilityEntityIndex,
@@ -33,10 +33,13 @@ const Cooldown = (props: Props) => {
   }
 
   return (
-    <Panel style={Styles.Container()}>
-      <Panel style={Styles.Background(degree)} />
+    <Panel className={Styles.container}>
+      <Panel
+        className={Styles.background}
+        style={{ clip: 'radial(50% 50%, 0deg, ' + degree + 'deg)' }}
+      />
       <Label
-        style={Styles.Label()}
+        className={Styles.label}
         text={Math.ceil(cooldownTimeRemaining)}
       />
     </Panel>
