@@ -37,7 +37,6 @@ const getWashColor = (isTrainable: boolean, manaCost: number, unitMana: number, 
   return 'none';
 }
 
-
 const Image = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
@@ -46,8 +45,10 @@ const Image = (props: Props) => {
 
   const [saturation, setSaturation] = useState('1.0');
   const [washColor, setWashColor] = useState('#303030');
+  const [isActive, setIsActive] = useState(false);
 
   useInterval(() => {
+
     const level = Abilities.GetLevel(ability);
     const unitMana = Entities.GetMana(selectedUnit);
     const manaCost = Abilities.GetManaCost(ability);
@@ -57,13 +58,22 @@ const Image = (props: Props) => {
     const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
     const isInLearningMode = Game.IsInAbilityLearnMode();
     const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
+
     setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
     setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
+    setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability)
+
   }, HUD_THINK_FAST);
 
   return (
-    <Panel className={Styles.container}>
+    <Panel
+      className={Styles.container}
+      style={{
+        border: isActive ? '1px solid rgba(200, 200, 200, 0.5)' : '0px solid rgba(0, 0, 0, 0.0)',
+      }}
+    >
       <DOTAAbilityImage
+        scaling={'stretch'}
         className={Styles.image}
         style={{
           washColor: washColor,

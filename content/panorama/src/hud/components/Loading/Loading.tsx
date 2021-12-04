@@ -15,7 +15,7 @@ const Loading = (props: Props) => {
 
   useTimeout(() => {
     setIsLoading(false);
-  }, HUD_THINK_SLOW);
+  }, 100);
 
   if (isLoading) {
     return (

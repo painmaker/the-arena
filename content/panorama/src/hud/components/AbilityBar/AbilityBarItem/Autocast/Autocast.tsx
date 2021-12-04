@@ -13,13 +13,13 @@ const Autocast = (props: Props) => {
 
   const { ability } = props;
 
-  const [isAutocastEnabled, setIsAutocastEnabled] = useState(false);
+  const [show, setShow] = useState(false);
 
   useInterval(() => {
-    setIsAutocastEnabled(Abilities.GetAutoCastState(ability));
+    setShow(Abilities.GetAutoCastState(ability) || Abilities.GetToggleState(ability));
   }, HUD_THINK_FAST);
 
-  if (!isAutocastEnabled) {
+  if (!show) {
     return null;
   }
 

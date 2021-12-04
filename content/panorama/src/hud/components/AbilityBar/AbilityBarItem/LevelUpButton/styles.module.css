@@ -1,11 +1,14 @@
 .container {
+	width: 100%;
+	height: 40px;
 	flow-children: down;
+	z-index: 10;
+	transform: translateY(1px);
 }
 
 .particleScene {
 	width: 48px;
 	height: 20px;
-	margin-top: 2px;
 	vertical-align: bottom;
 }
 
@@ -16,11 +19,11 @@
 	background-size: 100% 100%;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
-	margin-bottom: -5px;
 	vertical-align: bottom;
 	horizontal-align: center;
 	wash-color: rgba(0, 0, 0, 0.1);
-	box-shadow: fill rgba(0, 0, 0, 0.3) 0px 0px 14px 1px;
+	box-shadow: fill rgba(0, 0, 0, 0.3) 0px 0px 4px 1px;
+	border: 1px solid rgba(0, 0, 0, 0.8);
 }
 
 .icon {

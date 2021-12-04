@@ -28,12 +28,10 @@ const Keybind = (props: Props) => {
   }, HUD_THINK_FAST);
 
   return (
-    <Panel className={Styles.container}>
-      <Label
-        className={Styles.label}
-        text={keybind}
-      />
-    </Panel>
+    <Label
+      className={Styles.label}
+      text={keybind}
+    />
   );
 
 };

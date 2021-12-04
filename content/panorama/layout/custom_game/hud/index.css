@@ -394,6 +394,7 @@
 	height: 5px;
 	horizontal-align: center;
 	border: 1px solid black;
+	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 2px 0.5px;
 }
 
 /*!**********************************************************************************************************************************************************!*\
@@ -419,11 +420,6 @@
 /*!*********************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/Keybind/styles.module.css ***!
   \*********************************************************************************************************************************************************/
-.o6BWXPoVynJHcNaC2oNS {
-	width: 100%;
-	height: 100%;
-}
-
 .OtI1xBcpFzwhU80hRoEr {
 	font-size: 18px;
 	color: white;
@@ -431,6 +427,7 @@
 	margin-top: 1px;
 	text-shadow: 1px 1px 4px 4 black;
 	font-weight: bold;
+	z-index: 9999;
 }
 
 /*!*******************************************************************************************************************************************************!*\
@@ -450,13 +447,16 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/LevelUpButton/styles.module.css ***!
   \***************************************************************************************************************************************************************/
 .I4glsd9fRBZCu1HZi0eo {
+	width: 100%;
+	height: 40px;
 	flow-children: down;
+	z-index: 10;
+	transform: translateY(1px);
 }
 
 .mi4J7FSPRfBVM4vKgTpg {
 	width: 48px;
 	height: 20px;
-	margin-top: 2px;
 	vertical-align: bottom;
 }
 
@@ -467,11 +467,11 @@
 	background-size: 100% 100%;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
-	margin-bottom: -5px;
 	vertical-align: bottom;
 	horizontal-align: center;
 	wash-color: rgba(0, 0, 0, 0.1);
-	box-shadow: fill rgba(0, 0, 0, 0.3) 0px 0px 14px 1px;
+	box-shadow: fill rgba(0, 0, 0, 0.3) 0px 0px 4px 1px;
+	border: 1px solid rgba(0, 0, 0, 0.8);
 }
 
 .pyCWSL7_XthGZG37TpXu {
@@ -500,22 +500,23 @@
   \*************************************************************************************************************************************************/
 .NM5Z4aYUM5x5qcGaQhow {
 	flow-children: down;
-	margin-right: 2.5px;
-	margin-left: 2.5px;
+	margin-right: 3px;
+	margin-left: 3px;
 }
 
-.MZNvwe0aYQUZv6nJf8cK {
+.iQlOSrepOGz_n5xmDEmA {
 	width: 48px;
 	height: 48px;
+	background-image: url('s2r://panorama/images/hud/active_ability_border_png.vtex');
 	background-size: 100% 100%;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
+	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 2px 2px;
 }
 
-.u3ammNGUlzocz6Lqe3go {
+.lMUtFnoWvrEPWwwmYKCB {
 	width: 100%;
-	height: 40px;
-	flow-children: down;
+	height: 100%;
 }
 
 /*!**********************************************************************************************************************************!*\

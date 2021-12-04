@@ -7,6 +7,6 @@
         <include src="file://{resources}/layout/custom_game/hud/index.css"></include> 
     </styles>  
     <Panel class="root" hittest="false">
-      <!-- <Image src="s2r://panorama/images/icon_abilities_shop_points.png" /> -->
+      <!-- <Image src="file://{resources}/images/ability_gold_background_dark.png" />  -->
     </Panel> 
-</root>        
+</root>         

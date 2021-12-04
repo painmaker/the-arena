@@ -56,20 +56,14 @@ const onRightClick = (ability: AbilityEntityIndex) => {
   }
 }
 
-const getContainerBackgroundImage = (isTrainable: boolean, isPassive: boolean, isActive: boolean, isAutoCastEnabled: boolean, isToggled: boolean): string => {
+const getContainerBackgroundImage = (isTrainable: boolean, isPassive: boolean): string => {
   if (isTrainable) {
-    return 'url("s2r://panorama/images/hud/reborn/levelup_button_learnmode_psd.vtex")';
+    return 'url("s2r://panorama/images/ability_gold_background_dark_png.vtex")';
   }
   if (isPassive) {
     return 'url("s2r://panorama/images/hud/passive_ability_border_png.vtex")';
   }
-  if (isActive) {
-    return 'url("s2r://panorama/images/hud/reborn/active_ability_border_psd.vtex")';
-  }
-  if (isAutoCastEnabled || isToggled) {
-    return 'url("s2r://panorama/images/hud/reborn/autocastable_ability_border_psd.vtex")'
-  }
-  return 'none'
+  return 'url("s2r://panorama/images/hud/active_ability_border_png.vtex")';
 }
 
 
@@ -108,34 +102,42 @@ const AbilityBarItem = (props: Props) => {
 
   return (
     <Panel className={Styles.container} id={'ability_' + ability} >
-      <Panel className={Styles.levelUpButtonContainer}>
-        <LevelUpButton ability={ability} selectedUnit={selectedUnit} />
-      </Panel>
+      <LevelUpButton
+        ability={ability}
+        selectedUnit={selectedUnit}
+      />
       <Panel
-        hittest={true}
         onactivate={() => onLeftClick(ability, selectedUnit)}
         oncontextmenu={() => onRightClick(ability)}
         onmouseover={() => onMouseOver(ability, selectedUnit)}
         onmouseout={() => onMouseOut(ability)}
-        className={Styles.abilityContainer}
+        className={Styles.background}
         style={{
-          backgroundColor: isActive ? '#a0a0a0' : "rgba(0, 0, 0, 0.7)",
-          backgroundImage: getContainerBackgroundImage(isTrainable, isPassive, isActive, isAutoCastEnabled, isToggled),
-          padding: isTrainable ? '4px' : isActive || isAutoCastEnabled || isToggled ? '2px' : '1px',
+          border: isTrainable ? '1px solid rgba(0, 0, 0, 0.8)' : '0px solid rgba(0, 0, 0, 0.0)',
+          backgroundImage: getContainerBackgroundImage(isTrainable, isPassive),
         }}
       >
-        <Image ability={ability} selectedUnit={selectedUnit} />
-        <Keybind ability={ability} selectedUnit={selectedUnit} />
-        <ManaCost ability={ability} />
-        <Cooldown ability={ability} />
-        <Autocast ability={ability} />
-        <LockoutIcon ability={ability} selectedUnit={selectedUnit} />
-        {isInAbilityPhase && (
-          <CastPointOverlay
-            castPoint={castPoint}
-            endTime={Game.GetGameTime() + castPoint}
-          />
-        )}
+        <Panel
+          className={Styles.foreground}
+          style={{
+            margin: (isPassive && !isTrainable) ? '2px' : '4px',
+            padding: (isActive || isToggled || isAutoCastEnabled) ? '1px' : '0px',
+            backgroundColor: (isActive || isToggled || isAutoCastEnabled) ? 'rgba(255, 165, 50, 0.2)' : 'black',
+          }}
+        >
+          <Keybind ability={ability} selectedUnit={selectedUnit} />
+          <Image ability={ability} selectedUnit={selectedUnit} />
+          <ManaCost ability={ability} />
+          <Cooldown ability={ability} />
+          <Autocast ability={ability} />
+          <LockoutIcon ability={ability} selectedUnit={selectedUnit} />
+          {isInAbilityPhase && (
+            <CastPointOverlay
+              castPoint={castPoint}
+              endTime={Game.GetGameTime() + castPoint}
+            />
+          )}
+        </Panel>
       </Panel>
       <Skillpoints ability={ability} />
     </Panel>

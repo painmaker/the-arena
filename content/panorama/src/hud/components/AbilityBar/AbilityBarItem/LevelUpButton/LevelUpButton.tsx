@@ -24,22 +24,22 @@ const LevelUpButton = (props: Props) => {
     setIsAbilityUpgradeable(isAbilityUpgradeable);
   }, HUD_THINK_FAST);
 
-  if (!isAbilityUpgradeable) {
-    return null;
-  }
-
   return (
     <Panel className={Styles.container}>
-      <DOTAScenePanel
-        map={'scenes/hud/levelupburst'}
-        className={Styles.particleScene}
-      />
-      <Panel
-        onactivate={() => Abilities.AttemptToUpgrade(ability)}
-        className={Styles.buttonBackground}
-      >
-        <Panel className={Styles.icon} />
-      </Panel>
+      {isAbilityUpgradeable && (
+        <React.Fragment>
+          <DOTAScenePanel
+            map={'scenes/hud/levelupburst'}
+            className={Styles.particleScene}
+          />
+          <Panel
+            onactivate={() => Abilities.AttemptToUpgrade(ability)}
+            className={Styles.buttonBackground}
+          >
+            <Panel className={Styles.icon} />
+          </Panel>
+        </React.Fragment>
+      )}
     </Panel>
   );
 
