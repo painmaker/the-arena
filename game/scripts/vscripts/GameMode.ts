@@ -13,6 +13,7 @@ import { HeroSelectionService } from "./services/HeroSelectionService";
 import { ChatService } from "./services/ChatService";
 import { ShopService } from "./services/ShopService";
 import { AbilityShopService } from "./services/AbilityShopService/AbilityShopService";
+import shuffle from "./utils/shuffle";
 
 declare global {
   interface CDOTAGamerules {
@@ -79,11 +80,49 @@ export class GameMode {
     ListenToGameEvent("dota_player_gained_level", event => this.OnLevelUp(event), undefined);
 
     ListenToGameEvent("dota_player_used_ability", event => {
-      CustomGameEventManager.Send_ServerToAllClients("on_ability_used", { abilityname: event.abilityname, unit: event.caster_entindex });
+      const caster = EntIndexToHScript(event.caster_entindex) as CDOTA_BaseNPC;
+      if (!caster) return;
+      shuffle([
+        { abilityname: event.abilityname, unit: event.caster_entindex },
+        ...FindUnitsInRadius(
+          caster.GetTeamNumber(),
+          caster.GetOrigin(),
+          undefined,
+          caster.FindAbilityByName(event.abilityname)!.GetCastRange(Vector(0, 0, 0), undefined) + 100,
+          DOTA_UNIT_TARGET_TEAM.DOTA_UNIT_TARGET_TEAM_FRIENDLY,
+          DOTA_UNIT_TARGET_TYPE.DOTA_UNIT_TARGET_ALL,
+          DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_NONE,
+          FindOrder.FIND_ANY_ORDER,
+          false
+        )
+          .filter(unit => unit.IsIllusion() === true)
+          .filter(illusion => PlayerResource.GetSelectedHeroEntity(illusion.GetPlayerOwnerID())?.entindex() === event.caster_entindex)
+          .filter(illusion => illusion.FindAbilityByName(event.abilityname) !== undefined)
+          .map(illusion => ({ abilityname: event.abilityname, unit: illusion.entindex() })),
+      ]).forEach(payload => CustomGameEventManager.Send_ServerToAllClients("on_ability_used", payload));
     }, undefined);
 
     ListenToGameEvent("dota_non_player_used_ability", event => {
-      CustomGameEventManager.Send_ServerToAllClients("on_ability_used", { abilityname: event.abilityname, unit: event.caster_entindex });
+      const caster = EntIndexToHScript(event.caster_entindex) as CDOTA_BaseNPC;
+      if (!caster) return;
+      shuffle([
+        { abilityname: event.abilityname, unit: event.caster_entindex },
+        ...FindUnitsInRadius(
+          caster.GetTeamNumber(),
+          caster.GetOrigin(),
+          undefined,
+          caster.FindAbilityByName(event.abilityname)!.GetCastRange(Vector(0, 0, 0), undefined) + 100,
+          DOTA_UNIT_TARGET_TEAM.DOTA_UNIT_TARGET_TEAM_FRIENDLY,
+          DOTA_UNIT_TARGET_TYPE.DOTA_UNIT_TARGET_ALL,
+          DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_NONE,
+          FindOrder.FIND_ANY_ORDER,
+          false
+        )
+          .filter(unit => unit.IsIllusion() === true)
+          .filter(illusion => PlayerResource.GetSelectedHeroEntity(illusion.GetPlayerOwnerID())?.entindex() === event.caster_entindex)
+          .filter(illusion => illusion.FindAbilityByName(event.abilityname) !== undefined)
+          .map(illusion => ({ abilityname: event.abilityname, unit: illusion.entindex() })),
+      ]).forEach(payload => CustomGameEventManager.Send_ServerToAllClients("on_ability_used", payload));
     }, undefined);
 
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, MAX_PLAYERS);
@@ -178,29 +217,11 @@ export class GameMode {
       delay += 1.0;
     });
 
-    const creepSpawner1 = Entities.FindByName(undefined, "radiant_melee_creep_spawner_1");
-    if (creepSpawner1) {
-      // CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner1.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
-    }
-
-    const creepSpawner2 = Entities.FindByName(undefined, "radiant_melee_creep_spawner_2");
-    if (creepSpawner2) {
-      // CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner2.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
-    }
-
-    const creepSpawner3 = Entities.FindByName(undefined, "radiant_melee_creep_spawner_3");
-    if (creepSpawner3) {
-      // CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner3.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
-    }
-
-    const creepSpawner4 = Entities.FindByName(undefined, "radiant_melee_creep_spawner_4");
-    if (creepSpawner4) {
-      // CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner4.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
-    }
-
-    const creepSpawner5 = Entities.FindByName(undefined, "radiant_melee_creep_spawner_5");
-    if (creepSpawner5) {
-      // CreateUnitByName("npc_dota_creep_goodguys_melee", creepSpawner5.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
+    for (let i = 1; i < 5; i++) {
+      const spawner = Entities.FindByName(undefined, "radiant_melee_creep_spawner_" + i);
+      if (spawner) {
+        CreateUnitByName("npc_dota_creep_goodguys_melee", spawner.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
+      }
     }
 
   }

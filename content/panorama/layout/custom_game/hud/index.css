@@ -753,10 +753,6 @@
 	background-color: black;
 }
 
-.hP53l9q7lqT_sneNCQgJ:hover {
-	transform: scale3d(1.075, 1.075, 0);
-}
-
 .mTu2M3Jd7k14DxJOs13Q {
 	width: 100%;
 	height: 100%;
@@ -1015,14 +1011,8 @@
 	background-color: rgba(0, 0, 0, 0.85);
 	background-image: url('s2r://panorama/images/emptyitembg.png');
 	background-size: 100%;
-	transition: transform 0.1s ease-in-out 0s;
-	margin-right: 1px;
-	margin-left: 1px;
-	transform: scale3d(1, 1, 1);
-}
-
-.HMwcE6dRfetA6ujKyCKN:hover {
-	transform: scale3d(1.02, 1.02, 1);
+	margin-right: 2px;
+	margin-left: 2px;
 }
 
 /*!*********************************************************************************************************************************!*\

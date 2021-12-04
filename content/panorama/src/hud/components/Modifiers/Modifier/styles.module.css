@@ -14,10 +14,6 @@
 	background-color: black;
 }
 
-.container:hover {
-	transform: scale3d(1.075, 1.075, 0);
-}
-
 .background {
 	width: 100%;
 	height: 100%;
