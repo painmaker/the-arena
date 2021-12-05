@@ -78,12 +78,12 @@ const AbilityBarItem = (props: Props) => {
 
   const { ability, selectedUnit } = props;
 
-  const [isPassive, setIsPassive] = useState(false);
-  const [isAutoCastEnabled, setIsAutoCastEnabled] = useState(false);
-  const [isToggled, setIsToggled] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const [isPassive, setIsPassive] = useState(Abilities.IsPassive(ability));
+  const [isAutoCastEnabled, setIsAutoCastEnabled] = useState(Abilities.GetAutoCastState(ability));
+  const [isToggled, setIsToggled] = useState(Abilities.GetToggleState(ability));
+  const [isActive, setIsActive] = useState(Abilities.GetLocalPlayerActiveAbility() === ability);
   const [isTrainable, setIsTrainable] = useState(false);
-  const [isInAbilityPhase, setIsInAbilityPhase] = useState(false);
+  const [isInAbilityPhase, setIsInAbilityPhase] = useState(Abilities.IsInAbilityPhase(ability));
   const [castPoint, setCastPoint] = useState(Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1));
 
   useInterval(() => {
@@ -117,6 +117,8 @@ const AbilityBarItem = (props: Props) => {
           backgroundImage: getContainerBackgroundImage(isTrainable, isPassive),
         }}
       >
+        <Keybind ability={ability} selectedUnit={selectedUnit} />
+        <ManaCost ability={ability} />
         <Panel
           className={Styles.foreground}
           style={{
@@ -125,9 +127,7 @@ const AbilityBarItem = (props: Props) => {
             backgroundColor: (isActive || isToggled || isAutoCastEnabled) ? 'rgba(255, 165, 50, 0.2)' : 'black',
           }}
         >
-          <Keybind ability={ability} selectedUnit={selectedUnit} />
           <Image ability={ability} selectedUnit={selectedUnit} />
-          <ManaCost ability={ability} />
           <Cooldown ability={ability} />
           <Autocast ability={ability} />
           <LockoutIcon ability={ability} selectedUnit={selectedUnit} />
@@ -139,7 +139,7 @@ const AbilityBarItem = (props: Props) => {
           )}
         </Panel>
       </Panel>
-      <Skillpoints ability={ability} />
+      <Skillpoints ability={ability} selectedUnit={selectedUnit} />
     </Panel>
   );
 

@@ -27,11 +27,17 @@ const Keybind = (props: Props) => {
     setKeybind(hasKeybind ? Abilities.GetKeybind(ability) : '');
   }, HUD_THINK_FAST);
 
+  if (keybind === '') {
+    return null;
+  }
+
   return (
-    <Label
-      className={Styles.label}
-      text={keybind}
-    />
+    <Panel className={Styles.container}>
+      <Label
+        className={Styles.label}
+        text={keybind}
+      />
+    </Panel>
   );
 
 };

@@ -4,21 +4,24 @@ import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
 type Props = {
-  ability: AbilityEntityIndex
+  ability: AbilityEntityIndex,
+  selectedUnit: EntityIndex,
 }
 
 const Skillpoints = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - Skillpoints rendered");
 
-  const { ability } = props;
+  const { ability, selectedUnit } = props;
 
   const [abilityLevel, setAbilityLevel] = useState(Abilities.GetLevel(ability));
   const [maxAbilityLevel, setMaxAbilityLevel] = useState(Abilities.GetMaxLevel(ability));
+  const [isUpgradeable, setIsUpgradeable] = useState(false);
 
   useInterval(() => {
     setAbilityLevel(Abilities.GetLevel(ability));
     setMaxAbilityLevel(Abilities.GetMaxLevel(ability));
+    setIsUpgradeable(Entities.GetAbilityPoints(selectedUnit) > 0 && Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED);
   }, HUD_THINK_FAST);
 
   return (
@@ -32,7 +35,10 @@ const Skillpoints = (props: Props) => {
           >
             <Panel
               className={Styles.skillpoint}
-              style={{ backgroundColor: abilityLevel >= index ? 'orange' : 'black' }}
+              style={{
+                backgroundColor: abilityLevel >= index ? 'orange' : 'black',
+                boxShadow: (isUpgradeable && index === (abilityLevel + 1)) ? 'fill rgba(255, 174, 0, 0.6) 0px 0px 2px 1px' : 'fill rgba(0, 0, 0, 0.4) 0px 0px 2px 0.5px'
+              }}
             />
           </Panel>
         )

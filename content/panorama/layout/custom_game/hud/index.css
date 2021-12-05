@@ -320,6 +320,7 @@
 .BH3auXK9ZqupOPDMyRL0 {
 	width: 100%;
 	height: 100%;
+	z-index: 999;
 }
 
 .QAhSsu4TEsVD9DhQb9lL {
@@ -330,11 +331,12 @@
 
 .a5IrJ7wieVRYIOnhCpjA {
 	color: white;
-	font-size: 26px;
+	font-size: 22px;
 	text-shadow: 0px 0px 6px 6 #000000;
 	horizontal-align: center;
 	vertical-align: center;
 	font-family: monospaceNumbersFont;
+	z-index: 999;
 }
 
 /*!**********************************************************************************************************************************************************!*\
@@ -394,24 +396,26 @@
 	height: 5px;
 	horizontal-align: center;
 	border: 1px solid black;
-	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 2px 0.5px;
 }
 
 /*!**********************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/ManaCost/styles.module.css ***!
   \**********************************************************************************************************************************************************/
 .cE5VRAkdNXws4wWQVMzN {
-	width: 100%;
-	height: 100%;
+	width: 16px;
+	height: 16px;
+	z-index: 9999;
+	vertical-align: bottom;
+	horizontal-align: right;
+	border-radius: 4px;
+	margin-bottom: 2px;
+	margin-right: 2px;
 }
 
 .BwPvxsoaN5yBRklllXTw {
 	font-size: 14px;
-	color: #43a0f7;
-	margin-right: 2px;
-	margin-bottom: 1px;
-	text-shadow: 1px 1px 4px 4 black;
-	font-weight: bold;
+	color: #70b7fa;
+	text-shadow: 0px 0px 6px 6 black;
 	vertical-align: bottom;
 	horizontal-align: right;
 	font-family: monospaceNumbersFont;
@@ -420,14 +424,21 @@
 /*!*********************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/Keybind/styles.module.css ***!
   \*********************************************************************************************************************************************************/
-.OtI1xBcpFzwhU80hRoEr {
-	font-size: 18px;
-	color: white;
-	margin-left: 5px;
-	margin-top: 1px;
-	text-shadow: 1px 1px 4px 4 black;
-	font-weight: bold;
+.o6BWXPoVynJHcNaC2oNS {
+	background-color: rgba(0, 0, 0, 0.75);
+	width: 14px;
+	height: 14px;
 	z-index: 9999;
+	border-radius: 4px;
+}
+
+.OtI1xBcpFzwhU80hRoEr {
+	font-size: 12px;
+	color: white;
+	text-align: center;
+	vertical-align: center;
+	horizontal-align: center;
+	text-shadow: 1px 1px 4px 4 black;
 }
 
 /*!*******************************************************************************************************************************************************!*\
@@ -507,7 +518,6 @@
 .iQlOSrepOGz_n5xmDEmA {
 	width: 48px;
 	height: 48px;
-	background-image: url('s2r://panorama/images/hud/active_ability_border_png.vtex');
 	background-size: 100% 100%;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;

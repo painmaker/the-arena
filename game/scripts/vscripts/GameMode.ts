@@ -81,14 +81,17 @@ export class GameMode {
 
     ListenToGameEvent("dota_player_used_ability", event => {
       const caster = EntIndexToHScript(event.caster_entindex) as CDOTA_BaseNPC;
-      if (!caster) return;
+      if (!caster) {
+        return;
+      }
+      const ability = caster.FindAbilityByName(event.abilityname);
       shuffle([
         { abilityname: event.abilityname, unit: event.caster_entindex },
         ...FindUnitsInRadius(
           caster.GetTeamNumber(),
           caster.GetOrigin(),
           undefined,
-          caster.FindAbilityByName(event.abilityname)!.GetCastRange(Vector(0, 0, 0), undefined) + 100,
+          ability ? ability.GetCastRange(caster.GetAbsOrigin(), undefined) + 100 : 1000,
           DOTA_UNIT_TARGET_TEAM.DOTA_UNIT_TARGET_TEAM_FRIENDLY,
           DOTA_UNIT_TARGET_TYPE.DOTA_UNIT_TARGET_ALL,
           DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_NONE,
@@ -104,14 +107,17 @@ export class GameMode {
 
     ListenToGameEvent("dota_non_player_used_ability", event => {
       const caster = EntIndexToHScript(event.caster_entindex) as CDOTA_BaseNPC;
-      if (!caster) return;
+      if (!caster) {
+        return;
+      }
+      const ability = caster.FindAbilityByName(event.abilityname);
       shuffle([
         { abilityname: event.abilityname, unit: event.caster_entindex },
         ...FindUnitsInRadius(
           caster.GetTeamNumber(),
           caster.GetOrigin(),
           undefined,
-          caster.FindAbilityByName(event.abilityname)!.GetCastRange(Vector(0, 0, 0), undefined) + 100,
+          ability ? ability.GetCastRange(caster.GetAbsOrigin(), undefined) + 100 : 1000,
           DOTA_UNIT_TARGET_TEAM.DOTA_UNIT_TARGET_TEAM_FRIENDLY,
           DOTA_UNIT_TARGET_TYPE.DOTA_UNIT_TARGET_ALL,
           DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_NONE,
