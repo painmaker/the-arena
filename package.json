@@ -14,6 +14,7 @@
 		"@aabao/webpack-panorama": "0.2.1",
 		"@moddota/find-steam-app": "1.1.0",
 		"css-loader": "6.5.1",
+		"css-minimizer-webpack-plugin": "3.2.0",
 		"file-loader": "6.2.0",
 		"fork-ts-checker-webpack-plugin": "6.3.3",
 		"fs-extra": "10.0.0",

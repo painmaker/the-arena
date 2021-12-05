@@ -36,12 +36,6 @@ const RegularAbilities = (props: Props) => {
         />
       </Panel>
       <Panel style={Styles.AbilitiesContainer()}>
-        {(regularAbilities.length === 0 && isLoadingAbilities === false) && (
-          <Label
-            text={$.Localize(Entities.GetUnitName(selectedUnit)) + " Has No Regular Abilities"}
-            style={Styles.CenterLabel()}
-          />
-        )}
         {regularAbilities.map(regularAbility => {
           return (
             <AbilityImage

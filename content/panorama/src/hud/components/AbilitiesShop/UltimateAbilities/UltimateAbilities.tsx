@@ -33,12 +33,6 @@ const UltimateAbilities = (props: Props) => {
         />
       </Panel>
       <Panel style={Styles.AbilitiesContainer()}>
-        {(ultimateAbilities.length === 0 && isLoadingAbilities === false) && (
-          <Label
-            text={$.Localize(Entities.GetUnitName(selectedUnit)) + " Has No Ultimate Abilities"}
-            style={Styles.CenterLabel()}
-          />
-        )}
         {ultimateAbilities.map(ultimateAbility => {
           return (
             <AbilityImage

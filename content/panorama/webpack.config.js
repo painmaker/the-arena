@@ -2,6 +2,7 @@ const path = require("path");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const isProduction = false;
 
@@ -57,6 +58,12 @@ module.exports = {
         test: /\.tsx?$/,
         loader: "ts-loader",
       }
+    ],
+  },
+  optimization: {
+    minimize: isProduction,
+    minimizer: [
+      new CssMinimizerPlugin(),
     ],
   },
   plugins: [

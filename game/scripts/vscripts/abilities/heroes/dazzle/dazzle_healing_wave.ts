@@ -112,7 +112,7 @@ export class dazzle_healing_wave extends BaseAbility {
 
   private PlayWaveParticle(source: CDOTA_BaseNPC, target: CDOTA_BaseNPC) {
     const waveParticle = ParticleManager.CreateParticle(PARTICLE_NAME, ParticleAttachment_t.PATTACH_POINT_FOLLOW, this.GetCaster());
-    ParticleManager.SetParticleControlEnt(waveParticle, 0, source, ParticleAttachment_t.PATTACH_POINT_FOLLOW, "attach_attack1", source.GetOrigin(), true);
+    ParticleManager.SetParticleControlEnt(waveParticle, 0, source, ParticleAttachment_t.PATTACH_POINT_FOLLOW, source === this.GetCaster() ? 'attach_attack1' : 'attach_hitloc', source.GetOrigin(), true);
     ParticleManager.SetParticleControlEnt(waveParticle, 1, target, ParticleAttachment_t.PATTACH_POINT_FOLLOW, "attach_hitloc", target.GetOrigin(), true);
     ParticleManager.ReleaseParticleIndex(waveParticle);
   }
