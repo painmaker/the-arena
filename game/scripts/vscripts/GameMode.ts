@@ -223,10 +223,10 @@ export class GameMode {
       delay += 1.0;
     });
 
-    for (let i = 1; i < 5; i++) {
+    for (let i = 1; i <= 5; i++) {
       const spawner = Entities.FindByName(undefined, "radiant_melee_creep_spawner_" + i);
       if (spawner) {
-        CreateUnitByName("npc_dota_creep_goodguys_melee", spawner.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
+        // CreateUnitByName("npc_dota_creep_goodguys_melee", spawner.GetAbsOrigin(), true, undefined, undefined, DOTATeam_t.DOTA_TEAM_GOODGUYS);
       }
     }
 
