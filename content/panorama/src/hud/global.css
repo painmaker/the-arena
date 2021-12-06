@@ -123,7 +123,7 @@ ProgressBar {
 .MinimapImage {
 	width: 10px;
 	height: 10px;
-	background-image: url('file://panorama/images/minimap_creep_icon.png');
+	background-image: url('s2r://panorama/images/minimap_creep_icon_png.vtex');
 	background-position: center;
 	background-size: contain;
 	background-repeat: no-repeat;
@@ -140,7 +140,7 @@ ProgressBar {
 	width: 35px;
 	height: 35px;
 	z-index: 3;
-	background-image: url('file://panorama/images/minimap_boss_icon.png');
+	background-image: url('s2r://panorama/images/minimap_boss_icon_png.vtex');
 }
 
 .MinimapImage.shopkeeper_abilities {

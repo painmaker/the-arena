@@ -1,99 +1,99 @@
 .outerContainer {
-  width: fill-parent-flow(1.75);
-  margin-left: 12.5px;
-  margin-top: 10px;
-  flow-children: down;
+	width: fill-parent-flow(1.75);
+	margin-left: 12.5px;
+	margin-top: 10px;
+	flow-children: down;
 }
 
 .titleLabel {
-  color: rgba(160, 160, 160, 0.35);
-  font-size: 12px;
-  width: 100%;
-  text-align: left;
-  letter-spacing: 1.5px;
-  margin-bottom: 2.5px;
-  margin-left: 7.5px;
-  text-transform: uppercase;
+	color: rgba(160, 160, 160, 0.35);
+	font-size: 12px;
+	width: 100%;
+	text-align: left;
+	letter-spacing: 1.5px;
+	margin-bottom: 2.5px;
+	margin-left: 7.5px;
+	text-transform: uppercase;
 }
 
 .innerContainer {
-  width: 100%;
-  background-color: rgba(50, 50, 50, 0.75);
-  border-radius: 5px;
-  padding: 2px;
-  flow-children: right;
+	width: 100%;
+	background-color: rgba(50, 50, 50, 0.75);
+	border-radius: 5px;
+	padding: 2px;
+	flow-children: right;
 }
 
 .leftColumn {
-  flow-children: down;
-  width: fill-parent-flow(1);  
+	flow-children: down;
+	width: fill-parent-flow(1);
 }
 
 .rightColumn {
-  flow-children: down;
-  width: fill-parent-flow(2.5);
+	flow-children: down;
+	width: fill-parent-flow(2.5);
 }
 
 .columnEntryContainer {
-  flow-children: right;
-  horizontal-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  margin: 2.5px;
-  padding: 5px;
-  border-radius: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
+	flow-children: right;
+	horizontal-align: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin: 2.5px;
+	padding: 5px;
+	border-radius: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 .columnEntry {
-  width: fill-parent-flow(1);
-  vertical-align: center;
+	width: fill-parent-flow(1);
+	vertical-align: center;
 }
 
 .icon {
-  width: 22px;
-  height: 22px;
-  vertical-align: center;
-  background-size: contain;
+	width: 22px;
+	height: 22px;
+	vertical-align: center;
+	background-size: contain;
 }
 
 .iconAgility {
-  background-image: url("file://panorama/images/primary_attribute_icon_agility.png");
+	background-image: url('s2r://panorama/images/primary_attribute_icon_agility_png.vtex');
 }
 
 .iconStrength {
-  background-image: url("file://panorama/images/primary_attribute_icon_strength.png");
+	background-image: url('s2r://panorama/images/primary_attribute_icon_strength_png.vtex');
 }
 
 .iconIntelligence {
-  background-image: url("file://panorama/images/primary_attribute_icon_intelligence.png");
+	background-image: url('s2r://panorama/images/primary_attribute_icon_intelligence_png.vtex');
 }
 
 .labelContainer {
-  flow-children: right;
-  height: 100%;
+	flow-children: right;
+	height: 100%;
 }
 
 .baseLabel {
-  color: white;
-  padding-left: 10px;
-  vertical-align: center;
-  horizontal-align: left;
-  font-size: 16px;  
+	color: white;
+	padding-left: 10px;
+	vertical-align: center;
+	horizontal-align: left;
+	font-size: 16px;
 }
 
 .gainLabel {
-  color: green;
-  padding-left: 1px;
-  vertical-align: center;
-  horizontal-align: left;
-  font-size: 16px;  
+	color: green;
+	padding-left: 1px;
+	vertical-align: center;
+	horizontal-align: left;
+	font-size: 16px;
 }
 
 .informationLabel {
-  width: fill-parent-flow(1);
-  text-align: center;
-  padding-top: 2px;
-  font-size: 14px;
-  height: 22px;
+	width: fill-parent-flow(1);
+	text-align: center;
+	padding-top: 2px;
+	font-size: 14px;
+	height: 22px;
 }

@@ -4,14 +4,17 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-const isProduction = false;
+const isProduction = true;
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
   mode: isProduction ? 'production' : 'development',
   optimization: {
     minimize: isProduction,
-    minimizer: [new TerserPlugin({})],
+    minimizer: [
+      new TerserPlugin({}),
+      new CssMinimizerPlugin(),
+    ],
   },
   entry: "./hud/index.tsx",
   context: path.resolve(__dirname, "src"),
@@ -58,12 +61,6 @@ module.exports = {
         test: /\.tsx?$/,
         loader: "ts-loader",
       }
-    ],
-  },
-  optimization: {
-    minimize: isProduction,
-    minimizer: [
-      new CssMinimizerPlugin(),
     ],
   },
   plugins: [
