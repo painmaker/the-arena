@@ -13,7 +13,18 @@ module.exports = {
     minimize: isProduction,
     minimizer: [
       new TerserPlugin({}),
-      new CssMinimizerPlugin(),
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: ['default', {
+            normalizeUrl: false,
+            colormin: false,
+            minifyFontValues: false,
+            reduceIdents: false,
+            normalizeString: { preferredQuote: 'single' },
+            normalizeWhitespace: false,
+          }]
+        }
+      }),
     ],
   },
   entry: "./hud/index.tsx",
@@ -36,7 +47,7 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              url: false,
+              url: true,
               importLoaders: 1,
               modules: true,
             },
@@ -51,7 +62,7 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              url: false,
+              url: true,
             },
           }
         ],
@@ -71,6 +82,6 @@ module.exports = {
       typescript: {
         configFile: path.resolve(__dirname, "tsconfig.json"),
       },
-    }),
+    })
   ],
 };

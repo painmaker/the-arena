@@ -17,7 +17,20 @@ module.exports = {
   mode: isProduction ? 'production' : 'development',
   optimization: {
     minimize: isProduction,
-    minimizer: [new TerserPlugin({}), new CssMinimizerPlugin()]
+    minimizer: [new TerserPlugin({}), new CssMinimizerPlugin({
+      minimizerOptions: {
+        preset: ['default', {
+          normalizeUrl: false,
+          colormin: false,
+          minifyFontValues: false,
+          reduceIdents: false,
+          normalizeString: {
+            preferredQuote: 'single'
+          },
+          normalizeWhitespace: false
+        }]
+      }
+    })]
   },
   entry: "./hud/index.tsx",
   context: path.resolve(__dirname, "src"),
@@ -36,7 +49,7 @@ module.exports = {
       use: [MiniCssExtractPlugin.loader, {
         loader: "css-loader",
         options: {
-          url: false,
+          url: true,
           importLoaders: 1,
           modules: true
         }
@@ -47,7 +60,7 @@ module.exports = {
       use: [MiniCssExtractPlugin.loader, {
         loader: "css-loader",
         options: {
-          url: false
+          url: true
         }
       }],
       exclude: /\.module\.css$/
