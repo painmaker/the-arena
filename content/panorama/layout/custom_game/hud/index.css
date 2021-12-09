@@ -1,2167 +1,2468 @@
-.chIrdYtZyblNYYYGOCSI{
-	flow-children:down;
-	margin-bottom:25px;
-	margin-left:25px;
-	vertical-align:bottom;
-	z-index:999;
+/*!********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Minimap/minimap.module.css ***!
+  \********************************************************************************************************************************/
+.chIrdYtZyblNYYYGOCSI {
+	margin-left: 25px;
+	margin-bottom: 25px;
+	flow-children: down;
+	vertical-align: bottom;
+	z-index: 999;
 }
 
-.QJp6qFKPkiSjQtp4IWYu{
-	height:100%;
-	width:100%;
+.QJp6qFKPkiSjQtp4IWYu {
+	width: 100%;
+	height: 100%;
 }
 
-.FsTpjUYsXR18vjlgG0Ms{
-	opacity-mask:url('s2r://panorama/images/softedge_circle_sharper.png') 1.5;
-	background-color:gradient(
+.FsTpjUYsXR18vjlgG0Ms {
+	border-radius: 50%;
+	opacity-mask: url('s2r://panorama/images/softedge_circle_sharper.png') 1.5;
+	background-color: gradient(
 		radial,
 		50% 50%,
-		0 0,
+		0% 0%,
 		300px 300px,
 		from(#000d),
-		color-stop(.5, #000d),
+		color-stop(0.5, #000d),
 		to(#000d)
 	);
-	border-radius:50%;
-	height:300px;
-	width:300px;
+	width: 300px;
+	height: 300px;
 }
 
-.MMYyKjPgWvMQW3zcTxSA{
-	color:orange;
-	font-size:18px;
-	height:20px;
-	text-align:center;
-	text-overflow:ellipsis;
-	text-shadow:0 0 2px 2 rgba(0, 0, 0, .5);
-	width:100%;
+.MMYyKjPgWvMQW3zcTxSA {
+	width: 100%;
+	height: 20px;
+	text-align: center;
+	color: orange;
+	font-size: 18px;
+	text-overflow: ellipsis;
+	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.5);
 }
 
-.qJ5qDt3HscvdMwgRJQIA{
-  color:orange;
-  padding-top:5px;
-  width:35%;
+/*!*************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Settings/CameraZoomSlider/styles.module.css ***!
+  \*************************************************************************************************************************************************/
+.qJ5qDt3HscvdMwgRJQIA {
+  width: 35%;
+  color: orange;
+  padding-top: 5px;
 }
 
-.qlCUi6GWfR9etq6VTigF{
-  width:40%;
+.qlCUi6GWfR9etq6VTigF {
+  width: 40%;
 }
 
-.otJVKGNMokJ9d1aFZvUL{
-  color:orange;
-  padding-left:15px;
-  padding-top:5px;
-  width:25%;
+.otJVKGNMokJ9d1aFZvUL {
+  width: 25%;
+  padding-top: 5px;
+  padding-left: 15px;
+  color: orange;
 }
-.MOSg_QAIq3_zSfU4sLB2{
-  flow-children:right;
-  height:fit-children;
-  padding-bottom:5px;
-  padding-top:5px;
-  width:100%;
-}
-
-.rTqYpqnp7ouCe_6oNCRp{
-  color:orange;
-  width:35%;
+/*!**********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Settings/LockCameraBtn/styles.module.css ***!
+  \**********************************************************************************************************************************************/
+.MOSg_QAIq3_zSfU4sLB2 {
+  width: 100%;
+  height: fit-children;
+  flow-children: right;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
-.mgSEwNM1f9Lsin1u8bZQ{
-  color:orange;
-  font-size:16px;
-  padding-left:-2px;
-  padding-top:.5px;
-  width:55%;
+.rTqYpqnp7ouCe_6oNCRp {
+  width: 35%;
+  color: orange;
 }
 
-.j5l3Lkh1ZEoTzCvpxuLx{
-  padding-left:5px;
-  width:10%;
+.mgSEwNM1f9Lsin1u8bZQ {
+  width: 55%;
+  font-size: 16px;
+  padding-top: 0.5px;
+  padding-left: -2px;
+  color: orange;
 }
-.tMVPaoV8qCPiQUFJN8m7{
-  color:orange;
-  padding-top:5px;
-  width:35%;
+
+.j5l3Lkh1ZEoTzCvpxuLx {
+  width: 10%;
+  padding-left: 5px;
+}
+/*!**********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Settings/MapZoomSlider/styles.module.css ***!
+  \**********************************************************************************************************************************************/
+.tMVPaoV8qCPiQUFJN8m7 {
+  width: 35%;
+  color: orange;
+  padding-top: 5px;
 }
 
 .KGIC4zUkrpQHSIL9qaG5{
-  width:40%;
+  width: 40%;
 }
 
 .shyD21vHDZXrvlrqOtBq{
-  color:orange;
-  padding-left:15px;
-  padding-top:5px;
-  width:25%;
+  width: 25%;
+  padding-top: 5px;
+  padding-left: 15px;
+  color: orange;
 }
-.uSWjRHlCiWLoi4TwXo3B{
-  border-bottom:1px solid rgba(255, 255, 255, .05);
-  margin-bottom:2.5px;
-  margin-top:2.5px;
-  width:100%;
+/*!****************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Settings/Divider/styles.module.css ***!
+  \****************************************************************************************************************************************/
+.uSWjRHlCiWLoi4TwXo3B {
+  width: 100%;
+  margin-top: 2.5px;
+  margin-bottom: 2.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-.UWxRbuGbxfyCW361Vd3H{
-  background-color:rgba(30, 30, 30, .925);
-  width:100%;
-}
-
-.bddlYBMDSBrfOoyNdHAF{
-  horizontal-align:left;
-  color:rgba(200, 200, 200, .45);
-  font-size:14px;
-  font-size:15px;
-  font-weight:light;
-  font-weight:lighter;
-  letter-spacing:1.5px;
-  padding-left:10px;
-  padding-top:2.5px;
-  vertical-align:center;
+/*!**************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Settings/Title/styles.module.css ***!
+  \**************************************************************************************************************************************/
+.UWxRbuGbxfyCW361Vd3H {
+  width: 100%;
+  background-color: rgba(30, 30, 30, 0.925);
 }
 
-.MdVg5fj4RLKA8xMha4bH{
-  horizontal-align:right;
-  wash-color:rgba(100, 100, 100, .5);
-  height:24px;
-  margin-right:2.5px;
-  opacity:.75;
-  padding:2px;
-  transition:transform .5s ease-in-out 0s,opacity .5s ease-in-out 0s;
-  vertical-align:center;
-  width:24px;
+.bddlYBMDSBrfOoyNdHAF {
+  color: rgba(200, 200, 200, 0.45);
+  font-size: 14px;
+  vertical-align: center;
+  font-weight: light;
+  letter-spacing: 1.5px;
+  padding-top: 2.5px;
+  padding-left: 10px;
 }
 
-.MdVg5fj4RLKA8xMha4bH:hover{
-  wash-color:rgba(100, 100, 100, .25);
-  transform:scale3d(1.1, 1.1, 0);
+.bddlYBMDSBrfOoyNdHAF {
+  color: rgba(200, 200, 200, 0.45);
+  font-size: 15px;
+  vertical-align: center;
+  horizontal-align: left;
+  font-weight: lighter;
+  letter-spacing: 1.5px;
+  padding-top: 2.5px;
+  padding-left: 10px;
 }
 
-
-.AuZ2AAEjJ4u1lGtGXcN3{
-	horizontal-align:right;
-	flow-children:down;
-	background-color:rgba(0, 0, 0, .9);
-	background-image:url('s2r://panorama/images/bg_scoreboard_png.vtex');
-	background-size:100%;
-	border-radius:5px;
-	margin-right:0;
-	margin-top:200px;
-	min-height:100px;
-	min-width:450px;
-	transform:translateX(490px);
-	transition:transform .5s ease-in-out 0s,opacity .5s ease-in-out 0s;
-	vertical-align:top;
+.MdVg5fj4RLKA8xMha4bH {
+  vertical-align: center;
+  horizontal-align: right;
+  height: 24px;
+  width: 24px;
+  padding: 2px;
+  margin-right: 2.5px;
+  opacity: 0.75;
+  transition: transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s;
+  wash-color:  rgba(100, 100, 100, 0.5);
 }
 
-.Q9qnNySVaR9UK9mbJpvt{
-	flow-children:right;
-	background-color:rgba(65, 65, 65, .3);
-	padding:8.5px 15px;
-	width:100%;
-}
-
-.VAbVj6ocFtX3DJzOqCnL{
-	horizontal-align:right;
-	flow-children:left;
-	margin-bottom:25px;
-	margin-right:25px;
-	vertical-align:bottom;
-	width:250px;
-	z-index:9999;
-}
-
-.UJCvjFyZXXNKwJOrhwa4{
-	pre-transform-scale2d:1;
-	height:35px;
-	margin:5px 10px;
-	padding:1.5px;
-	vertical-align:center;
-	width:35px;
-}
-
-.UJCvjFyZXXNKwJOrhwa4:hover{
-	padding:0;
-}
-
-.f5tPV5CzsnGZse09Jd3H{
-	height:fit-children;
-	margin-top:1px;
-	width:100%;
-}
-
-.HghwT4F3Upk6ZZxs3RGH{
-	background-color:black;
-	border:2px solid rgba(0, 0, 0, .75);
-	height:41.4px;
-	transition:border .15s ease-in-out 0s;
-	width:100%;
-	z-index:998;
-}
-
-.HghwT4F3Upk6ZZxs3RGH:hover{
-	border:1.5px solid rgba(0, 0, 0, .75);
-}
-
-.ecRPyTj5GQqyvUNoa2TI,.y3mao5EPMJ_BUMYw9yF_{
-	horizontal-align:center;
-	vertical-align:center;
-}
-
-.ecRPyTj5GQqyvUNoa2TI{
-	height:50%;
-	width:80%;
-	z-index:999;
-}
-
-.q1L5JKSgUrfoBLrvvYIp{
-	height:fit-children;
-	width:100%;
-}
-
-.n3KtCag5Ep7H3f7Qu9Bg{
-	font-size:16px;
-	height:20px;
-	text-align:center;
-	text-overflow:ellipsis;
-	text-shadow:1px 1px 2px 1.5 rgba(0, 0, 0, .75);
-	width:100%;
-}
-
-.GfoKrcTEyRDAnLfLmlIm{
-	horizontal-align:middle;
-	flow-children:right;
-	margin-top:5px;
-	vertical-align:top;
-}
-
-.LSBLkVdl0SLhCGxcmNxE{
-	flow-children:down;
-	margin-left:12.5px;
-	margin-right:12.5px;
-	padding:5px;
-	width:80px;
-}
-
-.UqxlWvoDM9ivnuHT6GDt{
-	flow-children:down;
-	horizontal-align:right;
-	margin-right:25px;
-	margin-top:90px;
-	width:100px;
-}
-
-.u9zrcHhU8YuhR6YiRAmZ{
-	color:rgba(255, 255, 255, .75);
-	font-size:18px;
-	padding-left:20px;
-	text-shadow:0 0 2px 2 rgba(0, 0, 0, .5);
-	width:100%;
-}
-
-.BH3auXK9ZqupOPDMyRL0{
-	height:100%;
-	width:100%;
-	z-index:999;
-}
-
-.QAhSsu4TEsVD9DhQb9lL{
-	background-color:rgba(0, 0, 0, .95);
-	height:100%;
-	width:100%;
-}
-
-.a5IrJ7wieVRYIOnhCpjA{
-	horizontal-align:center;
-	color:white;
-	font-family:monospaceNumbersFont;
-	font-size:22px;
-	text-shadow:0 0 6px 6 #000000;
-	vertical-align:center;
-	z-index:999;
-}
-
-.le5nvEPgn07LY6iFbKBj,.zINXMGGJp1jwx61mFbL8{
-	height:100%;
-	width:100%;
-}
-
-.zINXMGGJp1jwx61mFbL8{
-	padding:-4px;
-	z-index:999;
-}
-
-.mY9ym19AaJOC8f609KGt{
-	height:100%;
-	width:100%;
-	z-index:9999;
-}
-
-.Sc_twaCf1xwfv1zKxXzH{
-	horizontal-align:center;
-	background-image:url('s2r://panorama/images/lock_white.png');
-	background-position:50% 50%;
-	background-repeat:no-repeat;
-	background-size:100% 100%;
-	height:25px;
-	vertical-align:center;
-	width:25px;
-	z-index:9999;
-}
-
-.E7cs4NspcK4thPlNOwA3{
-	flow-children:right;
-	height:5px;
-	margin-top:4px;
-	padding-left:10px;
-	padding-right:10px;
-	width:48px;
-}
-
-.h2uNxqwveomZyGGFJnhh{
-	height:5px;
-}
-
-.aOzNv2IeO3mm8kk_hqcN{
-	horizontal-align:center;
-	border:1px solid black;
-	height:5px;
-	width:5px;
-}
-
-.cE5VRAkdNXws4wWQVMzN{
-	border-radius:4px;
-	height:16px;
-	margin-bottom:2px;
-	margin-right:2px;
-	width:100%;
-	z-index:9999;
-}
-
-.BwPvxsoaN5yBRklllXTw,.cE5VRAkdNXws4wWQVMzN{
-	horizontal-align:right;
-	vertical-align:bottom;
-}
-
-.BwPvxsoaN5yBRklllXTw{
-	color:#70b7fa;
-	font-family:monospaceNumbersFont;
-	font-size:14px;
-	text-shadow:0 0 3px 4 black;
-}
-
-.o6BWXPoVynJHcNaC2oNS{
-	background-color:rgba(0, 0, 0, .75);
-	border-radius:4px;
-	height:14px;
-	width:14px;
-	z-index:9999;
-}
-
-.OtI1xBcpFzwhU80hRoEr{
-	horizontal-align:center;
-	color:white;
-	font-size:12px;
-	text-align:center;
-	text-shadow:1px 1px 4px 4 black;
-	vertical-align:center;
-}
-
-.Y8Hhmimdsdqc9LSSGWso{
-	height:100%;
-	width:100%;
-}
-
-.ee8z6nryPRdnswmuGAIG{
-	horizontal-align:center;
-	vertical-align:center;
-}
-
-.I4glsd9fRBZCu1HZi0eo{
-	flow-children:down;
-	height:40px;
-	transform:translateY(1px);
-	width:100%;
-	z-index:10;
-}
-
-.mi4J7FSPRfBVM4vKgTpg{
-	height:20px;
-	vertical-align:bottom;
-	width:48px;
-}
-
-.oikVCPKaJGf1dmWcWNpI{
-	wash-color:rgba(0, 0, 0, .1);
-	background-image:url('s2r://panorama/images/hud/reborn/levelup_button_2_psd.vtex');
-	border:1px solid rgba(0, 0, 0, .8);
-	box-shadow:0 0 4px 1px fill rgba(0, 0, 0, .3);
-	height:20px;
-	vertical-align:bottom;
-	width:48px;
-}
-
-.oikVCPKaJGf1dmWcWNpI,.pyCWSL7_XthGZG37TpXu{
-	horizontal-align:center;
-	background-position:50% 50%;
-	background-repeat:no-repeat;
-	background-size:100% 100%;
-}
-
-.pyCWSL7_XthGZG37TpXu{
-	background-image:url('s2r://panorama/images/hud/reborn/levelup_plus_well_psd.vtex');
-	height:12px;
-	margin-bottom:2px;
-	vertical-align:center;
-	width:12px;
-}
-
-.XRC7w8Fw6EtkYdqSlv_Q{
-	background-color:rgba(0, 160, 0, .3);
-	height:100%;
-	width:100%;
-}
-
-.NM5Z4aYUM5x5qcGaQhow{
-	flow-children:down;
-	margin-left:3px;
-	margin-right:3px;
-}
-
-.iQlOSrepOGz_n5xmDEmA{
-	background-position:50% 50%;
-	background-repeat:no-repeat;
-	background-size:100% 100%;
-	box-shadow:0 0 2px 2px fill rgba(0, 0, 0, .4);
-	height:48px;
-	width:48px;
-}
-
-.lMUtFnoWvrEPWwwmYKCB{
-	height:100%;
-	width:100%;
-}
-
-.hF3ieIFirYwJ64ipI2PR{
-	flow-children:right;
-	height:100px;
-	margin-bottom:130px;
-}
-
-.hF3ieIFirYwJ64ipI2PR,.rV87EGQiWNRNHbG9vdNq{
-	horizontal-align:center;
-	vertical-align:bottom;
-}
-
-.rV87EGQiWNRNHbG9vdNq{
-	border-radius:4px;
-	height:18.5px;
-	margin-bottom:105px;
-	width:342.5px;
-}
-
-.C11fXGMWVtHFBK80TN8S{
-	horizontal-align:center;
-	color:white;
-	margin-top:.25px;
-}
-
-.C11fXGMWVtHFBK80TN8S,.Po_h580u26mGbnsfAeYn{
-	font-family:monospaceNumbersFont;
-	font-size:14px;
-	font-weight:bold;
-	opacity:.8;
-	text-shadow:1px 1px 2px 2.5 #000000;
-	vertical-align:middle;
-}
-
-.Po_h580u26mGbnsfAeYn{
-	horizontal-align:right;
-	margin-right:3px;
-	margin-top:-.25px;
-}
-
-.eJFtzSbKz6BPT0EBp_pU{
-	height:100%;
-	opacity:.8;
-}
-
-.lmSadXOv8dn4_iAErJ2E{
-	horizontal-align:center;
-	background-color:red;
-	border-radius:4px;
-	height:18.5px;
-	margin-bottom:85px;
-	vertical-align:bottom;
-	width:342.5px;
-}
-
-.TV6lAJTYNIb5hYQe8617{
-	hue-rotation:100deg;
-	height:100%;
-	opacity:.8;
-}
-
-.IPrSE00jcHjUUl7qXYgs{
-	horizontal-align:center;
-	color:white;
-	margin-top:.25px;
-	opacity:.6;
-	text-shadow:1px 1px 2px 2.5 #000000;
-}
-
-.IPrSE00jcHjUUl7qXYgs,.jvDXnYHe6hfhZY73oN4s{
-	font-family:monospaceNumbersFont;
-	font-size:14px;
-	font-weight:bold;
-	vertical-align:middle;
-}
-
-.jvDXnYHe6hfhZY73oN4s{
-	horizontal-align:right;
-	color:#83c2fe;
-	margin-right:3px;
-	margin-top:.5px;
-	opacity:.8;
-	text-shadow:2px 2px 0 1 #00000066;
+.MdVg5fj4RLKA8xMha4bH:hover {
+  wash-color: rgba(100, 100, 100, 0.25);
+  transform: scale3d(1.1, 1.1, 0);
 }
 
 
-.JXQyEf4ZmIVx54alsapk{
-  background-color:rgba(0, 0, 0, .65);
-  border-radius:4px;
-  height:100%;
-  margin-bottom:3px;
-  margin-left:4px;
-  margin-top:3px;
-  vertical-align:center;
-  width:100px;
+/*!********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Settings/styles.module.css ***!
+  \********************************************************************************************************************************/
+.AuZ2AAEjJ4u1lGtGXcN3 {
+	vertical-align: top;
+	horizontal-align: right;
+	margin-top: 200px;
+	margin-right: 0px;
+	min-width: 450px;
+	min-height: 100px;
+	background-image: url('s2r://panorama/images/bg_scoreboard_png.vtex');
+	background-size: 100%;
+	background-color: rgba(0, 0, 0, 0.9);
+	border-radius: 5px;
+	flow-children: down;
+	transform: translateX(490px);
+	transition: transform 0.5s ease-in-out 0s, opacity 0.5s ease-in-out 0s;
 }
 
-.BciUpAbogLA0n9b61wJb{
-  background-color:orange;
-  height:100%;
-  margin:4px;
-  transition:width .2s ease-in-out 0s;
-  vertical-align:middle;
+.Q9qnNySVaR9UK9mbJpvt {
+	width: 100%;
+	flow-children: right;
+	background-color: rgba(65, 65, 65, 0.3);
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 8.5px;
+	padding-bottom: 8.5px;
 }
 
-.TAd15y9KOLziRLp0b0gg{
-  font-size:14px;
-  margin-left:4px;
-  vertical-align:middle;
+/*!***********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ButtonGroup/styles.module.css ***!
+  \***********************************************************************************************************************************/
+.VAbVj6ocFtX3DJzOqCnL {
+	vertical-align: bottom;
+	horizontal-align: right;
+	width: 250px;
+	margin-bottom: 25px;
+	margin-right: 25px;
+	flow-children: left;
+	z-index: 9999;
 }
-.oC1j0mW0_9JGy6vDTaRi{
-  horizontal-align:center;
-  flow-children:right;
-  background-color:rgba(25, 25, 25, .85);
-  border-radius:7px;
-  height:30px;
-  margin-bottom:5px;
-  padding-left:8px;
-  padding-right:8px;
-  vertical-align:bottom;
-  width:fit-children;
+
+.UJCvjFyZXXNKwJOrhwa4 {
+	vertical-align: center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-right: 10px;
+	margin-left: 10px;
+	width: 35px;
+	height: 35px;
+	padding: 1.5px;
+	pre-transform-scale2d: 1;
+}
+
+.UJCvjFyZXXNKwJOrhwa4:hover {
+	padding: 0px;
+}
+
+/*!*************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Heroes/Health/styles.module.css ***!
+  \*************************************************************************************************************************************/
+.f5tPV5CzsnGZse09Jd3H {
+	width: 100%;
+	height: fit-children;
+	margin-top: 1px;
+}
+
+/*!************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Heroes/Image/styles.module.css ***!
+  \************************************************************************************************************************************/
+.HghwT4F3Upk6ZZxs3RGH {
+	width: 100%;
+	height: 41.4px;
+	background-color: black;
+	transition: border 0.15s ease-in-out 0s;
+	border: 2px solid rgba(0, 0, 0, 0.75);
+	z-index: 998;
+}
+
+.HghwT4F3Upk6ZZxs3RGH:hover {
+	border: 1.5px solid rgba(0, 0, 0, 0.75);
+}
+
+.y3mao5EPMJ_BUMYw9yF_ {
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+.ecRPyTj5GQqyvUNoa2TI {
+	z-index: 999;
+	width: 80%;
+	height: 50%;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+/*!***********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Heroes/Mana/styles.module.css ***!
+  \***********************************************************************************************************************************/
+.q1L5JKSgUrfoBLrvvYIp {
+	width: 100%;
+	height: fit-children;
+}
+
+/*!*****************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Heroes/Playername/styles.module.css ***!
+  \*****************************************************************************************************************************************/
+.n3KtCag5Ep7H3f7Qu9Bg {
+	width: 100%;
+	height: 20px;
+	font-size: 16px;
+	text-align: center;
+	text-overflow: ellipsis;
+	text-shadow: 1px 1px 2px 1.5 rgba(0, 0, 0, 0.75);
+}
+
+/*!******************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Heroes/styles.module.css ***!
+  \******************************************************************************************************************************/
+.GfoKrcTEyRDAnLfLmlIm {
+	vertical-align: top;
+	horizontal-align: middle;
+	flow-children: right;
+	margin-top: 5px;
+}
+
+.LSBLkVdl0SLhCGxcmNxE {
+	width: 80px;
+	flow-children: down;
+	margin-right: 12.5px;
+	margin-left: 12.5px;
+	padding: 5px;
+}
+
+/*!********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/GameTime/styles.module.css ***!
+  \********************************************************************************************************************************/
+.UqxlWvoDM9ivnuHT6GDt {
+	flow-children: down;
+	horizontal-align: right;
+	width: 100px;
+	margin-top: 90px;
+	margin-right: 25px;
+}
+
+.u9zrcHhU8YuhR6YiRAmZ {
+	color: rgba(255, 255, 255, 0.75);
+	font-size: 18px;
+	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.5);
+	width: 100%;
+	padding-left: 20px;
+}
+
+/*!**********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/Cooldown/styles.module.css ***!
+  \**********************************************************************************************************************************************************/
+.BH3auXK9ZqupOPDMyRL0 {
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+}
+
+.QAhSsu4TEsVD9DhQb9lL {
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.95);
+}
+
+.a5IrJ7wieVRYIOnhCpjA {
+	color: white;
+	font-size: 22px;
+	text-shadow: 0px 0px 6px 6 #000000;
+	horizontal-align: center;
+	vertical-align: center;
+	font-family: monospaceNumbersFont;
+	z-index: 999;
+}
+
+/*!**********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/Autocast/styles.module.css ***!
+  \**********************************************************************************************************************************************************/
+.le5nvEPgn07LY6iFbKBj {
+	width: 100%;
+	height: 100%;
+}
+
+.zINXMGGJp1jwx61mFbL8 {
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	padding: -4px;
+}
+
+/*!*************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/LockoutIcon/styles.module.css ***!
+  \*************************************************************************************************************************************************************/
+.mY9ym19AaJOC8f609KGt {
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+}
+
+.Sc_twaCf1xwfv1zKxXzH {
+	width: 25px;
+	height: 25px;
+	vertical-align: center;
+	horizontal-align: center;
+	background-image: url('s2r://panorama/images/lock_white.png');
+	background-size: 100% 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	z-index: 9999;
+}
+
+/*!*************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/Skillpoints/styles.module.css ***!
+  \*************************************************************************************************************************************************************/
+.E7cs4NspcK4thPlNOwA3 {
+	width: 48px;
+	height: 5px;
+	margin-top: 4px;
+	flow-children: right;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.h2uNxqwveomZyGGFJnhh {
+	height: 5px;
+}
+
+.aOzNv2IeO3mm8kk_hqcN {
+	width: 5px;
+	height: 5px;
+	horizontal-align: center;
+	border: 1px solid black;
+}
+
+/*!**********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/ManaCost/styles.module.css ***!
+  \**********************************************************************************************************************************************************/
+.cE5VRAkdNXws4wWQVMzN {
+	width: 100%;
+	height: 16px;
+	z-index: 9999;
+	vertical-align: bottom;
+	horizontal-align: right;
+	border-radius: 4px;
+	margin-bottom: 2px;
+	margin-right: 2px;
+}
+
+.BwPvxsoaN5yBRklllXTw {
+	font-size: 14px;
+	color: #70b7fa;
+	text-shadow: 0px 0px 3px 4 black;
+	vertical-align: bottom;
+	horizontal-align: right;
+	font-family: monospaceNumbersFont;
+}
+
+/*!*********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/Keybind/styles.module.css ***!
+  \*********************************************************************************************************************************************************/
+.o6BWXPoVynJHcNaC2oNS {
+	background-color: rgba(0, 0, 0, 0.75);
+	width: 14px;
+	height: 14px;
+	z-index: 9999;
+	border-radius: 4px;
+}
+
+.OtI1xBcpFzwhU80hRoEr {
+	font-size: 12px;
+	color: white;
+	text-align: center;
+	vertical-align: center;
+	horizontal-align: center;
+	text-shadow: 1px 1px 4px 4 black;
+}
+
+/*!*******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/Image/styles.module.css ***!
+  \*******************************************************************************************************************************************************/
+.Y8Hhmimdsdqc9LSSGWso {
+	width: 100%;
+	height: 100%;
+}
+
+.ee8z6nryPRdnswmuGAIG {
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+/*!***************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/LevelUpButton/styles.module.css ***!
+  \***************************************************************************************************************************************************************/
+.I4glsd9fRBZCu1HZi0eo {
+	width: 100%;
+	height: 40px;
+	flow-children: down;
+	z-index: 10;
+	transform: translateY(1px);
+}
+
+.mi4J7FSPRfBVM4vKgTpg {
+	width: 48px;
+	height: 20px;
+	vertical-align: bottom;
+}
+
+.oikVCPKaJGf1dmWcWNpI {
+	width: 48px;
+	height: 20px;
+	background-image: url('s2r://panorama/images/hud/reborn/levelup_button_2_psd.vtex');
+	background-size: 100% 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	vertical-align: bottom;
+	horizontal-align: center;
+	wash-color: rgba(0, 0, 0, 0.1);
+	box-shadow: fill rgba(0, 0, 0, 0.3) 0px 0px 4px 1px;
+	border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.pyCWSL7_XthGZG37TpXu {
+	height: 12px;
+	width: 12px;
+	background-image: url('s2r://panorama/images/hud/reborn/levelup_plus_well_psd.vtex');
+	background-size: 100% 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	vertical-align: center;
+	horizontal-align: center;
+	margin-bottom: 2px;
+}
+
+/*!******************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/CastPointOverlay/styles.module.css ***!
+  \******************************************************************************************************************************************************************/
+.XRC7w8Fw6EtkYdqSlv_Q {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 160, 0, 0.3);
+}
+
+/*!*************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/styles.module.css ***!
+  \*************************************************************************************************************************************************/
+.NM5Z4aYUM5x5qcGaQhow {
+	flow-children: down;
+	margin-right: 3px;
+	margin-left: 3px;
+}
+
+.iQlOSrepOGz_n5xmDEmA {
+	width: 48px;
+	height: 48px;
+	background-size: 100% 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 2px 2px;
+}
+
+.lMUtFnoWvrEPWwwmYKCB {
+	width: 100%;
+	height: 100%;
+}
+
+/*!**********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/styles.module.css ***!
+  \**********************************************************************************************************************************/
+.hF3ieIFirYwJ64ipI2PR {
+	height: 100px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	flow-children: right;
+	margin-bottom: 130px;
+}
+
+/*!*********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HealthBar/styles.module.css ***!
+  \*********************************************************************************************************************************/
+.rV87EGQiWNRNHbG9vdNq {
+	width: 342.5px;
+	height: 18.5px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 105px;
+	border-radius: 4px;
+}
+
+.C11fXGMWVtHFBK80TN8S {
+	font-size: 14px;
+	color: white;
+	margin-top: 0.25px;
+	text-shadow: 1px 1px 2px 2.5 #000000;
+	vertical-align: middle;
+	horizontal-align: center;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.8;
+}
+
+.Po_h580u26mGbnsfAeYn {
+	font-size: 14px;
+	margin-top: -0.25px;
+	margin-right: 3px;
+	text-shadow: 1px 1px 2px 2.5 #000000;
+	vertical-align: middle;
+	horizontal-align: right;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.8;
+}
+
+.eJFtzSbKz6BPT0EBp_pU {
+	height: 100%;
+	opacity: 0.8;
+}
+
+/*!*******************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ManaBar/styles.module.css ***!
+  \*******************************************************************************************************************************/
+.lmSadXOv8dn4_iAErJ2E {
+	width: 342.5px;
+	height: 18.5px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 85px;
+	border-radius: 4px;
+	background-color: red;
+}
+
+.TV6lAJTYNIb5hYQe8617 {
+	height: 100%;
+	hue-rotation: 100deg;
+	opacity: 0.8;
+}
+
+.IPrSE00jcHjUUl7qXYgs {
+	font-size: 14px;
+	color: white;
+	margin-top: 0.25px;
+	text-shadow: 1px 1px 2px 2.5 #000000;
+	vertical-align: middle;
+	horizontal-align: center;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.6;
+}
+
+.jvDXnYHe6hfhZY73oN4s {
+	font-size: 14px;
+	color: #83c2fe;
+	margin-top: 0.5px;
+	margin-right: 3px;
+	text-shadow: 2px 2px 0px 1 #00000066;
+	vertical-align: middle;
+	horizontal-align: right;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.8;
+}
+
+/*!**********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Level/level.module.css ***!
+  \**********************************************************************************************************************************/
+
+.JXQyEf4ZmIVx54alsapk {
+  width: 100px;
+  height: 100%;
+  vertical-align: center;
+  background-color: rgba(0, 0, 0, 0.65);
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-left: 4px;
+  border-radius: 4px;
+}
+
+.BciUpAbogLA0n9b61wJb {
+  background-color: orange;
+  height: 100%;
+  vertical-align: middle;
+  margin: 4px;
+  transition: width 0.2s ease-in-out 0.0s;
+}
+
+.TAd15y9KOLziRLp0b0gg {
+  font-size: 14px;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+/*!****************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/stats.module.css ***!
+  \****************************************************************************************************************************/
+.oC1j0mW0_9JGy6vDTaRi {
+  vertical-align: bottom;
+  horizontal-align: center;
+  height: 30px;
+  flow-children: right;
+  border-radius: 7px;
+  background-color: rgba(25, 25, 25, 0.85);
+  margin-bottom: 5px;
+  width: fit-children;
+  padding-right: 8px;
+  padding-left: 8px;
 } 
 
-.H6TAG5JpSntZ0naNF1nw{
-  horizontal-align:center;
-  background-position:50% 50%;
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:15px;
-  margin-right:2px;
-  vertical-align:middle;
-  width:15px;
-}
-
-.Gn4LgS5tAAgOJCBuE4FW{
-  flow-children:right;
-  margin-left:8px;
-  margin-right:8px;
-  vertical-align:center;
-}
-
-.vyfRuPA7ygACF45F2ZxX{
-  color:rgba(255, 255, 255, .5);
-}
-
-.TTN9sjS3NetyVeFCTfVA{
-  background-image:url('s2r://panorama/images/icon_armor.png');
-}
-.mrn27cU6evosGA2fjLqF{
-  background-image:url('s2r://panorama/images/icon_damage.png');
-}
-.FYqremml3PHQsjFOLJIR{
-  background-image:url('s2r://panorama/images/icon_magic_resist.png');
-}
-.rx5gFLbNXGBFl2NHU1cX{
-  background-image:url('s2r://panorama/images/icon_speed.png');
-}
-.livhQlkdnHZPe_TLd5af{
-	height:100%;
-	width:100%;
-	z-index:999;
-}
-
-.bHf0Fk83RimCrwKPcWqe{
-	horizontal-align:center;
-	color:white;
-	font-size:25px;
-	font-weight:bold;
-	text-overflow:clip;
-	text-shadow:1px 1px 2px 5 #000000;
-	vertical-align:center;
-}
-
-.QmBvdkG1ODC4WqyGP8a5{
-	wash-color:rgba(0, 0, 0, .2);
-	border-radius:50%;
-	height:100%;
-	width:100%;
-}
-
-.hP53l9q7lqT_sneNCQgJ{
-	pre-transform-scale2d:0;
-	background-color:black;
-	border-radius:50%;
-	box-shadow:0 0 6px 1px fill rgba(0, 0, 0, .6);
-	height:36px;
-	margin-bottom:5px;
-	margin-right:5px;
-	margin-top:5px;
-	opacity:0;
-	transform:none;
-	transition-duration:.2s;
-	transition-property:pre-transform-scale2d, opacity, transform;
-	width:36px;
-}
-
-.mTu2M3Jd7k14DxJOs13Q{
-	clip:radial(50% 50%, 0deg, 359deg);
-	horizontal-align:center;
-	wash-color:rgba(0, 0, 0, .2);
-	border-radius:50%;
-	height:100%;
-	vertical-align:center;
-	width:100%;
-}
-
-.np7FM4WNLj5f6yKD9QBG{
-	height:100%;
-	padding:2.4px;
-	width:100%;
-}
-
-.cPY03BjEcqqesJ9VT8cF,.SevajsebwIipgDcXYdJ1{
-	border-radius:50%;
-	height:100%;
-	width:100%;
-}
-
-.SevajsebwIipgDcXYdJ1{
-	padding:-8px;
-}
-
-.pWcuWOn3wOVyHKlIURE4{
-	flow-children:right-wrap;
-	margin-left:665px;
-}
-
-.pWcuWOn3wOVyHKlIURE4,.z2EEBFDfSVxYEuMmWdCX{
-	horizontal-align:center;
-	height:fit-children;
-	margin-bottom:80px;
-	max-width:300px;
-	padding:2px;
-	vertical-align:bottom;
-	width:300px;
-}
-
-.z2EEBFDfSVxYEuMmWdCX{
-	flow-children:left-wrap;
-	margin-right:660px;
-}
-
-.U58wDQZ7vmkzEZcNiZ51{
-	margin-bottom:45px;
-	width:175px;
-}
-
-.iecvapkiXSzu3kEMuO4x,.U58wDQZ7vmkzEZcNiZ51{
-	horizontal-align:center;
-	flow-children:down;
-	height:fit-children;
-	vertical-align:bottom;
-	z-index:9999;
-}
-
-.iecvapkiXSzu3kEMuO4x{
-	background-color:black;
-	border:1px solid black;
-	border-radius:1px;
-	margin-left:20px;
-	margin-right:20px;
-	width:100%;
-}
-
-.J953_atEDxTEbfV4_X6v{
-	background-color:rgba(48, 66, 80, .5);
-	color:rgba(200, 200, 200, .45);
-	font-size:16px;
-	letter-spacing:1px;
-	padding-bottom:4px;
-	padding-left:2px;
-	padding-top:6px;
-	text-align:center;
-	text-shadow:1px 1px 2px 2 #000000;
-	width:100%;
-}
-
-.zK2ahgxspEVc3pDGePwg{
-	background-color:rgba(255, 255, 255, .5);
-	height:1px;
-	width:100%;
-}
-
-.XI9h9tFwGBMEDvP8UoW2{
-	saturation:1.1;
-	background-color:rgba(24, 33, 40, 1);
-	border-top:2px solid rgba(44, 53, 60, 1);
-	color:#acaaaa;
-	font-size:16px;
-	letter-spacing:1px;
-	padding-bottom:2.5px;
-	padding-top:2.5px;
-	text-align:center;
-	text-shadow:1px 1px 2px 2 #000000;
-	width:100%;
-}
-
-.XI9h9tFwGBMEDvP8UoW2:hover{
-	saturation:.5;
-}
-
-.reDnWP725L1o70H4kWz6{
-	horizontal-align:right;
-	saturation:1.5;
-	background-color:rgba(24, 33, 40, 1);
-	border:2px solid black;
-	border-radius:50%;
-	height:fit-children;
-	margin-bottom:-15px;
-	margin-right:14px;
-	padding:1.2px;
-	width:fit-children;
-	z-index:99999;
-}
-
-.reDnWP725L1o70H4kWz6:hover{
-	saturation:.5;
-	background-color:rgba(40, 40, 40, 1);
-}
-
-.l7LX_50dCrJy6E6YOOHh{
-	wash-color:rgba(50, 50, 50, .7);
-	height:15px;
-	margin-left:1px;
-	width:15px;
-}
-
-.oumae9PTa7A_SRzxbZGZ{
-	height:fit-children;
-	width:100%;
-}
-
-.CCDKSWjF9KDiVCElPlGL{
-	wash-color:rgba(24, 33, 40, 1);
-	pre-transform-rotate2d:180deg;
-	horizontal-align:center;
-	height:10px;
-	width:20px;
-	z-index:9999;
-}
-
-.Mc1Qw06z2ds5AmoL7ycQ{
-	horizontal-align:left;
-	color:white;
-	font-size:16px;
-	margin-left:4px;
-	margin-top:1px;
-	text-shadow:1px 1px 2px 4 #000000;
-	vertical-align:top;
-	z-index:50;
-}
-
-.HfeZhl84mGUn9WJBIZLc{
-	background-color:rgba(20, 20, 20, .85);
-	height:100%;
-	width:100%;
-	z-index:40;
-}
-
-.VTUFpbDDtk_oPVForZmw{
-	horizontal-align:middle;
-	color:white;
-	font-size:24px;
-	text-align:center;
-	text-shadow:1px 1px 2px 4 #000000;
-	vertical-align:middle;
-	z-index:60;
-}
-
-.TWZ2pG_xtGBykJ_kpppR{
-	background-image:url('s2r://panorama/images/softedge_circle.png');
-	border-radius:5px;
-	height:100%;
-	width:100%;
-}
-
-.QTjhPejGQka7jR3Y8SW_{
-	horizontal-align:center;
-	background-image:url('s2r://panorama/images/lock_white.png');
-	background-position:50% 50%;
-	background-repeat:no-repeat;
-	background-size:100% 100%;
-	height:25px;
-	vertical-align:center;
-	width:25px;
-	z-index:9999;
-}
-
-.QH9bS8IwqETVesaFDNh1{
-	horizontal-align:left;
-	color:white;
-	font-size:12px;
-	margin-bottom:2px;
-	margin-left:5px;
-	z-index:50;
-}
-
-.QH9bS8IwqETVesaFDNh1,.VA8o8XePr24qBvJDgZIQ{
-	text-shadow:1px 1px 2px 4 #000000;
-	vertical-align:bottom;
-}
-
-.VA8o8XePr24qBvJDgZIQ{
-	horizontal-align:right;
-	color:#88d2f5;
-	font-size:14px;
-	font-weight:bold;
-	margin-bottom:1px;
-	margin-right:2px;
-}
-
-.HMwcE6dRfetA6ujKyCKN{
-	background-color:rgba(0, 0, 0, .85);
-	background-image:url('s2r://panorama/images/emptyitembg.png');
-	background-size:100%;
-	border:1px solid black;
-	border-radius:5px;
-	height:40px;
-	margin-left:2px;
-	margin-right:2px;
-	width:55px;
-}
-
-.FxnDiUvbItTwkCodN9Du{
-	horizontal-align:center;
-	flow-children:right;
-	margin-bottom:40px;
-	margin-right:0;
-	vertical-align:bottom;
-}
-
-.Rr1FKkAZ361k982_5fz_{
-  background-color:rgba(30, 30, 30, .525);
-  width:100%;
-}
-
-._TANvQ4qacNF38eA3Umb{
-  horizontal-align:left;
-  color:rgba(200, 200, 200, .45);
-  font-size:15px;
-  font-weight:lighter;
-  letter-spacing:1.5px;
-  padding-left:10px;
-  padding-top:2.5px;
-  vertical-align:center;
-}
-
-.D6HjQ7FjHcqwsJyqVfn_{
-  horizontal-align:right;
-  wash-color:rgba(100, 100, 100, .5);
-  height:24px;
-  margin-right:2.5px;
-  opacity:.75;
-  padding:2px;
-  transition:transform .5s ease-in-out 0s,opacity .5s ease-in-out 0s;
-  vertical-align:center;
-  width:24px;
-}
-
-.D6HjQ7FjHcqwsJyqVfn_:hover{
-  wash-color:rgba(100, 100, 100, .25);
-  transform:scale3d(1.1, 1.1, 0);
-}
-
-
-
-.jhzzPTL32QYEximy3uUQ{
-	flow-children:right;
-	background-color:rgba(0, 0, 0, .35);
-	border-radius:5px;
-	height:100%;
-	margin-left:5px;
-	margin-right:15px;
-	margin-top:10px;
-	padding-left:10px;
-	padding-right:10px;
-	width:125px;
-}
-
-.wekTWcDzpbfytFjjghQ8{
-	color:gold;
-	text-align:center;
-	vertical-align:center;
-	width:100%;
-}
-
-.f9_LGtQYZRY8EQHiGuET{
-	background-image:url('s2r://panorama/images/gold_small_png.vtex');
-	background-size:100% 100%;
-	height:16px;
-	vertical-align:center;
-	width:16px;
-}
-
-.hlISF84kFOfP80kJ9FZu{
-	flow-children:right;
-	background-color:black;
-	border:1px solid #3d464c;
-	border-radius:5px;
-	margin-left:15px;
-	margin-top:10px;
-	width:600px;
-}
-
-.iNDTwVnWrj6DS2L6ctGG{
-	wash-color:#8da1b1;
-	background-image:url('s2r://panorama/images/icon_search_shadow_png.vtex');
-	background-position:50%;
-	background-size:100% 100%;
-	height:24px;
-	margin-left:4px;
-	margin-top:-1.5px;
-	vertical-align:center;
-	width:24px;
-}
-
-.zfXn5NDM5F_T4zVwJCPq{
-	background-color:black;
-	border:0 solid black;
-	color:white;
-	font-size:20px;
-	height:36px;
-	text-overflow:clip;
-	white-space:nowrap;
-	width:540px;
-}
-
-.gVvpcjlDRXwj7IEt0ML_{
-	wash-color:rgba(100, 100, 100, .5);
-	background-image:url('s2r://panorama/images/x_close_grey_png.vtex');
-	background-size:contain;
-	height:18px;
-	transition-duration:.2s;
-	transition-property:wash-color, transform;
-	transition-timing-function:ease-in-out;
-	vertical-align:center;
-	width:18px;
-}
-
-.gVvpcjlDRXwj7IEt0ML_:hover{
-	wash-color:rgba(100, 100, 100, .25);
-	transform:scale3d(1.1, 1.1, 0);
-}
-
-.PDUfowIUUKLo9k7qA2yP{
-  height:35px;
-  margin:2px;
-  width:48px;
-}
-
-.ly4wXemHK_apNGpVCTOv{
-  horizontal-align:center;
-  vertical-align:center;
-}
-.BSxzGvZdECdyZegRctY5{
-	horizontal-align:right;
-	flow-children:down;
-	background-color:rgba(0, 0, 0, .85);
-	background-image:url('s2r://panorama/images/ability_bg.png');
-	background-size:100%;
-	border-radius:5px;
-	margin-right:0;
-	margin-top:150px;
-	min-height:550px;
-	min-width:750px;
-	opacity:0;
-	transform:translateX(490px);
-	transition:transform .5s ease-in-out 0s,opacity .5s ease-in-out 0s;
-	vertical-align:top;
-	z-index:999;
-}
-
-.kgffNIaDnqioNdzFu2Qz,.XG17xyoBlJ3Tpz1wnlmI{
-	flow-children:right;
-	width:100%;
-}
-
-.kgffNIaDnqioNdzFu2Qz{
-	background-color:rgba(0, 0, 0, .45);
-	height:100%;
-	margin:15px;
-}
-
-.glyI7QY5ReJQw11M9kVU{
-	flow-children:down;
-	height:100%;
-	width:50%;
-}
-
-.OcOTKVivrgkfduSaazAy{
-	flow-children:down;
-	margin-left:7.5px;
-	margin-right:7.5px;
-	margin-top:15px;
-	width:100%;
-}
-
-.oGnuUmHmMe_XtSiw0IRK{
-	flow-children:right;
-	background-color:rgba(0, 0, 0, .35);
-	background-image:url('s2r://panorama/images/inventory_item_well.png');
-	background-size:100%;
-	padding-bottom:2.5px;
-	padding-top:2.5px;
-	width:100%;
-}
-
-.xf3s9Vnjkq5SBEtoC_Wh{
-	background-color:rgba(0, 0, 0, 1);
-	border-bottom:1px solid rgba(50, 50, 50, .5);
-	color:rgb(175, 175, 175);
-	font-family:fantasy;
-	font-size:13px;
-	letter-spacing:1.35px;
-	padding-bottom:1px;
-	padding-left:15px;
-	padding-top:5px;
-	text-align:left;
-	width:100%;
-}
-
-.zgwX5TeRbdT_QfomIjIJ{
-	flow-children:right-wrap;
-	background-color:rgba(0, 0, 0, .35);
-	background-image:url('s2r://panorama/images/inventory_item_well.png');
-	background-size:100%;
-	height:185px;
-	padding:10px;
-	width:100%;
-}
-
-.gJDIkhZ3utFqStslbRd7{
-  flow-children:right;
-  horizontal-align:right;
-  margin:10px 12.5px 15px;
-}
-
-.IKfrQWWi2lBmGrJpvF9u{
-  saturation:1;
-  brightness:.5;
-  background-color:red;
-  background-image:url('s2r://panorama/images/background_play_button_2x.png');
-  background-size:228px 50px;
-  border:1px solid #6e3f3f88;
-  border-radius:5px;
-  box-shadow:0 0 1.5px 1.5px fill black;
-  height:35px;
-  margin-left:7.5px;
-  padding:6px 12px;
-  transition-duration:.25s;
-  transition-property:brightness, saturation;
-  transition-timing-function:ease-in-out;
-  width:150px;
-}
-
-.IKfrQWWi2lBmGrJpvF9u:hover{
-  saturation:1.1;
-  brightness:.75;
-}
-
-.whfmuRCQT5x3_krM3tYZ{
-  saturation:1;
-  brightness:1;
-  background-image:url('s2r://panorama/images/background_play_button_2x.png');
-  background-size:228px 50px;
-  border:1px solid #30303088;
-  border-radius:5px;
-  box-shadow:0 0 1.5px 1.5px fill black;
-  height:35px;
-  margin-right:7.5px;
-  padding:6px 12px;
-  transition-duration:.25s;
-  transition-property:brightness, saturation;
-  transition-timing-function:ease-in-out;
-  width:150px;
-}
-
-.whfmuRCQT5x3_krM3tYZ:hover{
-  saturation:1.1;
-  brightness:1.25;
-}
-
-.XZlYoPHJC72s0K4pJq_G{
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  text-align:center;
-  text-shadow:1px 1px 1px 2 #000000;
-  width:100%;
-}
-
-.Bh6SFN3gsa91_OrHaNLi{
-  horizontal-align:center;
-  height:23px;
-  vertical-align:center;
-  width:23px;
-}
-
-.R6506jSOCNr7V2AE69Nz{
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  text-align:center;
-  text-shadow:1px 1px 1px 2 #000000;
-  width:100%;
-}
-.LftvFPwkbDhqYwIYqxeR{
-	flow-children:down;
-	margin-left:12.5px;
-	margin-right:12.5px;
-	margin-top:10px;
-	width:100%;
-}
-
-.WXcMrdFXkFOYvJ8VzquQ{
-	color:rgba(160, 160, 160, .35);
-	font-size:12px;
-	letter-spacing:1.5px;
-	margin-bottom:2.5px;
-	margin-left:7.5px;
-	text-align:left;
-	width:100%;
-}
-
-.PnIHZ3NMme7ikkidc16Q{
-	background-color:rgba(50, 50, 50, .75);
-	border-radius:5px;
-	padding:12px;
-	width:100%;
-}
-
-.Z8GXYuUi1_aRG7K2C2KC{
-	color:rgb(161, 163, 140);
-	font-size:16px;
-	font-style:italic;
-	font-weight:lighter;
-	overflow:squish;
-	text-shadow:1px 1px 2px 2 #000000;
-}
-
-.FTa_3vMX52nRn1sXAEFl{
-  flow-children:right;
-  background-color:rgba(50, 50, 50, .5);
-  border-radius:5px;
-  box-shadow:-2px -1px 3px 4px fill black;
-  margin-left:12.5px;
-  margin-right:12.5px;
-  margin-top:10px;
-  padding:5px;
-  width:100%;
-}
-
-.fxH6DtBgQHRuTXEXzDd8{
-  background-position:50%;
-  background-size:100%;
-  height:32px;
-  margin-left:5px;
-  vertical-align:center;
-  width:32px;
-}
-
-.iUFKlT2XXc3v2ey9XdeD{
-  color:white;
-  font-size:34px;
-  padding-bottom:1.5px;
-  padding-left:12.5px;
-}
-
-.VBBoC2d4c_OnYJig67MS{
-  flow-children:right;
-  horizontal-align:right;
-  background-color:rgba(0, 0, 0, .9);
-  border-radius:5px;
-  margin-right:5px;
-  max-width:400px;
-  padding:8px;
-}
-
-.VBBoC2d4c_OnYJig67MS,.XfZsBIFZlylelwwG16HZ{
-  vertical-align:center;
-}
-
-.ztzVqtYaiSBMo6VC5a_S{
-  flow-children:right;
-  height:100%;
-  margin-left:5px;
-}
-
-.vTGgzlb6B9XfFPlZUfXY{
-	flow-children:down;
-	margin-left:7.5px;
-	margin-right:12.5px;
-	margin-top:10px;
-	width:fill-parent-flow(1);
-}
-
-.AUEZoyiVz98PhzJEUhyp{
-	color:rgba(160, 160, 160, .35);
-	font-size:12px;
-	letter-spacing:1.5px;
-	margin-bottom:2.5px;
-	margin-left:7.5px;
-	text-align:left;
-	text-transform:uppercase;
-	width:100%;
-}
-
-.XGf2sy9QLQrfwP9VxJLP{
-	flow-children:right;
-	background-color:rgba(50, 50, 50, .75);
-	border-radius:5px;
-	padding:2px;
-	width:100%;
-}
-
-.cDGGuKFpOz8crlSTUAm4{
-	flow-children:down;
-	padding-top:1px;
-	width:fill-parent-flow(1);
-}
-
-.o3T0mfr_JP91VLbeiuOj{
-	background-color:rgba(0, 0, 0, .5);
-	border-radius:5px;
-	margin:2.5px;
-	padding:5px;
-	width:100%;
-}
-
-.Ad8hUJ6DZ2eek8ttxfnn,.o3T0mfr_JP91VLbeiuOj{
-	flow-children:right;
-	horizontal-align:center;
-}
-
-.nFsqLuTdFNNBU2zku99G{
-	color:white;
-	font-size:18px;
-	min-width:40px;
-	padding-left:10px;
-	padding-top:1px;
-	text-align:center;
-	text-shadow:1px 1px 2px 2 #000000;
-	vertical-align:middle;
-}
-
-.yfZIEKGOBYoTHLAekxsZ{
-	background-position:50% 50%;
-	background-repeat:no-repeat;
-	background-size:contain;
-	height:22px;
-	margin-right:2px;
-	vertical-align:middle;
-	width:22px;
-}
-
-.mdnauyCLpXm_qaCDZxlF{
-	background-image:url('s2r://panorama/images/icon_damage_psd_png.vtex');
-	margin-right:2px;
-}
-
-.dOvAWCZtGQPKuYiKeOS6{
-	horizontal-align:center;
-	background-image:url('s2r://panorama/images/icon_armor_psd_png.vtex');
-}
-
-.D2fSLi1XDjZo2vkp8R1w{
-	background-image:url('s2r://panorama/images/icon_speed_psd_png.vtex');
-}
-
-.IjVaWP4uoZhxHKIH3Stt{
-	background-image:url('s2r://panorama/images/icon_attack_speed2_psd_png.vtex');
-}
-
-.h8ANtCEj1VfmDU_8Q0wt{
-	background-image:url('s2r://panorama/images/icon_attack_speed3_psd_png.vtex');
-}
-
-.yljvvOCvMaXbcJVB1Zld{
-	background-image:url('s2r://panorama/images/icon_attack_range_psd_png.vtex');
-}
-
-.atFX8M54hcQvRTizJEo4{
-  background-color:rgba(40, 40, 40, .5);
-  border-bottom:1px solid black;
-  width:100%;
-}
-
-.QN8mO4MWeSrUkguEFTwo{
-  horizontal-align:left;
-  color:rgba(200, 200, 200, .45);
-  font-size:15px;
-  font-weight:lighter;
-  letter-spacing:1.5px;
-  padding-left:10px;
-  padding-top:2.5px;
-  vertical-align:center;
-}
-
-.vEVpS9O62JUz9JA3HhK6{
-  horizontal-align:right;
-  wash-color:rgba(100, 100, 100, .5);
-  height:24px;
-  margin-right:2.5px;
-  opacity:.75;
-  padding:2px;
-  transition:transform .5s ease-in-out 0s,opacity .5s ease-in-out 0s;
-  vertical-align:center;
-  width:24px;
-}
-
-.vEVpS9O62JUz9JA3HhK6:hover{
-  wash-color:rgba(100, 100, 100, .25);
-  transform:scale3d(1.1, 1.1, 0);
-}
-
-
-
-
-.oRxWrYenh036i5EbwHgX{
-  brightness:1;
-  border:1px solid black;
-  height:48px;
-  margin:2.5px;
-  transform:scaleX(1) scaleY(1);
-  transition-duration:.25s;
-  transition-property:transform, box-shadow;
-  transition-timing-function:ease-in-out;
-  width:48px;
-}
-
-.oRxWrYenh036i5EbwHgX:hover{
-  brightness:1.25;
-  transform:scaleX(1.025) scaleY(1.025);
-}
-.QW3ujqRrDd7PasQ1EhoS{
-  flow-children:down;
-  margin-left:12.5px;
-  margin-right:6.25px;
-  margin-top:10px;
-}
-
-.f2JjWgTQ31_JRcj9Mr7a{
-  color:rgba(160, 160, 160, .35);
-  font-size:12px;
-  letter-spacing:1.5px;
-  margin-bottom:2.5px;
-  margin-left:7.5px;
-  text-align:left;
-  width:100%;
-}
-
-.t5dIvihY7sCf5eidK1Dh{
-  flow-children:right;
-  background-color:rgba(50, 50, 50, .75);
-  border-radius:5px;
-  padding:5px;
-}
-
-.Nt9TIfV43WZ9GF4LInRe{
-  flow-children:down;
-  margin-left:6.25px;
-  margin-right:12.5px;
-  margin-top:10px;
-  min-width:200px;
-  width:fill-parent-flow(1);
-}
-
-.jzhXrRUFzfr4IcTITYO8{
-  color:rgba(160, 160, 160, .35);
-  font-size:12px;
-  letter-spacing:1.5px;
-  margin-bottom:2.5px;
-  margin-left:7.5px;
-  text-align:left;
-  width:100%;
-}
-
-.rN9wQ52nCS1Q5GYtzbbi{
-  flow-children:down;
-  background-color:rgba(50, 50, 50, .75);
-  border-radius:5px;
-  height:65px;
-  padding:5px;
-  width:100%;
-}
-
-.YWiVQ1AfM0hEWh_NmtQh{
-  background-color:gradient(linear, 0 0, 0 100%, from(#1A3D1A), color-stop(.2, #67A163), color-stop(.5,#187019), to(#175D17));
-}
-
-.YWiVQ1AfM0hEWh_NmtQh,.ZaOpJlnxQOGsOdebtiEQ{
-  border-radius:5px;
-  height:fill-parent-flow(1);
-  width:100%;
-}
-
-.ZaOpJlnxQOGsOdebtiEQ{
-  background-color:gradient(linear, 0 0, 0 100%, from(#6A90BA ), color-stop(.4, #144B91), to(#2E5187));
-  margin-top:3px;
-}
-
-.ilXuUwS9R1TRXbxiQ7xg{
-  horizontal-align:center;
-}
-
-.ilXuUwS9R1TRXbxiQ7xg,.Trjc8UofnxqdNO8hzElW{
-  color:white;
-  font-size:16px;
-  vertical-align:center;
-}
-
-.Trjc8UofnxqdNO8hzElW{
-  horizontal-align:right;
-  padding-right:5px;
-}
-.hdQJIA4JYL5WvBawXjTs{
-	flow-children:down;
-	margin-left:12.5px;
-	margin-top:10px;
-	width:fill-parent-flow(1.75);
-}
-
-.Ni6T_CjIDDJoH6VJr4oS{
-	color:rgba(160, 160, 160, .35);
-	font-size:12px;
-	letter-spacing:1.5px;
-	margin-bottom:2.5px;
-	margin-left:7.5px;
-	text-align:left;
-	text-transform:uppercase;
-	width:100%;
-}
-
-.xbrnoJt3163bmzreDxuX{
-	flow-children:right;
-	background-color:rgba(50, 50, 50, .75);
-	border-radius:5px;
-	padding:2px;
-	width:100%;
-}
-
-.acm9rVZ6uC6Yq5nG6gM3{
-	flow-children:down;
-	width:fill-parent-flow(1);
-}
-
-.P3c7P6tMZYS0OhcGVzQG{
-	flow-children:down;
-	width:fill-parent-flow(2.5);
-}
-
-.MVSoecfo5X8hmTAQ_sNQ{
-	flow-children:right;
-	horizontal-align:center;
-	background-color:rgba(0, 0, 0, .5);
-	border-radius:5px;
-	margin:2.5px;
-	padding:5px 15px;
-}
-
-.Uj5agWw7khfOdbsBP3c5{
-	vertical-align:center;
-	width:fill-parent-flow(1);
-}
-
-.ay6Lbb4LEh7ZIzdqL2Bx{
-	background-size:contain;
-	height:22px;
-	vertical-align:center;
-	width:22px;
-}
-
-.AB6AiEZ0pv6aLmGucgaH{
-	background-image:url('s2r://panorama/images/primary_attribute_icon_agility_png.vtex');
-}
-
-.INo16oOeJKlzsh27vPtb{
-	background-image:url('s2r://panorama/images/primary_attribute_icon_strength_png.vtex');
-}
-
-.USRmNr8ohVdEirKeRl9b{
-	background-image:url('s2r://panorama/images/primary_attribute_icon_intelligence_png.vtex');
-}
-
-.FVPM1G4mkAPIwqDVHqbf{
-	flow-children:right;
-	height:100%;
-}
-
-.A3ZWujZx0iJeFtc7du4E{
-	color:white;
-	padding-left:10px;
-}
-
-.A3ZWujZx0iJeFtc7du4E,.v7JHquj0okWOXyOWmjnG{
-	horizontal-align:left;
-	font-size:16px;
-	vertical-align:center;
-}
-
-.v7JHquj0okWOXyOWmjnG{
-	color:green;
-	padding-left:1px;
-}
-
-.z2NXrYEJ0xl1mPU6tPk5{
-	font-size:14px;
-	height:22px;
-	padding-top:2px;
-	text-align:center;
-	width:fill-parent-flow(1);
-}
-
-.DmBJFNFl3fZp4VFfrrdO{
-  horizontal-align:right;
-  pre-transform-scale2d:.5;
-  flow-children:down;
-  background-color:rgba(0, 0, 0, .9);
-  border-radius:5px;
-  margin-bottom:200px;
-  margin-right:100px;
-  opacity:0;
-  transition-duration:.5s;
-  transition-property:opacity, pre-transform-scale2d;
-  transition-timing-function:ease-in-out;
-  vertical-align:center;
-  width:800px;
-}
-
-
-.enZWCPv6ejmz3lnsfEhn{
-  border:2px solid black;
-  box-shadow:0 0 1px 1px fill rgba(90, 90, 90, .2);
-  height:84px;
-  margin:5px;
-  width:70px;
-}
-
-.RmTTLfhzGMHMrAHUrFDP{
-  background-color:whitesmoke;
-  height:4px;
-  vertical-align:bottom;
-  width:100%;
-  z-index:10;
-}
-
-.OYHzLa3YF4KpST_ohRYN{
-  horizontal-align:center;
-  background-color:rgba(65, 65, 65, .5);
-  background-size:cover;
-  height:100px;
-  transition-duration:.25s;
-  transition-property:transform;
-  transition-timing-function:ease-in-out;
-  vertical-align:center;
-  width:100px;
-}
-
-.yztuWGuxPqwQiBiJqn8T{
-  height:100%; 
-  width:100%; 
-  z-index:10;
-}
-
-._SJZhLOFc8fgCf2PEl4p{
-  horizontal-align:center;
-  height:32px;
-  margin-bottom:15px;
-  vertical-align:bottom;
-  width:32px;
-  z-index:10;
-}
-.m6Lfc8iiLkiGx07twUsw{
-	horizontal-align:left;
-	flow-children:down;
-	margin-bottom:58px;
-	margin-left:75px;
-	vertical-align:bottom;
-}
-
-.fFWe_lY8Y24pi1ClosRV{
-	horizontal-align:left;
-	color:rgb(200, 200, 200);
-	font-size:16px;
-	letter-spacing:.9px;
-	margin-bottom:-8px;
-	padding-left:5px;
-	text-shadow:1px 1px 2px 2 #000000;
-	vertical-align:center;
-	z-index:10;
-}
-
-.jacncJS7Wg1l63vEMnww{
-	flow-children:right;
-	background-color:rgba(0, 0, 0, .85);
-	padding:5px;
-}
-
-.tnL9GeruCOgsehAJSHC9{
-	border:2px solid black;
-	height:84px;
-	margin:5px;
-	width:70px;
-}
-
-.ZL7ev3qlpDqeCtD2gLkt{
-	wash-color:rgba(0, 0, 0, .5);
-	background-image:url('s2r://panorama/images/random_dice_png.vtex');
-	background-position:50%;
-	background-repeat:no-repeat;
-	background-size:contain;
-	background-size:50% 50%;
-	height:100%;
-	transition:transform .1s ease-in-out 0s;
-	width:100%;
-}
-
-.ZL7ev3qlpDqeCtD2gLkt:hover{
-	transform:scale3d(1.05, 1.05, 0);
-}
-
-.UQI5cQxOG3lfqnOdPCvK{
-	pre-transform-scale2d:.5;
-	flow-children:down;
-	margin-bottom:175px;
-	margin-left:432px;
-	opacity:0;
-	transition-duration:.25s;
-	transition-property:opacity, pre-transform-scale2d;
-	transition-timing-function:ease-in-out;
-	vertical-align:bottom;
-	z-index:9999;
-}
-
-.MykYAeZT_qVCBuUsT3km{
-	background-color:rgba(0, 0, 0, .95);
-	border:1px solid black;
-	border-radius:5px;
-	height:150px;
-	width:325px;
-	z-index:10;
-}
-
-.wMjLJtzK3tq9SmKK1tZw{
-	flow-children:down;
-	horizontal-align:center;
-	vertical-align:center;
-}
-
-.vP5TO4AaDnOo3zQuxoQ5{
-	color:white;
-	font-size:18px;
-	letter-spacing:1.1px;
-	padding-bottom:25px;
-	text-transform:uppercase;
-}
-
-.oouvrI9bObQJwWyQqkYQ{
-	horizontal-align:center;
-	flow-children:right;
-	margin:10px;
-	vertical-align:bottom;
-}
-
-.fLeBGzGHJP4b0nqZWWKK{
-	margin-left:20px;
-	margin-right:10px;
-}
-
-.HTSVwaBKJUf3hIZnYE3x{
-	color:white;
-	font-size:18px;
-	letter-spacing:1.05px;
-}
-
-.HTSVwaBKJUf3hIZnYE3x:hover{
-	color:wheat;
-}
-
-.fOCLGc3UwgoBvOmYvgw7{
-	wash-color:rgb(0, 0, 0);
-	horizontal-align:center;
-	pre-transform-rotate2d:180deg;
-	background-image:url('s2r://panorama/images/tooltip_arrow_top_png.vtex');
-	background-size:contain;
-	height:30px;
-	margin-top:-5px;
-	width:30px;
-}
-
-.jUHEGvF4z0x8URpUmy80{
-  horizontal-align:left;
-  flow-children:down;
-  margin-bottom:173px;
-  margin-left:205px;
-  vertical-align:bottom;
-}
-
-.ZVyj8Q88Go4IWx33io0f{
-  horizontal-align:center;
-  color:rgb(200, 200, 200);
-  font-size:14px;
-  letter-spacing:.9px;
-  margin-bottom:-10px;
-  text-shadow:1px 1px 2px 2 #000000;
-  vertical-align:center;
-  z-index:10;
-}
-
-.q2pf0UCvRtQIIjyEQsMn{
-  flow-children:right;
-  padding-Top:5px;
-  background-color:rgba(0, 0, 0, .85);
-  height:39px;
-  min-width:150px;
-  padding-left:5px;
-  padding-right:5px;
-}
-
-.lQr_Sh80HW69gDfz_WEA{
-  horizontal-align:left;
-  flow-children:down;
-  margin-bottom:173px;
-  margin-left:75px;
-  vertical-align:bottom;
-}
-
-.bbJZuL9zaapxLe2R2VAj{
-  horizontal-align:center;
-  color:rgb(200, 200, 200);
-  font-size:14px;
-  letter-spacing:.9px;
-  margin-bottom:-10px;
-  text-shadow:1px 1px 2px 2 #000000;
-  vertical-align:center;
-  z-index:10;
-}
-
-.eo7jDUEpcoLndTJ74nFe{
-  background-color:rgba(0, 0, 0, .85); 
-  height:39px;
-  padding:1px;
-  width:125px;
-}
-
-.Hgq8WtZoDKv9OqZ5P8NM{
-  horizontal-align:center;
-  color:white;
-  font-family:ui-monospace;
-  font-size:17px;
-  letter-spacing:.9px;
-  padding-top:6px;
-  text-shadow:1px 1px 2px 2 #000000;
-  vertical-align:center;
-}
-
-
-.Ka3RWaSlOAedm6cAtszv{
-  background-color:rgb(0, 0, 0);
-  height:fill-parent-flow(1);
-  width:fill-parent-flow(1);
-}
-
-.qK5omzuGZH2RrKtnOWeF{
-  horizontal-align:center;
-  background-color:rgb(29, 39, 46);
-  color:antiquewhite;
-  height:100%;
-  vertical-align:center;
-  width:100%;
-}
-.OuUe92r3khA53lMXfW0Z{
-	background-color:black;
-	height:100%;
-	width:100%;
-}
-
-.WSwmo00PLY9oEgm0tJPJ{
-	horizontal-align:center;
-	font-size:25px;
-	vertical-align:center;
-}
-
-.DUu5zaS_QmbcNqAlrUqi,.V2ljavdVMtjkKST7Q2LA{
-	horizontal-align:center;
-	background-color:black;
-	border-radius:14px;
-	height:5px;
-	width:80px;
-}
-
-.V2ljavdVMtjkKST7Q2LA{
-	margin-top:1px;
-}
-
-.I9CsTvbuRcg3wKQxlqxx{
-	flow-children:right;
-	horizontal-align:center;
-	height:25px;
-	transition:opacity .25s ease-in-out 0s;
-}
-
-.hY1zGmuZILkJENYK5bnG{
-	color:white;
-	font-size:12px;
-	margin-bottom:2px;
-	margin-left:4px;
-	text-overflow:ellipsis;
-	text-shadow:1px 1px 2px 2 rgba(0, 0, 0, .8);
-}
-
-.hY1zGmuZILkJENYK5bnG,.rJqIQZlVhQ31JPuOtzMM{
-	horizontal-align:center;
-	vertical-align:center;
-}
-
-.rJqIQZlVhQ31JPuOtzMM{
-	height:18px;
-	padding:-2px;
-	width:18px;
-}
-
-.NP_gCkcrMo_3Wk3nIZpv{
-	height:100px;
-	margin-bottom:2px;
-	width:100%;
-}
-
-.FPU_305Ax2d42cgpcYZE{
-	flow-children:up;
-	min-height:500px;
-	width:250px;
-	z-index:-1;
-}
-
-.Qm0Gz9cXpfuJL9XFfaew{
-	flow-children:up;
-	transition:opacity .5s ease-in-out 0s;
-}
-
-._9hqRW4Wk5UWQAPLS6BX{
-	flow-children:right;
-}
-
-.GN276OBerpLoUddazK3_{
-	horizontal-align:center;
-	height:18px;
-	margin-top:2px;
-	width:18px;
-}
-
-.fR1XxDdhIsEzlkiCWEv2{
-	horizontal-align:center;
-	height:14px;
-	margin-left:4px;
-	margin-right:2px;
-	margin-top:5px;
-	width:10px;
-}
-
-.zICe0uDq6NUvo9ADJ8fQ{
-	margin-left:3px;
-	text-shadow:1px 1px 2px 2 #000000;
-}
-
-.e482FRTP_pyZP0FI4Wzt{
-	color:#cdcdcd;
-	text-shadow:1px 1px 2px 2 #000000;
-}
-
-.EZ2t5FRDo4vW2fxgtxfQ{
-	color:#9f9f9f;
-	text-shadow:1px 1px 2px 2 #000000;
-}
-
-.P7CvFs15hWbprJtHzvWF{
-	color:#cdcdcd;
-	margin-right:1px;
-	text-shadow:1px 1px 2px 2 #000000;
-}
-
-.O4SZDqMbSbGjXFYpKSU5{
-	horizontal-align:center;
-	border-radius:5px;
-	height:18px;
-	margin-left:2px;
-	margin-right:2px;
-	margin-top:2px;
-	width:18px;
-}
-
-.LxsBJ3HItXKabicrARm8{
-	margin-right:2px;
-}
-
-.LxsBJ3HItXKabicrARm8,.zAuZAilOPlJYIt2x7f6k{
-	horizontal-align:center;
-	border-radius:5px;
-	height:14px;
-	margin-left:1px;
-	margin-top:4.5px;
-	width:18px;
-}
-
-.zAuZAilOPlJYIt2x7f6k{
-	margin-right:3px;
-}
-
-.dOeb8CzK6wcC1LDrvhwe,.eXvfdQmRngiXURS76WNS{
-	text-shadow:1px 1px 2px 2 #000000;
-}
-
-.dOeb8CzK6wcC1LDrvhwe{
-	color:#cdcdcd;
-}
-
-.awBcjoAcvbvwLuEypKkU,.zgs7CbszT6cmSH1mNwzu{
-	text-shadow:1px 1px 2px 2 #000000;
-}
-
-.awBcjoAcvbvwLuEypKkU{
-	color:#778ed4;
-}
-
-.Cmf_Gpikd73EhApUW1k2{
-	flow-children:up;
-	horizontal-align:left;
-	margin-left:10px;
-	margin-top:0;
-	min-height:350px;
-	vertical-align:center;
-	width:800px;
-	z-index:10;
-}
-
-.root{
-	height:100%;
-	width:100%;
-}
-
-.Invisible{
-	opacity:0;
-}
-
-.EmptyCircle{
-	clip:radial(50% 50%, 0deg, 0deg);
-}
-
-Slider{
-	margin-bottom:0;
-}
-
-Slider.HorizontalSlider{
-	height:30px;
-	vertical-align:center;
-	width:420px;
-}
-
-ProgressBar{
-	box-shadow:0 0 0 0 black;
-}
-
-#ChatTargetLabel{
-	opacity:0;
-	visibility:collapse;
-}
-
-.manaProgressBar .ProgressBarLeft{
-	background-color:gradient(
+.H6TAG5JpSntZ0naNF1nw {
+  width: 15px;
+  height: 15px;
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  margin-right: 2px;
+  horizontal-align: center;
+}
+
+.Gn4LgS5tAAgOJCBuE4FW {
+  flow-children: right;
+  vertical-align: center;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.vyfRuPA7ygACF45F2ZxX {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/*!**********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Armor/armor.module.css ***!
+  \**********************************************************************************************************************************/
+.TTN9sjS3NetyVeFCTfVA {
+  background-image: url("s2r://panorama/images/icon_armor.png");
+}
+/*!************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Damage/damage.module.css ***!
+  \************************************************************************************************************************************/
+.mrn27cU6evosGA2fjLqF {
+  background-image: url("s2r://panorama/images/icon_damage.png");
+}
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/MagicResistance/magicresistance.module.css ***!
+  \******************************************************************************************************************************************************/
+.FYqremml3PHQsjFOLJIR {
+  background-image: url("s2r://panorama/images/icon_magic_resist.png");
+}
+/*!******************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/MoveSpeed/movespeed.module.css ***!
+  \******************************************************************************************************************************************/
+.rx5gFLbNXGBFl2NHU1cX {
+  background-image: url("s2r://panorama/images/icon_speed.png");
+}
+/*!*************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/Stacks/styles.module.css ***!
+  \*************************************************************************************************************************************************/
+.livhQlkdnHZPe_TLd5af {
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+}
+
+.bHf0Fk83RimCrwKPcWqe {
+	font-size: 25px;
+	color: white;
+	font-weight: bold;
+	vertical-align: center;
+	horizontal-align: center;
+	text-shadow: 1px 1px 2px 5 #000000;
+	text-overflow: clip;
+}
+
+/*!**********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/TimedBackground/styles.module.css ***!
+  \**********************************************************************************************************************************************************/
+.QmBvdkG1ODC4WqyGP8a5 {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	wash-color: rgba(0, 0, 0, 0.2);
+}
+
+/*!******************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/styles.module.css ***!
+  \******************************************************************************************************************************************/
+.hP53l9q7lqT_sneNCQgJ {
+	width: 36px;
+	height: 36px;
+	margin-right: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 50%;
+	box-shadow: fill rgba(0, 0, 0, 0.6) 0px 0px 6px 1px;
+	transform: none;
+	opacity: 0;
+	pre-transform-scale2d: 0;
+	transition-property: pre-transform-scale2d, opacity, transform;
+	transition-duration: 0.2s;
+	background-color: black;
+}
+
+.mTu2M3Jd7k14DxJOs13Q {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	clip: radial(50% 50%, 0deg, 359deg);
+	horizontal-align: center;
+	vertical-align: center;
+	wash-color: rgba(0, 0, 0, 0.2);
+}
+
+.np7FM4WNLj5f6yKD9QBG {
+	width: 100%;
+	height: 100%;
+	padding: 2.4px;
+}
+
+.cPY03BjEcqqesJ9VT8cF {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+.SevajsebwIipgDcXYdJ1 {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	padding: -8px;
+}
+
+/*!*****************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Debuffs/styles.module.css ***!
+  \*****************************************************************************************************************************************/
+.pWcuWOn3wOVyHKlIURE4 {
+	vertical-align: bottom;
+	horizontal-align: center;
+	flow-children: right-wrap;
+	max-width: 300px;
+	height: fit-children;
+	width: 300px;
+	padding: 2px;
+	margin-left: 665px;
+	margin-bottom: 80px;
+}
+
+/*!***************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Buffs/styles.module.css ***!
+  \***************************************************************************************************************************************/
+.z2EEBFDfSVxYEuMmWdCX {
+	vertical-align: bottom;
+	horizontal-align: center;
+	flow-children: left-wrap;
+	max-width: 300px;
+	height: fit-children;
+	width: 300px;
+	padding: 2px;
+	margin-right: 660px;
+	margin-bottom: 80px;
+}
+
+/*!*********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/ItemOptions/styles.module.css ***!
+  \*********************************************************************************************************************************************/
+.U58wDQZ7vmkzEZcNiZ51 {
+	vertical-align: bottom;
+	horizontal-align: center;
+	flow-children: down;
+	width: 175px;
+	height: fit-children;
+	margin-bottom: 45px;
+	z-index: 9999;
+}
+
+.iecvapkiXSzu3kEMuO4x {
+	vertical-align: bottom;
+	horizontal-align: center;
+	flow-children: down;
+	width: 100%;
+	height: fit-children;
+	background-color: black;
+	border: 1px solid black;
+	border-radius: 1px;
+	z-index: 9999;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.J953_atEDxTEbfV4_X6v {
+	width: 100%;
+	text-align: center;
+	font-size: 16px;
+	color: rgba(200, 200, 200, 0.45);
+	letter-spacing: 1px;
+	text-shadow: 1px 1px 2px 2 #000000;
+	padding-left: 2px;
+	padding-top: 6px;
+	padding-bottom: 4px;
+	background-color: rgba(48, 66, 80, 0.5);
+}
+
+.zK2ahgxspEVc3pDGePwg {
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 100%;
+	height: 1px;
+}
+
+.XI9h9tFwGBMEDvP8UoW2 {
+	width: 100%;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 2.5px;
+	padding-bottom: 2.5px;
+	border-top: 2px solid rgba(44, 53, 60, 1);
+	background-color: rgba(24, 33, 40, 1);
+	color: #acaaaa;
+	letter-spacing: 1px;
+	saturation: 1.1;
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+.XI9h9tFwGBMEDvP8UoW2:hover {
+	saturation: 0.5;
+}
+
+.reDnWP725L1o70H4kWz6 {
+	width: fit-children;
+	height: fit-children;
+	horizontal-align: right;
+	padding: 1.2px;
+	margin-bottom: -15px;
+	margin-right: 14px;
+	z-index: 99999;
+	border-radius: 50%;
+	background-color: rgba(24, 33, 40, 1);
+	border: 2px solid black;
+	saturation: 1.5;
+}
+
+.reDnWP725L1o70H4kWz6:hover {
+	saturation: 0.5;
+	background-color: rgba(40, 40, 40, 1);
+}
+
+.l7LX_50dCrJy6E6YOOHh {
+	width: 15px;
+	height: 15px;
+	wash-color: rgba(50, 50, 50, 0.7);
+	margin-left: 1px;
+}
+
+.oumae9PTa7A_SRzxbZGZ {
+	width: 100%;
+	height: fit-children;
+}
+
+.CCDKSWjF9KDiVCElPlGL {
+	width: 20px;
+	height: 10px;
+	wash-color: rgba(24, 33, 40, 1);
+	z-index: 9999;
+	pre-transform-rotate2d: 180deg;
+	horizontal-align: center;
+}
+
+/*!**********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/Item/Keybind/styles.module.css ***!
+  \**********************************************************************************************************************************************/
+.Mc1Qw06z2ds5AmoL7ycQ {
+	font-size: 16px;
+	color: white;
+	z-index: 50;
+	vertical-align: top;
+	horizontal-align: left;
+	margin-left: 4px;
+	margin-top: 1px;
+	text-shadow: 1px 1px 2px 4 #000000;
+}
+
+/*!***********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/Item/Cooldown/styles.module.css ***!
+  \***********************************************************************************************************************************************/
+.HfeZhl84mGUn9WJBIZLc {
+	width: 100%;
+	height: 100%;
+	z-index: 40;
+	background-color: rgba(20, 20, 20, 0.85);
+}
+
+.VTUFpbDDtk_oPVForZmw {
+	font-size: 24px;
+	color: white;
+	text-shadow: 1px 1px 2px 4 #000000;
+	horizontal-align: middle;
+	vertical-align: middle;
+	z-index: 60;
+	text-align: center;
+}
+
+/*!********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/Item/Image/styles.module.css ***!
+  \********************************************************************************************************************************************/
+.TWZ2pG_xtGBykJ_kpppR {
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	background-image: url('s2r://panorama/images/softedge_circle.png');
+}
+
+.QTjhPejGQka7jR3Y8SW_ {
+	width: 25px;
+	height: 25px;
+	vertical-align: center;
+	horizontal-align: center;
+	background-image: url('s2r://panorama/images/lock_white.png');
+	background-size: 100% 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	z-index: 9999;
+}
+
+/*!**********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/Item/Charges/styles.module.css ***!
+  \**********************************************************************************************************************************************/
+.QH9bS8IwqETVesaFDNh1 {
+	vertical-align: bottom;
+	horizontal-align: left;
+	margin-left: 5px;
+	margin-bottom: 2px;
+	font-size: 12px;
+	color: white;
+	z-index: 50;
+	text-shadow: 1px 1px 2px 4 #000000;
+}
+
+/*!***********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/Item/ManaCost/styles.module.css ***!
+  \***********************************************************************************************************************************************/
+.VA8o8XePr24qBvJDgZIQ {
+	vertical-align: bottom;
+	horizontal-align: right;
+	font-size: 14px;
+	color: #88d2f5;
+	margin-right: 2px;
+	margin-bottom: 1px;
+	text-shadow: 1px 1px 2px 4 #000000;
+	font-weight: bold;
+}
+
+/*!**************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/Item/styles.module.css ***!
+  \**************************************************************************************************************************************/
+.HMwcE6dRfetA6ujKyCKN {
+	width: 55px;
+	height: 40px;
+	border-radius: 5px;
+	border: 1px solid black;
+	background-color: rgba(0, 0, 0, 0.85);
+	background-image: url('s2r://panorama/images/emptyitembg.png');
+	background-size: 100%;
+	margin-right: 2px;
+	margin-left: 2px;
+}
+
+/*!*********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/styles.module.css ***!
+  \*********************************************************************************************************************************/
+.FxnDiUvbItTwkCodN9Du {
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 40px;
+	flow-children: right;
+	margin-right: 0px;
+}
+
+/*!*********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Shop/Title/title.module.css ***!
+  \*********************************************************************************************************************************/
+.Rr1FKkAZ361k982_5fz_ {
+  width: 100%;
+  background-color: rgba(30, 30, 30, 0.525);
+}
+
+._TANvQ4qacNF38eA3Umb {
+  color: rgba(200, 200, 200, 0.45);
+  font-size: 15px;
+  vertical-align: center;
+  horizontal-align: left;
+  font-weight: lighter;
+  letter-spacing: 1.5px;
+  padding-top: 2.5px;
+  padding-left: 10px;
+}
+
+.D6HjQ7FjHcqwsJyqVfn_ {
+  vertical-align: center;
+  horizontal-align: right;
+  height: 24px;
+  width: 24px;
+  padding: 2px;
+  margin-right: 2.5px;
+  opacity: 0.75;
+  transition: transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s;
+  wash-color:  rgba(100, 100, 100, 0.5);
+}
+
+.D6HjQ7FjHcqwsJyqVfn_:hover {
+  wash-color: rgba(100, 100, 100, 0.25);
+  transform: scale3d(1.1, 1.1, 0);
+}
+
+
+
+/*!*******************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Shop/Gold/gold.module.css ***!
+  \*******************************************************************************************************************************/
+.jhzzPTL32QYEximy3uUQ {
+	height: 100%;
+	width: 125px;
+	margin-right: 15px;
+	margin-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: rgba(0, 0, 0, 0.35);
+	border-radius: 5px;
+	margin-left: 5px;
+	flow-children: right;
+}
+
+.wekTWcDzpbfytFjjghQ8 {
+	color: gold;
+	vertical-align: center;
+	width: 100%;
+	text-align: center;
+}
+
+.f9_LGtQYZRY8EQHiGuET {
+	background-image: url('s2r://panorama/images/gold_small_png.vtex');
+	background-size: 100% 100%;
+	width: 16px;
+	height: 16px;
+	vertical-align: center;
+}
+
+/*!***********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Shop/Search/search.module.css ***!
+  \***********************************************************************************************************************************/
+.hlISF84kFOfP80kJ9FZu {
+	width: 600px;
+	margin-top: 10px;
+	margin-left: 15px;
+	flow-children: right;
+	background-color: black;
+	border-radius: 5px;
+	border: 1px solid #3d464c;
+}
+
+.iNDTwVnWrj6DS2L6ctGG {
+	background-image: url('s2r://panorama/images/icon_search_shadow_png.vtex');
+	background-size: 100% 100%;
+	background-position: center;
+	height: 24px;
+	width: 24px;
+	wash-color: #8da1b1;
+	vertical-align: center;
+	margin-top: -1.5px;
+	margin-left: 4px;
+}
+
+.zfXn5NDM5F_T4zVwJCPq {
+	height: 36px;
+	color: white;
+	font-size: 20px;
+	text-overflow: clip;
+	white-space: nowrap;
+	border: 0px solid black;
+	width: 540px;
+	background-color: black;
+}
+
+.gVvpcjlDRXwj7IEt0ML_ {
+	background-image: url('s2r://panorama/images/x_close_grey_png.vtex');
+	background-size: contain;
+	height: 18px;
+	width: 18px;
+	wash-color: rgba(100, 100, 100, 0.5);
+	vertical-align: center;
+	transition-property: wash-color, transform;
+	transition-duration: 0.2s;
+	transition-timing-function: ease-in-out;
+}
+
+.gVvpcjlDRXwj7IEt0ML_:hover {
+	wash-color: rgba(100, 100, 100, 0.25);
+	transform: scale3d(1.1, 1.1, 0);
+}
+
+/*!*******************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Shop/Item/item.module.css ***!
+  \*******************************************************************************************************************************/
+.PDUfowIUUKLo9k7qA2yP {
+  width: 48px;
+  height: 35px;
+  margin: 2px;
+}
+
+.ly4wXemHK_apNGpVCTOv {
+  vertical-align: center;
+  horizontal-align: center;
+}
+/*!**************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Shop/shop.module.css ***!
+  \**************************************************************************************************************************/
+.BSxzGvZdECdyZegRctY5 {
+	horizontal-align: right;
+	vertical-align: top;
+	margin-right: 0px;
+	margin-top: 150px;
+	transition: transform 0.5s ease-in-out 0s, opacity 0.5s ease-in-out 0s;
+	opacity: 0;
+	border-radius: 5px;
+	min-width: 750px;
+	min-height: 550px;
+	flow-children: down;
+	z-index: 999;
+	background-image: url('s2r://panorama/images/ability_bg.png');
+	background-color: rgba(0, 0, 0, 0.85);
+	background-size: 100%;
+	transform: translateX(490px);
+}
+
+.XG17xyoBlJ3Tpz1wnlmI {
+	flow-children: right;
+	width: 100%;
+}
+
+.kgffNIaDnqioNdzFu2Qz {
+	background-color: rgba(0, 0, 0, 0.45);
+	width: 100%;
+	height: 100%;
+	flow-children: right;
+	margin: 15px;
+}
+
+.glyI7QY5ReJQw11M9kVU {
+	width: 50%;
+	height: 100%;
+	flow-children: down;
+}
+
+.OcOTKVivrgkfduSaazAy {
+	flow-children: down;
+	margin-left: 7.5px;
+	margin-right: 7.5px;
+	margin-top: 15px;
+	width: 100%;
+}
+
+.oGnuUmHmMe_XtSiw0IRK {
+	width: 100%;
+	background-image: url('s2r://panorama/images/inventory_item_well.png');
+	background-size: 100%;
+	background-color: rgba(0, 0, 0, 0.35);
+	padding-top: 2.5px;
+	padding-bottom: 2.5px;
+	flow-children: right;
+}
+
+.xf3s9Vnjkq5SBEtoC_Wh {
+	width: 100%;
+	background-color: rgba(0, 0, 0, 1);
+	border-bottom: 1px solid rgba(50, 50, 50, 0.5);
+	font-size: 13px;
+	color: rgb(175, 175, 175);
+	text-align: left;
+	font-family: fantasy;
+	padding-left: 15px;
+	padding-top: 5px;
+	padding-bottom: 1px;
+	letter-spacing: 1.35px;
+}
+
+.zgwX5TeRbdT_QfomIjIJ {
+	width: 100%;
+	flow-children: right-wrap;
+	background-image: url('s2r://panorama/images/inventory_item_well.png');
+	background-size: 100%;
+	background-color: rgba(0, 0, 0, 0.35);
+	padding: 10px;
+	height: 185px;
+}
+
+/*!**********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Buttons/buttons.module.css ***!
+  \**********************************************************************************************************************************************************/
+.gJDIkhZ3utFqStslbRd7 {
+  flow-children: right;
+  horizontal-align: right;
+  margin-right: 12.5px;
+  margin-left: 12.5px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.IKfrQWWi2lBmGrJpvF9u {
+  width: 150px;
+  height: 35px;
+  border-radius: 5px;
+  margin-left: 7.5px;
+  padding: 6px 12px 6px 12px;
+  background-image: url("s2r://panorama/images/background_play_button_2x.png");
+  background-size: 228px 50px;
+  border: 1px solid #6e3f3f88;
+  transition-property: brightness, saturation;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  background-color: red;
+  box-shadow: fill black 0px 0px 1.5px 1.5px;
+  saturation: 1.0;
+  brightness: 0.5;
+}
+
+.IKfrQWWi2lBmGrJpvF9u:hover {
+  saturation: 1.1;
+  brightness: 0.75;
+}
+
+.whfmuRCQT5x3_krM3tYZ {
+  width: 150px;
+  height: 35px;
+  border-radius: 5px;
+  margin-right: 7.5px;
+  padding: 6px 12px 6px 12px;
+  background-image: url('s2r://panorama/images/background_play_button_2x.png');
+  background-size: 228px 50px;
+  border: 1px solid #30303088;
+  transition-property: brightness, saturation;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  saturation: 1.0;
+  brightness: 1.0;
+  box-shadow: fill black 0px 0px 1.5px 1.5px;
+}
+
+.whfmuRCQT5x3_krM3tYZ:hover {
+  saturation: 1.1;
+  brightness: 1.25;
+}
+
+.XZlYoPHJC72s0K4pJq_G {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px 2 #000000;
+}
+
+.Bh6SFN3gsa91_OrHaNLi {
+  width: 23px;
+  height: 23px;
+  vertical-align: center;
+  horizontal-align: center;
+}
+
+.R6506jSOCNr7V2AE69Nz {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px 2 #000000;
+}
+/*!****************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Lore/lore.module.css ***!
+  \****************************************************************************************************************************************************/
+.LftvFPwkbDhqYwIYqxeR {
+	width: 100%;
+	margin-left: 12.5px;
+	margin-right: 12.5px;
+	margin-top: 10px;
+	flow-children: down;
+}
+
+.WXcMrdFXkFOYvJ8VzquQ {
+	color: rgba(160, 160, 160, 0.35);
+	font-size: 12px;
+	width: 100%;
+	text-align: left;
+	letter-spacing: 1.5px;
+	margin-bottom: 2.5px;
+	margin-left: 7.5px;
+}
+
+.PnIHZ3NMme7ikkidc16Q {
+	width: 100%;
+	border-radius: 5px;
+	padding: 12px;
+	background-color: rgba(50, 50, 50, 0.75);
+	/* border: 1px solid black; */
+}
+
+.Z8GXYuUi1_aRG7K2C2KC {
+	font-style: italic;
+	font-size: 16px;
+	color: rgb(161, 163, 140);
+	font-weight: lighter;
+	text-shadow: 1px 1px 2px 2 #000000;
+	overflow: squish;
+}
+
+/*!************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Heroname/heroname.module.css ***!
+  \************************************************************************************************************************************************************/
+.FTa_3vMX52nRn1sXAEFl {
+  width: 100%;
+  margin-left: 12.5px;
+  margin-right: 12.5px;
+  margin-top: 10px;
+  padding: 5px;
+  flow-children: right;
+  border-radius: 5px;
+  background-color: rgba(50, 50, 50, 0.5);
+  box-shadow: fill black -2px -1px 3px 4px;
+}
+
+.fxH6DtBgQHRuTXEXzDd8 {
+  width: 32px;
+  height: 32px;
+  background-size: 100%;
+  background-position: center;
+  vertical-align: center;
+  margin-left: 5px;
+}
+
+.iUFKlT2XXc3v2ey9XdeD {
+  color: white;
+  font-size: 34px;
+  padding-left: 12.5px;
+  padding-bottom: 1.5px;
+}
+
+.VBBoC2d4c_OnYJig67MS {
+  flow-children: right;
+  horizontal-align: right;
+  vertical-align: center;
+  margin-right: 5px;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 8px;
+  border-radius: 5px;
+  max-width: 400px;
+}
+
+.XfZsBIFZlylelwwG16HZ {
+  vertical-align: center;
+}
+
+.ztzVqtYaiSBMo6VC5a_S {
+  flow-children: right;
+  margin-left: 5px;
+  height: 100%;
+}
+
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Stats/stats.module.css ***!
+  \******************************************************************************************************************************************************/
+.vTGgzlb6B9XfFPlZUfXY {
+	width: fill-parent-flow(1);
+	margin-left: 7.5px;
+	margin-right: 12.5px;
+	margin-top: 10px;
+	flow-children: down;
+}
+
+.AUEZoyiVz98PhzJEUhyp {
+	color: rgba(160, 160, 160, 0.35);
+	font-size: 12px;
+	width: 100%;
+	text-align: left;
+	letter-spacing: 1.5px;
+	margin-bottom: 2.5px;
+	margin-left: 7.5px;
+	text-transform: uppercase;
+}
+
+.XGf2sy9QLQrfwP9VxJLP {
+	width: 100%;
+	background-color: rgba(50, 50, 50, 0.75);
+	border-radius: 5px;
+	padding: 2px;
+	flow-children: right;
+}
+
+.cDGGuKFpOz8crlSTUAm4 {
+	width: fill-parent-flow(1);
+	flow-children: down;
+	padding-top: 1px;
+}
+
+.o3T0mfr_JP91VLbeiuOj {
+	flow-children: right;
+	horizontal-align: center;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 5px;
+	margin: 2.5px;
+	border-radius: 5px;
+}
+
+.Ad8hUJ6DZ2eek8ttxfnn {
+	flow-children: right;
+	horizontal-align: center;
+}
+
+.nFsqLuTdFNNBU2zku99G {
+	vertical-align: middle;
+	color: white;
+	font-size: 18px;
+	padding-left: 10px;
+	padding-top: 1px;
+	text-shadow: 1px 1px 2px 2 #000000;
+	min-width: 40px;
+	text-align: center;
+}
+
+.yfZIEKGOBYoTHLAekxsZ {
+	width: 22px;
+	height: 22px;
+	background-size: contain;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	margin-right: 2px;
+}
+
+.mdnauyCLpXm_qaCDZxlF {
+	background-image: url('s2r://panorama/images/icon_damage_psd_png.vtex');
+	margin-right: 2px;
+}
+
+.dOvAWCZtGQPKuYiKeOS6 {
+	background-image: url('s2r://panorama/images/icon_armor_psd_png.vtex');
+	horizontal-align: center;
+}
+
+.D2fSLi1XDjZo2vkp8R1w {
+	background-image: url('s2r://panorama/images/icon_speed_psd_png.vtex');
+}
+
+.IjVaWP4uoZhxHKIH3Stt {
+	background-image: url('s2r://panorama/images/icon_attack_speed2_psd_png.vtex');
+}
+
+.h8ANtCEj1VfmDU_8Q0wt {
+	background-image: url('s2r://panorama/images/icon_attack_speed3_psd_png.vtex');
+}
+
+.yljvvOCvMaXbcJVB1Zld {
+	background-image: url('s2r://panorama/images/icon_attack_range_psd_png.vtex');
+}
+
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Title/title.module.css ***!
+  \******************************************************************************************************************************************************/
+.atFX8M54hcQvRTizJEo4 {
+  width: 100%;
+  /* background-color: rgba(30, 30, 30, 0.525); */
+  background-color: rgba(40, 40, 40, 0.5);
+  border-bottom: 1px solid black;
+}
+
+.QN8mO4MWeSrUkguEFTwo {
+  color: rgba(200, 200, 200, 0.45);
+  font-size: 15px;
+  vertical-align: center;
+  horizontal-align: left;
+  font-weight: lighter;
+  letter-spacing: 1.5px;
+  padding-top: 2.5px;
+  padding-left: 10px;
+}
+
+.vEVpS9O62JUz9JA3HhK6 {
+  vertical-align: center;
+  horizontal-align: right;
+  height: 24px;
+  width: 24px;
+  padding: 2px;
+  margin-right: 2.5px;
+  opacity: 0.75;
+  transition: transform 0.5s ease-in-out 0.0s, opacity 0.5s ease-in-out 0.0s;
+  wash-color:  rgba(100, 100, 100, 0.5);
+}
+
+.vEVpS9O62JUz9JA3HhK6:hover {
+  wash-color: rgba(100, 100, 100, 0.25);
+  transform: scale3d(1.1, 1.1, 0);
+}
+
+
+
+/*!********************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Abilities/Ability/ability.module.css ***!
+  \********************************************************************************************************************************************************************/
+
+.oRxWrYenh036i5EbwHgX {
+  width: 48px;
+  height: 48px;
+  margin: 2.5px;
+  border: 1px solid black;
+  brightness: 1.0;
+  transition-property: transform, box-shadow;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  transform: scaleX(1) scaleY(1);
+}
+
+.oRxWrYenh036i5EbwHgX:hover {
+  brightness: 1.25;
+  transform: scaleX(1.025) scaleY(1.025);
+}
+/*!**************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Abilities/abilities.module.css ***!
+  \**************************************************************************************************************************************************************/
+.QW3ujqRrDd7PasQ1EhoS {
+  margin-left: 12.5px;
+  margin-right: 6.25px;
+  margin-top: 10px;
+  flow-children: down;
+}
+
+.f2JjWgTQ31_JRcj9Mr7a {
+  color: rgba(160, 160, 160, 0.35);
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin-bottom: 2.5px;
+  margin-left: 7.5px;
+}
+
+.t5dIvihY7sCf5eidK1Dh {
+  /* width: 100%; */
+  background-color: rgba(50, 50, 50, 0.75);
+  border-radius: 5px;
+  flow-children: right;
+  padding: 5px;
+}
+
+/*!**********************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/HealthAndMana/HealthAndMana.module.css ***!
+  \**********************************************************************************************************************************************************************/
+.Nt9TIfV43WZ9GF4LInRe {
+  width: fill-parent-flow(1);
+  margin-left: 6.25px;
+  margin-right: 12.5px;
+  margin-top: 10px;
+  flow-children: down;
+  min-width: 200px;
+}
+
+.jzhXrRUFzfr4IcTITYO8 {
+  color: rgba(160, 160, 160, 0.35);
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin-bottom: 2.5px;
+  margin-left: 7.5px;
+}
+
+.rN9wQ52nCS1Q5GYtzbbi {
+  width: 100%;
+  background-color: rgba(50, 50, 50, 0.75);
+  border-radius: 5px;
+  padding: 5px;
+  flow-children: down;
+  height: 65px;
+}
+
+.YWiVQ1AfM0hEWh_NmtQh {
+  width: 100%;
+  height: fill-parent-flow(1);
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#1A3D1A), color-stop(0.2, #67A163), color-stop(0.5,#187019), to(#175D17));
+  border-radius: 5px;
+}
+
+.ZaOpJlnxQOGsOdebtiEQ {
+  width: 100%;
+  height: fill-parent-flow(1);
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#6A90BA ), color-stop(0.4, #144B91), to(#2E5187));
+  border-radius: 5px;
+  margin-top: 3px;
+}
+
+.ilXuUwS9R1TRXbxiQ7xg {
+  vertical-align: center;
+  horizontal-align: center;
+  color: white;
+  font-size: 16px;
+}
+
+.Trjc8UofnxqdNO8hzElW {
+  color: white;
+  font-size: 16px;
+  padding-right: 5px;
+  vertical-align: center;
+  horizontal-align: right;
+}
+/*!****************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Attributes/attributes.module.css ***!
+  \****************************************************************************************************************************************************************/
+.hdQJIA4JYL5WvBawXjTs {
+	width: fill-parent-flow(1.75);
+	margin-left: 12.5px;
+	margin-top: 10px;
+	flow-children: down;
+}
+
+.Ni6T_CjIDDJoH6VJr4oS {
+	color: rgba(160, 160, 160, 0.35);
+	font-size: 12px;
+	width: 100%;
+	text-align: left;
+	letter-spacing: 1.5px;
+	margin-bottom: 2.5px;
+	margin-left: 7.5px;
+	text-transform: uppercase;
+}
+
+.xbrnoJt3163bmzreDxuX {
+	width: 100%;
+	background-color: rgba(50, 50, 50, 0.75);
+	border-radius: 5px;
+	padding: 2px;
+	flow-children: right;
+}
+
+.acm9rVZ6uC6Yq5nG6gM3 {
+	flow-children: down;
+	width: fill-parent-flow(1);
+}
+
+.P3c7P6tMZYS0OhcGVzQG {
+	flow-children: down;
+	width: fill-parent-flow(2.5);
+}
+
+.MVSoecfo5X8hmTAQ_sNQ {
+	flow-children: right;
+	horizontal-align: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin: 2.5px;
+	padding: 5px;
+	border-radius: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.Uj5agWw7khfOdbsBP3c5 {
+	width: fill-parent-flow(1);
+	vertical-align: center;
+}
+
+.ay6Lbb4LEh7ZIzdqL2Bx {
+	width: 22px;
+	height: 22px;
+	vertical-align: center;
+	background-size: contain;
+}
+
+.AB6AiEZ0pv6aLmGucgaH {
+	background-image: url('s2r://panorama/images/primary_attribute_icon_agility_png.vtex');
+}
+
+.INo16oOeJKlzsh27vPtb {
+	background-image: url('s2r://panorama/images/primary_attribute_icon_strength_png.vtex');
+}
+
+.USRmNr8ohVdEirKeRl9b {
+	background-image: url('s2r://panorama/images/primary_attribute_icon_intelligence_png.vtex');
+}
+
+.FVPM1G4mkAPIwqDVHqbf {
+	flow-children: right;
+	height: 100%;
+}
+
+.A3ZWujZx0iJeFtc7du4E {
+	color: white;
+	padding-left: 10px;
+	vertical-align: center;
+	horizontal-align: left;
+	font-size: 16px;
+}
+
+.v7JHquj0okWOXyOWmjnG {
+	color: green;
+	padding-left: 1px;
+	vertical-align: center;
+	horizontal-align: left;
+	font-size: 16px;
+}
+
+.z2NXrYEJ0xl1mPU6tPk5 {
+	width: fill-parent-flow(1);
+	text-align: center;
+	padding-top: 2px;
+	font-size: 14px;
+	height: 22px;
+}
+
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/description.module.css ***!
+  \******************************************************************************************************************************************************/
+.DmBJFNFl3fZp4VFfrrdO {
+  vertical-align: center;
+  horizontal-align: right;
+  width: 800px;
+  margin-right: 100px;
+  margin-bottom: 200px;
+  border-radius: 5px;
+  opacity: 0.0;
+  pre-transform-scale2d: 0.5;
+  transition-property: opacity, pre-transform-scale2d;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+  flow-children: down;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+
+/*!***********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Heroes/Hero/hero.module.css ***!
+  \***********************************************************************************************************************************************/
+.enZWCPv6ejmz3lnsfEhn {
+  width: 70px;
+  height: 84px;
+  margin: 5px;
+  border: 2px solid black;
+  box-shadow: fill rgba(90, 90, 90, 0.2) 0px 0px 1px 1px;
+}
+
+.RmTTLfhzGMHMrAHUrFDP {
+  background-color: whitesmoke;
+  width: 100%;
+  height: 4px;
+  z-index: 10;
+  vertical-align: bottom;
+}
+
+.OYHzLa3YF4KpST_ohRYN {
+  transition-property: transform;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
+  vertical-align: center;
+  horizontal-align: center;
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-color: rgba(65, 65, 65, 0.5);
+}
+
+.yztuWGuxPqwQiBiJqn8T { 
+  width: 100%;
+  height: 100%; 
+  z-index: 10;
+}
+
+._SJZhLOFc8fgCf2PEl4p {
+  width: 32px;
+  height: 32px;
+  z-index: 10;
+  vertical-align: bottom;
+  horizontal-align: center;
+  margin-bottom: 15px;
+}
+/*!********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Heroes/heroes.module.css ***!
+  \********************************************************************************************************************************************/
+.m6Lfc8iiLkiGx07twUsw {
+	vertical-align: bottom;
+	horizontal-align: left;
+	margin-bottom: 58px;
+	margin-left: 75px;
+	flow-children: down;
+}
+
+.fFWe_lY8Y24pi1ClosRV {
+	font-size: 16px;
+	color: rgb(200, 200, 200);
+	vertical-align: center;
+	horizontal-align: left;
+	text-shadow: 1px 1px 2px 2 #000000;
+	letter-spacing: 0.9px;
+	margin-bottom: -8px;
+	z-index: 10;
+	padding-left: 5px;
+}
+
+.jacncJS7Wg1l63vEMnww {
+	background-color: rgba(0, 0, 0, 0.85);
+	flow-children: right;
+	padding: 5px;
+}
+
+.tnL9GeruCOgsehAJSHC9 {
+	width: 70px;
+	height: 84px;
+	border: 2px solid black;
+	margin: 5px;
+}
+
+.ZL7ev3qlpDqeCtD2gLkt {
+	width: 100%;
+	height: 100%;
+	background-image: url('s2r://panorama/images/random_dice_png.vtex');
+	background-size: contain;
+	background-size: 50% 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+	wash-color: rgba(0, 0, 0, 0.5);
+	transition: transform 0.1s ease-in-out 0s;
+}
+
+.ZL7ev3qlpDqeCtD2gLkt:hover {
+	transform: scale3d(1.05, 1.05, 0);
+}
+
+/*!****************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/RandomHeroDialog/randomHeroDialog.module.css ***!
+  \****************************************************************************************************************************************************************/
+.UQI5cQxOG3lfqnOdPCvK {
+	vertical-align: bottom;
+	margin-bottom: 175px;
+	margin-left: 432px;
+	opacity: 0;
+	pre-transform-scale2d: 0.5;
+	transition-property: opacity, pre-transform-scale2d;
+	transition-duration: 0.25s;
+	transition-timing-function: ease-in-out;
+	flow-children: down;
+	z-index: 9999;
+}
+
+.MykYAeZT_qVCBuUsT3km {
+	width: 325px;
+	height: 150px;
+	border: 1px solid black;
+	border-radius: 5px;
+	z-index: 10;
+	background-color: rgba(0, 0, 0, 0.95);
+}
+
+.wMjLJtzK3tq9SmKK1tZw {
+	flow-children: down;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+.vP5TO4AaDnOo3zQuxoQ5 {
+	font-size: 18px;
+	color: white;
+	text-transform: uppercase;
+	letter-spacing: 1.1px;
+	padding-bottom: 25px;
+}
+
+.oouvrI9bObQJwWyQqkYQ {
+	vertical-align: bottom;
+	horizontal-align: center;
+	flow-children: right;
+	margin: 10px;
+}
+
+.fLeBGzGHJP4b0nqZWWKK {
+	margin-right: 10px;
+	margin-left: 20px;
+}
+
+.HTSVwaBKJUf3hIZnYE3x {
+	color: white;
+	font-size: 18px;
+	letter-spacing: 1.05px;
+}
+
+.HTSVwaBKJUf3hIZnYE3x:hover {
+	color: wheat;
+}
+
+.fOCLGc3UwgoBvOmYvgw7 {
+	background-image: url('s2r://panorama/images/tooltip_arrow_top_png.vtex');
+	background-size: contain;
+	wash-color: rgb(0, 0, 0);
+	horizontal-align: center;
+	width: 30px;
+	height: 30px;
+	margin-top: -5px;
+	pre-transform-rotate2d: 180deg;
+}
+
+/*!****************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/RemainingPlayers/RemainingPlayers.module.css ***!
+  \****************************************************************************************************************************************************************/
+.jUHEGvF4z0x8URpUmy80 {
+  vertical-align: bottom;
+  horizontal-align: left;
+  margin-bottom: 173px;
+  margin-left: 205px;
+  flow-children: down;
+}
+
+.ZVyj8Q88Go4IWx33io0f {
+  font-size: 14px;
+  color: rgb(200, 200, 200);
+  vertical-align: center;
+  horizontal-align: center;
+  text-shadow: 1px 1px 2px 2 #000000;
+  letter-spacing: 0.9px;
+  margin-bottom: -10px;
+  z-index: 10;
+}
+
+.q2pf0UCvRtQIIjyEQsMn {
+  background-color: rgba(0, 0, 0, 0.85);
+  min-width: 150px;
+  height: 39px;
+  flow-children: right;
+  padding-Top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/*!******************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Timer/timer.module.css ***!
+  \******************************************************************************************************************************************/
+.lQr_Sh80HW69gDfz_WEA {
+  vertical-align: bottom;
+  horizontal-align: left;
+  flow-children: down;
+  margin-left: 75px;
+  margin-bottom: 173px;
+}
+
+.bbJZuL9zaapxLe2R2VAj {
+  font-size: 14px;
+  color: rgb(200, 200, 200);
+  vertical-align: center;
+  horizontal-align: center;
+  text-shadow: 1px 1px 2px 2 #000000;
+  letter-spacing: 0.9px;
+  margin-bottom: -10px;
+  z-index: 10;
+}
+
+.eo7jDUEpcoLndTJ74nFe {
+  width: 125px; 
+  height: 39px;
+  padding: 1px;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.Hgq8WtZoDKv9OqZ5P8NM {
+  font-size: 17px;
+  color: white;
+  vertical-align: center;
+  horizontal-align: center;
+  text-shadow: 1px 1px 2px 2 #000000;
+  letter-spacing: 0.9px;
+  padding-top: 6px;
+  font-family: ui-monospace;
+}
+
+
+/*!********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/heroSelection.module.css ***!
+  \********************************************************************************************************************************************/
+.Ka3RWaSlOAedm6cAtszv {
+  width: fill-parent-flow(1);
+  height: fill-parent-flow(1);
+  background-color: rgb(0, 0, 0);
+}
+
+.qK5omzuGZH2RrKtnOWeF {
+  width: 100%;
+  height: 100%;
+  vertical-align: center;
+  horizontal-align: center;
+  background-color: rgb(29, 39, 46);
+  color: antiquewhite;
+}
+/*!*******************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Loading/styles.module.css ***!
+  \*******************************************************************************************************************************/
+.OuUe92r3khA53lMXfW0Z {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+}
+
+.WSwmo00PLY9oEgm0tJPJ {
+	vertical-align: center;
+	horizontal-align: center;
+	font-size: 25px;
+}
+
+/*!***************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/HealthBar/styles.module.css ***!
+  \***************************************************************************************************************************************************/
+.DUu5zaS_QmbcNqAlrUqi {
+	width: 80px;
+	height: 5px;
+	background-color: black;
+	border-radius: 14px;
+	horizontal-align: center;
+}
+
+/*!*************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/ManaBar/styles.module.css ***!
+  \*************************************************************************************************************************************************/
+.V2ljavdVMtjkKST7Q2LA {
+	margin-top: 1px;
+	width: 80px;
+	height: 5px;
+	background-color: black;
+	border-radius: 14px;
+	horizontal-align: center;
+}
+
+/*!***********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/Abilities/Ability/styles.module.css ***!
+  \***********************************************************************************************************************************************************/
+.I9CsTvbuRcg3wKQxlqxx {
+	height: 25px;
+	flow-children: right;
+	horizontal-align: center;
+	transition: opacity 0.25s ease-in-out 0s;
+}
+
+.hY1zGmuZILkJENYK5bnG {
+	vertical-align: center;
+	horizontal-align: center;
+	font-size: 12px;
+	color: white;
+	margin-left: 4px;
+	margin-bottom: 2px;
+	text-shadow: 1px 1px 2px 2 rgba(0, 0, 0, 0.8);
+	text-overflow: ellipsis;
+}
+
+.rJqIQZlVhQ31JPuOtzMM {
+	vertical-align: center;
+	horizontal-align: center;
+	height: 18px;
+	width: 18px;
+	padding: -2px;
+}
+
+/*!***************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/Abilities/styles.module.css ***!
+  \***************************************************************************************************************************************************/
+.NP_gCkcrMo_3Wk3nIZpv {
+	width: 100%;
+	height: 100px;
+	margin-bottom: 2px;
+}
+
+/*!*****************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/styles.module.css ***!
+  \*****************************************************************************************************************************************/
+.FPU_305Ax2d42cgpcYZE {
+	min-height: 500px;
+	width: 250px;
+	flow-children: up;
+	z-index: -1;
+}
+
+/*!****************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/styles.module.css ***!
+  \****************************************************************************************************************************************/
+.Qm0Gz9cXpfuJL9XFfaew {
+	flow-children: up;
+	transition: opacity 0.5s ease-in-out 0s;
+}
+
+._9hqRW4Wk5UWQAPLS6BX {
+	flow-children: right;
+}
+
+.GN276OBerpLoUddazK3_ {
+	horizontal-align: center;
+	margin-top: 2px;
+	width: 18px;
+	height: 18px;
+}
+
+.fR1XxDdhIsEzlkiCWEv2 {
+	horizontal-align: center;
+	margin-top: 5px;
+	width: 10px;
+	height: 14px;
+	margin-left: 4px;
+	margin-right: 2px;
+}
+
+.zICe0uDq6NUvo9ADJ8fQ {
+	margin-left: 3px;
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+.e482FRTP_pyZP0FI4Wzt {
+	color: #cdcdcd;
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+.EZ2t5FRDo4vW2fxgtxfQ {
+	color: #9f9f9f;
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+.P7CvFs15hWbprJtHzvWF {
+	color: #cdcdcd;
+	text-shadow: 1px 1px 2px 2 #000000;
+	margin-right: 1px;
+}
+
+/*!*******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/AbilityMessage/styles.module.css ***!
+  \*******************************************************************************************************************************************************/
+.O4SZDqMbSbGjXFYpKSU5 {
+	horizontal-align: center;
+	margin-top: 2px;
+	width: 18px;
+	height: 18px;
+	border-radius: 5px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+/*!****************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/ItemMessage/styles.module.css ***!
+  \****************************************************************************************************************************************************/
+.LxsBJ3HItXKabicrARm8 {
+	horizontal-align: center;
+	margin-top: 4.5px;
+	width: 18px;
+	height: 14px;
+	border-radius: 5px;
+	margin-left: 1px;
+	margin-right: 2px;
+}
+
+/*!********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/ModifierMessage/styles.module.css ***!
+  \********************************************************************************************************************************************************/
+.zAuZAilOPlJYIt2x7f6k {
+	horizontal-align: center;
+	margin-top: 4.5px;
+	width: 18px;
+	height: 14px;
+	border-radius: 5px;
+	margin-left: 1px;
+	margin-right: 3px;
+}
+
+.eXvfdQmRngiXURS76WNS {
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+.dOeb8CzK6wcC1LDrvhwe {
+	color: #cdcdcd;
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/HealthMessage/styles.module.css ***!
+  \******************************************************************************************************************************************************/
+.zgs7CbszT6cmSH1mNwzu {
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+/*!****************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/Message/ManaMessage/styles.module.css ***!
+  \****************************************************************************************************************************************************/
+.awBcjoAcvbvwLuEypKkU {
+	color: #778ed4;
+	text-shadow: 1px 1px 2px 2 #000000;
+}
+
+/*!********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Messages/styles.module.css ***!
+  \********************************************************************************************************************************/
+.Cmf_Gpikd73EhApUW1k2 {
+	width: 800px;
+	min-height: 350px;
+	flow-children: up;
+	vertical-align: center;
+	horizontal-align: left;
+	margin-top: 0px;
+	margin-left: 10px;
+	z-index: 10;
+}
+
+/*!*****************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./hud/global.css ***!
+  \*****************************************************************************************************/
+.root {
+	width: 100%;
+	height: 100%;
+}
+
+.Invisible {
+	opacity: 0;
+}
+
+.EmptyCircle {
+	clip: radial(50% 50%, 0deg, 0deg);
+}
+
+Slider {
+	margin-bottom: 0px;
+}
+
+Slider.HorizontalSlider {
+	width: 420px;
+	height: 30px;
+	vertical-align: center;
+}
+
+ProgressBar {
+	box-shadow: 0px 0px 0px 0 black;
+}
+
+#ChatTargetLabel {
+	visibility: collapse;
+	opacity: 0;
+}
+
+.manaProgressBar .ProgressBarLeft {
+	background-color: gradient(
 		linear,
-		0 0,
-		0 100%,
+		0% 0%,
+		0% 100%,
 		from(#2b4287),
-		color-stop(.2, #4165ce),
-		color-stop(.5, #314da0),
+		color-stop(0.2, #4165ce),
+		color-stop(0.5, #314da0),
 		to(#2b4287)
 	);
-	border-radius:1px;
-	transition-duration:0s;
-	transition-property:width;
-	transition-timing-function:linear;
+	border-radius: 1px;
+	transition-property: width;
+	transition-duration: 0s;
+	transition-timing-function: linear;
 }
 
-.manaProgressBar .ProgressBarRight{
-	background-color:gradient(
+.manaProgressBar .ProgressBarRight {
+	background-color: gradient(
 		linear,
-		0 0,
-		0 100%,
+		0% 0%,
+		0% 100%,
 		from(#101932),
-		color-stop(.2, #172447),
-		color-stop(.5, #162244),
+		color-stop(0.2, #172447),
+		color-stop(0.5, #162244),
 		to(#101932)
 	);
 }
 
-.healthProgressBar .ProgressBarLeft{
-	background-color:gradient(
+.healthProgressBar .ProgressBarLeft {
+	background-color: gradient(
 		linear,
-		0 0,
-		0 100%,
+		0% 0%,
+		0% 100%,
 		from(#00ff00),
 		to(#004c00)
 	);
-	border-radius:1px;
-	transition-duration:0s;
-	transition-property:width;
-	transition-timing-function:linear;
+	border-radius: 1px;
+	transition-property: width;
+	transition-duration: 0s;
+	transition-timing-function: linear;
 }
 
-.healthProgressBar .ProgressBarRight{
-	background-color:gradient(
+.healthProgressBar .ProgressBarRight {
+	background-color: gradient(
 		linear,
-		0 0,
-		0 100%,
+		0% 0%,
+		0% 100%,
 		from(#17200d),
-		color-stop(.2, #222e13),
-		color-stop(.5, #1e2911),
+		color-stop(0.2, #222e13),
+		color-stop(0.5, #1e2911),
 		to(#17200d)
 	);
 }
 
-.healthProgressBarEnemy .ProgressBarRight{
-	background-color:gradient(
+.healthProgressBarEnemy .ProgressBarRight {
+	background-color: gradient(
 		linear,
-		0 0,
-		0 100%,
+		0% 0%,
+		0% 100%,
 		from(#2d1713),
-		color-stop(.2, #391d18),
-		color-stop(.5, #3c1e19),
+		color-stop(0.2, #391d18),
+		color-stop(0.5, #3c1e19),
 		to(#2d1713)
 	);
 }
 
-.healthProgressBarEnemy .ProgressBarLeft{
-	background-color:gradient(
+.healthProgressBarEnemy .ProgressBarLeft {
+	background-color: gradient(
 		linear,
-		0 0,
-		0 100%,
+		0% 0%,
+		0% 100%,
 		from(#5d2e25),
-		color-stop(.2, #a54e39),
-		color-stop(.5, #904030),
+		color-stop(0.2, #a54e39),
+		color-stop(0.5, #904030),
 		to(#5d2c25)
 	);
-	border-radius:1px;
-	transition-duration:0s;
-	transition-property:width;
-	transition-timing-function:linear;
+	border-radius: 1px;
+	transition-property: width;
+	transition-duration: 0s;
+	transition-timing-function: linear;
 }
 
-#inventoryItemDraggedItem{
-	border-radius:5px;
-	height:45px;
-	width:60px;
+#inventoryItemDraggedItem {
+	width: 60px;
+	height: 45px;
+	border-radius: 5px;
 }
 
-.MinimapImage{
-	wash-color:#0f0;
-	background-image:url('s2r://panorama/images/minimap_creep_icon_png.vtex');
-	background-position:50%;
-	background-repeat:no-repeat;
-	background-size:contain;
-	height:10px;
-	width:10px;
-	z-index:1;
+/* MINIMAP START */
+
+.MinimapImage {
+	width: 10px;
+	height: 10px;
+	background-image: url('s2r://panorama/images/minimap_creep_icon_png.vtex');
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	wash-color: #0f0;
+	z-index: 1;
 }
 
-.MinimapImage.Enemy{
-	wash-color:red;
-	z-index:2;
+.MinimapImage.Enemy {
+	wash-color: red;
+	z-index: 2;
 }
 
-.MinimapImage.Boss{
-	background-image:url('s2r://panorama/images/minimap_boss_icon_png.vtex');
-	height:35px;
-	width:35px;
-	z-index:3;
+.MinimapImage.Boss {
+	width: 35px;
+	height: 35px;
+	z-index: 3;
+	background-image: url('s2r://panorama/images/minimap_boss_icon_png.vtex');
 }
 
-.MinimapImage.shopkeeper_abilities{
-	wash-color:orange;
-	background-image:url('s2r://panorama/images/book_open_page_variant_outline_png.vtex');
-	height:20px;
-	width:20px;
+.MinimapImage.shopkeeper_abilities {
+	wash-color: orange;
+	width: 20px;
+	height: 20px;
+	background-image: url('s2r://panorama/images/book_open_page_variant_outline_png.vtex');
 }
 
-.minimap>DOTAHeroImage{
-	height:30px;
-	opacity:1;
-	width:30px;
-	z-index:1;
+.minimap > DOTAHeroImage {
+	width: 30px;
+	height: 30px;
+	opacity: 1;
+	z-index: 1;
 }
 
-@keyframes 'btnClicked'{
-	0%{
-		pre-transform-scale2d:.9;
+/* MINIMAP END */
+
+@keyframes 'btnClicked' {
+	0% {
+		pre-transform-scale2d: 0.9;
 	}
 
-	to{
-		pre-transform-scale2d:1;
+	100% {
+		pre-transform-scale2d: 1;
 	}
 }
 
-.btnClicked{
-	animation-duration:.1s;
-	animation-name:btnClicked;
+.btnClicked {
+	animation-name: btnClicked;
+	animation-duration: 0.1s;
 }
 
-.Mq7q2v4FcXEkxx3KS7_R{
-	height:100%;
-	width:100%;
+/*!*********************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/app.module.css ***!
+  \*********************************************************************************************************/
+.Mq7q2v4FcXEkxx3KS7_R {
+	width: 100%;
+	height: 100%;
 }
 
-.qUIA03sEiYytt60Alfl5{
-	horizontal-align:right;
-	margin-right:10px;
-	margin-top:50px;
-	vertical-align:top;
+.qUIA03sEiYytt60Alfl5 {
+	vertical-align: top;
+	horizontal-align: right;
+	margin-top: 50px;
+	margin-right: 10px;
 }
 
-.TwhFbl98P1nuj4pIMQTZ{
-	color:white;
-	font-size:16px;
-	padding-bottom:3px;
-	text-shadow:1px 1px 2px 2 black;
+.TwhFbl98P1nuj4pIMQTZ {
+	color: white;
+	font-size: 16px;
+	text-shadow: 1px 1px 2px 2 black;
+	padding-bottom: 3px;
 }
 

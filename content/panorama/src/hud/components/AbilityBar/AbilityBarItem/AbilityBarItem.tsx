@@ -83,8 +83,6 @@ const AbilityBarItem = (props: Props) => {
   const [isToggled, setIsToggled] = useState(Abilities.GetToggleState(ability));
   const [isActive, setIsActive] = useState(Abilities.GetLocalPlayerActiveAbility() === ability);
   const [isTrainable, setIsTrainable] = useState(false);
-  const [isInAbilityPhase, setIsInAbilityPhase] = useState(Abilities.IsInAbilityPhase(ability));
-  const [castPoint, setCastPoint] = useState(Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1));
 
   useInterval(() => {
     const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
@@ -96,8 +94,6 @@ const AbilityBarItem = (props: Props) => {
     setIsAutoCastEnabled(Abilities.GetAutoCastState(ability))
     setIsToggled(Abilities.GetToggleState(ability))
     setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
-    setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
-    setCastPoint(Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1));
   }, HUD_THINK_FAST);
 
   return (
@@ -131,12 +127,7 @@ const AbilityBarItem = (props: Props) => {
           <Cooldown ability={ability} />
           <Autocast ability={ability} />
           <LockoutIcon ability={ability} selectedUnit={selectedUnit} />
-          {isInAbilityPhase && (
-            <CastPointOverlay
-              castPoint={castPoint}
-              endTime={Game.GetGameTime() + castPoint}
-            />
-          )}
+          <CastPointOverlay ability={ability} />
         </Panel>
       </Panel>
       <Skillpoints ability={ability} selectedUnit={selectedUnit} />
