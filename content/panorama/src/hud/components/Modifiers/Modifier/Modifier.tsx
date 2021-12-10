@@ -1,15 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { aura_modifiers } from "../../../data/auras";
-import Stacks from "./Stacks/Stacks";
-import TimedBackground from "./TimedBackground/TimedBackground";
 import Styles from './styles.module.css';
-import { useTimeout } from "../../../hooks/useTimeout";
+import Background from "./Background/Background";
+import Foreground from "./Foreground/Foreground";
 
 type Props = {
   buff: BuffID,
   selectedUnit: EntityIndex,
   isDebuff: boolean,
 };
+
+const onRightClick = (panelId: string, selectedUnit: EntityIndex, modifier: BuffID) => {
+  if (GameUI.IsAltDown()) {
+    $('#' + panelId).RemoveClass('btnClicked');
+    $('#' + panelId).AddClass('btnClicked');
+    GameEvents.SendCustomGameEventToAllClients("on_modifier_alerted", {
+      broadcaster: Players.GetLocalPlayer(),
+      selectedUnit,
+      modifier,
+    })
+  }
+}
+
+const onMouseOut = (panelId: string) => {
+  const thisPanel = $("#" + panelId);
+  if (thisPanel) {
+    $.DispatchEvent("DOTAHideBuffTooltip", thisPanel)
+  }
+}
+
+const onMouseOver = (panelId: string, selectedUnit: EntityIndex, buff: BuffID, isEnemy: boolean) => {
+  const thisPanel = $("#" + panelId);
+  if (thisPanel) {
+    $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, selectedUnit, buff, isEnemy);
+  }
+}
+
 
 const Modifier = (props: Props) => {
 
@@ -20,17 +46,15 @@ const Modifier = (props: Props) => {
   const [isMounted, setIsMounted] = useState(false);
 
   const panelId = isDebuff ? "debuff_" + buff : "buff_" + buff;
-  const ability = Buffs.GetAbility(selectedUnit, buff);
-  const isItem = Abilities.IsItem(ability);
-  const isAura = aura_modifiers.includes(Buffs.GetName(selectedUnit, buff));
   const isEnemy = Entities.IsEnemy(selectedUnit);
+  const isAura = aura_modifiers.includes(Buffs.GetName(selectedUnit, buff));
 
   useEffect(() => {
     setIsMounted(true);
     return () => {
       const panel = $("#" + panelId);
       if (panel) {
-        $.DispatchEvent("DOTAHideBuffTooltip", panel);
+        $.DispatchEvent("DOTAHideBuffTooltip", $.GetContextPanel());
       }
     }
   }, []);
@@ -38,70 +62,26 @@ const Modifier = (props: Props) => {
   return (
     <Panel
       id={panelId}
-      hittest={true}
-      className={Styles.container}
       style={{
         opacity: isMounted ? "1.0" : "0.0",
         preTransformScale2d: isMounted ? "1.0" : "0.0",
       }}
-      onactivate={() => {
-        if (GameUI.IsAltDown()) {
-          $('#' + panelId).RemoveClass('btnClicked');
-          $('#' + panelId).AddClass('btnClicked');
-          GameEvents.SendCustomGameEventToAllClients("on_modifier_alerted", {
-            broadcaster: Players.GetLocalPlayer(),
-            selectedUnit,
-            modifier: buff
-          })
-        }
-      }}
-      onmouseout={() => {
-        const thisPanel = $("#" + panelId);
-        if (thisPanel) {
-          $.DispatchEvent("DOTAHideBuffTooltip", thisPanel)
-        }
-      }}
-      onmouseover={() => {
-        const thisPanel = $("#" + panelId);
-        if (thisPanel) {
-          $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, selectedUnit, buff, isEnemy)
-        }
-      }}
+      className={Styles.container}
+      onactivate={() => onRightClick(panelId, selectedUnit, buff)}
+      onmouseout={() => onMouseOut(panelId)}
+      onmouseover={() => onMouseOver(panelId, selectedUnit, buff, isEnemy)}
     >
-      {isAura && (
-        <Panel
-          className={Styles.background}
-          style={{ backgroundColor: isDebuff ? 'rgba(195, 40, 40, 0.9)' : 'rgba(0, 200, 20, 0.9)' }}
-        />
-      )}
-      {!isAura && (
-        <TimedBackground
-          buff={buff}
-          selectedUnit={selectedUnit}
-          isDebuff={isDebuff}
-        />
-      )}
-      <Panel className={Styles.foreground}>
-        <Stacks
-          unit={selectedUnit}
-          buff={buff}
-        />
-        {!isItem && (
-          <DOTAAbilityImage
-            key={panelId}
-            className={Styles.image}
-            abilityname={Abilities.GetAbilityName(ability)}
-          />
-        )}
-        {isItem && (
-          <DOTAItemImage
-            key={panelId}
-            className={Styles.paddedImage}
-            itemname={Buffs.GetTexture(selectedUnit, buff)}
-            showtooltip={false}
-          />
-        )}
-      </Panel>
+      <Background
+        buff={buff}
+        selectedUnit={selectedUnit}
+        isDebuff={isDebuff}
+        isAura={isAura}
+      />
+      <Foreground
+        buff={buff}
+        selectedUnit={selectedUnit}
+        panelId={panelId}
+      />
     </Panel>
   );
 

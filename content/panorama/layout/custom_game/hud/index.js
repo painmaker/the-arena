@@ -812,25 +812,47 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./hud/components/Modifiers/Modifier/Stacks/styles.module.css":
-/*!********************************************************************!*\
-  !*** ./hud/components/Modifiers/Modifier/Stacks/styles.module.css ***!
-  \********************************************************************/
+/***/ "./hud/components/Modifiers/Modifier/Background/FilledBackground/styles.module.css":
+/*!*****************************************************************************************!*\
+  !*** ./hud/components/Modifiers/Modifier/Background/FilledBackground/styles.module.css ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// extracted by mini-css-extract-plugin\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\"container\":\"livhQlkdnHZPe_TLd5af\",\"label\":\"bHf0Fk83RimCrwKPcWqe\"});\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Stacks/styles.module.css?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// extracted by mini-css-extract-plugin\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\"background\":\"CRykTZjLQyBcivGKndjH\"});\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Background/FilledBackground/styles.module.css?");
 
 /***/ }),
 
-/***/ "./hud/components/Modifiers/Modifier/TimedBackground/styles.module.css":
-/*!*****************************************************************************!*\
-  !*** ./hud/components/Modifiers/Modifier/TimedBackground/styles.module.css ***!
-  \*****************************************************************************/
+/***/ "./hud/components/Modifiers/Modifier/Background/TimedBackground/styles.module.css":
+/*!****************************************************************************************!*\
+  !*** ./hud/components/Modifiers/Modifier/Background/TimedBackground/styles.module.css ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// extracted by mini-css-extract-plugin\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\"container\":\"QmBvdkG1ODC4WqyGP8a5\"});\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/TimedBackground/styles.module.css?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// extracted by mini-css-extract-plugin\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\"container\":\"shSQxdjxhHVlp4a1MJZQ\"});\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Background/TimedBackground/styles.module.css?");
+
+/***/ }),
+
+/***/ "./hud/components/Modifiers/Modifier/Foreground/Stacks/styles.module.css":
+/*!*******************************************************************************!*\
+  !*** ./hud/components/Modifiers/Modifier/Foreground/Stacks/styles.module.css ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// extracted by mini-css-extract-plugin\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\"container\":\"aXq3LoGbsbsqegfQVSHg\",\"label\":\"QQdkbXyAUS_3z2LgzDdX\"});\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Foreground/Stacks/styles.module.css?");
+
+/***/ }),
+
+/***/ "./hud/components/Modifiers/Modifier/Foreground/styles.module.css":
+/*!************************************************************************!*\
+  !*** ./hud/components/Modifiers/Modifier/Foreground/styles.module.css ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// extracted by mini-css-extract-plugin\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\"container\":\"KWGxUWXYxTp3xRQPjhdC\",\"image\":\"Mr_qqlj1gsDjszlD62pQ\",\"paddedImage\":\"c1Y3rh5xMK6thCsr6pjQ\"});\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Foreground/styles.module.css?");
 
 /***/ }),
 
@@ -841,7 +863,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// extracted by mini-css-extract-plugin\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\"container\":\"hP53l9q7lqT_sneNCQgJ\",\"background\":\"mTu2M3Jd7k14DxJOs13Q\",\"foreground\":\"np7FM4WNLj5f6yKD9QBG\",\"image\":\"cPY03BjEcqqesJ9VT8cF\",\"paddedImage\":\"SevajsebwIipgDcXYdJ1\"});\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/styles.module.css?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// extracted by mini-css-extract-plugin\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\"container\":\"hP53l9q7lqT_sneNCQgJ\"});\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/styles.module.css?");
 
 /***/ }),
 
@@ -2834,6 +2856,61 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./hud/components/Modifiers/Modifier/Background/Background.tsx":
+/*!*********************************************************************!*\
+  !*** ./hud/components/Modifiers/Modifier/Background/Background.tsx ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../../../node_modules/react/index.js\");\n/* harmony import */ var _FilledBackground_FilledBackground__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilledBackground/FilledBackground */ \"./hud/components/Modifiers/Modifier/Background/FilledBackground/FilledBackground.tsx\");\n/* harmony import */ var _TimedBackground_TimedBackground__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TimedBackground/TimedBackground */ \"./hud/components/Modifiers/Modifier/Background/TimedBackground/TimedBackground.tsx\");\n\r\n\r\n\r\nconst Background = (props) => {\r\n    // $.Msg(\"REACT-RENDER: Modifiers - TimedBackground rendered\");\r\n    const { buff, selectedUnit, isDebuff, isAura } = props;\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FilledBackground_FilledBackground__WEBPACK_IMPORTED_MODULE_1__.default, { isDebuff: isDebuff })),\r\n        !isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_TimedBackground_TimedBackground__WEBPACK_IMPORTED_MODULE_2__.default, { isDebuff: isDebuff, buff: buff, selectedUnit: selectedUnit }))));\r\n};\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Background));\r\n\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Background/Background.tsx?");
+
+/***/ }),
+
+/***/ "./hud/components/Modifiers/Modifier/Background/FilledBackground/FilledBackground.tsx":
+/*!********************************************************************************************!*\
+  !*** ./hud/components/Modifiers/Modifier/Background/FilledBackground/FilledBackground.tsx ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../../../node_modules/react/index.js\");\n/* harmony import */ var _styles_module_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles.module.css */ \"./hud/components/Modifiers/Modifier/Background/FilledBackground/styles.module.css\");\n\r\n\r\nconst FilledBackground = (props) => {\r\n    const { isDebuff } = props;\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: _styles_module_css__WEBPACK_IMPORTED_MODULE_1__.default.background, style: { backgroundColor: isDebuff ? 'rgba(195, 40, 40, 0.9)' : 'rgba(0, 200, 20, 0.9)' } }));\r\n};\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FilledBackground);\r\n\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Background/FilledBackground/FilledBackground.tsx?");
+
+/***/ }),
+
+/***/ "./hud/components/Modifiers/Modifier/Background/TimedBackground/TimedBackground.tsx":
+/*!******************************************************************************************!*\
+  !*** ./hud/components/Modifiers/Modifier/Background/TimedBackground/TimedBackground.tsx ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../../../node_modules/react/index.js\");\n/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../App */ \"./hud/App.tsx\");\n/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../hooks/useInterval */ \"./hud/hooks/useInterval.ts\");\n/* harmony import */ var _styles_module_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles.module.css */ \"./hud/components/Modifiers/Modifier/Background/TimedBackground/styles.module.css\");\n\r\n\r\n\r\n\r\nconst TimedBackground = (props) => {\r\n    const { isDebuff, selectedUnit, buff } = props;\r\n    const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);\r\n    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {\r\n        const remaining = Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff));\r\n        const duration = Math.max(0, Buffs.GetDuration(selectedUnit, buff));\r\n        const degree = Math.max(0, (remaining / duration) * 360);\r\n        setDegree(Number.isFinite(degree) ? degree : 0);\r\n    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: _styles_module_css__WEBPACK_IMPORTED_MODULE_3__.default.container, style: {\r\n            backgroundColor: isDebuff ? 'rgba(195, 40, 40, 0.9)' : 'rgba(0, 200, 20, 0.9)',\r\n            clip: 'radial(50% 50%, 0deg, ' + -degree + 'deg)'\r\n        } }));\r\n};\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TimedBackground);\r\n\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Background/TimedBackground/TimedBackground.tsx?");
+
+/***/ }),
+
+/***/ "./hud/components/Modifiers/Modifier/Foreground/Foreground.tsx":
+/*!*********************************************************************!*\
+  !*** ./hud/components/Modifiers/Modifier/Foreground/Foreground.tsx ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../../../node_modules/react/index.js\");\n/* harmony import */ var _Stacks_Stacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Stacks/Stacks */ \"./hud/components/Modifiers/Modifier/Foreground/Stacks/Stacks.tsx\");\n/* harmony import */ var _styles_module_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles.module.css */ \"./hud/components/Modifiers/Modifier/Foreground/styles.module.css\");\n\r\n\r\n\r\nconst Foreground = (props) => {\r\n    // $.Msg(\"REACT-RENDER: Modifiers - TimedBackground rendered\");\r\n    const { buff, selectedUnit, panelId } = props;\r\n    const ability = Buffs.GetAbility(selectedUnit, buff);\r\n    const isItem = Abilities.IsItem(ability);\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: _styles_module_css__WEBPACK_IMPORTED_MODULE_2__.default.container },\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Stacks_Stacks__WEBPACK_IMPORTED_MODULE_1__.default, { unit: selectedUnit, buff: buff }),\r\n            !isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { key: panelId, className: _styles_module_css__WEBPACK_IMPORTED_MODULE_2__.default.image, abilityname: Abilities.GetAbilityName(ability) })),\r\n            isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { key: panelId, className: _styles_module_css__WEBPACK_IMPORTED_MODULE_2__.default.paddedImage, itemname: Buffs.GetTexture(selectedUnit, buff), showtooltip: false })))));\r\n};\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Foreground));\r\n\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Foreground/Foreground.tsx?");
+
+/***/ }),
+
+/***/ "./hud/components/Modifiers/Modifier/Foreground/Stacks/Stacks.tsx":
+/*!************************************************************************!*\
+  !*** ./hud/components/Modifiers/Modifier/Foreground/Stacks/Stacks.tsx ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../../../node_modules/react/index.js\");\n/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../App */ \"./hud/App.tsx\");\n/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../hooks/useInterval */ \"./hud/hooks/useInterval.ts\");\n/* harmony import */ var _styles_module_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles.module.css */ \"./hud/components/Modifiers/Modifier/Foreground/Stacks/styles.module.css\");\n\r\n\r\n\r\n\r\nconst Stacks = (props) => {\r\n    // $.Msg(\"REACT-RENDER: Modifier rendered\");\r\n    const { unit, buff } = props;\r\n    const [stacks, setStacks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Buffs.GetStackCount(unit, buff));\r\n    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {\r\n        setStacks(Buffs.GetStackCount(unit, buff));\r\n    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);\r\n    if (stacks === 0) {\r\n        return null;\r\n    }\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: _styles_module_css__WEBPACK_IMPORTED_MODULE_3__.default.container },\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: _styles_module_css__WEBPACK_IMPORTED_MODULE_3__.default.label, text: stacks })));\r\n};\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Stacks));\r\n\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Foreground/Stacks/Stacks.tsx?");
+
+/***/ }),
+
 /***/ "./hud/components/Modifiers/Modifier/Modifier.tsx":
 /*!********************************************************!*\
   !*** ./hud/components/Modifiers/Modifier/Modifier.tsx ***!
@@ -2841,29 +2918,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../../../node_modules/react/index.js\");\n/* harmony import */ var _data_auras__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../data/auras */ \"./hud/data/auras.tsx\");\n/* harmony import */ var _Stacks_Stacks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Stacks/Stacks */ \"./hud/components/Modifiers/Modifier/Stacks/Stacks.tsx\");\n/* harmony import */ var _TimedBackground_TimedBackground__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TimedBackground/TimedBackground */ \"./hud/components/Modifiers/Modifier/TimedBackground/TimedBackground.tsx\");\n/* harmony import */ var _styles_module_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles.module.css */ \"./hud/components/Modifiers/Modifier/styles.module.css\");\n\r\n\r\n\r\n\r\n\r\nconst Modifier = (props) => {\r\n    // $.Msg(\"REACT-RENDER: Modifiers rendered\");\r\n    const { buff, selectedUnit, isDebuff } = props;\r\n    const [isMounted, setIsMounted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);\r\n    const panelId = isDebuff ? \"debuff_\" + buff : \"buff_\" + buff;\r\n    const ability = Buffs.GetAbility(selectedUnit, buff);\r\n    const isItem = Abilities.IsItem(ability);\r\n    const isAura = _data_auras__WEBPACK_IMPORTED_MODULE_1__.aura_modifiers.includes(Buffs.GetName(selectedUnit, buff));\r\n    const isEnemy = Entities.IsEnemy(selectedUnit);\r\n    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {\r\n        setIsMounted(true);\r\n        return () => {\r\n            const panel = $(\"#\" + panelId);\r\n            if (panel) {\r\n                $.DispatchEvent(\"DOTAHideBuffTooltip\", panel);\r\n            }\r\n        };\r\n    }, []);\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: panelId, hittest: true, className: _styles_module_css__WEBPACK_IMPORTED_MODULE_4__.default.container, style: {\r\n            opacity: isMounted ? \"1.0\" : \"0.0\",\r\n            preTransformScale2d: isMounted ? \"1.0\" : \"0.0\",\r\n        }, onactivate: () => {\r\n            if (GameUI.IsAltDown()) {\r\n                $('#' + panelId).RemoveClass('btnClicked');\r\n                $('#' + panelId).AddClass('btnClicked');\r\n                GameEvents.SendCustomGameEventToAllClients(\"on_modifier_alerted\", {\r\n                    broadcaster: Players.GetLocalPlayer(),\r\n                    selectedUnit,\r\n                    modifier: buff\r\n                });\r\n            }\r\n        }, onmouseout: () => {\r\n            const thisPanel = $(\"#\" + panelId);\r\n            if (thisPanel) {\r\n                $.DispatchEvent(\"DOTAHideBuffTooltip\", thisPanel);\r\n            }\r\n        }, onmouseover: () => {\r\n            const thisPanel = $(\"#\" + panelId);\r\n            if (thisPanel) {\r\n                $.DispatchEvent(\"DOTAShowBuffTooltip\", thisPanel, selectedUnit, buff, isEnemy);\r\n            }\r\n        } },\r\n        isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: _styles_module_css__WEBPACK_IMPORTED_MODULE_4__.default.background, style: { backgroundColor: isDebuff ? 'rgba(195, 40, 40, 0.9)' : 'rgba(0, 200, 20, 0.9)' } })),\r\n        !isAura && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_TimedBackground_TimedBackground__WEBPACK_IMPORTED_MODULE_3__.default, { buff: buff, selectedUnit: selectedUnit, isDebuff: isDebuff })),\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: _styles_module_css__WEBPACK_IMPORTED_MODULE_4__.default.foreground },\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Stacks_Stacks__WEBPACK_IMPORTED_MODULE_2__.default, { unit: selectedUnit, buff: buff }),\r\n            !isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAAbilityImage, { key: panelId, className: _styles_module_css__WEBPACK_IMPORTED_MODULE_4__.default.image, abilityname: Abilities.GetAbilityName(ability) })),\r\n            isItem && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(DOTAItemImage, { key: panelId, className: _styles_module_css__WEBPACK_IMPORTED_MODULE_4__.default.paddedImage, itemname: Buffs.GetTexture(selectedUnit, buff), showtooltip: false })))));\r\n};\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Modifier));\r\n\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Modifier.tsx?");
-
-/***/ }),
-
-/***/ "./hud/components/Modifiers/Modifier/Stacks/Stacks.tsx":
-/*!*************************************************************!*\
-  !*** ./hud/components/Modifiers/Modifier/Stacks/Stacks.tsx ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../../../node_modules/react/index.js\");\n/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ \"./hud/App.tsx\");\n/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ \"./hud/hooks/useInterval.ts\");\n/* harmony import */ var _styles_module_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles.module.css */ \"./hud/components/Modifiers/Modifier/Stacks/styles.module.css\");\n\r\n\r\n\r\n\r\nconst Stacks = (props) => {\r\n    // $.Msg(\"REACT-RENDER: Modifier rendered\");\r\n    const { unit, buff } = props;\r\n    const [stacks, setStacks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Buffs.GetStackCount(unit, buff));\r\n    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {\r\n        setStacks(Buffs.GetStackCount(unit, buff));\r\n    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);\r\n    if (stacks === 0) {\r\n        return null;\r\n    }\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: _styles_module_css__WEBPACK_IMPORTED_MODULE_3__.default.container },\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(Label, { className: _styles_module_css__WEBPACK_IMPORTED_MODULE_3__.default.label, text: stacks })));\r\n};\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Stacks));\r\n\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Stacks/Stacks.tsx?");
-
-/***/ }),
-
-/***/ "./hud/components/Modifiers/Modifier/TimedBackground/TimedBackground.tsx":
-/*!*******************************************************************************!*\
-  !*** ./hud/components/Modifiers/Modifier/TimedBackground/TimedBackground.tsx ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../../../node_modules/react/index.js\");\n/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../App */ \"./hud/App.tsx\");\n/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../hooks/useInterval */ \"./hud/hooks/useInterval.ts\");\n/* harmony import */ var _styles_module_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles.module.css */ \"./hud/components/Modifiers/Modifier/TimedBackground/styles.module.css\");\n\r\n\r\n\r\n\r\nconst TimedBackground = (props) => {\r\n    // $.Msg(\"REACT-RENDER: Modifiers - TimedBackground rendered\");\r\n    const { buff, selectedUnit, isDebuff } = props;\r\n    const [degree, setDegree] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);\r\n    (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_2__.useInterval)(() => {\r\n        const remaining = Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff));\r\n        const duration = Math.max(0, Buffs.GetDuration(selectedUnit, buff));\r\n        const degree = Math.max(0, (remaining / duration) * 360);\r\n        setDegree(Number.isFinite(degree) ? degree : 0);\r\n    }, _App__WEBPACK_IMPORTED_MODULE_1__.HUD_THINK_FAST);\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { className: _styles_module_css__WEBPACK_IMPORTED_MODULE_3__.default.container, style: {\r\n            backgroundColor: isDebuff ? 'rgba(195, 40, 40, 0.9)' : 'rgba(0, 200, 20, 0.9)',\r\n            clip: 'radial(50% 50%, 0deg, ' + -degree + 'deg)'\r\n        } }));\r\n};\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(TimedBackground));\r\n\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/TimedBackground/TimedBackground.tsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../../../node_modules/react/index.js\");\n/* harmony import */ var _data_auras__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../data/auras */ \"./hud/data/auras.tsx\");\n/* harmony import */ var _styles_module_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles.module.css */ \"./hud/components/Modifiers/Modifier/styles.module.css\");\n/* harmony import */ var _Background_Background__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Background/Background */ \"./hud/components/Modifiers/Modifier/Background/Background.tsx\");\n/* harmony import */ var _Foreground_Foreground__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Foreground/Foreground */ \"./hud/components/Modifiers/Modifier/Foreground/Foreground.tsx\");\n\r\n\r\n\r\n\r\n\r\nconst onRightClick = (panelId, selectedUnit, modifier) => {\r\n    if (GameUI.IsAltDown()) {\r\n        $('#' + panelId).RemoveClass('btnClicked');\r\n        $('#' + panelId).AddClass('btnClicked');\r\n        GameEvents.SendCustomGameEventToAllClients(\"on_modifier_alerted\", {\r\n            broadcaster: Players.GetLocalPlayer(),\r\n            selectedUnit,\r\n            modifier,\r\n        });\r\n    }\r\n};\r\nconst onMouseOut = (panelId) => {\r\n    const thisPanel = $(\"#\" + panelId);\r\n    if (thisPanel) {\r\n        $.DispatchEvent(\"DOTAHideBuffTooltip\", thisPanel);\r\n    }\r\n};\r\nconst onMouseOver = (panelId, selectedUnit, buff, isEnemy) => {\r\n    const thisPanel = $(\"#\" + panelId);\r\n    if (thisPanel) {\r\n        $.DispatchEvent(\"DOTAShowBuffTooltip\", thisPanel, selectedUnit, buff, isEnemy);\r\n    }\r\n};\r\nconst Modifier = (props) => {\r\n    // $.Msg(\"REACT-RENDER: Modifiers rendered\");\r\n    const { buff, selectedUnit, isDebuff } = props;\r\n    const [isMounted, setIsMounted] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);\r\n    const panelId = isDebuff ? \"debuff_\" + buff : \"buff_\" + buff;\r\n    const isEnemy = Entities.IsEnemy(selectedUnit);\r\n    const isAura = _data_auras__WEBPACK_IMPORTED_MODULE_1__.aura_modifiers.includes(Buffs.GetName(selectedUnit, buff));\r\n    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {\r\n        setIsMounted(true);\r\n        return () => {\r\n            const panel = $(\"#\" + panelId);\r\n            if (panel) {\r\n                $.DispatchEvent(\"DOTAHideBuffTooltip\", $.GetContextPanel());\r\n            }\r\n        };\r\n    }, []);\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(Panel, { id: panelId, style: {\r\n            opacity: isMounted ? \"1.0\" : \"0.0\",\r\n            preTransformScale2d: isMounted ? \"1.0\" : \"0.0\",\r\n        }, className: _styles_module_css__WEBPACK_IMPORTED_MODULE_2__.default.container, onactivate: () => onRightClick(panelId, selectedUnit, buff), onmouseout: () => onMouseOut(panelId), onmouseover: () => onMouseOver(panelId, selectedUnit, buff, isEnemy) },\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Background_Background__WEBPACK_IMPORTED_MODULE_3__.default, { buff: buff, selectedUnit: selectedUnit, isDebuff: isDebuff, isAura: isAura }),\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Foreground_Foreground__WEBPACK_IMPORTED_MODULE_4__.default, { buff: buff, selectedUnit: selectedUnit, panelId: panelId })));\r\n};\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.memo(Modifier));\r\n\n\n//# sourceURL=webpack:///./hud/components/Modifiers/Modifier/Modifier.tsx?");
 
 /***/ }),
 

@@ -716,16 +716,57 @@
 .rx5gFLbNXGBFl2NHU1cX {
   background-image: url("s2r://panorama/images/icon_speed.png");
 }
-/*!*************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/Stacks/styles.module.css ***!
-  \*************************************************************************************************************************************************/
-.livhQlkdnHZPe_TLd5af {
+/*!******************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/styles.module.css ***!
+  \******************************************************************************************************************************************/
+.hP53l9q7lqT_sneNCQgJ {
+	width: 34px;
+	height: 34px;
+	margin-right: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 50%;
+	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 8px 1px;
+	opacity: 0;
+	pre-transform-scale2d: 0;
+	transition-property: pre-transform-scale2d, opacity, transform;
+	transition-duration: 0.2s;
+	background-color: black;
+}
+
+/*!**********************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/Background/FilledBackground/styles.module.css ***!
+  \**********************************************************************************************************************************************************************/
+.CRykTZjLQyBcivGKndjH {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	clip: radial(50% 50%, 0deg, 359.9deg);
+	horizontal-align: center;
+	vertical-align: center;
+	wash-color: rgba(0, 0, 0, 0.2);
+}
+
+/*!*********************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/Background/TimedBackground/styles.module.css ***!
+  \*********************************************************************************************************************************************************************/
+.shSQxdjxhHVlp4a1MJZQ {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	wash-color: rgba(0, 0, 0, 0.2);
+}
+
+/*!************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/Foreground/Stacks/styles.module.css ***!
+  \************************************************************************************************************************************************************/
+.aXq3LoGbsbsqegfQVSHg {
 	width: 100%;
 	height: 100%;
 	z-index: 999;
 }
 
-.bHf0Fk83RimCrwKPcWqe {
+.QQdkbXyAUS_3z2LgzDdX {
 	font-size: 25px;
 	color: white;
 	font-weight: bold;
@@ -735,62 +776,29 @@
 	text-overflow: clip;
 }
 
-/*!**********************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/TimedBackground/styles.module.css ***!
-  \**********************************************************************************************************************************************************/
-.QmBvdkG1ODC4WqyGP8a5 {
+/*!*****************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/Foreground/styles.module.css ***!
+  \*****************************************************************************************************************************************************/
+.KWGxUWXYxTp3xRQPjhdC {
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	wash-color: rgba(0, 0, 0, 0.2);
+	margin: 2px;
 }
 
-/*!******************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/styles.module.css ***!
-  \******************************************************************************************************************************************/
-.hP53l9q7lqT_sneNCQgJ {
-	width: 36px;
-	height: 36px;
-	margin-right: 5px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	border-radius: 50%;
-	box-shadow: fill rgba(0, 0, 0, 0.6) 0px 0px 6px 1px;
-	transform: none;
-	opacity: 0;
-	pre-transform-scale2d: 0;
-	transition-property: pre-transform-scale2d, opacity, transform;
-	transition-duration: 0.2s;
-	background-color: black;
-}
-
-.mTu2M3Jd7k14DxJOs13Q {
+.Mr_qqlj1gsDjszlD62pQ {
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	clip: radial(50% 50%, 0deg, 359deg);
-	horizontal-align: center;
-	vertical-align: center;
-	wash-color: rgba(0, 0, 0, 0.2);
+	border: 1px solid black;
 }
 
-.np7FM4WNLj5f6yKD9QBG {
-	width: 100%;
-	height: 100%;
-	padding: 2.4px;
-}
-
-.cPY03BjEcqqesJ9VT8cF {
+.c1Y3rh5xMK6thCsr6pjQ {
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-}
-
-.SevajsebwIipgDcXYdJ1 {
-	width: 100%;
-	height: 100%;
-	border-radius: 50%;
-	padding: -8px;
+	padding: -5px;
+	border: 1px solid black;
 }
 
 /*!*****************************************************************************************************************************************!*\
