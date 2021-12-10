@@ -4,13 +4,11 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-const isProduction = false;
-
 /** @type {import('webpack').Configuration} */
 module.exports = {
-  mode: isProduction ? 'production' : 'development',
+  mode: 'production',
   optimization: {
-    minimize: isProduction,
+    minimize: false,
     minimizer: [
       new TerserPlugin({}),
       new CssMinimizerPlugin({
@@ -33,6 +31,7 @@ module.exports = {
     filename: 'index.js',
     path: path.resolve(__dirname, "layout/custom_game/hud"),
     publicPath: "file://{resources}/layout/custom_game/hud",
+    clean: false,
   },
   resolve: {
     extensions: [".ts", ".tsx", "..."],
