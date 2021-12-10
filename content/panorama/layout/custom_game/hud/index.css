@@ -2073,22 +2073,22 @@
   \***************************************************************************************************************************************************/
 .DUu5zaS_QmbcNqAlrUqi {
 	width: 80px;
-	height: 5px;
-	background-color: black;
+	height: 4px;
 	border-radius: 14px;
 	horizontal-align: center;
+	box-shadow: 0px 1px 0.25px 0.25px rgba(0, 0, 0, 0.5);
 }
 
 /*!*************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/ManaBar/styles.module.css ***!
   \*************************************************************************************************************************************************/
 .V2ljavdVMtjkKST7Q2LA {
-	margin-top: 1px;
+	margin-top: 2px;
 	width: 80px;
-	height: 5px;
-	background-color: black;
-	border-radius: 14px;
+	height: 4px;
+	border-radius: 2px;
 	horizontal-align: center;
+	box-shadow: 0px 1px 0.25px 0.25px rgba(0, 0, 0, 0.5);
 }
 
 /*!***********************************************************************************************************************************************************!*\
