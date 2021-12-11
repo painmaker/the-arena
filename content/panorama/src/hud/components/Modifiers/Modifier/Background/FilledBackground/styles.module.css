@@ -3,5 +3,5 @@
 	height: 100%;
 	border-radius: 50%;
 	clip: radial(50% 50%, 0deg, 359.9deg);
-	wash-color: rgba(0, 0, 0, 0.4);
+	wash-color: rgba(0, 0, 0, 0.2);
 }

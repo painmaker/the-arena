@@ -80,6 +80,7 @@ const FloatingContainer = (props: Props) => {
         const { unit, screenX, screenY } = floatingBar;
         return (
           <Panel
+            hittest={false}
             key={unit}
             className={Styles.container}
             style={{ position: (screenX - 125) + "px " + (screenY - 500) + "px " + 0 + "px" }}

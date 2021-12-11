@@ -3,9 +3,10 @@
 	height: 18.5px;
 	vertical-align: bottom;
 	horizontal-align: center;
-	margin-bottom: 85px;
-	border-radius: 4px;
+	margin-bottom: 84px;
+	border-radius: 3px;
 	background-color: red;
+	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px;
 }
 
 .scene {
@@ -15,10 +16,9 @@
 }
 
 .manaLabel {
-	font-size: 14px;
+	font-size: 15px;
 	color: white;
-	margin-top: 0.25px;
-	text-shadow: 1px 1px 2px 2.5 #000000;
+	text-shadow: 1px 1px 0px 2 #000000;
 	vertical-align: middle;
 	horizontal-align: center;
 	font-weight: bold;

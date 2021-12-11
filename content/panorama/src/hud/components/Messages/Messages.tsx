@@ -144,7 +144,7 @@ const Messages = () => {
   }, []);
 
   return (
-    <Panel className={Styles.container}>
+    <Panel className={Styles.container} hittest={false}>
       <SetMessagesContext.Provider value={setMessages}>
         {messages.sort((m1, m2) => m2.id - m1.id).map(message => {
           return (
