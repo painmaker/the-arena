@@ -3,34 +3,35 @@ import { aura_modifiers } from "../../../data/auras";
 import Styles from './styles.module.css';
 import Background from "./Background/Background";
 import Foreground from "./Foreground/Foreground";
+import { HUD_THINK_FAST } from "../../../App";
+import { useInterval } from "../../../hooks/useInterval";
 
 type Props = {
   buff: BuffID,
   selectedUnit: EntityIndex,
-  isDebuff: boolean,
 };
 
-const onRightClick = (panelId: string, selectedUnit: EntityIndex, modifier: BuffID) => {
+const onRightClick = (selectedUnit: EntityIndex, buff: BuffID) => {
   if (GameUI.IsAltDown()) {
-    $('#' + panelId).RemoveClass('btnClicked');
-    $('#' + panelId).AddClass('btnClicked');
+    $('#buff_' + buff).RemoveClass('btnClicked');
+    $('#buff_' + buff).AddClass('btnClicked');
     GameEvents.SendCustomGameEventToAllClients("on_modifier_alerted", {
       broadcaster: Players.GetLocalPlayer(),
       selectedUnit,
-      modifier,
+      modifier: buff,
     })
   }
 }
 
-const onMouseOut = (panelId: string) => {
-  const thisPanel = $("#" + panelId);
+const onMouseOut = (buff: BuffID) => {
+  const thisPanel = $("#buff_" + buff);
   if (thisPanel) {
     $.DispatchEvent("DOTAHideBuffTooltip", thisPanel)
   }
 }
 
-const onMouseOver = (panelId: string, selectedUnit: EntityIndex, buff: BuffID, isEnemy: boolean) => {
-  const thisPanel = $("#" + panelId);
+const onMouseOver = (selectedUnit: EntityIndex, buff: BuffID, isEnemy: boolean) => {
+  const thisPanel = $("#buff_" + buff);
   if (thisPanel) {
     $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, selectedUnit, buff, isEnemy);
   }
@@ -41,46 +42,52 @@ const Modifier = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Modifiers rendered");
 
-  const { buff, selectedUnit, isDebuff } = props;
+  const { buff, selectedUnit } = props;
 
-  const [isMounted, setIsMounted] = useState(false);
+  const [show, setShow] = useState(false);
 
-  const panelId = isDebuff ? "debuff_" + buff : "buff_" + buff;
   const isEnemy = Entities.IsEnemy(selectedUnit);
   const isAura = aura_modifiers.includes(Buffs.GetName(selectedUnit, buff));
 
   useEffect(() => {
-    setIsMounted(true);
+    setShow(true);
     return () => {
-      const panel = $("#" + panelId);
+      const panel = $("#buff_" + buff);
       if (panel) {
         $.DispatchEvent("DOTAHideBuffTooltip", $.GetContextPanel());
       }
     }
   }, []);
 
+  useInterval(() => {
+    if (!isAura) {
+      const remaining = Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff));
+      if (0.05 > remaining) {
+        setShow(false);
+      }
+    }
+  }, HUD_THINK_FAST);
+
   return (
     <Panel
-      id={panelId}
+      id={'buff_' + buff}
       style={{
-        opacity: isMounted ? "1.0" : "0.0",
-        preTransformScale2d: isMounted ? "1.0" : "0.0",
+        opacity: show ? "1.0" : "0.5",
+        preTransformScale2d: show ? "1.0" : "0.3",
       }}
       className={Styles.container}
-      onactivate={() => onRightClick(panelId, selectedUnit, buff)}
-      onmouseout={() => onMouseOut(panelId)}
-      onmouseover={() => onMouseOver(panelId, selectedUnit, buff, isEnemy)}
+      onactivate={() => onRightClick(selectedUnit, buff)}
+      onmouseout={() => onMouseOut(buff)}
+      onmouseover={() => onMouseOver(selectedUnit, buff, isEnemy)}
     >
       <Background
         buff={buff}
         selectedUnit={selectedUnit}
-        isDebuff={isDebuff}
         isAura={isAura}
       />
       <Foreground
         buff={buff}
         selectedUnit={selectedUnit}
-        panelId={panelId}
       />
     </Panel>
   );

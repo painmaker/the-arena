@@ -100,7 +100,11 @@ const App = () => {
   }, [useCustomUI]);
 
   return (
-    <Panel id={'root'} className={Styles.container} >
+    <Panel
+      id={'root'}
+      className={Styles.container}
+      hittest={false}
+    >
       {(!hasPickedHero) && (
         <HeroSelection />
       )}

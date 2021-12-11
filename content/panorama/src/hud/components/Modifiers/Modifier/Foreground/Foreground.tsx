@@ -5,14 +5,13 @@ import Styles from './styles.module.css';
 type Props = {
   buff: BuffID,
   selectedUnit: EntityIndex,
-  panelId: string,
 }
 
 const Foreground = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
 
-  const { buff, selectedUnit, panelId } = props;
+  const { buff, selectedUnit } = props;
 
   const ability = Buffs.GetAbility(selectedUnit, buff);
   const isItem = Abilities.IsItem(ability);
@@ -26,14 +25,12 @@ const Foreground = (props: Props) => {
         />
         {!isItem && (
           <DOTAAbilityImage
-            key={panelId}
             className={Styles.image}
             abilityname={Abilities.GetAbilityName(ability)}
           />
         )}
         {isItem && (
           <DOTAItemImage
-            key={panelId}
             className={Styles.paddedImage}
             itemname={Buffs.GetTexture(selectedUnit, buff)}
             showtooltip={false}

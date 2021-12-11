@@ -4,14 +4,13 @@ import { useInterval } from '../../../../../hooks/useInterval';
 import Styles from './styles.module.css';
 
 type Props = {
-  isDebuff: boolean,
   buff: BuffID,
   selectedUnit: EntityIndex,
 }
 
 const TimedBackground = (props: Props) => {
 
-  const { isDebuff, selectedUnit, buff } = props;
+  const { selectedUnit, buff } = props;
 
   const [degree, setDegree] = useState(0);
 
@@ -26,7 +25,7 @@ const TimedBackground = (props: Props) => {
     <Panel
       className={Styles.container}
       style={{
-        backgroundColor: isDebuff ? 'rgba(195, 40, 40, 0.9)' : 'rgba(0, 200, 20, 0.9)',
+        backgroundColor: Buffs.IsDebuff(selectedUnit, buff) ? 'rgba(195, 40, 40, 0.9)' : 'rgba(0, 200, 20, 0.9)',
         clip: 'radial(50% 50%, 0deg, ' + -degree + 'deg)'
       }}
     />

@@ -47,7 +47,6 @@ const BuffsPanel = (props: Props) => {
           key={buff}
           buff={buff}
           selectedUnit={selectedUnit}
-          isDebuff={false}
         />
       )}
     </Panel>

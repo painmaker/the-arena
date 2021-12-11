@@ -4,11 +4,13 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
+const isProduction = false;
+
 /** @type {import('webpack').Configuration} */
 module.exports = {
-  mode: 'production',
+  mode: isProduction ? 'production' : 'development',
   optimization: {
-    minimize: false,
+    minimize: isProduction,
     minimizer: [
       new TerserPlugin({}),
       new CssMinimizerPlugin({
