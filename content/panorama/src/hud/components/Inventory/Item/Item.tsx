@@ -33,7 +33,6 @@ type Props = PropsFromRedux & {
 type State = {
   isItemDragged: boolean,
   isItemDropTarget: boolean,
-  isHovering: boolean,
 }
 
 class InventoryItem extends React.Component<Props, State> {
@@ -52,7 +51,6 @@ class InventoryItem extends React.Component<Props, State> {
     this.state = {
       isItemDragged: false,
       isItemDropTarget: false,
-      isHovering: false,
     }
   }
 
@@ -199,13 +197,11 @@ class InventoryItem extends React.Component<Props, State> {
     const panel = $("#inventory_item_container_" + this.props.index);
     const ability = Abilities.GetAbilityName(this.props.item);
     $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", panel, ability, this.props.selectedUnit);
-    this.setState({ isHovering: true });
   }
 
   onMouseOut(): void {
     const panel = $("#inventory_item_container_" + this.props.index);
     $.DispatchEvent("DOTAHideAbilityTooltip", panel);
-    this.setState({ isHovering: false });
   }
 
   render() {

@@ -34,7 +34,7 @@ const Damage = (props: Props) => {
       {bonusDamage !== 0 && (
         <Label
           style={{ color: bonusDamage > 0 ? 'rgba(0, 128, 0, 0.75)' : 'rgba(175, 0, 0, 0.75)' }}
-          text={(bonusDamage > 0 ? '+' : '') + "(" + bonusDamage.toFixed(0) + ")"}
+          text={(bonusDamage > 0 ? '+' : '') + bonusDamage.toFixed(0)}
         />
       )}
     </Panel>

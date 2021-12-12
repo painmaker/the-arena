@@ -545,7 +545,7 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HealthBar/styles.module.css ***!
   \*********************************************************************************************************************************/
 .rV87EGQiWNRNHbG9vdNq {
-	width: 342.5px;
+	width: 349px;
 	height: 18.5px;
 	vertical-align: bottom;
 	horizontal-align: center;
@@ -586,7 +586,7 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ManaBar/styles.module.css ***!
   \*******************************************************************************************************************************/
 .lmSadXOv8dn4_iAErJ2E {
-	width: 342.5px;
+	width: 349px;
 	height: 18.5px;
 	vertical-align: bottom;
 	horizontal-align: center;
@@ -658,38 +658,39 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/stats.module.css ***!
   \****************************************************************************************************************************/
 .oC1j0mW0_9JGy6vDTaRi {
-  vertical-align: bottom;
-  horizontal-align: center;
-  height: 30px;
-  flow-children: right;
-  border-radius: 7px;
-  background-color: rgba(25, 25, 25, 0.85);
-  margin-bottom: 5px;
-  width: fit-children;
-  padding-right: 8px;
-  padding-left: 8px;
-} 
+	vertical-align: bottom;
+	horizontal-align: center;
+	height: 30px;
+	flow-children: right;
+	border-radius: 7px;
+	background-color: rgba(25, 25, 25, 0.9);
+	margin-bottom: 5px;
+	width: fit-children;
+	padding-right: 8px;
+	padding-left: 8px;
+	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px;
+}
 
 .H6TAG5JpSntZ0naNF1nw {
-  width: 15px;
-  height: 15px;
-  background-size: contain;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  vertical-align: middle;
-  margin-right: 2px;
-  horizontal-align: center;
+	width: 15px;
+	height: 15px;
+	background-size: contain;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	margin-right: 2px;
+	horizontal-align: center;
 }
 
 .Gn4LgS5tAAgOJCBuE4FW {
-  flow-children: right;
-  vertical-align: center;
-  margin-left: 8px;
-  margin-right: 8px;
+	flow-children: right;
+	vertical-align: center;
+	margin-left: 8px;
+	margin-right: 8px;
 }
 
 .vyfRuPA7ygACF45F2ZxX {
-  color: rgba(255, 255, 255, 0.5);
+	color: rgba(255, 255, 255, 0.5);
 }
 
 /*!**********************************************************************************************************************************!*\

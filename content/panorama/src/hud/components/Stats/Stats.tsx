@@ -17,7 +17,7 @@ const Stats = (props: Props) => {
   const { selectedUnit } = props;
 
   return (
-    <Panel className={Styles.container}>
+    <Panel className={Styles.container} hittest={true}>
       <Level selectedUnit={selectedUnit} />
       <Armor selectedUnit={selectedUnit} />
       <MagicResistance selectedUnit={selectedUnit} />

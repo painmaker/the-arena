@@ -30,10 +30,10 @@ const onMouseOut = (buff: BuffID) => {
   }
 }
 
-const onMouseOver = (selectedUnit: EntityIndex, buff: BuffID, isEnemy: boolean) => {
+const onMouseOver = (selectedUnit: EntityIndex, buff: BuffID, isDebuff: boolean) => {
   const thisPanel = $("#buff_" + buff);
   if (thisPanel) {
-    $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, selectedUnit, buff, isEnemy);
+    $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, selectedUnit, buff, isDebuff);
   }
 }
 
@@ -46,7 +46,7 @@ const Modifier = (props: Props) => {
 
   const [show, setShow] = useState(false);
 
-  const isEnemy = Entities.IsEnemy(selectedUnit);
+  const isDebuff = Buffs.IsDebuff(selectedUnit, buff);
   const isAura = aura_modifiers.includes(Buffs.GetName(selectedUnit, buff));
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const Modifier = (props: Props) => {
       className={Styles.container}
       onactivate={() => onRightClick(selectedUnit, buff)}
       onmouseout={() => onMouseOut(buff)}
-      onmouseover={() => onMouseOver(selectedUnit, buff, isEnemy)}
+      onmouseover={() => onMouseOver(selectedUnit, buff, isDebuff)}
     >
       <Background
         buff={buff}
