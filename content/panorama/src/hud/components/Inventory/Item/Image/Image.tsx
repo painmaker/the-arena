@@ -15,6 +15,7 @@ const Image = (props: Props) => {
   const { item, selectedUnit } = props;
 
   const [isCooldownReady, setIsCooldownReady] = useState(Abilities.IsCooldownReady(item));
+  const [isActive, setIsActive] = useState(Abilities.IsActivated(item));
   const [hasEnoughMana, setHasEnoughMana] = useState(Abilities.IsOwnersManaEnough(item));
   const [texture, setTexutre] = useState(Abilities.GetAbilityTextureName(item));
   const [showLock, setShowLock] = useState(false);
@@ -29,23 +30,31 @@ const Image = (props: Props) => {
     setIsCooldownReady(Abilities.IsCooldownReady(item));
     setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
     setTexutre(Abilities.GetAbilityTextureName(item));
+    setIsActive(Abilities.GetLocalPlayerActiveAbility() === item);
   }, HUD_THINK_FAST);
 
   return (
-    <React.Fragment>
+    <Panel
+      className={Styles.container}
+      style={{
+        padding: isActive ? '1px' : '0px',
+        backgroundColor: isActive
+          ? "gradient(linear, 0% 0%, 0% 100%, from(rgb(200, 200, 200)), color-stop(0.2, rgb(50, 50, 50)), to(rgb(0, 0, 0)) )"
+          : "black"
+      }}
+    >
       {(isCooldownReady && showLock) && (
         <Panel className={Styles.lockIcon} />
       )}
       <DOTAItemImage
         itemname={texture}
-        className={Styles.container}
+        className={Styles.itemImage}
         style={{
           saturation: isCooldownReady ? '1.0' : '0.5',
-          border: !isCooldownReady ? '3px solid rgba(50, 50, 50, 0.75)' : '0px solid black',
           washColor: showLock ? 'rgba(0, 0, 0, 0.8)' : hasEnoughMana ? 'none' : '#1569be',
         }}
       />
-    </React.Fragment>
+    </Panel>
   );
 
 };

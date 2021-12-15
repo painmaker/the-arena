@@ -6,8 +6,8 @@ import { RootState } from "../../../reducers/rootReducer";
 import { ItemOptionsActionTypes } from "../../../types/itemOptionsTypes";
 import Styles from "./styles.module.css";
 
-const POS_X_OFFSET = 138;
-const POST_Y_OFFSET = -40;
+const POS_X_OFFSET = 146;
+const POST_Y_OFFSET = -35;
 
 const mapStateToProps = (state: RootState) => ({
   item: state.itemOptionsReducer.item,

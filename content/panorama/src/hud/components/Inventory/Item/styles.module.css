@@ -1,11 +1,10 @@
 .container {
 	width: 55px;
 	height: 40px;
-	border-radius: 5px;
-	border: 1px solid black;
-	background-color: rgba(0, 0, 0, 0.85);
-	background-image: url('s2r://panorama/images/emptyitembg.png');
-	background-size: 100%;
+	border-radius: 3px;
 	margin-right: 2px;
 	margin-left: 2px;
+	padding: 1px;
+	background-color: black;
+	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px;
 }

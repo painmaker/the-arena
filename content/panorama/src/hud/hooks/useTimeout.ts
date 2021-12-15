@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export const useTimeout = (callback: Function, delay: number = 0, deps?: unknown[]) => {
+export const useTimeout = (callback: Function, delay: number = 0) => {
 
   const savedCallback = useRef<Function>(() => { });
 
@@ -22,6 +22,6 @@ export const useTimeout = (callback: Function, delay: number = 0, deps?: unknown
       clearTimeout(id);
     }
 
-  }, [delay, deps]);
+  }, [delay]);
 
 }
