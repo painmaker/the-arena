@@ -27,7 +27,7 @@ const TimedBackground = (props: Props) => {
       <Panel
         className={Styles.border}
         style={{
-          washColor: Buffs.IsDebuff(selectedUnit, buff) ? 'rgba(245, 60, 20, 0.95)' : '#8bdd4f',
+          washColor: Buffs.IsDebuff(selectedUnit, buff) ? 'rgba(245, 50, 20, 0.95)' : '#8bdd4f',
           clip: 'radial(50% 50%, 0deg, ' + -degree + 'deg)'
         }}
       />
