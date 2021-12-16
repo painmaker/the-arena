@@ -7,7 +7,7 @@ import { ItemOptionsActionTypes } from "../../../types/itemOptionsTypes";
 import Styles from "./styles.module.css";
 
 const POS_X_OFFSET = 146;
-const POST_Y_OFFSET = -35;
+const POST_Y_OFFSET = -32;
 
 const mapStateToProps = (state: RootState) => ({
   item: state.itemOptionsReducer.item,

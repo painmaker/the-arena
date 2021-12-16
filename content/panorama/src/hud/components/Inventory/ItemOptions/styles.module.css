@@ -32,31 +32,24 @@
 	padding-left: 2px;
 	padding-top: 6px;
 	padding-bottom: 4px;
-	background-color: rgba(48, 66, 80, 0.5);
-}
-
-.divider {
-	background-color: rgba(255, 255, 255, 0.5);
-	width: 100%;
-	height: 1px;
+	background-color: rgb(20, 20, 20);
 }
 
 .option {
 	width: 100%;
 	text-align: center;
 	font-size: 16px;
-	padding-top: 2.5px;
-	padding-bottom: 2.5px;
-	border-top: 2px solid rgba(44, 53, 60, 1);
-	background-color: rgba(24, 33, 40, 1);
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border: 1px solid black;
+	background-color: rgb(30, 30, 30);
 	color: #acaaaa;
 	letter-spacing: 1px;
-	saturation: 1.1;
 	text-shadow: 1px 1px 2px 2 #000000;
 }
 
 .option:hover {
-	saturation: 0.5;
+	background-color: rgba(50, 50, 50, 1);
 }
 
 .closeBtnContainer {
@@ -68,21 +61,23 @@
 	margin-right: 14px;
 	z-index: 99999;
 	border-radius: 50%;
-	background-color: rgba(24, 33, 40, 1);
+	background-color: rgba(40, 40, 40, 1);
 	border: 2px solid black;
-	saturation: 1.5;
 }
 
 .closeBtnContainer:hover {
-	saturation: 0.5;
-	background-color: rgba(40, 40, 40, 1);
+	background-color: rgba(55, 55, 55, 1);
 }
 
 .closeBtn {
 	width: 15px;
 	height: 15px;
-	wash-color: rgba(50, 50, 50, 0.7);
+	wash-color: rgba(50, 50, 50, 0.4);
 	margin-left: 1px;
+}
+
+.closeBtn:hover {
+	wash-color: rgba(50, 50, 50, 0.1);
 }
 
 .arrowheadContainer {
@@ -91,9 +86,9 @@
 }
 
 .arrowheadImage {
-	width: 20px;
-	height: 10px;
-	wash-color: rgba(24, 33, 40, 1);
+	width: 25px;
+	height: 15px;
+	wash-color: rgba(25, 25, 25, 1);
 	z-index: 9999;
 	pre-transform-rotate2d: 180deg;
 	horizontal-align: center;

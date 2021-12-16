@@ -225,7 +225,7 @@ class InventoryItem extends React.Component<Props, State> {
       >
         {this.props.item !== -1 && (
           <React.Fragment>
-            <Shine item={this.props.item} />
+            <Shine item={this.props.item} selectedUnit={this.props.selectedUnit} />
             <Cooldown item={this.props.item} />
             {Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer()) && (
               <Keybind item={this.props.item} />

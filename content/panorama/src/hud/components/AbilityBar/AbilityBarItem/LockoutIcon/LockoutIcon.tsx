@@ -14,27 +14,20 @@ const LockoutIcon = (props: Props) => {
 
   const { ability, selectedUnit } = props;
 
-  const [showLock, setShowLock] = useState(false);
+  const [isSilenced, setIsSilenced] = useState(Abilities.GetCooldownTimeRemaining(ability) === 0 && Entities.IsSilenced(selectedUnit));
 
   useInterval(() => {
-    const isStunned = Entities.IsStunned(selectedUnit);
-    const isSilenced = Entities.IsSilenced(selectedUnit);
-    const isCommandRestricted = Entities.IsCommandRestricted(selectedUnit);
-    const isNightmared = Entities.IsNightmared(selectedUnit);
-    const isHexed = Entities.IsHexed(selectedUnit);
-    const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
-    const showLock = cooldownRemaining === 0 && (isStunned || isSilenced || isCommandRestricted || isNightmared || isHexed);
-    setShowLock(showLock);
+    setIsSilenced(Abilities.GetCooldownTimeRemaining(ability) === 0 && Entities.IsSilenced(selectedUnit));
   }, HUD_THINK_FAST);
 
-  if (!showLock) {
+  if (!isSilenced) {
     return null;
   }
 
   return (
     <Panel
       className={Styles.container}
-      style={{ backgroundColor: showLock ? 'rgba(0, 0, 0, 0.9)' : 'none' }}
+      style={{ backgroundColor: isSilenced ? 'rgba(0, 0, 0, 0.9)' : 'none' }}
     >
       <Panel className={Styles.icon} />
     </Panel>

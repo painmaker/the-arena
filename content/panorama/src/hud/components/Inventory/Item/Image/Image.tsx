@@ -18,15 +18,10 @@ const Image = (props: Props) => {
   const [isActive, setIsActive] = useState(Abilities.GetLocalPlayerActiveAbility() === item);
   const [hasEnoughMana, setHasEnoughMana] = useState(Abilities.IsOwnersManaEnough(item));
   const [texture, setTexutre] = useState(Abilities.GetAbilityTextureName(item));
-  const [showLock, setShowLock] = useState(false);
+  const [isMuted, setIsMuted] = useState(Entities.IsMuted(selectedUnit));
 
   useInterval(() => {
-    const isMuted = Entities.IsMuted(selectedUnit);
-    const isStunned = Entities.IsStunned(selectedUnit);
-    const isCommandRestricted = Entities.IsCommandRestricted(selectedUnit);
-    const isNightmared = Entities.IsNightmared(selectedUnit);
-    const isHexed = Entities.IsHexed(selectedUnit);
-    setShowLock(isMuted || isStunned || isCommandRestricted || isNightmared || isHexed);
+    setIsMuted(Entities.IsMuted(selectedUnit));
     setIsCooldownReady(Abilities.IsCooldownReady(item));
     setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
     setTexutre(Abilities.GetAbilityTextureName(item));
@@ -38,11 +33,18 @@ const Image = (props: Props) => {
       className={Styles.container}
       style={{
         backgroundColor: isActive
-          ? "gradient(linear, 50% 0%, 50% 50%, from(rgba(255, 255, 255, 0.5)), color-stop(0.5, #045d5688), to(rgb(0, 0, 0)) );"
+          ? `gradient(
+            linear,
+            50% 0%,
+            35% 100%,
+            from(rgba(255, 255, 255, 0.8)),
+            color-stop(0.5, rgba(50, 50, 50, 0.5)),
+            to(rgb(0, 0, 0))
+          )`
           : "black"
       }}
     >
-      {(isCooldownReady && showLock) && (
+      {(isCooldownReady && isMuted) && (
         <Panel className={Styles.lockIcon} />
       )}
       <DOTAItemImage
@@ -50,8 +52,8 @@ const Image = (props: Props) => {
         className={Styles.itemImage}
         style={{
           saturation: isCooldownReady ? '1.0' : '0.5',
-          washColor: (showLock || !isCooldownReady) ? 'rgba(100, 100, 100, 0.8)' : hasEnoughMana ? 'none' : '#1569be',
-          padding: isActive ? '-0.75px' : !isCooldownReady ? '1px' : '0px',
+          washColor: (isMuted || !isCooldownReady) ? 'rgba(100, 100, 100, 0.8)' : hasEnoughMana ? 'none' : '#1569be',
+          padding: isActive ? '-2px' : !isCooldownReady ? '1px' : '0px',
         }}
       />
     </Panel>

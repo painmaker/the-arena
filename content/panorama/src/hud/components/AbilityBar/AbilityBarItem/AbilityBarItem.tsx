@@ -124,7 +124,7 @@ const AbilityBarItem = (props: Props) => {
             backgroundColor: (isActive || isToggled || isAutoCastEnabled) ? 'rgba(255, 165, 50, 0.2)' : 'black',
           }}
         >
-          <Shine ability={ability} />
+          <Shine ability={ability} selectedUnit={selectedUnit} />
           <Image ability={ability} selectedUnit={selectedUnit} />
           <Cooldown ability={ability} />
           <Autocast ability={ability} />
