@@ -3,7 +3,7 @@
 	width: 14px;
 	height: 14px;
 	z-index: 9999;
-	border-radius: 4px;
+	margin: 1px;
 }
 
 .label {
@@ -13,4 +13,6 @@
 	vertical-align: center;
 	horizontal-align: center;
 	text-shadow: 1px 1px 4px 4 black;
+	padding-right: 1px;
+	padding-bottom: 1px;
 }
