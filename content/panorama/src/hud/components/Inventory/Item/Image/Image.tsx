@@ -37,9 +37,8 @@ const Image = (props: Props) => {
     <Panel
       className={Styles.container}
       style={{
-        padding: isActive ? '1px' : '0px',
         backgroundColor: isActive
-          ? "gradient(linear, 0% 0%, 0% 100%, from(rgb(200, 200, 200)), color-stop(0.2, rgb(50, 50, 50)), to(rgb(0, 0, 0)) )"
+          ? "gradient(linear, 50% 0%, 50% 40%, from(rgba(200, 200, 200, 0.5)), color-stop(0.5, #045d5688), to(rgb(0, 0, 0)) );"
           : "black"
       }}
     >
@@ -51,7 +50,8 @@ const Image = (props: Props) => {
         className={Styles.itemImage}
         style={{
           saturation: isCooldownReady ? '1.0' : '0.5',
-          washColor: showLock ? 'rgba(0, 0, 0, 0.8)' : hasEnoughMana ? 'none' : '#1569be',
+          washColor: (showLock || !isCooldownReady) ? 'rgba(100, 100, 100, 0.8)' : hasEnoughMana ? 'none' : '#1569be',
+          padding: isActive ? '-0.75px' : '0px',
         }}
       />
     </Panel>
