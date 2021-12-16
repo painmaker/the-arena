@@ -13,7 +13,7 @@ const Keybind = (props: Props) => {
 
   const { item } = props;
 
-  const [keybind, setKeybind] = useState('');
+  const [keybind, setKeybind] = useState(Abilities.IsPassive(item) ? '' : Abilities.GetKeybind(item));
 
   useInterval(() => {
     setKeybind(Abilities.IsPassive(item) ? '' : Abilities.GetKeybind(item));

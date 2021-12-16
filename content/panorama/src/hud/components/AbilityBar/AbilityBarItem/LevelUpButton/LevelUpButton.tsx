@@ -20,7 +20,8 @@ const LevelUpButton = (props: Props) => {
     const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
     const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
     const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
-    const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints;
+    const isMaxLevel = Abilities.GetLevel(ability) === Abilities.GetMaxLevel(ability);
+    const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints && !isMaxLevel;
     setIsAbilityUpgradeable(isAbilityUpgradeable);
   }, HUD_THINK_FAST);
 

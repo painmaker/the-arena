@@ -36,11 +36,11 @@ const Inventory = (props: Props) => {
         className={Styles.container}
         style={{ visibility: hasInventory ? 'visible' : 'collapse' }}
       >
-        {items.map((item, index) => {
+        {items.map((item, slot) => {
           return (
             <Item
-              key={index}
-              index={index}
+              key={item + "_" + slot}
+              slot={slot}
               item={item || -1 as ItemEntityIndex}
               selectedUnit={selectedUnit}
             />

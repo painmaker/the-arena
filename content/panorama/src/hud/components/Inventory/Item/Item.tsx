@@ -9,6 +9,7 @@ import { setItemOptionsItem, setItemOptionsPositionX, setItemOptionsVisible } fr
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../../reducers/rootReducer";
 import Styles from "./styles.module.css";
+import Shine from "./Shine/Shine";
 
 const mapStateToProps = (state: RootState) => ({
   itemOptionsVisible: state.itemOptionsReducer.visible,
@@ -27,7 +28,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & {
   item: ItemEntityIndex,
   selectedUnit: EntityIndex,
-  index: number,
+  slot: number,
 };
 
 type State = {
@@ -55,7 +56,7 @@ class InventoryItem extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    const panel = $("#inventory_item_container_" + this.props.index);
+    const panel = $("#inventory_item_container_" + this.props.item);
     $.RegisterEventHandler('DragEnter', panel, this.OnDragEnter);
     $.RegisterEventHandler('DragDrop', panel, this.OnDragDrop);
     $.RegisterEventHandler('DragLeave', panel, this.OnDragLeave);
@@ -131,7 +132,7 @@ class InventoryItem extends React.Component<Props, State> {
 
     Game.PrepareUnitOrders({
       OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_MOVE_ITEM,
-      TargetIndex: this.props.index,
+      TargetIndex: this.props.slot,
       AbilityIndex: draggedItem
     });
 
@@ -159,7 +160,7 @@ class InventoryItem extends React.Component<Props, State> {
 
   onItemRightClicked(): void {
 
-    const panel = $("#inventory_item_container_" + this.props.index);
+    const panel = $("#inventory_item_container_" + this.props.item);
     $.DispatchEvent("DOTAHideAbilityTooltip", panel);
 
     if (this.props.item === -1) {
@@ -194,13 +195,13 @@ class InventoryItem extends React.Component<Props, State> {
     if (this.props.item === -1) {
       return;
     }
-    const panel = $("#inventory_item_container_" + this.props.index);
+    const panel = $("#inventory_item_container_" + this.props.item);
     const ability = Abilities.GetAbilityName(this.props.item);
     $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", panel, ability, this.props.selectedUnit);
   }
 
   onMouseOut(): void {
-    const panel = $("#inventory_item_container_" + this.props.index);
+    const panel = $("#inventory_item_container_" + this.props.item);
     $.DispatchEvent("DOTAHideAbilityTooltip", panel);
   }
 
@@ -210,7 +211,7 @@ class InventoryItem extends React.Component<Props, State> {
 
     return (
       <Panel
-        id={"inventory_item_container_" + this.props.index}
+        id={"inventory_item_container_" + this.props.item}
         onmouseover={this.onMouseOver}
         onmouseout={this.onMouseOut}
         onactivate={this.onItemLeftClicked}
@@ -223,7 +224,8 @@ class InventoryItem extends React.Component<Props, State> {
         }}
       >
         {this.props.item !== -1 && (
-          <Panel className={Styles.itemContainer}>
+          <React.Fragment>
+            <Shine item={this.props.item} />
             <Cooldown item={this.props.item} />
             {Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer()) && (
               <Keybind item={this.props.item} />
@@ -231,7 +233,7 @@ class InventoryItem extends React.Component<Props, State> {
             <Charges item={this.props.item} />
             <Image item={this.props.item} selectedUnit={this.props.selectedUnit} />
             <ManaCost item={this.props.item} />
-          </Panel>
+          </React.Fragment>
         )}
       </Panel>
     );

@@ -11,6 +11,7 @@ import CastPointOverlay from "./CastPointOverlay/CastPointOverlay";
 import { HUD_THINK_FAST } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import Styles from './styles.module.css';
+import Shine from "./Shine/Shine";
 
 const onMouseOver = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
   $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_" + ability), Abilities.GetAbilityName(ability), selectedUnit);
@@ -123,6 +124,7 @@ const AbilityBarItem = (props: Props) => {
             backgroundColor: (isActive || isToggled || isAutoCastEnabled) ? 'rgba(255, 165, 50, 0.2)' : 'black',
           }}
         >
+          <Shine ability={ability} />
           <Image ability={ability} selectedUnit={selectedUnit} />
           <Cooldown ability={ability} />
           <Autocast ability={ability} />

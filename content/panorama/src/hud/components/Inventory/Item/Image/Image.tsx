@@ -15,7 +15,7 @@ const Image = (props: Props) => {
   const { item, selectedUnit } = props;
 
   const [isCooldownReady, setIsCooldownReady] = useState(Abilities.IsCooldownReady(item));
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(Abilities.GetLocalPlayerActiveAbility() === item);
   const [hasEnoughMana, setHasEnoughMana] = useState(Abilities.IsOwnersManaEnough(item));
   const [texture, setTexutre] = useState(Abilities.GetAbilityTextureName(item));
   const [showLock, setShowLock] = useState(false);
