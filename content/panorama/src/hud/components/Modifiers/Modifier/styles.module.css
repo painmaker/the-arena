@@ -1,14 +1,13 @@
 .container {
-	width: 34px;
-	height: 34px;
+	width: 35px;
+	height: 35px;
 	margin-right: 5px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	border-radius: 50%;
-	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 1px;
 	opacity: 0;
 	pre-transform-scale2d: 0;
 	transition-property: pre-transform-scale2d, opacity, transform;
 	transition-duration: 0.2s;
-	background-color: black;
+	box-shadow: fill rgba(0, 0, 0, 0.3) 0px 0px 10px 1px;
 }

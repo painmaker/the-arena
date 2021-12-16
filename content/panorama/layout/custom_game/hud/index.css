@@ -725,39 +725,64 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/styles.module.css ***!
   \******************************************************************************************************************************************/
 .hP53l9q7lqT_sneNCQgJ {
-	width: 34px;
-	height: 34px;
+	width: 35px;
+	height: 35px;
 	margin-right: 5px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	border-radius: 50%;
-	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 1px;
 	opacity: 0;
 	pre-transform-scale2d: 0;
 	transition-property: pre-transform-scale2d, opacity, transform;
 	transition-duration: 0.2s;
-	background-color: black;
+	box-shadow: fill rgba(0, 0, 0, 0.3) 0px 0px 10px 1px;
 }
 
 /*!**********************************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/Background/FilledBackground/styles.module.css ***!
   \**********************************************************************************************************************************************************************/
 .CRykTZjLQyBcivGKndjH {
+	width: 93%;
+	height: 93%;
+	vertical-align: center;
+	horizontal-align: center;
+	background-color: black;
+	border-radius: 50%;
+}
+
+.AaYs5nHpLqMGNNnAopEl {
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
 	clip: radial(50% 50%, 0deg, 359.9deg);
 	wash-color: rgba(0, 0, 0, 0.2);
+	background-image: url('s2r://panorama/images/hud/reborn/buff_outline_psd.vtex');
+	background-position: 50% 50%;
+	background-size: 100%;
+	background-repeat: no-repeat;
 }
 
 /*!*********************************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/Background/TimedBackground/styles.module.css ***!
   \*********************************************************************************************************************************************************************/
-.shSQxdjxhHVlp4a1MJZQ {
+.On3xyIdC0Bq4Mn46kJWQ {
+	width: 93%;
+	height: 93%;
+	vertical-align: center;
+	horizontal-align: center;
+	background-color: black;
+	border-radius: 50%;
+}
+
+.DhZby3EuF6aL3WSWKWDX {
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
 	wash-color: rgba(0, 0, 0, 0.2);
+	background-image: url('s2r://panorama/images/hud/reborn/buff_outline_psd.vtex');
+	background-position: 50% 50%;
+	background-size: 100%;
+	background-repeat: no-repeat;
 }
 
 /*!************************************************************************************************************************************************************!*\
@@ -786,22 +811,24 @@
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	margin: 2px;
+	margin: 4px;
 }
 
 .Mr_qqlj1gsDjszlD62pQ {
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	border: 0.5px solid black;
+	box-shadow: inset rgba(0, 0, 0, 0.4) 0px 1px 10px 1px;
+	border: 1px solid black;
 }
 
 .c1Y3rh5xMK6thCsr6pjQ {
 	width: 100%;
 	height: 100%;
-	border-radius: 50%;
 	padding: -8px;
-	border: 0.5px solid black;
+	border-radius: 50%;
+	box-shadow: inset rgba(0, 0, 0, 0.4) 0px 1px 10px 1px;
+	border: 1px solid black;
 }
 
 /*!*****************************************************************************************************************************************!*\

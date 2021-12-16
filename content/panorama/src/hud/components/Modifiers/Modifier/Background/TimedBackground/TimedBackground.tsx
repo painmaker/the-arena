@@ -22,14 +22,17 @@ const TimedBackground = (props: Props) => {
   }, HUD_THINK_FAST)
 
   return (
-    <Panel
-      className={Styles.container}
-      style={{
-        backgroundColor: Buffs.IsDebuff(selectedUnit, buff) ? 'rgba(195, 40, 40, 0.9)' : 'rgba(0, 200, 20, 0.9)',
-        clip: 'radial(50% 50%, 0deg, ' + -degree + 'deg)'
-      }}
-    />
-  )
+    <React.Fragment>
+      <Panel className={Styles.background} />
+      <Panel
+        className={Styles.border}
+        style={{
+          washColor: Buffs.IsDebuff(selectedUnit, buff) ? 'rgba(245, 60, 20, 0.95)' : '#8bdd4f',
+          clip: 'radial(50% 50%, 0deg, ' + -degree + 'deg)'
+        }}
+      />
+    </React.Fragment>
+  );
 
 }
 
