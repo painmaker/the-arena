@@ -14,6 +14,8 @@ export const useInterval = (callback: Function, delay: number = 0) => {
       savedCallback.current();
     }
 
+    update();
+
     // @ts-ignore
     const id = setInterval(update, delay);
 

@@ -13,8 +13,8 @@
 	background-color: orange;
 	height: 100%;
 	vertical-align: middle;
-	margin: 4px;
-	/* transition: width 0.2s ease-in-out 0s; */
+	margin: 3px;
+	transition: width 0.3s ease-in-out 0.1s;
 }
 
 .levelPctLabel {

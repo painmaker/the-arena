@@ -3,13 +3,22 @@
 	horizontal-align: center;
 	height: 30px;
 	flow-children: right;
-	border-radius: 7px;
-	background-color: rgba(25, 25, 25, 0.9);
+	border-radius: 3px;
 	margin-bottom: 5px;
 	width: fit-children;
 	padding-right: 8px;
 	padding-left: 8px;
-	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px;
+	box-shadow: fill rgba(60, 60, 60, 0.3) 0px 0px 6px 2px;
+	background-image: url('s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex');
+	background-position: 50% 50%;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-img-opacity: 1.85;
+	background-color: rgba(30, 30, 30, 0.9);
+}
+
+.container:hover {
+	background-color: rgba(20, 20, 20, 0.95);
 }
 
 .image {

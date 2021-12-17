@@ -648,8 +648,8 @@
 	background-color: orange;
 	height: 100%;
 	vertical-align: middle;
-	margin: 4px;
-	/* transition: width 0.2s ease-in-out 0s; */
+	margin: 3px;
+	transition: width 0.3s ease-in-out 0.1s;
 }
 
 .TAd15y9KOLziRLp0b0gg {
@@ -666,13 +666,22 @@
 	horizontal-align: center;
 	height: 30px;
 	flow-children: right;
-	border-radius: 7px;
-	background-color: rgba(25, 25, 25, 0.9);
+	border-radius: 3px;
 	margin-bottom: 5px;
 	width: fit-children;
 	padding-right: 8px;
 	padding-left: 8px;
-	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px;
+	box-shadow: fill rgba(60, 60, 60, 0.3) 0px 0px 6px 2px;
+	background-image: url('s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex');
+	background-position: 50% 50%;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-img-opacity: 1.85;
+	background-color: rgba(30, 30, 30, 0.9);
+}
+
+.oC1j0mW0_9JGy6vDTaRi:hover {
+	background-color: rgba(20, 20, 20, 0.95);
 }
 
 .H6TAG5JpSntZ0naNF1nw {
@@ -719,8 +728,10 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/MoveSpeed/movespeed.module.css ***!
   \******************************************************************************************************************************************/
 .rx5gFLbNXGBFl2NHU1cX {
-  background-image: url("s2r://panorama/images/icon_speed.png");
+	background-image: url('s2r://panorama/images/icon_speed.png');
+	margin-left: -2px;
 }
+
 /*!******************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/styles.module.css ***!
   \******************************************************************************************************************************************/
@@ -981,7 +992,7 @@
 	text-shadow: 1px 1px 2px 4 #000000;
 	horizontal-align: middle;
 	vertical-align: middle;
-	z-index: 4;
+	z-index: 5;
 	text-align: center;
 	font-family: monospaceNumbersFont;
 }

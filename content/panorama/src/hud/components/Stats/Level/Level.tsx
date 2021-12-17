@@ -14,7 +14,7 @@ const Level = (props: Props) => {
 
   const { selectedUnit } = props;
 
-  const [level, setLevel] = useState(Entities.GetLevel(selectedUnit));
+  const [level, setLevel] = useState(1);
   const [percentage, setPercentage] = useState(0);
 
   useInterval(() => {
@@ -22,7 +22,7 @@ const Level = (props: Props) => {
       const currentXp = Entities.GetCurrentXP(selectedUnit);
       const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
       const percentage = Math.floor(Math.max(0, Math.min(100, currentXp / requiredXp * 100)))
-      setPercentage(Number.isNaN(percentage) ? 100 : percentage)
+      setPercentage(percentage ? percentage : 0)
     } else {
       setPercentage(100);
     }
@@ -44,7 +44,7 @@ const Level = (props: Props) => {
         </Panel>
         <Label
           className={`${Styles.levelPctLabel} ${ParentStyles.label}`}
-          text={Number.isFinite(percentage) ? percentage + "%" : '100%'}
+          text={percentage + "%"}
         />
       </Panel>
     </React.Fragment>
