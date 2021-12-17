@@ -17,10 +17,6 @@
 	background-color: rgba(30, 30, 30, 0.9);
 }
 
-.container:hover {
-	background-color: rgba(20, 20, 20, 0.95);
-}
-
 .image {
 	width: 15px;
 	height: 15px;
