@@ -1,25 +1,24 @@
-
 .levelBarContainer {
-  width: 100px;
-  height: 100%;
-  vertical-align: center;
-  background-color: rgba(0, 0, 0, 0.65);
-  margin-top: 3px;
-  margin-bottom: 3px;
-  margin-left: 4px;
-  border-radius: 4px;
+	width: 100px;
+	height: 100%;
+	vertical-align: center;
+	background-color: rgba(0, 0, 0, 0.65);
+	margin-top: 3px;
+	margin-bottom: 3px;
+	margin-left: 4px;
+	border-radius: 4px;
 }
 
 .levelBar {
-  background-color: orange;
-  height: 100%;
-  vertical-align: middle;
-  margin: 4px;
-  transition: width 0.2s ease-in-out 0.0s;
+	background-color: orange;
+	height: 100%;
+	vertical-align: middle;
+	margin: 4px;
+	/* transition: width 0.2s ease-in-out 0s; */
 }
 
 .levelPctLabel {
-  font-size: 14px;
-  vertical-align: middle;
-  margin-left: 4px;
+	font-size: 14px;
+	vertical-align: middle;
+	margin-left: 4px;
 }
