@@ -43,10 +43,10 @@
 		"DOTA_Tooltip_Ability_dazzle_healing_wave_cast_range" "CAST RANGE:"
     
     "DOTA_Tooltip_Ability_dazzle_depraved_healing" "<font color=\"#b036d1\">Depraved Healing</font>"
-    "DOTA_Tooltip_Ability_dazzle_depraved_healing_Description" "Heals the target for a significant amount, but also damages the caster."
+    "DOTA_Tooltip_Ability_dazzle_depraved_healing_Description" "Heals the target for a significant amount, but also damages the caster. The damage is not lethal. Cannot be cast if you are not above the damage threshold, unless casted on yourself."
     "DOTA_Tooltip_Ability_dazzle_depraved_healing_Lore" "Altruistic but depraved..."
-		"DOTA_Tooltip_Ability_dazzle_depraved_healing_healing" "HEALING:"
-		"DOTA_Tooltip_Ability_dazzle_depraved_healing_self_damage" "SELF DAMAGE:"
+		"DOTA_Tooltip_Ability_dazzle_depraved_healing_heal" "HEALING:"
+		"DOTA_Tooltip_Ability_dazzle_depraved_healing_damage" "SELF DAMAGE:"
 		"DOTA_Tooltip_Ability_dazzle_depraved_healing_cast_range" "CAST RANGE:"
 
     "DOTA_Tooltip_Ability_dazzle_juju_enrage" "<font color=\"#b036d1\">Juju Enrage</font>"

@@ -14,16 +14,17 @@
 		    "AbilityUnitTargetTeam"			    "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
         "AbilityUnitTargetType"			    "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
         "AbilityUnitTargetFlags"			  "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
-		    "AbilityUnitDamageType"		  	  "DAMAGE_TYPE_NONE"		
+		    "AbilityUnitDamageType"		  	  "DAMAGE_TYPE_MAGICAL"		
 		    "SpellDispellableType"			    ""
         "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_YES"
 
         "precache"
         {
-          "soundfile"   "sounds/weapons/hero/dazzle/shadow_wave.vsnd"
+          
         }
 
         // "AbilityCastRange"           ""
+        "AbilityCastRange"				      "900 100 1100 1200 1000"
         "AbilityCastPoint"              "0.35"
         "AbilityCooldown"               "1.0"
         "AbilityManaCost"               "5"
@@ -33,12 +34,12 @@
             "01"
             {
                 "var_type"              "FIELD_INTEGER"
-                "healing"               "200 300 400 500"
+                "heal"                  "500 600 700 800"
             }
             "02"
             {
                 "var_type"              "FIELD_INTEGER"
-                "self_damage"           "50 100 150 200"
+                "damage"                "50 100 150 200"
             }
             "03"
             {
