@@ -31,8 +31,8 @@
     "item_bloodstone" "Bloodstone"
 
 
-
-    "DOTA_Tooltip_Ability_dazzle_healing_wave" "<font color=\"#3fb54f\">Healing Wave</font>"
+    // DAZZLE
+    "DOTA_Tooltip_Ability_dazzle_healing_wave" "<font color=\"#b036d1\">Healing Wave</font>"
     "DOTA_Tooltip_Ability_dazzle_healing_wave_Description" "Heals the caster and the target. Bounces from the target to nearby allies after a short delay. Healing reduced each bounce. Prioritizes the most damaged unit."
     // "DOTA_Tooltip_Ability_dazzle_healing_wave_Lore" "Lore..."
 		"DOTA_Tooltip_Ability_dazzle_healing_wave_healing" "HEALING:"
@@ -41,10 +41,17 @@
 		"DOTA_Tooltip_Ability_dazzle_healing_wave_jump_delay" "BOUNCE DELAY:"
 		"DOTA_Tooltip_Ability_dazzle_healing_wave_jump_radius" "BOUNCE RADIUS:"
 		"DOTA_Tooltip_Ability_dazzle_healing_wave_cast_range" "CAST RANGE:"
+    
+    "DOTA_Tooltip_Ability_dazzle_depraved_healing" "<font color=\"#b036d1\">Depraved Healing</font>"
+    "DOTA_Tooltip_Ability_dazzle_depraved_healing_Description" "Heals the target for a significant amount, but also damages the caster."
+    "DOTA_Tooltip_Ability_dazzle_depraved_healing_Lore" "Altruistic but depraved..."
+		"DOTA_Tooltip_Ability_dazzle_depraved_healing_healing" "HEALING:"
+		"DOTA_Tooltip_Ability_dazzle_depraved_healing_self_damage" "SELF DAMAGE:"
+		"DOTA_Tooltip_Ability_dazzle_depraved_healing_cast_range" "CAST RANGE:"
 
     "DOTA_Tooltip_Ability_dazzle_juju_enrage" "<font color=\"#b036d1\">Juju Enrage</font>"
     "DOTA_Tooltip_Ability_dazzle_juju_enrage_Description" "Increases the attack speed, move speed, and attack damage of the targeted unit at the cost of health. The damage is dealt in intervals, and is non-lethal."
-    "DOTA_Tooltip_Ability_dazzle_juju_enrage_Lore" "Sometimes your friends just need a gentle push..."
+    "DOTA_Tooltip_Ability_dazzle_juju_enrage_Lore" "Sometimes you just need to give them a gentle push..."
     "DOTA_Tooltip_Ability_dazzle_juju_enrage_duration" "DURATION:"
     "DOTA_Tooltip_Ability_dazzle_juju_enrage_attack_speed" "BONUS ATTACK SPEED:"
     "DOTA_Tooltip_Ability_dazzle_juju_enrage_move_speed" "BONUS MOVE SPEED:"
@@ -57,7 +64,7 @@
 
     "DOTA_Tooltip_Ability_dazzle_sadistic_ritual" "<font color=\"#b036d1\">Sadistic Ritual</font>"
     "DOTA_Tooltip_Ability_dazzle_sadistic_ritual_Description" "Converts health to mana. The mana gained is greater than the health lost. Cannot be used if under the health threshold."
-    "DOTA_Tooltip_Ability_dazzle_sadistic_ritual_Lore" "A sadistic ritual for a twisted mind."
+    "DOTA_Tooltip_Ability_dazzle_sadistic_ritual_Lore" "A sadistic ritual for a twisted mind..."
     "DOTA_Tooltip_Ability_dazzle_sadistic_ritual_health_lost" "HEALTH LOST:"
     "DOTA_Tooltip_Ability_dazzle_sadistic_ritual_mana_gained" "MANA GAINED:"
 

@@ -9,6 +9,7 @@
 #base "abilities/heroes/dazzle/dazzle_healing_wave.kv"
 #base "abilities/heroes/dazzle/dazzle_juju_enrage.kv"
 #base "abilities/heroes/dazzle/dazzle_sadistic_ritual.kv"
+#base "abilities/heroes/dazzle/dazzle_depraved_healing.kv"
 
 "DOTAAbilities"
 {

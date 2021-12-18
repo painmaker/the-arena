@@ -5,6 +5,7 @@ export const ClassAbilities: Record<string, ShopAbilities> = {
       { name: "dazzle_healing_wave", aliases: ['healing', 'wave'], requiredLevel: 1 },
       { name: "dazzle_juju_enrage", aliases: ['juju', 'enrage'], requiredLevel: 1 },
       { name: "dazzle_sadistic_ritual", aliases: ['sadistic', 'ritual'], requiredLevel: 1 },
+      { name: "dazzle_depraved_healing", aliases: ['depraved', 'healing'], requiredLevel: 1 },
       { name: "dazzle_poison_touch", aliases: ['poison', 'touch'], requiredLevel: 1 },
       { name: "dazzle_shallow_grave", aliases: ['shallow', 'grave'], requiredLevel: 1 },
       { name: "witch_doctor_voodoo_restoration", aliases: ['voodoo', 'restoration'], requiredLevel: 1 },
