@@ -18,10 +18,10 @@ import Loading from "./components/Loading/Loading";
 import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
 import FloatingContainer from "./components/FloatingContainer/FloatingContainer";
 import Messages from "./components/Messages/Messages";
-// import ManaBar from "./components/ManaBar/ManaBar";
 import { useInterval } from "./hooks/useInterval";
 import "./global.css";
 import Styles from "./app.module.css";
+import ManaBar from "./components/ManaBar/ManaBar";
 
 export const HUD_THINK_FAST = 30;
 export const HUD_THINK_MEDIUM = 100;
@@ -125,7 +125,7 @@ const App = () => {
               <Character selectedUnit={selectedUnit} />
               <Shop selectedUnit={selectedUnit} />
               <AbilityBar selectedUnit={selectedUnit} />
-              {/* <ManaBar selectedUnit={selectedUnit} /> */}
+              <ManaBar selectedUnit={selectedUnit} />
               <HealthBar selectedUnit={selectedUnit} />
               <ButtonGroup />
               <Minimap />
