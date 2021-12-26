@@ -7,7 +7,6 @@ import Heroes from "./components/Heroes/Heroes";
 import GameTime from "./components/GameTime/GameTime";
 import AbilityBar from "./components/AbilityBar/AbilityBar";
 import HealthBar from "./components/HealthBar/HealthBar";
-import ManaBar from "./components/ManaBar/ManaBar";
 import Stats from "./components/Stats/Stats";
 import Character from "./components/Character/Character";
 import Debuffs from "./components/Modifiers/Debuffs/Debuffs";
@@ -19,6 +18,7 @@ import Loading from "./components/Loading/Loading";
 import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
 import FloatingContainer from "./components/FloatingContainer/FloatingContainer";
 import Messages from "./components/Messages/Messages";
+// import ManaBar from "./components/ManaBar/ManaBar";
 import { useInterval } from "./hooks/useInterval";
 import "./global.css";
 import Styles from "./app.module.css";
@@ -125,7 +125,7 @@ const App = () => {
               <Character selectedUnit={selectedUnit} />
               <Shop selectedUnit={selectedUnit} />
               <AbilityBar selectedUnit={selectedUnit} />
-              <ManaBar selectedUnit={selectedUnit} />
+              {/* <ManaBar selectedUnit={selectedUnit} /> */}
               <HealthBar selectedUnit={selectedUnit} />
               <ButtonGroup />
               <Minimap />
