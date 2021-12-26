@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNetTableValues } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../../../reducers/rootReducer";
-import Styles from "./hero.module.css";
+import Styles from "./styles.module.css";
 
 const mapStateToProps = (state: RootState) => ({
   focusedHero: state.heroSelectionReducer.focusedHero,

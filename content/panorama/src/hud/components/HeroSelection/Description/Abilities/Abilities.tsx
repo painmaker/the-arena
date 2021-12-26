@@ -1,7 +1,7 @@
 import React from "react";
 import { FocusedHero } from "../../../../types/heroSelectionTypes";
 import Ability from "./Ability/Ability";
-import Styles from './abilities.module.css'
+import Styles from './styles.module.css'
 
 type Props = {
   focusedHero: FocusedHero,

@@ -586,50 +586,6 @@
 	opacity: 0.8;
 }
 
-/*!*******************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ManaBar/styles.module.css ***!
-  \*******************************************************************************************************************************/
-.lmSadXOv8dn4_iAErJ2E {
-	width: 360px;
-	height: 19px;
-	vertical-align: bottom;
-	horizontal-align: center;
-	margin-bottom: 84px;
-	border-radius: 3px;
-	background-color: red;
-	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px;
-}
-
-.TV6lAJTYNIb5hYQe8617 {
-	height: 100%;
-	hue-rotation: 100deg;
-	opacity: 0.8;
-}
-
-.IPrSE00jcHjUUl7qXYgs {
-	font-size: 15px;
-	color: white;
-	text-shadow: 1px 1px 0px 2 #000000;
-	vertical-align: middle;
-	horizontal-align: center;
-	font-weight: bold;
-	font-family: monospaceNumbersFont;
-	opacity: 0.6;
-}
-
-.jvDXnYHe6hfhZY73oN4s {
-	font-size: 14px;
-	color: #83c2fe;
-	margin-top: 0.5px;
-	margin-right: 3px;
-	text-shadow: 2px 2px 0px 1 #00000066;
-	vertical-align: middle;
-	horizontal-align: right;
-	font-weight: bold;
-	font-family: monospaceNumbersFont;
-	opacity: 0.8;
-}
-
 /*!**********************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Level/level.module.css ***!
   \**********************************************************************************************************************************/
@@ -1287,10 +1243,10 @@
 	height: 185px;
 }
 
-/*!**********************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Buttons/buttons.module.css ***!
-  \**********************************************************************************************************************************************************/
-.gJDIkhZ3utFqStslbRd7 {
+/*!*********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Buttons/styles.module.css ***!
+  \*********************************************************************************************************************************************************/
+.l6Pk52R7OLbKg3_UKnaZ {
   flow-children: right;
   horizontal-align: right;
   margin-right: 12.5px;
@@ -1299,7 +1255,7 @@
   margin-bottom: 15px;
 }
 
-.IKfrQWWi2lBmGrJpvF9u {
+.yZX6IyXFv8hXqAk3ysnz {
   width: 150px;
   height: 35px;
   border-radius: 5px;
@@ -1317,12 +1273,12 @@
   brightness: 0.5;
 }
 
-.IKfrQWWi2lBmGrJpvF9u:hover {
+.yZX6IyXFv8hXqAk3ysnz:hover {
   saturation: 1.1;
   brightness: 0.75;
 }
 
-.whfmuRCQT5x3_krM3tYZ {
+.R2gGBZTDeYHZMiFrAEtg {
   width: 150px;
   height: 35px;
   border-radius: 5px;
@@ -1339,12 +1295,12 @@
   box-shadow: fill black 0px 0px 1.5px 1.5px;
 }
 
-.whfmuRCQT5x3_krM3tYZ:hover {
+.R2gGBZTDeYHZMiFrAEtg:hover {
   saturation: 1.1;
   brightness: 1.25;
 }
 
-.XZlYoPHJC72s0K4pJq_G {
+.r7bBXOIJN1pUGSrAl5Vk {
   width: 100%;
   text-align: center;
   font-size: 16px;
@@ -1353,14 +1309,14 @@
   text-shadow: 1px 1px 1px 2 #000000;
 }
 
-.Bh6SFN3gsa91_OrHaNLi {
+.LNstv5xRPj1FqvZgkWJz {
   width: 23px;
   height: 23px;
   vertical-align: center;
   horizontal-align: center;
 }
 
-.R6506jSOCNr7V2AE69Nz {
+.mnoxBgyua3_hX4dy1pgQ {
   width: 100%;
   text-align: center;
   font-size: 16px;
@@ -1368,10 +1324,10 @@
   font-weight: bold;
   text-shadow: 1px 1px 1px 2 #000000;
 }
-/*!****************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Lore/lore.module.css ***!
-  \****************************************************************************************************************************************************/
-.LftvFPwkbDhqYwIYqxeR {
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Lore/styles.module.css ***!
+  \******************************************************************************************************************************************************/
+.idRzlQdIfJ7xffl2ESAf {
 	width: 100%;
 	margin-left: 12.5px;
 	margin-right: 12.5px;
@@ -1379,7 +1335,7 @@
 	flow-children: down;
 }
 
-.WXcMrdFXkFOYvJ8VzquQ {
+.KnyTTodPoykHeTKfKSkD {
 	color: rgba(160, 160, 160, 0.35);
 	font-size: 12px;
 	width: 100%;
@@ -1389,7 +1345,7 @@
 	margin-left: 7.5px;
 }
 
-.PnIHZ3NMme7ikkidc16Q {
+.O2YqT6BU2v0BFGwM_aXf {
 	width: 100%;
 	border-radius: 5px;
 	padding: 12px;
@@ -1397,7 +1353,7 @@
 	/* border: 1px solid black; */
 }
 
-.Z8GXYuUi1_aRG7K2C2KC {
+.QOXHgNJ2zbB4ksLXjQP4 {
 	font-style: italic;
 	font-size: 16px;
 	color: rgb(161, 163, 140);
@@ -1406,10 +1362,10 @@
 	overflow: squish;
 }
 
-/*!************************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Heroname/heroname.module.css ***!
-  \************************************************************************************************************************************************************/
-.FTa_3vMX52nRn1sXAEFl {
+/*!**********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Heroname/styles.module.css ***!
+  \**********************************************************************************************************************************************************/
+.mpJ4LyH8lSyGL6RVib9b {
   width: 100%;
   margin-left: 12.5px;
   margin-right: 12.5px;
@@ -1421,7 +1377,7 @@
   box-shadow: fill black -2px -1px 3px 4px;
 }
 
-.fxH6DtBgQHRuTXEXzDd8 {
+.zm9pqcXbnBTOfeer0lCp {
   width: 32px;
   height: 32px;
   background-size: 100%;
@@ -1430,14 +1386,14 @@
   margin-left: 5px;
 }
 
-.iUFKlT2XXc3v2ey9XdeD {
+.Owpc8NuCEW5N73NzzpmT {
   color: white;
   font-size: 34px;
   padding-left: 12.5px;
   padding-bottom: 1.5px;
 }
 
-.VBBoC2d4c_OnYJig67MS {
+.DyvGWwCnsdzDUK4azZUS {
   flow-children: right;
   horizontal-align: right;
   vertical-align: center;
@@ -1448,20 +1404,20 @@
   max-width: 400px;
 }
 
-.XfZsBIFZlylelwwG16HZ {
+.m5PMMwULtkmHuAn6f4L0 {
   vertical-align: center;
 }
 
-.ztzVqtYaiSBMo6VC5a_S {
+.cYIGHg_Z7lt966FiVoBy {
   flow-children: right;
   margin-left: 5px;
   height: 100%;
 }
 
-/*!******************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Stats/stats.module.css ***!
-  \******************************************************************************************************************************************************/
-.vTGgzlb6B9XfFPlZUfXY {
+/*!*******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Stats/styles.module.css ***!
+  \*******************************************************************************************************************************************************/
+.MGoclrlSDDipL1VeEyCM {
 	width: fill-parent-flow(1);
 	margin-left: 7.5px;
 	margin-right: 12.5px;
@@ -1469,7 +1425,7 @@
 	flow-children: down;
 }
 
-.AUEZoyiVz98PhzJEUhyp {
+.TjgCqafxIrVlQ1A8pMpZ {
 	color: rgba(160, 160, 160, 0.35);
 	font-size: 12px;
 	width: 100%;
@@ -1480,7 +1436,7 @@
 	text-transform: uppercase;
 }
 
-.XGf2sy9QLQrfwP9VxJLP {
+.sFgezL3lzo8Niy4P2ZCY {
 	width: 100%;
 	background-color: rgba(50, 50, 50, 0.75);
 	border-radius: 5px;
@@ -1488,13 +1444,13 @@
 	flow-children: right;
 }
 
-.cDGGuKFpOz8crlSTUAm4 {
+.CGnvj8ShOt6F0Izp7rFK {
 	width: fill-parent-flow(1);
 	flow-children: down;
 	padding-top: 1px;
 }
 
-.o3T0mfr_JP91VLbeiuOj {
+.FN_80ksT6KV8DrDcaSMu {
 	flow-children: right;
 	horizontal-align: center;
 	width: 100%;
@@ -1504,12 +1460,12 @@
 	border-radius: 5px;
 }
 
-.Ad8hUJ6DZ2eek8ttxfnn {
+.nIGYhaBbDIWuSQU6OvrA {
 	flow-children: right;
 	horizontal-align: center;
 }
 
-.nFsqLuTdFNNBU2zku99G {
+.z8nwiJmqOkmuJFbkK6PD {
 	vertical-align: middle;
 	color: white;
 	font-size: 18px;
@@ -1520,7 +1476,7 @@
 	text-align: center;
 }
 
-.yfZIEKGOBYoTHLAekxsZ {
+.sLnSqcGQno5y_ZG3x8XF {
 	width: 22px;
 	height: 22px;
 	background-size: contain;
@@ -1530,43 +1486,43 @@
 	margin-right: 2px;
 }
 
-.mdnauyCLpXm_qaCDZxlF {
+.ylDQI7GehGyIm9SR3Jch {
 	background-image: url('s2r://panorama/images/icon_damage_psd_png.vtex');
 	margin-right: 2px;
 }
 
-.dOvAWCZtGQPKuYiKeOS6 {
+.r0bZY5AuOS9STneff0y1 {
 	background-image: url('s2r://panorama/images/icon_armor_psd_png.vtex');
 	horizontal-align: center;
 }
 
-.D2fSLi1XDjZo2vkp8R1w {
+.ournohMrX99jpkvkwzEK {
 	background-image: url('s2r://panorama/images/icon_speed_psd_png.vtex');
 }
 
-.IjVaWP4uoZhxHKIH3Stt {
+.uCL5atY7tSI_zUtKNpvl {
 	background-image: url('s2r://panorama/images/icon_attack_speed2_psd_png.vtex');
 }
 
-.h8ANtCEj1VfmDU_8Q0wt {
+.cCSi9cnnZNLNkXT9iDxy {
 	background-image: url('s2r://panorama/images/icon_attack_speed3_psd_png.vtex');
 }
 
-.yljvvOCvMaXbcJVB1Zld {
+.p06ga0sg9mCuO83PsQxi {
 	background-image: url('s2r://panorama/images/icon_attack_range_psd_png.vtex');
 }
 
-/*!******************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Title/title.module.css ***!
-  \******************************************************************************************************************************************************/
-.atFX8M54hcQvRTizJEo4 {
+/*!*******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Title/styles.module.css ***!
+  \*******************************************************************************************************************************************************/
+.OPAF7eAf0G2xQ5pQp8ky {
   width: 100%;
   /* background-color: rgba(30, 30, 30, 0.525); */
   background-color: rgba(40, 40, 40, 0.5);
   border-bottom: 1px solid black;
 }
 
-.QN8mO4MWeSrUkguEFTwo {
+.v7Tzvkygl0KX5GwF2X9F {
   color: rgba(200, 200, 200, 0.45);
   font-size: 15px;
   vertical-align: center;
@@ -1577,7 +1533,7 @@
   padding-left: 10px;
 }
 
-.vEVpS9O62JUz9JA3HhK6 {
+.eB3XuJsNcG52Kkscfyi6 {
   vertical-align: center;
   horizontal-align: right;
   height: 24px;
@@ -1589,18 +1545,18 @@
   wash-color:  rgba(100, 100, 100, 0.5);
 }
 
-.vEVpS9O62JUz9JA3HhK6:hover {
+.eB3XuJsNcG52Kkscfyi6:hover {
   wash-color: rgba(100, 100, 100, 0.25);
   transform: scale3d(1.1, 1.1, 0);
 }
 
 
 
-/*!********************************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Abilities/Ability/ability.module.css ***!
-  \********************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Abilities/Ability/styles.module.css ***!
+  \*******************************************************************************************************************************************************************/
 
-.oRxWrYenh036i5EbwHgX {
+.mFYrvG4bDpFMN8TORNtz {
   width: 48px;
   height: 48px;
   margin: 2.5px;
@@ -1612,21 +1568,21 @@
   transform: scaleX(1) scaleY(1);
 }
 
-.oRxWrYenh036i5EbwHgX:hover {
+.mFYrvG4bDpFMN8TORNtz:hover {
   brightness: 1.25;
   transform: scaleX(1.025) scaleY(1.025);
 }
-/*!**************************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Abilities/abilities.module.css ***!
-  \**************************************************************************************************************************************************************/
-.QW3ujqRrDd7PasQ1EhoS {
+/*!***********************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Abilities/styles.module.css ***!
+  \***********************************************************************************************************************************************************/
+.SJrMdt1Ybp2gANusvQJV {
   margin-left: 12.5px;
   margin-right: 6.25px;
   margin-top: 10px;
   flow-children: down;
 }
 
-.f2JjWgTQ31_JRcj9Mr7a {
+.XZYQgrjTC2fNY7smXn2W {
   color: rgba(160, 160, 160, 0.35);
   font-size: 12px;
   width: 100%;
@@ -1636,7 +1592,7 @@
   margin-left: 7.5px;
 }
 
-.t5dIvihY7sCf5eidK1Dh {
+.NY6zNJsFCuhYzrf0hx5m {
   /* width: 100%; */
   background-color: rgba(50, 50, 50, 0.75);
   border-radius: 5px;
@@ -1644,10 +1600,10 @@
   padding: 5px;
 }
 
-/*!**********************************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/HealthAndMana/HealthAndMana.module.css ***!
-  \**********************************************************************************************************************************************************************/
-.Nt9TIfV43WZ9GF4LInRe {
+/*!***************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/HealthAndMana/styles.module.css ***!
+  \***************************************************************************************************************************************************************/
+.jGxgLtnG30DUoc641th_ {
   width: fill-parent-flow(1);
   margin-left: 6.25px;
   margin-right: 12.5px;
@@ -1656,7 +1612,7 @@
   min-width: 200px;
 }
 
-.jzhXrRUFzfr4IcTITYO8 {
+.bLFFBTEeG6hYWRwB29Nv {
   color: rgba(160, 160, 160, 0.35);
   font-size: 12px;
   width: 100%;
@@ -1666,7 +1622,7 @@
   margin-left: 7.5px;
 }
 
-.rN9wQ52nCS1Q5GYtzbbi {
+.hI6BtIyHEAgfTWRJDP0c {
   width: 100%;
   background-color: rgba(50, 50, 50, 0.75);
   border-radius: 5px;
@@ -1675,14 +1631,14 @@
   height: 65px;
 }
 
-.YWiVQ1AfM0hEWh_NmtQh {
+.s5TaPzdc24FYrr_Ei76i {
   width: 100%;
   height: fill-parent-flow(1);
   background-color: gradient(linear, 0% 0%, 0% 100%, from(#1A3D1A), color-stop(0.2, #67A163), color-stop(0.5,#187019), to(#175D17));
   border-radius: 5px;
 }
 
-.ZaOpJlnxQOGsOdebtiEQ {
+.kFpPBKiaU8vg3ukaU6Xv {
   width: 100%;
   height: fill-parent-flow(1);
   background-color: gradient(linear, 0% 0%, 0% 100%, from(#6A90BA ), color-stop(0.4, #144B91), to(#2E5187));
@@ -1690,31 +1646,31 @@
   margin-top: 3px;
 }
 
-.ilXuUwS9R1TRXbxiQ7xg {
+.Zh_k1Epuepdvpzc5go9s {
   vertical-align: center;
   horizontal-align: center;
   color: white;
   font-size: 16px;
 }
 
-.Trjc8UofnxqdNO8hzElW {
+.foBiixX4PP237lIeWxj6 {
   color: white;
   font-size: 16px;
   padding-right: 5px;
   vertical-align: center;
   horizontal-align: right;
 }
-/*!****************************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Attributes/attributes.module.css ***!
-  \****************************************************************************************************************************************************************/
-.hdQJIA4JYL5WvBawXjTs {
+/*!************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/Attributes/styles.module.css ***!
+  \************************************************************************************************************************************************************/
+.VS3YxirBBvur7A7nHkjV {
 	width: fill-parent-flow(1.75);
 	margin-left: 12.5px;
 	margin-top: 10px;
 	flow-children: down;
 }
 
-.Ni6T_CjIDDJoH6VJr4oS {
+.XGsvzyi0xgizixhDI64g {
 	color: rgba(160, 160, 160, 0.35);
 	font-size: 12px;
 	width: 100%;
@@ -1725,7 +1681,7 @@
 	text-transform: uppercase;
 }
 
-.xbrnoJt3163bmzreDxuX {
+.MR6pqMN8Qlzr5L2c61Ta {
 	width: 100%;
 	background-color: rgba(50, 50, 50, 0.75);
 	border-radius: 5px;
@@ -1733,17 +1689,17 @@
 	flow-children: right;
 }
 
-.acm9rVZ6uC6Yq5nG6gM3 {
+.K2yxcxHIoQUBccSvBu1b {
 	flow-children: down;
 	width: fill-parent-flow(1);
 }
 
-.P3c7P6tMZYS0OhcGVzQG {
+.Xh2Z4lPm06sWRsjMGgTn {
 	flow-children: down;
 	width: fill-parent-flow(2.5);
 }
 
-.MVSoecfo5X8hmTAQ_sNQ {
+.PJQDXNx6aiqf9zIdmrwK {
 	flow-children: right;
 	horizontal-align: center;
 	background-color: rgba(0, 0, 0, 0.5);
@@ -1754,36 +1710,36 @@
 	padding-right: 15px;
 }
 
-.Uj5agWw7khfOdbsBP3c5 {
+.cqHIUPdEdwBwJXB2dm5a {
 	width: fill-parent-flow(1);
 	vertical-align: center;
 }
 
-.ay6Lbb4LEh7ZIzdqL2Bx {
+.wH8sKGL145rM56vmUHvF {
 	width: 22px;
 	height: 22px;
 	vertical-align: center;
 	background-size: contain;
 }
 
-.AB6AiEZ0pv6aLmGucgaH {
+.wjua_wvihhYlg0CtCnJI {
 	background-image: url('s2r://panorama/images/primary_attribute_icon_agility_png.vtex');
 }
 
-.INo16oOeJKlzsh27vPtb {
+.gdKUVLTDR_fxBRZhJgBo {
 	background-image: url('s2r://panorama/images/primary_attribute_icon_strength_png.vtex');
 }
 
-.USRmNr8ohVdEirKeRl9b {
+.uDS6jLN42oYxBz9vA3t0 {
 	background-image: url('s2r://panorama/images/primary_attribute_icon_intelligence_png.vtex');
 }
 
-.FVPM1G4mkAPIwqDVHqbf {
+.hYIZgSBp7h6tuL1huliF {
 	flow-children: right;
 	height: 100%;
 }
 
-.A3ZWujZx0iJeFtc7du4E {
+.OgO2txw1NE2nNnvMKyJL {
 	color: white;
 	padding-left: 10px;
 	vertical-align: center;
@@ -1791,7 +1747,7 @@
 	font-size: 16px;
 }
 
-.v7JHquj0okWOXyOWmjnG {
+.ks8U7O31v6T8di045hyF {
 	color: green;
 	padding-left: 1px;
 	vertical-align: center;
@@ -1799,7 +1755,7 @@
 	font-size: 16px;
 }
 
-.z2NXrYEJ0xl1mPU6tPk5 {
+.n5lWQQlQND8tMfTYZV2x {
 	width: fill-parent-flow(1);
 	text-align: center;
 	padding-top: 2px;
@@ -1807,10 +1763,10 @@
 	height: 22px;
 }
 
-/*!******************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/description.module.css ***!
-  \******************************************************************************************************************************************************/
-.DmBJFNFl3fZp4VFfrrdO {
+/*!*************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Description/styles.module.css ***!
+  \*************************************************************************************************************************************************/
+.weBlJb2Yy65kJeqgd_6t {
   vertical-align: center;
   horizontal-align: right;
   width: 800px;
@@ -1827,10 +1783,10 @@
 }
 
 
-/*!***********************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Heroes/Hero/hero.module.css ***!
-  \***********************************************************************************************************************************************/
-.enZWCPv6ejmz3lnsfEhn {
+/*!*************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Heroes/Hero/styles.module.css ***!
+  \*************************************************************************************************************************************************/
+.n5DEtZCeKGIJbnzzCPLK {
   width: 70px;
   height: 84px;
   margin: 5px;
@@ -1838,7 +1794,7 @@
   box-shadow: fill rgba(90, 90, 90, 0.2) 0px 0px 1px 1px;
 }
 
-.RmTTLfhzGMHMrAHUrFDP {
+.FnFaiTXXhRkckQu5memS {
   background-color: whitesmoke;
   width: 100%;
   height: 4px;
@@ -1846,7 +1802,7 @@
   vertical-align: bottom;
 }
 
-.OYHzLa3YF4KpST_ohRYN {
+.mys_kVj0L5wwS3dgR6lO {
   transition-property: transform;
   transition-duration: 0.25s;
   transition-timing-function: ease-in-out;
@@ -1858,13 +1814,13 @@
   background-color: rgba(65, 65, 65, 0.5);
 }
 
-.yztuWGuxPqwQiBiJqn8T { 
+.OigyCJBFC4WWwlXwz0wk { 
   width: 100%;
   height: 100%; 
   z-index: 10;
 }
 
-._SJZhLOFc8fgCf2PEl4p {
+.J9vwQ1W8_fduLmJOrkuU {
   width: 32px;
   height: 32px;
   z-index: 10;
@@ -1873,9 +1829,9 @@
   margin-bottom: 15px;
 }
 /*!********************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Heroes/heroes.module.css ***!
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Heroes/styles.module.css ***!
   \********************************************************************************************************************************************/
-.m6Lfc8iiLkiGx07twUsw {
+.KbVupjelwGd9eP6Qckcb {
 	vertical-align: bottom;
 	horizontal-align: left;
 	margin-bottom: 58px;
@@ -1883,7 +1839,7 @@
 	flow-children: down;
 }
 
-.fFWe_lY8Y24pi1ClosRV {
+.xbKjp8jm9AiLPBy45JUN {
 	font-size: 16px;
 	color: rgb(200, 200, 200);
 	vertical-align: center;
@@ -1895,20 +1851,20 @@
 	padding-left: 5px;
 }
 
-.jacncJS7Wg1l63vEMnww {
+.UegvDSi_GUs8MszyaBWd {
 	background-color: rgba(0, 0, 0, 0.85);
 	flow-children: right;
 	padding: 5px;
 }
 
-.tnL9GeruCOgsehAJSHC9 {
+.gv6f_h2jz67jNQbWdwNc {
 	width: 70px;
 	height: 84px;
 	border: 2px solid black;
 	margin: 5px;
 }
 
-.ZL7ev3qlpDqeCtD2gLkt {
+.czSXTwuyrmaowsDKPynm {
 	width: 100%;
 	height: 100%;
 	background-image: url('s2r://panorama/images/random_dice_png.vtex');
@@ -1920,14 +1876,14 @@
 	transition: transform 0.1s ease-in-out 0s;
 }
 
-.ZL7ev3qlpDqeCtD2gLkt:hover {
+.czSXTwuyrmaowsDKPynm:hover {
 	transform: scale3d(1.05, 1.05, 0);
 }
 
-/*!****************************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/RandomHeroDialog/randomHeroDialog.module.css ***!
-  \****************************************************************************************************************************************************************/
-.UQI5cQxOG3lfqnOdPCvK {
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/RandomHeroDialog/styles.module.css ***!
+  \******************************************************************************************************************************************************/
+.siGL5nbsQ796zgVw6f2c {
 	vertical-align: bottom;
 	margin-bottom: 175px;
 	margin-left: 432px;
@@ -1940,7 +1896,7 @@
 	z-index: 9999;
 }
 
-.MykYAeZT_qVCBuUsT3km {
+.ZEyVTH59H2u8xjT_XfXg {
 	width: 325px;
 	height: 150px;
 	border: 1px solid black;
@@ -1949,13 +1905,13 @@
 	background-color: rgba(0, 0, 0, 0.95);
 }
 
-.wMjLJtzK3tq9SmKK1tZw {
+.Bj1Gx6_KE28orLurq0HE {
 	flow-children: down;
 	vertical-align: center;
 	horizontal-align: center;
 }
 
-.vP5TO4AaDnOo3zQuxoQ5 {
+.U_OUC0qctG7ii3VvBmqh {
 	font-size: 18px;
 	color: white;
 	text-transform: uppercase;
@@ -1963,29 +1919,29 @@
 	padding-bottom: 25px;
 }
 
-.oouvrI9bObQJwWyQqkYQ {
+.Zvjxb4yU4goEQ12mgQ7_ {
 	vertical-align: bottom;
 	horizontal-align: center;
 	flow-children: right;
 	margin: 10px;
 }
 
-.fLeBGzGHJP4b0nqZWWKK {
+.VSuNO38prIW1oz6zY7bw {
 	margin-right: 10px;
 	margin-left: 20px;
 }
 
-.HTSVwaBKJUf3hIZnYE3x {
+.wQ03UqztEQWBVT7j0XmU {
 	color: white;
 	font-size: 18px;
 	letter-spacing: 1.05px;
 }
 
-.HTSVwaBKJUf3hIZnYE3x:hover {
+.wQ03UqztEQWBVT7j0XmU:hover {
 	color: wheat;
 }
 
-.fOCLGc3UwgoBvOmYvgw7 {
+.UKqHPiCt0if8qgPa9TtY {
 	background-image: url('s2r://panorama/images/tooltip_arrow_top_png.vtex');
 	background-size: contain;
 	wash-color: rgb(0, 0, 0);
@@ -1996,10 +1952,10 @@
 	pre-transform-rotate2d: 180deg;
 }
 
-/*!****************************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/RemainingPlayers/RemainingPlayers.module.css ***!
-  \****************************************************************************************************************************************************************/
-.jUHEGvF4z0x8URpUmy80 {
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/RemainingPlayers/styles.module.css ***!
+  \******************************************************************************************************************************************************/
+.nCZGW5pFJGaID0NhpWPo {
   vertical-align: bottom;
   horizontal-align: left;
   margin-bottom: 173px;
@@ -2007,7 +1963,7 @@
   flow-children: down;
 }
 
-.ZVyj8Q88Go4IWx33io0f {
+.Jj78B3wGZuLmmkqUzEwR {
   font-size: 14px;
   color: rgb(200, 200, 200);
   vertical-align: center;
@@ -2018,7 +1974,7 @@
   z-index: 10;
 }
 
-.q2pf0UCvRtQIIjyEQsMn {
+.iSQjYDkYMMXXgPktk59p {
   background-color: rgba(0, 0, 0, 0.85);
   min-width: 150px;
   height: 39px;
@@ -2028,10 +1984,10 @@
   padding-right: 5px;
 }
 
-/*!******************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Timer/timer.module.css ***!
-  \******************************************************************************************************************************************/
-.lQr_Sh80HW69gDfz_WEA {
+/*!*******************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/Timer/styles.module.css ***!
+  \*******************************************************************************************************************************************/
+.zter6Msw0MnUvWZq2tmt {
   vertical-align: bottom;
   horizontal-align: left;
   flow-children: down;
@@ -2039,7 +1995,7 @@
   margin-bottom: 173px;
 }
 
-.bbJZuL9zaapxLe2R2VAj {
+.f0Bc6PxQIKWzyJq81D0r {
   font-size: 14px;
   color: rgb(200, 200, 200);
   vertical-align: center;
@@ -2050,14 +2006,14 @@
   z-index: 10;
 }
 
-.eo7jDUEpcoLndTJ74nFe {
+.uCPOaMpE5UlXvZdhm8Xm {
   width: 125px; 
   height: 39px;
   padding: 1px;
   background-color: rgba(0, 0, 0, 0.85);
 }
 
-.Hgq8WtZoDKv9OqZ5P8NM {
+.YAW8hGrm6hIW6mibF_CS {
   font-size: 17px;
   color: white;
   vertical-align: center;
@@ -2069,16 +2025,16 @@
 }
 
 
-/*!********************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/heroSelection.module.css ***!
-  \********************************************************************************************************************************************/
-.Ka3RWaSlOAedm6cAtszv {
+/*!*************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HeroSelection/styles.module.css ***!
+  \*************************************************************************************************************************************/
+.aJZe3ibQfLHDG52YI4CL {
   width: fill-parent-flow(1);
   height: fill-parent-flow(1);
   background-color: rgb(0, 0, 0);
 }
 
-.qK5omzuGZH2RrKtnOWeF {
+.nNy2Ky3P3yG9s2HRZrrh {
   width: 100%;
   height: 100%;
   vertical-align: center;

@@ -9,7 +9,7 @@ import Heroes from "./Heroes/Heroes";
 import RandomHeroDialog from "./RandomHeroDialog/RandomHeroDialog";
 import RemainingPlayers from "./RemainingPlayers/RemainingPlayers";
 import Timer from "./Timer/Timer";
-import Styles from "./heroSelection.module.css";
+import Styles from "./styles.module.css";
 
 const mapStateToProps = (state: RootState) => ({
   focusedHero: state.heroSelectionReducer.focusedHero,

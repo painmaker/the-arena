@@ -1,5 +1,5 @@
 import React from "react";
-import Styles from './ability.module.css';
+import Styles from './styles.module.css';
 
 type Props = {
   ability: string,

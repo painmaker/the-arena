@@ -13,7 +13,7 @@ import HealthAndMana from "./HealthAndMana/HealthAndMana";
 import Attributes from "./Attributes/Attributes";
 import { HUD_THINK_FAST } from "../../../App";
 import { useTimeout } from "../../../hooks/useTimeout";
-import Styles from './description.module.css'
+import Styles from './styles.module.css'
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
   resetFocusedHero: () => dispatch(resetFocusedHero()),

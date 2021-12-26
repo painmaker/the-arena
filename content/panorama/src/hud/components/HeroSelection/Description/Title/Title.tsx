@@ -3,7 +3,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
 import { resetFocusedHero } from "../../../../actions/heroSelectionActions";
 import { HeroSelectionActionTypes } from "../../../../types/heroSelectionTypes";
-import Styles from './title.module.css'
+import Styles from './styles.module.css'
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({
   resetFocusedHero: () => dispatch(resetFocusedHero()),

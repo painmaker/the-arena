@@ -1,7 +1,7 @@
 import React from "react";
 import { useNetTableValues } from "react-panorama";
 import { FocusedHero } from "../../../../types/heroSelectionTypes";
-import Styles from './heroname.module.css';
+import Styles from './styles.module.css';
 
 const attributeToImage = (attribute: string) => {
   if (attribute === 'DOTA_ATTRIBUTE_AGILITY') {

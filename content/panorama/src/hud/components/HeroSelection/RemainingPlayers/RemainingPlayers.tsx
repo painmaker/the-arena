@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNetTableValues } from 'react-panorama';
-import Styles from './RemainingPlayers.module.css';
+import Styles from './styles.module.css';
 
 const avatar: Partial<VCSSStyleDeclaration> = {
   width: '20px',

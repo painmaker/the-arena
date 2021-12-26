@@ -1,6 +1,6 @@
 import React from "react";
 import { FocusedHero } from "../../../../types/heroSelectionTypes";
-import Styles from './stats.module.css'
+import Styles from './styles.module.css'
 
 type Props = {
   focusedHero: FocusedHero,

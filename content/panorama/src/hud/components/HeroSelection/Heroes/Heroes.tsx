@@ -4,7 +4,7 @@ import { Dispatch } from "redux";
 import { HeroSelectionActionTypes } from "../../../types/heroSelectionTypes";
 import Hero from "./Hero/Hero";
 import { setRandomHeroDialogVisible } from "../../../actions/heroSelectionActions";
-import Styles from './heroes.module.css';
+import Styles from './styles.module.css';
 
 const selectableHeronames = [
   'npc_dota_hero_dragon_knight',

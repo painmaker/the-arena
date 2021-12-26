@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useGameEvent } from 'react-panorama';
-import Styles from "./timer.module.css";
+import Styles from "./styles.module.css";
 
 function formatTime(time: number) {
   let minutes = Math.floor(time % 3600 / 60);
