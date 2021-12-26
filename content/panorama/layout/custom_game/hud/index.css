@@ -549,7 +549,7 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/HealthBar/styles.module.css ***!
   \*********************************************************************************************************************************/
 .rV87EGQiWNRNHbG9vdNq {
-	width: 344px;
+	width: 360px;
 	height: 19px;
 	vertical-align: bottom;
 	horizontal-align: center;
@@ -590,7 +590,7 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ManaBar/styles.module.css ***!
   \*******************************************************************************************************************************/
 .lmSadXOv8dn4_iAErJ2E {
-	width: 344px;
+	width: 360px;
 	height: 19px;
 	vertical-align: bottom;
 	horizontal-align: center;
@@ -855,7 +855,7 @@
 	height: fit-children;
 	width: 300px;
 	padding: 2px;
-	margin-right: 660px;
+	margin-right: 665px;
 	margin-bottom: 80px;
 }
 
@@ -1052,13 +1052,11 @@
 .HMwcE6dRfetA6ujKyCKN {
 	width: 54px;
 	height: 39px;
-	margin-right: 10px;
-	margin-left: 10px;
-	/* box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px; */
+	margin-right: 4px;
+	margin-left: 4px;
+	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px;
 	background-color: black;
-	border: 1px solid salmon;
 }
-
 /*!*********************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Inventory/styles.module.css ***!
   \*********************************************************************************************************************************/
@@ -1068,6 +1066,8 @@
 	margin-bottom: 40px;
 	flow-children: right;
 	margin-right: 0px;
+	/* background-color: black; */
+	/* padding: 40px; */
 }
 
 /*!*********************************************************************************************************************************!*\

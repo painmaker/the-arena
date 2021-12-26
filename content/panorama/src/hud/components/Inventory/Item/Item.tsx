@@ -1,253 +1,231 @@
-import React, { Dispatch } from "react";
-import Keybind from "./Keybind/Keybind";
-import Cooldown from "./Cooldown/Cooldown";
-import Image from "./Image/Image";
-import Charges from "./Charges/Charges";
-import ManaCost from "./ManaCost/ManaCost";
-import { ItemOptionsActionTypes } from "../../../types/itemOptionsTypes";
-import { setItemOptionsItem, setItemOptionsPositionX, setItemOptionsVisible } from "../../../actions/itemOptionsActions";
-import { connect, ConnectedProps } from "react-redux";
-import { RootState } from "../../../reducers/rootReducer";
-import Styles from "./styles.module.css";
-import Shine from "./Shine/Shine";
+import React, { Dispatch, useCallback, useEffect, useState } from 'react'
+import Keybind from './Keybind/Keybind'
+import Cooldown from './Cooldown/Cooldown'
+import Image from './Image/Image'
+import Charges from './Charges/Charges'
+import ManaCost from './ManaCost/ManaCost'
+import { ItemOptionsActionTypes } from '../../../types/itemOptionsTypes'
+import {
+	setItemOptionsItem,
+	setItemOptionsPositionX,
+	setItemOptionsVisible,
+} from '../../../actions/itemOptionsActions'
+import { connect, ConnectedProps } from 'react-redux'
+import { RootState } from '../../../reducers/rootReducer'
+import Styles from './styles.module.css'
+import Shine from './Shine/Shine'
 
 const mapStateToProps = (state: RootState) => ({
-  itemOptionsVisible: state.itemOptionsReducer.visible,
-  itemOptionsItem: state.itemOptionsReducer.item,
-});
+	itemOptionsVisible: state.itemOptionsReducer.visible,
+	itemOptionsItem: state.itemOptionsReducer.item,
+})
 
 const mapDispatchToProps = (dispatch: Dispatch<ItemOptionsActionTypes>) => ({
-  setItemOptionsItem: (item: ItemEntityIndex) => dispatch(setItemOptionsItem(item)),
-  setItemOptionsPositionX: (posX: number) => dispatch(setItemOptionsPositionX(posX)),
-  setItemOptionsVisible: (visible: boolean) => dispatch(setItemOptionsVisible(visible)),
-});
+	setItemOptionsItem: (item: ItemEntityIndex) => dispatch(setItemOptionsItem(item)),
+	setItemOptionsPositionX: (posX: number) => dispatch(setItemOptionsPositionX(posX)),
+	setItemOptionsVisible: (visible: boolean) => dispatch(setItemOptionsVisible(visible)),
+})
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
+const connector = connect(mapStateToProps, mapDispatchToProps)
+type PropsFromRedux = ConnectedProps<typeof connector>
 
 type Props = PropsFromRedux & {
-  item: ItemEntityIndex,
-  selectedUnit: EntityIndex,
-  slot: number,
-};
-
-type State = {
-  isItemDragged: boolean,
-  isItemDropTarget: boolean,
+	item: ItemEntityIndex
+	selectedUnit: EntityIndex
+	slot: number
 }
 
-class InventoryItem extends React.Component<Props, State> {
+const Item = (props: Props) => {
 
-  constructor(props: Props) {
-    super(props);
-    this.onDragStart = this.onDragStart.bind(this);
-    this.OnDragEnd = this.OnDragEnd.bind(this);
-    this.OnDragEnter = this.OnDragEnter.bind(this);
-    this.OnDragLeave = this.OnDragLeave.bind(this);
-    this.OnDragDrop = this.OnDragDrop.bind(this);
-    this.onItemLeftClicked = this.onItemLeftClicked.bind(this);
-    this.onItemRightClicked = this.onItemRightClicked.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
-    this.onMouseOut = this.onMouseOut.bind(this);
-    this.state = {
-      isItemDragged: false,
-      isItemDropTarget: false,
-    }
-  }
+	// $.Msg("REACT-RENDER: Inventory - Item rendered");
 
-  componentDidMount() {
-    const panel = $("#inventory_item_container_" + this.props.item);
-    $.RegisterEventHandler('DragEnter', panel, this.OnDragEnter);
-    $.RegisterEventHandler('DragDrop', panel, this.OnDragDrop);
-    $.RegisterEventHandler('DragLeave', panel, this.OnDragLeave);
-    $.RegisterEventHandler('DragStart', panel, this.onDragStart);
-    $.RegisterEventHandler('DragEnd', panel, this.OnDragEnd);
-    panel.SetAcceptsFocus(false);
-  }
+	const {
+		item,
+		selectedUnit,
+		slot,
+		itemOptionsVisible,
+		itemOptionsItem,
+		setItemOptionsItem,
+		setItemOptionsPositionX,
+		setItemOptionsVisible,
+	} = props
 
-  onDragStart(thisPanel: Panel, draggedPanel: any): void {
+	$.Msg('Render: ' + item)
 
-    $.Msg("onDragStart")
+	const [isDragged, setIsDragged] = useState(false)
+	const [isDropTarget, setIsDropTarget] = useState(false)
 
-    $.DispatchEvent("DOTAHideAbilityTooltip", thisPanel);
+	const onDragStart = useCallback((thisPanel: Panel, draggedPanel: any) => {
+		
+    $.Msg('onDragStart')
 
-    if (this.props.item === -1) {
-      return;
+    $.DispatchEvent('DOTAHideAbilityTooltip', thisPanel)
+
+    if (item === -1) {
+      return
     }
 
-    if (!Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer())) {
-      GameUI.SendCustomHUDError("Item Not Owned By You", "General.InvalidTarget_Invulnerable");
-      return;
+    if (!Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer())) {
+      GameUI.SendCustomHUDError('Item Not Owned By You', 'General.InvalidTarget_Invulnerable')
+      return
     }
 
-    // this.setState({ isItemDragged: true })
+    setIsDragged(true)
 
-    draggedPanel.displayPanel = $.CreatePanel("DOTAItemImage", $.GetContextPanel(), "inventoryItemDraggedItem");
-    draggedPanel.displayPanel.itemname = Abilities.GetAbilityName(this.props.item);
-    draggedPanel.displayPanel.contextEntityIndex = this.props.item;
-    draggedPanel.displayPanel.Data().item = this.props.item;
-    draggedPanel.displayPanel.Data().dragCompleted = false;
-    draggedPanel.offsetX = 0;
-    draggedPanel.offsetY = 0;
+    draggedPanel.displayPanel = $.CreatePanel('DOTAItemImage', $.GetContextPanel(), 'inventoryItemDraggedItem')
+    draggedPanel.displayPanel.itemname = Abilities.GetAbilityName(item)
+    draggedPanel.displayPanel.contextEntityIndex = item
+    draggedPanel.displayPanel.Data().item = item
+    draggedPanel.displayPanel.Data().dragCompleted = false
+    draggedPanel.offsetX = 0
+    draggedPanel.offsetY = 0
 
-  }
+  }, [item, selectedUnit])
 
-  OnDragEnd(thisPanel: Panel, draggedPanel: any): void {
-    $.Msg("OnDragEnd")
+	const onDragEnd = useCallback((thisPanel: Panel, draggedPanel: any) => {
+    $.Msg('OnDragEnd')
     if (!draggedPanel.Data().dragCompleted) {
-      $.Msg("DropItemAtCursor")
-      Game.DropItemAtCursor(this.props.selectedUnit, this.props.item);
+      $.Msg('DropItemAtCursor')
+      Game.DropItemAtCursor(selectedUnit, item)
     }
-    draggedPanel.DeleteAsync(0);
-    // this.setState({ isItemDragged: false });
-  }
+    draggedPanel.DeleteAsync(0)
+    setIsDragged(false)
+  }, [item, selectedUnit])
 
-  OnDragLeave(thisPanel: Panel, draggedPanel: any): void {
-    $.Msg("OnDragLeave")
-    const draggedItem = draggedPanel.Data().item;
-    if (this.props.item === -1 || draggedItem === null || draggedItem === this.props.item) {
-      return;
+	const onDragLeave = useCallback((thisPanel: Panel, draggedPanel: any) => {
+    $.Msg('OnDragLeave')
+    const draggedItem = draggedPanel.Data().item
+    if (item === -1 || draggedItem === null || draggedItem === item) {
+      return
     }
-    // this.setState({ isItemDropTarget: false });
-  }
+    setIsDropTarget(false);
+		}, [item])
 
-  OnDragEnter(thisPanel: Panel, draggedPanel: any): void {
-    $.Msg("OnDragEnter")
-    const draggedItem = draggedPanel.Data().item;
-    if (this.props.item === -1 || draggedItem === null || draggedItem === this.props.item) {
-      return;
+	const OnDragEnter = useCallback((thisPanel: Panel, draggedPanel: any) => {
+    $.Msg('OnDragEnter')
+    const draggedItem = draggedPanel.Data().item
+    if (item === -1 || draggedItem === null || draggedItem === item) {
+      return
     }
-    // this.setState({ isItemDropTarget: true });
-  }
+    setIsDropTarget(true)
+		}, [item])
 
-  OnDragDrop(thisPanel: Panel, draggedPanel: any): void {
-
-    const draggedItem = draggedPanel.Data().item;
-
+	const onDragDrop = useCallback((thisPanel: Panel, draggedPanel: any) => {
+    const draggedItem = draggedPanel.Data().item
     if (draggedItem === null) {
-      return;
+      return
     }
-
-    draggedPanel.Data().dragCompleted = true;
-
-    if (draggedItem === this.props.item) {
-      return;
+    draggedPanel.Data().dragCompleted = true
+    if (draggedItem === item) {
+      return
     }
-
-    this.props.setItemOptionsVisible(false);
-
+    setItemOptionsVisible(false)
     Game.PrepareUnitOrders({
       OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_MOVE_ITEM,
-      TargetIndex: this.props.slot,
-      AbilityIndex: draggedItem
-    });
+      TargetIndex: slot,
+      AbilityIndex: draggedItem,
+    })
+  }, [item, slot, setItemOptionsVisible])
 
-  }
+	const onItemLeftClicked = useCallback(() => {
+		if (item == -1) {
+			return
+		}
+		if (GameUI.IsAltDown()) {
+			GameEvents.SendCustomGameEventToAllClients('on_item_alerted', {
+				broadcaster: Players.GetLocalPlayer(),
+				selectedUnit: selectedUnit,
+				item: item,
+			})
+			return
+		}
+		if (!Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer())) {
+			return
+		}
+		if (Items.CanBeExecuted(item)) {
+			Abilities.ExecuteAbility(item, selectedUnit, false)
+		}
+	}, [item, selectedUnit])
 
-  onItemLeftClicked(): void {
-    if (this.props.item == -1) {
-      return;
-    }
-    if (GameUI.IsAltDown()) {
-      GameEvents.SendCustomGameEventToAllClients("on_item_alerted", {
-        broadcaster: Players.GetLocalPlayer(),
-        selectedUnit: this.props.selectedUnit,
-        item: this.props.item
-      })
-      return;
-    }
-    if (!Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer())) {
-      return;
-    }
-    if (Items.CanBeExecuted(this.props.item)) {
-      Abilities.ExecuteAbility(this.props.item, this.props.selectedUnit, false);
-    }
-  }
+	const onItemRightClicked = useCallback(() => {
+		const panel = $('#inventory_item_' + slot)
+		$.DispatchEvent('DOTAHideAbilityTooltip', panel)
+		if (item === -1) {
+			GameUI.SendCustomHUDError('No Item In Slot','General.InvalidTarget_Invulnerable')
+			return
+		}
 
-  onItemRightClicked(): void {
+		const playerId = Entities.GetPlayerOwnerID(selectedUnit)
+		const isControllable = Entities.IsControllableByPlayer(selectedUnit, playerId)
 
-    const panel = $("#inventory_item_container_" + this.props.item);
-    $.DispatchEvent("DOTAHideAbilityTooltip", panel);
+		if (isControllable) {
+			if (itemOptionsVisible && itemOptionsItem === item) {
+				setItemOptionsVisible(false)
+			} else {
+				setItemOptionsVisible(true)
+				setItemOptionsItem(item)
+				const position = panel.style.position
+				if (position) {
+					const positionsArray = (position.match(/[+-]?\d+(\.\d+)?/g) || []).map(n => parseFloat(n))
+					const posX = positionsArray[0]
+					setItemOptionsPositionX(posX)
+				}
+			}
+			Game.EmitSound('ui_topmenu_select')
+		} else {
+			GameUI.SendCustomHUDError('Item Not Owned By You', 'General.InvalidTarget_Invulnerable')
+		}
+	}, [item, selectedUnit, slot, itemOptionsVisible, itemOptionsItem, setItemOptionsVisible, setItemOptionsItem, setItemOptionsPositionX])
 
-    if (this.props.item === -1) {
-      GameUI.SendCustomHUDError("No Item In Slot", "General.InvalidTarget_Invulnerable")
-      return;
-    }
+	const onMouseOver = useCallback(() => {
+		if (item === -1) {
+			return
+		}
+		$.DispatchEvent('DOTAShowAbilityTooltipForEntityIndex', $('#inventory_item_' + slot), Abilities.GetAbilityName(item), selectedUnit)
+	}, [item, selectedUnit, slot])
 
-    const playerId = Entities.GetPlayerOwnerID(this.props.selectedUnit);
-    const isControllable = Entities.IsControllableByPlayer(this.props.selectedUnit, playerId);
+	const onMouseOut = useCallback(() => {
+		$.DispatchEvent('DOTAHideAbilityTooltip', $('#inventory_item_' + slot))
+	}, [slot])
 
-    if (isControllable) {
-      if (this.props.itemOptionsVisible && this.props.itemOptionsItem === this.props.item) {
-        this.props.setItemOptionsVisible(false);
-      } else {
-        this.props.setItemOptionsVisible(true);
-        this.props.setItemOptionsItem(this.props.item);
-        const position = panel.style.position;
-        if (position) {
-          const positionsArray = (position.match(/[+-]?\d+(\.\d+)?/g) || []).map(n => parseFloat(n));
-          const posX = (positionsArray[0]);
-          this.props.setItemOptionsPositionX(posX);
-        }
-      }
-      Game.EmitSound("ui_topmenu_select");
-    } else {
-      GameUI.SendCustomHUDError("Item Not Owned By You", "General.InvalidTarget_Invulnerable")
-    }
+	useEffect(() => {
+		const panel = $('#inventory_item_' + slot)
+		$.RegisterEventHandler('DragEnter', panel, OnDragEnter)
+		$.RegisterEventHandler('DragDrop', panel, onDragDrop)
+		$.RegisterEventHandler('DragLeave', panel, onDragLeave)
+		$.RegisterEventHandler('DragStart', panel, onDragStart)
+		$.RegisterEventHandler('DragEnd', panel, onDragEnd)
+		panel.SetAcceptsFocus(false)
+	}, [slot])
 
-  }
+	return (
+		<Panel
+			id={'inventory_item_' + slot}
+			onmouseover={onMouseOver}
+			onmouseout={onMouseOut}
+			onactivate={onItemLeftClicked}
+			oncontextmenu={onItemRightClicked}
+			draggable={true}
+			className={Styles.container}
+			style={{
+				saturation: isDragged || isDropTarget ? '0.5' : '1.0',
+				washColor: isDragged || isDropTarget ? '#808080' : 'none',
+			}}
+		>
+			{item !== -1 && (
+				<React.Fragment>
+					<Shine item={item} selectedUnit={selectedUnit} />
+					<Cooldown item={item} />
+					{Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer()) && (
+            <Keybind item={item} />
+          )}
+					<Charges item={item} />
+					<Image item={item} selectedUnit={selectedUnit} />
+					<ManaCost item={item} />
+				</React.Fragment>
+			)}
+		</Panel>
+	)
+}
 
-  onMouseOver(): void {
-    if (this.props.item === -1) {
-      return;
-    }
-    const panel = $("#inventory_item_container_" + this.props.item);
-    const ability = Abilities.GetAbilityName(this.props.item);
-    $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", panel, ability, this.props.selectedUnit);
-  }
-
-  onMouseOut(): void {
-    const panel = $("#inventory_item_container_" + this.props.item);
-    $.DispatchEvent("DOTAHideAbilityTooltip", panel);
-  }
-
-  render() {
-
-    // $.Msg("REACT-RENDER: Inventory - Item rendered");
-
-    $.Msg("Render: " + this.props.item)
-    
-    return (
-      <Panel
-        id={"inventory_item_container_" + this.props.item}
-        onmouseover={this.onMouseOver}
-        onmouseout={this.onMouseOut}
-        onactivate={this.onItemLeftClicked}
-        oncontextmenu={this.onItemRightClicked}
-        draggable={true}
-        className={Styles.container}
-        style={{
-          saturation: (this.state.isItemDragged || this.state.isItemDropTarget) ? '0.5' : '1.0',
-          washColor: (this.state.isItemDragged || this.state.isItemDropTarget) ? '#808080' : 'none',
-        }}
-      >
-        {this.props.item !== -1 && (
-          <React.Fragment>
-            <Shine item={this.props.item} selectedUnit={this.props.selectedUnit} />
-            <Cooldown item={this.props.item} />
-            {Entities.IsControllableByPlayer(this.props.selectedUnit, Players.GetLocalPlayer()) && (
-              <Keybind item={this.props.item} />
-            )}
-            <Charges item={this.props.item} />
-            <Image item={this.props.item} selectedUnit={this.props.selectedUnit} />
-            <ManaCost item={this.props.item} />
-          </React.Fragment>
-        )}
-      </Panel>
-    );
-
-  }
-
-};
-
-export default connector(InventoryItem);
+export default connector(Item);
