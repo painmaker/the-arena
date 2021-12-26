@@ -17,4 +17,5 @@ node_modules
 *.vmesh_c
 *.vsndevts_c
 *.vsnd_c
+package-lock.json
 panorama_debugger.cfg

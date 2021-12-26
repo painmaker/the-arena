@@ -7,6 +7,46 @@
         <include src="file://{resources}/layout/custom_game/hud/index.css"></include> 
     </styles>  
     <Panel class="root" hittest="false">
-      <!-- <Image src="file://{resources}/images/ability_gold_background_dark.png" />  -->
+      <!-- <Image src="file://{images}/ability_bg.png" /> 
+      <Image src="file://{images}/ability_gold_background_dark.png" /> 
+      <Image src="file://{images}/background_play_button_2x.png" /> 
+      <Image src="file://{images}/bg_scoreboard.png" /> 
+      <Image src="file://{images}/book_open_page_variant_outline.png" /> 
+      <Image src="file://{images}/character_btn_white.png" /> 
+      <Image src="file://{images}/close_btn_white.png" /> 
+      <Image src="file://{images}/emptyitembg.png" /> 
+      <Image src="file://{images}/gold_small.png" /> 
+      <Image src="file://{images}/icon_abilities_shop_points.png" /> 
+      <Image src="file://{images}/icon_armor_psd.png" /> 
+      <Image src="file://{images}/icon_armor.png" /> 
+      <Image src="file://{images}/icon_attack_range_psd.png" /> 
+      <Image src="file://{images}/icon_attack_speed2_psd.png" /> 
+      <Image src="file://{images}/icon_attack_speed2_psd.png" /> 
+      <Image src="file://{images}/icon_damage_psd.png" /> 
+      <Image src="file://{images}/icon_damage.png" /> 
+      <Image src="file://{images}/icon_magic_resist.png" /> 
+      <Image src="file://{images}/icon_search_shadow.png" /> 
+      <Image src="file://{images}/icon_speed_psd.png" /> 
+      <Image src="file://{images}/icon_speed.png" /> 
+      <Image src="file://{images}/inventory_item_well.png" /> 
+      <Image src="file://{images}/lock_white.png" /> 
+      <Image src="file://{images}/magic_resist_stat.png" /> 
+      <Image src="file://{images}/minimap_boss_icon.png" /> 
+      <Image src="file://{images}/minimap_creep_icon.png" /> 
+      <Image src="file://{images}/primary_attribute_icon_agility.png" /> 
+      <Image src="file://{images}/primary_attribute_icon_intelligence.png" /> 
+      <Image src="file://{images}/primary_attribute_icon_strength.png" /> 
+      <Image src="file://{images}/random_dice.png" /> 
+      <Image src="file://{images}/red_large_off.png" /> 
+      <Image src="file://{images}/regular_ability_point_icon.png" /> 
+      <Image src="file://{images}/settings_btn_white.png" /> 
+      <Image src="file://{images}/shop_btn_white.png" /> 
+      <Image src="file://{images}/silence.png" /> 
+      <Image src="file://{images}/softedge_circle_sharper.png" /> 
+      <Image src="file://{images}/softedge_circle.png" /> 
+      <Image src="file://{images}/stun.png" /> 
+      <Image src="file://{images}/tooltip_arrow_top.png" /> 
+      <Image src="file://{images}/ultimate_ability_point_icon.png" /> 
+      <Image src="file://{images}/x_close_grey.png" />  -->
     </Panel> 
 </root>

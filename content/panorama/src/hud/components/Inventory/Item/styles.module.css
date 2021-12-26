@@ -1,8 +1,9 @@
 .container {
 	width: 54px;
 	height: 39px;
-	margin-right: 2px;
-	margin-left: 2px;
-	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px;
+	margin-right: 10px;
+	margin-left: 10px;
+	/* box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px; */
 	background-color: black;
+	border: 1px solid salmon;
 }

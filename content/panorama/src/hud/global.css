@@ -116,6 +116,7 @@ ProgressBar {
 	width: 60px;
 	height: 45px;
 	border-radius: 5px;
+	border: 1px solid salmon;
 }
 
 /* MINIMAP START */
@@ -204,4 +205,9 @@ ProgressBar {
 	animation-name: shineSweepAnimation;
 	animation-duration: 0.4s;
 	animation-timing-function: ease-in-out;
+}
+
+
+#compileImages {
+	background-image: url('s2r://panorama/images/primary_attribute_icon_intelligence_png.vtex');
 }

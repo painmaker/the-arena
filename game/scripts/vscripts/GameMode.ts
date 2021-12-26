@@ -237,6 +237,7 @@ export class GameMode {
   }
 
   private OnNpcSpawned(event: NpcSpawnedEvent) {
+    
     const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
     unit.AddNewModifier(unit, undefined, "modifier_ui_status_resistance", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_ui_evasion", { duration: -1 });

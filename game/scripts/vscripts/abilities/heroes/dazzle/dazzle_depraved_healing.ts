@@ -47,6 +47,10 @@ export class dazzle_depraved_healing extends BaseAbility {
     caster.EmitSoundParams("Hero_Dazzle.Poison_Cast", 1.0, 1.0, 0);
     caster.EmitSoundParams("hero_bloodseeker.attack", 0.75, 0.75, 0);
 
+    const fx = ParticleManager.CreateParticle("particles/abilities/heroes/dazzle/dazzle_depraved_healing/dazzle_depraved_healing.vpcf", ParticleAttachment_t.PATTACH_POINT_FOLLOW, target);
+    ParticleManager.SetParticleControl(fx, 0, target.GetAbsOrigin());
+    ParticleManager.ReleaseParticleIndex(fx);
+
     target.Heal(heal, this);
 
     ApplyDamage({

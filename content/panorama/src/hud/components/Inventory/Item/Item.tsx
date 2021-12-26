@@ -67,6 +67,8 @@ class InventoryItem extends React.Component<Props, State> {
 
   onDragStart(thisPanel: Panel, draggedPanel: any): void {
 
+    $.Msg("onDragStart")
+
     $.DispatchEvent("DOTAHideAbilityTooltip", thisPanel);
 
     if (this.props.item === -1) {
@@ -78,7 +80,7 @@ class InventoryItem extends React.Component<Props, State> {
       return;
     }
 
-    this.setState({ isItemDragged: true })
+    // this.setState({ isItemDragged: true })
 
     draggedPanel.displayPanel = $.CreatePanel("DOTAItemImage", $.GetContextPanel(), "inventoryItemDraggedItem");
     draggedPanel.displayPanel.itemname = Abilities.GetAbilityName(this.props.item);
@@ -91,27 +93,31 @@ class InventoryItem extends React.Component<Props, State> {
   }
 
   OnDragEnd(thisPanel: Panel, draggedPanel: any): void {
+    $.Msg("OnDragEnd")
     if (!draggedPanel.Data().dragCompleted) {
+      $.Msg("DropItemAtCursor")
       Game.DropItemAtCursor(this.props.selectedUnit, this.props.item);
     }
     draggedPanel.DeleteAsync(0);
-    this.setState({ isItemDragged: false })
+    // this.setState({ isItemDragged: false });
   }
 
   OnDragLeave(thisPanel: Panel, draggedPanel: any): void {
+    $.Msg("OnDragLeave")
     const draggedItem = draggedPanel.Data().item;
-    if (this.props.item === -1 || draggedItem === null || draggedItem == this.props.item) {
+    if (this.props.item === -1 || draggedItem === null || draggedItem === this.props.item) {
       return;
     }
-    this.setState({ isItemDropTarget: false })
+    // this.setState({ isItemDropTarget: false });
   }
 
   OnDragEnter(thisPanel: Panel, draggedPanel: any): void {
+    $.Msg("OnDragEnter")
     const draggedItem = draggedPanel.Data().item;
-    if (this.props.item === -1 || draggedItem === null || draggedItem == this.props.item) {
+    if (this.props.item === -1 || draggedItem === null || draggedItem === this.props.item) {
       return;
     }
-    this.setState({ isItemDropTarget: true })
+    // this.setState({ isItemDropTarget: true });
   }
 
   OnDragDrop(thisPanel: Panel, draggedPanel: any): void {
@@ -124,7 +130,7 @@ class InventoryItem extends React.Component<Props, State> {
 
     draggedPanel.Data().dragCompleted = true;
 
-    if (draggedItem == this.props.item) {
+    if (draggedItem === this.props.item) {
       return;
     }
 
@@ -209,6 +215,8 @@ class InventoryItem extends React.Component<Props, State> {
 
     // $.Msg("REACT-RENDER: Inventory - Item rendered");
 
+    $.Msg("Render: " + this.props.item)
+    
     return (
       <Panel
         id={"inventory_item_container_" + this.props.item}
