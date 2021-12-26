@@ -6,7 +6,8 @@ import ButtonGroup from "./components/ButtonGroup/ButtonGroup";
 import Heroes from "./components/Heroes/Heroes";
 import GameTime from "./components/GameTime/GameTime";
 import AbilityBar from "./components/AbilityBar/AbilityBar";
-import HealthBar from "./components/HealthBar/HealthBar";
+import Health from "./components/Health/Health";
+import Mana from "./components/Mana/Mana";
 import Stats from "./components/Stats/Stats";
 import Character from "./components/Character/Character";
 import Debuffs from "./components/Modifiers/Debuffs/Debuffs";
@@ -21,7 +22,6 @@ import Messages from "./components/Messages/Messages";
 import { useInterval } from "./hooks/useInterval";
 import "./global.css";
 import Styles from "./app.module.css";
-import ManaBar from "./components/ManaBar/ManaBar";
 
 export const HUD_THINK_FAST = 30;
 export const HUD_THINK_MEDIUM = 100;
@@ -125,8 +125,8 @@ const App = () => {
               <Character selectedUnit={selectedUnit} />
               <Shop selectedUnit={selectedUnit} />
               <AbilityBar selectedUnit={selectedUnit} />
-              <ManaBar selectedUnit={selectedUnit} />
-              <HealthBar selectedUnit={selectedUnit} />
+              <Mana selectedUnit={selectedUnit} />
+              <Health selectedUnit={selectedUnit} />
               <ButtonGroup />
               <Minimap />
               <Buffs selectedUnit={selectedUnit} />

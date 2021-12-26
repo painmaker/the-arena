@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { HUD_THINK_FAST } from "../../App";
-import { useInterval } from "../../hooks/useInterval";
 import Styles from "./styles.module.css";
+import { useInterval } from "../../hooks/useInterval";
 
 type Props = {
   selectedUnit: EntityIndex,
 };
 
-const ManaBar = (props: Props) => {
+const Mana = (props: Props) => {
 
   // $.Msg("REACT-RENDER: ManaBar rendered");
 
@@ -70,4 +70,4 @@ const ManaBar = (props: Props) => {
 
 };
 
-export default React.memo(ManaBar);
+export default React.memo(Mana);

@@ -7,7 +7,7 @@ type Props = {
   selectedUnit: EntityIndex,
 };
 
-const HealthBar = (props: Props) => {
+const Health = (props: Props) => {
 
   // $.Msg("REACT-RENDER: HealthBar rendered");
 
@@ -79,4 +79,4 @@ const HealthBar = (props: Props) => {
 
 };
 
-export default React.memo(HealthBar);
+export default React.memo(Health);
