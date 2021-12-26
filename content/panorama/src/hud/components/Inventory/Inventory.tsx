@@ -22,18 +22,18 @@ const Inventory = (props: Props) => {
 	const [hasInventory, setHasInventory] = useState(Entities.IsInventoryEnabled(selectedUnit))
 
 	useInterval(() => {
-		setHasInventory(Entities.IsInventoryEnabled(selectedUnit))
-		const newItems = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(selectedUnit, slot));
-		if (!TableUtils.areTablesEqual(items, newItems)) {
+	  setHasInventory(Entities.IsInventoryEnabled(selectedUnit))
+	  const newItems = Array.from(ITEM_SLOTS).map(slot => Entities.GetItemInSlot(selectedUnit, slot));
+	  if (!TableUtils.areTablesEqual(items, newItems)) {
 			setItems(newItems)
-		}
+	  }
 	}, HUD_THINK_FAST)
 
 	return (
 		<React.Fragment>
 			<ItemOptions selectedUnit={selectedUnit} />
 			<Panel
-        hittest={false}
+				hittest={false}
 				className={Styles.container}
 				style={{ visibility: hasInventory ? 'visible' : 'collapse' }}
 			>

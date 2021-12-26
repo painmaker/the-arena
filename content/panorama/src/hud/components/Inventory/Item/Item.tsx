@@ -1,4 +1,4 @@
-import React, { Dispatch, useCallback, useEffect, useState } from 'react'
+import React, { Dispatch, useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import Keybind from './Keybind/Keybind'
 import Cooldown from './Cooldown/Cooldown'
 import Image from './Image/Image'
@@ -99,7 +99,7 @@ const Item = (props: Props) => {
       return
     }
     setIsDropTarget(false);
-		}, [item])
+	}, [item])
 
 	const OnDragEnter = useCallback((thisPanel: Panel, draggedPanel: any) => {
     $.Msg('OnDragEnter')
@@ -188,14 +188,16 @@ const Item = (props: Props) => {
 		$.DispatchEvent('DOTAHideAbilityTooltip', $('#inventory_item_' + slot))
 	}, [slot])
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const panel = $('#inventory_item_' + slot)
-		$.RegisterEventHandler('DragEnter', panel, OnDragEnter)
-		$.RegisterEventHandler('DragDrop', panel, onDragDrop)
-		$.RegisterEventHandler('DragLeave', panel, onDragLeave)
-		$.RegisterEventHandler('DragStart', panel, onDragStart)
-		$.RegisterEventHandler('DragEnd', panel, onDragEnd)
-		panel.SetAcceptsFocus(false)
+		if (panel) {
+			$.RegisterEventHandler('DragEnter', panel, OnDragEnter)
+			$.RegisterEventHandler('DragDrop', panel, onDragDrop)
+			$.RegisterEventHandler('DragLeave', panel, onDragLeave)
+			$.RegisterEventHandler('DragStart', panel, onDragStart)
+			$.RegisterEventHandler('DragEnd', panel, onDragEnd)
+			panel.SetAcceptsFocus(false)
+		}
 	}, [slot])
 
 	return (
