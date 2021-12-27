@@ -122,18 +122,18 @@ ProgressBar {
 /* MINIMAP START */
 
 .MinimapImage {
-	width: 10px;
-	height: 10px;
+	width: 8px;
+	height: 8px;
 	background-image: url('s2r://panorama/images/minimap_creep_icon_png.vtex');
 	background-position: center;
 	background-size: contain;
 	background-repeat: no-repeat;
-	wash-color: #0f0;
+	wash-color: rgb(0, 214, 0);
 	z-index: 1;
 }
 
 .MinimapImage.Enemy {
-	wash-color: red;
+	wash-color: rgb(204, 0, 0);
 	z-index: 2;
 }
 
@@ -145,14 +145,15 @@ ProgressBar {
 }
 
 .MinimapImage.shopkeeper_abilities {
-	wash-color: white;
-	width: 20px;
-	height: 20px;
+	wash-color: rgb(255, 255, 255);
+	width: 28px;
+	height: 28px;
 	background-image: url('s2r://panorama/images/book_open_page_variant_outline_png.vtex');
 	background-size: 65%;
 	background-position: 50% 50%;
 	background-color: rgba(0, 0, 0, 0.8);
 	border-radius: 50%;
+	z-index: 1;
 }
 
 .minimap > DOTAHeroImage {

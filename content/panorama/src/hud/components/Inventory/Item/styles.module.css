@@ -5,4 +5,8 @@
 	margin-left: 4px;
 	/* box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px; */
 	background-color: black;
+	background-image: url("s2r://panorama/images/items/emptyitembg_png.vtex");
+	background-position: 50% 50%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 }
