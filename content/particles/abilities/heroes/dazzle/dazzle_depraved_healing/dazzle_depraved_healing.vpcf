@@ -129,4 +129,10 @@
 			m_nOutputBlendMode = "PARTICLE_OUTPUT_BLEND_MODE_ADD"
 		},
 	]
+	m_Children = 
+	[
+		{
+			m_ChildRef = resource:"particles/abilities/heroes/dazzle/dazzle_depraved_healing/dazzle_depraved_healing_beam.vpcf"
+		},
+	]
 }

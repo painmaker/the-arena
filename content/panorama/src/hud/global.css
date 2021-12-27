@@ -145,10 +145,14 @@ ProgressBar {
 }
 
 .MinimapImage.shopkeeper_abilities {
-	wash-color: orange;
+	wash-color: white;
 	width: 20px;
 	height: 20px;
 	background-image: url('s2r://panorama/images/book_open_page_variant_outline_png.vtex');
+	background-size: 65%;
+	background-position: 50% 50%;
+	background-color: rgba(0, 0, 0, 0.8);
+	border-radius: 50%;
 }
 
 .minimap > DOTAHeroImage {

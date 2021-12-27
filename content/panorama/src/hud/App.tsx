@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useNetTableValues } from "react-panorama";
 import Minimap from "./components/Minimap/Minimap";
 import Settings from "./components/Settings/Settings";
@@ -22,10 +22,21 @@ import Messages from "./components/Messages/Messages";
 import { useInterval } from "./hooks/useInterval";
 import "./global.css";
 import Styles from "./app.module.css";
+import Portrait from "./components/Portrait/Portrait";
 
 export const HUD_THINK_FAST = 30;
 export const HUD_THINK_MEDIUM = 100;
 export const HUD_THINK_SLOW = 1000;
+
+interface Context {
+  selectedUnit: EntityIndex,
+  setSelectedUnit: Dispatch<SetStateAction<EntityIndex>>
+} 
+
+export const Context = React.createContext<Context>({
+  selectedUnit: Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()),
+  setSelectedUnit: () => {}
+});
 
 const App = () => {
 
@@ -100,47 +111,50 @@ const App = () => {
   }, [useCustomUI]);
 
   return (
-    <Panel
-      id={'root'}
-      className={Styles.container}
-      hittest={false}
-    >
-      {(!hasPickedHero) && (
-        <HeroSelection />
-      )}
-      {hasPickedHero && (
-        <Loading>
-          <ToggleButton
-            className={Styles.useCustomUIBtn}
-            selected={useCustomUI}
-            onactivate={() => setUseCustomUI(prevState => !prevState)}
-          >
-            <Label className={Styles.useCustomUILabel} text={'Use Custom UI'} />
-          </ToggleButton>
-          {useCustomUI && (
-            <React.Fragment>
-              <Heroes />
-              <GameTime />
-              <Settings />
-              <Character selectedUnit={selectedUnit} />
-              <Shop selectedUnit={selectedUnit} />
-              <AbilityBar selectedUnit={selectedUnit} />
-              <Mana selectedUnit={selectedUnit} />
-              <Health selectedUnit={selectedUnit} />
-              <ButtonGroup />
-              <Minimap />
-              <Buffs selectedUnit={selectedUnit} />
-              <Debuffs selectedUnit={selectedUnit} />
-              <Inventory selectedUnit={selectedUnit} />
-              <Stats selectedUnit={selectedUnit} />
-              <AbilitiesShop selectedUnit={selectedUnit} />
-              <FloatingContainer />
-              <Messages />
-            </React.Fragment>
-          )}
-        </Loading>
-      )}
-    </Panel>
+    <Context.Provider value={{ selectedUnit, setSelectedUnit }}>
+      <Panel
+        id={'root'}
+        className={Styles.container}
+        hittest={false}
+      >
+        {(!hasPickedHero) && (
+          <HeroSelection />
+        )}
+        {hasPickedHero && (
+          <Loading>
+            <ToggleButton
+              className={Styles.useCustomUIBtn}
+              selected={useCustomUI}
+              onactivate={() => setUseCustomUI(prevState => !prevState)}
+            >
+              <Label className={Styles.useCustomUILabel} text={'Use Custom UI'} />
+            </ToggleButton>
+            {useCustomUI && (
+              <React.Fragment>
+                <Heroes />
+                <GameTime />
+                <Settings />
+                <Character selectedUnit={selectedUnit} />
+                <Shop selectedUnit={selectedUnit} />
+                <AbilityBar selectedUnit={selectedUnit} />
+                <Mana />
+                <Health />
+                <ButtonGroup />
+                <Minimap />
+                <Portrait />
+                <Buffs selectedUnit={selectedUnit} />
+                <Debuffs selectedUnit={selectedUnit} />
+                <Inventory selectedUnit={selectedUnit} />
+                <Stats selectedUnit={selectedUnit} />
+                <AbilitiesShop selectedUnit={selectedUnit} />
+                <FloatingContainer />
+                <Messages />
+              </React.Fragment>
+            )}
+          </Loading>
+        )}
+      </Panel>
+    </Context.Provider>
   );
 
 }

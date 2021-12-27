@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import { HUD_THINK_FAST } from "../../App";
+import { HUD_THINK_FAST, Context } from "../../App";
 import Styles from "./styles.module.css";
 import { useInterval } from "../../hooks/useInterval";
 
-type Props = {
-  selectedUnit: EntityIndex,
-};
-
-const Health = (props: Props) => {
+const Health = () => {
 
   // $.Msg("REACT-RENDER: HealthBar rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit } = React.useContext(Context);
 
   const [health, setHealth] = useState(Entities.GetHealth(selectedUnit));
   const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(selectedUnit));

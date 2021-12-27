@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import { HUD_THINK_FAST } from "../../App";
+import { Context, HUD_THINK_FAST } from "../../App";
 import Styles from "./styles.module.css";
 import { useInterval } from "../../hooks/useInterval";
 
-type Props = {
-  selectedUnit: EntityIndex,
-};
-
-const Mana = (props: Props) => {
+const Mana = () => {
 
   // $.Msg("REACT-RENDER: ManaBar rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit } = React.useContext(Context);
 
   const [mana, setMana] = useState(Entities.GetMana(selectedUnit));
   const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(selectedUnit));

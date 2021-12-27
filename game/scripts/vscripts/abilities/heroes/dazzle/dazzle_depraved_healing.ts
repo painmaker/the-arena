@@ -47,9 +47,19 @@ export class dazzle_depraved_healing extends BaseAbility {
     caster.EmitSoundParams("Hero_Dazzle.Poison_Cast", 1.0, 1.0, 0);
     caster.EmitSoundParams("hero_bloodseeker.attack", 0.75, 0.75, 0);
 
-    const fx = ParticleManager.CreateParticle("particles/abilities/heroes/dazzle/dazzle_depraved_healing/dazzle_depraved_healing.vpcf", ParticleAttachment_t.PATTACH_POINT_FOLLOW, target);
-    ParticleManager.SetParticleControl(fx, 0, target.GetAbsOrigin());
-    ParticleManager.ReleaseParticleIndex(fx);
+    const targetFx = ParticleManager.CreateParticle("particles/abilities/heroes/dazzle/dazzle_depraved_healing/dazzle_depraved_healing.vpcf", ParticleAttachment_t.PATTACH_POINT_FOLLOW, target);
+    ParticleManager.SetParticleControl(targetFx, 0, target.GetAbsOrigin());
+    ParticleManager.ReleaseParticleIndex(targetFx);
+
+    const weaponFx = ParticleManager.CreateParticle("particles/abilities/heroes/dazzle/general/dazzle_cast_ability_a.vpcf", ParticleAttachment_t.PATTACH_POINT_FOLLOW, caster);
+    ParticleManager.SetParticleControlEnt(weaponFx, 0, caster, ParticleAttachment_t.PATTACH_POINT_FOLLOW, "attach_attack1", caster.GetOrigin(), true);
+    ParticleManager.ReleaseParticleIndex(weaponFx);
+
+    // const textFx = ParticleManager.CreateParticle("particles/general/health_and_mana_gained_text.vpcf", ParticleAttachment_t.PATTACH_POINT_FOLLOW, caster);
+    // ParticleManager.SetParticleControl(textFx, 1, Vector(1, damage, 0));
+    // ParticleManager.SetParticleControl(textFx, 2, Vector(2, 2 + math.floor(math.log10(damage)), 0));
+    // ParticleManager.SetParticleControl(textFx, 3, Vector(255, 0, 0));
+    // ParticleManager.ReleaseParticleIndex(textFx);
 
     target.Heal(heal, this);
 

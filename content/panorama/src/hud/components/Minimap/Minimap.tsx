@@ -36,10 +36,12 @@ const Minimap = (props: Props) => {
           maptexture={"materials/overviews/the_arena_tga_5f0a2a04.vtex"}
         />
       </Panel>
+      {/*
       <Label
         className={Styles.label}
         text={zoneName}
       />
+      */}
     </Panel>
   );
 

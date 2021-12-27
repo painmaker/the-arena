@@ -2,11 +2,10 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Minimap/minimap.module.css ***!
   \********************************************************************************************************************************/
 .chIrdYtZyblNYYYGOCSI {
-	margin-left: 25px;
-	margin-bottom: 25px;
+	margin-left: 15px;
+	margin-bottom: 15px;
 	flow-children: down;
 	vertical-align: bottom;
-	z-index: 999;
 }
 
 .QJp6qFKPkiSjQtp4IWYu {
@@ -17,15 +16,7 @@
 .FsTpjUYsXR18vjlgG0Ms {
 	border-radius: 50%;
 	opacity-mask: url('s2r://panorama/images/softedge_circle_sharper.png') 1.5;
-	background-color: gradient(
-		radial,
-		50% 50%,
-		0% 0%,
-		300px 300px,
-		from(#000d),
-		color-stop(0.5, #000d),
-		to(#000d)
-	);
+	background-color: rgba(0, 0, 0, 0.9);
 	width: 300px;
 	height: 300px;
 }
@@ -34,10 +25,11 @@
 	width: 100%;
 	height: 20px;
 	text-align: center;
-	color: orange;
-	font-size: 18px;
+	color: rgba(200, 200, 200, 0.5);
+	font-size: 12px;
 	text-overflow: ellipsis;
 	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.5);
+	margin-top: -15px;
 }
 
 /*!*************************************************************************************************************************************************!*\
@@ -2448,10 +2440,14 @@ ProgressBar {
 }
 
 .MinimapImage.shopkeeper_abilities {
-	wash-color: orange;
+	wash-color: white;
 	width: 20px;
 	height: 20px;
 	background-image: url('s2r://panorama/images/book_open_page_variant_outline_png.vtex');
+	background-size: 65%;
+	background-position: 50% 50%;
+	background-color: rgba(0, 0, 0, 0.8);
+	border-radius: 50%;
 }
 
 .minimap > DOTAHeroImage {
@@ -2536,3 +2532,39 @@ ProgressBar {
 	padding-bottom: 3px;
 }
 
+/*!********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Portrait/styles.module.css ***!
+  \********************************************************************************************************************************/
+.YklqLUUVr10zbIWMKMLF {
+  margin-left: 225px;
+	margin-bottom: 50px;
+	vertical-align: bottom;
+  flow-children: down;
+}
+
+.U3ykiXWzyeWHrAMskmLM {
+  border-radius: 50%;
+  opacity-mask: url('s2r://panorama/images/softedge_circle_sharper.png') 0.85;
+	background-color: rgba(0, 0, 0, 0.8);
+  width: 78px;
+  height: 78px;
+}
+
+.bNWkSdfknTsKDdLEHZcn {
+  width: 100%;
+  height: 100%;
+  margin: 8px;
+  border: 1px solid rgb(30, 30, 30);
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+.hlAYHVAyw_VYbVssTJ9C {
+  width: 100%;
+	text-align: center;
+  color: rgba(200, 200, 200, 0.85);
+	font-size: 12px;
+	text-overflow: ellipsis;
+	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.95);
+  margin-top: -8px;
+}

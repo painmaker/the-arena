@@ -50,15 +50,11 @@ const Item = (props: Props) => {
 		setItemOptionsVisible,
 	} = props
 
-	$.Msg('Render: ' + item)
-
 	const [isDragged, setIsDragged] = useState(false)
 	const [isDropTarget, setIsDropTarget] = useState(false)
 
 	const onDragStart = useCallback((thisPanel: Panel, draggedPanel: any) => {
 		
-    $.Msg('onDragStart')
-
     $.DispatchEvent('DOTAHideAbilityTooltip', thisPanel)
 
     if (item === -1) {
@@ -83,9 +79,7 @@ const Item = (props: Props) => {
   }, [item, selectedUnit])
 
 	const onDragEnd = useCallback((thisPanel: Panel, draggedPanel: any) => {
-    $.Msg('OnDragEnd')
     if (!draggedPanel.Data().dragCompleted) {
-      $.Msg('DropItemAtCursor')
       Game.DropItemAtCursor(selectedUnit, item)
     }
     draggedPanel.DeleteAsync(0)
@@ -93,7 +87,6 @@ const Item = (props: Props) => {
   }, [item, selectedUnit])
 
 	const onDragLeave = useCallback((thisPanel: Panel, draggedPanel: any) => {
-    $.Msg('OnDragLeave')
     const draggedItem = draggedPanel.Data().item
     if (item === -1 || draggedItem === null || draggedItem === item) {
       return
@@ -102,7 +95,6 @@ const Item = (props: Props) => {
 	}, [item])
 
 	const OnDragEnter = useCallback((thisPanel: Panel, draggedPanel: any) => {
-    $.Msg('OnDragEnter')
     const draggedItem = draggedPanel.Data().item
     if (item === -1 || draggedItem === null || draggedItem === item) {
       return
