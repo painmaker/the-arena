@@ -22,7 +22,6 @@ import Messages from "./components/Messages/Messages";
 import { useInterval } from "./hooks/useInterval";
 import "./global.css";
 import Styles from "./app.module.css";
-import Portrait from "./components/Portrait/Portrait";
 
 export const HUD_THINK_FAST = 30;
 export const HUD_THINK_MEDIUM = 100;
@@ -127,7 +126,7 @@ const App = () => {
               selected={useCustomUI}
               onactivate={() => setUseCustomUI(prevState => !prevState)}
             >
-              <Label className={Styles.useCustomUILabel} text={'Use Custom UI'} />
+              <Label className={Styles.useCustomUILabel} text={'Custom UI'} />
             </ToggleButton>
             {useCustomUI && (
               <React.Fragment>
@@ -141,11 +140,10 @@ const App = () => {
                 <Health />
                 <ButtonGroup />
                 <Minimap />
-                <Portrait />
                 <Buffs selectedUnit={selectedUnit} />
                 <Debuffs selectedUnit={selectedUnit} />
                 <Inventory selectedUnit={selectedUnit} />
-                <Stats selectedUnit={selectedUnit} />
+                <Stats />
                 <AbilitiesShop selectedUnit={selectedUnit} />
                 <FloatingContainer />
                 <Messages />

@@ -1,18 +1,13 @@
 import React, { useState } from "react";
-import { HUD_THINK_MEDIUM } from "../../../App";
+import { Context, HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
-import Styles from './level.module.css';
-import ParentStyles from './../stats.module.css';
+import Styles from './styles.module.css';
 
-type Props = {
-  selectedUnit: EntityIndex,
-}
-
-const Level = (props: Props) => {
+const Level = () => {
 
   // $.Msg("REACT-RENDER: Stats - Level rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit } = React.useContext(Context);
 
   const [level, setLevel] = useState(1);
   const [percentage, setPercentage] = useState(0);
@@ -30,24 +25,22 @@ const Level = (props: Props) => {
   }, HUD_THINK_MEDIUM);
 
   return (
-    <React.Fragment>
-      <Panel className={ParentStyles.entry}>
-        <Label
-          className={ParentStyles.label}
-          text={'Lvl. ' + level}
-        />
-        <Panel className={Styles.levelBarContainer}>
-          <Panel
-            className={Styles.levelBar}
-            style={{ width: percentage + "%" }}
-          />
-        </Panel>
-        <Label
-          className={`${Styles.levelPctLabel} ${ParentStyles.label}`}
-          text={percentage + "%"}
+    <Panel className={Styles.container}>
+      <Label
+        className={Styles.label}
+        text={'Lvl. ' + level}
+      />
+      <Panel className={Styles.levelBarContainer}>
+        <Panel
+          className={Styles.levelBar}
+          style={{ width: percentage + "%" }}
         />
       </Panel>
-    </React.Fragment>
+      <Label
+        className={Styles.label}
+        text={percentage + "%"}
+      />
+    </Panel>
   );
 
 };

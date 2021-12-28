@@ -5,9 +5,9 @@
 
 .useCustomUIBtn {
 	vertical-align: top;
-	horizontal-align: right;
+	horizontal-align: left;
 	margin-top: 50px;
-	margin-right: 10px;
+	margin-left: 15px;
 }
 
 .useCustomUILabel {

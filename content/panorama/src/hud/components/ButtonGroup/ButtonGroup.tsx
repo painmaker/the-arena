@@ -10,7 +10,7 @@ const ButtonGroup = () => {
   // $.Msg("REACT-RENDER: ButtonGroup rendered");
 
   return (
-    <Panel hittest={true} className={Styles.container}>
+    <Panel hittest={false} className={Styles.container}>
       <SettingsButton />
       <ShoppingButton />
       <CharaterButton />

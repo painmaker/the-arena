@@ -56,6 +56,9 @@ export class GameMode {
     PrecacheUnitByNameSync("npc_dota_hero_axe", context)
     PrecacheUnitByNameSync("npc_dota_hero_bane", context)
     PrecacheUnitByNameSync("npc_dota_hero_vengeful_spirit", context)
+    PrecacheUnitByNameSync("npc_dota_hero_drow_ranger", context)
+    PrecacheUnitByNameSync("npc_dota_hero_medusa", context)
+    PrecacheUnitByNameSync("npc_dota_hero_doom", context)
 
     PrecacheUnitByNameSync("shopkeeper_abilities", context)
     PrecacheUnitByNameSync("npc_dota_creep_goodguys_melee", context)

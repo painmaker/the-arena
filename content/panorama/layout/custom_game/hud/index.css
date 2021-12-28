@@ -2,10 +2,11 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Minimap/minimap.module.css ***!
   \********************************************************************************************************************************/
 .chIrdYtZyblNYYYGOCSI {
-	margin-left: 15px;
-	margin-bottom: 15px;
+	margin-left: 20px;
+	margin-bottom: 20px;
 	flow-children: down;
 	vertical-align: bottom;
+	horizontal-align: left;
 }
 
 .QJp6qFKPkiSjQtp4IWYu {
@@ -17,8 +18,8 @@
 	border-radius: 50%;
 	opacity-mask: url('s2r://panorama/images/softedge_circle_sharper.png') 1.5;
 	background-color: rgba(0, 0, 0, 0.9);
-	width: 300px;
-	height: 300px;
+	width: 225px;
+	height: 225px;
 }
 
 .MMYyKjPgWvMQW3zcTxSA {
@@ -190,20 +191,22 @@
 	vertical-align: bottom;
 	horizontal-align: right;
 	width: 250px;
-	margin-bottom: 10px;
-	margin-right: 15px;
 	flow-children: left;
 	z-index: 9999;
+	background-image: url("s2r://panorama/images/hud/reborn/courier_gold_bg_262_psd.vtex");
+	background-position: center;
+	background-size: 100%;
+	background-repeat: no-repeat;
 }
 
 .UJCvjFyZXXNKwJOrhwa4 {
 	vertical-align: center;
 	margin-top: 5px;
 	margin-bottom: 5px;
-	margin-right: 10px;
-	margin-left: 10px;
-	width: 35px;
-	height: 35px;
+	margin-right: 14px;
+	margin-left: 14px;
+	width: 30px;
+	height: 30px;
 	padding: 1.5px;
 	pre-transform-scale2d: 1;
 }
@@ -294,9 +297,11 @@
 .UqxlWvoDM9ivnuHT6GDt {
 	flow-children: down;
 	horizontal-align: right;
+	vertical-align: top;
 	width: 100px;
-	margin-top: 90px;
+	margin-top: 55px;
 	margin-right: 25px;
+	z-index: 10;
 }
 
 .u9zrcHhU8YuhR6YiRAmZ {
@@ -304,8 +309,8 @@
 	font-size: 18px;
 	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.5);
 	width: 100%;
-	padding-left: 20px;
 	font-family: monospaceNumbersFont;
+	text-align: right;
 }
 
 /*!**********************************************************************************************************************************************************!*\
@@ -622,54 +627,181 @@
 	opacity: 0.8;
 }
 
-/*!**********************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Level/level.module.css ***!
-  \**********************************************************************************************************************************/
-.JXQyEf4ZmIVx54alsapk {
-	width: 100px;
+/*!***********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Level/styles.module.css ***!
+  \***********************************************************************************************************************************/
+.L_5penTb2Wb2Wz1QpwkC {
+	width: 100%;
+	vertical-align: bottom;
+	horizontal-align: center;
+	flow-children: right;
+	margin-bottom: 2px;
+}
+
+.RnfFvg9Qb5vCHJkLLmGP {
+	width: 18%;
+	font-size: 12px;
+	color: orange;
+	text-align: center;
+	text-shadow: 0px 0px 3px 3 black;
+}
+
+.DhWxdMc6jwlBqZKhH7GT {
+	width: fill-parent-flow(1);
 	height: 100%;
 	vertical-align: center;
-	background-color: rgba(0, 0, 0, 0.65);
-	margin-top: 3px;
-	margin-bottom: 3px;
+	horizontal-align: center;
+	background-color: rgba(0, 0, 0, 0.85);
+	margin-top: 2px;
+	margin-bottom: 2px;
 	margin-left: 4px;
-	border-radius: 4px;
+	margin-right: 2px;
+	border-radius: 2px;
 }
 
-.BciUpAbogLA0n9b61wJb {
-	background-color: orange;
+.qWK_yq0eB2DaGbWXItNV {
 	height: 100%;
-	vertical-align: middle;
+	vertical-align: center;
+	horizontal-align: left;
 	margin: 3px;
-	transition: width 0.3s ease-in-out 0.1s;
+	background-color: orange;
+	transition: width 0.3s ease-in-out 0.05s;
 }
 
-.TAd15y9KOLziRLp0b0gg {
-	font-size: 14px;
-	vertical-align: middle;
-	margin-left: 4px;
-}
 
 /*!****************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/stats.module.css ***!
   \****************************************************************************************************************************/
 .oC1j0mW0_9JGy6vDTaRi {
 	vertical-align: bottom;
-	horizontal-align: center;
-	height: 30px;
-	flow-children: right;
-	border-radius: 3px;
-	margin-bottom: 5px;
+	horizontal-align: right;
 	width: fit-children;
-	padding-right: 8px;
-	padding-left: 8px;
-	box-shadow: fill rgba(60, 60, 60, 0.3) 0px 0px 6px 2px;
-	background-image: url('s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex');
-	background-position: 50% 50%;
+	width: 225px;
+	height: 125px;
+	margin-bottom: 41px;
+	background-image: url("s2r://panorama/images/hud/reborn/courier_gold_bg_262_psd.vtex");
+	background-position: center;
 	background-size: 100%;
 	background-repeat: no-repeat;
-	background-img-opacity: 1.85;
-	background-color: rgba(30, 30, 30, 0.9);
+	padding-left: 14px;
+	padding-top: 2px;
+}
+
+.qpiUQcvh9iBtQjwIAMOC {
+	vertical-align: center;
+	horizontal-align: right;
+  width: 100%;
+	height: 100%;
+	transform: scaleX(-1);
+	opacity-brush: gradient(
+		linear,
+		100% 0%,
+		0% 0%,
+		from(rgba(0, 0, 0, 0)), 
+		color-stop(0.8, rgba(255, 255, 255, 1.0)),
+		to(white)
+	);
+	z-index: 1;
+}
+
+.ZK7aRzK0roUIBYMKPIVh {
+	horizontal-align: left;
+	text-align: left;
+	min-width: 50%;
+	height: 100%;
+	font-size: 13px;
+	color: orange;
+	background-color: gradient(
+		linear,
+		100% 0%,
+		0% 0%,
+		from(rgba(0, 0, 0, 0)), 
+		color-stop(0.6, rgba(0, 0, 0, 0.9)),
+		to(rgba(0, 0, 0, 0.9))
+	);
+	text-shadow: 0px 0px 3px 3 black;
+	border-radius: 2px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+}
+
+.NZaKH9ITUJvaQEqsUhjQ {
+	width: 100%;
+	height: 100%;
+	flow-children: down;
+	z-index: 2;
+	background-color: gradient(
+		linear,
+		0% 0%,
+		100% 0%,
+		from(rgba(0, 0, 0, 0)), 
+		color-stop(0.4, rgba(0, 0, 0, 0.0)),
+		color-stop(0.8, rgba(0, 0, 0, 0.9)),
+		to(rgba(0, 0, 0, 1.0))
+	);
+}
+
+.HMgjUPLvULjyrmAok0Rs {
+	width: 100%;
+	height: 15%;
+	/* background-color: red; */
+}
+
+.DancWUYWPS6QmapSk2qh {
+	flow-children: right;
+	width: 100%;
+	height: 65%;
+	/* background-color: green; */
+}
+
+.IjtMlucpn73Pr8KYZacj {
+	width: 100%;
+	height: 20%;
+	/* background-color: blue; */
+}
+
+.ARbRj184RsnNZoWBNKqX {
+	height: 100%;
+	width: 50%;
+	flow-children: down;
+}
+
+.cDvIob57zPB3nd_kYfMU {
+	height: 100%;
+	width: 50%;
+	flow-children: down;
+}
+
+.g5SMzhk3CIYKeRcjQaGm {
+	height: fit-children;
+	width: 100%;
+	flow-children: down;
+	vertical-align: center;
+}
+
+.Gn4LgS5tAAgOJCBuE4FW {
+	flow-children: left;
+	width: 100%;
+	height: 18px;
+	margin-right: 2px;
+	margin-left: 2px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	border-radius: 5px;
+	/* background-color: gradient(
+		linear,
+		0% 0%,
+		100% 0%,
+		from(rgba(0, 0, 0, 0)), 
+		color-stop(0.6, rgba(0, 0, 0, 0.8)),
+		to(rgba(0, 0, 0, 0.8))
+	); */
+}
+
+.oiR96nuswcM0BY6w998t {
+	height: 100%;
+	width: 20%;
 }
 
 .H6TAG5JpSntZ0naNF1nw {
@@ -678,46 +810,22 @@
 	background-size: contain;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
-	vertical-align: middle;
-	margin-right: 2px;
-	horizontal-align: center;
+	vertical-align: center;
 }
 
-.Gn4LgS5tAAgOJCBuE4FW {
-	flow-children: right;
-	vertical-align: center;
-	margin-left: 8px;
-	margin-right: 8px;
+.XlbFIiZAzdXPQfbWYsyZ {
+	height: 100%;
+	width: 80%;
+	width: fit-children;
+	flow-children: left;
 }
 
 .vyfRuPA7ygACF45F2ZxX {
-	color: rgba(255, 255, 255, 0.5);
-}
-
-/*!**********************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Armor/armor.module.css ***!
-  \**********************************************************************************************************************************/
-.TTN9sjS3NetyVeFCTfVA {
-  background-image: url("s2r://panorama/images/icon_armor.png");
-}
-/*!************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Damage/damage.module.css ***!
-  \************************************************************************************************************************************/
-.mrn27cU6evosGA2fjLqF {
-  background-image: url("s2r://panorama/images/icon_damage.png");
-}
-/*!******************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/MagicResistance/magicresistance.module.css ***!
-  \******************************************************************************************************************************************************/
-.FYqremml3PHQsjFOLJIR {
-  background-image: url("s2r://panorama/images/icon_magic_resist.png");
-}
-/*!******************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/MoveSpeed/movespeed.module.css ***!
-  \******************************************************************************************************************************************/
-.rx5gFLbNXGBFl2NHU1cX {
-	background-image: url('s2r://panorama/images/icon_speed.png');
-	margin-left: -2px;
+	font-size: 14px;
+	color: white;
+	text-shadow: 0px 0px 3px 3 black;
+	horizontal-align: right;
+	vertical-align: center;
 }
 
 /*!******************************************************************************************************************************************!*\
@@ -2525,9 +2633,9 @@ ProgressBar {
 
 .qUIA03sEiYytt60Alfl5 {
 	vertical-align: top;
-	horizontal-align: right;
+	horizontal-align: left;
 	margin-top: 50px;
-	margin-right: 10px;
+	margin-left: 15px;
 }
 
 .TwhFbl98P1nuj4pIMQTZ {
@@ -2537,39 +2645,3 @@ ProgressBar {
 	padding-bottom: 3px;
 }
 
-/*!********************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Portrait/styles.module.css ***!
-  \********************************************************************************************************************************/
-.YklqLUUVr10zbIWMKMLF {
-  margin-left: 225px;
-	margin-bottom: 50px;
-	vertical-align: bottom;
-  flow-children: down;
-}
-
-.U3ykiXWzyeWHrAMskmLM {
-  border-radius: 50%;
-  opacity-mask: url('s2r://panorama/images/softedge_circle_sharper.png') 0.85;
-	background-color: rgba(0, 0, 0, 0.8);
-  width: 78px;
-  height: 78px;
-}
-
-.bNWkSdfknTsKDdLEHZcn {
-  width: 100%;
-  height: 100%;
-  margin: 8px;
-  border: 1px solid rgb(30, 30, 30);
-  border-radius: 50%;
-  opacity: 0.5;
-}
-
-.hlAYHVAyw_VYbVssTJ9C {
-  width: 100%;
-	text-align: center;
-  color: rgba(200, 200, 200, 0.85);
-	font-size: 12px;
-	text-overflow: ellipsis;
-	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.95);
-  margin-top: -8px;
-}
