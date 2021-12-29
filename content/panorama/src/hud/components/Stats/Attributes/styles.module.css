@@ -1,0 +1,10 @@
+.container {
+  width: 100%;
+  height: fit-children;
+  flow-children: down;
+}
+
+.label {
+  width: 100%;
+  height: 18px;
+}

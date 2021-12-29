@@ -6,7 +6,7 @@ import ParentStyles from './../stats.module.css';
 
 const Armor = () => {
 
-  $.Msg("REACT-RENDER: Stats - Armor rendered");
+  // $.Msg("REACT-RENDER: Stats - Armor rendered");
 
   const { selectedUnit } = React.useContext(Context);
 
@@ -34,7 +34,7 @@ const Armor = () => {
             text={(bonusArmor > 0 ? "+" : "") + bonusArmor.toFixed(1)}
           />
         )}
-          <Label
+        <Label
           className={ParentStyles.label}
           text={(armor - bonusArmor).toFixed(1)}
         />

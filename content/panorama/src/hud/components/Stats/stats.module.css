@@ -69,19 +69,13 @@
 }
 
 .row1 {
-	width: 100%;
-	height: 15%;
-	/* background-color: red; */
-}
-
-.row2 {
 	flow-children: right;
 	width: 100%;
-	height: 65%;
+	height: 80%;
 	/* background-color: green; */
 }
 
-.row3 {
+.row2 {
 	width: 100%;
 	height: 20%;
 	/* background-color: blue; */
@@ -99,6 +93,16 @@
 	flow-children: down;
 }
 
+.leftColumnTitleContainer {
+	width: 100%;
+	height: 20%;
+}
+
+.leftColumnContentContainer {
+	width: 100%;
+	height: 80%;
+}
+
 .columnContent {
 	height: fit-children;
 	width: 100%;
@@ -112,8 +116,8 @@
 	height: 18px;
 	margin-right: 2px;
 	margin-left: 2px;
-	margin-top: 2px;
-	margin-bottom: 2px;
+	margin-top: 3px;
+	margin-bottom: 3px;
 	border-radius: 5px;
 	/* background-color: gradient(
 		linear,
@@ -144,6 +148,7 @@
 	width: 80%;
 	width: fit-children;
 	flow-children: left;
+	padding-right: 2px;
 }
 
 .label {

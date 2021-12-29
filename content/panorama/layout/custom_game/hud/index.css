@@ -743,19 +743,13 @@
 }
 
 .HMgjUPLvULjyrmAok0Rs {
-	width: 100%;
-	height: 15%;
-	/* background-color: red; */
-}
-
-.DancWUYWPS6QmapSk2qh {
 	flow-children: right;
 	width: 100%;
-	height: 65%;
+	height: 80%;
 	/* background-color: green; */
 }
 
-.IjtMlucpn73Pr8KYZacj {
+.DancWUYWPS6QmapSk2qh {
 	width: 100%;
 	height: 20%;
 	/* background-color: blue; */
@@ -773,6 +767,16 @@
 	flow-children: down;
 }
 
+.kBz8Kh6WLyZFwiWxjdKL {
+	width: 100%;
+	height: 20%;
+}
+
+.GdkUpcc0e91sEybvmkL5 {
+	width: 100%;
+	height: 80%;
+}
+
 .g5SMzhk3CIYKeRcjQaGm {
 	height: fit-children;
 	width: 100%;
@@ -786,8 +790,8 @@
 	height: 18px;
 	margin-right: 2px;
 	margin-left: 2px;
-	margin-top: 2px;
-	margin-bottom: 2px;
+	margin-top: 3px;
+	margin-bottom: 3px;
 	border-radius: 5px;
 	/* background-color: gradient(
 		linear,
@@ -818,6 +822,7 @@
 	width: 80%;
 	width: fit-children;
 	flow-children: left;
+	padding-right: 2px;
 }
 
 .vyfRuPA7ygACF45F2ZxX {
@@ -828,6 +833,25 @@
 	vertical-align: center;
 }
 
+/*!***************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/MoveSpeed/styles.module.css ***!
+  \***************************************************************************************************************************************/
+.l625L6DNyFvf3Xtk2FXM {
+  margin-right: 3px;
+}
+/*!****************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Attributes/styles.module.css ***!
+  \****************************************************************************************************************************************/
+.a7Dd0VJNRFzOoTPvKxA1 {
+  width: 100%;
+  height: fit-children;
+  flow-children: down;
+}
+
+.dCq6XfS9i7pX25qFnDiO {
+  width: 100%;
+  height: 18px;
+}
 /*!******************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Modifier/styles.module.css ***!
   \******************************************************************************************************************************************/

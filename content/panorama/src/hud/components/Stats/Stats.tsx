@@ -4,6 +4,7 @@ import Armor from "./Armor/Armor";
 import Damage from "./Damage/Damage";
 import MagicResistance from "./MagicResistance/MagicResistance";
 import MoveSpeed from "./MoveSpeed/MoveSpeed";
+import Attributes from "./Attributes/Attributes";
 import Styles from "./stats.module.css"
 import { Context } from "../../App";
 
@@ -27,28 +28,34 @@ const Stats = () => {
       />
       <Panel className={Styles.rowContainer}>
         <Panel className={Styles.row1}>
-          <Label 
-            className={Styles.heroLabel}
-            text={$.Localize(Entities.GetUnitName(selectedUnit))}
-          />
-        </Panel>
-        <Panel className={Styles.row2}>
           <Panel className={Styles.leftColumn}>
+            <Panel className={Styles.leftColumnTitleContainer}>
+              <Label 
+                className={Styles.heroLabel}
+                text={$.Localize(Entities.GetUnitName(selectedUnit))}
+              />
+            </Panel>
+            <Panel className={Styles.leftColumnContentContainer}>
+              <Panel className={Styles.columnContent}>
+                { Entities.IsHero(selectedUnit) && (
+                  <Attributes />
+                )}
+              </Panel>
+            </Panel>
           </Panel>
           <Panel className={Styles.rightColumn}>
             <Panel className={Styles.columnContent}>
               <Armor />
-              <Armor />
+              <MagicResistance />
+              <Damage />
+              <MoveSpeed />
             </Panel>
           </Panel>
         </Panel>
-        <Panel className={Styles.row3}>
+        <Panel className={Styles.row2}>
           <Level />
         </Panel>
       </Panel> 
-      {/* <MagicResistance selectedUnit={selectedUnit} /> */}
-      {/* <Damage selectedUnit={selectedUnit} /> */}
-      {/* <MoveSpeed selectedUnit={selectedUnit} /> */}
     </Panel>
   );
 

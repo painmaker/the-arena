@@ -78,12 +78,12 @@
 		"CustomAgilityGain"		              "0.5"
 		"CustomIntelligenceGain"		        "2.0"
 
-		"AttributeBaseStrength"		          "0"
-		"AttributeStrengthGain"		          "0"
-		"AttributeBaseAgility"		          "0"
-		"AttributeAgilityGain"		          "0"
-		"AttributeBaseIntelligence"		      "0"
-		"AttributeIntelligenceGain"		      "0"
+		"AttributeBaseStrength"		          "1"
+		"AttributeStrengthGain"		          "1"
+		"AttributeBaseAgility"		          "1"
+		"AttributeAgilityGain"		          "1"
+		"AttributeBaseIntelligence"		      "1"
+		"AttributeIntelligenceGain"		      "1"
 
 	}
 
