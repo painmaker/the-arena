@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Context, HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
-import Styles from './armor.module.css';
-import ParentStyles from './../stats.module.css';
+import ParentStyles from './../styles.module.css';
 
 const Armor = () => {
 
-  // $.Msg("REACT-RENDER: Stats - Armor rendered");
+  // $.Msg("REACT-RENDER: Character - Armor rendered");
 
   const { selectedUnit } = React.useContext(Context);
 

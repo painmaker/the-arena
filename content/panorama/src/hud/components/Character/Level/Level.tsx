@@ -1,41 +1,45 @@
 import React, { useState } from "react";
-import { Styles } from "./Styles";
-import { HUD_THINK_MEDIUM } from "../../../App";
+import { Context, HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
+import Styles from './styles.module.css';
 
-type Props = {
-  selectedUnit: EntityIndex,
-}
-
-const Level = (props: Props) => {
+const Level = () => {
 
   // $.Msg("REACT-RENDER: Character - Level rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit } = React.useContext(Context);
 
-  const [level, setLevel] = useState(Entities.GetLevel(selectedUnit));
-  const [degree, setDegree] = useState(0);
+  const [level, setLevel] = useState(1);
+  const [percentage, setPercentage] = useState(0);
 
   useInterval(() => {
     if (Entities.IsHero(selectedUnit)) {
       const currentXp = Entities.GetCurrentXP(selectedUnit);
       const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
-      const degree = Math.floor(Math.max(0, Math.min(360, currentXp / requiredXp * 360)));
-      setDegree(Number.isNaN(degree) ? 360 : degree);
+      const percentage = Math.floor(Math.max(0, Math.min(100, currentXp / requiredXp * 100)))
+      setPercentage(percentage ? percentage : 0)
     } else {
-      setDegree(360);
+      setPercentage(100);
     }
     setLevel(Entities.GetLevel(selectedUnit));
   }, HUD_THINK_MEDIUM);
 
   return (
-    <Panel style={Styles.Container()}>
-      <Panel style={Styles.CircleContainer()}>
-        <Panel style={Styles.CircleBackground()} />
-        <Panel className={'EmptyCircle'} style={Styles.CircleForeground(degree)} />
-        <Label style={Styles.CircleLevelLabel()} text={level} />
+    <Panel className={Styles.container}>
+      <Label
+        className={Styles.label}
+        text={'Lvl. ' + level}
+      />
+      <Panel className={Styles.levelBarContainer}>
+        <Panel
+          className={Styles.levelBar}
+          style={{ width: percentage + "%" }}
+        />
       </Panel>
-      <Label style={Styles.LevelLabel()} text={'level'} />
+      <Label
+        className={Styles.label}
+        text={percentage + "%"}
+      />
     </Panel>
   );
 

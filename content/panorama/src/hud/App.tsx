@@ -8,8 +8,8 @@ import GameTime from "./components/GameTime/GameTime";
 import AbilityBar from "./components/AbilityBar/AbilityBar";
 import Health from "./components/Health/Health";
 import Mana from "./components/Mana/Mana";
-import Stats from "./components/Stats/Stats";
 import Character from "./components/Character/Character";
+import CharacterDetails from "./components/CharacterDetails/CharacterDetails";
 import Debuffs from "./components/Modifiers/Debuffs/Debuffs";
 import Buffs from "./components/Modifiers/Buffs/Buffs";
 import Inventory from "./components/Inventory/Inventory";
@@ -133,7 +133,7 @@ const App = () => {
                 <Heroes />
                 <GameTime />
                 <Settings />
-                <Character selectedUnit={selectedUnit} />
+                <CharacterDetails selectedUnit={selectedUnit} />
                 <Shop selectedUnit={selectedUnit} />
                 <AbilityBar selectedUnit={selectedUnit} />
                 <Mana />
@@ -143,7 +143,7 @@ const App = () => {
                 <Buffs selectedUnit={selectedUnit} />
                 <Debuffs selectedUnit={selectedUnit} />
                 <Inventory selectedUnit={selectedUnit} />
-                <Stats />
+                <Character />
                 <AbilitiesShop selectedUnit={selectedUnit} />
                 <FloatingContainer />
                 <Messages />

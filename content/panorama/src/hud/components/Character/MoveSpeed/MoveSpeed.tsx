@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Context, HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
-import ParentStyles from './../stats.module.css';
+import ParentStyles from './../styles.module.css';
 import Styles from './styles.module.css';
 
 const MoveSpeed = () => {
 
-  // $.Msg("REACT-RENDER: Stats - MoveSpeed rendered");
+  // $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
 
   const { selectedUnit } = React.useContext(Context);
 

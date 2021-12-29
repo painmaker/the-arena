@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Context, HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
-import ParentStyles from './../stats.module.css';
+import ParentStyles from './../styles.module.css';
 
 const MagicResistance = () => {
 
-  // $.Msg("REACT-RENDER: Stats - MagicalResistance rendered");
+  // $.Msg("REACT-RENDER: Character - MagicalResistance rendered");
 
   const { selectedUnit } = React.useContext(Context);
 

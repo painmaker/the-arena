@@ -12,18 +12,18 @@ const attributes = {
 
 const Attributes = () => {
 
-  // $.Msg("REACT-RENDER: Stats - Damage rendered");
+  // $.Msg("REACT-RENDER: Character - Attributes rendered");
 
   const { selectedUnit } = React.useContext(Context);
 
-  const [strengthBase, setStrengthBase] = useState(0);
-  const [strengthBonus, setStrengthBonus] = useState(0);
+  const [strengthBase, setStrengthBase] = useState<number | undefined>(undefined);
+  const [strengthBonus, setStrengthBonus] = useState<number | undefined>(undefined);
 
-  const [agilityBase, setAgilityBase] = useState(0);
-  const [agilityBonus, setAgilityBonus] = useState(0);
+  const [agilityBase, setAgilityBase] = useState<number | undefined>(undefined);
+  const [agilityBonus, setAgilityBonus] = useState<number | undefined>(undefined);
 
-  const [intellectBase, setIntellectBase] = useState(0);
-  const [intellectBonus, setIntellectBonus] = useState(0);
+  const [intellectBase, setIntellectBase] = useState<number | undefined>(undefined);
+  const [intellectBonus, setIntellectBonus] = useState<number | undefined>(undefined);
 
   const [primaryAttribute, setPrimaryAttribute] = useState<number | undefined>(undefined);
 
@@ -63,7 +63,7 @@ const Attributes = () => {
       <Panel className={Styles.row}> 
         <Attribute 
           imgName={'primary_attribute_icon_strength'} 
-          primaryAttribute={primaryAttribute === 0} 
+          primaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_STRENGTH} 
           base={strengthBase}
           bonus={strengthBonus}          
         />
@@ -71,7 +71,7 @@ const Attributes = () => {
       <Panel className={Styles.row}> 
         <Attribute 
           imgName={'primary_attribute_icon_agility'} 
-          primaryAttribute={primaryAttribute === 1} 
+          primaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_AGILITY} 
           base={agilityBase}
           bonus={agilityBonus}          
         />
@@ -79,7 +79,7 @@ const Attributes = () => {
       <Panel className={Styles.row}> 
         <Attribute 
           imgName={'primary_attribute_icon_intelligence'} 
-          primaryAttribute={primaryAttribute === 2} 
+          primaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_INTELLECT} 
           base={intellectBase}
           bonus={intellectBonus}          
         />

@@ -627,10 +627,10 @@
 	opacity: 0.8;
 }
 
-/*!***********************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Level/styles.module.css ***!
-  \***********************************************************************************************************************************/
-.L_5penTb2Wb2Wz1QpwkC {
+/*!***************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Character/Level/styles.module.css ***!
+  \***************************************************************************************************************************************/
+.MYrSFGXI4DLx3nBs5kNn {
 	width: 100%;
 	vertical-align: bottom;
 	horizontal-align: center;
@@ -638,7 +638,7 @@
 	margin-bottom: 2px;
 }
 
-.RnfFvg9Qb5vCHJkLLmGP {
+.Z15OkYl0Y7wOfKpsN1ss {
 	width: 18%;
 	font-size: 12px;
 	color: orange;
@@ -646,7 +646,7 @@
 	text-shadow: 0px 0px 3px 3 black;
 }
 
-.DhWxdMc6jwlBqZKhH7GT {
+.YhC6CESyX9rx4gJqrbwk {
 	width: fill-parent-flow(1);
 	height: 100%;
 	vertical-align: center;
@@ -659,7 +659,7 @@
 	border-radius: 2px;
 }
 
-.qWK_yq0eB2DaGbWXItNV {
+.kJyQFezNYvYors7yt_ZR {
 	height: 100%;
 	vertical-align: center;
 	horizontal-align: left;
@@ -669,10 +669,10 @@
 }
 
 
-/*!****************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/stats.module.css ***!
-  \****************************************************************************************************************************/
-.oC1j0mW0_9JGy6vDTaRi {
+/*!*********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Character/styles.module.css ***!
+  \*********************************************************************************************************************************/
+.RDk7l0wwaFgYdtnEOG99 {
 	vertical-align: bottom;
 	horizontal-align: right;
 	width: fit-children;
@@ -687,7 +687,7 @@
 	padding-top: 2px;
 }
 
-.qpiUQcvh9iBtQjwIAMOC {
+.tpLDosIlUjqL1igEQ65U {
 	vertical-align: center;
 	horizontal-align: right;
   width: 100%;
@@ -704,7 +704,7 @@
 	z-index: 1;
 }
 
-.ZK7aRzK0roUIBYMKPIVh {
+.P5dOFD6CFWrgMbFUASb0 {
 	horizontal-align: left;
 	text-align: left;
 	min-width: 50%;
@@ -726,7 +726,7 @@
 	padding-left: 5px;
 }
 
-.NZaKH9ITUJvaQEqsUhjQ {
+.qLCZkqTB83r6nUkf5ZVd {
 	width: 100%;
 	height: 100%;
 	flow-children: down;
@@ -742,50 +742,50 @@
 	);
 }
 
-.HMgjUPLvULjyrmAok0Rs {
+.JpqI_4Xt1Eh9offahTJw {
 	flow-children: right;
 	width: 100%;
 	height: 80%;
 	/* background-color: green; */
 }
 
-.DancWUYWPS6QmapSk2qh {
+.Z4Pp7sKkKpPSEuAKivHh {
 	width: 100%;
 	height: 20%;
 	/* background-color: blue; */
 	margin-bottom: 4px;
 }
 
-.ARbRj184RsnNZoWBNKqX {
+.LAxmeKgzLqhlB8ZLKs1Q {
 	height: 100%;
 	width: 50%;
 	flow-children: down;
 }
 
-.cDvIob57zPB3nd_kYfMU {
+.DgnazLt2OXoDAG1JkRcg {
 	height: 100%;
 	width: 50%;
 	flow-children: down;
 }
 
-.kBz8Kh6WLyZFwiWxjdKL {
+.I_O2FCIFtJfrc3jsSsnz {
 	width: 100%;
 	height: 20%;
 }
 
-.GdkUpcc0e91sEybvmkL5 {
+.dE2MizxPr2KMJspPxmcK {
 	width: 100%;
 	height: 80%;
 }
 
-.g5SMzhk3CIYKeRcjQaGm {
+.yKWerFFJBrHZh9niSRH3 {
 	height: fit-children;
 	width: 100%;
 	flow-children: down;
 	vertical-align: center;
 }
 
-.Gn4LgS5tAAgOJCBuE4FW {
+.Q4E7T9huqj_iiBbywX_8 {
 	flow-children: left;
 	width: 100%;
 	height: 18px;
@@ -804,12 +804,12 @@
 	); */
 }
 
-.oiR96nuswcM0BY6w998t {
+.UBsj_9lisFp09Mc6FW0E {
 	height: 100%;
 	width: 20%;
 }
 
-.H6TAG5JpSntZ0naNF1nw {
+.tcXYDdi4XHrPuVAU6CZu {
 	width: 15px;
 	height: 15px;
 	background-size: contain;
@@ -818,7 +818,7 @@
 	vertical-align: center;
 }
 
-.XlbFIiZAzdXPQfbWYsyZ {
+.DMZGdew1yQfTU359Xcs9 {
 	height: 100%;
 	width: 80%;
 	width: fit-children;
@@ -826,7 +826,7 @@
 	padding-right: 2px;
 }
 
-.vyfRuPA7ygACF45F2ZxX {
+.bAxA5h2UfM5qdCHPTpiQ {
 	font-size: 14px;
 	color: white;
 	text-shadow: 0px 0px 3px 3 black;
@@ -834,22 +834,22 @@
 	vertical-align: center;
 }
 
-/*!***************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/MoveSpeed/styles.module.css ***!
-  \***************************************************************************************************************************************/
-.l625L6DNyFvf3Xtk2FXM {
+/*!*******************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Character/MoveSpeed/styles.module.css ***!
+  \*******************************************************************************************************************************************/
+.N2GNL6o6ObTCZSPdPIpT {
   margin-right: 3px;
 }
-/*!**************************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Attributes/Attribute/styles.module.css ***!
-  \**************************************************************************************************************************************************/
-.Sn8M5MUIGOtPT_puhjaA {
+/*!******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Character/Attributes/Attribute/styles.module.css ***!
+  \******************************************************************************************************************************************************/
+.erq7Bsikk79zxGyVYNEW {
   font-size: 14px;
 	text-shadow: 0px 0px 3px 3 black;
   color: white;
 }
 
-.Cgqj6l9DgIkMPVFWZu7z {
+.vkdqBzKQYfC5alsvZH5V {
 	width: 16px;
 	height: 18px;
 	background-size: contain;
@@ -861,16 +861,16 @@
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 50%;
 }
-/*!****************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Stats/Attributes/styles.module.css ***!
-  \****************************************************************************************************************************************/
-.a7Dd0VJNRFzOoTPvKxA1 {
+/*!********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Character/Attributes/styles.module.css ***!
+  \********************************************************************************************************************************************/
+.wlhndHTVH9oeVsKWTJ4m {
   width: 100%;
   height: fit-children;
   flow-children: down;
 }
 
-._2QHoSd4tOTO1uiyQGFr {
+.trAwUtJp334kvSeVWHzV {
   width: 100%;
   height: 18px;
   flow-children: right;
@@ -878,13 +878,13 @@
   margin-left: 3px;
 }
 
-.dCq6XfS9i7pX25qFnDiO {
+.YLLNcaxXoLhMfxJnGiHq {
   font-size: 14px;
 	text-shadow: 0px 0px 3px 3 black;
   color: white;
 }
 
-.jwD6kgLrXCaIRQerwEuz {
+.Oyo3DZiqBFuY4xTqYKpQ {
 	width: 16px;
 	height: 18px;
 	background-size: contain;

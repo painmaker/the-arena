@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Context, HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
-import ParentStyles from './../stats.module.css';
+import ParentStyles from './../styles.module.css';
 
 const Damage = () => {
 
-  // $.Msg("REACT-RENDER: Stats - Damage rendered");
+  // $.Msg("REACT-RENDER: Character - Damage rendered");
 
   const { selectedUnit } = React.useContext(Context);
 
