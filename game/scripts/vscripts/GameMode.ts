@@ -14,6 +14,7 @@ import "./modifiers/ui/modifier_ui_attribute_agility_base";
 import "./modifiers/ui/modifier_ui_attribute_agility_bonus";
 import "./modifiers/ui/modifier_ui_attribute_intellect_base";
 import "./modifiers/ui/modifier_ui_attribute_intellect_bonus";
+import "./modifiers/ui/modifier_ui_primary_attribute";
 import { EXPERIENCE_PER_LEVEL_TABLE, HERO_SELECTION_TIME, MAX_PLAYERS } from "./settings";
 import { HeroSelectionService } from "./services/HeroSelectionService";
 import { ChatService } from "./services/ChatService";
@@ -262,6 +263,7 @@ export class GameMode {
       unit.AddNewModifier(unit, undefined, "modifier_ui_attribute_agility_bonus", { duration: -1 });
       unit.AddNewModifier(unit, undefined, "modifier_ui_attribute_intellect_base", { duration: -1 });
       unit.AddNewModifier(unit, undefined, "modifier_ui_attribute_intellect_bonus", { duration: -1 });
+      unit.AddNewModifier(unit, undefined, "modifier_ui_primary_attribute", { duration: -1 });
     }
 
     // @ts-ignore
