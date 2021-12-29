@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Context, HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
+import Attribute from "./Attribute/Attribute";
 import Styles from './styles.module.css';
 
 const attributes = {
@@ -57,62 +58,30 @@ const Attributes = () => {
     }
   }, HUD_THINK_MEDIUM);
 
-  $.Msg("primaryAttribute: " + primaryAttribute);
-
   return (
     <Panel className={Styles.container}>
       <Panel className={Styles.row}> 
-        <Image 
-          src={'file://{images}/primary_attribute_icon_strength.png'}
-          className={Styles.image} 
-          style={{
-            border: primaryAttribute === 0 ? '1px solid rgba(255, 165, 0, 0.75)' : '1px solid black'
-          }}
-        />
-        <Label 
-          className={Styles.label}
-          text={strengthBase} 
-        />
-        <Label 
-          className={Styles.label}
-          text={' + ' + strengthBonus} 
-          style={{ color: strengthBonus > 0 ? 'rgba(0, 128, 0, 0.85)' : 'rgba(175, 0, 0, 0.85)' }}
+        <Attribute 
+          imgName={'primary_attribute_icon_strength'} 
+          primaryAttribute={primaryAttribute === 0} 
+          base={strengthBase}
+          bonus={strengthBonus}          
         />
       </Panel>
       <Panel className={Styles.row}> 
-        <Image 
-          src={'file://{images}/primary_attribute_icon_agility.png'}
-          className={Styles.image} 
-          style={{
-            border: primaryAttribute === 1 ? '1px solid rgba(255, 165, 0, 0.75)' : '1px solid black'
-          }}
-        />
-        <Label 
-          className={Styles.label}
-          text={agilityBase} 
-        />
-        <Label 
-          className={Styles.label}
-          text={' + ' + agilityBonus} 
-          style={{ color: agilityBonus > 0 ? 'rgba(0, 128, 0, 0.85)' : 'rgba(175, 0, 0, 0.85)' }}
+        <Attribute 
+          imgName={'primary_attribute_icon_agility'} 
+          primaryAttribute={primaryAttribute === 1} 
+          base={agilityBase}
+          bonus={agilityBonus}          
         />
       </Panel>
       <Panel className={Styles.row}> 
-        <Image 
-          src={'file://{images}/primary_attribute_icon_intelligence.png'}
-          className={Styles.image} 
-          style={{
-            border: primaryAttribute === 2 ? '1px solid rgba(255, 165, 0, 0.75)' : '1px solid black'
-          }}
-        />
-        <Label 
-          className={Styles.label}
-          text={intellectBase} 
-        />
-        <Label 
-          className={Styles.label}
-          text={' + ' + intellectBonus} 
-          style={{ color: intellectBonus > 0 ? 'rgba(0, 128, 0, 0.85)' : 'rgba(175, 0, 0, 0.85)' }}
+        <Attribute 
+          imgName={'primary_attribute_icon_intelligence'} 
+          primaryAttribute={primaryAttribute === 2} 
+          base={intellectBase}
+          bonus={intellectBonus}          
         />
       </Panel>
     </Panel>

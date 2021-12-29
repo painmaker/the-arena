@@ -1,0 +1,18 @@
+.label {
+  font-size: 14px;
+	text-shadow: 0px 0px 3px 3 black;
+  color: white;
+}
+
+.image {
+	width: 16px;
+	height: 18px;
+	background-size: contain;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	vertical-align: center;
+  margin-right: 5px;
+  margin-bottom: 2px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 50%;
+}
