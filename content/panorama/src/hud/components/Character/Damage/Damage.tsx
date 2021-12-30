@@ -37,7 +37,7 @@ const Damage = () => {
         )}
         <Label
           className={ParentStyles.label}
-          text={minDamage.toFixed(0) + "-" + maxDamage.toFixed(0)}
+          text={minDamage.toFixed(0) + " - " + maxDamage.toFixed(0)}
         />
       </Panel>
     </Panel>
