@@ -16,3 +16,50 @@
 	text-shadow: 1px 1px 2px 2 black;
 	padding-bottom: 3px;
 }
+
+.bottomCenterBackground {
+	width: 375px;
+	height: 99px;
+	background-color: black;
+	vertical-align: bottom;
+	horizontal-align: center;
+	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: -1;
+	opacity: 0.95;
+	brightness: 0.95;
+	border-radius: 3px 3px 0px 0px;
+}
+
+.bottomCenterLeftFlare {
+	width: 30px;
+	height: 90px;
+	margin-right: 404px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: -1;
+	opacity: 0.95;
+	brightness: 0.95;
+}
+
+.bottomCenterRightFlare {
+	width: 30px;
+	height: 90px;
+	margin-left: 406px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: -1;
+	opacity: 0.95;
+	brightness: 0.95;
+	transform: scaleX(-1);
+}

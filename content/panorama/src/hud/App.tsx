@@ -147,6 +147,9 @@ const App = () => {
                 <AbilitiesShop selectedUnit={selectedUnit} />
                 <FloatingContainer />
                 <Messages />
+                <Panel className={Styles.bottomCenterBackground} />
+                <Panel className={Styles.bottomCenterLeftFlare} />
+                <Panel className={Styles.bottomCenterRightFlare} />
               </React.Fragment>
             )}
           </Loading>

@@ -36,17 +36,28 @@ const AbilityBar = (props: Props) => {
     if (abilityPoints <= 0) {
       Game.EndAbilityLearnMode();
     }
-  }, [abilityPoints])
+  }, [abilityPoints]);
+
+  if (abilities.length === 0) {
+    return null;
+  }
 
   return (
     <Panel className={Styles.container}>
-      {abilities.map((ability) => (
-        <AbilityBarItem
-          key={ability}
-          ability={ability}
-          selectedUnit={selectedUnit}
-        />
-      ))}
+      <Panel className={Styles.leftColumn} />
+      <Panel className={Styles.centerColumn}>
+        <Panel className={Styles.background} />
+        <Panel className={Styles.abilitiesContainer}>
+          {abilities.map((ability) => (
+            <AbilityBarItem
+              key={ability}
+              ability={ability}
+              selectedUnit={selectedUnit}
+            />
+          ))}
+        </Panel>
+      </Panel>
+      <Panel className={Styles.rightColumn} />
     </Panel>
   )
 
