@@ -5,14 +5,13 @@
 }
 
 .image {
-	width: 16px;
-	height: 18px;
-	background-size: contain;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
+	width: 15px;
+	height: 15px;
 	vertical-align: center;
   margin-right: 5px;
   margin-bottom: 2px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 50%;
+	brightness: 0.7;
+  border: 2px solid rgba(255, 165, 0, 0.55);
 }

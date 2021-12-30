@@ -142,7 +142,7 @@ const App = () => {
                 <Minimap />
                 <Buffs selectedUnit={selectedUnit} />
                 <Debuffs selectedUnit={selectedUnit} />
-                <Inventory selectedUnit={selectedUnit} />
+                <Inventory />
                 <Character />
                 <AbilitiesShop selectedUnit={selectedUnit} />
                 <FloatingContainer />

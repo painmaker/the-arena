@@ -20,7 +20,8 @@ const Attribute = (props: Props) => {
         src={`file://{images}/${imgName}.png`}
         className={Styles.image} 
         style={{
-          border: primaryAttribute ? '1px solid rgba(255, 165, 0, 0.75)' : '1px solid black'
+          border: primaryAttribute ? '1px solid rgba(255, 165, 0, 0.5)' : '0px solid black',
+          padding: primaryAttribute ? '1px' : '0px'
         }}
       />
       { base !== undefined && (

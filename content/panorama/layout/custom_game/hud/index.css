@@ -850,16 +850,15 @@
 }
 
 .vkdqBzKQYfC5alsvZH5V {
-	width: 16px;
-	height: 18px;
-	background-size: contain;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
+	width: 15px;
+	height: 15px;
 	vertical-align: center;
   margin-right: 5px;
   margin-bottom: 2px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 50%;
+	brightness: 0.7;
+  border: 2px solid rgba(255, 165, 0, 0.55);
 }
 /*!********************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Character/Attributes/styles.module.css ***!
@@ -1235,13 +1234,17 @@
 .FxnDiUvbItTwkCodN9Du {
 	vertical-align: bottom;
 	horizontal-align: center;
-	margin-bottom: 8px;
 	flow-children: right;
-	margin-right: 0px;
-	/* background-color: black; */
-	/* padding: 40px; */
+	margin-bottom: 5px;
 }
 
+.H9Luc7W8H9CzcswDYXvQ {
+	flow-children: right;
+}
+
+.KloJHhE_WVO_QI46aBkn {
+	flow-children: right;
+}
 /*!*********************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Shop/Title/title.module.css ***!
   \*********************************************************************************************************************************/
