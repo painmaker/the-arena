@@ -140,8 +140,8 @@ const App = () => {
                 <Health />
                 <ButtonGroup />
                 <Minimap />
-                <Buffs selectedUnit={selectedUnit} />
-                <Debuffs selectedUnit={selectedUnit} />
+                <Buffs />
+                {/* <Debuffs /> */}
                 <Inventory />
                 <Character />
                 <AbilitiesShop selectedUnit={selectedUnit} />

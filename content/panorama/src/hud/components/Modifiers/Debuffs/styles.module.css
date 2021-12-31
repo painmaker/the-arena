@@ -1,11 +1,8 @@
 .container {
 	vertical-align: bottom;
-	horizontal-align: center;
+	horizontal-align: left;
 	flow-children: right-wrap;
-	max-width: 300px;
 	height: fit-children;
-	width: 300px;
-	padding: 2px;
-	margin-left: 675px;
+	margin-left: 50%;
 	margin-bottom: 95px;
 }

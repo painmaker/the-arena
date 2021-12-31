@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
+import { Context } from "../../../App";
 import Modifier from "../Modifier/Modifier";
 import Styles from './styles.module.css';
 
@@ -14,22 +15,20 @@ const getBuffs = (unit: EntityIndex) => {
       continue;
     }
     if (Buffs.IsDebuff(unit, buff)) {
-      continue;
+      // continue;
     }
     buffs.push(buff);
   }
-  return buffs;
+  return buffs.sort((b1, b2) => Buffs.GetRemainingTime(unit, b1) - Buffs.GetRemainingTime(unit, b2));
 }
 
-type Props = {
-  selectedUnit: EntityIndex,
-};
 
-const BuffsPanel = (props: Props) => {
+const BuffsPanel = () => {
 
   // $.Msg("REACT-RENDER: Buffs rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit } = React.useContext(Context);
+
   const [buffs, setBuffs] = useState<BuffID[]>(getBuffs(selectedUnit));
 
   useGameEvent("dota_portrait_unit_modifiers_changed", () => {

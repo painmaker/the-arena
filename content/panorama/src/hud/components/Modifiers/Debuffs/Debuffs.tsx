@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
+import { Context } from "../../../App";
 import Modifier from "../Modifier/Modifier";
 import Styles from "./styles.module.css";
 
@@ -18,18 +19,14 @@ const getDebuffs = (unit: EntityIndex) => {
     }
     debuffs.push(buff);
   }
-  return debuffs;
+  return debuffs.sort((b1, b2) => Buffs.GetRemainingTime(unit, b1) - Buffs.GetRemainingTime(unit, b2));
 }
 
-type Props = {
-  selectedUnit: EntityIndex,
-};
-
-const Debuffs = (props: Props) => {
+const Debuffs = () => {
 
   // $.Msg("REACT-RENDER: Debuffs rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit } = React.useContext(Context);
 
   const [debuffs, setDebuffs] = useState<BuffID[]>(getDebuffs(Players.GetLocalPlayerPortraitUnit()));
 

@@ -2,64 +2,6 @@
 	height: 100px;
 	vertical-align: bottom;
 	horizontal-align: center;
-	margin-bottom: 99px;
+	margin-bottom: 150px;
 	flow-children: right;
-}
-
-.leftColumn {
-	width: 15px;
-	height: 50px;
-	vertical-align: bottom;
-	horizontal-align: right;
-	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-	z-index: -1;
-	opacity: 0.95;
-	brightness: 0.95;
-}
-
-.centerColumn {
-	height: 100%;
-}
-
-.background {
-	height: 67px;
-	width: 100%;
-	background-color: black;
-	vertical-align: bottom;
-	horizontal-align: center;
-	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-	z-index: -1;
-	opacity: 0.95;
-	brightness: 0.95;
-	border-radius: 3px 3px 0px 0px;
-}
-
-.abilitiesContainer {
-	height: 100%;
-	vertical-align: center;
-	horizontal-align: center;
-	flow-children: right;
-	margin-right: 7px;
-	margin-left: 7px;
-}
-
-.rightColumn {
-	width: 15px;
-	height: 50px;
-	vertical-align: bottom;
-	horizontal-align: left;
-	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-	z-index: -1;
-	opacity: 0.95;
-	brightness: 0.95;
-	transform: scaleX(-1);
 }

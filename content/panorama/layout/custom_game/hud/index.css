@@ -541,67 +541,10 @@
 	height: 100px;
 	vertical-align: bottom;
 	horizontal-align: center;
-	margin-bottom: 99px;
+	margin-bottom: 150px;
 	flow-children: right;
 }
 
-.XMGPmlAgc5HJ6NbeTi8E {
-	width: 15px;
-	height: 50px;
-	vertical-align: bottom;
-	horizontal-align: right;
-	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-	z-index: -1;
-	opacity: 0.95;
-	brightness: 0.95;
-}
-
-.J47SnaCYqzK3piUmSWo8 {
-	height: 100%;
-}
-
-.OYKbMoO8ChRYwqfJo9y6 {
-	height: 67px;
-	width: 100%;
-	background-color: black;
-	vertical-align: bottom;
-	horizontal-align: center;
-	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-	z-index: -1;
-	opacity: 0.95;
-	brightness: 0.95;
-	border-radius: 3px 3px 0px 0px;
-}
-
-.DuXpFWtK9I_0zy8pWmgS {
-	height: 100%;
-	vertical-align: center;
-	horizontal-align: center;
-	flow-children: right;
-	margin-right: 7px;
-	margin-left: 7px;
-}
-
-.Q9_Lrl5Om62lwzqFnhIP {
-	width: 15px;
-	height: 50px;
-	vertical-align: bottom;
-	horizontal-align: left;
-	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-	z-index: -1;
-	opacity: 0.95;
-	brightness: 0.95;
-	transform: scaleX(-1);
-}
 /*!******************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Health/styles.module.css ***!
   \******************************************************************************************************************************/
@@ -1056,21 +999,6 @@
 	border: 1px solid black;
 }
 
-/*!*****************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Debuffs/styles.module.css ***!
-  \*****************************************************************************************************************************************/
-.pWcuWOn3wOVyHKlIURE4 {
-	vertical-align: bottom;
-	horizontal-align: center;
-	flow-children: right-wrap;
-	max-width: 300px;
-	height: fit-children;
-	width: 300px;
-	padding: 2px;
-	margin-left: 675px;
-	margin-bottom: 95px;
-}
-
 /*!***************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Modifiers/Buffs/styles.module.css ***!
   \***************************************************************************************************************************************/
@@ -1078,11 +1006,8 @@
 	vertical-align: bottom;
 	horizontal-align: center;
 	flow-children: left-wrap;
-	max-width: 300px;
 	height: fit-children;
-	width: 300px;
-	padding: 2px;
-	margin-right: 665px;
+	/* margin-right: 50%; */
 	margin-bottom: 95px;
 }
 

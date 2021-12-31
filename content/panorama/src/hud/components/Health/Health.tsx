@@ -63,7 +63,7 @@ const Health = () => {
       </ProgressBar>
       <Label
         className={Styles.healthLabel}
-        text={health + " / " + maxHealth}
+        text={health + "/" + maxHealth}
       />
       <Label
         className={Styles.regenLabel}

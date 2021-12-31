@@ -55,7 +55,7 @@ const Mana = () => {
       </ProgressBar>
       <Label
         className={Styles.manaLabel}
-        text={mana + " / " + maxMana}
+        text={mana + "/" + maxMana}
       />
       <Label
         className={Styles.regenLabel}

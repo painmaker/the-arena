@@ -44,20 +44,13 @@ const AbilityBar = (props: Props) => {
 
   return (
     <Panel className={Styles.container}>
-      <Panel className={Styles.leftColumn} />
-      <Panel className={Styles.centerColumn}>
-        <Panel className={Styles.background} />
-        <Panel className={Styles.abilitiesContainer}>
-          {abilities.map((ability) => (
-            <AbilityBarItem
-              key={ability}
-              ability={ability}
-              selectedUnit={selectedUnit}
-            />
-          ))}
-        </Panel>
-      </Panel>
-      <Panel className={Styles.rightColumn} />
+      {abilities.map((ability) => (
+        <AbilityBarItem
+          key={ability}
+          ability={ability}
+          selectedUnit={selectedUnit}
+        />
+      ))}
     </Panel>
   )
 

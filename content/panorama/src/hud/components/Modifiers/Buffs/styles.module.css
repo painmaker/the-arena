@@ -2,10 +2,7 @@
 	vertical-align: bottom;
 	horizontal-align: center;
 	flow-children: left-wrap;
-	max-width: 300px;
 	height: fit-children;
-	width: 300px;
-	padding: 2px;
-	margin-right: 665px;
+	/* margin-right: 50%; */
 	margin-bottom: 95px;
 }
