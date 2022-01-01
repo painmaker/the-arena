@@ -1,38 +1,81 @@
-/*!********************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Minimap/minimap.module.css ***!
-  \********************************************************************************************************************************/
-.chIrdYtZyblNYYYGOCSI {
-	margin-left: 20px;
-	margin-bottom: 20px;
-	flow-children: down;
+/*!****************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Minimap/GameTime/styles.module.css ***!
+  \****************************************************************************************************************************************/
+.Ds4i1ENZAaPqdjbTj5_B {
+	horizontal-align: right;
+	vertical-align: top;
+	width: 100px;
+	padding-right: 5px;
+	padding-top: 1px;
+	z-index: 10;
+}
+
+.EVfr1bcRMwLykd6CtCv5 {
+	color: rgba(150, 150, 150, 0.75);
+	font-size: 14px;
+	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.5);
+	width: 100%;
+	font-family: monospaceNumbersFont;
+	text-align: right;
+}
+
+/*!*******************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Minimap/styles.module.css ***!
+  \*******************************************************************************************************************************/
+.mLzQ1HC5zQPaNGenNoXA {
 	vertical-align: bottom;
 	horizontal-align: left;
+	flow-children: right;
 }
 
-.QJp6qFKPkiSjQtp4IWYu {
+.zf6VkLY4P6JnFPCRMGsd {
+	width: 35px;
+	height: 140px;
+	vertical-align: bottom;
+	horizontal-align: left;
+	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: -1;
+	brightness: 0.8;
+	transform: scaleX(-1);
+}
+
+.hO4j7_25c3D2zRZD_sTO {
+	width: 225px;
+	height: 210px;
+	padding-top: 3px;
+	padding-right: 3px;
+	background-color: black;
+	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: -1;
+	brightness: 0.7;
+	border-radius: 0px 5px 0px 0px;
+}
+
+.E5_N62SErwm4dIyHRvSJ {
 	width: 100%;
 	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	vertical-align: bottom;
+	horizontal-align: left;
+	border-radius: 0px 5px 0px 0px;
 }
 
-.FsTpjUYsXR18vjlgG0Ms {
-	border-radius: 50%;
-	opacity-mask: url('s2r://panorama/images/softedge_circle_sharper.png') 1.5;
-	background-color: rgba(0, 0, 0, 0.9);
-	width: 250px;
-	height: 250px;
-}
-
-.MMYyKjPgWvMQW3zcTxSA {
-	width: 100%;
-	height: 20px;
-	text-align: center;
-	color: orange;
-	font-size: 16px;
+.RvatFKFFZ564v4Y_zert {
+	vertical-align: bottom;
+	horizontal-align: center;
+	color: rgba(150, 150, 150, 0.75);
+	font-size: 14px;
 	text-overflow: ellipsis;
-	text-shadow: 0px 0px 3px 3 black;
-	margin-top: -10px;
+	text-shadow: 0px 0px 2px 2 black;
+	z-index: 1;
+	margin-bottom: 4px;
 }
-
 /*!*************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Settings/CameraZoomSlider/styles.module.css ***!
   \*************************************************************************************************************************************************/
@@ -291,28 +334,6 @@
 	padding: 5px;
 }
 
-/*!********************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/GameTime/styles.module.css ***!
-  \********************************************************************************************************************************/
-.UqxlWvoDM9ivnuHT6GDt {
-	flow-children: down;
-	horizontal-align: right;
-	vertical-align: top;
-	width: 100px;
-	margin-top: 55px;
-	margin-right: 25px;
-	z-index: 10;
-}
-
-.u9zrcHhU8YuhR6YiRAmZ {
-	color: rgba(255, 255, 255, 0.75);
-	font-size: 18px;
-	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.5);
-	width: 100%;
-	font-family: monospaceNumbersFont;
-	text-align: right;
-}
-
 /*!**********************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/Cooldown/styles.module.css ***!
   \**********************************************************************************************************************************************************/
@@ -541,7 +562,7 @@
 	height: 100px;
 	vertical-align: bottom;
 	horizontal-align: center;
-	margin-bottom: 150px;
+	margin-bottom: 160px;
 	flow-children: right;
 }
 

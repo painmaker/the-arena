@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useGameEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "../../reducers/rootReducer";
-import Styles from "./minimap.module.css";
+import GameTime from "./GameTime/GameTime";
+import Styles from "./styles.module.css";
 
 const mapStateToProps = (state: RootState) => ({
   zoom: state.minimapReducer.zoom,
@@ -26,8 +27,16 @@ const Minimap = (props: Props) => {
   }, []);
 
   return (
-    <Panel id={'minimap'} className={Styles.container} hittest={false}>
-      <Panel className={Styles.overlay} >
+    <Panel 
+      id={'minimap'} 
+      className={Styles.container}
+      hittest={true}
+      oncontextmenu={() => false}
+      onactivate={() => false}
+     >
+      <Panel className={Styles.minimapContainer}>
+        <Label text={zoneName} className={Styles.zoneName} />
+        <GameTime />
         <DOTAHUDOverlayMap
           className={Styles.minimap}
           mapscale={props.zoom}
@@ -36,10 +45,7 @@ const Minimap = (props: Props) => {
           maptexture={"materials/overviews/the_arena_tga_5f0a2a04.vtex"}
         />
       </Panel>
-      <Label
-        className={Styles.label}
-        text={zoneName}
-      />
+      <Panel className={Styles.flare} />
     </Panel>
   );
 

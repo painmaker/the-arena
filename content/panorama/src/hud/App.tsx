@@ -4,7 +4,7 @@ import Minimap from "./components/Minimap/Minimap";
 import Settings from "./components/Settings/Settings";
 import ButtonGroup from "./components/ButtonGroup/ButtonGroup";
 import Heroes from "./components/Heroes/Heroes";
-import GameTime from "./components/GameTime/GameTime";
+import GameTime from "./components/Minimap/GameTime/GameTime";
 import AbilityBar from "./components/AbilityBar/AbilityBar";
 import Health from "./components/Health/Health";
 import Mana from "./components/Mana/Mana";
@@ -131,7 +131,6 @@ const App = () => {
             {useCustomUI && (
               <React.Fragment>
                 <Heroes />
-                <GameTime />
                 <Settings />
                 <CharacterDetails selectedUnit={selectedUnit} />
                 <Shop selectedUnit={selectedUnit} />
