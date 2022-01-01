@@ -16,6 +16,8 @@ type Props = PropsFromRedux & {
   // ownProps
 };
 
+const onClick = () => false;
+
 const Minimap = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Minimap rendered");
@@ -30,12 +32,14 @@ const Minimap = (props: Props) => {
     <Panel 
       id={'minimap'} 
       className={Styles.container}
-      hittest={true}
-      oncontextmenu={() => false}
-      onactivate={() => false}
+      hittest={false}
      >
-      <Panel className={Styles.minimapContainer}>
-        <Label text={zoneName} className={Styles.zoneName} />
+      <Panel className={Styles.topFlare} />
+      <Panel onactivate={onClick} className={Styles.minimapContainer} >
+        <Label 
+          className={Styles.zoneName} 
+          text={zoneName} 
+        />
         <GameTime />
         <DOTAHUDOverlayMap
           className={Styles.minimap}
@@ -45,7 +49,7 @@ const Minimap = (props: Props) => {
           maptexture={"materials/overviews/the_arena_tga_5f0a2a04.vtex"}
         />
       </Panel>
-      <Panel className={Styles.flare} />
+      <Panel className={Styles.rightFlare} />
     </Panel>
   );
 

@@ -11,7 +11,7 @@
 }
 
 .EVfr1bcRMwLykd6CtCv5 {
-	color: rgba(150, 150, 150, 0.75);
+	color: rgb(200, 200, 200);
 	font-size: 14px;
 	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.5);
 	width: 100%;
@@ -25,10 +25,9 @@
 .mLzQ1HC5zQPaNGenNoXA {
 	vertical-align: bottom;
 	horizontal-align: left;
-	flow-children: right;
 }
 
-.zf6VkLY4P6JnFPCRMGsd {
+.uGcm_zicTlpmWedax5Eb {
 	width: 35px;
 	height: 140px;
 	vertical-align: bottom;
@@ -40,13 +39,32 @@
 	z-index: -1;
 	brightness: 0.8;
 	transform: scaleX(-1);
+	margin-left: 225px;
+}
+
+.AdooxMsTUbRYpCs3x5sI {
+	width: 55px;
+	height: 190px;
+	vertical-align: bottom;
+	horizontal-align: left;
+	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: -1;
+	brightness: 0.8;
+	pre-transform-rotate2d: 90deg;
+	margin-left: 45px;
+	margin-bottom: 125px;
 }
 
 .hO4j7_25c3D2zRZD_sTO {
 	width: 225px;
 	height: 210px;
-	padding-top: 3px;
-	padding-right: 3px;
+	vertical-align: bottom;
+	horizontal-align: left;
+	padding-top: 4px;
+	padding-right: 4px;
 	background-color: black;
 	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
 	background-position: center;
@@ -69,7 +87,7 @@
 .RvatFKFFZ564v4Y_zert {
 	vertical-align: bottom;
 	horizontal-align: center;
-	color: rgba(150, 150, 150, 0.75);
+	color: rgb(200, 200, 200);
 	font-size: 14px;
 	text-overflow: ellipsis;
 	text-shadow: 0px 0px 2px 2 black;
@@ -2470,11 +2488,11 @@
   \********************************************************************************************************************************/
 .Cmf_Gpikd73EhApUW1k2 {
 	width: 800px;
-	min-height: 350px;
+	min-height: 650px;
 	flow-children: up;
 	vertical-align: center;
 	horizontal-align: left;
-	margin-top: 0px;
+	margin-bottom: 200px;
 	margin-left: 10px;
 	z-index: 10;
 }
