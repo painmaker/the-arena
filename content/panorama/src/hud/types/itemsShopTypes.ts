@@ -14,7 +14,7 @@ export interface SetShopSearchValueAction {
 export type ShopActionTypes = SetShopVisibleAction | SetShopSearchValueAction;
 
 
-export interface Item {
+export interface ItemShopItem {
   itemname: string,
   cost: number,
   aliases: string[],

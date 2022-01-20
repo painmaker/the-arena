@@ -1391,19 +1391,6 @@
 	transform: scale3d(1.1, 1.1, 0);
 }
 
-/*!**************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ItemsShop/Item/styles.module.css ***!
-  \**************************************************************************************************************************************/
-.aMwRUvEuXKSXkuPP03fk {
-  width: 48px;
-  height: 35px;
-  margin: 2px;
-}
-
-.upklS8wEUAFLXqeSyaWx {
-  vertical-align: center;
-  horizontal-align: center;
-}
 /*!*********************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ItemsShop/styles.module.css ***!
   \*********************************************************************************************************************************/
@@ -1444,7 +1431,23 @@
 	flow-children: down;
 }
 
-.RIQyOHOzr1DCH8RQ2w0v {
+/*!********************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ItemsShop/Items/Item/styles.module.css ***!
+  \********************************************************************************************************************************************/
+.bmMAIsZrQDKROnT1jQwm {
+  width: 48px;
+  height: 35px;
+  margin: 2px;
+}
+
+.SKDRSNSlPNfc0SQFEIww {
+  vertical-align: center;
+  horizontal-align: center;
+}
+/*!***************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ItemsShop/Items/styles.module.css ***!
+  \***************************************************************************************************************************************/
+.QdAJ42XNBWmkHMY9FuI5 {
 	flow-children: down;
 	margin-left: 7.5px;
 	margin-right: 7.5px;
@@ -1452,17 +1455,7 @@
 	width: 100%;
 }
 
-.ypaGziItyl6C9fv14VfA {
-	width: 100%;
-	background-image: url('s2r://panorama/images/inventory_item_well.png');
-	background-size: 100%;
-	background-color: rgba(0, 0, 0, 0.35);
-	padding-top: 2.5px;
-	padding-bottom: 2.5px;
-	flow-children: right;
-}
-
-.ZVvW2vMLRTr3hNd2Ji3C {
+.flHZtIIURqn4bPoxQYm4 {
 	width: 100%;
 	background-color: rgba(0, 0, 0, 1);
 	border-bottom: 1px solid rgba(50, 50, 50, 0.5);
@@ -1476,7 +1469,7 @@
 	letter-spacing: 1.35px;
 }
 
-.xqkH3GcQIJE_eUpg0_LZ {
+.s5SNfkt27il6s_fNXNmc {
 	width: 100%;
 	flow-children: right-wrap;
 	background-image: url('s2r://panorama/images/inventory_item_well.png');

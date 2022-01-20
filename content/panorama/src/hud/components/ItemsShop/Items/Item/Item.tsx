@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import { useGameEvent } from "react-panorama";
-import { HUD_THINK_FAST, SelectedUnitContext } from "../../../App";
-import { useInterval } from "../../../hooks/useInterval";
-import { Item } from "../../../types/shopTypes";
-import { ItemsShopContext } from "../ItemsShop";
+import { HUD_THINK_FAST, SelectedUnitContext } from "../../../../App";
+import { useInterval } from "../../../../hooks/useInterval";
+import { ItemShopItem } from "../../../../types/itemsShopTypes";
+import { ItemsShopContext } from "../../ItemsShop";
 import Styles from './styles.module.css';
 
 type Props = {
-  item: Item,
+  item: ItemShopItem,
 };
 
 const Item = (props: Props) => {

@@ -1,9 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { RootState } from "../../reducers/rootReducer";
-import { Dispatch } from "redux";
-import { AbilitiesShopTypes } from "../../types/abilitiesShopTypes";
-import { setAbilitiesShopVisible } from "../../actions/abilitiesShopActions";
 import { Styles } from "./Styles";
 import Title from "./Title/Title";
 import Search from "./Search/Search";
@@ -11,29 +6,16 @@ import RegularAbilities from "./RegularAbilities/RegularAbilities";
 import UltimateAbilities from "./UltimateAbilities/UltimateAbilities";
 import AbilitiesPoints from "./AbilitiesPoints/AbilitiesPoints";
 import { useGameEvent, useRegisterForUnhandledEvent } from "react-panorama";
-import { HUD_THINK_SLOW } from "../../App";
+import { HUD_THINK_SLOW, SelectedUnitContext, WindowContext } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
+import { WINDOW } from "../../data/windows";
 
-const mapStateToProps = (state: RootState) => ({
-  visible: state.abilitiesShopReducer.visible,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<AbilitiesShopTypes>) => ({
-  setShopVisible: (visible: boolean) => dispatch(setAbilitiesShopVisible(visible)),
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  selectedUnit: EntityIndex,
-};
-
-const AbilitiesShop = (props: Props) => {
+const AbilitiesShop = () => {
 
   // $.Msg("REACT-RENDER: AbilitiesShop rendered");
 
-  const { visible, selectedUnit, setShopVisible } = props;
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { window, setWindow } = React.useContext(WindowContext);
 
   const [regularAbilities, setRegularAbilities] = useState<ShopAbility[]>([]);
   const [ultimateAbilities, setUltimateAbilities] = useState<ShopAbility[]>([]);
@@ -42,17 +24,17 @@ const AbilitiesShop = (props: Props) => {
   const [renderComponent, setRenderComponent] = useState(false);
 
   useTimeout(() => {
-    setRenderComponent(visible);
-  }, visible === false ? HUD_THINK_SLOW : 0);
+    setRenderComponent(window === WINDOW.ABILITIES_SHOP);
+  }, window !== WINDOW.ABILITIES_SHOP ? HUD_THINK_SLOW : 0);
 
   useEffect(() => {
-    if (visible) {
+    if (window === WINDOW.ABILITIES_SHOP) {
       setRegularAbilities([]);
       setUltimateAbilities([]);
       setIsLoadingAbilities(true);
       GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: selectedUnit });
     }
-  }, [selectedUnit, visible]);
+  }, [selectedUnit, window]);
 
   useGameEvent('fetch_shop_abilities_ok', (event) => {
     setRegularAbilities(Object.values(event.regularAbilities));
@@ -76,28 +58,28 @@ const AbilitiesShop = (props: Props) => {
   useGameEvent("dota_player_update_query_unit", (event) => {
     const unit = Players.GetQueryUnit(Players.GetLocalPlayer());
     if (Entities.GetUnitName(unit) === 'shopkeeper_abilities') {
-      setShopVisible(true);
+      setWindow(WINDOW.ABILITIES_SHOP);
     }
-  }, [setShopVisible]);
+  }, [setWindow]);
 
   useGameEvent("dota_player_update_selected_unit", (event) => {
     const unit = Players.GetLocalPlayerPortraitUnit();
     if (Entities.GetUnitName(unit) === 'shopkeeper_abilities') {
-      setShopVisible(true);
+      setWindow(WINDOW.ABILITIES_SHOP);
     }
-  }, [setShopVisible]);
+  }, [setWindow]);
 
   useRegisterForUnhandledEvent('Cancelled', () => {
-    if (visible) {
+    if (window === WINDOW.ABILITIES_SHOP) {
       Game.EmitSound("ui_topmenu_select");
+      setWindow(WINDOW.NONE);
     }
-    setShopVisible(false);
-  }, [visible, setShopVisible]);
+  }, [window, setWindow]);
 
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
-        <Panel className={'Invisible'} style={Styles.InnerContainer(visible)} >
+        <Panel className={'Invisible'} style={Styles.InnerContainer(window === WINDOW.ABILITIES_SHOP)} >
           <Panel onactivate={() => false} style={Styles.UnclickableContainer()}>
             <Title selectedUnit={selectedUnit} />
             <Panel style={Styles.TopContainer()}>
@@ -129,4 +111,4 @@ const AbilitiesShop = (props: Props) => {
 
 };
 
-export default React.memo(connector(AbilitiesShop));
+export default React.memo(AbilitiesShop);

@@ -1,4 +1,4 @@
-export const items = {
+export const ItemsShopItems = {
   consumables: [
     {
       itemname: 'item_flask',

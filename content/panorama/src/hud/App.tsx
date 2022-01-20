@@ -138,7 +138,7 @@ const App = () => {
                 <FloatingContainer />
                 <Messages />
                 <SelectedUnitContext.Provider value={{ selectedUnit }}>
-                  <AbilityBar selectedUnit={selectedUnit} />
+                  <AbilityBar />
                   <Buffs />
                   <Mana />
                   <Health />
@@ -147,9 +147,9 @@ const App = () => {
                   <WindowContext.Provider value={{ window, setWindow }}>
                     <ButtonGroup />
                     <Settings />
-                    <CharacterDetails selectedUnit={selectedUnit} />
+                    <CharacterDetails />
                     <ItemsShop />
-                    <AbilitiesShop selectedUnit={selectedUnit} />
+                    <AbilitiesShop />
                   </WindowContext.Provider>
                 </SelectedUnitContext.Provider>
                 <Panel className={Styles.bottomCenterBackground} />

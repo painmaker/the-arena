@@ -1,4 +1,4 @@
-import { SET_SHOP_SEARCH_VALUE, SET_SHOP_VISIBLE, ShopActionTypes } from "../types/shopTypes";
+import { SET_SHOP_SEARCH_VALUE, SET_SHOP_VISIBLE, ShopActionTypes } from "../types/itemsShopTypes";
 
 const initialState = {
   visible: false,

@@ -2,15 +2,13 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import Title from "./Title/Title";
 import Gold from "./Gold/Gold";
 import Search from "./Search/Search";
-import Consumables from "./Consumables/Consumables";
-import Armor from "./Armor/Armor";
-import Weapons from "./Weapons/Weapons";
-import Artifacts from "./Artifacts/Artifacts";
 import { HUD_THINK_SLOW, WindowContext } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
 import { useRegisterForUnhandledEvent } from "react-panorama";
 import Styles from './styles.module.css';
 import { WINDOW } from "../../data/windows";
+import Items from "./Items/Items";
+import { ItemsShopItems } from "../../data/items";
 
 interface ItemsShopContext {
   searchValue: string,
@@ -57,12 +55,23 @@ const ItemsShop = () => {
             </Panel>
             <Panel className={Styles.itemsContainer}>
               <Panel className={Styles.itemsColumn}>
-                <Consumables />
-                <Artifacts />
+                <Items
+                  title={'Consumables'}
+                  items={ItemsShopItems.consumables}
+                />
+                <Items
+                  title={'Artifacts'}
+                  items={ItemsShopItems.artifacts}
+                />
               </Panel>
               <Panel className={Styles.itemsColumn}>
-                <Armor />
-                <Weapons />
+                <Items
+                  title={'Armor'}
+                  items={ItemsShopItems.armor} />
+                <Items
+                  title={'Weapons'}
+                  items={ItemsShopItems.weapons}
+                />
               </Panel>
             </Panel>
           </Panel>

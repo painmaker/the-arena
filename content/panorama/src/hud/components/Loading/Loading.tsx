@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { HUD_THINK_SLOW } from '../../App';
 import { useTimeout } from '../../hooks/useTimeout';
 import Styles from './styles.module.css';
 
