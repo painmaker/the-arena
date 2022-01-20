@@ -31,6 +31,7 @@
 	opacity: 0.95;
 	brightness: 0.95;
 	border-radius: 3px 3px 0px 0px;
+  z-index: -1;
 }
 
 .bottomCenterLeftFlare {
@@ -51,7 +52,7 @@
 .bottomCenterRightFlare {
 	width: 30px;
 	height: 90px;
-	margin-left: 406px;
+	margin-left: 404px;
 	vertical-align: bottom;
 	horizontal-align: center;
 	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");

@@ -19,7 +19,7 @@ const getBuffs = (unit: EntityIndex) => {
     }
     buffs.push(buff);
   }
-  return buffs.sort((b1, b2) => Buffs.GetRemainingTime(unit, b2) - Buffs.GetRemainingTime(unit, b1));
+  return buffs.sort((b1, b2) => Buffs.GetCreationTime(unit, b2) - Buffs.GetCreationTime(unit, b1));
 }
 
 

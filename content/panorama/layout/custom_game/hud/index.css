@@ -2308,7 +2308,7 @@
 	height: 4px;
 	border-radius: 14px;
 	horizontal-align: center;
-	box-shadow: 0px 1px 0.25px 0.25px rgba(0, 0, 0, 0.5);
+  box-shadow: fill rgba(0, 0, 0, 0.3) 0px 0px 3px 1px;
 }
 
 /*!*************************************************************************************************************************************************!*\
@@ -2320,7 +2320,7 @@
 	height: 4px;
 	border-radius: 2px;
 	horizontal-align: center;
-	box-shadow: 0px 1px 0.25px 0.25px rgba(0, 0, 0, 0.5);
+  box-shadow: fill rgba(0, 0, 0, 0.3) 0px 0px 3px 1px;
 }
 
 /*!***********************************************************************************************************************************************************!*\
@@ -2754,6 +2754,7 @@ ProgressBar {
 	opacity: 0.95;
 	brightness: 0.95;
 	border-radius: 3px 3px 0px 0px;
+  z-index: -1;
 }
 
 .g0BbbOfuq0JWQcHWkeac {
@@ -2774,7 +2775,7 @@ ProgressBar {
 .xtCpOtMDjTsSwDw5Rwhi {
 	width: 30px;
 	height: 90px;
-	margin-left: 406px;
+	margin-left: 404px;
 	vertical-align: bottom;
 	horizontal-align: center;
 	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
