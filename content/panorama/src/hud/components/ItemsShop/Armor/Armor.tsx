@@ -1,17 +1,12 @@
 import React from "react";
-import { items } from "../../../data/shop";
+import { SelectedUnitContext } from "../../../App";
+import { items } from "../../../data/items";
 import Item from "../Item/Item";
-import ParentStyles from './../shop.module.css';
+import ParentStyles from './../styles.module.css';
 
-type Props = {
-  selectedUnit: EntityIndex,
-}
+const Armor = () => {
 
-const Armor = (props: Props) => {
-
-  // $.Msg("REACT-RENDER: Shop - Armor rendered");
-
-  const { selectedUnit } = props;
+  // $.Msg("REACT-RENDER: ItemsShop - Armor rendered");
 
   return (
     <Panel className={ParentStyles.category}>
@@ -21,7 +16,6 @@ const Armor = (props: Props) => {
           <Item
             key={item.itemname}
             item={item}
-            selectedUnit={selectedUnit}
           />
         )}
       </Panel>
@@ -29,4 +23,4 @@ const Armor = (props: Props) => {
   );
 };
 
-export default Armor;
+export default React.memo(Armor);

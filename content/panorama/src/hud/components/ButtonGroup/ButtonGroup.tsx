@@ -1,8 +1,8 @@
 import React from "react";
 import AbilitiesShopButton from "./AbilitiesShopButton/AbilitiesShopButton";
-import CharaterButton from "./CharacterButton/CharaterButton";
+import CharaterDetailsButton from "./CharacterDetailsButton/CharaterDetailsButton";
 import SettingsButton from "./SettingsButton/SettingsButton";
-import ShoppingButton from "./ShoppingButton/ShoppingButton";
+import ItemsShopButton from "./ItemsShopButton/ItemsShopButton";
 import Styles from "./styles.module.css";
 
 const ButtonGroup = () => {
@@ -12,8 +12,8 @@ const ButtonGroup = () => {
   return (
     <Panel hittest={false} className={Styles.container}>
       <SettingsButton />
-      <ShoppingButton />
-      <CharaterButton />
+      <ItemsShopButton />
+      <CharaterDetailsButton />
       <AbilitiesShopButton />
     </Panel >
   );

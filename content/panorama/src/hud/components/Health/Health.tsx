@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HUD_THINK_FAST, Context } from "../../App";
+import { HUD_THINK_FAST, SelectedUnitContext } from "../../App";
 import Styles from "./styles.module.css";
 import { useInterval } from "../../hooks/useInterval";
 
@@ -7,7 +7,7 @@ const Health = () => {
 
   // $.Msg("REACT-RENDER: HealthBar rendered");
 
-  const { selectedUnit } = React.useContext(Context);
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
 
   const [health, setHealth] = useState(Entities.GetHealth(selectedUnit));
   const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(selectedUnit));

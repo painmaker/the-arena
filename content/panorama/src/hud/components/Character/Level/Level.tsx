@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Context, HUD_THINK_MEDIUM } from "../../../App";
+import { SelectedUnitContext, HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
@@ -7,7 +7,7 @@ const Level = () => {
 
   // $.Msg("REACT-RENDER: Character - Level rendered");
 
-  const { selectedUnit } = React.useContext(Context);
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
 
   const [level, setLevel] = useState(1);
   const [percentage, setPercentage] = useState(0);

@@ -1,17 +1,11 @@
 import React from "react";
-import { items } from "../../../data/shop";
+import { items } from "../../../data/items";
 import Item from "../Item/Item";
-import ParentStyles from './../shop.module.css';
+import ParentStyles from './../styles.module.css';
 
-type Props = {
-  selectedUnit: EntityIndex,
-}
+const Consumables = () => {
 
-const Consumables = (props: Props) => {
-
-  // $.Msg("REACT-RENDER: Shop - Consumables rendered");
-
-  const { selectedUnit } = props;
+  // $.Msg("REACT-RENDER: ItemsShop - Consumables rendered");
 
   return (
     <Panel className={ParentStyles.category}>
@@ -21,7 +15,6 @@ const Consumables = (props: Props) => {
           <Item
             key={item.itemname}
             item={item}
-            selectedUnit={selectedUnit}
           />
         )}
       </Panel>
@@ -30,4 +23,4 @@ const Consumables = (props: Props) => {
 
 };
 
-export default Consumables;
+export default React.memo(Consumables);

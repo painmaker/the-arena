@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Context, HUD_THINK_MEDIUM } from "../../../App";
+import { SelectedUnitContext, HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import ParentStyles from './../styles.module.css';
 import Styles from './styles.module.css';
@@ -8,7 +8,7 @@ const MoveSpeed = () => {
 
   // $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
 
-  const { selectedUnit } = React.useContext(Context);
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
 
   const [moveSpeed, setMoveSpeed] = useState(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
 
@@ -19,14 +19,14 @@ const MoveSpeed = () => {
   return (
     <Panel className={ParentStyles.entry} >
       <Panel className={ParentStyles.imageContainer}>
-        <Image 
+        <Image
           src={'file://{images}/icon_speed.png'}
-          className={ParentStyles.image} 
+          className={ParentStyles.image}
         />
       </Panel>
       <Panel className={ParentStyles.labelContainer}>
         <Label
-          className={`${ParentStyles.label} ${Styles.label} `} 
+          className={`${ParentStyles.label} ${Styles.label} `}
           text={moveSpeed.toFixed(0)}
         />
       </Panel>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Context, HUD_THINK_MEDIUM } from "../../../App";
+import { SelectedUnitContext, HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import Attribute from "./Attribute/Attribute";
 import Styles from './styles.module.css';
@@ -14,7 +14,7 @@ const Attributes = () => {
 
   // $.Msg("REACT-RENDER: Character - Attributes rendered");
 
-  const { selectedUnit } = React.useContext(Context);
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
 
   const [strengthBase, setStrengthBase] = useState<number | undefined>(undefined);
   const [strengthBonus, setStrengthBonus] = useState<number | undefined>(undefined);
@@ -60,28 +60,28 @@ const Attributes = () => {
 
   return (
     <Panel className={Styles.container}>
-      <Panel className={Styles.row}> 
-        <Attribute 
-          imgName={'primary_attribute_icon_strength'} 
-          primaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_STRENGTH} 
+      <Panel className={Styles.row}>
+        <Attribute
+          imgName={'primary_attribute_icon_strength'}
+          primaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_STRENGTH}
           base={strengthBase}
-          bonus={strengthBonus}          
+          bonus={strengthBonus}
         />
       </Panel>
-      <Panel className={Styles.row}> 
-        <Attribute 
-          imgName={'primary_attribute_icon_agility'} 
-          primaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_AGILITY} 
+      <Panel className={Styles.row}>
+        <Attribute
+          imgName={'primary_attribute_icon_agility'}
+          primaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_AGILITY}
           base={agilityBase}
-          bonus={agilityBonus}          
+          bonus={agilityBonus}
         />
       </Panel>
-      <Panel className={Styles.row}> 
-        <Attribute 
-          imgName={'primary_attribute_icon_intelligence'} 
-          primaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_INTELLECT} 
+      <Panel className={Styles.row}>
+        <Attribute
+          imgName={'primary_attribute_icon_intelligence'}
+          primaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_INTELLECT}
           base={intellectBase}
-          bonus={intellectBonus}          
+          bonus={intellectBonus}
         />
       </Panel>
     </Panel>

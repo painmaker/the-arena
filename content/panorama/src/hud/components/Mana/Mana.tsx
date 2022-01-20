@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Context, HUD_THINK_FAST } from "../../App";
+import { SelectedUnitContext, HUD_THINK_FAST } from "../../App";
 import Styles from "./styles.module.css";
 import { useInterval } from "../../hooks/useInterval";
 
@@ -7,7 +7,7 @@ const Mana = () => {
 
   // $.Msg("REACT-RENDER: ManaBar rendered");
 
-  const { selectedUnit } = React.useContext(Context);
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
 
   const [mana, setMana] = useState(Entities.GetMana(selectedUnit));
   const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(selectedUnit));

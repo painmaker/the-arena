@@ -1269,15 +1269,15 @@
 .KloJHhE_WVO_QI46aBkn {
 	flow-children: right;
 }
-/*!*********************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Shop/Title/title.module.css ***!
-  \*********************************************************************************************************************************/
-.Rr1FKkAZ361k982_5fz_ {
+/*!***************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ItemsShop/Title/styles.module.css ***!
+  \***************************************************************************************************************************************/
+.hxMNoQFUWRajvasNAbAp {
   width: 100%;
   background-color: rgba(30, 30, 30, 0.525);
 }
 
-._TANvQ4qacNF38eA3Umb {
+.zlXUPwfmTE_0CXg2Hvv1 {
   color: rgba(200, 200, 200, 0.45);
   font-size: 15px;
   vertical-align: center;
@@ -1288,7 +1288,7 @@
   padding-left: 10px;
 }
 
-.D6HjQ7FjHcqwsJyqVfn_ {
+.yywpkFfK1CcEN5d9L8Dp {
   vertical-align: center;
   horizontal-align: right;
   height: 24px;
@@ -1300,17 +1300,17 @@
   wash-color:  rgba(100, 100, 100, 0.5);
 }
 
-.D6HjQ7FjHcqwsJyqVfn_:hover {
+.yywpkFfK1CcEN5d9L8Dp:hover {
   wash-color: rgba(100, 100, 100, 0.25);
   transform: scale3d(1.1, 1.1, 0);
 }
 
 
 
-/*!*******************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Shop/Gold/gold.module.css ***!
-  \*******************************************************************************************************************************/
-.jhzzPTL32QYEximy3uUQ {
+/*!**************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ItemsShop/Gold/styles.module.css ***!
+  \**************************************************************************************************************************************/
+.ZZTofSEwqYOafWLTIy2B {
 	height: 100%;
 	width: 125px;
 	margin-right: 15px;
@@ -1323,14 +1323,14 @@
 	flow-children: right;
 }
 
-.wekTWcDzpbfytFjjghQ8 {
+.BrxicT8X8YEos3507KDf {
 	color: gold;
 	vertical-align: center;
 	width: 100%;
 	text-align: center;
 }
 
-.f9_LGtQYZRY8EQHiGuET {
+.w1zNJ8972TCWg8xQ2PBw {
 	background-image: url('s2r://panorama/images/gold_small_png.vtex');
 	background-size: 100% 100%;
 	width: 16px;
@@ -1338,10 +1338,10 @@
 	vertical-align: center;
 }
 
-/*!***********************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Shop/Search/search.module.css ***!
-  \***********************************************************************************************************************************/
-.hlISF84kFOfP80kJ9FZu {
+/*!****************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ItemsShop/Search/styles.module.css ***!
+  \****************************************************************************************************************************************/
+.UpA2CIPgLKTtXbFYfFIY {
 	width: 600px;
 	margin-top: 10px;
 	margin-left: 15px;
@@ -1351,7 +1351,7 @@
 	border: 1px solid #3d464c;
 }
 
-.iNDTwVnWrj6DS2L6ctGG {
+.HFjoIOfkEmAkFVwuGaXV {
 	background-image: url('s2r://panorama/images/icon_search_shadow_png.vtex');
 	background-size: 100% 100%;
 	background-position: center;
@@ -1363,7 +1363,7 @@
 	margin-left: 4px;
 }
 
-.zfXn5NDM5F_T4zVwJCPq {
+.kkZfA0nmyZpevOrWMvcS {
 	height: 36px;
 	color: white;
 	font-size: 20px;
@@ -1374,7 +1374,7 @@
 	background-color: black;
 }
 
-.gVvpcjlDRXwj7IEt0ML_ {
+.fCVcGoeJc77C1YifPLSa {
 	background-image: url('s2r://panorama/images/x_close_grey_png.vtex');
 	background-size: contain;
 	height: 18px;
@@ -1386,28 +1386,28 @@
 	transition-timing-function: ease-in-out;
 }
 
-.gVvpcjlDRXwj7IEt0ML_:hover {
+.fCVcGoeJc77C1YifPLSa:hover {
 	wash-color: rgba(100, 100, 100, 0.25);
 	transform: scale3d(1.1, 1.1, 0);
 }
 
-/*!*******************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Shop/Item/item.module.css ***!
-  \*******************************************************************************************************************************/
-.PDUfowIUUKLo9k7qA2yP {
+/*!**************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ItemsShop/Item/styles.module.css ***!
+  \**************************************************************************************************************************************/
+.aMwRUvEuXKSXkuPP03fk {
   width: 48px;
   height: 35px;
   margin: 2px;
 }
 
-.ly4wXemHK_apNGpVCTOv {
+.upklS8wEUAFLXqeSyaWx {
   vertical-align: center;
   horizontal-align: center;
 }
-/*!**************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Shop/shop.module.css ***!
-  \**************************************************************************************************************************/
-.BSxzGvZdECdyZegRctY5 {
+/*!*********************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ItemsShop/styles.module.css ***!
+  \*********************************************************************************************************************************/
+.j78VKKAyk39Sha8K9l0P {
 	horizontal-align: right;
 	vertical-align: top;
 	margin-right: 0px;
@@ -1425,12 +1425,12 @@
 	transform: translateX(490px);
 }
 
-.XG17xyoBlJ3Tpz1wnlmI {
+.jyKez6G4rONKOUX9nrLF {
 	flow-children: right;
 	width: 100%;
 }
 
-.kgffNIaDnqioNdzFu2Qz {
+.tUY8BJSBOsVztgLYxbro {
 	background-color: rgba(0, 0, 0, 0.45);
 	width: 100%;
 	height: 100%;
@@ -1438,13 +1438,13 @@
 	margin: 15px;
 }
 
-.glyI7QY5ReJQw11M9kVU {
+.KEcbduuIuGB7A0RnR94R {
 	width: 50%;
 	height: 100%;
 	flow-children: down;
 }
 
-.OcOTKVivrgkfduSaazAy {
+.RIQyOHOzr1DCH8RQ2w0v {
 	flow-children: down;
 	margin-left: 7.5px;
 	margin-right: 7.5px;
@@ -1452,7 +1452,7 @@
 	width: 100%;
 }
 
-.oGnuUmHmMe_XtSiw0IRK {
+.ypaGziItyl6C9fv14VfA {
 	width: 100%;
 	background-image: url('s2r://panorama/images/inventory_item_well.png');
 	background-size: 100%;
@@ -1462,7 +1462,7 @@
 	flow-children: right;
 }
 
-.xf3s9Vnjkq5SBEtoC_Wh {
+.ZVvW2vMLRTr3hNd2Ji3C {
 	width: 100%;
 	background-color: rgba(0, 0, 0, 1);
 	border-bottom: 1px solid rgba(50, 50, 50, 0.5);
@@ -1476,7 +1476,7 @@
 	letter-spacing: 1.35px;
 }
 
-.zgwX5TeRbdT_QfomIjIJ {
+.xqkH3GcQIJE_eUpg0_LZ {
 	width: 100%;
 	flow-children: right-wrap;
 	background-image: url('s2r://panorama/images/inventory_item_well.png');

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Context, HUD_THINK_MEDIUM } from "../../../App";
+import { SelectedUnitContext, HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import ParentStyles from './../styles.module.css';
 
@@ -7,7 +7,7 @@ const Armor = () => {
 
   // $.Msg("REACT-RENDER: Character - Armor rendered");
 
-  const { selectedUnit } = React.useContext(Context);
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
 
   const [armor, setArmor] = useState(Entities.GetPhysicalArmorValue(selectedUnit));
   const [bonusArmor, setBonusArmor] = useState(Entities.GetBonusPhysicalArmor(selectedUnit));
@@ -20,9 +20,9 @@ const Armor = () => {
   return (
     <Panel className={ParentStyles.entry}>
       <Panel className={ParentStyles.imageContainer}>
-        <Image 
+        <Image
           src={'file://{images}/icon_armor.png'}
-          className={ParentStyles.image} 
+          className={ParentStyles.image}
         />
       </Panel>
       <Panel className={ParentStyles.labelContainer}>

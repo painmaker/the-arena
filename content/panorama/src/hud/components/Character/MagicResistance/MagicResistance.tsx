@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Context, HUD_THINK_MEDIUM } from "../../../App";
+import { SelectedUnitContext, HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import ParentStyles from './../styles.module.css';
 
@@ -7,7 +7,7 @@ const MagicResistance = () => {
 
   // $.Msg("REACT-RENDER: Character - MagicalResistance rendered");
 
-  const { selectedUnit } = React.useContext(Context);
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
 
   const [magicResistance, setMagicResistance] = useState(Entities.GetMagicalArmorValue(selectedUnit));
 
@@ -18,9 +18,9 @@ const MagicResistance = () => {
   return (
     <Panel className={ParentStyles.entry}>
       <Panel className={ParentStyles.imageContainer}>
-        <Image 
+        <Image
           src={'file://{images}/icon_magic_resist.png'}
-          className={ParentStyles.image} 
+          className={ParentStyles.image}
         />
       </Panel>
       <Panel className={ParentStyles.labelContainer}>

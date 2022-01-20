@@ -1,17 +1,12 @@
 import React from "react";
-import { items } from "../../../data/shop";
+import { items } from "../../../data/items";
 import Item from "../Item/Item";
-import ParentStyles from './../shop.module.css';
+import ParentStyles from './../styles.module.css';
 
-type Props = {
-  selectedUnit: EntityIndex,
-}
 
-const Artifacts = (props: Props) => {
+const Artifacts = () => {
 
-  // $.Msg("REACT-RENDER: Shop - Artifacts rendered");
-
-  const { selectedUnit } = props;
+  // $.Msg("REACT-RENDER: ItemsShop - Artifacts rendered");
 
   return (
     <Panel className={ParentStyles.category}>
@@ -21,7 +16,6 @@ const Artifacts = (props: Props) => {
           <Item
             key={item.itemname}
             item={item}
-            selectedUnit={selectedUnit}
           />
         )}
       </Panel>
@@ -30,4 +24,4 @@ const Artifacts = (props: Props) => {
 
 };
 
-export default Artifacts;
+export default React.memo(Artifacts);

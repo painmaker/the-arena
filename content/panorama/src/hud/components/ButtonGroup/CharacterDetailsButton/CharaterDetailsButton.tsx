@@ -3,32 +3,32 @@ import { WindowContext } from "../../../App";
 import { WINDOW } from "../../../data/windows";
 import ParentStyles from './../styles.module.css';
 
-const SettingsButton = () => {
+const CharaterDetailsButton = () => {
 
-  // $.Msg("REACT-RENDER: SettingsButton rendered");
+  // $.Msg("REACT-RENDER: CharaterDetailsButton rendered");
 
   const { window, setWindow } = React.useContext(WindowContext);
 
-  const isOpen = window === WINDOW.SETTINGS;
+  const isOpen = window === WINDOW.CHARACTER_DETAILS;
 
   return (
     <Button
-      id={'settings_btn'}
+      id={'character_btn'}
       className={ParentStyles.btn}
       onactivate={() => {
-        $('#settings_btn').RemoveClass('btnClicked');
-        $('#settings_btn').AddClass('btnClicked');
-        setWindow(isOpen ? WINDOW.NONE : WINDOW.SETTINGS);
+        $('#character_btn').RemoveClass('btnClicked');
+        $('#character_btn').AddClass('btnClicked');
+        setWindow(isOpen ? WINDOW.NONE : WINDOW.CHARACTER_DETAILS)
         Game.EmitSound("ui_topmenu_select");
       }}
     >
       <Image
         style={{ washColor: isOpen ? 'orange' : 'white' }}
-        src="s2r://panorama/images/settings_btn_white_png.vtex"
+        src="s2r://panorama/images/character_btn_white_png.vtex"
       />
     </Button>
   );
 
 };
 
-export default React.memo(SettingsButton);
+export default React.memo(CharaterDetailsButton);

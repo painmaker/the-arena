@@ -1,31 +1,15 @@
 import React from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { Dispatch } from "redux";
-import { setAbilitiesShopVisible } from "../../../actions/abilitiesShopActions";
-import { RootState } from "../../../reducers/rootReducer";
-import { AbilitiesShopTypes } from "../../../types/abilitiesShopTypes";
+import { WindowContext } from "../../../App";
+import { WINDOW } from "../../../data/windows";
 import ParentStyles from './../styles.module.css';
 
-const mapStateToProps = (state: RootState) => ({
-  visible: state.abilitiesShopReducer.visible,
-});
+const AbilitiesShopButton = () => {
 
-const mapDispatchToProps = (dispatch: Dispatch<AbilitiesShopTypes>) => ({
-  setAbilitiesShopVisible: (visible: boolean) => dispatch(setAbilitiesShopVisible(visible)),
-});
+  // $.Msg("REACT-RENDER: AbilitiesShopButton rendered");
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
+  const { window, setWindow } = React.useContext(WindowContext);
 
-type Props = PropsFromRedux & {
-  // ownProps
-};
-
-const AbilitiesShopButton = (props: Props) => {
-
-  // $.Msg("REACT-RENDER: ButtonGroup - AbilitiesShopButton rendered");
-
-  const { visible, setAbilitiesShopVisible } = props;
+  const isOpen = window === WINDOW.ABILITIES_SHOP;
 
   return (
     <Button
@@ -34,11 +18,11 @@ const AbilitiesShopButton = (props: Props) => {
       onactivate={() => {
         $('#abilities_shop_btn').RemoveClass('btnClicked');
         $('#abilities_shop_btn').AddClass('btnClicked');
-        setAbilitiesShopVisible(!visible);
+        setWindow(isOpen ? WINDOW.NONE : WINDOW.ABILITIES_SHOP);
         Game.EmitSound("ui_topmenu_select");
       }}>
       <Image
-        style={{ washColor: visible ? 'orange' : 'white' }}
+        style={{ washColor: isOpen ? 'orange' : 'white' }}
         src="s2r://panorama/images/book_open_page_variant_outline_png.vtex"
       />
     </Button>
@@ -46,4 +30,4 @@ const AbilitiesShopButton = (props: Props) => {
 
 };
 
-export default React.memo(connector(AbilitiesShopButton));
+export default React.memo(AbilitiesShopButton);

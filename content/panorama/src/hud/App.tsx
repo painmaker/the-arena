@@ -1,19 +1,17 @@
-import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useNetTableValues } from "react-panorama";
 import Minimap from "./components/Minimap/Minimap";
 import Settings from "./components/Settings/Settings";
 import ButtonGroup from "./components/ButtonGroup/ButtonGroup";
 import Heroes from "./components/Heroes/Heroes";
-import GameTime from "./components/Minimap/GameTime/GameTime";
 import AbilityBar from "./components/AbilityBar/AbilityBar";
 import Health from "./components/Health/Health";
 import Mana from "./components/Mana/Mana";
 import Character from "./components/Character/Character";
 import CharacterDetails from "./components/CharacterDetails/CharacterDetails";
-import Debuffs from "./components/Modifiers/Debuffs/Debuffs";
 import Buffs from "./components/Modifiers/Buffs/Buffs";
 import Inventory from "./components/Inventory/Inventory";
-import Shop from "./components/Shop/Shop";
+import ItemsShop from "./components/ItemsShop/ItemsShop";
 import HeroSelection from "./components/HeroSelection/HeroSelection";
 import Loading from "./components/Loading/Loading";
 import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
@@ -22,19 +20,42 @@ import Messages from "./components/Messages/Messages";
 import { useInterval } from "./hooks/useInterval";
 import "./global.css";
 import Styles from "./app.module.css";
+import { WINDOW } from "./data/windows";
 
 export const HUD_THINK_FAST = 30;
 export const HUD_THINK_MEDIUM = 100;
 export const HUD_THINK_SLOW = 1000;
 
-interface Context {
-  selectedUnit: EntityIndex,
-  setSelectedUnit: Dispatch<SetStateAction<EntityIndex>>
-} 
+const excludedUnits = [
+  "shopkeeper_abilities"
+]
 
-export const Context = React.createContext<Context>({
+const getGameUnitSelected = () => {
+  const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
+  if (queryUnit !== -1) {
+    return queryUnit;
+  }
+  const portraitUnit = Players.GetLocalPlayerPortraitUnit();
+  if (portraitUnit !== -1) {
+    return portraitUnit
+  }
+  return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
+}
+interface SelectedUnitContext {
+  selectedUnit: EntityIndex,
+}
+interface WindowContext {
+  window: WINDOW,
+  setWindow: Dispatch<SetStateAction<WINDOW>>
+}
+
+export const SelectedUnitContext = React.createContext<SelectedUnitContext>({
   selectedUnit: Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()),
-  setSelectedUnit: () => {}
+});
+
+export const WindowContext = React.createContext<WindowContext>({
+  window: WINDOW.NONE,
+  setWindow: () => { }
 });
 
 const App = () => {
@@ -44,6 +65,7 @@ const App = () => {
 
   const [useCustomUI, setUseCustomUI] = useState(true);
   const [selectedUnit, setSelectedUnit] = useState(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+  const [window, setWindow] = useState(WINDOW.NONE);
 
   useEffect(() => {
     GameUI.SetCameraDistance(1600);
@@ -51,29 +73,10 @@ const App = () => {
   }, []);
 
   useInterval(() => {
-
-    const excludedUnits = [
-      "shopkeeper_abilities"
-    ]
-
-    const getGameUnitSelected = () => {
-      const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer());
-      if (queryUnit !== -1) {
-        return queryUnit;
-      }
-      const portraitUnit = Players.GetLocalPlayerPortraitUnit();
-      if (portraitUnit !== -1) {
-        return portraitUnit
-      }
-      return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
-    }
-
     const unitToSelect = getGameUnitSelected();
-
     if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
       setSelectedUnit(unitToSelect)
     }
-
   }, HUD_THINK_FAST)
 
   useEffect(() => {
@@ -110,7 +113,7 @@ const App = () => {
   }, [useCustomUI]);
 
   return (
-    <Context.Provider value={{ selectedUnit, setSelectedUnit }}>
+    <React.Fragment>
       <Panel
         id={'root'}
         className={Styles.container}
@@ -131,30 +134,34 @@ const App = () => {
             {useCustomUI && (
               <React.Fragment>
                 <Heroes />
-                <Settings />
-                <CharacterDetails selectedUnit={selectedUnit} />
-                <Shop selectedUnit={selectedUnit} />
-                <AbilityBar selectedUnit={selectedUnit} />
-                <Mana />
-                <Health />
-                <ButtonGroup />
                 <Minimap />
-                <Buffs />
-                {/* <Debuffs /> */}
-                <Inventory />
-                <Character />
-                <AbilitiesShop selectedUnit={selectedUnit} />
                 <FloatingContainer />
                 <Messages />
+                <SelectedUnitContext.Provider value={{ selectedUnit }}>
+                  <AbilityBar selectedUnit={selectedUnit} />
+                  <Buffs />
+                  <Mana />
+                  <Health />
+                  <Inventory />
+                  <Character />
+                  <WindowContext.Provider value={{ window, setWindow }}>
+                    <ButtonGroup />
+                    <Settings />
+                    <CharacterDetails selectedUnit={selectedUnit} />
+                    <ItemsShop />
+                    <AbilitiesShop selectedUnit={selectedUnit} />
+                  </WindowContext.Provider>
+                </SelectedUnitContext.Provider>
                 <Panel className={Styles.bottomCenterBackground} />
                 <Panel className={Styles.bottomCenterLeftFlare} />
                 <Panel className={Styles.bottomCenterRightFlare} />
               </React.Fragment>
+
             )}
           </Loading>
         )}
       </Panel>
-    </Context.Provider>
+    </React.Fragment>
   );
 
 }

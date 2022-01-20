@@ -1,29 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useGameEvent } from "react-panorama";
-import { connect, ConnectedProps } from "react-redux";
-import { HUD_THINK_FAST } from "../../../App";
+import { HUD_THINK_FAST, SelectedUnitContext } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
-import { RootState } from "../../../reducers/rootReducer";
 import { Item } from "../../../types/shopTypes";
-import Styles from './item.module.css';
+import { ItemsShopContext } from "../ItemsShop";
+import Styles from './styles.module.css';
 
-const mapStateToProps = (state: RootState) => ({
-  searchValue: state.shopReducer.searchValue,
-});
-
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
+type Props = {
   item: Item,
-  selectedUnit: EntityIndex,
 };
 
 const Item = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Shop - Item rendered");
+  // $.Msg("REACT-RENDER: ItemsShop - Item rendered");
 
-  const { item, selectedUnit } = props;
+  const { searchValue } = useContext(ItemsShopContext);
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
+
+  const { item } = props;
 
   const [playerGold, setPlayerGold] = useState(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
   const [isShopInRange, setIsShopInRange] = useState(Entities.IsInRangeOfShop(selectedUnit, 0, false));
@@ -46,7 +40,7 @@ const Item = (props: Props) => {
 
   let isSearched = false;
   item.aliases.forEach(alias => {
-    if (alias.match(props.searchValue)) {
+    if (alias.match(searchValue)) {
       isSearched = true;
     }
   });
@@ -56,7 +50,7 @@ const Item = (props: Props) => {
       className={Styles.container}
       style={{
         border: hasEnoughCold ? '1.5px solid rgba(200, 175, 0, 0.5)' : '0.5px solid black',
-        washColor: props.searchValue.length > 0 && !isSearched ? 'rgba(0, 0, 0, 0.9)' : 'none'
+        washColor: searchValue.length > 0 && !isSearched ? 'rgba(0, 0, 0, 0.9)' : 'none'
       }}
       onactivate={() => {
         if (GameUI.IsAltDown()) {
@@ -94,4 +88,4 @@ const Item = (props: Props) => {
 
 };
 
-export default React.memo(connector(Item));
+export default React.memo(Item);
