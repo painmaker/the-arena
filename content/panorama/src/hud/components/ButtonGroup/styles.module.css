@@ -2,6 +2,7 @@
 	vertical-align: bottom;
 	horizontal-align: right;
 	width: 250px;
+  height: 40px;
 	flow-children: left;
 	z-index: 9999;
 	background-image: url("s2r://panorama/images/hud/reborn/courier_gold_bg_262_psd.vtex");
