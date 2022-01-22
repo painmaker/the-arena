@@ -81,7 +81,7 @@ const AbilitiesShop = () => {
       {renderComponent && (
         <Panel className={'Invisible'} style={Styles.InnerContainer(window === WINDOW.ABILITIES_SHOP)} >
           <Panel onactivate={() => false} style={Styles.UnclickableContainer()}>
-            <Title selectedUnit={selectedUnit} />
+            <Title />
             <Panel style={Styles.TopContainer()}>
               <Search setSearchValue={setSearchValue} />
               <AbilitiesPoints

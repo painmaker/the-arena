@@ -16,9 +16,15 @@ const Settings = () => {
 
   const { window, setWindow } = React.useContext(WindowContext);
 
+  const [mapZoom, setMapZoom] = useState(5);
   const [cameraZoom, setCameraZoom] = useState(1600);
   const [isLocked, setIsLocked] = useState(true);
   const [renderComponent, setRenderComponent] = useState(false);
+
+  useEffect(() => {
+    // @ts-ignore
+    GameEvents.SendEventClientSide('set_map_zoom', { zoom: mapZoom });
+  }, [mapZoom])
 
   useEffect(() => {
     GameUI.SetCameraDistance(cameraZoom);
@@ -60,7 +66,10 @@ const Settings = () => {
           </Panel>
           <Divider />
           <Panel className={Styles.entry}>
-            <MapZoomSlider />
+            <MapZoomSlider
+              mapZoom={mapZoom}
+              setMapZoom={setMapZoom}
+            />
           </Panel>
           <Divider />
           <Panel className={Styles.entry}>

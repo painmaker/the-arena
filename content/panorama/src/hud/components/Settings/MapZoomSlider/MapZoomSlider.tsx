@@ -1,33 +1,21 @@
-import React, { Dispatch, useEffect } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { setMinimapZoom } from "../../../actions/minimapActions";
-import { RootState } from "../../../reducers/rootReducer";
-import { MinimapActionTypes } from "../../../types/minimapTypes";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import Styles from "./styles.module.css";
 
-const mapStateToProps = (state: RootState) => ({
-  zoom: state.minimapReducer.zoom,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<MinimapActionTypes>) => ({
-  setMinimapZoom: (zoom: number) => dispatch(setMinimapZoom(zoom)),
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  // ownProps
-};
+type Props = {
+  mapZoom: number,
+  setMapZoom: Dispatch<SetStateAction<number>>
+}
 
 const MapZoomSlider = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Settings - MapZoomSlider rendered");
 
+  const { mapZoom, setMapZoom } = props;
+
   useEffect(() => {
     // Hack to initalize the slider caret correctly
     const panel = $("#map_zoom_slider") as any;
-    panel.value = props.zoom;
+    panel.value = props.mapZoom;
   }, []);
 
   return (
@@ -41,19 +29,19 @@ const MapZoomSlider = (props: Props) => {
           id={"map_zoom_slider"}
           className={"HorizontalSlider"}
           direction={"horizontal"}
-          value={props.zoom}
+          value={mapZoom}
           min={3}
           max={10}
-          onvaluechanged={(e) => props.setMinimapZoom(Math.round(e.value))}
+          onvaluechanged={(e) => setMapZoom(Math.round(e.value))}
         />
       </Panel>
       <Label
         className={Styles.numberLabel}
-        text={props.zoom}
+        text={mapZoom}
       />
     </React.Fragment>
   );
 
 };
 
-export default React.memo(connector(MapZoomSlider));
+export default React.memo(MapZoomSlider);

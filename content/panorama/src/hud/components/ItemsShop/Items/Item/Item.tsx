@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import { HUD_THINK_FAST, SelectedUnitContext } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
-import { ItemShopItem } from "../../../../types/itemsShopTypes";
 import { ItemsShopContext } from "../../ItemsShop";
+import { ItemShopItem } from "../Items";
 import Styles from './styles.module.css';
 
 type Props = {

@@ -1,7 +1,11 @@
 import React from "react";
-import { ItemShopItem } from "../../../types/itemsShopTypes";
 import Item from "./Item/Item";
 import Styles from './styles.module.css';
+export interface ItemShopItem {
+  itemname: string,
+  cost: number,
+  aliases: string[],
+}
 
 type Props = {
   title: string,

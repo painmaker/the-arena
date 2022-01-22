@@ -1,31 +1,13 @@
 import React from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { Dispatch } from "redux";
-import { setSettingsVisible } from "../../../actions/settingsAction";
-import { RootState } from "../../../reducers/rootReducer";
-import { SettingsActionTypes } from "../../../types/settingsTypes";
+import { WindowContext } from "../../../App";
+import { WINDOW } from "../../../data/windows";
 import Styles from "./styles.module.css";
 
-const mapStateToProps = (state: RootState) => ({
-  visible: state.settingsReducer.visible,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<SettingsActionTypes>) => ({
-  setSettingsVisible: (visible: boolean) => dispatch(setSettingsVisible(visible)),
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
-  // ownProps
-};
-
-const Title = (props: Props) => {
+const Title = () => {
 
   // $.Msg("REACT-RENDER: Settings - Title rendered");
 
-  const { setSettingsVisible } = props;
+  const { window, setWindow } = React.useContext(WindowContext);
 
   return (
     <Panel className={Styles.container}>
@@ -36,8 +18,10 @@ const Title = (props: Props) => {
       <Button
         className={Styles.closeBtn}
         onactivate={() => {
-          setSettingsVisible(false);
-          Game.EmitSound("ui_topmenu_select");
+          if (window === WINDOW.SETTINGS) {
+            setWindow(WINDOW.NONE);
+            Game.EmitSound("ui_topmenu_select");
+          }
         }}
       >
         <Image src="s2r://panorama/images/close_btn_white_png.vtex" />
@@ -47,5 +31,5 @@ const Title = (props: Props) => {
 
 };
 
-export default React.memo(connector(Title));
+export default React.memo(Title);
 

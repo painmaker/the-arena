@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
+import { SelectedUnitContext } from "../../../App";
 import { Styles } from "./Styles";
 
-interface Props {
-  selectedUnit: EntityIndex,
-}
-
-const Model = (props: Props) => {
+const Model = () => {
 
   // $.Msg("REACT-RENDER: Character - HeroModel rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
 
   useEffect(() => {
     const scenePanel = $('#modelPanelScene') as ScenePanel;

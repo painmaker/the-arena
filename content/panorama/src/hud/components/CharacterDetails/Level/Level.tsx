@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { Styles } from "./Styles";
-import { HUD_THINK_MEDIUM } from "../../../App";
+import { HUD_THINK_MEDIUM, SelectedUnitContext } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 
-type Props = {
-  selectedUnit: EntityIndex,
-}
-
-const Level = (props: Props) => {
+const Level = () => {
 
   // $.Msg("REACT-RENDER: Character - Level rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
 
   const [level, setLevel] = useState(Entities.GetLevel(selectedUnit));
   const [degree, setDegree] = useState(0);

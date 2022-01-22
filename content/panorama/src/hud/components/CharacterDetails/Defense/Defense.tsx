@@ -1,4 +1,5 @@
 import React from "react";
+import { SelectedUnitContext } from "../../../App";
 import Divider from "../Divider/Divider";
 import Armor from "./Armor/Armor";
 import Evasion from "./Evasion/Evasion";
@@ -8,15 +9,11 @@ import PyshicalResistance from "./PyshicalResistance/PyshicalResistance";
 import StatusResistance from "./StatusResistance/StatusResistance";
 import { Styles } from "./Styles";
 
-interface Props {
-  selectedUnit: EntityIndex,
-}
-
-const Defense = (props: Props) => {
+const Defense = () => {
 
   // $.Msg("REACT-RENDER: Character - Defense rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
 
   return (
     <Panel style={Styles.OuterContainer()}>

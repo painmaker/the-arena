@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { connect, ConnectedProps } from "react-redux";
 import { HUD_THINK_FAST } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
-import { RootState } from "../../../reducers/rootReducer";
 import Styles from "./styles.module.css";
 
-const mapStateToProps = (state: RootState) => ({
-  cameraLocked: state.settingsReducer.cameraLocked,
-});
-
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & {
+type Props = {
   hero: EntityIndex;
 };
 
-const onHeroImageClicked = (hero: EntityIndex, cameraLocked: boolean) => {
+const onHeroImageClicked = (hero: EntityIndex) => {
 
   const isAlive = Entities.IsAlive(hero);
   const issSelectable = Entities.IsSelectable(hero);
@@ -44,10 +35,10 @@ const onHeroImageClicked = (hero: EntityIndex, cameraLocked: boolean) => {
       Game.PrepareUnitOrders(order);
     }
   } else {
-    if (cameraLocked) {
-      GameUI.SendCustomHUDError("Camera Is Locked", "General.InvalidTarget_Invulnerable")
-      return;
-    }
+    // if (cameraLocked) {
+    //   GameUI.SendCustomHUDError("Camera Is Locked", "General.InvalidTarget_Invulnerable")
+    //   return;
+    // }
     GameUI.SetCameraTargetPosition(Entities.GetAbsOrigin(hero), 0.3);
     Game.EmitSound("ui_topmenu_select");
   }
@@ -58,7 +49,7 @@ const ImageImpl = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
 
-  const { hero, cameraLocked } = props;
+  const { hero } = props;
 
   const [washColor, setWashColor] = useState("none");
   const [isDisconnected, setIsDisconnected] = useState(false);
@@ -105,8 +96,8 @@ const ImageImpl = (props: Props) => {
       <DOTAHeroImage
         heroname={Entities.GetUnitName(hero)}
         heroimagestyle="landscape"
-        onactivate={() => onHeroImageClicked(hero, cameraLocked)}
-        oncontextmenu={() => onHeroImageClicked(hero, cameraLocked)}
+        onactivate={() => onHeroImageClicked(hero)}
+        oncontextmenu={() => onHeroImageClicked(hero)}
         className={Styles.image}
         style={{ washColor: washColor }}
       />
@@ -115,4 +106,4 @@ const ImageImpl = (props: Props) => {
 
 };
 
-export default React.memo(connector(ImageImpl));
+export default React.memo(ImageImpl);

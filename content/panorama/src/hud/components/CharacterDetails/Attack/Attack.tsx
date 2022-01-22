@@ -7,16 +7,13 @@ import ManaRegen from "./ManaRegen/ManaRegen";
 import SpellAmplification from "./SpellAmplification/SpellAmplification";
 import Divider from "../Divider/Divider";
 import { Styles } from "./Styles";
+import { SelectedUnitContext } from "../../../App";
 
-interface Props {
-  selectedUnit: EntityIndex,
-}
-
-const Attack = (props: Props) => {
+const Attack = () => {
 
   // $.Msg("REACT-RENDER: Character - Attack rendered");
 
-  const { selectedUnit } = props;
+  const { selectedUnit } = React.useContext(SelectedUnitContext);
 
   return (
     <Panel style={Styles.OuterContainer()}>
