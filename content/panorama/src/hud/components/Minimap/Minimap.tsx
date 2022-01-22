@@ -17,9 +17,8 @@ const Minimap = () => {
   }, []);
 
   useGameEvent('set_map_zoom', (event) => {
-    // @ts-ignore
     setMapZoom(event.mapZoom);
-  }, [])
+  }, []);
 
   return (
     <Panel

@@ -13,7 +13,7 @@ import { WINDOW } from "../../data/windows";
 
 const CharacterDetails = () => {
 
-  // $.Msg("REACT-RENDER: Character rendered");
+  // $.Msg("REACT-RENDER: CharacterDetails rendered");
 
   const { window, setWindow } = React.useContext(WindowContext);
 

@@ -63,6 +63,4 @@ interface CustomGameEventDeclarations {
   on_health_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex }
   on_mana_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex }
 
-  set_map_zoom: { zoom: number }
-
 }

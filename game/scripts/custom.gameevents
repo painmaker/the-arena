@@ -24,4 +24,8 @@
 	{
 		"mapZoom"				"long"
 	}
+  "set_is_camera_locked"
+	{
+		"isLocked"			"bool"
+	}
 }

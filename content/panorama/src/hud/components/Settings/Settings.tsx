@@ -22,8 +22,7 @@ const Settings = () => {
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
-    // @ts-ignore
-    GameEvents.SendEventClientSide('set_map_zoom', { zoom: mapZoom });
+    GameEvents.SendEventClientSide('set_map_zoom', { mapZoom });
   }, [mapZoom])
 
   useEffect(() => {
@@ -31,6 +30,7 @@ const Settings = () => {
   }, [cameraZoom]);
 
   useEffect(() => {
+    GameEvents.SendEventClientSide('set_is_camera_locked', { isLocked });
     if (isLocked) {
       GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
     } else {

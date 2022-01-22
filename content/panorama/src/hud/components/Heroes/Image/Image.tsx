@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useGameEvent } from "react-panorama";
 import { HUD_THINK_FAST } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import Styles from "./styles.module.css";
@@ -7,7 +8,7 @@ type Props = {
   hero: EntityIndex;
 };
 
-const onHeroImageClicked = (hero: EntityIndex) => {
+const onHeroImageClicked = (hero: EntityIndex, isCameraLocked: boolean) => {
 
   const isAlive = Entities.IsAlive(hero);
   const issSelectable = Entities.IsSelectable(hero);
@@ -35,10 +36,10 @@ const onHeroImageClicked = (hero: EntityIndex) => {
       Game.PrepareUnitOrders(order);
     }
   } else {
-    // if (cameraLocked) {
-    //   GameUI.SendCustomHUDError("Camera Is Locked", "General.InvalidTarget_Invulnerable")
-    //   return;
-    // }
+    if (isCameraLocked) {
+      GameUI.SendCustomHUDError("Camera Is Locked", "General.InvalidTarget_Invulnerable")
+      return;
+    }
     GameUI.SetCameraTargetPosition(Entities.GetAbsOrigin(hero), 0.3);
     Game.EmitSound("ui_topmenu_select");
   }
@@ -51,8 +52,13 @@ const ImageImpl = (props: Props) => {
 
   const { hero } = props;
 
+  const [isCameraLocked, setIsCameraLocked] = useState(true);
   const [washColor, setWashColor] = useState("none");
   const [isDisconnected, setIsDisconnected] = useState(false);
+
+  useGameEvent('set_is_camera_locked', (event) => {
+    setIsCameraLocked(event.isLocked === 0 ? false : true);
+  }, []);
 
   useEffect(() => {
     const handle = GameEvents.Subscribe("entity_killed", (event) => {
@@ -96,8 +102,8 @@ const ImageImpl = (props: Props) => {
       <DOTAHeroImage
         heroname={Entities.GetUnitName(hero)}
         heroimagestyle="landscape"
-        onactivate={() => onHeroImageClicked(hero)}
-        oncontextmenu={() => onHeroImageClicked(hero)}
+        onactivate={() => onHeroImageClicked(hero, isCameraLocked)}
+        oncontextmenu={() => onHeroImageClicked(hero, isCameraLocked)}
         className={Styles.image}
         style={{ washColor: washColor }}
       />
