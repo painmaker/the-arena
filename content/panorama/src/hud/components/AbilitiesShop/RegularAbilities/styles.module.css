@@ -1,0 +1,54 @@
+.container {
+  width: 50%;
+  margin: 5px;
+  flow-children: down;
+}
+
+.titleContainer {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 1.0);
+  border-bottom: 1px solid rgba(50, 50, 50, 0.5);
+  font-size: 13px;
+  color: rgb(175, 175, 175);
+  text-align: left;
+  font-family: fantasy;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  letter-spacing: 1.35px;
+}
+
+.title {
+  vertical-align: center;
+  horizontal-align: left;
+  font-size: 13px;
+  color: rgb(175, 175, 175);
+  font-family: fantasy;
+  letter-spacing: 1.35px;
+}
+
+.abilityCountLabel {
+  vertical-align: center;
+  horizontal-align: right;
+  font-size: 13px;
+  color: rgb(175, 175, 175);
+  font-family: fantasy;
+  letter-spacing: 1.35px;
+}
+
+.abilitiesContainer {
+  width: 100%;
+  min-height: 200px;
+  background-image: url("s2r://panorama/images/inventory_item_well.png");
+  background-size: 100%;
+  background-color: rgba(0, 0, 0, 0.35);
+  flow-children: right-wrap;
+  padding: 10px;
+}
+
+.centerLabel {
+  vertical-align: center;
+  horizontal-align: center;
+  font-size: 14px;
+}

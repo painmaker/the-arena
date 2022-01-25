@@ -1,0 +1,11 @@
+.abilityImage {
+  width: 36px;
+  height: 36px;
+  margin: 3px;
+  transition: transform 0.05s ease-in-out 0.0s;
+  padding: 1px;
+}
+
+.abilityImage:hover {
+  padding: 0px;
+}

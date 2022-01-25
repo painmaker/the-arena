@@ -1,7 +1,7 @@
 import React from "react";
 import { useNetTableValues } from "react-panorama";
 import AbilityImage from "../AbilityImage/AbilityImage";
-import { Styles } from "./Styles";
+import Styles from './styles.module.css'
 
 type Props = {
   selectedUnit: EntityIndex
@@ -20,22 +20,22 @@ const RegularAbilities = (props: Props) => {
   const nettable = playerOwnerID !== -1 ? Object.values(useNetTableValues('RegularAbilities')[playerOwnerID]) : [];
 
   return (
-    <Panel style={Styles.Container()}>
-      <Panel style={Styles.TitleContainer()}>
+    <Panel className={Styles.container}>
+      <Panel className={Styles.titleContainer}>
         <Label
           text={'Regular Abilities'}
-          style={Styles.Title()}
+          className={Styles.title}
         />
         <Label
           text={nettable.length + ' / 5'}
-          style={Styles.AbilityCountLabel()}
+          className={Styles.abilityCountLabel}
         />
         <Label
           text={nettable.length + ' / 5'}
-          style={Styles.AbilityCountLabel()}
+          className={Styles.abilityCountLabel}
         />
       </Panel>
-      <Panel style={Styles.AbilitiesContainer()}>
+      <Panel className={Styles.abilitiesContainer}>
         {regularAbilities.map(regularAbility => {
           return (
             <AbilityImage

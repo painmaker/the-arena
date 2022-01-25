@@ -1,0 +1,46 @@
+.container {
+  width: 570px;
+  flow-children: right;
+  background-color: black;
+  border-radius: 5px;
+  border: 1px solid #3d464c;
+}
+
+.icon {
+  background-image: url("s2r://panorama/images/icon_search_shadow.png");
+  background-size: 100% 100%;
+  background-position: center;
+  height: 24px;
+  width: 24px;
+  wash-color: #8da1b1;
+  vertical-align: center;
+  margin-top: -1.5px;
+  margin-left: 4px;
+}
+
+.searchField {
+  height: 36px;
+  color: white;
+  font-size: 20px;
+  text-overflow: clip;
+  white-space: nowrap;
+  border: 0px solid black;
+  width: 510px;
+  background-color: black;
+}
+
+.clearBtn {
+  background-image: url("s2r://panorama/images/x_close_grey_png.vtex");
+  background-size: contain;
+  height: 18px;
+  width: 18px;
+  vertical-align: center;
+  transition: transform 0.2s ease-in-out 0.0s, wash-color 0.2s ease-in-out 0.0s;
+  wash-color: rgba(100, 100, 100, 0.5);
+  transform: scale3d(1.0, 1.0, 0);
+}
+
+.clearBtn:hover {
+  wash-color: rgba(100, 100, 100, 0.25);
+  transform: scale3d(1.1, 1.1, 0);
+}

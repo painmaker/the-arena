@@ -1,0 +1,32 @@
+.container {
+  vertical-align: top;
+  horizontal-align: right;
+  margin-right: 0px;
+  margin-top: 250px;
+  border-radius: 5px;
+  min-width: 750px;
+  height: fit-children;
+  z-index: 999;
+  background-image: url("s2r://panorama/images/ability_bg.png");
+  background-size: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  flow-children: down;
+  opacity: 0.0;
+  transform: translateX(490px);
+  transition: transform 0.5s ease-in-out 0s, opacity 0.5s ease-in-out 0s;
+}
+
+.topBarContainer {
+  flow-children: right;
+  width: 100%;
+  padding: 15px;
+}
+
+.abilitiesContainer {
+  flow-children: right;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0px;
+  padding-bottom: 10px;
+}

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Styles } from "./Styles";
 import Title from "./Title/Title";
 import Search from "./Search/Search";
 import RegularAbilities from "./RegularAbilities/RegularAbilities";
@@ -9,6 +8,7 @@ import { useGameEvent, useRegisterForUnhandledEvent } from "react-panorama";
 import { HUD_THINK_SLOW, SelectedUnitContext, WindowContext } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
 import { WINDOW } from "../../data/windows";
+import Styles from './styles.module.css';
 
 const AbilitiesShop = () => {
 
@@ -77,36 +77,40 @@ const AbilitiesShop = () => {
   }, [window, setWindow]);
 
   return (
-    <Panel hittest={false} style={Styles.OuterContainer()}>
+    <React.Fragment>
       {renderComponent && (
-        <Panel className={'Invisible'} style={Styles.InnerContainer(window === WINDOW.ABILITIES_SHOP)} >
-          <Panel onactivate={() => false} style={Styles.UnclickableContainer()}>
-            <Title />
-            <Panel style={Styles.TopContainer()}>
-              <Search setSearchValue={setSearchValue} />
-              <AbilitiesPoints
-                selectedUnit={selectedUnit}
-                text={'Ability Points:'}
-              />
-            </Panel>
-            <Panel onactivate={undefined} style={Styles.AbilitiesContainer()}>
-              <RegularAbilities
-                selectedUnit={selectedUnit}
-                regularAbilities={regularAbilities}
-                isLoadingAbilities={isLoadingAbilities}
-                searchValue={searchValue}
-              />
-              <UltimateAbilities
-                selectedUnit={selectedUnit}
-                ultimateAbilities={ultimateAbilities}
-                isLoadingAbilities={isLoadingAbilities}
-                searchValue={searchValue}
-              />
-            </Panel>
+        <Panel
+          className={Styles.container}
+          style={{
+            transform: window === WINDOW.ABILITIES_SHOP ? "translateX(-10px)" : 'translateX(490px)',
+            opacity: window === WINDOW.ABILITIES_SHOP ? "1.0" : "0.0",
+          }}
+        >
+          <Title />
+          <Panel className={Styles.topBarContainer}>
+            <Search setSearchValue={setSearchValue} />
+            <AbilitiesPoints
+              selectedUnit={selectedUnit}
+              text={'Ability Points:'}
+            />
+          </Panel>
+          <Panel className={Styles.abilitiesContainer}>
+            <RegularAbilities
+              selectedUnit={selectedUnit}
+              regularAbilities={regularAbilities}
+              isLoadingAbilities={isLoadingAbilities}
+              searchValue={searchValue}
+            />
+            <UltimateAbilities
+              selectedUnit={selectedUnit}
+              ultimateAbilities={ultimateAbilities}
+              isLoadingAbilities={isLoadingAbilities}
+              searchValue={searchValue}
+            />
           </Panel>
         </Panel>
       )}
-    </Panel>
+    </React.Fragment>
   );
 
 };

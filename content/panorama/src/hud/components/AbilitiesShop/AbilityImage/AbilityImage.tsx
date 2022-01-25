@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
-import { Styles } from "./Styles";
+import Styles from './styles.module.css';
 
 type Props = {
   selectedUnit: EntityIndex,
@@ -18,7 +18,6 @@ const AbilityImage = (props: Props) => {
 
   const [isRequiredLevel, setIsRequiredLevel] = useState(Entities.GetLevel(selectedUnit) >= requiredLevel);
   const [isSearched, setIsSearched] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
 
   useInterval(() => {
     setIsRequiredLevel(Entities.GetLevel(selectedUnit) >= requiredLevel);
@@ -38,22 +37,19 @@ const AbilityImage = (props: Props) => {
 
   return (
     <Button
-      className={'container'}
       id={"ability_shop_image_" + name}
-      style={Styles.AbilityImage(hasSearchValue, isSearched, isRequiredLevel, isHovering)}
+      className={Styles.abilityImage}
+      style={{
+        washColor: (hasSearchValue && !isSearched) || !isRequiredLevel ? 'grey' : 'none',
+        border: hasSearchValue && isSearched ? '1px solid orange' : '0px solid black'
+      }}
       oncontextmenu={() => {
         $('#ability_shop_image_' + name).RemoveClass('btnClicked');
         $('#ability_shop_image_' + name).AddClass('btnClicked');
         GameEvents.SendCustomGameEventToServer("purchase_ability", { entindex: selectedUnit, abilityname: name });
       }}
-      onmouseout={() => {
-        setIsHovering(false);
-        $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_shop_image_" + name));
-      }}
-      onmouseover={() => {
-        setIsHovering(true);
-        $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_shop_image_" + name), name, selectedUnit);
-      }}
+      onmouseout={() => $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_shop_image_" + name))}
+      onmouseover={() => $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_shop_image_" + name), name, selectedUnit)}
     >
       <DOTAAbilityImage abilityname={name} />
     </Button>
