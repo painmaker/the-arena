@@ -19,7 +19,6 @@ const AbilitiesShop = () => {
 
   const [regularAbilities, setRegularAbilities] = useState<ShopAbility[]>([]);
   const [ultimateAbilities, setUltimateAbilities] = useState<ShopAbility[]>([]);
-  const [isLoadingAbilities, setIsLoadingAbilities] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [renderComponent, setRenderComponent] = useState(false);
 
@@ -31,20 +30,21 @@ const AbilitiesShop = () => {
     if (window === WINDOW.ABILITIES_SHOP) {
       setRegularAbilities([]);
       setUltimateAbilities([]);
-      setIsLoadingAbilities(true);
       GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: selectedUnit });
     }
   }, [selectedUnit, window]);
 
+  useEffect(() => {
+    setSearchValue('');
+  }, [selectedUnit]);
+
   useGameEvent('fetch_shop_abilities_ok', (event) => {
     setRegularAbilities(Object.values(event.regularAbilities));
     setUltimateAbilities(Object.values(event.ultimateAbilities));
-    setIsLoadingAbilities(false);
   }, []);
 
   useGameEvent("fetch_shop_abilities_error", (event) => {
     GameUI.SendCustomHUDError(event.errorMsg, "General.Item_CantPickUp");
-    setIsLoadingAbilities(false);
   }, []);
 
   useGameEvent("purchase_ability_error", (event) => {
@@ -88,7 +88,10 @@ const AbilitiesShop = () => {
         >
           <Title />
           <Panel className={Styles.topBarContainer}>
-            <Search setSearchValue={setSearchValue} />
+            <Search
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+            />
             <AbilitiesPoints
               selectedUnit={selectedUnit}
               text={'Ability Points:'}
@@ -98,13 +101,11 @@ const AbilitiesShop = () => {
             <RegularAbilities
               selectedUnit={selectedUnit}
               regularAbilities={regularAbilities}
-              isLoadingAbilities={isLoadingAbilities}
               searchValue={searchValue}
             />
             <UltimateAbilities
               selectedUnit={selectedUnit}
               ultimateAbilities={ultimateAbilities}
-              isLoadingAbilities={isLoadingAbilities}
               searchValue={searchValue}
             />
           </Panel>

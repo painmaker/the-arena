@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SelectedUnitContext, WindowContext } from "../../../App";
 import { WINDOW } from "../../../data/windows";
-import { Styles } from "./Styles";
+import Styles from './styles.module.css';
 
 const Title = () => {
 
@@ -10,18 +10,14 @@ const Title = () => {
   const { selectedUnit } = React.useContext(SelectedUnitContext);
   const { window, setWindow } = React.useContext(WindowContext);
 
-  const [isHovering, setIsHovering] = useState(false);
-
   return (
-    <Panel style={Styles.Container()}>
+    <Panel className={Styles.container}>
       <Label
-        style={Styles.Label()}
+        className={Styles.label}
         text={"ABILITIES SHOP - " + $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()}
       />
       <Button
-        onmouseover={() => setIsHovering(true)}
-        onmouseout={() => setIsHovering(false)}
-        style={Styles.CloseBtn(isHovering)}
+        className={Styles.closeBtn}
         onactivate={() => {
           if (window === WINDOW.ABILITIES_SHOP) {
             setWindow(WINDOW.NONE);

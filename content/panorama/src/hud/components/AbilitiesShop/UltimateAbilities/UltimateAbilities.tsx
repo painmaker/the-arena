@@ -1,12 +1,11 @@
 import React from "react";
 import { useNetTableValues } from "react-panorama";
 import AbilityImage from "../AbilityImage/AbilityImage";
-import { Styles } from "./Styles";
+import Styles from './styles.module.css';
 
 type Props = {
   selectedUnit: EntityIndex
   ultimateAbilities: ShopAbility[],
-  isLoadingAbilities: boolean,
   searchValue: string,
 }
 
@@ -15,24 +14,24 @@ const UltimateAbilities = (props: Props) => {
   // $.Msg("REACT-RENDER: AbilitiesShop - UltimateAbilities rendered");
 
 
-  const { selectedUnit, ultimateAbilities, isLoadingAbilities, searchValue } = props;
+  const { selectedUnit, ultimateAbilities, searchValue } = props;
 
   const playerOwnerID = Entities.GetPlayerOwnerID(selectedUnit);
   const nettable = playerOwnerID !== -1 ? Object.values(useNetTableValues('UltimateAbilities')[playerOwnerID]) : [];
 
   return (
-    <Panel style={Styles.Container()}>
-      <Panel style={Styles.TitleContainer()}>
+    <Panel className={Styles.container}>
+      <Panel className={Styles.titleContainer}>
         <Label
           text={'Ultimate Abilities'}
-          style={Styles.Title()}
+          className={Styles.title}
         />
         <Label
           text={nettable.length + ' / 1'}
-          style={Styles.AbilityCountLabel()}
+          className={Styles.abilityCountLabel}
         />
       </Panel>
-      <Panel style={Styles.AbilitiesContainer()}>
+      <Panel className={Styles.abilitiesContainer}>
         {ultimateAbilities.map(ultimateAbility => {
           return (
             <AbilityImage

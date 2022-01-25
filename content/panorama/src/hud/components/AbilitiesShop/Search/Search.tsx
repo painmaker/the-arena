@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect } from "react";
 import Styles from './styles.module.css';
 
 type Props = {
+  searchValue: string
   setSearchValue: Dispatch<SetStateAction<string>>
 };
 
@@ -9,7 +10,7 @@ const Search = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilitiesShop - Search rendered");
 
-  const { setSearchValue } = props;
+  const { searchValue, setSearchValue } = props;
 
   useEffect(() => {
     return () => setSearchValue('')
@@ -23,6 +24,7 @@ const Search = (props: Props) => {
         className={Styles.searchField}
         maxchars={50}
         placeholder={'Search...'}
+        text={searchValue}
         ontextentrychange={(event) => setSearchValue(event.text.toLocaleLowerCase().trim())}
       />
       <Button

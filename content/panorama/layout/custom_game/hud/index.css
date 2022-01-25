@@ -2294,6 +2294,46 @@
 	font-size: 25px;
 }
 
+/*!*******************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilitiesShop/Title/styles.module.css ***!
+  \*******************************************************************************************************************************************/
+.hbn1HBRQhTn1MVNx_krw {
+  width: 100%;
+  background-color: rgba(30, 30, 30, 0.525);
+}
+
+.Iw8_ekYRcyQ_RkQSnmr4 {
+  color: rgba(200, 200, 200, 0.45);
+  font-size: 15px;
+  vertical-align: center;
+  horizontal-align: left;
+  font-weight: light;
+  letter-spacing: 1.5px;
+  padding-top: 2.5px;
+  padding-left: 10px;
+}
+
+.btii3pk7d7gOlTWTG8pH {
+  vertical-align: center;
+  horizontal-align: right;
+  height: 24px;
+  width: 24px;
+  padding: 2px;
+  margin-right: 2.5px;
+  opacity: 0.75;
+  transition: transform 0.5s ease-in-out 0.0s, background-color 0.5s ease-in-out 0.0s;
+  background-color: rgba(0, 0, 0, 0.0);
+  border: 0px solid rgba(0, 0, 0, 1.0);
+  wash-color: rgba(100, 100, 100, 0.5);
+  transform: scale3d(1.0, 1.0, 0);
+}
+
+.btii3pk7d7gOlTWTG8pH:hover {
+  background-color: rgba(60, 60, 60, 1.0);
+  border: 1px solid rgba(70, 70, 70, 1.0);
+  wash-color: rgba(100, 100, 100, 0.25);
+  transform: scale3d(1.2, 1.2, 0);
+}
 /*!********************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilitiesShop/Search/styles.module.css ***!
   \********************************************************************************************************************************************/
@@ -2415,6 +2455,63 @@
   font-size: 14px;
 }
 
+/*!*******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilitiesShop/UltimateAbilities/styles.module.css ***!
+  \*******************************************************************************************************************************************************/
+.Rj1gLbUVdxehEG2GS2vF {
+  width: 50%;
+  margin: 5px;
+  flow-children: down;
+}
+
+.CJtLmYHDGd_ycDzVnHCI {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 1.0);
+  border-bottom: 1px solid rgba(50, 50, 50, 0.5);
+  font-size: 13px;
+  color: rgb(175, 175, 175);
+  text-align: left;
+  font-family: fantasy;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  letter-spacing: 1.35px;
+}
+
+.TfY45eqG5MuD7jLVX_Qf {
+  vertical-align: center;
+  horizontal-align: left;
+  font-size: 13px;
+  color: rgb(175, 175, 175);
+  font-family: fantasy;
+  letter-spacing: 1.35px;
+}
+
+.BdmgQRBMD_Xs8ccrJSTA {
+  vertical-align: center;
+  horizontal-align: right;
+  font-size: 13px;
+  color: rgb(175, 175, 175);
+  font-family: fantasy;
+  letter-spacing: 1.35px;
+}
+
+.CdSaxRwBZIo9yXunOeOl {
+  width: 100%;
+  min-height: 200px;
+  background-image: url("s2r://panorama/images/inventory_item_well.png");
+  background-size: 100%;
+  background-color: rgba(0, 0, 0, 0.35);
+  flow-children: right-wrap;
+  padding: 10px;
+}
+
+.c5klcdihCPdZMyux8MuN {
+  vertical-align: center;
+  horizontal-align: center;
+  font-size: 14px;
+}
 /*!*****************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilitiesShop/AbilitiesPoints/styles.module.css ***!
   \*****************************************************************************************************************************************************/

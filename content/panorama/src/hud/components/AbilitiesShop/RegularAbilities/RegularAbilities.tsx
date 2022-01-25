@@ -6,7 +6,6 @@ import Styles from './styles.module.css'
 type Props = {
   selectedUnit: EntityIndex
   regularAbilities: ShopAbility[],
-  isLoadingAbilities: boolean,
   searchValue: string,
 }
 
@@ -14,7 +13,7 @@ const RegularAbilities = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilitiesShop - RegularAbilities rendered");
 
-  const { selectedUnit, regularAbilities, isLoadingAbilities, searchValue } = props;
+  const { selectedUnit, regularAbilities, searchValue } = props;
 
   const playerOwnerID = Entities.GetPlayerOwnerID(selectedUnit);
   const nettable = playerOwnerID !== -1 ? Object.values(useNetTableValues('RegularAbilities')[playerOwnerID]) : [];
