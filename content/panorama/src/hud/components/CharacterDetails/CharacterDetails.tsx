@@ -6,35 +6,31 @@ import Title from "./Title/Title"
 import Level from "./Level/Level";
 import Avatar from "./Avatar/Avatar";
 import Attack from "./Attack/Attack";
-import { HUD_THINK_SLOW, WindowContext } from "../../App";
+import { HUD_THINK_SLOW } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
-import { useRegisterForUnhandledEvent } from "react-panorama";
+import { useGameEvent } from "react-panorama";
 import { WINDOW } from "../../data/windows";
 
 const CharacterDetails = () => {
 
   // $.Msg("REACT-RENDER: CharacterDetails rendered");
 
-  const { window, setWindow } = React.useContext(WindowContext);
-
+  const [isOpen, setIsOpen] = useState(false);
   const [renderComponent, setRenderComponent] = useState(false);
 
   useTimeout(() => {
-    setRenderComponent(window === WINDOW.CHARACTER_DETAILS);
-  }, window !== WINDOW.CHARACTER_DETAILS ? HUD_THINK_SLOW : 0);
+    setRenderComponent(isOpen);
+  }, !isOpen ? HUD_THINK_SLOW : 0);
 
-  useRegisterForUnhandledEvent('Cancelled', () => {
-    if (window === WINDOW.CHARACTER_DETAILS) {
-      Game.EmitSound("ui_topmenu_select");
-      setWindow(WINDOW.NONE);
-    }
-  }, [window, setWindow]);
+  useGameEvent('set_window', (event) => {
+    setIsOpen(event.window === WINDOW.CHARACTER_DETAILS);
+  }, []);
 
   return (
     <Panel hittest={false} style={Styles.OuterContainer()}>
       {renderComponent && (
         <React.Fragment>
-          <Panel style={Styles.InnerContainer(window === WINDOW.CHARACTER_DETAILS)}>
+          <Panel style={Styles.InnerContainer(isOpen)}>
             <Title />
             <Panel style={Styles.ColumnContainer()}>
               <Panel style={Styles.LeftColumn()}>

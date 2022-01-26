@@ -4,4 +4,6 @@ interface GameEventDeclarations {
 
   set_is_camera_locked: { isLocked: boolean }
 
+  set_window: { window: number }
+
 }

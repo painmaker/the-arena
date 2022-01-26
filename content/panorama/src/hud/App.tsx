@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useNetTableValues } from "react-panorama";
+import { useNetTableValues, useRegisterForUnhandledEvent } from "react-panorama";
 import Minimap from "./components/Minimap/Minimap";
 import Settings from "./components/Settings/Settings";
 import ButtonGroup from "./components/ButtonGroup/ButtonGroup";
@@ -111,6 +111,11 @@ const App = () => {
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_CUSTOMUI_BEHIND_HUD_ELEMENTS, !useCustomUI);
     GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !useCustomUI);
   }, [useCustomUI]);
+
+  useRegisterForUnhandledEvent('Cancelled', () => {
+    GameEvents.SendEventClientSide('set_window', { window: WINDOW.NONE });
+    Game.EmitSound("ui_topmenu_select");
+  }, []);
 
   return (
     <React.Fragment>

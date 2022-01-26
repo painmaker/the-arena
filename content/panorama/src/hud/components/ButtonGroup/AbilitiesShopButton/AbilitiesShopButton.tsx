@@ -1,5 +1,5 @@
-import React from "react";
-import { WindowContext } from "../../../App";
+import React, { useState } from "react";
+import { useGameEvent } from "react-panorama";
 import { WINDOW } from "../../../data/windows";
 import ParentStyles from './../styles.module.css';
 
@@ -7,9 +7,11 @@ const AbilitiesShopButton = () => {
 
   // $.Msg("REACT-RENDER: AbilitiesShopButton rendered");
 
-  const { window, setWindow } = React.useContext(WindowContext);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const isOpen = window === WINDOW.ABILITIES_SHOP;
+  useGameEvent('set_window', (event) => {
+    setIsOpen(event.window === WINDOW.ABILITIES_SHOP);
+  }, []);
 
   return (
     <Button
@@ -18,7 +20,7 @@ const AbilitiesShopButton = () => {
       onactivate={() => {
         $('#abilities_shop_btn').RemoveClass('btnClicked');
         $('#abilities_shop_btn').AddClass('btnClicked');
-        setWindow(isOpen ? WINDOW.NONE : WINDOW.ABILITIES_SHOP);
+        GameEvents.SendEventClientSide('set_window', { window: isOpen ? WINDOW.NONE : WINDOW.ABILITIES_SHOP });
         Game.EmitSound("ui_topmenu_select");
       }}>
       <Image

@@ -1,5 +1,5 @@
-import React from "react";
-import { WindowContext } from "../../../App";
+import React, { useState } from "react";
+import { useGameEvent } from "react-panorama";
 import { WINDOW } from "../../../data/windows";
 import ParentStyles from './../styles.module.css';
 
@@ -7,9 +7,11 @@ const CharaterDetailsButton = () => {
 
   // $.Msg("REACT-RENDER: CharaterDetailsButton rendered");
 
-  const { window, setWindow } = React.useContext(WindowContext);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const isOpen = window === WINDOW.CHARACTER_DETAILS;
+  useGameEvent('set_window', (event) => {
+    setIsOpen(event.window === WINDOW.CHARACTER_DETAILS);
+  }, []);
 
   return (
     <Button
@@ -18,7 +20,7 @@ const CharaterDetailsButton = () => {
       onactivate={() => {
         $('#character_btn').RemoveClass('btnClicked');
         $('#character_btn').AddClass('btnClicked');
-        setWindow(isOpen ? WINDOW.NONE : WINDOW.CHARACTER_DETAILS)
+        GameEvents.SendEventClientSide('set_window', { window: isOpen ? WINDOW.NONE : WINDOW.CHARACTER_DETAILS });
         Game.EmitSound("ui_topmenu_select");
       }}
     >
