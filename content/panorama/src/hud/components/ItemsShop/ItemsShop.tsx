@@ -2,9 +2,9 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import Title from "./Title/Title";
 import Gold from "./Gold/Gold";
 import Search from "./Search/Search";
-import { HUD_THINK_SLOW, WindowContext } from "../../App";
+import { HUD_THINK_SLOW } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
-import { useRegisterForUnhandledEvent } from "react-panorama";
+import { useGameEvent } from "react-panorama";
 import Styles from './styles.module.css';
 import { WINDOW } from "../../data/windows";
 import Items from "./Items/Items";
@@ -24,21 +24,17 @@ const ItemsShop = () => {
 
   // $.Msg("REACT-RENDER: ItemsShop rendered");
 
-  const { window, setWindow } = React.useContext(WindowContext);
-
   const [searchValue, setSearchValue] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
   const [renderComponent, setRenderComponent] = useState(false);
 
   useTimeout(() => {
-    setRenderComponent(window === WINDOW.ITEMS_SHOP);
-  }, window !== WINDOW.ITEMS_SHOP ? HUD_THINK_SLOW : 0);
+    setRenderComponent(isOpen);
+  }, !isOpen ? HUD_THINK_SLOW : 0);
 
-  useRegisterForUnhandledEvent('Cancelled', () => {
-    if (window === WINDOW.ITEMS_SHOP) {
-      Game.EmitSound("ui_topmenu_select");
-      setWindow(WINDOW.NONE)
-    }
-  }, [window, setWindow]);
+  useGameEvent('set_window', (event) => {
+    setIsOpen(event.window === WINDOW.ITEMS_SHOP);
+  }, []);
 
   return (
     <ItemsShopContext.Provider value={{ searchValue, setSearchValue }}>
@@ -46,7 +42,7 @@ const ItemsShop = () => {
         <React.Fragment>
           <Panel
             className={Styles.container}
-            style={window === WINDOW.ITEMS_SHOP ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
+            style={isOpen ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
           >
             <Title />
             <Panel className={Styles.topBarContainer}>

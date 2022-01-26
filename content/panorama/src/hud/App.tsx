@@ -44,18 +44,9 @@ const getGameUnitSelected = () => {
 interface SelectedUnitContext {
   selectedUnit: EntityIndex,
 }
-interface WindowContext {
-  window: WINDOW,
-  setWindow: Dispatch<SetStateAction<WINDOW>>
-}
 
 export const SelectedUnitContext = React.createContext<SelectedUnitContext>({
   selectedUnit: Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()),
-});
-
-export const WindowContext = React.createContext<WindowContext>({
-  window: WINDOW.NONE,
-  setWindow: () => { }
 });
 
 const App = () => {
@@ -65,7 +56,6 @@ const App = () => {
 
   const [useCustomUI, setUseCustomUI] = useState(true);
   const [selectedUnit, setSelectedUnit] = useState(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
-  const [window, setWindow] = useState(WINDOW.NONE);
 
   useEffect(() => {
     GameUI.SetCameraDistance(1600);
@@ -142,6 +132,7 @@ const App = () => {
                 <Minimap />
                 <FloatingContainer />
                 <Messages />
+                <ButtonGroup />
                 <SelectedUnitContext.Provider value={{ selectedUnit }}>
                   <AbilityBar />
                   <Buffs />
@@ -149,13 +140,10 @@ const App = () => {
                   <Health />
                   <Inventory />
                   <Character />
-                  <WindowContext.Provider value={{ window, setWindow }}>
-                    <ButtonGroup />
-                    <Settings />
-                    <CharacterDetails />
-                    <ItemsShop />
-                    <AbilitiesShop />
-                  </WindowContext.Provider>
+                  <Settings />
+                  <CharacterDetails />
+                  <ItemsShop />
+                  <AbilitiesShop />
                 </SelectedUnitContext.Provider>
                 <Panel className={Styles.bottomCenterBackground} />
                 <Panel className={Styles.bottomCenterLeftFlare} />

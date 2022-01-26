@@ -5,21 +5,28 @@ import MapZoomSlider from "./MapZoomSlider/MapZoomSlider";
 import Divider from "./Divider/Divider";
 import Title from "./Title/Title";
 import { useTimeout } from "../../hooks/useTimeout";
-import { useRegisterForUnhandledEvent } from "react-panorama";
+import { useGameEvent } from "react-panorama";
 import Styles from './styles.module.css';
 import { WINDOW } from "../../data/windows";
-import { HUD_THINK_SLOW, WindowContext } from "../../App";
+import { HUD_THINK_SLOW } from "../../App";
 
 const Settings = () => {
 
   // $.Msg("REACT-RENDER: Settings rendered");
 
-  const { window, setWindow } = React.useContext(WindowContext);
-
   const [mapZoom, setMapZoom] = useState(5);
   const [cameraZoom, setCameraZoom] = useState(1600);
   const [isLocked, setIsLocked] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [renderComponent, setRenderComponent] = useState(false);
+
+  useTimeout(() => {
+    setRenderComponent(isOpen);
+  }, !isOpen ? HUD_THINK_SLOW : 0);
+
+  useGameEvent('set_window', (event) => {
+    setIsOpen(event.window === WINDOW.SETTINGS);
+  }, []);
 
   useEffect(() => {
     GameEvents.SendEventClientSide('set_map_zoom', { mapZoom });
@@ -38,23 +45,12 @@ const Settings = () => {
     }
   }, [isLocked]);
 
-  useTimeout(() => {
-    setRenderComponent(window === WINDOW.SETTINGS);
-  }, window !== WINDOW.SETTINGS ? HUD_THINK_SLOW : 0);
-
-  useRegisterForUnhandledEvent('Cancelled', () => {
-    if (window === WINDOW.SETTINGS) {
-      Game.EmitSound("ui_topmenu_select");
-      setWindow(WINDOW.NONE);
-    }
-  }, [window, setWindow]);
-
   return (
     <React.Fragment>
       {renderComponent && (
         <Panel
           className={Styles.container}
-          style={window === WINDOW.SETTINGS ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
+          style={isOpen ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
         >
           <Title />
           <Divider />
