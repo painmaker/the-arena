@@ -1,12 +1,15 @@
-import React, { useContext, useEffect } from "react";
-import { ItemsShopContext } from "../ItemsShop";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import Styles from './styles.module.css';
 
-const Search = () => {
+type Props = {
+  setSearchValue: Dispatch<SetStateAction<string>>
+}
+
+const Search = (props: Props) => {
 
   // $.Msg("REACT-RENDER: ItemsShop - Search rendered");
 
-  const { searchValue, setSearchValue } = useContext(ItemsShopContext);
+  const { setSearchValue } = props;
 
   useEffect(() => {
     return () => setSearchValue('');
@@ -20,7 +23,6 @@ const Search = () => {
         className={Styles.searchField}
         maxchars={50}
         placeholder={'Search...'}
-        text={searchValue}
         ontextentrychange={(event) => setSearchValue(event.text.toLocaleLowerCase().trim())}
       />
       <Button

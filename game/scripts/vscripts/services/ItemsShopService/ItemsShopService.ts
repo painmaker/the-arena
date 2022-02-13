@@ -1,37 +1,43 @@
-import { createUUID } from "../utils/uuid";
 
-export class ShopService {
+interface KeyValueItem {
+  Shoppable: boolean;
+  ItemCost: number;
+  ItemCategory: string,
+  ItemShopTags: string,
+}
+
+export class ItemsShopService {
 
   constructor() {
     CustomGameEventManager.RegisterListener("attempt_item_purchase", (_, event) => this.onItemPurchase(event));
-    CustomGameEventManager.RegisterListener("alert_shop_item", (_, event) => this.onAltertShopItem(event));
+    CustomGameEventManager.RegisterListener("fetch_items_shop_item", (_, event) => this.fetchItems(event));
   }
 
-  public onAltertShopItem(event: { PlayerID: PlayerID, itemname: string, cost: number }): void {
+  public fetchItems(event: { PlayerID: PlayerID }): void {
+
+    print("Backend - Fetching items!")
 
     const player = PlayerResource.GetPlayer(event.PlayerID);
     if (!player) {
       return;
     }
 
-    const goldDifference = event.cost - PlayerResource.GetGold(event.PlayerID);
+    const items = LoadKeyValues("scripts/npc/npc_items_custom.txt") as Record<string, KeyValueItem>;
 
-    let text = "";
-    if (goldDifference > 0) {
-      text = "I need " + goldDifference + " gold for #" + event.itemname + ".";
-    } else {
-      text = "I will purchase #" + event.itemname + ".";
-    };
+    const consumables: ItemsShopItem[] = Object.entries(items)
+      .filter(([_, value]) => value['ItemCategory'] === 'CONSUMABLES')
+      .map(([key, value]) => ({
+        itemname: key,
+        cost: value['ItemCost'],
+        tags: value['ItemShopTags'].split(';'),
+      }));
 
-    CustomGameEventManager.Send_ServerToAllClients("custom_player_chat", {
-      playerid: event.PlayerID,
-      uuid: createUUID(),
-      text: text,
-      heroname: player.GetAssignedHero().GetName(),
-      playername: PlayerResource.GetPlayerName(event.PlayerID),
+    CustomGameEventManager.Send_ServerToPlayer(player, "fetch_items_shop_item_success", {
+      consumables
     });
 
   }
+
 
   public onItemPurchase(event: { PlayerID: PlayerID, itemname: string, cost: number }): void {
 

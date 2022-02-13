@@ -1,0 +1,11 @@
+
+// Consumables
+#base "items/consumables/item_minor_healing_potion.txt"
+
+"DOTAAbilities"
+{
+
+	
+
+}
+

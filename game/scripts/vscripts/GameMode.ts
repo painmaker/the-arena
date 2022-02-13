@@ -18,7 +18,7 @@ import "./modifiers/ui/modifier_ui_primary_attribute";
 import { EXPERIENCE_PER_LEVEL_TABLE, HERO_SELECTION_TIME, MAX_PLAYERS } from "./settings";
 import { HeroSelectionService } from "./services/HeroSelectionService";
 import { ChatService } from "./services/ChatService";
-import { ShopService } from "./services/ShopService";
+import { ItemsShopService } from "./services/ItemsShopService/ItemsShopService";
 import { AbilityShopService } from "./services/AbilityShopService/AbilityShopService";
 import shuffle from "./utils/shuffle";
 
@@ -27,7 +27,7 @@ declare global {
     Addon: GameMode;
     HeroSelectionService: HeroSelectionService;
     ChatService: ChatService;
-    ShopService: ShopService;
+    ItemsShopService: ItemsShopService;
     AbilityShopService: AbilityShopService;
     dummy: CDOTA_BaseNPC,
   }
@@ -76,7 +76,7 @@ export class GameMode {
     GameRules.Addon = new GameMode();
     GameRules.HeroSelectionService = new HeroSelectionService();
     GameRules.ChatService = new ChatService();
-    GameRules.ShopService = new ShopService();
+    GameRules.ItemsShopService = new ItemsShopService();
     GameRules.AbilityShopService = new AbilityShopService();
   }
 
@@ -227,7 +227,7 @@ export class GameMode {
       { hero: "npc_dota_hero_lina", name: "Lina" }
     ].forEach(bot => {
       Timers.CreateTimer(delay, () => {
-        // const unit = GameRules.AddBotPlayerWithEntityScript(bot.hero, bot.name, DOTATeam_t.DOTA_TEAM_GOODGUYS, "", false) as CDOTA_BaseNPC_Hero;
+        // const unit = GameRules.AddBotPlayerWithEntityScript(bot.hero, bot.name, DOTATeam_t.DOTA_TEAM_GOODGUYS, "", true) as CDOTA_BaseNPC_Hero;
         // unit.RespawnHero(false, false);
       });
       delay += 1.0;
@@ -247,7 +247,7 @@ export class GameMode {
   }
 
   private OnNpcSpawned(event: NpcSpawnedEvent) {
-    
+
     const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
     unit.AddNewModifier(unit, undefined, "modifier_ui_status_resistance", { duration: -1 });
     unit.AddNewModifier(unit, undefined, "modifier_ui_evasion", { duration: -1 });

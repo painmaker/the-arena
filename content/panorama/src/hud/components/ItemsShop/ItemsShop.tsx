@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Title from "./Title/Title";
 import Gold from "./Gold/Gold";
 import Search from "./Search/Search";
@@ -8,25 +8,22 @@ import { useGameEvent } from "react-panorama";
 import Styles from './styles.module.css';
 import { WINDOW } from "../../data/windows";
 import Items from "./Items/Items";
-import { ItemsShopItems } from "../../data/items";
 
-interface ItemsShopContext {
-  searchValue: string,
-  setSearchValue: Dispatch<SetStateAction<string>>
+type Props = {
+  selectedUnit: EntityIndex,
 }
 
-export const ItemsShopContext = React.createContext<ItemsShopContext>({
-  searchValue: '',
-  setSearchValue: () => { }
-});
-
-const ItemsShop = () => {
+const ItemsShop = (props: Props) => {
 
   // $.Msg("REACT-RENDER: ItemsShop rendered");
+
+  const { selectedUnit } = props;
 
   const [searchValue, setSearchValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [renderComponent, setRenderComponent] = useState(false);
+
+  const [consumables, setConsumables] = useState<ItemsShopItem[]>([]);
 
   useTimeout(() => {
     setRenderComponent(isOpen);
@@ -36,8 +33,20 @@ const ItemsShop = () => {
     setIsOpen(event.window === WINDOW.ITEMS_SHOP);
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      $.Msg("Panorama - Fetching Items");
+      GameEvents.SendCustomGameEventToServer("fetch_items_shop_item", {});
+    }
+  }, [isOpen]);
+
+  useGameEvent('fetch_items_shop_item_success', (event) => {
+    $.Msg("fetch_items_shop_item_success")
+    setConsumables(Object.values(event.consumables) as ItemsShopItem[]);
+  }, []);
+
   return (
-    <ItemsShopContext.Provider value={{ searchValue, setSearchValue }}>
+    <React.Fragment>
       {renderComponent && (
         <React.Fragment>
           <Panel
@@ -45,36 +54,45 @@ const ItemsShop = () => {
             className={Styles.container}
             style={isOpen ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
           >
-            <Title />
+            <Title selectedUnit={selectedUnit} />
             <Panel className={Styles.topBarContainer}>
-              <Search />
-              <Gold />
+              <Search setSearchValue={setSearchValue} />
+              <Gold selectedUnit={selectedUnit} />
             </Panel>
             <Panel className={Styles.itemsContainer}>
               <Panel className={Styles.itemsColumn}>
                 <Items
                   title={'Consumables'}
-                  items={ItemsShopItems.consumables}
+                  items={consumables}
+                  selectedUnit={selectedUnit}
+                  searchValue={searchValue}
                 />
                 <Items
                   title={'Artifacts'}
-                  items={ItemsShopItems.artifacts}
+                  items={[]}
+                  selectedUnit={selectedUnit}
+                  searchValue={searchValue}
                 />
               </Panel>
               <Panel className={Styles.itemsColumn}>
                 <Items
                   title={'Armor'}
-                  items={ItemsShopItems.armor} />
+                  items={[]}
+                  selectedUnit={selectedUnit}
+                  searchValue={searchValue}
+                />
                 <Items
                   title={'Weapons'}
-                  items={ItemsShopItems.weapons}
+                  items={[]}
+                  selectedUnit={selectedUnit}
+                  searchValue={searchValue}
                 />
               </Panel>
             </Panel>
           </Panel>
         </React.Fragment>
       )}
-    </ItemsShopContext.Provider>
+    </React.Fragment>
   );
 
 };

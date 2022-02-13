@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { SelectedUnitContext, HUD_THINK_FAST } from "../../../App";
+import { HUD_THINK_FAST } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
+type Props = {
+  selectedUnit: EntityIndex,
+}
 
-const Gold = () => {
+const Gold = (props: Props) => {
 
   // $.Msg("REACT-RENDER: ItemsShop - Gold rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   const [playerGold, setPlayerGold] = useState(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
 

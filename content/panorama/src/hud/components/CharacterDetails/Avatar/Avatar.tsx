@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { SelectedUnitContext } from "../../../App";
 import { Styles } from "./Styles";
 
-const Avatar = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const Avatar = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Avatar rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   const [steamId, setSteamId] = useState<string | undefined>(undefined);
 

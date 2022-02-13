@@ -1,0 +1,48 @@
+"DOTAAbilities"
+{
+  
+	"item_minor_healing_potion"
+	{
+
+    "BaseClass"						      "item_lua"
+    "ScriptFile"					      "items/consumables/item_minor_healing_potion"
+    "Model"							        "models/props_gameplay/salve.vmdl"
+
+    "AbilityBehavior"				    "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+    "AbilityCooldown"         	"45.0"
+		"AbilityTextureName"	      "item_minor_healing_potion"
+
+    "ItemIsShoppable"           "1"
+    "ItemCategory"						  "CONSUMABLES"
+		"ItemShopTags"					    "healing;potion"
+		"ItemCost"						      "50"
+    "ItemStackable"					    "1"
+		"ItemShareability"				  "ITEM_FULLY_SHAREABLE"
+		"ItemInitialCharges"			  "3"
+    "ItemStackable"					    "5"
+
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type" "FIELD_INTEGER"
+				"healing" "50"
+			}
+      "02"
+			{
+				"var_type" "FIELD_INTEGER"
+				"charges" "3"
+			}
+      "03"
+			{
+				"var_type" "FIELD_INTEGER"
+				"cooldown" "10"
+			}
+		}
+
+	}
+
+}

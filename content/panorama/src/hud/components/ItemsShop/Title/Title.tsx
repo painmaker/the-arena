@@ -1,13 +1,16 @@
 import React from "react";
-import { SelectedUnitContext } from "../../../App";
 import { WINDOW } from "../../../data/windows";
 import Styles from './styles.module.css';
 
-const Title = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const Title = (props: Props) => {
 
   // $.Msg("REACT-RENDER: ItemsShop - Title rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   return (
     <Panel className={Styles.container}>

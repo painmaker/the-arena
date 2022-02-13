@@ -135,11 +135,9 @@ const App = () => {
                 <Health selectedUnit={selectedUnit} />
                 <Inventory selectedUnit={selectedUnit} />
                 <AbilitiesShop selectedUnit={selectedUnit} />
-                <SelectedUnitContext.Provider value={{ selectedUnit }}>
-                  <Character />
-                  <CharacterDetails />
-                  <ItemsShop />
-                </SelectedUnitContext.Provider>
+                <Character selectedUnit={selectedUnit} />
+                <CharacterDetails selectedUnit={selectedUnit} />
+                <ItemsShop selectedUnit={selectedUnit} />
                 <Panel className={Styles.bottomCenterBackground} />
                 <Panel className={Styles.bottomCenterLeftFlare} />
                 <Panel className={Styles.bottomCenterRightFlare} />

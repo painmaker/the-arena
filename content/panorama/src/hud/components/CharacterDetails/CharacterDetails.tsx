@@ -11,9 +11,15 @@ import { useTimeout } from "../../hooks/useTimeout";
 import { useGameEvent } from "react-panorama";
 import { WINDOW } from "../../data/windows";
 
-const CharacterDetails = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const CharacterDetails = (props: Props) => {
 
   // $.Msg("REACT-RENDER: CharacterDetails rendered");
+
+  const { selectedUnit } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [renderComponent, setRenderComponent] = useState(false);
@@ -31,16 +37,16 @@ const CharacterDetails = () => {
       {renderComponent && (
         <React.Fragment>
           <Panel style={Styles.InnerContainer(isOpen)}>
-            <Title />
+            <Title selectedUnit={selectedUnit} />
             <Panel style={Styles.ColumnContainer()}>
               <Panel style={Styles.LeftColumn()}>
-                <Model />
-                <Level />
-                <Avatar />
+                <Model selectedUnit={selectedUnit} />
+                <Level selectedUnit={selectedUnit} />
+                <Avatar selectedUnit={selectedUnit} />
               </Panel>
               <Panel style={Styles.RightColumn()}>
-                <Attack />
-                <Defense />
+                <Attack selectedUnit={selectedUnit} />
+                <Defense selectedUnit={selectedUnit} />
               </Panel>
             </Panel>
           </Panel>

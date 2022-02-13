@@ -6,13 +6,16 @@ import MagicResistance from "./MagicResistance/MagicResistance";
 import MoveSpeed from "./MoveSpeed/MoveSpeed";
 import Attributes from "./Attributes/Attributes";
 import Styles from "./styles.module.css"
-import { SelectedUnitContext } from "../../App";
 
-const Character = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const Character = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   useEffect(() => {
     const scenePanel = $('#selected_unit_portrait') as ScenePanel;

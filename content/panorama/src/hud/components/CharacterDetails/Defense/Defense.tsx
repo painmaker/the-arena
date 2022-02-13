@@ -9,11 +9,15 @@ import PyshicalResistance from "./PyshicalResistance/PyshicalResistance";
 import StatusResistance from "./StatusResistance/StatusResistance";
 import { Styles } from "./Styles";
 
-const Defense = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const Defense = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Defense rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   return (
     <Panel style={Styles.OuterContainer()}>

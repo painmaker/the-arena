@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { SelectedUnitContext } from "../../../App";
 import { WINDOW } from "../../../data/windows";
 import { Styles } from "./Styles";
 
-const Title = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const Title = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Title rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   const [isHovering, setIsHovering] = useState(false);
 

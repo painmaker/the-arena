@@ -1,6 +1,8 @@
 {
   "include": [
-    "src"
+    "src",
+    "../../game/scripts/vscripts/services/ItemsShopService/items.ts",
+    "../../game/scripts/vscripts/services/AbilityShopService/items.ts"
   ],
   "compilerOptions": {
     "target": "es2017",

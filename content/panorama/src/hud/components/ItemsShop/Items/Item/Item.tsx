@@ -1,23 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useGameEvent } from "react-panorama";
-import { HUD_THINK_FAST, SelectedUnitContext } from "../../../../App";
+import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
-import { ItemsShopContext } from "../../ItemsShop";
-import { ItemShopItem } from "../Items";
 import Styles from './styles.module.css';
 
 type Props = {
-  item: ItemShopItem,
+  item: ItemsShopItem,
+  selectedUnit: EntityIndex,
+  searchValue: string,
 };
 
 const Item = (props: Props) => {
 
   // $.Msg("REACT-RENDER: ItemsShop - Item rendered");
 
-  const { searchValue } = useContext(ItemsShopContext);
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
-
-  const { item } = props;
+  const { item, selectedUnit, searchValue } = props;
 
   const [playerGold, setPlayerGold] = useState(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
   const [isShopInRange, setIsShopInRange] = useState(Entities.IsInRangeOfShop(selectedUnit, 0, false));
@@ -39,8 +36,8 @@ const Item = (props: Props) => {
   const hasEnoughCold = item.cost <= playerGold;
 
   let isSearched = false;
-  item.aliases.forEach(alias => {
-    if (alias.match(searchValue)) {
+  Object.values(item.tags).forEach(tag => {
+    if (tag.match(searchValue)) {
       isSearched = true;
     }
   });
@@ -54,29 +51,22 @@ const Item = (props: Props) => {
       }}
       onactivate={() => {
         if (GameUI.IsAltDown()) {
-          GameEvents.SendCustomGameEventToServer("alert_shop_item", {
-            itemname: item.itemname,
-            cost: item.cost,
-          });
+          // Send msg
         }
       }}
       oncontextmenu={() => {
-
         if (!isShopInRange) {
           GameUI.SendCustomHUDError("No Shop In Range", "General.Item_CantPickUp");
           return;
         }
-
         if (!hasEnoughCold) {
           GameUI.SendCustomHUDError("Not Enough Gold", "General.Item_CantPickUp");
           return;
         }
-
         GameEvents.SendCustomGameEventToServer("attempt_item_purchase", {
           itemname: item.itemname,
           cost: item.cost,
         });
-
       }}
     >
       <DOTAItemImage

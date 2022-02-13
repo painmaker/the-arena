@@ -1,22 +1,19 @@
 import React from "react";
 import Item from "./Item/Item";
 import Styles from './styles.module.css';
-export interface ItemShopItem {
-  itemname: string,
-  cost: number,
-  aliases: string[],
-}
 
 type Props = {
   title: string,
-  items: ItemShopItem[]
+  items: ItemsShopItem[]
+  selectedUnit: EntityIndex,
+  searchValue: string
 }
 
 const Items = (props: Props) => {
 
   // $.Msg("REACT-RENDER: ItemsShop - Items rendered");
 
-  const { title, items } = props;
+  const { title, items, selectedUnit, searchValue } = props;
 
   return (
     <Panel className={Styles.container}>
@@ -29,6 +26,8 @@ const Items = (props: Props) => {
           <Item
             key={item.itemname}
             item={item}
+            selectedUnit={selectedUnit}
+            searchValue={searchValue}
           />
         )}
       </Panel>
