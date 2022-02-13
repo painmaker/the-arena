@@ -41,6 +41,7 @@ const ItemsShop = () => {
       {renderComponent && (
         <React.Fragment>
           <Panel
+            onactivate={() => false}
             className={Styles.container}
             style={isOpen ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
           >

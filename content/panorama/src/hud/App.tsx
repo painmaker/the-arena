@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNetTableValues, useRegisterForUnhandledEvent } from "react-panorama";
 import Minimap from "./components/Minimap/Minimap";
 import Settings from "./components/Settings/Settings";
@@ -56,11 +56,6 @@ const App = () => {
 
   const [useCustomUI, setUseCustomUI] = useState(true);
   const [selectedUnit, setSelectedUnit] = useState(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
-
-  useEffect(() => {
-    GameUI.SetCameraDistance(1600);
-    GameUI.SetCameraTarget(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
-  }, []);
 
   useInterval(() => {
     const unitToSelect = getGameUnitSelected();
@@ -133,17 +128,17 @@ const App = () => {
                 <FloatingContainer />
                 <Messages />
                 <ButtonGroup />
+                <Settings />
+                <AbilityBar selectedUnit={selectedUnit} />
+                <Buffs selectedUnit={selectedUnit} />
+                <Mana selectedUnit={selectedUnit} />
+                <Health selectedUnit={selectedUnit} />
+                <Inventory selectedUnit={selectedUnit} />
+                <AbilitiesShop selectedUnit={selectedUnit} />
                 <SelectedUnitContext.Provider value={{ selectedUnit }}>
-                  <AbilityBar />
-                  <Buffs />
-                  <Mana />
-                  <Health />
-                  <Inventory />
                   <Character />
-                  <Settings />
                   <CharacterDetails />
                   <ItemsShop />
-                  <AbilitiesShop />
                 </SelectedUnitContext.Provider>
                 <Panel className={Styles.bottomCenterBackground} />
                 <Panel className={Styles.bottomCenterLeftFlare} />

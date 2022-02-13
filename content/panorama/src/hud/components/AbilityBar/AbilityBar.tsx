@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { TableUtils } from "../../utils/TableUtils";
 import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
-import { HUD_THINK_FAST, SelectedUnitContext } from "../../App";
+import { HUD_THINK_FAST } from "../../App";
 import { useInterval } from "../../hooks/useInterval";
 import Styles from './styles.module.css';
 
-const AbilityBar = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const AbilityBar = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBar rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   const [abilities, setAbilities] = useState<AbilityEntityIndex[]>([]);
   const [abilityPoints, setAbilityPoints] = useState(0);

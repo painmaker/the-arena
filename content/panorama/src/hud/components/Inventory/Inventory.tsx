@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ItemOptions from './ItemOptions/ItemOptions'
 import Item from './Item/Item'
 import Styles from './styles.module.css'
-import { SelectedUnitContext, HUD_THINK_FAST } from '../../App'
+import { HUD_THINK_FAST } from '../../App'
 import { useInterval } from '../../hooks/useInterval'
 import { TableUtils } from '../../utils/TableUtils'
 import { ObjectUtils } from '../../utils/ObjectUtils'
@@ -14,11 +14,15 @@ interface IRowItem {
   item: ItemEntityIndex
 }
 
-const Inventory = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const Inventory = (props: Props) => {
 
   // $.Msg('REACT-RENDER: Inventory rendered')
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   const [firstRowItems, setFirstRowItems] = useState<IRowItem[]>([])
   const [secondRowItems, setSecondRowItems] = useState<IRowItem[]>([])

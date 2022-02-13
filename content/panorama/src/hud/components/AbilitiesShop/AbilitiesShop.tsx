@@ -5,16 +5,20 @@ import RegularAbilities from "./RegularAbilities/RegularAbilities";
 import UltimateAbilities from "./UltimateAbilities/UltimateAbilities";
 import AbilitiesPoints from "./AbilitiesPoints/AbilitiesPoints";
 import { useGameEvent } from "react-panorama";
-import { HUD_THINK_SLOW, SelectedUnitContext } from "../../App";
+import { HUD_THINK_SLOW } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
 import { WINDOW } from "../../data/windows";
 import Styles from './styles.module.css';
 
-const AbilitiesShop = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const AbilitiesShop = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilitiesShop rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   const [searchValue, setSearchValue] = useState('');
   const [regularAbilities, setRegularAbilities] = useState<ShopAbility[]>([]);
@@ -77,6 +81,7 @@ const AbilitiesShop = () => {
     <React.Fragment>
       {renderComponent && (
         <Panel
+          onactivate={() => false}
           className={Styles.container}
           style={{
             transform: isOpen ? "translateX(-10px)" : 'translateX(490px)',

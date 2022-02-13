@@ -49,6 +49,7 @@ const Settings = () => {
     <React.Fragment>
       {renderComponent && (
         <Panel
+          onactivate={() => false}
           className={Styles.container}
           style={isOpen ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
         >

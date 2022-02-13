@@ -22,12 +22,15 @@ const getBuffs = (unit: EntityIndex) => {
   return buffs.sort((b1, b2) => Buffs.GetCreationTime(unit, b2) - Buffs.GetCreationTime(unit, b1));
 }
 
+type Props = {
+  selectedUnit: EntityIndex,
+}
 
-const BuffsPanel = () => {
+const BuffsPanel = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Buffs rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   const [buffs, setBuffs] = useState<BuffID[]>(getBuffs(selectedUnit));
 
