@@ -11,8 +11,8 @@
     "AbilityBehavior"				    "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-    "AbilityCooldown"         	"45.0"
-		"AbilityTextureName"	      "item_minor_healing_potion"
+    "AbilityCooldown"         	"5.0"
+		"AbilityTextureName"	      "item_flask"
 
     "ItemIsShoppable"           "1"
     "ItemCategory"						  "CONSUMABLES"
@@ -30,16 +30,6 @@
 			{
 				"var_type" "FIELD_INTEGER"
 				"healing" "50"
-			}
-      "02"
-			{
-				"var_type" "FIELD_INTEGER"
-				"charges" "3"
-			}
-      "03"
-			{
-				"var_type" "FIELD_INTEGER"
-				"cooldown" "10"
 			}
 		}
 

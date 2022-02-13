@@ -70,6 +70,9 @@ export class GameMode {
     PrecacheUnitByNameSync("shopkeeper_abilities", context)
     PrecacheUnitByNameSync("npc_dota_creep_goodguys_melee", context)
     PrecacheUnitByNameSync("npc_dota_creep_badguys_melee", context)
+
+    PrecacheItemByNameSync("item_minor_healing_potion", context)
+
   }
 
   public static Activate(this: void) {
