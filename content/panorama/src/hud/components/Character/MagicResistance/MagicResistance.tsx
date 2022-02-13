@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import { SelectedUnitContext, HUD_THINK_MEDIUM } from "../../../App";
+import { HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import ParentStyles from './../styles.module.css';
 
-const MagicResistance = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const MagicResistance = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - MagicalResistance rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   const [magicResistance, setMagicResistance] = useState(Entities.GetMagicalArmorValue(selectedUnit));
 

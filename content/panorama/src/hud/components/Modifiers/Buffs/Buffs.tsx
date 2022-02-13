@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
-import { SelectedUnitContext } from "../../../App";
 import Modifier from "../Modifier/Modifier";
 import Styles from './styles.module.css';
 

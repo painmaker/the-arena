@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SelectedUnitContext, HUD_THINK_MEDIUM } from "../../../App";
+import { HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import Attribute from "./Attribute/Attribute";
 import Styles from './styles.module.css';
@@ -10,11 +10,15 @@ const attributes = {
   DOTA_ATTRIBUTE_INTELLECT: 2,
 }
 
-const Attributes = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const Attributes = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Attributes rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   const [strengthBase, setStrengthBase] = useState<number | undefined>(undefined);
   const [strengthBonus, setStrengthBonus] = useState<number | undefined>(undefined);

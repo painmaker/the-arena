@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import { SelectedUnitContext, HUD_THINK_MEDIUM } from "../../../App";
+import { HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import ParentStyles from './../styles.module.css';
 
-const Damage = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const Damage = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Damage rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   const [minDamage, setMinDamage] = useState(Entities.GetDamageMin(selectedUnit));
   const [maxDamage, setMaxDamage] = useState(Entities.GetDamageMax(selectedUnit));

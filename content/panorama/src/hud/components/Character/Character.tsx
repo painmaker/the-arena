@@ -41,22 +41,22 @@ const Character = (props: Props) => {
             <Panel className={Styles.leftColumnContentContainer}>
               <Panel className={Styles.columnContent}>
                 {Entities.IsHero(selectedUnit) && (
-                  <Attributes />
+                  <Attributes selectedUnit={selectedUnit} />
                 )}
               </Panel>
             </Panel>
           </Panel>
           <Panel className={Styles.rightColumn}>
             <Panel className={Styles.columnContent}>
-              <Armor />
-              <MagicResistance />
-              <Damage />
-              <MoveSpeed />
+              <Armor selectedUnit={selectedUnit} />
+              <MagicResistance selectedUnit={selectedUnit} />
+              <Damage selectedUnit={selectedUnit} />
+              <MoveSpeed selectedUnit={selectedUnit} />
             </Panel>
           </Panel>
         </Panel>
         <Panel className={Styles.row2}>
-          <Level />
+          <Level selectedUnit={selectedUnit} />
         </Panel>
       </Panel>
     </Panel>

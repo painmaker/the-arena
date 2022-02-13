@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import { SelectedUnitContext, HUD_THINK_MEDIUM } from "../../../App";
+import { HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import ParentStyles from './../styles.module.css';
 import Styles from './styles.module.css';
 
-const MoveSpeed = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const MoveSpeed = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   const [moveSpeed, setMoveSpeed] = useState(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
 

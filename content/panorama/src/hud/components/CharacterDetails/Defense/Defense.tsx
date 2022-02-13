@@ -1,5 +1,4 @@
 import React from "react";
-import { SelectedUnitContext } from "../../../App";
 import Divider from "../Divider/Divider";
 import Armor from "./Armor/Armor";
 import Evasion from "./Evasion/Evasion";

@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import { SelectedUnitContext, HUD_THINK_MEDIUM } from "../../../App";
+import { HUD_THINK_MEDIUM } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import ParentStyles from './../styles.module.css';
 
-const Armor = () => {
+type Props = {
+  selectedUnit: EntityIndex,
+}
+
+const Armor = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Armor rendered");
 
-  const { selectedUnit } = React.useContext(SelectedUnitContext);
+  const { selectedUnit } = props;
 
   const [armor, setArmor] = useState(Entities.GetPhysicalArmorValue(selectedUnit));
   const [bonusArmor, setBonusArmor] = useState(Entities.GetBonusPhysicalArmor(selectedUnit));

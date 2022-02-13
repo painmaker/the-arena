@@ -88,7 +88,7 @@ const AbilitiesShop = (props: Props) => {
             opacity: isOpen ? "1.0" : "0.0",
           }}
         >
-          <Title />
+          <Title selectedUnit={selectedUnit} />
           <Panel className={Styles.topBarContainer}>
             <Search
               searchValue={searchValue}

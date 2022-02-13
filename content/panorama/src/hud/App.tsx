@@ -41,13 +41,6 @@ const getGameUnitSelected = () => {
   }
   return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
 }
-interface SelectedUnitContext {
-  selectedUnit: EntityIndex,
-}
-
-export const SelectedUnitContext = React.createContext<SelectedUnitContext>({
-  selectedUnit: Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()),
-});
 
 const App = () => {
 
