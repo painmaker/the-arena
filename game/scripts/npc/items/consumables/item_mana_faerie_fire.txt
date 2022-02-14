@@ -15,7 +15,7 @@
 
     "ItemShoppable"             "1"
     "ItemCategory"						  "CONSUMABLES"
-		"ItemShopTags"					    "mana;faerie;fire;restore"
+		"ItemShopTags"					    "mana;blue;faerie;fire;restore;blue faerie fire"
 		"ItemCost"						      "50"
     "ItemStackable"					    "1"
 		"ItemShareability"				  "ITEM_FULLY_SHAREABLE"

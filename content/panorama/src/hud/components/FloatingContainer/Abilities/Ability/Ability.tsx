@@ -43,14 +43,14 @@ const Ability = (props: Props) => {
         <DOTAItemImage
           showtooltip={false}
           itemname={name}
-          className={Styles.image}
+          className={Styles.imageItem}
         />
       )}
       {!isItem && (
         <DOTAAbilityImage
           showtooltip={false}
           abilityname={name}
-          className={Styles.image}
+          className={Styles.imageAbility}
         />
       )}
       <Label

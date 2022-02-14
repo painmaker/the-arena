@@ -122,7 +122,32 @@ export class GameMode {
     }, undefined);
 
     ListenToGameEvent("dota_non_player_used_ability", event => {
-
+      const caster = EntIndexToHScript(event.caster_entindex) as CDOTA_BaseNPC;
+      if (!caster) {
+        return;
+      }
+      const entity = caster.FindAbilityByName(event.abilityname) || caster.FindItemInInventory(event.abilityname);
+      if (!entity) {
+        return;
+      }
+      shuffle([
+        { name: event.abilityname, caster: event.caster_entindex, isItem: entity.IsItem() },
+        ...FindUnitsInRadius(
+          caster.GetTeamNumber(),
+          caster.GetOrigin(),
+          undefined,
+          entity.GetCastRange(caster.GetAbsOrigin(), undefined) + 100,
+          DOTA_UNIT_TARGET_TEAM.DOTA_UNIT_TARGET_TEAM_FRIENDLY,
+          DOTA_UNIT_TARGET_TYPE.DOTA_UNIT_TARGET_ALL,
+          DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_NONE,
+          FindOrder.FIND_ANY_ORDER,
+          false
+        )
+          .filter(unit => unit.IsIllusion() === true)
+          .filter(illusion => PlayerResource.GetSelectedHeroEntity(illusion.GetPlayerOwnerID())?.entindex() === event.caster_entindex)
+          .filter(illusion => illusion.FindAbilityByName(event.abilityname) !== undefined)
+          .map(illusion => ({ name: event.abilityname, caster: illusion.entindex(), isItem: entity.IsItem() })),
+      ]).forEach(payload => CustomGameEventManager.Send_ServerToAllClients("on_ability_used", payload));
     }, undefined);
 
     GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, MAX_PLAYERS);
