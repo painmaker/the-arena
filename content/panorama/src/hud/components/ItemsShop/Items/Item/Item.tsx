@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useGameEvent } from "react-panorama";
 import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
+import { escapeString } from "../../../../utils/EscapeString";
 import Styles from './styles.module.css';
 
 type Props = {
@@ -37,7 +38,7 @@ const Item = (props: Props) => {
 
   let isSearched = false;
   Object.values(item.tags).forEach(tag => {
-    if (tag.match(searchValue)) {
+    if (tag.match(escapeString(searchValue))) {
       isSearched = true;
     }
   });

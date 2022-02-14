@@ -68,7 +68,7 @@ const ItemsShop = (props: Props) => {
                   searchValue={searchValue}
                 />
                 <Items
-                  title={'Artifacts'}
+                  title={'Mixed'}
                   items={[]}
                   selectedUnit={selectedUnit}
                   searchValue={searchValue}
@@ -76,13 +76,13 @@ const ItemsShop = (props: Props) => {
               </Panel>
               <Panel className={Styles.itemsColumn}>
                 <Items
-                  title={'Armor'}
+                  title={'Defensive'}
                   items={[]}
                   selectedUnit={selectedUnit}
                   searchValue={searchValue}
                 />
                 <Items
-                  title={'Weapons'}
+                  title={'Offensive'}
                   items={[]}
                   selectedUnit={selectedUnit}
                   searchValue={searchValue}
