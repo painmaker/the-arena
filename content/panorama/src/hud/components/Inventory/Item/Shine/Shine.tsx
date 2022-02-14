@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
 import usePrevious from "../../../../hooks/usePrevious";
@@ -24,11 +24,14 @@ const Shine = (props: Props) => {
     setIsOnCooldown(!Abilities.IsCooldownReady(item));
   }, HUD_THINK_FAST);
 
-  const showSweep = (isOnCooldown === false && wasOnCooldown === true && isMuted === false) ||
-    (isMuted === false && wasMuted === true && isOnCooldown === false);
+  useEffect(() => {
+    const showSweep = (isOnCooldown === false && wasOnCooldown === true && isMuted === false) ||
+      (isMuted === false && wasMuted === true && isOnCooldown === false);
+    $("#inventory_item_shine_panel_" + item)?.SetHasClass('offCooldownShine', showSweep)
+  }, [isMuted, wasMuted, isOnCooldown, wasOnCooldown])
 
   return (
-    <Panel className={showSweep ? 'shineSweep' : ''} />
+    <Panel id={'inventory_item_shine_panel_' + item} />
   );
 
 };

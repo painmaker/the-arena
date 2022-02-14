@@ -24,12 +24,10 @@ const Shine = (props: Props) => {
     setIsOnCooldown(!Abilities.IsCooldownReady(ability));
   }, HUD_THINK_FAST);
 
-
-
   useEffect(() => {
     const showSweep = (isOnCooldown === false && wasOnCooldown === true && isSilenced === false) ||
       (isSilenced === false && wasSilenced === true && isOnCooldown === false);
-    $("#ability_bar_item_shine_panel_" + ability)?.SetHasClass('abilityBarItemShine', showSweep)
+    $("#ability_bar_item_shine_panel_" + ability)?.SetHasClass('offCooldownShine', showSweep)
   }, [isSilenced, wasSilenced, isOnCooldown, wasOnCooldown])
 
   return (
