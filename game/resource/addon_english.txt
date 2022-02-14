@@ -10,6 +10,8 @@
   
     // UI error messages
     "dota_hud_error_health_too_low" "Health Too Low"
+    "dota_hud_error_full_mana" "Full Mana"
+    "dota_hud_error_full_health" "Full Health"
 
     // Units
     "shopkeeper_abilities" "Shopkeeper Abilities"
@@ -28,11 +30,11 @@
 
     // Items
     "DOTA_Tooltip_Ability_item_health_faerie_fire" "<font color=\"#3fb54f\">Green Faerie Fire</font>"
-    "DOTA_Tooltip_Ability_item_health_faerie_fire_Description" "<h1>Use: Heal</h1>Instantly restores %health_restored% health to your hero.\nComes with %charges% charges."
+    "DOTA_Tooltip_Ability_item_health_faerie_fire_Description" "<h1>Use: Heal</h1><p>Instantly restores %health_restored% health to your hero.</p>Cannot be used if already at max health.\nComes with %charges% charges."
 		"DOTA_Tooltip_ability_item_health_faerie_fire_Note0" "Faerie Fire is fully sharable."
 
     "DOTA_Tooltip_Ability_item_mana_faerie_fire" "<font color=\"#2b96e3\">Blue Faerie Fire</font>"
-    "DOTA_Tooltip_Ability_item_mana_faerie_fire_Description" "<h1>Use: Heal</h1>Instantly restores %mana_restored% mana to your hero.\nComes with %charges% charges."
+    "DOTA_Tooltip_Ability_item_mana_faerie_fire_Description" "<h1>Use: Heal</h1><p>Instantly restores %mana_restored% mana to your hero.</p>Cannot be used if already at max mana.\nComes with %charges% charges."
 		"DOTA_Tooltip_ability_item_mana_faerie_fire_Note0" "Faerie Fire is fully sharable."
 
     // DAZZLE

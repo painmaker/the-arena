@@ -3,6 +3,19 @@ import { registerAbility, BaseItem } from "../../lib/dota_ts_adapter";
 @registerAbility()
 export class item_health_faerie_fire extends BaseItem {
 
+  CastFilterResult(): UnitFilterResult {
+    if (IsServer()) {
+      const caster = this.GetCaster();
+      if (caster.GetMaxHealth() - caster.GetHealth() === 0) {
+        // return UnitFilterResult.UF_FAIL_CUSTOM;
+      }
+    }
+    return UnitFilterResult.UF_SUCCESS;
+  }
+
+  GetCustomCastError(): string {
+    return "#dota_hud_error_full_health";
+  }
 
   OnSpellStart(): void {
 

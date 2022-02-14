@@ -46,6 +46,9 @@ export class GameMode {
     PrecacheResource("particle", "particles/econ/items/phantom_assassin/phantom_assassin_arcana_elder_smith/pa_arcana_event_glitch.vpcf", context);
     PrecacheResource("particle", "particles/econ/items/phantom_assassin/phantom_assassin_arcana_elder_smith/pa_arcana_loadout.vpcf", context);
     PrecacheResource("particle", "particles/econ/items/windrunner/windranger_arcana/windranger_arcana_anim_run_rare.vpcf", context);
+
+    PrecacheResource("particle", "particles/items/blue_faerie_fire/blue_faerie_fire.vpcf", context);
+
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_dazzle.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_techies.vsndevts", context);
