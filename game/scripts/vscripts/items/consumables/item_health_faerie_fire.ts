@@ -27,7 +27,7 @@ export class item_health_faerie_fire extends BaseItem {
     caster.EmitSoundParams("DOTA_Item.FaerieSpark.Activate", 0, 0.5, 0);
     caster.Heal(healthRestored, this);
 
-    const fxIndex = ParticleManager.CreateParticle("particles/items3_fx/fish_bones_active.vpcf", ParticleAttachment_t.PATTACH_ABSORIGIN_FOLLOW, caster);
+    const fxIndex = ParticleManager.CreateParticle("particles/items/green_faerie_fire/green_faerie_fire.vpcf", ParticleAttachment_t.PATTACH_ABSORIGIN_FOLLOW, caster);
     ParticleManager.ReleaseParticleIndex(fxIndex);
 
     const fxText = ParticleManager.CreateParticle("particles/general/health_and_mana_gained_text.vpcf", ParticleAttachment_t.PATTACH_POINT_FOLLOW, caster);

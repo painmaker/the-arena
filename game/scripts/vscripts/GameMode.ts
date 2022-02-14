@@ -48,6 +48,7 @@ export class GameMode {
     PrecacheResource("particle", "particles/econ/items/windrunner/windranger_arcana/windranger_arcana_anim_run_rare.vpcf", context);
 
     PrecacheResource("particle", "particles/items/blue_faerie_fire/blue_faerie_fire.vpcf", context);
+    PrecacheResource("particle", "particles/items/green_faerie_fire/green_faerie_fire.vpcf", context);
 
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_dazzle.vsndevts", context);
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts", context);
