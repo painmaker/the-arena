@@ -1,11 +1,10 @@
 
 // Consumables
-#base "items/consumables/item_minor_healing_potion.txt"
+#base "items/consumables/item_health_faerie_fire.txt"
+#base "items/consumables/item_mana_faerie_fire.txt"
 
 "DOTAAbilities"
 {
-
-	
 
 }
 

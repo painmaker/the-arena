@@ -55,7 +55,7 @@ interface CustomGameEventDeclarations {
   fetch_shop_abilities_ok: ShopAbilities,
   fetch_shop_abilities_error: { errorMsg: string },
 
-  on_ability_used: { abilityname: String, unit: EntityIndex }
+  on_ability_used: { name: string, caster: EntityIndex, isItem: boolean }
 
   on_ability_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex, ability: AbilityEntityIndex }
   on_item_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex, item: ItemEntityIndex }

@@ -17,16 +17,15 @@ const Image = (props: Props) => {
   const [isCooldownReady, setIsCooldownReady] = useState(Abilities.IsCooldownReady(item));
   const [isActive, setIsActive] = useState(Abilities.GetLocalPlayerActiveAbility() === item);
   const [hasEnoughMana, setHasEnoughMana] = useState(Abilities.IsOwnersManaEnough(item));
-  const [texture, setTexutre] = useState(Abilities.GetAbilityTextureName(item));
   const [isMuted, setIsMuted] = useState(Entities.IsMuted(selectedUnit));
 
   useInterval(() => {
     setIsMuted(Entities.IsMuted(selectedUnit));
     setIsCooldownReady(Abilities.IsCooldownReady(item));
     setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
-    setTexutre(Abilities.GetAbilityTextureName(item));
     setIsActive(Abilities.GetLocalPlayerActiveAbility() === item);
   }, HUD_THINK_FAST);
+
 
   return (
     <Panel
@@ -48,7 +47,7 @@ const Image = (props: Props) => {
         <Panel className={Styles.lockIcon} />
       )}
       <DOTAItemImage
-        itemname={texture}
+        contextEntityIndex={item}
         className={Styles.itemImage}
         style={{
           saturation: isCooldownReady ? '1.0' : '0.5',

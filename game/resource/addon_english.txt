@@ -27,12 +27,13 @@
     "HeroSelectionLore_npc_dota_hero_lina" "The sibling rivalries between Lina the Slayer, and her younger sister Rylai, the Crystal Maiden, were the stuff of legend in the temperate region where they spent their quarrelsome childhoods together. Lina always had the advantage, however, for while Crystal was guileless and naive, Lina's fiery ardor was tempered by cleverness and conniving. The exasperated parents of these incompatible offspring went through half a dozen homesteads, losing one to fire, the next to ice, before they realized life would be simpler if the children were separated. As the oldest, Lina was sent far south to live with a patient aunt in the blazing Desert of Misrule, a climate that proved more than comfortable for the fiery Slayer. Her arrival made quite an impression on the somnolent locals, and more than one would-be suitor scorched his fingers or went away with singed eyebrows, his advances spurned. Lina is proud and confident, and nothing can dampen her flame."
 
     // Items
-    "item_minor_healing_potion" "Minor Healing Potion"
+    "DOTA_Tooltip_Ability_item_health_faerie_fire" "<font color=\"#3fb54f\">Green Faerie Fire</font>"
+    "DOTA_Tooltip_Ability_item_health_faerie_fire_Description" "<h1>Use: Heal</h1>Instantly restores %health_restored% health to your hero.\nComes with %charges% charges."
+		"DOTA_Tooltip_ability_item_health_faerie_fire_Note0" "Faerie Fire is fully sharable."
 
-    "DOTA_Tooltip_Ability_item_minor_healing_potion" "Minor Healing Potion"
-    "DOTA_Tooltip_Ability_item_minor_healing_potion_Description" "<h1>Use: Restore Health</h1>Restores X health to your hero."
-		"DOTA_Tooltip_Ability_item_minor_healing_potion_lore" "Across an epoch of endless battle, the Immortal's will to triumph never faltered."
-		"DOTA_Tooltip_ability_item_minor_healing_potion_Note0" "Minor Healing Potion is shareable."
+    "DOTA_Tooltip_Ability_item_mana_faerie_fire" "<font color=\"#2b96e3\">Blue Faerie Fire</font>"
+    "DOTA_Tooltip_Ability_item_mana_faerie_fire_Description" "<h1>Use: Heal</h1>Instantly restores %mana_restored% mana to your hero.\nComes with %charges% charges."
+		"DOTA_Tooltip_ability_item_mana_faerie_fire_Note0" "Faerie Fire is fully sharable."
 
     // DAZZLE
     "DOTA_Tooltip_Ability_dazzle_healing_wave" "<font color=\"#b036d1\">Healing Wave</font>"

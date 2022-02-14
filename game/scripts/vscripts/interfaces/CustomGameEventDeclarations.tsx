@@ -55,7 +55,7 @@ interface CustomGameEventDeclarations {
   fetch_shop_abilities_ok: { regularAbilities: ShopAbility[], ultimateAbilities: ShopAbility[] },
   fetch_shop_abilities_error: { errorMsg: string },
 
-  on_ability_used: { abilityname: String, unit: EntityIndex }
+  on_ability_used: { name: string, caster: EntityIndex, isItem: boolean }
 
   fetch_items_shop_item: {};
   fetch_items_shop_item_success: { consumables: ItemsShopItem[] };

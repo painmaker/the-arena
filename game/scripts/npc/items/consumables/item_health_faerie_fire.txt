@@ -1,0 +1,42 @@
+"DOTAAbilities"
+{
+  
+	"item_health_faerie_fire"
+	{
+
+    "BaseClass"						      "item_lua"
+    "ScriptFile"					      "items/consumables/item_health_faerie_fire"
+
+    "AbilityBehavior"				    "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+    "AbilityCooldown"         	"0.5"
+		"AbilityTextureName"	      "faerie_fire"
+
+    "ItemShoppable"             "1"
+    "ItemCategory"						  "CONSUMABLES"
+		"ItemShopTags"					    "healing;faerie;fire;restore;health"
+		"ItemCost"						      "50"
+    "ItemStackable"					    "1"
+		"ItemShareability"				  "ITEM_FULLY_SHAREABLE"
+		"ItemInitialCharges"			  "3"
+    "ItemStackable"					    "1"
+
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type" "FIELD_INTEGER"
+				"health_restored" "100"
+			}
+      "02"
+			{
+				"var_type" "FIELD_INTEGER"
+				"charges" "3"
+			}
+		}
+
+	}
+
+}

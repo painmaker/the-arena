@@ -1,6 +1,6 @@
 
 interface KeyValueItem {
-  Shoppable: boolean;
+  ItemShoppable: number;
   ItemCost: number;
   ItemCategory: string,
   ItemShopTags: string,
@@ -25,6 +25,7 @@ export class ItemsShopService {
     const items = LoadKeyValues("scripts/npc/npc_items_custom.txt") as Record<string, KeyValueItem>;
 
     const consumables: ItemsShopItem[] = Object.entries(items)
+      .filter(([_, value]) => value['ItemShoppable'] === 1)
       .filter(([_, value]) => value['ItemCategory'] === 'CONSUMABLES')
       .map(([key, value]) => ({
         itemname: key,

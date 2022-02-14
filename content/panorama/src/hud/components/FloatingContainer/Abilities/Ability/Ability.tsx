@@ -1,19 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useInterval } from "../../../../hooks/useInterval";
 import { useTimeout } from "../../../../hooks/useTimeout";
-import { SetAbilitiesContext } from "../Abilities";
+import { IAbility } from "../Abilities";
 import Styles from './styles.module.css';
 
 type Props = {
   id: number,
   name: string,
+  isItem: boolean,
+  setAbilities: Dispatch<SetStateAction<IAbility[]>>
 };
 
 const Ability = (props: Props) => {
 
-  const { id, name } = props;
+  const { id, name, isItem, setAbilities } = props;
 
-  const setAbilities = useContext(SetAbilitiesContext);
 
   const [posY, setPosY] = useState(75);
   const [opacity, setOpacity] = useState('1.0');
@@ -38,11 +39,20 @@ const Ability = (props: Props) => {
         opacity: opacity,
       }}
     >
-      <DOTAAbilityImage
-        showtooltip={false}
-        abilityname={name}
-        className={Styles.image}
-      />
+      {isItem && (
+        <DOTAItemImage
+          showtooltip={false}
+          itemname={name}
+          className={Styles.image}
+        />
+      )}
+      {!isItem && (
+        <DOTAAbilityImage
+          showtooltip={false}
+          abilityname={name}
+          className={Styles.image}
+        />
+      )}
       <Label
         html={true}
         text={$.Localize("DOTA_Tooltip_Ability_" + name)}

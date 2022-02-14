@@ -7,6 +7,8 @@
         <include src="file://{resources}/layout/custom_game/hud/index.css"></include> 
     </styles>  
     <Panel class="root" hittest="false">
+      <Image src="file://{images}/items/blue_faerie_fire.png" /> 
+      <Image src="file://{images}/items/item_blue_faerie_fire.png" /> 
       <!-- <Image src="file://{images}/ability_bg.png" /> 
       <Image src="file://{images}/ability_gold_background_dark.png" /> 
       <Image src="file://{images}/background_play_button_2x.png" /> 
