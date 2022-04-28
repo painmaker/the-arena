@@ -11,6 +11,7 @@
 		"dev:vscripts": "tstl --project game/scripts/vscripts/tsconfig.json --watch"
 	},
 	"devDependencies": {
+    "@types/lodash": "4.14.182",
 		"@aabao/webpack-panorama": "0.2.1",
 		"@moddota/find-steam-app": "1.1.0",
 		"css-loader": "6.5.1",
@@ -37,6 +38,7 @@
 		"react-panorama": "0.1.2",
 		"react-redux": "7.2.4",
 		"redux": "4.1.1",
-		"redux-saga": "1.1.3"
+		"redux-saga": "1.1.3",
+    "lodash": "4.17.21"
 	}
 }

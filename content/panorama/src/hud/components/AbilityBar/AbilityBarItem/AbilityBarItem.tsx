@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import Cooldown from "./Cooldown/Cooldown";
 import Autocast from "./Autocast/Autocast";
 import LockoutIcon from "./LockoutIcon/LockoutIcon";
@@ -12,127 +12,138 @@ import { HUD_THINK_FAST } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 import Styles from './styles.module.css';
 import Shine from "./Shine/Shine";
-
-const onMouseOver = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
-  $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", $("#ability_" + ability), Abilities.GetAbilityName(ability), selectedUnit);
-}
-
-const onMouseOut = (ability: AbilityEntityIndex) => {
-  $.DispatchEvent("DOTAHideAbilityTooltip", $("#ability_" + ability));
-}
-
-const onLeftClick = (ability: AbilityEntityIndex, selectedUnit: EntityIndex) => {
-  if (GameUI.IsAltDown()) {
-    GameEvents.SendCustomGameEventToAllClients("on_ability_alerted", {
-      broadcaster: Players.GetLocalPlayer(),
-      selectedUnit,
-      ability
-    })
-    return;
-  }
-  if (Game.IsInAbilityLearnMode()) {
-    Abilities.AttemptToUpgrade(ability);
-    return;
-  }
-  if (Entities.IsStunned(selectedUnit) || Entities.IsCommandRestricted(selectedUnit)) {
-    Game.EmitSound("General.CastFail_Custom");
-    return;
-  }
-  if (Entities.IsSilenced(selectedUnit)) {
-    Game.EmitSound("General.CastFail_Silenced");
-    return;
-  }
-  Abilities.ExecuteAbility(ability, selectedUnit, false);
-}
-
-const onRightClick = (ability: AbilityEntityIndex) => {
-  if (Game.IsInAbilityLearnMode()) {
-    return;
-  }
-  if (Abilities.IsAutocast(ability)) {
-    Game.PrepareUnitOrders({
-      OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TOGGLE_AUTO,
-      AbilityIndex: ability
-    });
-  }
-}
-
-const getContainerBackgroundImage = (isTrainable: boolean, isPassive: boolean): string => {
-  if (isTrainable) {
-    return 'url("s2r://panorama/images/ability_gold_background_dark_png.vtex")';
-  }
-  if (isPassive) {
-    return 'url("s2r://panorama/images/hud/passive_ability_border_png.vtex")';
-  }
-  return 'url("s2r://panorama/images/hud/active_ability_border_png.vtex")';
-}
-
+import SelectedEntityIndexContext from "../../../context/SelectedEntityIndexContext";
+import AbilityEntityIndexContext from "../../../context/AbilityContext";
 
 type Props = {
-  ability: AbilityEntityIndex,
-  selectedUnit: EntityIndex,
+  abilityEntityIndex: AbilityEntityIndex,
 }
 
 const AbilityBarItem = (props: Props) => {
 
   // $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
 
-  const { ability, selectedUnit } = props;
+  const { abilityEntityIndex } = props;
 
-  const [isPassive, setIsPassive] = useState(Abilities.IsPassive(ability));
-  const [isAutoCastEnabled, setIsAutoCastEnabled] = useState(Abilities.GetAutoCastState(ability));
-  const [isToggled, setIsToggled] = useState(Abilities.GetToggleState(ability));
-  const [isActive, setIsActive] = useState(Abilities.GetLocalPlayerActiveAbility() === ability);
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
+
+  const [isPassive, setIsPassive] = useState(Abilities.IsPassive(abilityEntityIndex));
+  const [isAutoCastEnabled, setIsAutoCastEnabled] = useState(Abilities.GetAutoCastState(abilityEntityIndex));
+  const [isToggled, setIsToggled] = useState(Abilities.GetToggleState(abilityEntityIndex));
+  const [isActive, setIsActive] = useState(Abilities.GetLocalPlayerActiveAbility() === abilityEntityIndex);
   const [isTrainable, setIsTrainable] = useState(false);
 
   useInterval(() => {
-    const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
-    const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
-    const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
+    const isUpgradeable = Abilities.CanAbilityBeUpgraded(abilityEntityIndex) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+    const isControllable = Entities.IsControllableByPlayer(selectedEntityIndex, Players.GetLocalPlayer());
+    const hasAbilityPoints = Entities.GetAbilityPoints(selectedEntityIndex) > 0;
     const isInLearningMode = Game.IsInAbilityLearnMode();
     setIsTrainable(isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints);
-    setIsPassive(Abilities.IsPassive(ability));
-    setIsAutoCastEnabled(Abilities.GetAutoCastState(ability))
-    setIsToggled(Abilities.GetToggleState(ability))
-    setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability);
+    setIsPassive(Abilities.IsPassive(abilityEntityIndex));
+    setIsAutoCastEnabled(Abilities.GetAutoCastState(abilityEntityIndex))
+    setIsToggled(Abilities.GetToggleState(abilityEntityIndex))
+    setIsActive(Abilities.GetLocalPlayerActiveAbility() === abilityEntityIndex);
   }, HUD_THINK_FAST);
 
+  const onLeftClick = useCallback(() => {
+    if (GameUI.IsAltDown()) {
+      GameEvents.SendCustomGameEventToAllClients("on_ability_alerted", {
+        broadcaster: Players.GetLocalPlayer(),
+        selectedEntityIndex,
+        ability: abilityEntityIndex
+      })
+      return;
+    }
+    if (Game.IsInAbilityLearnMode()) {
+      Abilities.AttemptToUpgrade(abilityEntityIndex);
+      return;
+    }
+    if (Entities.IsStunned(selectedEntityIndex) || Entities.IsCommandRestricted(selectedEntityIndex)) {
+      Game.EmitSound("General.CastFail_Custom");
+      return;
+    }
+    if (Entities.IsSilenced(selectedEntityIndex)) {
+      Game.EmitSound("General.CastFail_Silenced");
+      return;
+    }
+    Abilities.ExecuteAbility(abilityEntityIndex, selectedEntityIndex, false);
+  }, [abilityEntityIndex, selectedEntityIndex])
+
+  const onRightClick = useCallback(() => {
+    if (Game.IsInAbilityLearnMode()) {
+      return;
+    }
+    if (Abilities.IsAutocast(abilityEntityIndex)) {
+      Game.PrepareUnitOrders({
+        OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TOGGLE_AUTO,
+        AbilityIndex: abilityEntityIndex
+      });
+    }
+  }, [abilityEntityIndex])
+
+  const getContainerBackgroundImage = useCallback(() => {
+    if (isTrainable) {
+      return 'url("s2r://panorama/images/ability_gold_background_dark_png.vtex")';
+    }
+    if (isPassive) {
+      return 'url("s2r://panorama/images/hud/passive_ability_border_png.vtex")';
+    }
+    return 'url("s2r://panorama/images/hud/active_ability_border_png.vtex")';
+  }, [isTrainable, isPassive]);
+
+  const onMouseOut = useCallback(() => {
+    $.DispatchEvent(
+      "DOTAHideAbilityTooltip",
+      $("#ability_" + abilityEntityIndex)
+    );
+  }, [abilityEntityIndex]);
+
+  const onMouseOver = useCallback(() => {
+    $.DispatchEvent(
+      "DOTAShowAbilityTooltipForEntityIndex",
+      $("#ability_" + abilityEntityIndex),
+      Abilities.GetAbilityName(abilityEntityIndex),
+      selectedEntityIndex
+    );
+  }, [abilityEntityIndex, selectedEntityIndex]);
+
+
+  const backgroundStyle = {
+    border: isTrainable ? '1px solid rgba(0, 0, 0, 0.8)' : '0px solid rgba(0, 0, 0, 0.0)',
+    backgroundImage: getContainerBackgroundImage(),
+  }
+
+  const foregroundStyle = {
+    margin: (isPassive && !isTrainable) ? '2px' : '4px',
+    padding: (isActive || isToggled || isAutoCastEnabled) ? '1px' : '0px',
+    backgroundColor: (isActive || isToggled || isAutoCastEnabled) ? 'rgba(255, 165, 50, 0.2)' : 'black',
+  }
+
   return (
-    <Panel className={Styles.container} id={'ability_' + ability} >
-      <LevelUpButton
-        ability={ability}
-        selectedUnit={selectedUnit}
-      />
-      <Panel
-        onactivate={() => onLeftClick(ability, selectedUnit)}
-        oncontextmenu={() => onRightClick(ability)}
-        onmouseover={() => onMouseOver(ability, selectedUnit)}
-        onmouseout={() => onMouseOut(ability)}
-        className={Styles.background}
-        style={{
-          border: isTrainable ? '1px solid rgba(0, 0, 0, 0.8)' : '0px solid rgba(0, 0, 0, 0.0)',
-          backgroundImage: getContainerBackgroundImage(isTrainable, isPassive),
-        }}
-      >
-        <Keybind ability={ability} selectedUnit={selectedUnit} />
-        <ManaCost ability={ability} />
+    <Panel className={Styles.container} id={'ability_' + abilityEntityIndex} >
+      <AbilityEntityIndexContext.Provider value={{ abilityEntityIndex }}>
+        <LevelUpButton />
         <Panel
-          className={Styles.foreground}
-          style={{
-            margin: (isPassive && !isTrainable) ? '2px' : '4px',
-            padding: (isActive || isToggled || isAutoCastEnabled) ? '1px' : '0px',
-            backgroundColor: (isActive || isToggled || isAutoCastEnabled) ? 'rgba(255, 165, 50, 0.2)' : 'black',
-          }}
+          onactivate={() => onLeftClick()}
+          oncontextmenu={() => onRightClick()}
+          onmouseover={() => onMouseOver()}
+          onmouseout={() => onMouseOut()}
+          className={Styles.background}
+          style={backgroundStyle}
         >
-          <Shine ability={ability} selectedUnit={selectedUnit} />
-          <Image ability={ability} selectedUnit={selectedUnit} />
-          <Cooldown ability={ability} />
-          <Autocast ability={ability} />
-          <LockoutIcon ability={ability} selectedUnit={selectedUnit} />
-          <CastPointOverlay ability={ability} />
+          <Keybind />
+          <ManaCost />
+          <Panel className={Styles.foreground} style={foregroundStyle}>
+            <Shine />
+            <Image />
+            <Cooldown />
+            <Autocast />
+            <LockoutIcon />
+            <CastPointOverlay />
+          </Panel>
         </Panel>
-      </Panel>
-      <Skillpoints ability={ability} selectedUnit={selectedUnit} />
+        <Skillpoints />
+      </AbilityEntityIndexContext.Provider>
     </Panel>
   );
 

@@ -21,6 +21,7 @@ import { useInterval } from "./hooks/useInterval";
 import "./global.css";
 import Styles from "./app.module.css";
 import { WINDOW } from "./data/windows";
+import SelectedEntityIndexContext from "./context/SelectedEntityIndexContext";
 
 export const HUD_THINK_FAST = 30;
 export const HUD_THINK_MEDIUM = 100;
@@ -48,12 +49,12 @@ const App = () => {
   const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1;
 
   const [useCustomUI, setUseCustomUI] = useState(true);
-  const [selectedUnit, setSelectedUnit] = useState(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+  const [selectedEntityIndex, setSelectedEntityIndex] = useState(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
 
   useInterval(() => {
     const unitToSelect = getGameUnitSelected();
     if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
-      setSelectedUnit(unitToSelect)
+      setSelectedEntityIndex(unitToSelect)
     }
   }, HUD_THINK_FAST)
 
@@ -115,27 +116,26 @@ const App = () => {
               <Label className={Styles.useCustomUILabel} text={'Custom UI'} />
             </ToggleButton>
             {useCustomUI && (
-              <React.Fragment>
+              <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex: selectedEntityIndex }}>
                 <Heroes />
                 <Minimap />
                 <FloatingContainer />
                 <Messages />
                 <ButtonGroup />
                 <Settings />
-                <AbilityBar selectedUnit={selectedUnit} />
-                <Buffs selectedUnit={selectedUnit} />
-                <Mana selectedUnit={selectedUnit} />
-                <Health selectedUnit={selectedUnit} />
-                <Inventory selectedUnit={selectedUnit} />
-                <AbilitiesShop selectedUnit={selectedUnit} />
-                <Character selectedUnit={selectedUnit} />
-                <CharacterDetails selectedUnit={selectedUnit} />
-                <ItemsShop selectedUnit={selectedUnit} />
+                <AbilityBar />
+                <Buffs selectedUnit={selectedEntityIndex} />
+                <Mana selectedUnit={selectedEntityIndex} />
+                <Health selectedUnit={selectedEntityIndex} />
+                <Inventory selectedUnit={selectedEntityIndex} />
+                <AbilitiesShop selectedUnit={selectedEntityIndex} />
+                <Character selectedUnit={selectedEntityIndex} />
+                <CharacterDetails selectedUnit={selectedEntityIndex} />
+                <ItemsShop selectedUnit={selectedEntityIndex} />
                 <Panel className={Styles.bottomCenterBackground} />
                 <Panel className={Styles.bottomCenterLeftFlare} />
                 <Panel className={Styles.bottomCenterRightFlare} />
-              </React.Fragment>
-
+              </SelectedEntityIndexContext.Provider>
             )}
           </Loading>
         )}

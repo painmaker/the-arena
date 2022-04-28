@@ -1,22 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import AbilityEntityIndexContext from "../../../../context/AbilityContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
-type Props = {
-  ability: AbilityEntityIndex,
-}
-
-const ManaCost = (props: Props) => {
+const ManaCost = () => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - ManaCost rendered");
 
-  const { ability } = props;
+  const { abilityEntityIndex } = useContext(AbilityEntityIndexContext);
 
   const [manaCost, setManaCost] = useState(0);
 
   useInterval(() => {
-    setManaCost(Abilities.GetManaCost(ability));
+    setManaCost(Abilities.GetManaCost(abilityEntityIndex));
   }, HUD_THINK_FAST);
 
   if (manaCost === 0) {

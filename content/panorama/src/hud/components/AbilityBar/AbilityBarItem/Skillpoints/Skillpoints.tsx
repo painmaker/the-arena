@@ -1,27 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import AbilityEntityIndexContext from "../../../../context/AbilityContext";
+import SelectedEntityIndexContext from "../../../../context/SelectedEntityIndexContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
-type Props = {
-  ability: AbilityEntityIndex,
-  selectedUnit: EntityIndex,
-}
-
-const Skillpoints = (props: Props) => {
+const Skillpoints = () => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - Skillpoints rendered");
 
-  const { ability, selectedUnit } = props;
+  const { abilityEntityIndex } = useContext(AbilityEntityIndexContext);
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
-  const [abilityLevel, setAbilityLevel] = useState(Abilities.GetLevel(ability));
-  const [maxAbilityLevel, setMaxAbilityLevel] = useState(Abilities.GetMaxLevel(ability));
+
+  const [abilityLevel, setAbilityLevel] = useState(Abilities.GetLevel(abilityEntityIndex));
+  const [maxAbilityLevel, setMaxAbilityLevel] = useState(Abilities.GetMaxLevel(abilityEntityIndex));
   const [isUpgradeable, setIsUpgradeable] = useState(false);
 
   useInterval(() => {
-    setAbilityLevel(Abilities.GetLevel(ability));
-    setMaxAbilityLevel(Abilities.GetMaxLevel(ability));
-    setIsUpgradeable(Entities.GetAbilityPoints(selectedUnit) > 0 && Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED);
+    setAbilityLevel(Abilities.GetLevel(abilityEntityIndex));
+    setMaxAbilityLevel(Abilities.GetMaxLevel(abilityEntityIndex));
+    setIsUpgradeable(Entities.GetAbilityPoints(selectedEntityIndex) > 0 && Abilities.CanAbilityBeUpgraded(abilityEntityIndex) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED);
   }, HUD_THINK_FAST);
 
   return (
@@ -29,7 +28,7 @@ const Skillpoints = (props: Props) => {
       {Array.from({ length: maxAbilityLevel }, (_, index) => index + 1).map(index => {
         return (
           <Panel
-            key={ability + '_level_' + index}
+            key={abilityEntityIndex + '_level_' + index}
             className={Styles.column}
             style={{ width: 100 / maxAbilityLevel + '%' }}
           >

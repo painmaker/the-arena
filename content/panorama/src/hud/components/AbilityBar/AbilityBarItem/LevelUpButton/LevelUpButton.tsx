@@ -1,26 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import AbilityEntityIndexContext from "../../../../context/AbilityContext";
+import SelectedEntityIndexContext from "../../../../context/SelectedEntityIndexContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
-type Props = {
-  ability: AbilityEntityIndex,
-  selectedUnit: EntityIndex
-}
-
-const LevelUpButton = (props: Props) => {
+const LevelUpButton = () => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - LevelUpButton rendered");
 
-  const { ability, selectedUnit } = props;
+  const { abilityEntityIndex } = useContext(AbilityEntityIndexContext);
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
   const [isAbilityUpgradeable, setIsAbilityUpgradeable] = useState(false);
 
   useInterval(() => {
-    const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
-    const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
-    const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
-    const isMaxLevel = Abilities.GetLevel(ability) === Abilities.GetMaxLevel(ability);
+    const isUpgradeable = Abilities.CanAbilityBeUpgraded(abilityEntityIndex) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+    const isControllable = Entities.IsControllableByPlayer(selectedEntityIndex, Players.GetLocalPlayer());
+    const hasAbilityPoints = Entities.GetAbilityPoints(selectedEntityIndex) > 0;
+    const isMaxLevel = Abilities.GetLevel(abilityEntityIndex) === Abilities.GetMaxLevel(abilityEntityIndex);
     const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints && !isMaxLevel;
     setIsAbilityUpgradeable(isAbilityUpgradeable);
   }, HUD_THINK_FAST);
@@ -34,7 +32,7 @@ const LevelUpButton = (props: Props) => {
             className={Styles.particleScene}
           />
           <Panel
-            onactivate={() => Abilities.AttemptToUpgrade(ability)}
+            onactivate={() => Abilities.AttemptToUpgrade(abilityEntityIndex)}
             className={Styles.buttonBackground}
           >
             <Panel className={Styles.icon} />

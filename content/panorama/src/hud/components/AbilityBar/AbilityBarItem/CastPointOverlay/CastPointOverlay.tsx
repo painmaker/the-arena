@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import AbilityEntityIndexContext from "../../../../context/AbilityContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from "./styles.module.css";
+import lodash from 'lodash';
 
-type Props = {
-  ability: AbilityEntityIndex,
-}
-
-const CastPointOverlay = (props: Props) => {
+const CastPointOverlay = () => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
 
-  const { ability } = props;
+  const { abilityEntityIndex } = useContext(AbilityEntityIndexContext);
 
-  const [castPoint, setCastPoint] = useState(Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1));
-  const [isInAbilityPhase, setIsInAbilityPhase] = useState(Abilities.IsInAbilityPhase(ability));
+  const [castPoint, setCastPoint] = useState(Math.max(0.1, Abilities.GetCastPoint(abilityEntityIndex) - 0.1));
+  const [isInAbilityPhase, setIsInAbilityPhase] = useState(Abilities.IsInAbilityPhase(abilityEntityIndex));
   const [endTime, setEndTime] = useState<number | undefined>(undefined);
 
   const [degree, setDegree] = useState(0);
@@ -28,12 +26,13 @@ const CastPointOverlay = (props: Props) => {
   }, [isInAbilityPhase, castPoint])
 
   useInterval(() => {
-    setCastPoint(Math.max(0.1, Abilities.GetCastPoint(ability) - 0.1));
-    setIsInAbilityPhase(Abilities.IsInAbilityPhase(ability));
-    if (endTime && castPoint) {
+    const castPoint = Math.max(0.1, Abilities.GetCastPoint(abilityEntityIndex) - 0.1);
+    setCastPoint(castPoint);
+    setIsInAbilityPhase(Abilities.IsInAbilityPhase(abilityEntityIndex));
+    if (endTime !== undefined) {
       const gameTimeDifference = endTime - Game.GetGameTime();
       const degree = - (360 - ((gameTimeDifference / castPoint) * 360));
-      setDegree(degree ? Math.round(degree) : 0);
+      setDegree(lodash.isFinite(degree) ? Math.round(degree) : 0);
     } else {
       setDegree(0)
     }

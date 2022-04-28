@@ -1,33 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import AbilityEntityIndexContext from "../../../../context/AbilityContext";
+import SelectedEntityIndexContext from "../../../../context/SelectedEntityIndexContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
-type Props = {
-  ability: AbilityEntityIndex,
-  selectedUnit: EntityIndex,
-}
 
-const LockoutIcon = (props: Props) => {
+const LockoutIcon = () => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
 
-  const { ability, selectedUnit } = props;
+  const { abilityEntityIndex } = useContext(AbilityEntityIndexContext);
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
-  const [isSilenced, setIsSilenced] = useState(Abilities.GetCooldownTimeRemaining(ability) === 0 && Entities.IsSilenced(selectedUnit));
+  const [isCastable, setIsCastable] = useState(Abilities.GetCooldownTimeRemaining(abilityEntityIndex) === 0 && Entities.IsSilenced(selectedEntityIndex));
 
   useInterval(() => {
-    setIsSilenced(Abilities.GetCooldownTimeRemaining(ability) === 0 && Entities.IsSilenced(selectedUnit));
+    setIsCastable(Abilities.GetCooldownTimeRemaining(abilityEntityIndex) === 0 && Entities.IsSilenced(selectedEntityIndex));
   }, HUD_THINK_FAST);
 
-  if (!isSilenced) {
+  if (!isCastable) {
     return null;
   }
 
   return (
     <Panel
       className={Styles.container}
-      style={{ backgroundColor: isSilenced ? 'rgba(0, 0, 0, 0.9)' : 'none' }}
+      style={{ backgroundColor: isCastable ? 'rgba(0, 0, 0, 0.9)' : 'none' }}
     >
       <Panel className={Styles.icon} />
     </Panel>

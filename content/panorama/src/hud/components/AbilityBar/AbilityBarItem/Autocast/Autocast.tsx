@@ -1,22 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import AbilityEntityIndexContext from "../../../../context/AbilityContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
-type Props = {
-  ability: AbilityEntityIndex,
-}
-
-const Autocast = (props: Props) => {
+const Autocast = () => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - Autocast rendered");
 
-  const { ability } = props;
+  const { abilityEntityIndex } = useContext(AbilityEntityIndexContext);
 
   const [show, setShow] = useState(false);
 
   useInterval(() => {
-    setShow(Abilities.GetAutoCastState(ability) || Abilities.GetToggleState(ability));
+    setShow(Abilities.GetAutoCastState(abilityEntityIndex) || Abilities.GetToggleState(abilityEntityIndex));
   }, HUD_THINK_FAST);
 
   if (!show) {
@@ -24,14 +21,12 @@ const Autocast = (props: Props) => {
   }
 
   return (
-    <React.Fragment>
-      <Panel className={Styles.container}>
-        <DOTAScenePanel
-          map={'scenes/hud/autocasting'}
-          className={Styles.scene}
-        />
-      </Panel>
-    </React.Fragment>
+    <Panel className={Styles.container}>
+      <DOTAScenePanel
+        map={'scenes/hud/autocasting'}
+        className={Styles.scene}
+      />
+    </Panel>
   );
 
 };

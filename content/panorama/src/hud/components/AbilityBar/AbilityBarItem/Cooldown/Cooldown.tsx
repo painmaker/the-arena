@@ -1,30 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import AbilityEntityIndexContext from "../../../../context/AbilityContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
+import lodash from 'lodash'
 
-type Props = {
-  ability: AbilityEntityIndex,
-}
-
-const Cooldown = (props: Props) => {
+const Cooldown = () => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - Cooldown rendered");
 
-  const { ability } = props;
+  const { abilityEntityIndex } = useContext(AbilityEntityIndexContext);
 
   const [degree, setDegree] = useState(0);
   const [cooldownTimeRemaining, setCooldownTimeRemaining] = useState(0);
 
   useInterval(() => {
-    const totalCooldown = Abilities.GetCooldown(ability);
-    const cooldownTimeRemaining = Abilities.GetCooldownTimeRemaining(ability);
+    const totalCooldown = Abilities.GetCooldown(abilityEntityIndex);
+    const cooldownTimeRemaining = Abilities.GetCooldownTimeRemaining(abilityEntityIndex);
     const degree = Math.min(0, - (cooldownTimeRemaining / totalCooldown) * 360);
-    if (Number.isNaN(degree) || !Number.isFinite(degree)) {
-      setDegree(0)
-    } else {
-      setDegree(degree);
-    }
+    setDegree(lodash.isFinite(degree) ? degree : 0)
     setCooldownTimeRemaining(cooldownTimeRemaining);
   }, HUD_THINK_FAST);
 

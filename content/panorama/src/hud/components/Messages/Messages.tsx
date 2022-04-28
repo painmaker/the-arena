@@ -61,7 +61,7 @@ const Messages = () => {
         type: MessageType.ABILITY,
         data: {
           broadcaster: event.broadcaster,
-          unit: event.selectedUnit,
+          unit: event.selectedEntityIndex,
           ability: event.ability
         }
       }]

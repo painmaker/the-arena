@@ -1,37 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import AbilityEntityIndexContext from "../../../../context/AbilityContext";
+import SelectedEntityIndexContext from "../../../../context/SelectedEntityIndexContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import usePrevious from "../../../../hooks/usePrevious";
 
-type Props = {
-  ability: AbilityEntityIndex,
-  selectedUnit: EntityIndex,
-};
-
-const Shine = (props: Props) => {
+const Shine = () => {
 
   // $.Msg("REACT-RENDER: Inventory - Shine rendered");
 
-  const { ability, selectedUnit } = props;
+  const { abilityEntityIndex } = useContext(AbilityEntityIndexContext);
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
-  const [isSilenced, setIsSilenced] = useState(Abilities.GetCooldownTimeRemaining(ability) === 0 && Entities.IsSilenced(selectedUnit));
+  const [isSilenced, setIsSilenced] = useState(Entities.IsSilenced(selectedEntityIndex));
   const wasSilenced = usePrevious(isSilenced);
-  const [isOnCooldown, setIsOnCooldown] = useState(!Abilities.IsCooldownReady(ability));
+  const [isOnCooldown, setIsOnCooldown] = useState(!Abilities.IsCooldownReady(abilityEntityIndex));
   const wasOnCooldown = usePrevious(isOnCooldown);
 
   useInterval(() => {
-    setIsSilenced(Abilities.GetCooldownTimeRemaining(ability) === 0 && Entities.IsSilenced(selectedUnit));
-    setIsOnCooldown(!Abilities.IsCooldownReady(ability));
+    setIsSilenced(Entities.IsSilenced(selectedEntityIndex));
+    setIsOnCooldown(!Abilities.IsCooldownReady(abilityEntityIndex));
   }, HUD_THINK_FAST);
 
   useEffect(() => {
     const showSweep = (isOnCooldown === false && wasOnCooldown === true && isSilenced === false) ||
       (isSilenced === false && wasSilenced === true && isOnCooldown === false);
-    $("#ability_bar_item_shine_panel_" + ability)?.SetHasClass('offCooldownShine', showSweep)
+    $("#ability_bar_item_shine_panel_" + abilityEntityIndex)?.SetHasClass('offCooldownShine', showSweep)
   }, [isSilenced, wasSilenced, isOnCooldown, wasOnCooldown])
 
   return (
-    <Panel id={'ability_bar_item_shine_panel_' + ability} />
+    <Panel id={'ability_bar_item_shine_panel_' + abilityEntityIndex} />
   );
 
 };

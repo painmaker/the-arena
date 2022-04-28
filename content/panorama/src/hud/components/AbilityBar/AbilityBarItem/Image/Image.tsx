@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import AbilityEntityIndexContext from "../../../../context/AbilityContext";
+import SelectedEntityIndexContext from "../../../../context/SelectedEntityIndexContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
-
-type Props = {
-  ability: AbilityEntityIndex,
-  selectedUnit: EntityIndex,
-}
 
 const getSaturation = (isTrainable: boolean, level: number, manaCost: number, unitMana: number): string => {
   if (isTrainable) {
@@ -37,49 +34,42 @@ const getWashColor = (isTrainable: boolean, manaCost: number, unitMana: number, 
   return 'none';
 }
 
-const Image = (props: Props) => {
+const Image = () => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
 
-  const { ability, selectedUnit } = props;
+  const { abilityEntityIndex } = useContext(AbilityEntityIndexContext);
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
   const [saturation, setSaturation] = useState('1.0');
   const [washColor, setWashColor] = useState('#303030');
   const [isActive, setIsActive] = useState(false);
 
   useInterval(() => {
-
-    const level = Abilities.GetLevel(ability);
-    const unitMana = Entities.GetMana(selectedUnit);
-    const manaCost = Abilities.GetManaCost(ability);
-    const cooldownRemaining = Abilities.GetCooldownTimeRemaining(ability);
-    const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
-    const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
-    const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
+    const level = Abilities.GetLevel(abilityEntityIndex);
+    const unitMana = Entities.GetMana(selectedEntityIndex);
+    const manaCost = Abilities.GetManaCost(abilityEntityIndex);
+    const cooldownRemaining = Abilities.GetCooldownTimeRemaining(abilityEntityIndex);
+    const isUpgradeable = Abilities.CanAbilityBeUpgraded(abilityEntityIndex) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+    const isControllable = Entities.IsControllableByPlayer(selectedEntityIndex, Players.GetLocalPlayer());
+    const hasAbilityPoints = Entities.GetAbilityPoints(selectedEntityIndex) > 0;
     const isInLearningMode = Game.IsInAbilityLearnMode();
     const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
-
     setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
     setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
-    setIsActive(Abilities.GetLocalPlayerActiveAbility() === ability)
-
+    setIsActive(Abilities.GetLocalPlayerActiveAbility() === abilityEntityIndex);
   }, HUD_THINK_FAST);
 
   return (
     <Panel
       className={Styles.container}
-      style={{
-        border: isActive ? '1px solid rgba(200, 200, 200, 0.5)' : '0px solid rgba(0, 0, 0, 0.0)',
-      }}
+      style={{ border: isActive ? '1px solid rgba(200, 200, 200, 0.5)' : '0px solid rgba(0, 0, 0, 0.0)' }}
     >
       <DOTAAbilityImage
         scaling={'stretch'}
         className={Styles.image}
-        style={{
-          washColor: washColor,
-          saturation: saturation,
-        }}
-        contextEntityIndex={ability}
+        style={{ washColor, saturation }}
+        contextEntityIndex={abilityEntityIndex}
       />
     </Panel>
   );

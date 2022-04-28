@@ -1,30 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import AbilityEntityIndexContext from "../../../../context/AbilityContext";
+import SelectedEntityIndexContext from "../../../../context/SelectedEntityIndexContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
-type Props = {
-  ability: AbilityEntityIndex,
-  selectedUnit: EntityIndex,
-}
-
-const Keybind = (props: Props) => {
+const Keybind = () => {
 
   // $.Msg("REACT-RENDER: AbilityBarItem - Keybind rendered");
 
-  const { ability, selectedUnit } = props;
+  const { abilityEntityIndex } = useContext(AbilityEntityIndexContext);
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
   const [keybind, setKeybind] = useState<string>('');
 
   useInterval(() => {
-    const isUpgradeable = Abilities.CanAbilityBeUpgraded(ability) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
-    const isControllable = Entities.IsControllableByPlayer(selectedUnit, Players.GetLocalPlayer());
-    const hasAbilityPoints = Entities.GetAbilityPoints(selectedUnit) > 0;
+    const isUpgradeable = Abilities.CanAbilityBeUpgraded(abilityEntityIndex) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED;
+    const isControllable = Entities.IsControllableByPlayer(selectedEntityIndex, Players.GetLocalPlayer());
+    const hasAbilityPoints = Entities.GetAbilityPoints(selectedEntityIndex) > 0;
     const isInLearningMode = Game.IsInAbilityLearnMode();
     const isTrainable = isInLearningMode && isUpgradeable && isControllable && hasAbilityPoints;
-    const isPassive = Abilities.IsPassive(ability);
+    const isPassive = Abilities.IsPassive(abilityEntityIndex);
     const hasKeybind = isControllable && (!isPassive || isTrainable);
-    setKeybind(hasKeybind ? Abilities.GetKeybind(ability) : '');
+    setKeybind(hasKeybind ? Abilities.GetKeybind(abilityEntityIndex) : '');
   }, HUD_THINK_FAST);
 
   if (keybind === '') {
