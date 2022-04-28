@@ -1,7 +1,7 @@
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
-import { HeroSelectionActionTypes } from "../../../types/heroSelectionTypes";
+import { HeroSelectionActionTypes } from "../../../interfaces/heroSelectionTypes";
 import Hero from "./Hero/Hero";
 import { setRandomHeroDialogVisible } from "../../../actions/heroSelectionActions";
 import Styles from './styles.module.css';

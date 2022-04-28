@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
 import { resetFocusedHero } from "../../../actions/heroSelectionActions";
-import { FocusedHero, HeroSelectionActionTypes } from "../../../types/heroSelectionTypes";
+import { FocusedHero, HeroSelectionActionTypes } from "../../../interfaces/heroSelectionTypes";
 import Buttons from "./Buttons/Buttons";
 import Lore from "./Lore/Lore";
 import Heroname from "./Heroname/Heroname";

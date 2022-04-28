@@ -5,7 +5,7 @@ import { setRandomHeroDialogVisible } from "../../../actions/heroSelectionAction
 import { HUD_THINK_SLOW } from "../../../App";
 import { useTimeout } from "../../../hooks/useTimeout";
 import { RootState } from "../../../reducers/rootReducer";
-import { HeroSelectionActionTypes } from "../../../types/heroSelectionTypes";
+import { HeroSelectionActionTypes } from "../../../interfaces/heroSelectionTypes";
 import Styles from './styles.module.css';
 
 const mapStateToProps = (state: RootState) => ({

@@ -64,7 +64,7 @@ interface CustomGameEventDeclarations {
   on_mana_alerted: { broadcaster: PlayerID, selectedUnit: EntityIndex }
 
   fetch_items_shop_item: {};
-  fetch_items_shop_item_success: { consumables: ItemsShopItem[] };
+  fetch_items_shop_item_success: { consumables: ItemsShopItem[], basics: ItemsShopItem[] };
   fetch_items_shop_item_error: {};
 
 }

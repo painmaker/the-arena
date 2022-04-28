@@ -1,8 +1,6 @@
 .container {
 	flow-children: down;
-	margin-left: 7.5px;
-	margin-right: 7.5px;
-	margin-top: 15px;
+	margin: 5px;
 	width: 100%;
 }
 
@@ -14,9 +12,9 @@
 	color: rgb(175, 175, 175);
 	text-align: left;
 	font-family: fantasy;
-	padding-left: 15px;
-	padding-top: 5px;
-	padding-bottom: 1px;
+	padding-left: 10px;
+	padding-top: 4px;
+	padding-bottom: 2px;
 	letter-spacing: 1.35px;
 }
 
@@ -27,5 +25,4 @@
 	background-size: 100%;
 	background-color: rgba(0, 0, 0, 0.35);
 	padding: 10px;
-	height: 185px;
 }

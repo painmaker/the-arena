@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { useGameEvent } from "react-panorama";
 import { HUD_THINK_FAST } from "../../../../App";
 import { useInterval } from "../../../../hooks/useInterval";
@@ -9,16 +9,43 @@ type Props = {
   item: ItemsShopItem,
   selectedUnit: EntityIndex,
   searchValue: string,
+  setActiveItem: Dispatch<SetStateAction<ItemsShopItem | undefined>>,
 };
+
 
 const Item = (props: Props) => {
 
   // $.Msg("REACT-RENDER: ItemsShop - Item rendered");
 
-  const { item, selectedUnit, searchValue } = props;
+  const { item, selectedUnit, searchValue, setActiveItem } = props;
 
   const [playerGold, setPlayerGold] = useState(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
   const [isShopInRange, setIsShopInRange] = useState(Entities.IsInRangeOfShop(selectedUnit, 0, false));
+
+  const hasEnoughCold = item.cost <= playerGold;
+
+  const onRightClick = useCallback(() => {
+    if (!isShopInRange) {
+      GameUI.SendCustomHUDError("No Shop In Range", "General.Item_CantPickUp");
+      return;
+    }
+    if (!hasEnoughCold) {
+      GameUI.SendCustomHUDError("Not Enough Gold", "General.Item_CantPickUp");
+      return;
+    }
+    GameEvents.SendCustomGameEventToServer("attempt_item_purchase", {
+      itemname: item.itemname,
+      cost: item.cost,
+    });
+  }, [isShopInRange, hasEnoughCold, item]);
+
+  const onLeftClick = useCallback(() => {
+    if (GameUI.IsAltDown()) {
+      // Send msg
+    } else {
+      setActiveItem(item)
+    }
+  }, [item]);
 
   useInterval(() => {
     setPlayerGold(Players.GetGold(Entities.GetPlayerOwnerID(selectedUnit)));
@@ -34,7 +61,6 @@ const Item = (props: Props) => {
     GameUI.SendCustomHUDError("Unable To Purchase Item", "General.Item_CantPickUp");
   }, []);
 
-  const hasEnoughCold = item.cost <= playerGold;
 
   let isSearched = false;
   Object.values(item.tags).forEach(tag => {
@@ -47,28 +73,11 @@ const Item = (props: Props) => {
     <Button
       className={Styles.container}
       style={{
-        border: hasEnoughCold ? '1.5px solid rgba(200, 175, 0, 0.5)' : '0.5px solid black',
+        border: hasEnoughCold ? '1px solid rgba(200, 175, 0, 0.5)' : '1px solid black',
         washColor: searchValue.length > 0 && !isSearched ? 'rgba(0, 0, 0, 0.9)' : 'none'
       }}
-      onactivate={() => {
-        if (GameUI.IsAltDown()) {
-          // Send msg
-        }
-      }}
-      oncontextmenu={() => {
-        if (!isShopInRange) {
-          GameUI.SendCustomHUDError("No Shop In Range", "General.Item_CantPickUp");
-          return;
-        }
-        if (!hasEnoughCold) {
-          GameUI.SendCustomHUDError("Not Enough Gold", "General.Item_CantPickUp");
-          return;
-        }
-        GameEvents.SendCustomGameEventToServer("attempt_item_purchase", {
-          itemname: item.itemname,
-          cost: item.cost,
-        });
-      }}
+      onactivate={onLeftClick}
+      oncontextmenu={onRightClick}
     >
       <DOTAItemImage
         className={Styles.image}

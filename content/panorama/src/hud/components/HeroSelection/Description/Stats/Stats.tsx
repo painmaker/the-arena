@@ -1,5 +1,5 @@
 import React from "react";
-import { FocusedHero } from "../../../../types/heroSelectionTypes";
+import { FocusedHero } from "../../../../interfaces/heroSelectionTypes";
 import Styles from './styles.module.css'
 
 type Props = {

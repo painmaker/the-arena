@@ -1,4 +1,4 @@
-import { HeroSelectionActionTypes, RESET_FOCUSED_HERO, FocusedHero, SET_FOCUS_HERO, SET_HERO_SELECTION_VISIBLE, SET_RANDOM_HERO_DIALOG_VISIBLE } from "../types/heroSelectionTypes";
+import { HeroSelectionActionTypes, RESET_FOCUSED_HERO, FocusedHero, SET_FOCUS_HERO, SET_HERO_SELECTION_VISIBLE, SET_RANDOM_HERO_DIALOG_VISIBLE } from "../interfaces/heroSelectionTypes";
 
 export function setFocusedHero(hero: FocusedHero): HeroSelectionActionTypes {
   return {

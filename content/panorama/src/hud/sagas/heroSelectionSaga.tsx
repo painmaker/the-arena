@@ -1,5 +1,5 @@
 import { put, takeLatest } from "redux-saga/effects";
-import { RESET_FOCUSED_HERO, SetFocusedHero, SetRandomHeroDialogVisible, SET_FOCUS_HERO, SET_RANDOM_HERO_DIALOG_VISIBLE } from "../types/heroSelectionTypes";
+import { RESET_FOCUSED_HERO, SetFocusedHero, SetRandomHeroDialogVisible, SET_FOCUS_HERO, SET_RANDOM_HERO_DIALOG_VISIBLE } from "../interfaces/heroSelectionTypes";
 
 
 function* randomHeroDialogVisible({ payload }: SetRandomHeroDialogVisible) {

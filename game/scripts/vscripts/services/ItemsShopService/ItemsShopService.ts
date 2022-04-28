@@ -33,8 +33,19 @@ export class ItemsShopService {
         tags: value['ItemShopTags'].split(';'),
       }));
 
+
+    const basics: ItemsShopItem[] = Object.entries(items)
+      .filter(([_, value]) => value['ItemShoppable'] === 1)
+      .filter(([_, value]) => value['ItemCategory'] === 'BASICS')
+      .map(([key, value]) => ({
+        itemname: key,
+        cost: value['ItemCost'],
+        tags: value['ItemShopTags'].split(';'),
+      }));
+
     CustomGameEventManager.Send_ServerToPlayer(player, "fetch_items_shop_item_success", {
-      consumables
+      consumables,
+      basics
     });
 
   }

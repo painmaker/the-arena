@@ -1,5 +1,5 @@
 import React from "react";
-import { FocusedHero } from "../../../../types/heroSelectionTypes";
+import { FocusedHero } from "../../../../interfaces/heroSelectionTypes";
 import Ability from "./Ability/Ability";
 import Styles from './styles.module.css'
 

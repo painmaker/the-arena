@@ -10,18 +10,21 @@ export const useInterval = (callback: Function, delay: number = 0) => {
 
   useEffect(() => {
 
-    function update() {
+    let scheduleID: ScheduleID = -1 as ScheduleID;
+
+    const update = () => {
+      scheduleID = $.Schedule(0.03, update);
       savedCallback.current();
     }
 
     update();
 
-    // @ts-ignore
-    const id = setInterval(update, delay);
-
     return () => {
-      // @ts-ignore
-      clearInterval(id);
+      try {
+        $.CancelScheduled(scheduleID);
+      } catch (exception) {
+        $.Msg("Exception: " + exception)
+      }
     }
 
   }, [delay]);

@@ -1,4 +1,4 @@
-import { ItemOptionsActionTypes, SET_ITEM_OPTIONS_ITEM, SET_ITEM_OPTIONS_POSITION_X, SET_ITEM_OPTIONS_VISIBLE } from "../types/itemOptionsTypes";
+import { ItemOptionsActionTypes, SET_ITEM_OPTIONS_ITEM, SET_ITEM_OPTIONS_POSITION_X, SET_ITEM_OPTIONS_VISIBLE } from "../interfaces/itemOptionsTypes";
 
 interface ItemMenuState {
   item: ItemEntityIndex,

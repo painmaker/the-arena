@@ -3,6 +3,9 @@
 #base "items/consumables/item_health_faerie_fire.txt"
 #base "items/consumables/item_mana_faerie_fire.txt"
 
+// Basics
+#base "items/basics/item_custom_ring_of_protection.txt"
+
 "DOTAAbilities"
 {
 

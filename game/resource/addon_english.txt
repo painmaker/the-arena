@@ -30,12 +30,16 @@
 
     // Items
     "DOTA_Tooltip_Ability_item_health_faerie_fire" "<font color=\"#3fb54f\">Green Faerie Fire</font>"
-    "DOTA_Tooltip_Ability_item_health_faerie_fire_Description" "<h1>Use: Heal</h1><p>Instantly restores %health_restored% health to your hero.</p>Cannot be used if already at max health.\nComes with %charges% charges."
+    "DOTA_Tooltip_Ability_item_health_faerie_fire_Description" "<h1>Use: Heal</h1>Instantly restores %health_restored% health to your hero.\nComes with %charges% charges."
 		"DOTA_Tooltip_ability_item_health_faerie_fire_Note0" "Faerie Fire is fully sharable."
 
     "DOTA_Tooltip_Ability_item_mana_faerie_fire" "<font color=\"#2b96e3\">Blue Faerie Fire</font>"
-    "DOTA_Tooltip_Ability_item_mana_faerie_fire_Description" "<h1>Use: Heal</h1><p>Instantly restores %mana_restored% mana to your hero.</p>Cannot be used if already at max mana.\nComes with %charges% charges."
+    "DOTA_Tooltip_Ability_item_mana_faerie_fire_Description" "<h1>Use: Heal</h1>Instantly restores %mana_restored% mana to your hero.\nComes with %charges% charges."
 		"DOTA_Tooltip_ability_item_mana_faerie_fire_Note0" "Faerie Fire is fully sharable."
+
+    "DOTA_Tooltip_ability_item_custom_ring_of_protection" "Ring of Protection"
+    "DOTA_Tooltip_ability_item_custom_ring_of_protection_Description" "Boosts the armor of the wearer."
+    "DOTA_Tooltip_ability_item_custom_ring_of_protection_armor" "ARMOR:"
 
     // DAZZLE
     "DOTA_Tooltip_Ability_dazzle_healing_wave" "<font color=\"#b036d1\">Healing Wave</font>"

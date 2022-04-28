@@ -1,0 +1,30 @@
+"DOTAAbilities"
+{
+  
+	"item_custom_ring_of_protection"
+	{
+
+    "BaseClass"						      "item_lua"
+    "ScriptFile"					      "items/basics/item_custom_ring_of_protection"
+
+    "AbilityBehavior"				    "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"	      "custom_ring_of_protection_modifier"
+
+    "ItemShoppable"             "1"
+    "ItemCategory"						  "BASICS"
+		"ItemShopTags"					    "ring;of;protection;ring of protection;armor"
+		"ItemCost"						      "50"
+    "ItemStackable"					    "0"
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type" "FIELD_INTEGER"
+				"armor" "1"
+			}
+		}
+
+	}
+
+}

@@ -2,7 +2,7 @@ import React, { Dispatch } from "react";
 import { useNetTableValues } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
 import { resetFocusedHero } from "../../../../actions/heroSelectionActions";
-import { FocusedHero, HeroSelectionActionTypes } from "../../../../types/heroSelectionTypes";
+import { FocusedHero, HeroSelectionActionTypes } from "../../../../interfaces/heroSelectionTypes";
 import Styles from "./styles.module.css";
 
 const mapDispatchToProps = (dispatch: Dispatch<HeroSelectionActionTypes>) => ({

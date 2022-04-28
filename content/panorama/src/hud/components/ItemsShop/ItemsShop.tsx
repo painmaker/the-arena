@@ -8,6 +8,7 @@ import { useGameEvent } from "react-panorama";
 import Styles from './styles.module.css';
 import { WINDOW } from "../../data/windows";
 import Items from "./Items/Items";
+import UpgradeTree from "./UpgradeTree/UpgradeTree";
 
 type Props = {
   selectedUnit: EntityIndex,
@@ -23,7 +24,9 @@ const ItemsShop = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [renderComponent, setRenderComponent] = useState(false);
 
+  const [activeItem, setActiveItem] = useState<ItemsShopItem | undefined>(undefined);
   const [consumables, setConsumables] = useState<ItemsShopItem[]>([]);
+  const [basics, setBasics] = useState<ItemsShopItem[]>([]);
 
   useTimeout(() => {
     setRenderComponent(isOpen);
@@ -35,14 +38,13 @@ const ItemsShop = (props: Props) => {
 
   useEffect(() => {
     if (isOpen) {
-      $.Msg("Panorama - Fetching Items");
       GameEvents.SendCustomGameEventToServer("fetch_items_shop_item", {});
     }
   }, [isOpen]);
 
   useGameEvent('fetch_items_shop_item_success', (event) => {
-    $.Msg("fetch_items_shop_item_success")
     setConsumables(Object.values(event.consumables) as ItemsShopItem[]);
+    setBasics(Object.values(event.basics) as ItemsShopItem[]);
   }, []);
 
   return (
@@ -66,29 +68,30 @@ const ItemsShop = (props: Props) => {
                   items={consumables}
                   selectedUnit={selectedUnit}
                   searchValue={searchValue}
+                  setActiveItem={setActiveItem}
+                  height={'165px'}
                 />
                 <Items
-                  title={'Mixed'}
-                  items={[]}
+                  title={'Basics'}
+                  items={basics}
                   selectedUnit={selectedUnit}
                   searchValue={searchValue}
+                  setActiveItem={setActiveItem}
+                  height={'165px'}
                 />
               </Panel>
               <Panel className={Styles.itemsColumn}>
                 <Items
-                  title={'Defensive'}
+                  title={'Upgrades'}
                   items={[]}
                   selectedUnit={selectedUnit}
                   searchValue={searchValue}
-                />
-                <Items
-                  title={'Offensive'}
-                  items={[]}
-                  selectedUnit={selectedUnit}
-                  searchValue={searchValue}
+                  setActiveItem={setActiveItem}
+                  height={'362px'}
                 />
               </Panel>
             </Panel>
+            {/*<UpgradeTree activeItem={activeItem} /> */}
           </Panel>
         </React.Fragment>
       )}

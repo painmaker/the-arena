@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Item from "./Item/Item";
 import Styles from './styles.module.css';
 
@@ -6,14 +6,16 @@ type Props = {
   title: string,
   items: ItemsShopItem[]
   selectedUnit: EntityIndex,
-  searchValue: string
+  searchValue: string,
+  setActiveItem: Dispatch<SetStateAction<ItemsShopItem | undefined>>,
+  height: string
 }
 
 const Items = (props: Props) => {
 
   // $.Msg("REACT-RENDER: ItemsShop - Items rendered");
 
-  const { title, items, selectedUnit, searchValue } = props;
+  const { title, items, selectedUnit, searchValue, height, setActiveItem } = props;
 
   return (
     <Panel className={Styles.container}>
@@ -21,13 +23,17 @@ const Items = (props: Props) => {
         className={Styles.title}
         text={title}
       />
-      <Panel className={Styles.itemsContainer}>
+      <Panel
+        className={Styles.itemsContainer}
+        style={{ height: height }}
+      >
         {items.map(item =>
           <Item
             key={item.itemname}
             item={item}
             selectedUnit={selectedUnit}
             searchValue={searchValue}
+            setActiveItem={setActiveItem}
           />
         )}
       </Panel>

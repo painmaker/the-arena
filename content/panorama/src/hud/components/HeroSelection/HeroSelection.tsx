@@ -3,7 +3,7 @@ import { useGameEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
 import { setFocusedHero } from "../../actions/heroSelectionActions";
 import { RootState } from "../../reducers/rootReducer";
-import { FocusedHero, HeroSelectionActionTypes } from "../../types/heroSelectionTypes";
+import { FocusedHero, HeroSelectionActionTypes } from "../../interfaces/heroSelectionTypes";
 import Description from "./Description/description";
 import Heroes from "./Heroes/Heroes";
 import RandomHeroDialog from "./RandomHeroDialog/RandomHeroDialog";

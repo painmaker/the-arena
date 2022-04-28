@@ -3,7 +3,7 @@ import { useGameEvent, useRegisterForUnhandledEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
 import { setItemOptionsVisible } from "../../../actions/itemOptionsActions";
 import { RootState } from "../../../reducers/rootReducer";
-import { ItemOptionsActionTypes } from "../../../types/itemOptionsTypes";
+import { ItemOptionsActionTypes } from "../../../interfaces/itemOptionsTypes";
 import Styles from "./styles.module.css";
 
 const POS_X_OFFSET = 146;
