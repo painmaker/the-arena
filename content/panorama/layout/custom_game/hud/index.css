@@ -467,22 +467,27 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/Keybind/styles.module.css ***!
   \*********************************************************************************************************************************************************/
 .o6BWXPoVynJHcNaC2oNS {
-	background-color: #212726;
+	background-color: #2b2c2c;
 	width: fit-children;
-  min-width: 14px;
+  min-width: 16px;
 	height: fit-children;
   min-height: 12px;
 	z-index: 9999;
+  box-shadow: fill black 1px 1px 1px 1px;
 }
 
 .OtI1xBcpFzwhU80hRoEr {
 	font-size: 12px;
-	color: white;
+	color: rgb(207, 207, 207);
 	text-shadow: 1px 1px 4px 4 black;
   vertical-align: center;
   horizontal-align: center;
+  text-align: center;
 }
 
+.y_1oZoklFRwEq6i_wJhS {
+  background-color: orange;
+}
 /*!*******************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/AbilityBar/AbilityBarItem/Image/styles.module.css ***!
   \*******************************************************************************************************************************************************/

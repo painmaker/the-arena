@@ -63,7 +63,7 @@ const Image = () => {
   return (
     <Panel
       className={Styles.container}
-      style={{ border: isActive ? '1px solid rgba(200, 200, 200, 0.5)' : '0px solid rgba(0, 0, 0, 0.0)' }}
+      style={{ border: isActive ? '1px solid rgba(0, 0, 0, 1)' : '0px solid rgba(0, 0, 0, 0.0)' }}
     >
       <DOTAAbilityImage
         scaling={'stretch'}

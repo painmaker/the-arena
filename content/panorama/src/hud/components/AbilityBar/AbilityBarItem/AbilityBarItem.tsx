@@ -115,8 +115,8 @@ const AbilityBarItem = (props: Props) => {
 
   const foregroundStyle = {
     margin: (isPassive && !isTrainable) ? '2px' : '4px',
-    padding: (isActive || isToggled || isAutoCastEnabled) ? '1px' : '0px',
-    backgroundColor: (isActive || isToggled || isAutoCastEnabled) ? 'rgba(255, 165, 50, 0.2)' : 'black',
+    padding: (isActive || isToggled || isAutoCastEnabled) ? '1.5px' : '0px',
+    backgroundColor: isActive ? 'rgba(255, 255, 255, 0.5)' : (isToggled || isAutoCastEnabled) ? 'rgba(255, 165, 150, 0.5)' : 'black',
   }
 
   return (
