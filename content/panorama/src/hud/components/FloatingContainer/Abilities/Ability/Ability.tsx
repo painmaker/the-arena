@@ -35,7 +35,7 @@ const Ability = (props: Props) => {
     <Panel
       className={Styles.container}
       style={{
-        position: "0px " + posY + "px " + "0px",
+        transform: `translatey(${posY}px)`,
         opacity: opacity,
       }}
     >

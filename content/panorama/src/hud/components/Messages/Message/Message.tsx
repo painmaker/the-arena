@@ -23,11 +23,11 @@ const Message = (props: Props) => {
 
   useTimeout(() => {
     setMessages(prevState => prevState.filter(msg => msg.id !== id));
-  }, 5600);
+  }, 5.6);
 
   useTimeout(() => {
     setOpacity('0.0');
-  }, 5000);
+  }, 5.0);
 
   return (
     <Panel

@@ -5,9 +5,10 @@ import ManaBar from "./ManaBar/ManaBar";
 import Abilities from "./Abilities/Abilities";
 import { useInterval } from "../../hooks/useInterval";
 import Styles from './styles.module.css';
-import { TableUtils } from "../../utils/TableUtils";
-import { ObjectUtils } from "../../utils/ObjectUtils";
-import { HUD_THINK_FAST } from "../../App";
+import lodash from 'lodash';
+
+const CONTAINER_HEIGHT = 500;
+const CONTAINER_WIDTH = 250;
 interface IFloatingBar {
   unit: EntityIndex,
   screenX: number,
@@ -15,11 +16,7 @@ interface IFloatingBar {
   visible: boolean,
 }
 
-type Props = {
-  // ownProps
-}
-
-const FloatingContainer = (props: Props) => {
+const FloatingContainer = () => {
 
   // $.Msg("REACT-RENDER: FloatingBars rendered");
 
@@ -41,7 +38,7 @@ const FloatingContainer = (props: Props) => {
 
         const offsetX = (centerOrigin[0] - unitOrigin[0]) / 20;
         const offsetY = (centerOrigin[1] - unitOrigin[1]) / 20;
-        const offsetZ = Entities.GetHealthBarOffset(unit) + 100;
+        const offsetZ = Entities.GetHealthBarOffset(unit) + 50;
 
         const offsetScreenX = scale * Game.WorldToScreenX(
           unitOrigin[0] + offsetX,
@@ -62,18 +59,19 @@ const FloatingContainer = (props: Props) => {
 
         return {
           unit,
-          screenX: offsetScreenX,
-          screenY: offsetScreenY,
+          screenX: offsetScreenX - (CONTAINER_WIDTH / 2),
+          screenY: offsetScreenY - CONTAINER_HEIGHT,
           visible: screenWorldPosition !== null
         };
 
       })
       .filter(screenPosition => screenPosition.visible);
 
-    if (!TableUtils.areTablesEqual(mFloatingBars, floatingBars, ObjectUtils.areObjectsEqual)) {
+    if (!lodash.isEqual(floatingBars, mFloatingBars)) {
       setFloatingBars(mFloatingBars);
     }
-  }, 0.00001)
+
+  })
 
   return (
     <React.Fragment>
@@ -84,7 +82,9 @@ const FloatingContainer = (props: Props) => {
             hittest={false}
             key={unit}
             className={Styles.container}
-            style={{ position: (screenX - 125) + "px " + (screenY - 500) + "px " + 0 + "px" }}
+            style={{
+              transform: `translatex(${screenX}px) translatey(${screenY}px)`,
+            }}
           >
             {Entities.GetMaxMana(unit) > 0 && (
               <ManaBar unit={unit} />

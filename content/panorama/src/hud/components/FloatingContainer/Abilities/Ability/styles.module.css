@@ -2,7 +2,7 @@
 	height: 25px;
 	flow-children: right;
 	horizontal-align: center;
-	transition: opacity 0.25s ease-in-out 0s;
+	transition: opacity 0.25s ease-in-out 0s, transform 0s ease-in-out 0s;
 }
 
 .label {
