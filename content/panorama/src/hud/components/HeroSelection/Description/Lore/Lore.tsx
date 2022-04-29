@@ -12,7 +12,7 @@ const Lore = (props: Props) => {
     <Panel className={Styles.outerContainer}>
       <Label className={Styles.titleLabel} text={"LORE"} />
       <Panel className={Styles.innerContainer}>
-        <Label className={Styles.loreLabel} text={$.Localize(props.focusedHero.lore)} />
+        <Label className={Styles.loreLabel} text={$.Localize("#" + props.focusedHero.lore)} />
       </Panel>
     </Panel>
   );

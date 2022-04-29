@@ -16,7 +16,7 @@ const Title = (props: Props) => {
     <Panel className={Styles.container}>
       <Label
         className={Styles.label}
-        text={"ITEM SHOP - " + $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()}
+        text={"ITEM SHOP - " + $.Localize("#" + Entities.GetUnitName(selectedUnit)).toUpperCase()}
       />
       <Button
         className={Styles.closeBtn}

@@ -10,7 +10,7 @@ const Title = () => {
     <Panel className={Styles.container}>
       <Label
         className={Styles.label}
-        text={"SETTINGS - " + $.Localize(Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()))).toUpperCase()}
+        text={"SETTINGS - " + $.Localize("#" + Entities.GetUnitName(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()))).toUpperCase()}
       />
       <Button
         className={Styles.closeBtn}

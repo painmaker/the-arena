@@ -46,7 +46,7 @@ const Heroname = (props: Props) => {
       />
       <Label
         className={Styles.heronameLabel}
-        text={$.Localize(props.focusedHero.heroname)}
+        text={$.Localize("#" + props.focusedHero.heroname)}
       />
       {steamIds.length > 0 && (
         <Panel className={Styles.avatarOuterContainer}>

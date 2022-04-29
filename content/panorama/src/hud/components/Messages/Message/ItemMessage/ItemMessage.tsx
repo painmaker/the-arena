@@ -10,7 +10,7 @@ type Props = {
 
 const getText = (item: ItemEntityIndex, unit: EntityIndex) => {
 
-  const localizedItemName = $.Localize("DOTA_Tooltip_ability_" + Abilities.GetAbilityName(item));
+  const localizedItemName = $.Localize("#DOTA_Tooltip_ability_" + Abilities.GetAbilityName(item));
   const cooldown = Abilities.GetCooldownTimeRemaining(item);
   const manaCost = Abilities.GetManaCost(item);
   const currentMana = Entities.GetMana(unit);
@@ -73,7 +73,7 @@ const ItemMessage = (props: Props) => {
           {!isUnitHero && (
             <Label
               className={ParentStyles.unitLabel}
-              text={$.Localize(unitName)}
+              text={$.Localize("#" + unitName)}
             />
           )}
           <Label

@@ -26,7 +26,7 @@ const Model = (props: Props) => {
     <Panel style={Styles.Container()}>
       <Label
         style={Styles.Label()}
-        text={$.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()}
+        text={$.Localize("#" + Entities.GetUnitName(selectedUnit)).toUpperCase()}
       />
       <DOTAScenePanel
         id={'modelPanelScene'}

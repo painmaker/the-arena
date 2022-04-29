@@ -45,7 +45,7 @@ const ManaMessage = (props: Props) => {
           {!isUnitHero && (
             <Label
               className={ParentStyles.unitLabel}
-              text={$.Localize(unitName)}
+              text={$.Localize("#" + unitName)}
             />
           )}
           {isUnitHero && (

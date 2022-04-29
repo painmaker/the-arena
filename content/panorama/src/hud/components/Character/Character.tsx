@@ -35,7 +35,7 @@ const Character = (props: Props) => {
             <Panel className={Styles.leftColumnTitleContainer}>
               <Label
                 className={Styles.heroLabel}
-                text={$.Localize(Entities.GetUnitName(selectedUnit))}
+                text={$.Localize("#" + Entities.GetUnitName(selectedUnit))}
               />
             </Panel>
             <Panel className={Styles.leftColumnContentContainer}>

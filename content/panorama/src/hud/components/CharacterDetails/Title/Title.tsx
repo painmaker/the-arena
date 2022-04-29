@@ -18,7 +18,7 @@ const Title = (props: Props) => {
     <Panel style={Styles.Container()}>
       <Label
         style={Styles.Label()}
-        text={"CHARACTER - " + $.Localize(Entities.GetUnitName(selectedUnit)).toUpperCase()}
+        text={"CHARACTER - " + $.Localize("#" + Entities.GetUnitName(selectedUnit)).toUpperCase()}
       />
       <Button
         onmouseover={() => setIsHovering(true)}

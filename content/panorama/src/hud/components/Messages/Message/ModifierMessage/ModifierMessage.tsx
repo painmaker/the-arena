@@ -60,7 +60,7 @@ const ModifierMessage = (props: Props) => {
           {!isUnitHero && (
             <Label
               className={ParentStyles.unitLabel}
-              text={$.Localize(unitName)}
+              text={$.Localize("#" + unitName)}
             />
           )}
           <Label
@@ -87,7 +87,7 @@ const ModifierMessage = (props: Props) => {
       <Label
         className={Styles.modifierLabel}
         style={{ color: Buffs.IsDebuff(unit, modifier) ? 'red' : 'green' }}
-        text={$.Localize("DOTA_Tooltip_" + Buffs.GetName(unit, modifier))}
+        text={$.Localize("#DOTA_Tooltip_" + Buffs.GetName(unit, modifier))}
       />
       <Label
         className={Styles.modifierExtraLabel}
