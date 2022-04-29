@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
-import AbilityEntityIndexContext from "../../../../context/AbilityContext";
+import AbilityEntityIndexContext from "../../../../context/AbilityEntityIndexContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from "./styles.module.css";
 import lodash from 'lodash';

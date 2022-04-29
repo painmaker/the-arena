@@ -1,7 +1,7 @@
 .container {
-	background-color: rgba(0, 0, 0, 0.75);
-	width: 14px;
-	height: 14px;
+	background-color: rgba(0, 0, 0, 0.9);
+	width: 16px;
+	height: 15px;
 	z-index: 9999;
 	margin: 1px;
 }

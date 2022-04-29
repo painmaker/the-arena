@@ -13,7 +13,7 @@ import { useInterval } from "../../../hooks/useInterval";
 import Styles from './styles.module.css';
 import Shine from "./Shine/Shine";
 import SelectedEntityIndexContext from "../../../context/SelectedEntityIndexContext";
-import AbilityEntityIndexContext from "../../../context/AbilityContext";
+import AbilityEntityIndexContext from "../../../context/AbilityEntityIndexContext";
 
 type Props = {
   abilityEntityIndex: AbilityEntityIndex,
