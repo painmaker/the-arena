@@ -23,9 +23,9 @@ import Styles from "./app.module.css";
 import { WINDOW } from "./data/windows";
 import SelectedEntityIndexContext from "./context/SelectedEntityIndexContext";
 
-export const HUD_THINK_FAST = 30;
-export const HUD_THINK_MEDIUM = 100;
-export const HUD_THINK_SLOW = 1000;
+export const HUD_THINK_FAST = 0.03;
+export const HUD_THINK_MEDIUM = 0.1;
+export const HUD_THINK_SLOW = 1.0;
 
 const excludedUnits = [
   "shopkeeper_abilities"

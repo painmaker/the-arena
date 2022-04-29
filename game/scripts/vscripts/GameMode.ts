@@ -23,7 +23,7 @@ import { AbilityShopService } from "./services/AbilityShopService/AbilityShopSer
 import shuffle from "./utils/shuffle";
 
 declare global {
-  interface CDOTAGamerules {
+  interface CDOTAGameRules {
     Addon: GameMode;
     HeroSelectionService: HeroSelectionService;
     ChatService: ChatService;

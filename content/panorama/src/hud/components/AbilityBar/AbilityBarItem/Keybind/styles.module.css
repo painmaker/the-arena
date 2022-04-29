@@ -1,18 +1,16 @@
 .container {
-	background-color: rgba(0, 0, 0, 0.9);
-	width: 16px;
-	height: 15px;
+	background-color: #212726;
+	width: fit-children;
+  min-width: 14px;
+	height: fit-children;
+  min-height: 12px;
 	z-index: 9999;
-	margin: 1px;
 }
 
 .label {
 	font-size: 12px;
 	color: white;
-	text-align: center;
-	vertical-align: center;
-	horizontal-align: center;
 	text-shadow: 1px 1px 4px 4 black;
-	padding-right: 1px;
-	padding-bottom: 1px;
+  vertical-align: center;
+  horizontal-align: center;
 }

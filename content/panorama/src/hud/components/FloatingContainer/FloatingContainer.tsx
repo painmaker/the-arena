@@ -7,6 +7,7 @@ import { useInterval } from "../../hooks/useInterval";
 import Styles from './styles.module.css';
 import { TableUtils } from "../../utils/TableUtils";
 import { ObjectUtils } from "../../utils/ObjectUtils";
+import { HUD_THINK_FAST } from "../../App";
 interface IFloatingBar {
   unit: EntityIndex,
   screenX: number,
@@ -72,7 +73,7 @@ const FloatingContainer = (props: Props) => {
     if (!TableUtils.areTablesEqual(mFloatingBars, floatingBars, ObjectUtils.areObjectsEqual)) {
       setFloatingBars(mFloatingBars);
     }
-  }, 5)
+  }, 0.00001)
 
   return (
     <React.Fragment>

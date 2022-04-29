@@ -14,12 +14,14 @@ export const useTimeout = (callback: Function, delay: number = 0) => {
       savedCallback.current();
     }
 
-    // @ts-ignore
-    const id = setTimeout(update, delay);
+    const id = $.Schedule(delay, update);
 
     return () => {
-      // @ts-ignore
-      clearTimeout(id);
+      try {
+        $.CancelScheduled(id)
+      } catch (exception) {
+        $.Msg("exception: " + exception)
+      }
     }
 
   }, [delay]);

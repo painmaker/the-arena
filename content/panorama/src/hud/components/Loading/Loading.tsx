@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { HUD_THINK_SLOW } from '../../App';
 import { useTimeout } from '../../hooks/useTimeout';
 import Styles from './styles.module.css';
 
@@ -14,7 +15,7 @@ const Loading = (props: Props) => {
 
   useTimeout(() => {
     setIsLoading(false);
-  }, 100);
+  }, HUD_THINK_SLOW);
 
   if (isLoading) {
     return (
