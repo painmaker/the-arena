@@ -43,6 +43,7 @@ const Image = () => {
 
   const [saturation, setSaturation] = useState('1.0');
   const [washColor, setWashColor] = useState('#303030');
+  const [isOnCooldown, setIsOnCooldown] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
   useInterval(() => {
@@ -58,17 +59,25 @@ const Image = () => {
     setSaturation(getSaturation(isTrainable, level, manaCost, unitMana));
     setWashColor(getWashColor(isTrainable, manaCost, unitMana, cooldownRemaining, level));
     setIsActive(Abilities.GetLocalPlayerActiveAbility() === abilityEntityIndex);
+    setIsOnCooldown(cooldownRemaining > 0);
   }, HUD_THINK_FAST);
 
   return (
     <Panel
       className={Styles.container}
-      style={{ border: isActive ? '1px solid rgba(0, 0, 0, 1)' : '0px solid rgba(0, 0, 0, 0.0)' }}
+      style={{
+        border: isActive ? '1px solid rgba(0, 0, 0, 1)' : '0px solid rgba(0, 0, 0, 0.0)',
+        padding: isOnCooldown ? '3px' : '0px'
+      }}
     >
       <DOTAAbilityImage
         scaling={'stretch'}
         className={Styles.image}
-        style={{ washColor, saturation }}
+        style={{
+          washColor,
+          saturation,
+          borderRadius: isOnCooldown ? '4px' : '0px'
+        }}
         contextEntityIndex={abilityEntityIndex}
       />
     </Panel>

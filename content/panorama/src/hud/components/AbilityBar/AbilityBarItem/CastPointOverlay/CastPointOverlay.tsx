@@ -26,9 +26,7 @@ const CastPointOverlay = () => {
   }, [isInAbilityPhase, castPoint])
 
   useInterval(() => {
-    const castPoint = Math.max(0.1, Abilities.GetCastPoint(abilityEntityIndex) - 0.1);
-    setCastPoint(castPoint);
-    setIsInAbilityPhase(Abilities.IsInAbilityPhase(abilityEntityIndex));
+    const castPoint = Math.max(0.08, Abilities.GetCastPoint(abilityEntityIndex) - 0.08);
     if (endTime !== undefined) {
       const gameTimeDifference = endTime - Game.GetGameTime();
       const degree = - (360 - ((gameTimeDifference / castPoint) * 360));
@@ -36,6 +34,8 @@ const CastPointOverlay = () => {
     } else {
       setDegree(0)
     }
+    setIsInAbilityPhase(Abilities.IsInAbilityPhase(abilityEntityIndex));
+    setCastPoint(castPoint);
   }, HUD_THINK_FAST);
 
   if (degree === 0) {
