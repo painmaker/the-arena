@@ -2605,23 +2605,25 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/HealthBar/styles.module.css ***!
   \***************************************************************************************************************************************************/
 .DUu5zaS_QmbcNqAlrUqi {
+  background-color: black;
 	width: 80px;
 	height: 4px;
-	border-radius: 2px;
+	border-radius: 4px;
 	horizontal-align: center;
-  box-shadow: fill rgba(0, 0, 0, 0.2) 0px 0px 1px 1px;
+  box-shadow: fill rgba(0, 0, 0, 0.25) 0px 0px 1px 1px;
 }
 
 /*!*************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainer/ManaBar/styles.module.css ***!
   \*************************************************************************************************************************************************/
 .V2ljavdVMtjkKST7Q2LA {
-  margin-top: 2px;
+  background-color: black;
 	width: 80px;
 	height: 4px;
-	border-radius: 2px;
+	border-radius: 4px;
 	horizontal-align: center;
-  box-shadow: fill rgba(0, 0, 0, 0.2) 0px 0px 1px 1px;
+  box-shadow: fill rgba(0, 0, 0, 0.25) 0px 0px 1px 1px;
+  margin-top: 2px;
 }
 
 /*!***********************************************************************************************************************************************************!*\
@@ -2888,7 +2890,7 @@ ProgressBar {
 	border-radius: 1px;
 	transition-property: width;
 	transition-duration: 0s;
-	transition-timing-function: linear;
+	transition-timing-function: ease-in-out;
 }
 
 .healthProgressBar .ProgressBarRight {
@@ -2928,7 +2930,7 @@ ProgressBar {
 	border-radius: 1px;
 	transition-property: width;
 	transition-duration: 0s;
-	transition-timing-function: linear;
+	transition-timing-function: ease-in-out;
 }
 
 #inventoryItemDraggedItem {

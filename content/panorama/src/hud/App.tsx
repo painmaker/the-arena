@@ -116,26 +116,28 @@ const App = () => {
               <Label className={Styles.useCustomUILabel} text={'Custom UI'} />
             </ToggleButton>
             {useCustomUI && (
-              <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex: selectedEntityIndex }}>
+              <React.Fragment>
                 <Heroes />
                 <Minimap />
                 <FloatingContainer />
                 <Messages />
                 <ButtonGroup />
                 <Settings />
-                <AbilityBar />
-                <Buffs selectedUnit={selectedEntityIndex} />
-                <Mana selectedUnit={selectedEntityIndex} />
-                <Health selectedUnit={selectedEntityIndex} />
-                <Inventory selectedUnit={selectedEntityIndex} />
-                <AbilitiesShop selectedUnit={selectedEntityIndex} />
-                <Character selectedUnit={selectedEntityIndex} />
-                <CharacterDetails selectedUnit={selectedEntityIndex} />
-                <ItemsShop selectedUnit={selectedEntityIndex} />
-                <Panel className={Styles.bottomCenterBackground} />
-                <Panel className={Styles.bottomCenterLeftFlare} />
-                <Panel className={Styles.bottomCenterRightFlare} />
-              </SelectedEntityIndexContext.Provider>
+                <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex: selectedEntityIndex }}>
+                  <AbilityBar />
+                  <Buffs selectedUnit={selectedEntityIndex} />
+                  <Mana selectedUnit={selectedEntityIndex} />
+                  <Health selectedUnit={selectedEntityIndex} />
+                  <Inventory selectedUnit={selectedEntityIndex} />
+                  <AbilitiesShop selectedUnit={selectedEntityIndex} />
+                  <Character selectedUnit={selectedEntityIndex} />
+                  <CharacterDetails selectedUnit={selectedEntityIndex} />
+                  <ItemsShop selectedUnit={selectedEntityIndex} />
+                  <Panel className={Styles.bottomCenterBackground} />
+                  <Panel className={Styles.bottomCenterLeftFlare} />
+                  <Panel className={Styles.bottomCenterRightFlare} />
+                </SelectedEntityIndexContext.Provider>
+              </React.Fragment>
             )}
           </Loading>
         )}
