@@ -4,21 +4,21 @@ import { useInterval } from "../../../hooks/useInterval";
 import Styles from "./styles.module.css";
 
 type Props = {
-  hero: EntityIndex,
+  heroEntityIndex: EntityIndex,
 }
 
 const Mana = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Heroes - Mana rendered");
 
-  const { hero } = props;
+  const { heroEntityIndex } = props;
 
-  const [mana, setMana] = useState(Entities.GetMana(hero));
-  const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(hero));
+  const [mana, setMana] = useState(Entities.GetMana(heroEntityIndex));
+  const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(heroEntityIndex));
 
   useInterval(() => {
-    setMana(Entities.GetMana(hero));
-    setMaxMana(Entities.GetMaxMana(hero));
+    setMana(Entities.GetMana(heroEntityIndex));
+    setMaxMana(Entities.GetMaxMana(heroEntityIndex));
   }, HUD_THINK_FAST);
 
   return (

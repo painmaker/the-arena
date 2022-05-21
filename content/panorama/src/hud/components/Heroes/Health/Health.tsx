@@ -4,21 +4,21 @@ import { useInterval } from "../../../hooks/useInterval";
 import Styles from "./styles.module.css";
 
 type Props = {
-  hero: EntityIndex,
+  heroEntityIndex: EntityIndex,
 }
 
 const Health = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Heroes - Health rendered");
 
-  const { hero } = props;
+  const { heroEntityIndex } = props;
 
-  const [health, setHealth] = useState(Entities.GetHealth(hero));
-  const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(hero));
+  const [health, setHealth] = useState(Entities.GetHealth(heroEntityIndex));
+  const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(heroEntityIndex));
 
   useInterval(() => {
-    setHealth(Entities.GetHealth(hero));
-    setMaxHealth(Entities.GetMaxHealth(hero));
+    setHealth(Entities.GetHealth(heroEntityIndex));
+    setMaxHealth(Entities.GetMaxHealth(heroEntityIndex));
   }, HUD_THINK_FAST);
 
   return (

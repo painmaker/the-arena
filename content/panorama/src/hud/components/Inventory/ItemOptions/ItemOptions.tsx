@@ -1,10 +1,11 @@
-import React, { Dispatch } from "react";
+import React, { Dispatch, useContext } from "react";
 import { useGameEvent, useRegisterForUnhandledEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
 import { setItemOptionsVisible } from "../../../actions/itemOptionsActions";
 import { RootState } from "../../../reducers/rootReducer";
 import { ItemOptionsActionTypes } from "../../../interfaces/itemOptionsTypes";
 import Styles from "./styles.module.css";
+import SelectedEntityIndexContext from "../../../context/SelectedEntityIndexContext";
 
 const POS_X_OFFSET = 146;
 const POST_Y_OFFSET = -32;
@@ -23,14 +24,16 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
-  selectedUnit: EntityIndex,
+  // ownProps
 };
 
 const ItemOptions = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Inventory - ItemOptions rendered");
 
-  const { selectedUnit, item, visible, posX, setItemOptionsVisible } = props;
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
+
+  const { item, visible, posX, setItemOptionsVisible } = props;
 
   useGameEvent("dota_player_update_query_unit", () => {
     setItemOptionsVisible(false);
@@ -88,8 +91,8 @@ const ItemOptions = (props: Props) => {
               onactivate={() => {
                 GameEvents.SendCustomGameEventToAllClients("on_item_alerted", {
                   broadcaster: Players.GetLocalPlayer(),
-                  selectedUnit: selectedUnit,
-                  item: item
+                  selectedEntityIndex,
+                  item
                 });
                 setItemOptionsVisible(false);
               }}

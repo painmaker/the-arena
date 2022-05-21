@@ -15,12 +15,12 @@ const Heroes = () => {
   return (
     <Panel className={Styles.heroesContainer}>
       {pickedHeroes.map((pickedHero) => {
-        const hero = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
+        const heroEntityIndex = Players.GetPlayerHeroEntityIndex(pickedHero.playerID);
         return (
-          <Panel className={Styles.heroContainer} key={hero} >
-            <Image hero={hero} />
-            <Health hero={hero} />
-            <Mana hero={hero} />
+          <Panel className={Styles.heroContainer} key={heroEntityIndex} >
+            <Image heroEntityIndex={heroEntityIndex} />
+            <Health heroEntityIndex={heroEntityIndex} />
+            <Mana heroEntityIndex={heroEntityIndex} />
             <Playername playerId={pickedHero.playerID} />
           </Panel>
         );

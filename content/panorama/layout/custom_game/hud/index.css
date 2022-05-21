@@ -25,27 +25,13 @@
 .mLzQ1HC5zQPaNGenNoXA {
 	vertical-align: bottom;
 	horizontal-align: left;
-}
-
-.uGcm_zicTlpmWedax5Eb {
-	width: 35px;
-	height: 140px;
-	vertical-align: bottom;
-	horizontal-align: left;
-	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-	z-index: -1;
-	brightness: 0.8;
-	transform: scaleX(-1);
-	margin-left: 225px;
+  flow-children: down;
 }
 
 .AdooxMsTUbRYpCs3x5sI {
 	width: 55px;
 	height: 190px;
-	vertical-align: bottom;
+  vertical-align: bottom; 
 	horizontal-align: left;
 	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
 	background-position: center;
@@ -55,7 +41,11 @@
 	brightness: 0.8;
 	pre-transform-rotate2d: 90deg;
 	margin-left: 45px;
-	margin-bottom: 125px;
+  margin-bottom: -72px;
+}
+
+.xwb2wiR6dOCQ2699_COQ {
+  flow-children: right;
 }
 
 .hO4j7_25c3D2zRZD_sTO {
@@ -73,6 +63,20 @@
 	z-index: -1;
 	brightness: 0.7;
 	border-radius: 0px 5px 0px 0px;
+}
+
+.uGcm_zicTlpmWedax5Eb {
+	width: 35px;
+	height: 140px;
+	vertical-align: bottom;
+	horizontal-align: left;
+	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: -1;
+	brightness: 0.8;
+	transform: scaleX(-1);
 }
 
 .E5_N62SErwm4dIyHRvSJ {

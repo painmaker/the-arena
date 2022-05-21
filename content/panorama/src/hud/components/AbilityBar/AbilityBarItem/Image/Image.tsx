@@ -42,7 +42,7 @@ const Image = () => {
   const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
   const [saturation, setSaturation] = useState('1.0');
-  const [washColor, setWashColor] = useState('#303030');
+  const [washColor, setWashColor] = useState('none');
   const [isOnCooldown, setIsOnCooldown] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -67,7 +67,7 @@ const Image = () => {
       className={Styles.container}
       style={{
         border: isActive ? '1px solid rgba(0, 0, 0, 1)' : '0px solid rgba(0, 0, 0, 0.0)',
-        padding: isOnCooldown ? '3px' : '0px'
+        padding: isOnCooldown ? '1px' : '0px'
       }}
     >
       <DOTAAbilityImage
@@ -76,7 +76,6 @@ const Image = () => {
         style={{
           washColor,
           saturation,
-          borderRadius: isOnCooldown ? '4px' : '0px'
         }}
         contextEntityIndex={abilityEntityIndex}
       />

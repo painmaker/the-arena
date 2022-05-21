@@ -128,7 +128,7 @@ const App = () => {
                   <Buffs selectedUnit={selectedEntityIndex} />
                   <Mana selectedUnit={selectedEntityIndex} />
                   <Health selectedUnit={selectedEntityIndex} />
-                  <Inventory selectedUnit={selectedEntityIndex} />
+                  <Inventory />
                   <AbilitiesShop selectedUnit={selectedEntityIndex} />
                   <Character selectedUnit={selectedEntityIndex} />
                   <CharacterDetails selectedUnit={selectedEntityIndex} />
@@ -142,7 +142,7 @@ const App = () => {
           </Loading>
         )}
       </Panel>
-    </React.Fragment>
+    </React.Fragment >
   );
 
 }

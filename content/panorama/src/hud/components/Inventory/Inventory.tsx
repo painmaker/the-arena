@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ItemOptions from './ItemOptions/ItemOptions'
 import Item from './Item/Item'
 import Styles from './styles.module.css'
 import { HUD_THINK_FAST } from '../../App'
 import { useInterval } from '../../hooks/useInterval'
-import { TableUtils } from '../../utils/TableUtils'
-import { ObjectUtils } from '../../utils/ObjectUtils'
+import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
+import lodash from 'lodash';
 
 const FIRST_ROW_SLOTS = [0, 1, 2]
 const SECOND_ROW_SLOTS = [3, 4, 5]
@@ -14,35 +14,32 @@ interface IRowItem {
   item: ItemEntityIndex
 }
 
-type Props = {
-  selectedUnit: EntityIndex,
-}
 
-const Inventory = (props: Props) => {
+const Inventory = () => {
 
   // $.Msg('REACT-RENDER: Inventory rendered')
 
-  const { selectedUnit } = props;
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
   const [firstRowItems, setFirstRowItems] = useState<IRowItem[]>([])
   const [secondRowItems, setSecondRowItems] = useState<IRowItem[]>([])
-  const [hasInventory, setHasInventory] = useState(Entities.IsInventoryEnabled(selectedUnit))
+  const [hasInventory, setHasInventory] = useState(Entities.IsInventoryEnabled(selectedEntityIndex))
 
   useInterval(() => {
-    setHasInventory(Entities.IsInventoryEnabled(selectedUnit))
-    const newFirstRow = Array.from(FIRST_ROW_SLOTS).map(slot => ({ slot: slot, item: Entities.GetItemInSlot(selectedUnit, slot) }));
-    const newSecondRow = Array.from(SECOND_ROW_SLOTS).map(slot => ({ slot: slot, item: Entities.GetItemInSlot(selectedUnit, slot) }));
-    if (!TableUtils.areTablesEqual(firstRowItems, newFirstRow, ObjectUtils.areObjectsEqual)) {
+    setHasInventory(Entities.IsInventoryEnabled(selectedEntityIndex))
+    const newFirstRow = Array.from(FIRST_ROW_SLOTS).map(slot => ({ slot: slot, item: Entities.GetItemInSlot(selectedEntityIndex, slot) }));
+    const newSecondRow = Array.from(SECOND_ROW_SLOTS).map(slot => ({ slot: slot, item: Entities.GetItemInSlot(selectedEntityIndex, slot) }));
+    if (!lodash.isEqual(firstRowItems, newFirstRow)) {
       setFirstRowItems(newFirstRow)
     }
-    if (!TableUtils.areTablesEqual(secondRowItems, newSecondRow, ObjectUtils.areObjectsEqual)) {
+    if (!lodash.isEqual(secondRowItems, newSecondRow)) {
       setSecondRowItems(newSecondRow)
     }
   }, HUD_THINK_FAST)
 
   return (
     <React.Fragment>
-      <ItemOptions selectedUnit={selectedUnit} />
+      <ItemOptions />
       <Panel
         hittest={false}
         className={Styles.container}
@@ -56,7 +53,6 @@ const Inventory = (props: Props) => {
                 key={slot + "_" + item}
                 slot={slot}
                 item={item}
-                selectedUnit={selectedUnit}
               />
             )
           })}
@@ -69,7 +65,6 @@ const Inventory = (props: Props) => {
                 key={slot + "_" + item}
                 slot={slot}
                 item={item}
-                selectedUnit={selectedUnit}
               />
             )
           })}

@@ -3,7 +3,10 @@ import { useGameEvent } from "react-panorama";
 import GameTime from "./GameTime/GameTime";
 import Styles from "./styles.module.css";
 
-const onClick = () => false;
+const onClick = () => {
+  GameUI.SendCustomHUDError("Unclickable", "General.InvalidTarget_Invulnerable");
+  return false;
+}
 
 const Minimap = () => {
 
@@ -21,30 +24,22 @@ const Minimap = () => {
   }, []);
 
   return (
-    <Panel
-      id={'minimap'}
-      className={Styles.container}
-      hittest={false}
-    >
+    <Panel id={'minimap'} className={Styles.container} hittest={false}>
       <Panel className={Styles.topFlare} />
-      <Panel
-        onactivate={onClick}
-        className={Styles.minimapContainer}
-      >
-        <Label
-          className={Styles.zoneName}
-          text={zoneName}
-        />
-        <GameTime />
-        <DOTAHUDOverlayMap
-          className={Styles.minimap}
-          mapscale={mapZoom}
-          hittest={false}
-          hittestchildren={false}
-          maptexture={"materials/overviews/the_arena_tga_5f0a2a04.vtex"}
-        />
+      <Panel className={Styles.flowRight}>
+        <Panel className={Styles.minimapContainer} onactivate={onClick} oncontextmenu={onClick}>
+          <Label className={Styles.zoneName} text={zoneName} />
+          <GameTime />
+          <DOTAHUDOverlayMap
+            className={Styles.minimap}
+            mapscale={mapZoom}
+            hittest={false}
+            hittestchildren={false}
+            maptexture={"materials/overviews/the_arena_tga_5f0a2a04.vtex"}
+          />
+        </Panel>
+        <Panel className={Styles.rightFlare} />
       </Panel>
-      <Panel className={Styles.rightFlare} />
     </Panel>
   );
 

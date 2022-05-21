@@ -1,27 +1,13 @@
 .container {
 	vertical-align: bottom;
 	horizontal-align: left;
-}
-
-.rightFlare {
-	width: 35px;
-	height: 140px;
-	vertical-align: bottom;
-	horizontal-align: left;
-	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-	z-index: -1;
-	brightness: 0.8;
-	transform: scaleX(-1);
-	margin-left: 225px;
+  flow-children: down;
 }
 
 .topFlare {
 	width: 55px;
 	height: 190px;
-	vertical-align: bottom;
+  vertical-align: bottom; 
 	horizontal-align: left;
 	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
 	background-position: center;
@@ -31,7 +17,11 @@
 	brightness: 0.8;
 	pre-transform-rotate2d: 90deg;
 	margin-left: 45px;
-	margin-bottom: 125px;
+  margin-bottom: -72px;
+}
+
+.flowRight {
+  flow-children: right;
 }
 
 .minimapContainer {
@@ -49,6 +39,20 @@
 	z-index: -1;
 	brightness: 0.7;
 	border-radius: 0px 5px 0px 0px;
+}
+
+.rightFlare {
+	width: 35px;
+	height: 140px;
+	vertical-align: bottom;
+	horizontal-align: left;
+	background-image: url("s2r://panorama/images/hud/reborn/side_flare_tall_psd.vtex");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: -1;
+	brightness: 0.8;
+	transform: scaleX(-1);
 }
 
 .minimap {

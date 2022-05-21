@@ -1,26 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HUD_THINK_FAST } from "../../../../App";
+import SelectedEntityIndexContext from "../../../../context/SelectedEntityIndexContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from "./styles.module.css";
 
 type Props = {
   item: ItemEntityIndex,
-  selectedUnit: EntityIndex,
 };
 
 const Image = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Inventory - Image rendered");
 
-  const { item, selectedUnit } = props;
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
+
+  const { item } = props;
 
   const [isCooldownReady, setIsCooldownReady] = useState(Abilities.IsCooldownReady(item));
   const [isActive, setIsActive] = useState(Abilities.GetLocalPlayerActiveAbility() === item);
   const [hasEnoughMana, setHasEnoughMana] = useState(Abilities.IsOwnersManaEnough(item));
-  const [isMuted, setIsMuted] = useState(Entities.IsMuted(selectedUnit));
+  const [isMuted, setIsMuted] = useState(Entities.IsMuted(selectedEntityIndex));
 
   useInterval(() => {
-    setIsMuted(Entities.IsMuted(selectedUnit));
+    setIsMuted(Entities.IsMuted(selectedEntityIndex));
     setIsCooldownReady(Abilities.IsCooldownReady(item));
     setHasEnoughMana(Abilities.IsOwnersManaEnough(item));
     setIsActive(Abilities.GetLocalPlayerActiveAbility() === item);

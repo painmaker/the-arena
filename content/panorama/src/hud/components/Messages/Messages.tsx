@@ -80,7 +80,7 @@ const Messages = () => {
         type: MessageType.ITEM,
         data: {
           broadcaster: event.broadcaster,
-          unit: event.selectedUnit,
+          unit: event.selectedEntityIndex,
           item: event.item
         }
       }]

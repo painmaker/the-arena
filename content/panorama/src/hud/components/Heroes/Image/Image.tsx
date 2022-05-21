@@ -5,13 +5,13 @@ import { useInterval } from "../../../hooks/useInterval";
 import Styles from "./styles.module.css";
 
 type Props = {
-  hero: EntityIndex;
+  heroEntityIndex: EntityIndex;
 };
 
-const onHeroImageClicked = (hero: EntityIndex, isCameraLocked: boolean) => {
+const onHeroImageClicked = (heroEntityIndex: EntityIndex, isCameraLocked: boolean) => {
 
-  const isAlive = Entities.IsAlive(hero);
-  const issSelectable = Entities.IsSelectable(hero);
+  const isAlive = Entities.IsAlive(heroEntityIndex);
+  const issSelectable = Entities.IsSelectable(heroEntityIndex);
   const clickbehaviors = GameUI.GetClickBehaviors();
 
   if (!isAlive) {
@@ -31,7 +31,7 @@ const onHeroImageClicked = (hero: EntityIndex, isCameraLocked: boolean) => {
         QueueBehavior: OrderQueueBehavior_t.DOTA_ORDER_QUEUE_NEVER,
         ShowEffects: true,
         OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TARGET,
-        TargetIndex: hero,
+        TargetIndex: heroEntityIndex,
       };
       Game.PrepareUnitOrders(order);
     }
@@ -40,7 +40,7 @@ const onHeroImageClicked = (hero: EntityIndex, isCameraLocked: boolean) => {
       GameUI.SendCustomHUDError("Camera Is Locked", "General.InvalidTarget_Invulnerable")
       return;
     }
-    GameUI.SetCameraTargetPosition(Entities.GetAbsOrigin(hero), 0.3);
+    GameUI.SetCameraTargetPosition(Entities.GetAbsOrigin(heroEntityIndex), 0.3);
     Game.EmitSound("ui_topmenu_select");
   }
 
@@ -50,7 +50,7 @@ const ImageImpl = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
 
-  const { hero } = props;
+  const { heroEntityIndex } = props;
 
   const [isCameraLocked, setIsCameraLocked] = useState(true);
   const [washColor, setWashColor] = useState("none");
@@ -62,7 +62,7 @@ const ImageImpl = (props: Props) => {
 
   useEffect(() => {
     const handle = GameEvents.Subscribe("entity_killed", (event) => {
-      if (event.entindex_killed === hero && !isDisconnected) {
+      if (event.entindex_killed === heroEntityIndex && !isDisconnected) {
         setWashColor("grey");
       }
     });
@@ -71,7 +71,7 @@ const ImageImpl = (props: Props) => {
 
   useEffect(() => {
     const handle = GameEvents.Subscribe("npc_spawned", (event) => {
-      if (event.entindex === hero && !isDisconnected) {
+      if (event.entindex === heroEntityIndex && !isDisconnected) {
         setWashColor("none");
       }
     });
@@ -79,7 +79,7 @@ const ImageImpl = (props: Props) => {
   }, []);
 
   useInterval(() => {
-    const playerInfo = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(hero));
+    const playerInfo = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(heroEntityIndex));
     if (playerInfo) {
       const isDisconnected = playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED ||
         playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_ABANDONED ||
@@ -100,10 +100,10 @@ const ImageImpl = (props: Props) => {
         />
       )}
       <DOTAHeroImage
-        heroname={Entities.GetUnitName(hero)}
-        heroimagestyle="landscape"
-        onactivate={() => onHeroImageClicked(hero, isCameraLocked)}
-        oncontextmenu={() => onHeroImageClicked(hero, isCameraLocked)}
+        heroname={Entities.GetUnitName(heroEntityIndex)}
+        heroimagestyle={'landscape'}
+        onactivate={() => onHeroImageClicked(heroEntityIndex, isCameraLocked)}
+        oncontextmenu={() => onHeroImageClicked(heroEntityIndex, isCameraLocked)}
         className={Styles.image}
         style={{ washColor: washColor }}
       />

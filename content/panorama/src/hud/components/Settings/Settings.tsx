@@ -15,7 +15,7 @@ const Settings = () => {
   // $.Msg("REACT-RENDER: Settings rendered");
 
   const [mapZoom, setMapZoom] = useState(5);
-  const [cameraZoom, setCameraZoom] = useState(1200);
+  const [cameraZoom, setCameraZoom] = useState(1600);
   const [isLocked, setIsLocked] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [renderComponent, setRenderComponent] = useState(false);
