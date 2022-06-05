@@ -1,14 +1,10 @@
 .container {
 	vertical-align: bottom;
 	horizontal-align: center;
-	flow-children: right;
+	ignore-parent-flow: true;
 	margin-bottom: 5px;
 }
 
-.firstRow {
-	flow-children: right;
-}
-
-.secondRow {
+.items {
 	flow-children: right;
 }

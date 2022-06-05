@@ -122,7 +122,7 @@ const Item = (props: Props) => {
 
   const onItemLeftClicked = useCallback(() => {
     if (item == -1) {
-      return
+      return;
     }
     if (GameUI.IsAltDown()) {
       GameEvents.SendCustomGameEventToAllClients('on_item_alerted', {
@@ -130,10 +130,10 @@ const Item = (props: Props) => {
         selectedEntityIndex,
         item,
       })
-      return
+      return;
     }
     if (!Entities.IsControllableByPlayer(selectedEntityIndex, Players.GetLocalPlayer())) {
-      return
+      return;
     }
     if (Items.CanBeExecuted(item)) {
       Abilities.ExecuteAbility(item, selectedEntityIndex, false)
@@ -141,11 +141,13 @@ const Item = (props: Props) => {
   }, [item, selectedEntityIndex])
 
   const onItemRightClicked = useCallback(() => {
+
     const panel = $('#inventory_item_' + slot)
     $.DispatchEvent('DOTAHideAbilityTooltip', panel)
+
     if (item === -1) {
       GameUI.SendCustomHUDError('No Item In Slot', 'General.InvalidTarget_Invulnerable')
-      return
+      return;
     }
 
     const playerId = Entities.GetPlayerOwnerID(selectedEntityIndex)
@@ -157,17 +159,14 @@ const Item = (props: Props) => {
       } else {
         setItemOptionsVisible(true)
         setItemOptionsItem(item)
-        const position = panel.style.position
-        if (position) {
-          const positionsArray = (position.match(/[+-]?\d+(\.\d+)?/g) || []).map(n => parseFloat(n))
-          const posX = positionsArray[0]
-          setItemOptionsPositionX(posX)
-        }
+        const position = panel.GetPositionWithinWindow()
+        // GameEvents.SendEventClientSide('set_item_options_position', { x: position.x, y: position.y });
       }
       Game.EmitSound('ui_topmenu_select')
     } else {
       GameUI.SendCustomHUDError('Item Not Owned By You', 'General.InvalidTarget_Invulnerable')
     }
+
   }, [item, selectedEntityIndex, slot, itemOptionsVisible, itemOptionsItem, setItemOptionsVisible, setItemOptionsItem, setItemOptionsPositionX])
 
   const onMouseOver = useCallback(() => {

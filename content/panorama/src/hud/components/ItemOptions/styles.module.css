@@ -1,6 +1,4 @@
 .outerContainer {
-	vertical-align: bottom;
-	horizontal-align: center;
 	flow-children: down;
 	width: 175px;
 	height: fit-children;

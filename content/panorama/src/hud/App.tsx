@@ -22,6 +22,7 @@ import "./global.css";
 import Styles from "./app.module.css";
 import { WINDOW } from "./data/windows";
 import SelectedEntityIndexContext from "./context/SelectedEntityIndexContext";
+import ItemOptions from "./components/ItemOptions/ItemOptions";
 
 export const HUD_THINK_FAST = 0.03;
 export const HUD_THINK_MEDIUM = 0.1;
@@ -129,6 +130,7 @@ const App = () => {
                   <Mana selectedUnit={selectedEntityIndex} />
                   <Health selectedUnit={selectedEntityIndex} />
                   <Inventory />
+                  <ItemOptions />
                   <AbilitiesShop selectedUnit={selectedEntityIndex} />
                   <Character selectedUnit={selectedEntityIndex} />
                   <CharacterDetails selectedUnit={selectedEntityIndex} />

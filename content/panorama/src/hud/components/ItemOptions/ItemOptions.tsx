@@ -1,14 +1,14 @@
 import React, { Dispatch, useContext } from "react";
 import { useGameEvent, useRegisterForUnhandledEvent } from "react-panorama";
 import { connect, ConnectedProps } from "react-redux";
-import { setItemOptionsVisible } from "../../../actions/itemOptionsActions";
-import { RootState } from "../../../reducers/rootReducer";
-import { ItemOptionsActionTypes } from "../../../interfaces/itemOptionsTypes";
+import { setItemOptionsVisible } from "../../actions/itemOptionsActions";
+import { RootState } from "../../reducers/rootReducer";
+import { ItemOptionsActionTypes } from "../../interfaces/itemOptionsTypes";
 import Styles from "./styles.module.css";
-import SelectedEntityIndexContext from "../../../context/SelectedEntityIndexContext";
+import SelectedEntityIndexContext from "../../context/SelectedEntityIndexContext";
 
-const POS_X_OFFSET = 146;
-const POST_Y_OFFSET = -32;
+const POS_X_OFFSET = 0;
+const POST_Y_OFFSET = -4;
 
 const mapStateToProps = (state: RootState) => ({
   item: state.itemOptionsReducer.item,
@@ -59,7 +59,7 @@ const ItemOptions = (props: Props) => {
       {visible && (
         <Panel
           className={Styles.outerContainer}
-          style={{ position: (posX - POS_X_OFFSET) + "px " + POST_Y_OFFSET + "px " + "0px" }}
+          style={{ position: (posX) + "px " + POST_Y_OFFSET + "px " + "0px" }}
         >
           <Panel className={Styles.closeBtnContainer}>
             <Button
