@@ -4,23 +4,23 @@ import Styles from './styles.module.css';
 
 type Props = {
   buff: BuffID,
-  selectedUnit: EntityIndex,
+  selectedEntityIndex: EntityIndex,
 }
 
 const Foreground = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
 
-  const { buff, selectedUnit } = props;
+  const { buff, selectedEntityIndex } = props;
 
-  const ability = Buffs.GetAbility(selectedUnit, buff);
+  const ability = Buffs.GetAbility(selectedEntityIndex, buff);
   const isItem = Abilities.IsItem(ability);
 
   return (
     <React.Fragment>
       <Panel className={Styles.container}>
         <Stacks
-          unit={selectedUnit}
+          unit={selectedEntityIndex}
           buff={buff}
         />
         {!isItem && (
@@ -32,7 +32,7 @@ const Foreground = (props: Props) => {
         {isItem && (
           <DOTAItemImage
             className={Styles.paddedImage}
-            itemname={Buffs.GetTexture(selectedUnit, buff)}
+            itemname={Buffs.GetTexture(selectedEntityIndex, buff)}
             showtooltip={false}
           />
         )}

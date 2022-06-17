@@ -99,7 +99,7 @@ const Messages = () => {
         type: MessageType.MODIFIER,
         data: {
           broadcaster: event.broadcaster,
-          unit: event.selectedUnit,
+          unit: event.selectedEntityIndex,
           modifier: event.modifier
         }
       }]

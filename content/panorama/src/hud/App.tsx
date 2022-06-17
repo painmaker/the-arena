@@ -9,7 +9,7 @@ import Health from "./components/Health/Health";
 import Mana from "./components/Mana/Mana";
 import Character from "./components/Character/Character";
 import CharacterDetails from "./components/CharacterDetails/CharacterDetails";
-import Buffs from "./components/Modifiers/Buffs/Buffs";
+import Modifiers from "./components/Modifiers/Modifiers";
 import Inventory from "./components/Inventory/Inventory";
 import ItemsShop from "./components/ItemsShop/ItemsShop";
 import HeroSelection from "./components/HeroSelection/HeroSelection";
@@ -126,7 +126,7 @@ const App = () => {
                 <Settings />
                 <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex: selectedEntityIndex }}>
                   <AbilityBar />
-                  <Buffs selectedUnit={selectedEntityIndex} />
+                  <Modifiers />
                   <Mana selectedUnit={selectedEntityIndex} />
                   <Health selectedUnit={selectedEntityIndex} />
                   <Inventory />

@@ -8,16 +8,16 @@ import { useInterval } from "../../../hooks/useInterval";
 
 type Props = {
   buff: BuffID,
-  selectedUnit: EntityIndex,
+  selectedEntityIndex: EntityIndex,
 };
 
-const onRightClick = (selectedUnit: EntityIndex, buff: BuffID) => {
+const onRightClick = (selectedEntityIndex: EntityIndex, buff: BuffID) => {
   if (GameUI.IsAltDown()) {
     $('#buff_' + buff).RemoveClass('btnClicked');
     $('#buff_' + buff).AddClass('btnClicked');
     GameEvents.SendCustomGameEventToAllClients("on_modifier_alerted", {
       broadcaster: Players.GetLocalPlayer(),
-      selectedUnit,
+      selectedEntityIndex,
       modifier: buff,
     })
   }
@@ -30,10 +30,10 @@ const onMouseOut = (buff: BuffID) => {
   }
 }
 
-const onMouseOver = (selectedUnit: EntityIndex, buff: BuffID, isDebuff: boolean) => {
+const onMouseOver = (selectedEntityIndex: EntityIndex, buff: BuffID, isDebuff: boolean) => {
   const thisPanel = $("#buff_" + buff);
   if (thisPanel) {
-    $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, selectedUnit, buff, isDebuff);
+    $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, selectedEntityIndex, buff, isDebuff);
   }
 }
 
@@ -42,12 +42,12 @@ const Modifier = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Modifiers rendered");
 
-  const { buff, selectedUnit } = props;
+  const { buff, selectedEntityIndex } = props;
 
   const [show, setShow] = useState(false);
 
-  const isDebuff = Buffs.IsDebuff(selectedUnit, buff);
-  const isAura = aura_modifiers.includes(Buffs.GetName(selectedUnit, buff));
+  const isDebuff = Buffs.IsDebuff(selectedEntityIndex, buff);
+  const isAura = aura_modifiers.includes(Buffs.GetName(selectedEntityIndex, buff));
 
   useEffect(() => {
     setShow(true);
@@ -61,7 +61,7 @@ const Modifier = (props: Props) => {
 
   useInterval(() => {
     if (!isAura) {
-      const remaining = Math.max(0, Buffs.GetRemainingTime(selectedUnit, buff));
+      const remaining = Math.max(0, Buffs.GetRemainingTime(selectedEntityIndex, buff));
       if (0.05 > remaining) {
         setShow(false);
       }
@@ -76,18 +76,18 @@ const Modifier = (props: Props) => {
         preTransformScale2d: show ? "1.0" : "0.3",
       }}
       className={Styles.container}
-      onactivate={() => onRightClick(selectedUnit, buff)}
+      onactivate={() => onRightClick(selectedEntityIndex, buff)}
       onmouseout={() => onMouseOut(buff)}
-      onmouseover={() => onMouseOver(selectedUnit, buff, isDebuff)}
+      onmouseover={() => onMouseOver(selectedEntityIndex, buff, isDebuff)}
     >
       <Background
         buff={buff}
-        selectedUnit={selectedUnit}
+        selectedEntityIndex={selectedEntityIndex}
         isAura={isAura}
       />
       <Foreground
         buff={buff}
-        selectedUnit={selectedUnit}
+        selectedEntityIndex={selectedEntityIndex}
       />
     </Panel>
   );

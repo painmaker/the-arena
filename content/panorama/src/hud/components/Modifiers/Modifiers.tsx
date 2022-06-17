@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useGameEvent } from "react-panorama";
-import Modifier from "../Modifier/Modifier";
+import SelectedEntityIndexContext from "../../context/SelectedEntityIndexContext";
+import Modifier from "./Modifier/Modifier";
 import Styles from './styles.module.css';
 
-const getBuffs = (unit: EntityIndex) => {
+const getModifiers = (unit: EntityIndex) => {
   const buffs = [];
   for (let i = 0; i < Entities.GetNumBuffs(unit) + 1; i++) {
     const buff = Entities.GetBuff(unit, i);
@@ -21,25 +22,21 @@ const getBuffs = (unit: EntityIndex) => {
   return buffs.sort((b1, b2) => Buffs.GetCreationTime(unit, b2) - Buffs.GetCreationTime(unit, b1));
 }
 
-type Props = {
-  selectedUnit: EntityIndex,
-}
-
-const BuffsPanel = (props: Props) => {
+const Modifiers = () => {
 
   // $.Msg("REACT-RENDER: Buffs rendered");
 
-  const { selectedUnit } = props;
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
-  const [buffs, setBuffs] = useState<BuffID[]>(getBuffs(selectedUnit));
+  const [buffs, setBuffs] = useState<BuffID[]>(getModifiers(selectedEntityIndex));
 
   useGameEvent("dota_portrait_unit_modifiers_changed", () => {
-    setBuffs(getBuffs(selectedUnit));
-  }, [selectedUnit]);
+    setBuffs(getModifiers(selectedEntityIndex));
+  }, [selectedEntityIndex]);
 
   useEffect(() => {
-    setBuffs(getBuffs(selectedUnit));
-  }, [selectedUnit])
+    setBuffs(getModifiers(selectedEntityIndex));
+  }, [selectedEntityIndex])
 
   return (
     <Panel className={Styles.container}>
@@ -47,7 +44,7 @@ const BuffsPanel = (props: Props) => {
         <Modifier
           key={buff}
           buff={buff}
-          selectedUnit={selectedUnit}
+          selectedEntityIndex={selectedEntityIndex}
         />
       )}
     </Panel>
@@ -55,4 +52,4 @@ const BuffsPanel = (props: Props) => {
 
 };
 
-export default React.memo(BuffsPanel);
+export default React.memo(Modifiers);

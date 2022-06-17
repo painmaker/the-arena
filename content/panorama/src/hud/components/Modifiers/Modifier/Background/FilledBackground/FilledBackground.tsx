@@ -3,18 +3,18 @@ import Styles from './styles.module.css';
 
 type Props = {
   buff: BuffID,
-  selectedUnit: EntityIndex
+  selectedEntityIndex: EntityIndex
 }
 
 const FilledBackground = (props: Props) => {
 
-  const { buff, selectedUnit } = props;
+  const { buff, selectedEntityIndex } = props;
 
   return (
     <Panel
       className={Styles.border}
       style={{
-        washColor: Buffs.IsDebuff(selectedUnit, buff) ? 'rgba(245, 50, 20, 0.95)' : '#8bdd4f'
+        washColor: Buffs.IsDebuff(selectedEntityIndex, buff) ? 'rgba(245, 50, 20, 0.95)' : '#8bdd4f'
       }}
     />
   );

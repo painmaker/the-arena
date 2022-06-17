@@ -4,7 +4,7 @@ import TimedBackground from "./TimedBackground/TimedBackground";
 
 type Props = {
   buff: BuffID,
-  selectedUnit: EntityIndex,
+  selectedEntityIndex: EntityIndex,
   isAura: boolean,
 }
 
@@ -12,20 +12,20 @@ const Background = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
 
-  const { buff, selectedUnit, isAura } = props;
+  const { buff, selectedEntityIndex, isAura } = props;
 
   return (
     <React.Fragment>
       {isAura && (
         <FilledBackground
           buff={buff}
-          selectedUnit={selectedUnit}
+          selectedEntityIndex={selectedEntityIndex}
         />
       )}
       {!isAura && (
         <TimedBackground
           buff={buff}
-          selectedUnit={selectedUnit}
+          selectedEntityIndex={selectedEntityIndex}
         />
       )}
     </React.Fragment>

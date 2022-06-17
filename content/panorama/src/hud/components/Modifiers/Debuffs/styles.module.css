@@ -1,8 +1,0 @@
-.container {
-	vertical-align: bottom;
-	horizontal-align: left;
-	flow-children: right-wrap;
-	height: fit-children;
-	margin-left: 50%;
-	margin-bottom: 95px;
-}
