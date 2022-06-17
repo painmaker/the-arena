@@ -25,7 +25,7 @@ const AbilitiesShopButton = () => {
       }}>
       <Image
         style={{ washColor: isOpen ? 'orange' : 'white' }}
-        src="s2r://panorama/images/book_open_page_variant_outline_png.vtex"
+        src={'s2r://panorama/images/book_open_page_variant_outline_png.vtex'}
       />
     </Button>
   );

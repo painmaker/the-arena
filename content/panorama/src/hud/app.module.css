@@ -64,3 +64,9 @@
 	brightness: 0.95;
 	transform: scaleX(-1);
 }
+
+.rightCornerContainer {
+  flow-children: down;
+  vertical-align: bottom;
+  horizontal-align: right;
+}

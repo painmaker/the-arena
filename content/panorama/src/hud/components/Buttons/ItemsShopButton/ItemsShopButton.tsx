@@ -3,34 +3,34 @@ import { useGameEvent } from "react-panorama";
 import { WINDOW } from "../../../data/windows";
 import ParentStyles from './../styles.module.css';
 
-const CharaterDetailsButton = () => {
+const ItemsShopButton = () => {
 
-  // $.Msg("REACT-RENDER: CharaterDetailsButton rendered");
+  // $.Msg("REACT-RENDER: ItemsShopButton rendered");
 
   const [isOpen, setIsOpen] = useState(false);
 
   useGameEvent('set_window', (event) => {
-    setIsOpen(event.window === WINDOW.CHARACTER_DETAILS);
+    setIsOpen(event.window === WINDOW.ITEMS_SHOP);
   }, []);
 
   return (
     <Button
-      id={'character_btn'}
+      id={'item_shopping_btn'}
       className={ParentStyles.btn}
       onactivate={() => {
-        $('#character_btn').RemoveClass('btnClicked');
-        $('#character_btn').AddClass('btnClicked');
-        GameEvents.SendEventClientSide('set_window', { window: isOpen ? WINDOW.NONE : WINDOW.CHARACTER_DETAILS });
+        $('#item_shopping_btn').RemoveClass('btnClicked');
+        $('#item_shopping_btn').AddClass('btnClicked');
+        GameEvents.SendEventClientSide('set_window', { window: isOpen ? WINDOW.NONE : WINDOW.ITEMS_SHOP });
         Game.EmitSound("ui_topmenu_select");
       }}
     >
       <Image
         style={{ washColor: isOpen ? 'orange' : 'white' }}
-        src="s2r://panorama/images/character_btn_white_png.vtex"
+        src={'s2r://panorama/images/shop_btn_white_png.vtex'}
       />
     </Button>
   );
 
 };
 
-export default React.memo(CharaterDetailsButton);
+export default React.memo(ItemsShopButton);

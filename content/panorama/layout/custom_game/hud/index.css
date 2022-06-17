@@ -253,8 +253,6 @@
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ButtonGroup/styles.module.css ***!
   \***********************************************************************************************************************************/
 .VAbVj6ocFtX3DJzOqCnL {
-	vertical-align: bottom;
-	horizontal-align: right;
 	width: 250px;
   height: 40px;
 	flow-children: left;
@@ -728,7 +726,6 @@
 	width: fit-children;
 	width: 225px;
 	height: 125px;
-	margin-bottom: 40px;
 	background-image: url("s2r://panorama/images/hud/reborn/courier_gold_bg_262_psd.vtex");
 	background-position: center;
 	background-size: 100%;
@@ -3032,6 +3029,12 @@ ProgressBar {
 	opacity: 0.95;
 	brightness: 0.95;
 	transform: scaleX(-1);
+}
+
+.tXAhNi0PpXWblZTG7ZNH {
+  flow-children: down;
+  vertical-align: bottom;
+  horizontal-align: right;
 }
 /*!***********************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ItemOptions/styles.module.css ***!

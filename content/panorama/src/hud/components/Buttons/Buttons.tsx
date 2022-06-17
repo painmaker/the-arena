@@ -5,7 +5,7 @@ import SettingsButton from "./SettingsButton/SettingsButton";
 import ItemsShopButton from "./ItemsShopButton/ItemsShopButton";
 import Styles from "./styles.module.css";
 
-const ButtonGroup = () => {
+const Buttons = () => {
 
   // $.Msg("REACT-RENDER: ButtonGroup rendered");
 
@@ -20,4 +20,4 @@ const ButtonGroup = () => {
 
 };
 
-export default React.memo(ButtonGroup);
+export default React.memo(Buttons);

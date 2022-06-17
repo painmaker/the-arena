@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNetTableValues, useRegisterForUnhandledEvent } from "react-panorama";
 import Minimap from "./components/Minimap/Minimap";
 import Settings from "./components/Settings/Settings";
-import ButtonGroup from "./components/ButtonGroup/ButtonGroup";
+import Buttons from "./components/Buttons/Buttons";
 import Heroes from "./components/Heroes/Heroes";
 import AbilityBar from "./components/AbilityBar/AbilityBar";
 import Health from "./components/Health/Health";
@@ -122,19 +122,21 @@ const App = () => {
                 <Minimap />
                 <FloatingContainer />
                 <Messages />
-                <ButtonGroup />
                 <Settings />
                 <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex: selectedEntityIndex }}>
+                  <AbilitiesShop selectedUnit={selectedEntityIndex} />
+                  <CharacterDetails selectedUnit={selectedEntityIndex} />
+                  <ItemsShop selectedUnit={selectedEntityIndex} />
                   <AbilityBar />
                   <Modifiers />
                   <Mana />
                   <Health />
                   <Inventory />
                   <ItemOptions />
-                  <AbilitiesShop selectedUnit={selectedEntityIndex} />
-                  <Character selectedUnit={selectedEntityIndex} />
-                  <CharacterDetails selectedUnit={selectedEntityIndex} />
-                  <ItemsShop selectedUnit={selectedEntityIndex} />
+                  <Panel className={Styles.rightCornerContainer}>
+                    <Character selectedUnit={selectedEntityIndex} />
+                    <Buttons />
+                  </Panel>
                   <Panel className={Styles.bottomCenterBackground} />
                   <Panel className={Styles.bottomCenterLeftFlare} />
                   <Panel className={Styles.bottomCenterRightFlare} />

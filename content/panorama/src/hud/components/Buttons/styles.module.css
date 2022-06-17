@@ -1,6 +1,4 @@
 .container {
-	vertical-align: bottom;
-	horizontal-align: right;
 	width: 250px;
   height: 40px;
 	flow-children: left;
