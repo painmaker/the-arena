@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { HUD_THINK_FAST } from "../../App";
 import Styles from "./styles.module.css";
 import { useInterval } from "../../hooks/useInterval";
+import SelectedEntityIndexContext from "../../context/SelectedEntityIndexContext";
 
-type Props = {
-  selectedUnit: EntityIndex,
-}
-
-const Mana = (props: Props) => {
+const Mana = () => {
 
   // $.Msg("REACT-RENDER: ManaBar rendered");
 
-  const { selectedUnit } = props;
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
-  const [mana, setMana] = useState(Entities.GetMana(selectedUnit));
-  const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(selectedUnit));
-  const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(selectedUnit));
+  const [mana, setMana] = useState(Entities.GetMana(selectedEntityIndex));
+  const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(selectedEntityIndex));
+  const [manaRegen, setManaRegen] = useState(Entities.GetManaThinkRegen(selectedEntityIndex));
+
+  const width = useMemo(() => {
+    if (!mana || !maxMana) {
+      return 0;
+    }
+    return (mana / maxMana) * 100;
+  }, [mana, maxMana])
 
   useInterval(() => {
-    setMana(Entities.GetMana(selectedUnit));
-    setMaxMana(Entities.GetMaxMana(selectedUnit));
-    setManaRegen(Entities.GetManaThinkRegen(selectedUnit));
+    setMana(Entities.GetMana(selectedEntityIndex));
+    setMaxMana(Entities.GetMaxMana(selectedEntityIndex));
+    setManaRegen(Entities.GetManaThinkRegen(selectedEntityIndex));
   }, HUD_THINK_FAST);
-
-  const width = (mana / maxMana) * 100
 
   return (
     <Panel
@@ -46,14 +48,14 @@ const Mana = (props: Props) => {
           if (GameUI.IsAltDown()) {
             GameEvents.SendCustomGameEventToAllClients("on_mana_alerted", {
               broadcaster: Players.GetLocalPlayer(),
-              selectedUnit,
+              selectedEntityIndex,
             })
           }
         }}
       >
         <DOTAScenePanel
           className={Styles.scene}
-          style={{ width: Number.isNaN(width) || !Number.isFinite(width) ? '100%' : width + "%" }}
+          style={{ width: width + "%" }}
           map={'scenes/hud/healthbarburner'}
         />
       </ProgressBar>

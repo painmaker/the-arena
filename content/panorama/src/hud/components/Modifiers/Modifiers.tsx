@@ -1,49 +1,47 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useGameEvent } from "react-panorama";
+import React, { useContext, useState } from "react";
+import { HUD_THINK_FAST } from "../../App";
 import SelectedEntityIndexContext from "../../context/SelectedEntityIndexContext";
+import { useInterval } from "../../hooks/useInterval";
 import Modifier from "./Modifier/Modifier";
 import Styles from './styles.module.css';
+import lodash from 'lodash';
 
 const getModifiers = (unit: EntityIndex) => {
-  const buffs = [];
+  const modifiers = [];
   for (let i = 0; i < Entities.GetNumBuffs(unit) + 1; i++) {
-    const buff = Entities.GetBuff(unit, i);
-    if (buff == -1) {
+    const modifier = Entities.GetBuff(unit, i);
+    if (modifier == -1) {
       continue;
     }
-    if (Buffs.IsHidden(unit, buff)) {
+    if (Buffs.IsHidden(unit, modifier)) {
       continue;
     }
-    if (Buffs.IsDebuff(unit, buff)) {
-      // continue;
-    }
-    buffs.push(buff);
+    modifiers.push(modifier);
   }
-  return buffs.sort((b1, b2) => Buffs.GetCreationTime(unit, b2) - Buffs.GetCreationTime(unit, b1));
+  return modifiers.sort((b1, b2) => Buffs.GetCreationTime(unit, b2) - Buffs.GetCreationTime(unit, b1));
 }
 
 const Modifiers = () => {
 
-  // $.Msg("REACT-RENDER: Buffs rendered");
+  // $.Msg("REACT-RENDER: Modifiers rendered");
 
   const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
-  const [buffs, setBuffs] = useState<BuffID[]>(getModifiers(selectedEntityIndex));
+  const [modifiers, setModifiers] = useState<BuffID[]>(getModifiers(selectedEntityIndex));
 
-  useGameEvent("dota_portrait_unit_modifiers_changed", () => {
-    setBuffs(getModifiers(selectedEntityIndex));
-  }, [selectedEntityIndex]);
-
-  useEffect(() => {
-    setBuffs(getModifiers(selectedEntityIndex));
-  }, [selectedEntityIndex])
+  useInterval(() => {
+    const newModifiers = getModifiers(selectedEntityIndex);
+    if (!lodash.isEqual(newModifiers, modifiers)) {
+      setModifiers(newModifiers);
+    }
+  }, HUD_THINK_FAST)
 
   return (
     <Panel className={Styles.container}>
-      {buffs.map((buff) =>
+      {modifiers.map((modifier) =>
         <Modifier
-          key={buff}
-          buff={buff}
+          key={modifier}
+          modifier={modifier}
           selectedEntityIndex={selectedEntityIndex}
         />
       )}

@@ -118,7 +118,7 @@ const Messages = () => {
         type: MessageType.HEALTH,
         data: {
           broadcaster: event.broadcaster,
-          unit: event.selectedUnit,
+          unit: event.selectedEntityIndex,
         }
       }]
     });
@@ -136,7 +136,7 @@ const Messages = () => {
         type: MessageType.MANA,
         data: {
           broadcaster: event.broadcaster,
-          unit: event.selectedUnit,
+          unit: event.selectedEntityIndex,
         }
       }]
     });

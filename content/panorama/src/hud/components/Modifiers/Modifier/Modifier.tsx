@@ -7,52 +7,53 @@ import { HUD_THINK_FAST } from "../../../App";
 import { useInterval } from "../../../hooks/useInterval";
 
 type Props = {
-  buff: BuffID,
+  modifier: BuffID,
   selectedEntityIndex: EntityIndex,
 };
 
-const onRightClick = (selectedEntityIndex: EntityIndex, buff: BuffID) => {
+const onRightClick = (selectedEntityIndex: EntityIndex, modifier: BuffID) => {
+  $.Msg(`Modifier: ${Buffs.GetName(selectedEntityIndex, modifier)}`);
   if (GameUI.IsAltDown()) {
-    $('#buff_' + buff).RemoveClass('btnClicked');
-    $('#buff_' + buff).AddClass('btnClicked');
+    $('#modifier_' + modifier).RemoveClass('btnClicked');
+    $('#modifier_' + modifier).AddClass('btnClicked');
     GameEvents.SendCustomGameEventToAllClients("on_modifier_alerted", {
       broadcaster: Players.GetLocalPlayer(),
       selectedEntityIndex,
-      modifier: buff,
+      modifier,
     })
   }
 }
 
-const onMouseOut = (buff: BuffID) => {
-  const thisPanel = $("#buff_" + buff);
+const onMouseOut = (modifier: BuffID) => {
+  const thisPanel = $("#modifier_" + modifier);
   if (thisPanel) {
     $.DispatchEvent("DOTAHideBuffTooltip", thisPanel)
   }
 }
 
-const onMouseOver = (selectedEntityIndex: EntityIndex, buff: BuffID, isDebuff: boolean) => {
-  const thisPanel = $("#buff_" + buff);
+const onMouseOver = (selectedEntityIndex: EntityIndex, modifier: BuffID, isDebuff: boolean) => {
+  const thisPanel = $("#modifier_" + modifier);
   if (thisPanel) {
-    $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, selectedEntityIndex, buff, isDebuff);
+    $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, selectedEntityIndex, modifier, isDebuff);
   }
 }
 
 
 const Modifier = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Modifiers rendered");
+  // $.Msg("REACT-RENDER: Modifier rendered");
 
-  const { buff, selectedEntityIndex } = props;
+  const { modifier, selectedEntityIndex } = props;
 
   const [show, setShow] = useState(false);
 
-  const isDebuff = Buffs.IsDebuff(selectedEntityIndex, buff);
-  const isAura = aura_modifiers.includes(Buffs.GetName(selectedEntityIndex, buff));
+  const isDebuff = Buffs.IsDebuff(selectedEntityIndex, modifier);
+  const isAura = aura_modifiers.includes(Buffs.GetName(selectedEntityIndex, modifier));
 
   useEffect(() => {
     setShow(true);
     return () => {
-      const panel = $("#buff_" + buff);
+      const panel = $("#modifier_" + modifier);
       if (panel) {
         $.DispatchEvent("DOTAHideBuffTooltip", $.GetContextPanel());
       }
@@ -61,32 +62,30 @@ const Modifier = (props: Props) => {
 
   useInterval(() => {
     if (!isAura) {
-      const remaining = Math.max(0, Buffs.GetRemainingTime(selectedEntityIndex, buff));
-      if (0.05 > remaining) {
-        setShow(false);
-      }
+      const remaining = Math.max(0, Buffs.GetRemainingTime(selectedEntityIndex, modifier));
+      setShow(0.05 < remaining)
     }
   }, HUD_THINK_FAST);
 
   return (
     <Panel
-      id={'buff_' + buff}
+      id={'modifier_' + modifier}
       style={{
         opacity: show ? "1.0" : "0.5",
         preTransformScale2d: show ? "1.0" : "0.3",
       }}
       className={Styles.container}
-      onactivate={() => onRightClick(selectedEntityIndex, buff)}
-      onmouseout={() => onMouseOut(buff)}
-      onmouseover={() => onMouseOver(selectedEntityIndex, buff, isDebuff)}
+      onactivate={() => onRightClick(selectedEntityIndex, modifier)}
+      onmouseout={() => onMouseOut(modifier)}
+      onmouseover={() => onMouseOver(selectedEntityIndex, modifier, isDebuff)}
     >
       <Background
-        buff={buff}
+        modifier={modifier}
         selectedEntityIndex={selectedEntityIndex}
         isAura={isAura}
       />
       <Foreground
-        buff={buff}
+        modifier={modifier}
         selectedEntityIndex={selectedEntityIndex}
       />
     </Panel>

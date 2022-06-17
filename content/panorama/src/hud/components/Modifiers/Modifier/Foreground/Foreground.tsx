@@ -3,17 +3,17 @@ import Stacks from "./Stacks/Stacks";
 import Styles from './styles.module.css';
 
 type Props = {
-  buff: BuffID,
+  modifier: BuffID,
   selectedEntityIndex: EntityIndex,
 }
 
 const Foreground = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
+  // $.Msg("REACT-RENDER: Modifiers - Foreground rendered");
 
-  const { buff, selectedEntityIndex } = props;
+  const { modifier, selectedEntityIndex } = props;
 
-  const ability = Buffs.GetAbility(selectedEntityIndex, buff);
+  const ability = Buffs.GetAbility(selectedEntityIndex, modifier);
   const isItem = Abilities.IsItem(ability);
 
   return (
@@ -21,7 +21,7 @@ const Foreground = (props: Props) => {
       <Panel className={Styles.container}>
         <Stacks
           unit={selectedEntityIndex}
-          buff={buff}
+          buff={modifier}
         />
         {!isItem && (
           <DOTAAbilityImage
@@ -32,7 +32,7 @@ const Foreground = (props: Props) => {
         {isItem && (
           <DOTAItemImage
             className={Styles.paddedImage}
-            itemname={Buffs.GetTexture(selectedEntityIndex, buff)}
+            itemname={Buffs.GetTexture(selectedEntityIndex, modifier)}
             showtooltip={false}
           />
         )}

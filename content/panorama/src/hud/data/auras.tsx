@@ -10,4 +10,5 @@ export const aura_modifiers = [
   "modifier_item_mekansm_aura",
   "modifier_crystal_maiden_brilliance_aura_effect",
   "modifier_item_shivas_guard_aura",
+  "modifier_voodoo_restoration_heal"
 ];

@@ -10,7 +10,7 @@ type Props = {
 
 const Stacks = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Modifier rendered");
+  // $.Msg("REACT-RENDER: Stacks rendered");
 
   const { unit, buff } = props;
 

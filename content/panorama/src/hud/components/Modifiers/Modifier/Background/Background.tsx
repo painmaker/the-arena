@@ -3,28 +3,28 @@ import FilledBackground from "./FilledBackground/FilledBackground";
 import TimedBackground from "./TimedBackground/TimedBackground";
 
 type Props = {
-  buff: BuffID,
+  modifier: BuffID,
   selectedEntityIndex: EntityIndex,
   isAura: boolean,
 }
 
 const Background = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
+  // $.Msg("REACT-RENDER: Modifiers - Background rendered");
 
-  const { buff, selectedEntityIndex, isAura } = props;
+  const { modifier, selectedEntityIndex, isAura } = props;
 
   return (
     <React.Fragment>
       {isAura && (
         <FilledBackground
-          buff={buff}
+          modifier={modifier}
           selectedEntityIndex={selectedEntityIndex}
         />
       )}
       {!isAura && (
         <TimedBackground
-          buff={buff}
+          modifier={modifier}
           selectedEntityIndex={selectedEntityIndex}
         />
       )}

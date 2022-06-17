@@ -127,8 +127,8 @@ const App = () => {
                 <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex: selectedEntityIndex }}>
                   <AbilityBar />
                   <Modifiers />
-                  <Mana selectedUnit={selectedEntityIndex} />
-                  <Health selectedUnit={selectedEntityIndex} />
+                  <Mana />
+                  <Health />
                   <Inventory />
                   <ItemOptions />
                   <AbilitiesShop selectedUnit={selectedEntityIndex} />

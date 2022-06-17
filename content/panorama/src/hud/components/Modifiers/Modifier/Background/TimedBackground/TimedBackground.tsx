@@ -4,19 +4,21 @@ import { useInterval } from '../../../../../hooks/useInterval';
 import Styles from './styles.module.css';
 
 type Props = {
-  buff: BuffID,
+  modifier: BuffID,
   selectedEntityIndex: EntityIndex,
 }
 
 const TimedBackground = (props: Props) => {
 
-  const { selectedEntityIndex, buff } = props;
+  // $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
+
+  const { selectedEntityIndex, modifier } = props;
 
   const [degree, setDegree] = useState(0);
 
   useInterval(() => {
-    const remaining = Math.max(0, Buffs.GetRemainingTime(selectedEntityIndex, buff));
-    const duration = Math.max(0, Buffs.GetDuration(selectedEntityIndex, buff));
+    const remaining = Math.max(0, Buffs.GetRemainingTime(selectedEntityIndex, modifier));
+    const duration = Math.max(0, Buffs.GetDuration(selectedEntityIndex, modifier));
     const degree = Math.max(0, (remaining / duration) * 360);
     setDegree(Number.isFinite(degree) ? degree : 0);
   }, HUD_THINK_FAST)
@@ -27,7 +29,7 @@ const TimedBackground = (props: Props) => {
       <Panel
         className={Styles.border}
         style={{
-          washColor: Buffs.IsDebuff(selectedEntityIndex, buff) ? 'rgba(245, 50, 20, 0.95)' : '#8bdd4f',
+          washColor: Buffs.IsDebuff(selectedEntityIndex, modifier) ? 'rgba(245, 50, 20, 0.95)' : '#8bdd4f',
           clip: 'radial(50% 50%, 0deg, ' + -degree + 'deg)'
         }}
       />
@@ -36,4 +38,4 @@ const TimedBackground = (props: Props) => {
 
 }
 
-export default TimedBackground;
+export default React.memo(TimedBackground);
