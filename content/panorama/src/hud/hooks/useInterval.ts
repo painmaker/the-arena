@@ -13,8 +13,8 @@ export const useInterval = (callback: Function, delay: number = 0.0) => {
     let scheduleID: ScheduleID = -1 as ScheduleID;
 
     const update = () => {
-      scheduleID = $.Schedule(delay, update);
       savedCallback.current();
+      scheduleID = $.Schedule(delay, update);
     }
 
     update();

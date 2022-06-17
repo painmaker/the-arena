@@ -25,43 +25,34 @@ const FloatingContainer = () => {
   const [floatingBars, setFloatingBars] = useState<IFloatingBar[]>([]);
 
   useInterval(() => {
+
     const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
     const scale = 1080 / Game.GetScreenHeight();
 
-    const mFloatingBars = Entities.GetAllEntities()
+    const screenWidth = Game.GetScreenWidth();
+    const screenHeight = Game.GetScreenHeight();
+
+    const mFloatingBars = Object.values(units)
       .filter(entity => Entities.IsSelectable(entity))
-      .filter(entity => Object.values(units).includes(entity))
-      .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < 3500)
+      .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < 4000)
       .map(unit => {
 
-        const unitOrigin = Entities.GetAbsOrigin(unit);
+        const origin = Entities.GetAbsOrigin(unit);
+        const offset = Entities.GetHealthBarOffset(unit);
 
-        const offsetX = (centerOrigin[0] - unitOrigin[0]) / 20;
-        const offsetY = (centerOrigin[1] - unitOrigin[1]) / 20;
-        const offsetZ = Entities.GetHealthBarOffset(unit) + 50;
+        const screenY = Game.WorldToScreenX(origin[0], origin[1], origin[2] + offset);
+        const screenX = Game.WorldToScreenY(origin[0], origin[1], origin[2] + offset);
 
-        const offsetScreenX = scale * Game.WorldToScreenX(
-          unitOrigin[0] + offsetX,
-          unitOrigin[1] + offsetY,
-          unitOrigin[2] + offsetZ
-        );
+        const onScreen = screenY > 0 && screenY < screenWidth && screenX > 0 && screenX < screenHeight;
 
-        const offsetScreenY = scale * Game.WorldToScreenY(
-          unitOrigin[0] + offsetX,
-          unitOrigin[1] + offsetY,
-          unitOrigin[2] + offsetZ
-        );
-
-        const screenWorldPosition = GameUI.GetScreenWorldPosition([
-          Game.WorldToScreenX(unitOrigin[0], unitOrigin[1], unitOrigin[2]),
-          Game.WorldToScreenY(unitOrigin[0], unitOrigin[1], unitOrigin[2])
-        ]);
+        var x = scale * Math.min(screenWidth, Math.max(0, screenY));
+        var y = scale * Math.min(screenHeight, Math.max(0, screenX));
 
         return {
           unit,
-          screenX: offsetScreenX - (CONTAINER_WIDTH / 2),
-          screenY: offsetScreenY - CONTAINER_HEIGHT,
-          visible: screenWorldPosition !== null
+          screenX: x - (CONTAINER_WIDTH / 2),
+          screenY: y - CONTAINER_HEIGHT,
+          visible: onScreen
         };
 
       })
@@ -71,7 +62,7 @@ const FloatingContainer = () => {
       setFloatingBars(mFloatingBars);
     }
 
-  })
+  }, 0.00001)
 
   return (
     <React.Fragment>
@@ -82,15 +73,17 @@ const FloatingContainer = () => {
             hittest={false}
             key={unit}
             className={Styles.container}
-            style={{
-              transform: `translatex(${screenX}px) translatey(${screenY}px)`,
-            }}
+            style={{ transform: `translatex(${screenX}px) translatey(${screenY}px)` }}
           >
-            {Entities.GetMaxMana(unit) > 0 && (
-              <ManaBar unit={unit} />
-            )}
-            <HealthBar unit={unit} />
-            <Abilities unit={unit} />
+            <Panel className={Styles.statusBarContainer}>
+              {Entities.GetMaxMana(unit) > 0 && (
+                <ManaBar unit={unit} />
+              )}
+              <HealthBar unit={unit} />
+            </Panel>
+            <Panel className={Styles.abilitiesContainer}>
+              <Abilities unit={unit} />
+            </Panel>
           </Panel>
         )
       })}
