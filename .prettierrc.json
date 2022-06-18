@@ -7,5 +7,6 @@
 	"jsxSingleQuote": true,
 	"bracketSameLine": false,
 	"arrowParens": "avoid",
+  "printWidth": 180,
 	"requirePragma": true
 }

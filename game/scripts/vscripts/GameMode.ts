@@ -167,7 +167,7 @@ export class GameMode {
     GameRules.SetUseCustomHeroXPValues(true);
 
     const gameMode = GameRules.GetGameModeEntity();
-    gameMode.SetCustomGameForceHero("npc_dota_hero_wisp");
+    gameMode.SetCustomGameForceHero("npc_dota_hero_dazzle");
     gameMode.SetUnseenFogOfWarEnabled(true);
     gameMode.SetDaynightCycleDisabled(true);
     gameMode.SetAnnouncerDisabled(true);
