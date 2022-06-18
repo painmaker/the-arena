@@ -15,7 +15,7 @@ import ItemsShop from "./components/ItemsShop/ItemsShop";
 import HeroSelection from "./components/HeroSelection/HeroSelection";
 import Loading from "./components/Loading/Loading";
 import AbilitiesShop from "./components/AbilitiesShop/AbilitiesShop";
-import FloatingContainer from "./components/FloatingContainer/FloatingContainer";
+import FloatingContainers from "./components/FloatingContainers/FloatingContainers";
 import Messages from "./components/Messages/Messages";
 import { useInterval } from "./hooks/useInterval";
 import "./global.css";
@@ -120,10 +120,10 @@ const App = () => {
               <React.Fragment>
                 <Heroes />
                 <Minimap />
-                <FloatingContainer />
+                <FloatingContainers />
                 <Messages />
                 <Settings />
-                <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex: selectedEntityIndex }}>
+                <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
                   <AbilitiesShop selectedUnit={selectedEntityIndex} />
                   <CharacterDetails selectedUnit={selectedEntityIndex} />
                   <ItemsShop selectedUnit={selectedEntityIndex} />
@@ -134,7 +134,7 @@ const App = () => {
                   <Inventory />
                   <ItemOptions />
                   <Panel className={Styles.rightCornerContainer}>
-                    <Character selectedUnit={selectedEntityIndex} />
+                    <Character />
                     <Buttons />
                   </Panel>
                   <Panel className={Styles.bottomCenterBackground} />

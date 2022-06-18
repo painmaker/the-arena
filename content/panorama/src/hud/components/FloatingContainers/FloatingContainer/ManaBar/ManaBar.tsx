@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { HUD_THINK_FAST } from "../../../App";
-import { useInterval } from "../../../hooks/useInterval";
+import { HUD_THINK_FAST } from "../../../../App";
+import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
 type Props = {

@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { HUD_THINK_FAST } from "../../../../App";
-import { useInterval } from "../../../../hooks/useInterval";
-import { useTimeout } from "../../../../hooks/useTimeout";
+import { HUD_THINK_FAST } from "../../../../../App";
+import { useInterval } from "../../../../../hooks/useInterval";
+import { useTimeout } from "../../../../../hooks/useTimeout";
 import { IAbility } from "../Abilities";
 import Styles from './styles.module.css';
 
