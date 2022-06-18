@@ -11,14 +11,14 @@ const attributes = {
 }
 
 type Props = {
-  selectedUnit: EntityIndex,
+  selectedEntityIndex: EntityIndex,
 }
 
 const Attributes = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Attributes rendered");
 
-  const { selectedUnit } = props;
+  const { selectedEntityIndex } = props;
 
   const [strengthBase, setStrengthBase] = useState<number | undefined>(undefined);
   const [strengthBonus, setStrengthBonus] = useState<number | undefined>(undefined);
@@ -32,31 +32,31 @@ const Attributes = (props: Props) => {
   const [primaryAttribute, setPrimaryAttribute] = useState<number | undefined>(undefined);
 
   useInterval(() => {
-    if (Entities.IsHero(selectedUnit)) {
-      const numberOfBuffs = Entities.GetNumBuffs(selectedUnit);
+    if (Entities.IsHero(selectedEntityIndex)) {
+      const numberOfBuffs = Entities.GetNumBuffs(selectedEntityIndex);
       for (let i = 0; i < numberOfBuffs; i++) {
-        const buff = Entities.GetBuff(selectedUnit, i);
-        const name = Buffs.GetName(selectedUnit, buff);
+        const buff = Entities.GetBuff(selectedEntityIndex, i);
+        const name = Buffs.GetName(selectedEntityIndex, buff);
         if (name === 'modifier_ui_attribute_strength_base') {
-          setStrengthBase(Buffs.GetStackCount(selectedUnit, buff));
+          setStrengthBase(Buffs.GetStackCount(selectedEntityIndex, buff));
         }
         if (name === 'modifier_ui_attribute_strength_bonus') {
-          setStrengthBonus(Buffs.GetStackCount(selectedUnit, buff));
+          setStrengthBonus(Buffs.GetStackCount(selectedEntityIndex, buff));
         }
         if (name === 'modifier_ui_attribute_agility_base') {
-          setAgilityBase(Buffs.GetStackCount(selectedUnit, buff));
+          setAgilityBase(Buffs.GetStackCount(selectedEntityIndex, buff));
         }
         if (name === 'modifier_ui_attribute_agility_bonus') {
-          setAgilityBonus(Buffs.GetStackCount(selectedUnit, buff));
+          setAgilityBonus(Buffs.GetStackCount(selectedEntityIndex, buff));
         }
         if (name === 'modifier_ui_attribute_intellect_base') {
-          setIntellectBase(Buffs.GetStackCount(selectedUnit, buff));
+          setIntellectBase(Buffs.GetStackCount(selectedEntityIndex, buff));
         }
         if (name === 'modifier_ui_attribute_intellect_bonus') {
-          setIntellectBonus(Buffs.GetStackCount(selectedUnit, buff));
+          setIntellectBonus(Buffs.GetStackCount(selectedEntityIndex, buff));
         }
         if (name === 'modifier_ui_primary_attribute') {
-          setPrimaryAttribute(Buffs.GetStackCount(selectedUnit, buff));
+          setPrimaryAttribute(Buffs.GetStackCount(selectedEntityIndex, buff));
         }
       }
     }
@@ -66,24 +66,24 @@ const Attributes = (props: Props) => {
     <Panel className={Styles.container}>
       <Panel className={Styles.row}>
         <Attribute
-          imgName={'primary_attribute_icon_strength'}
-          primaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_STRENGTH}
+          imgSrc={'file://{images}/primary_attribute_icon_strength.png'}
+          isPrimaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_STRENGTH}
           base={strengthBase}
           bonus={strengthBonus}
         />
       </Panel>
       <Panel className={Styles.row}>
         <Attribute
-          imgName={'primary_attribute_icon_agility'}
-          primaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_AGILITY}
+          imgSrc={'file://{images}/primary_attribute_icon_agility.png'}
+          isPrimaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_AGILITY}
           base={agilityBase}
           bonus={agilityBonus}
         />
       </Panel>
       <Panel className={Styles.row}>
         <Attribute
-          imgName={'primary_attribute_icon_intelligence'}
-          primaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_INTELLECT}
+          imgSrc={'file://{images}/primary_attribute_icon_intelligence.png'}
+          isPrimaryAttribute={primaryAttribute === attributes.DOTA_ATTRIBUTE_INTELLECT}
           base={intellectBase}
           bonus={intellectBonus}
         />

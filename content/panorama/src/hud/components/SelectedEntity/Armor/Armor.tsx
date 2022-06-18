@@ -4,21 +4,21 @@ import { useInterval } from "../../../hooks/useInterval";
 import ParentStyles from './../styles.module.css';
 
 type Props = {
-  selectedUnit: EntityIndex,
+  selectedEntityIndex: EntityIndex,
 }
 
 const Armor = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Armor rendered");
 
-  const { selectedUnit } = props;
+  const { selectedEntityIndex } = props;
 
-  const [armor, setArmor] = useState(Entities.GetPhysicalArmorValue(selectedUnit));
-  const [bonusArmor, setBonusArmor] = useState(Entities.GetBonusPhysicalArmor(selectedUnit));
+  const [armor, setArmor] = useState(Entities.GetPhysicalArmorValue(selectedEntityIndex));
+  const [bonusArmor, setBonusArmor] = useState(Entities.GetBonusPhysicalArmor(selectedEntityIndex));
 
   useInterval(() => {
-    setArmor(Entities.GetPhysicalArmorValue(selectedUnit));
-    setBonusArmor(Entities.GetBonusPhysicalArmor(selectedUnit));
+    setArmor(Entities.GetPhysicalArmorValue(selectedEntityIndex));
+    setBonusArmor(Entities.GetBonusPhysicalArmor(selectedEntityIndex));
   }, HUD_THINK_MEDIUM);
 
   return (

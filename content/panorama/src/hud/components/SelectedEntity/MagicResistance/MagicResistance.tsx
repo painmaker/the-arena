@@ -4,19 +4,19 @@ import { useInterval } from "../../../hooks/useInterval";
 import ParentStyles from './../styles.module.css';
 
 type Props = {
-  selectedUnit: EntityIndex,
+  selectedEntityIndex: EntityIndex,
 }
 
 const MagicResistance = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - MagicalResistance rendered");
 
-  const { selectedUnit } = props;
+  const { selectedEntityIndex } = props;
 
-  const [magicResistance, setMagicResistance] = useState(Entities.GetMagicalArmorValue(selectedUnit));
+  const [magicResistance, setMagicResistance] = useState(Entities.GetMagicalArmorValue(selectedEntityIndex));
 
   useInterval(() => {
-    setMagicResistance(Entities.GetMagicalArmorValue(selectedUnit))
+    setMagicResistance(Entities.GetMagicalArmorValue(selectedEntityIndex))
   }, HUD_THINK_MEDIUM);
 
   return (

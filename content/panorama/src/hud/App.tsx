@@ -6,11 +6,10 @@ import ToggleCustomUI from './components/ToggleCustomUI/ToggleCustomUI'
 import { useInterval } from './hooks/useInterval'
 import FloatingContainers from './components/FloatingContainers/FloatingContainers'
 import Minimap from './components/Minimap/Minimap'
-import Heroes from './components/Heroes/Heroes'
 import Settings from './components/Settings/Settings'
 import SelectedEntityIndexContext from './context/SelectedEntityIndexContext'
 import Buttons from './components/Buttons/Buttons'
-import Character from './components/Character/Character'
+import SelectedEntity from './components/SelectedEntity/SelectedEntity'
 
 export const HUD_THINK_FAST = 0.03
 export const HUD_THINK_MEDIUM = 0.1
@@ -103,7 +102,7 @@ const App = () => {
               */}
 							<SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
                 <Panel className={Styles.rightCornerContainer}>
-                  <Character />
+                  <SelectedEntity />
                   <Buttons />
                 </Panel>
                 {/*

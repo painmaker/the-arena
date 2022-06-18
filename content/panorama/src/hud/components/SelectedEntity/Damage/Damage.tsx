@@ -4,23 +4,23 @@ import { useInterval } from "../../../hooks/useInterval";
 import ParentStyles from './../styles.module.css';
 
 type Props = {
-  selectedUnit: EntityIndex,
+  selectedEntityIndex: EntityIndex,
 }
 
 const Damage = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Damage rendered");
 
-  const { selectedUnit } = props;
+  const { selectedEntityIndex } = props;
 
-  const [minDamage, setMinDamage] = useState(Entities.GetDamageMin(selectedUnit));
-  const [maxDamage, setMaxDamage] = useState(Entities.GetDamageMax(selectedUnit));
-  const [bonusDamage, setBonusDamage] = useState(Entities.GetDamageBonus(selectedUnit));
+  const [minDamage, setMinDamage] = useState(Entities.GetDamageMin(selectedEntityIndex));
+  const [maxDamage, setMaxDamage] = useState(Entities.GetDamageMax(selectedEntityIndex));
+  const [bonusDamage, setBonusDamage] = useState(Entities.GetDamageBonus(selectedEntityIndex));
 
   useInterval(() => {
-    setMinDamage(Entities.GetDamageMin(selectedUnit));
-    setMaxDamage(Entities.GetDamageMax(selectedUnit));
-    setBonusDamage(Entities.GetDamageBonus(selectedUnit));
+    setMinDamage(Entities.GetDamageMin(selectedEntityIndex));
+    setMaxDamage(Entities.GetDamageMax(selectedEntityIndex));
+    setBonusDamage(Entities.GetDamageBonus(selectedEntityIndex));
   }, HUD_THINK_MEDIUM)
 
   return (

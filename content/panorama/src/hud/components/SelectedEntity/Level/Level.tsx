@@ -4,28 +4,28 @@ import { useInterval } from "../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
 type Props = {
-  selectedUnit: EntityIndex,
+  selectedEntityIndex: EntityIndex,
 }
 
 const Level = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - Level rendered");
 
-  const { selectedUnit } = props;
+  const { selectedEntityIndex } = props;
 
   const [level, setLevel] = useState(1);
   const [percentage, setPercentage] = useState(0);
 
   useInterval(() => {
-    if (Entities.IsHero(selectedUnit)) {
-      const currentXp = Entities.GetCurrentXP(selectedUnit);
-      const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
+    if (Entities.IsHero(selectedEntityIndex)) {
+      const currentXp = Entities.GetCurrentXP(selectedEntityIndex);
+      const requiredXp = Entities.GetNeededXPToLevel(selectedEntityIndex);
       const percentage = Math.floor(Math.max(0, Math.min(100, currentXp / requiredXp * 100)))
       setPercentage(percentage ? percentage : 0)
     } else {
       setPercentage(100);
     }
-    setLevel(Entities.GetLevel(selectedUnit));
+    setLevel(Entities.GetLevel(selectedEntityIndex));
   }, HUD_THINK_MEDIUM);
 
   return (

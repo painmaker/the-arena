@@ -8,7 +8,7 @@ import Attributes from "./Attributes/Attributes";
 import Styles from "./styles.module.css"
 import SelectedEntityIndexContext from "../../context/SelectedEntityIndexContext";
 
-const Character = () => {
+const SelectedEntity = () => {
 
   // $.Msg("REACT-RENDER: Character rendered");
 
@@ -16,14 +16,14 @@ const Character = () => {
 
   useEffect(() => {
     const scenePanel = $('#selected_unit_portrait') as ScenePanel;
-    scenePanel.SetUnit(Entities.GetUnitName(selectedEntityIndex), "", false);
+    scenePanel.SetUnit(Entities.GetUnitName(selectedEntityIndex), '', false);
   }, [selectedEntityIndex])
 
   return (
     <Panel className={Styles.container} hittest={true}>
       <DOTAScenePanel
         className={Styles.heroImage}
-        id={"selected_unit_portrait"}
+        id={'selected_unit_portrait'}
         key={Entities.GetUnitName(selectedEntityIndex)}
       />
       <Panel className={Styles.rowContainer}>
@@ -32,28 +32,28 @@ const Character = () => {
             <Panel className={Styles.leftColumnTitleContainer}>
               <Label
                 className={Styles.heroLabel}
-                text={$.Localize("#" + Entities.GetUnitName(selectedEntityIndex))}
+                text={$.Localize('#' + Entities.GetUnitName(selectedEntityIndex))}
               />
             </Panel>
             <Panel className={Styles.leftColumnContentContainer}>
               <Panel className={Styles.columnContent}>
                 {Entities.IsHero(selectedEntityIndex) && (
-                  <Attributes selectedUnit={selectedEntityIndex} />
+                  <Attributes selectedEntityIndex={selectedEntityIndex} />
                 )}
               </Panel>
             </Panel>
           </Panel>
           <Panel className={Styles.rightColumn}>
             <Panel className={Styles.columnContent}>
-              <Armor selectedUnit={selectedEntityIndex} />
-              <MagicResistance selectedUnit={selectedEntityIndex} />
-              <Damage selectedUnit={selectedEntityIndex} />
-              <MoveSpeed selectedUnit={selectedEntityIndex} />
+              <Armor selectedEntityIndex={selectedEntityIndex} />
+              <MagicResistance selectedEntityIndex={selectedEntityIndex} />
+              <Damage selectedEntityIndex={selectedEntityIndex} />
+              <MoveSpeed selectedEntityIndex={selectedEntityIndex} />
             </Panel>
           </Panel>
         </Panel>
         <Panel className={Styles.row2}>
-          <Level selectedUnit={selectedEntityIndex} />
+          <Level selectedEntityIndex={selectedEntityIndex} />
         </Panel>
       </Panel>
     </Panel>
@@ -61,4 +61,4 @@ const Character = () => {
 
 };
 
-export default React.memo(Character);
+export default React.memo(SelectedEntity);

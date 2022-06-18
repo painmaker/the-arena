@@ -5,19 +5,19 @@ import ParentStyles from './../styles.module.css';
 import Styles from './styles.module.css';
 
 type Props = {
-  selectedUnit: EntityIndex,
+  selectedEntityIndex: EntityIndex,
 }
 
 const MoveSpeed = (props: Props) => {
 
   // $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
 
-  const { selectedUnit } = props;
+  const { selectedEntityIndex } = props;
 
-  const [moveSpeed, setMoveSpeed] = useState(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)));
+  const [moveSpeed, setMoveSpeed] = useState(Entities.GetMoveSpeedModifier(selectedEntityIndex, Entities.GetBaseMoveSpeed(selectedEntityIndex)));
 
   useInterval(() => {
-    setMoveSpeed(Entities.GetMoveSpeedModifier(selectedUnit, Entities.GetBaseMoveSpeed(selectedUnit)))
+    setMoveSpeed(Entities.GetMoveSpeedModifier(selectedEntityIndex, Entities.GetBaseMoveSpeed(selectedEntityIndex)))
   }, HUD_THINK_MEDIUM);
 
   return (
