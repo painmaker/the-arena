@@ -10,7 +10,7 @@ import SelectedEntityIndexContext from "../../context/SelectedEntityIndexContext
 
 const SelectedEntity = () => {
 
-  // $.Msg("REACT-RENDER: Character rendered");
+  // $.Msg("REACT-RENDER: SelectedEntity rendered");
 
   const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 

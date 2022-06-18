@@ -10,6 +10,18 @@ import Settings from './components/Settings/Settings'
 import SelectedEntityIndexContext from './context/SelectedEntityIndexContext'
 import Buttons from './components/Buttons/Buttons'
 import SelectedEntity from './components/SelectedEntity/SelectedEntity'
+import AbilityBar from './components/AbilityBar/AbilityBar'
+import Modifiers from './components/Modifiers/Modifiers'
+import Inventory from './components/Inventory/Inventory'
+import Mana from './components/Mana/Mana'
+import Health from './components/Health/Health'
+import Heroes from './components/Heroes/Heroes'
+import Messages from './components/Messages/Messages'
+import AbilitiesShop from './components/AbilitiesShop/AbilitiesShop'
+import CharacterDetails from './components/CharacterDetails/CharacterDetails'
+import ItemsShop from './components/ItemsShop/ItemsShop'
+import { useRegisterForUnhandledEvent } from 'react-panorama'
+import { WINDOW } from './data/windows'
 
 export const HUD_THINK_FAST = 0.03
 export const HUD_THINK_MEDIUM = 0.1
@@ -42,7 +54,7 @@ const App = () => {
 		if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
 			setSelectedEntityIndex(unitToSelect)
 		}
-	}, HUD_THINK_SLOW)
+	})
 
 	useEffect(() => {
 		GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !useCustomUI)
@@ -77,14 +89,14 @@ const App = () => {
 		GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !useCustomUI)
 	}, [useCustomUI])
 
-	// useRegisterForUnhandledEvent(
-	// 	'Cancelled',
-	// 	() => {
-	// 		GameEvents.SendEventClientSide('set_window', { window: WINDOW.NONE })
-	// 		Game.EmitSound('ui_topmenu_select')
-	// 	},
-	// 	[],
-	// )
+	useRegisterForUnhandledEvent(
+		'Cancelled',
+		() => {
+			GameEvents.SendEventClientSide('set_window', { window: WINDOW.NONE })
+			Game.EmitSound('ui_topmenu_select')
+		},
+		[],
+	)
 
 	return (
 		<React.Fragment>
@@ -96,30 +108,24 @@ const App = () => {
 							<Minimap />
 							<FloatingContainers />
 							<Settings />
-              {/*
               <Heroes /> 
 							<Messages />
-              */}
 							<SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
+                <AbilitiesShop selectedUnit={selectedEntityIndex} />
+								<CharacterDetails selectedUnit={selectedEntityIndex} />
+								<ItemsShop selectedUnit={selectedEntityIndex} />
                 <Panel className={Styles.rightCornerContainer}>
                   <SelectedEntity />
                   <Buttons />
                 </Panel>
-                {/*
-								<AbilitiesShop selectedUnit={selectedEntityIndex} />
-								<CharacterDetails selectedUnit={selectedEntityIndex} />
-								<ItemsShop selectedUnit={selectedEntityIndex} />
 								<AbilityBar />
 								<Modifiers />
-								<Mana />
-								<Health />
 								<Inventory />
-								<ItemOptions />
-								
-								<Panel className={Styles.bottomCenterBackground} />
+                <Mana />
+								<Health />
+                <Panel className={Styles.bottomCenterBackground} />
 								<Panel className={Styles.bottomCenterLeftFlare} />
 								<Panel className={Styles.bottomCenterRightFlare} />
-                */}
 							</SelectedEntityIndexContext.Provider>
 						</React.Fragment>
 					)}

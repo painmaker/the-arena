@@ -29,7 +29,7 @@ const CastPointOverlay = () => {
     if (endTime !== undefined) {
       const gameTimeDifference = endTime - Game.GetGameTime();
       const degree = - (360 - ((gameTimeDifference / castPoint) * 360));
-      setDegree(isFinite(degree) ? degree : 0);
+      setDegree(Number.isFinite(degree) ? degree : 0);
     } else {
       setDegree(0)
     }
