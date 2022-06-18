@@ -3,24 +3,27 @@ import './global.css'
 import Styles from './app.module.css'
 import { UseCustomUIContext } from './context/UseCustomUIContext'
 import ToggleCustomUI from './components/ToggleCustomUI/ToggleCustomUI'
+import { useInterval } from './hooks/useInterval'
+import FloatingContainers from './components/FloatingContainers/FloatingContainers'
+import Minimap from './components/Minimap/Minimap'
 
 export const HUD_THINK_FAST = 0.03
 export const HUD_THINK_MEDIUM = 0.1
 export const HUD_THINK_SLOW = 1.0
 
-// const excludedUnits = ['shopkeeper_abilities']
+const excludedUnits = ['shopkeeper_abilities']
 
-// const getGameUnitSelected = () => {
-// 	const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer())
-// 	if (queryUnit !== -1) {
-// 		return queryUnit
-// 	}
-// 	const portraitUnit = Players.GetLocalPlayerPortraitUnit()
-// 	if (portraitUnit !== -1) {
-// 		return portraitUnit
-// 	}
-// 	return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())
-// }
+const getGameUnitSelected = () => {
+	const queryUnit = Players.GetQueryUnit(Players.GetLocalPlayer())
+	if (queryUnit !== -1) {
+		return queryUnit
+	}
+	const portraitUnit = Players.GetLocalPlayerPortraitUnit()
+	if (portraitUnit !== -1) {
+		return portraitUnit
+	}
+	return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())
+}
 
 const App = () => {
 	
@@ -28,14 +31,14 @@ const App = () => {
 	// const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1
 
 	const [useCustomUI, setUseCustomUI] = useState(true)
-	// const [selectedEntityIndex, setSelectedEntityIndex] = useState(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()))
+	const [selectedEntityIndex, setSelectedEntityIndex] = useState(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()))
 
-	// useInterval(() => {
-	// 	const unitToSelect = getGameUnitSelected()
-	// 	if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
-	// 		setSelectedEntityIndex(unitToSelect)
-	// 	}
-	// }, HUD_THINK_FAST)
+	useInterval(() => {
+		const unitToSelect = getGameUnitSelected()
+		if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
+			setSelectedEntityIndex(unitToSelect)
+		}
+	}, HUD_THINK_SLOW)
 
 	useEffect(() => {
 		GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !useCustomUI)
@@ -86,11 +89,10 @@ const App = () => {
           <ToggleCustomUI />
 					{useCustomUI && (
 						<React.Fragment>
-              <Label text={'Test'} />
-              {/*
-							<Heroes />
 							<Minimap />
 							<FloatingContainers />
+              {/*
+							<Heroes />
 							<Messages />
 							<Settings />
 							<SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>

@@ -15,7 +15,7 @@ export type IAbility = {
 
 const AbilitiesImpl = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: CloatingContainer - Abilities rendered");
+  // $.Msg("REACT-RENDER: Abilities rendered");
 
   const { entityIndex } = props;
 

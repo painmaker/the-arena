@@ -9,7 +9,7 @@ type Props = {
 
 const ManaBar = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: FloatingBars - ManaBar rendered");
+  // $.Msg("REACT-RENDER: ManaBar rendered");
 
   const { entityIndex } = props;
 

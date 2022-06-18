@@ -9,7 +9,7 @@ type Props = {
 
 const HealthBar = (props: Props) => {
 
-  // $.Msg("REACT-RENDER: FloatingBars - HealthBar rendered");
+  // $.Msg("REACT-RENDER: HealthBar rendered");
 
   const { entityIndex } = props;
 

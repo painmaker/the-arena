@@ -4,6 +4,8 @@ import HealthBar from './HealthBar/HealthBar';
 import ManaBar from './ManaBar/ManaBar';
 import Abilities from './Abilities/Abilities';
 import Styles from './styles.module.css';
+import { isEqual } from 'lodash';
+import { HUD_THINK_FAST, HUD_THINK_SLOW } from '../../../App';
 
 const CONTAINER_HEIGHT = 500;
 const CONTAINER_WIDTH = 250;
@@ -46,7 +48,11 @@ const FloatingContainer = (props: Props) => {
       Game.WorldToScreenY(origin[0], origin[1], origin[2])
     ]).map(screenEntity => screenEntity.entityIndex).includes(entityIndex);
 
-    setData({ x, y, isVisible})
+    const newData = { x, y, isVisible};
+
+    if (!isEqual(data, newData)) {
+      setData(newData);
+    }
 
   })
 
@@ -60,7 +66,7 @@ const FloatingContainer = (props: Props) => {
         // position: `${data.x}px ${data.y}px 0px`,
       }}
     >
-      <Panel  className={Styles.statusBarContainer}>
+      <Panel className={Styles.statusBarContainer}>
         {Entities.GetMaxMana(entityIndex) > 0 && (
           <ManaBar entityIndex={entityIndex} />
         )}

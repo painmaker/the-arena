@@ -1,26 +1,27 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
 export const useTimeout = (callback: Function, delay: number = 0) => {
 
-  const savedCallback = useRef<Function>(() => { });
+  const savedCallback = useRef(callback);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
 
   useEffect(() => {
 
-    function update() {
+    const update = () => {
       savedCallback.current();
     }
 
-    const id = $.Schedule(delay, update);
+    const scheduleId = $.Schedule(delay, update);
 
     return () => {
       try {
-        $.CancelScheduled(id)
+        $.Msg(`Canceling schedule with id ${scheduleId}`)
+        $.CancelScheduled(scheduleId)
       } catch (exception) {
-        $.Msg("exception: " + exception)
+        $.Msg(`Exception for schedule with id ${scheduleId}: ${exception}`)
       }
     }
 

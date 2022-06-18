@@ -13,6 +13,8 @@ type Props = {
 
 const Ability = (props: Props) => {
 
+  // $.Msg("REACT-RENDER: Ability rendered");
+
   const { id, name, isItem, setAbilities } = props;
 
   const [posY, setPosY] = useState(75);

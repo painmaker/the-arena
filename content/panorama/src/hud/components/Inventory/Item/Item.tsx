@@ -1,36 +1,17 @@
-import React, { Dispatch, useCallback, useContext, useEffect, useLayoutEffect, useState } from 'react'
+import React, { useCallback, useContext, useLayoutEffect, useState } from 'react'
 import Keybind from './Keybind/Keybind'
 import Cooldown from './Cooldown/Cooldown'
 import Image from './Image/Image'
 import Charges from './Charges/Charges'
 import ManaCost from './ManaCost/ManaCost'
-import { ItemOptionsActionTypes } from '../../../interfaces/itemOptionsTypes'
-import {
-  setItemOptionsItem,
-  setItemOptionsPositionX,
-  setItemOptionsVisible,
-} from '../../../actions/itemOptionsActions'
-import { connect, ConnectedProps } from 'react-redux'
-import { RootState } from '../../../reducers/rootReducer'
+
 import Styles from './styles.module.css'
 import Shine from './Shine/Shine'
 import SelectedEntityIndexContext from '../../../context/SelectedEntityIndexContext'
 
-const mapStateToProps = (state: RootState) => ({
-  itemOptionsVisible: state.itemOptionsReducer.visible,
-  itemOptionsItem: state.itemOptionsReducer.item,
-})
 
-const mapDispatchToProps = (dispatch: Dispatch<ItemOptionsActionTypes>) => ({
-  setItemOptionsItem: (item: ItemEntityIndex) => dispatch(setItemOptionsItem(item)),
-  setItemOptionsPositionX: (posX: number) => dispatch(setItemOptionsPositionX(posX)),
-  setItemOptionsVisible: (visible: boolean) => dispatch(setItemOptionsVisible(visible)),
-})
 
-const connector = connect(mapStateToProps, mapDispatchToProps)
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-type Props = PropsFromRedux & {
+type Props =  {
   item: ItemEntityIndex
   slot: number
 }
@@ -44,11 +25,6 @@ const Item = (props: Props) => {
   const {
     item,
     slot,
-    itemOptionsVisible,
-    itemOptionsItem,
-    setItemOptionsItem,
-    setItemOptionsPositionX,
-    setItemOptionsVisible,
   } = props
 
   const [isDragged, setIsDragged] = useState(false)
@@ -112,13 +88,13 @@ const Item = (props: Props) => {
     if (draggedItem === item) {
       return
     }
-    setItemOptionsVisible(false)
+    // setItemOptionsVisible(false)
     Game.PrepareUnitOrders({
       OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_MOVE_ITEM,
       TargetIndex: slot,
       AbilityIndex: draggedItem,
     })
-  }, [item, slot, setItemOptionsVisible])
+  }, [item, slot])
 
   const onItemLeftClicked = useCallback(() => {
     if (item == -1) {
@@ -154,20 +130,20 @@ const Item = (props: Props) => {
     const isControllable = Entities.IsControllableByPlayer(selectedEntityIndex, playerId)
 
     if (isControllable) {
-      if (itemOptionsVisible && itemOptionsItem === item) {
-        setItemOptionsVisible(false)
-      } else {
-        setItemOptionsVisible(true)
-        setItemOptionsItem(item)
-        const position = panel.GetPositionWithinWindow()
-        // GameEvents.SendEventClientSide('set_item_options_position', { x: position.x, y: position.y });
-      }
+      // if (itemOptionsVisible && itemOptionsItem === item) {
+      //   setItemOptionsVisible(false)
+      // } else {
+      //   setItemOptionsVisible(true)
+      //   setItemOptionsItem(item)
+      //   const position = panel.GetPositionWithinWindow()
+      //   // GameEvents.SendEventClientSide('set_item_options_position', { x: position.x, y: position.y });
+      // }
       Game.EmitSound('ui_topmenu_select')
     } else {
       GameUI.SendCustomHUDError('Item Not Owned By You', 'General.InvalidTarget_Invulnerable')
     }
 
-  }, [item, selectedEntityIndex, slot, itemOptionsVisible, itemOptionsItem, setItemOptionsVisible, setItemOptionsItem, setItemOptionsPositionX])
+  }, [item, selectedEntityIndex, slot])
 
   const onMouseOver = useCallback(() => {
     if (item === -1) {
@@ -222,4 +198,4 @@ const Item = (props: Props) => {
   )
 }
 
-export default connector(Item);
+export default Item;

@@ -3,6 +3,7 @@ import { useNetTableValues } from "react-panorama";
 import { useInterval } from "../../hooks/useInterval";
 import lodash from 'lodash';
 import FloatingContainer from "./FloatingContainer/FloatingContainer";
+import { HUD_THINK_FAST } from "../../App";
 
 const MAX_DISTANCE = 4000;
 
@@ -18,11 +19,12 @@ const FloatingContainers = () => {
     const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
     const newEntityIndexes = Object.values(units)
       .filter(entity => Entities.IsSelectable(entity))
-      .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < MAX_DISTANCE);
-    if (!lodash.isEqual(units, newEntityIndexes)) {
+      .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < MAX_DISTANCE)
+      .sort();
+    if (!lodash.isEqual(entityIndexes, newEntityIndexes)) {
       setEntityIndexes(newEntityIndexes);
     }
-  })
+  }, HUD_THINK_FAST)
 
   return (
     <React.Fragment>
