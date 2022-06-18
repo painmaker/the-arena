@@ -2598,7 +2598,7 @@
   width: 250px;
 	flow-children: up;
 	z-index: -1;
-  transition: position 0.0s linear 0s, transform 0.0s linear 0s;  
+  transition: position 0.0s ease-in-out 0s, transform 0.0s ease-in-out 0s;  
   transition-high-framerate: true;
 }
 
@@ -2812,6 +2812,7 @@ ProgressBar {
 		from(#00ff00),
 		to(#004c00)
 	);
+  background-color: gradient( linear, 0% 0%, 100% 100%, from( rgb(136, 255, 0) ), color-stop( 0.1, rgb(0, 0, 0) ), to( #73ff00 ));
 	border-radius: 1px;
 	transition-property: width;
 	transition-duration: 0s;

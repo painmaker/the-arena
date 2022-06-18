@@ -4,7 +4,7 @@ import Ability from "./Ability/Ability";
 import Styles from './styles.module.css';
 
 type Props = {
-  unit: EntityIndex,
+  entityIndex: EntityIndex,
 };
 
 export type IAbility = {
@@ -17,17 +17,17 @@ const AbilitiesImpl = (props: Props) => {
 
   // $.Msg("REACT-RENDER: CloatingContainer - Abilities rendered");
 
-  const { unit } = props;
+  const { entityIndex } = props;
 
   const [abilities, setAbilities] = useState<IAbility[]>([]);
   const id = useRef(Number.MIN_SAFE_INTEGER);
 
   useGameEvent('on_ability_used', (event) => {
-    if (unit === event.caster) {
+    if (entityIndex === event.caster) {
       id.current = id.current + 1;
       setAbilities(prevState => [...prevState, { name: event.name, isItem: event.isItem === 1, id: id.current }] as IAbility[]);
     }
-  }, [unit]);
+  }, [entityIndex]);
 
   return (
     <Panel hittest={false} className={Styles.container}>

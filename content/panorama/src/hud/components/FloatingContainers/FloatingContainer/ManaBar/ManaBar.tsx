@@ -4,21 +4,21 @@ import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
 type Props = {
-  unit: EntityIndex,
+  entityIndex: EntityIndex,
 };
 
 const ManaBar = (props: Props) => {
 
   // $.Msg("REACT-RENDER: FloatingBars - ManaBar rendered");
 
-  const { unit } = props;
+  const { entityIndex } = props;
 
-  const [mana, setMana] = useState(Entities.GetMana(unit));
-  const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(unit));
+  const [mana, setMana] = useState(Entities.GetMana(entityIndex));
+  const [maxMana, setMaxMana] = useState(Entities.GetMaxMana(entityIndex));
 
   useInterval(() => {
-    setMana(Entities.GetMana(unit));
-    setMaxMana(Entities.GetMaxMana(unit));
+    setMana(Entities.GetMana(entityIndex));
+    setMaxMana(Entities.GetMaxMana(entityIndex));
   }, HUD_THINK_FAST);
 
   return (

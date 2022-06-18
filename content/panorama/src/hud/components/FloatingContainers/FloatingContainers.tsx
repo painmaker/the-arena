@@ -12,21 +12,21 @@ const FloatingContainers = () => {
 
   const units = useNetTableValues('FloatingBarUnits').units;
 
-  const [unitsWithFloatingBar, setUnitsWithFloatingBar] = useState<EntityIndex[]>([]);
+  const [entityIndexes, setEntityIndexes] = useState<EntityIndex[]>([]);
 
   useInterval(() => {
     const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2);
-    const newUnitsWithFloatingBar = Object.values(units)
+    const newEntityIndexes = Object.values(units)
       .filter(entity => Entities.IsSelectable(entity))
       .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < MAX_DISTANCE);
-    if (!lodash.isEqual(units, newUnitsWithFloatingBar)) {
-      setUnitsWithFloatingBar(newUnitsWithFloatingBar);
+    if (!lodash.isEqual(units, newEntityIndexes)) {
+      setEntityIndexes(newEntityIndexes);
     }
   })
 
   return (
     <React.Fragment>
-      {unitsWithFloatingBar.map(unit => <FloatingContainer key={unit} unit={unit}/>)}
+      {entityIndexes.map(entityIndex => <FloatingContainer key={entityIndex} entityIndex={entityIndex} />)}
     </React.Fragment>
   );
 

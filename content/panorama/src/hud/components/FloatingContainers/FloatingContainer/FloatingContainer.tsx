@@ -9,21 +9,22 @@ const CONTAINER_HEIGHT = 500;
 const CONTAINER_WIDTH = 250;
 
 type Props = {
-  unit: EntityIndex,
+  entityIndex: EntityIndex,
 }
 
-type Position = {
+type Data = {
   x: number,
   y: number,
+  isVisible: boolean,
 }
 
 const FloatingContainer = (props: Props) => {
 
   // $.Msg("REACT-RENDER: FloatingContainer rendered");
 
-  const { unit } = props;
+  const { entityIndex } = props;
 
-  const [position, setPosition] = useState<Position>({x: 0, y: 0})
+  const [data, setData] = useState<Data>({x: 0, y: 0, isVisible: false})
 
   useInterval(() => {
 
@@ -31,8 +32,8 @@ const FloatingContainer = (props: Props) => {
     const screenHeight = Game.GetScreenHeight();
     const scale = 1080 / screenHeight;
 
-    const origin = Entities.GetAbsOrigin(unit);
-    const offset = Entities.GetHealthBarOffset(unit);
+    const origin = Entities.GetAbsOrigin(entityIndex);
+    const offset = Entities.GetHealthBarOffset(entityIndex);
 
     const screenY = Game.WorldToScreenX(origin[0], origin[1], origin[2] + offset);
     const screenX = Game.WorldToScreenY(origin[0], origin[1], origin[2] + offset);
@@ -40,29 +41,33 @@ const FloatingContainer = (props: Props) => {
     const x = scale * Math.min(screenWidth, Math.max(0, screenY)) - (CONTAINER_WIDTH / 2);
     const y = scale * Math.min(screenHeight, Math.max(0, screenX)) - CONTAINER_HEIGHT;
 
-    setPosition({ x, y })
+    const isVisible = GameUI.FindScreenEntities([
+      Game.WorldToScreenX(origin[0], origin[1], origin[2]),
+      Game.WorldToScreenY(origin[0], origin[1], origin[2])
+    ]).map(screenEntity => screenEntity.entityIndex).includes(entityIndex);
+
+    setData({ x, y, isVisible})
 
   })
-
-  const style = { 
-    transform: `translatex(${position.x}px) translatey(${position.y}px)`,
-    // position: `${position.x}px ${position.y}px 0px`,
-  }
 
   return (
     <Panel
       hittest={false}
       className={Styles.container}
-      style={style}
+      style={{
+        visibility: data.isVisible ? 'visible' : 'collapse',
+        transform: `translatex(${data.x}px) translatey(${data.y}px)`,
+        // position: `${data.x}px ${data.y}px 0px`,
+      }}
     >
       <Panel  className={Styles.statusBarContainer}>
-        {Entities.GetMaxMana(unit) > 0 && (
-          <ManaBar unit={unit} />
+        {Entities.GetMaxMana(entityIndex) > 0 && (
+          <ManaBar entityIndex={entityIndex} />
         )}
-        <HealthBar unit={unit} />
+        <HealthBar entityIndex={entityIndex} />
       </Panel>
       <Panel className={Styles.abilitiesContainer}>
-        <Abilities unit={unit} />
+        <Abilities entityIndex={entityIndex} />
       </Panel>
     </Panel>
   )

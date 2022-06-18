@@ -4,21 +4,21 @@ import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
 
 type Props = {
-  unit: EntityIndex,
+  entityIndex: EntityIndex,
 };
 
 const HealthBar = (props: Props) => {
 
   // $.Msg("REACT-RENDER: FloatingBars - HealthBar rendered");
 
-  const { unit } = props;
+  const { entityIndex } = props;
 
-  const [health, setHealth] = useState(Entities.GetHealth(unit));
-  const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(unit));
+  const [health, setHealth] = useState(Entities.GetHealth(entityIndex));
+  const [maxHealth, setMaxHealth] = useState(Entities.GetMaxHealth(entityIndex));
 
   useInterval(() => {
-    setHealth(Entities.GetHealth(unit));
-    setMaxHealth(Entities.GetMaxHealth(unit));
+    setHealth(Entities.GetHealth(entityIndex));
+    setMaxHealth(Entities.GetMaxHealth(entityIndex));
   }, HUD_THINK_FAST);
 
   return (
@@ -27,7 +27,7 @@ const HealthBar = (props: Props) => {
         min={0}
         max={maxHealth}
         value={health}
-        className={Entities.IsEnemy(unit) ? 'healthProgressBarEnemy' : 'healthProgressBar'}
+        className={Entities.IsEnemy(entityIndex) ? 'healthProgressBarEnemy' : 'healthProgressBar'}
         style={{
           width: "100%",
           height: "100%",
