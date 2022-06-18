@@ -89,14 +89,10 @@ const App = () => {
 		GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !useCustomUI)
 	}, [useCustomUI])
 
-	useRegisterForUnhandledEvent(
-		'Cancelled',
-		() => {
-			GameEvents.SendEventClientSide('set_window', { window: WINDOW.NONE })
-			Game.EmitSound('ui_topmenu_select')
-		},
-		[],
-	)
+	useRegisterForUnhandledEvent('Cancelled', () => {
+    GameEvents.SendEventClientSide('set_window', { window: WINDOW.NONE })
+    Game.EmitSound('ui_topmenu_select')
+  }, [])
 
 	return (
 		<React.Fragment>
