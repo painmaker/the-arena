@@ -60,22 +60,16 @@ const ImageImpl = (props: Props) => {
     setIsCameraLocked(event.isLocked === 0 ? false : true);
   }, []);
 
-  useEffect(() => {
-    const handle = GameEvents.Subscribe("entity_killed", (event) => {
-      if (event.entindex_killed === heroEntityIndex && !isDisconnected) {
-        setWashColor("grey");
-      }
-    });
-    return () => GameEvents.Unsubscribe(handle);
+  useGameEvent('entity_killed', (event) => {
+    if (event.entindex_killed === heroEntityIndex && !isDisconnected) {
+      setWashColor("grey");
+    }
   }, []);
 
-  useEffect(() => {
-    const handle = GameEvents.Subscribe("npc_spawned", (event) => {
-      if (event.entindex === heroEntityIndex && !isDisconnected) {
-        setWashColor("none");
-      }
-    });
-    return () => GameEvents.Unsubscribe(handle);
+  useGameEvent('npc_spawned', (event) => {
+    if (event.entindex === heroEntityIndex && !isDisconnected) {
+      setWashColor("none");
+    }
   }, []);
 
   useInterval(() => {

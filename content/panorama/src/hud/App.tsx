@@ -6,6 +6,11 @@ import ToggleCustomUI from './components/ToggleCustomUI/ToggleCustomUI'
 import { useInterval } from './hooks/useInterval'
 import FloatingContainers from './components/FloatingContainers/FloatingContainers'
 import Minimap from './components/Minimap/Minimap'
+import Heroes from './components/Heroes/Heroes'
+import Settings from './components/Settings/Settings'
+import SelectedEntityIndexContext from './context/SelectedEntityIndexContext'
+import Buttons from './components/Buttons/Buttons'
+import Character from './components/Character/Character'
 
 export const HUD_THINK_FAST = 0.03
 export const HUD_THINK_MEDIUM = 0.1
@@ -91,11 +96,17 @@ const App = () => {
 						<React.Fragment>
 							<Minimap />
 							<FloatingContainers />
-              {/*
-							<Heroes />
-							<Messages />
 							<Settings />
+              {/*
+              <Heroes /> 
+							<Messages />
+              */}
 							<SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
+                <Panel className={Styles.rightCornerContainer}>
+                  <Character />
+                  <Buttons />
+                </Panel>
+                {/*
 								<AbilitiesShop selectedUnit={selectedEntityIndex} />
 								<CharacterDetails selectedUnit={selectedEntityIndex} />
 								<ItemsShop selectedUnit={selectedEntityIndex} />
@@ -105,15 +116,12 @@ const App = () => {
 								<Health />
 								<Inventory />
 								<ItemOptions />
-								<Panel className={Styles.rightCornerContainer}>
-									<Character />
-									<Buttons />
-								</Panel>
+								
 								<Panel className={Styles.bottomCenterBackground} />
 								<Panel className={Styles.bottomCenterLeftFlare} />
 								<Panel className={Styles.bottomCenterRightFlare} />
+                */}
 							</SelectedEntityIndexContext.Provider>
-              */}
 						</React.Fragment>
 					)}
 				</Panel>

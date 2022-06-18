@@ -1,36 +1,44 @@
-import React, { useState } from "react";
-import { useGameEvent } from "react-panorama";
+import React, { useCallback, useState } from "react";
+import Styles from "./styles.module.css";
 import { WINDOW } from "../../../data/windows";
-import ParentStyles from './../styles.module.css';
+import { useGameEvent } from "react-panorama";
 
-const SettingsButton = () => {
+type ButtonProps = {
+  id: string,
+  imgSrc: string,
+  propsWindow: WINDOW,
+}
 
-  // $.Msg("REACT-RENDER: SettingsButton rendered");
+const SettingsButton = (props: ButtonProps) => {
+ 
+  const { id, imgSrc, propsWindow } = props;
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [eventWindow, setEventWindow] = useState(WINDOW.NONE);
 
   useGameEvent('set_window', (event) => {
-    setIsOpen(event.window === WINDOW.SETTINGS);
+    setEventWindow(event.window);
   }, []);
+
+  const onClick = useCallback((id: string, window: WINDOW) => {
+    $(`#${id}`).RemoveClass('btnClicked');
+    $(`#${id}`).AddClass('btnClicked');
+    GameEvents.SendEventClientSide('set_window', { window: eventWindow === window ? WINDOW.NONE : window });
+    Game.EmitSound("ui_topmenu_select");
+  }, [eventWindow])
 
   return (
     <Button
-      id={'settings_btn'}
-      className={ParentStyles.btn}
-      onactivate={() => {
-        $('#settings_btn').RemoveClass('btnClicked');
-        $('#settings_btn').AddClass('btnClicked');
-        GameEvents.SendEventClientSide('set_window', { window: isOpen ? WINDOW.NONE : WINDOW.SETTINGS });
-        Game.EmitSound("ui_topmenu_select");
-      }}
+      id={id}
+      className={Styles.btn}
+      onactivate={() => onClick(id, propsWindow)}
     >
       <Image
-        style={{ washColor: isOpen ? 'orange' : 'white' }}
-        src={'s2r://panorama/images/settings_btn_white_png.vtex'}
+        style={{ washColor: propsWindow === eventWindow ? 'orange' : 'white' }}
+        src={imgSrc}
       />
     </Button>
-  );
+  )
 
-};
+}
 
-export default React.memo(SettingsButton);
+export default SettingsButton;
