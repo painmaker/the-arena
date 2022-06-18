@@ -3,7 +3,6 @@ import { HUD_THINK_FAST } from "../../../../App";
 import AbilityEntityIndexContext from "../../../../context/AbilityEntityIndexContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from "./styles.module.css";
-import lodash from 'lodash';
 
 const CastPointOverlay = () => {
 
@@ -30,7 +29,7 @@ const CastPointOverlay = () => {
     if (endTime !== undefined) {
       const gameTimeDifference = endTime - Game.GetGameTime();
       const degree = - (360 - ((gameTimeDifference / castPoint) * 360));
-      setDegree(lodash.isFinite(degree) ? Math.round(degree) : 0);
+      setDegree(isFinite(degree) ? degree : 0);
     } else {
       setDegree(0)
     }

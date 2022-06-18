@@ -2,9 +2,9 @@ import React, { useContext, useState } from "react";
 import { HUD_THINK_FAST } from "../../App";
 import SelectedEntityIndexContext from "../../context/SelectedEntityIndexContext";
 import { useInterval } from "../../hooks/useInterval";
+import { isEqual } from "../../utils/isEqual";
 import Modifier from "./Modifier/Modifier";
 import Styles from './styles.module.css';
-import lodash from 'lodash';
 
 const getModifiers = (unit: EntityIndex) => {
   const modifiers = [];
@@ -31,7 +31,7 @@ const Modifiers = () => {
 
   useInterval(() => {
     const newModifiers = getModifiers(selectedEntityIndex);
-    if (!lodash.isEqual(newModifiers, modifiers)) {
+    if (!isEqual(newModifiers, modifiers)) {
       setModifiers(newModifiers);
     }
   }, HUD_THINK_FAST)

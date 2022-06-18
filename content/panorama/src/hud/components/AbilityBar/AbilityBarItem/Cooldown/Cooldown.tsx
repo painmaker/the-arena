@@ -3,7 +3,6 @@ import { HUD_THINK_FAST } from "../../../../App";
 import AbilityEntityIndexContext from "../../../../context/AbilityEntityIndexContext";
 import { useInterval } from "../../../../hooks/useInterval";
 import Styles from './styles.module.css';
-import lodash from 'lodash'
 
 const Cooldown = () => {
 
@@ -18,7 +17,7 @@ const Cooldown = () => {
     const totalCooldown = Abilities.GetCooldown(abilityEntityIndex);
     const cooldownTimeRemaining = Abilities.GetCooldownTimeRemaining(abilityEntityIndex);
     const degree = Math.min(0, - (cooldownTimeRemaining / totalCooldown) * 360);
-    setDegree(lodash.isFinite(degree) ? degree : 0)
+    setDegree(isFinite(degree) ? degree : 0)
     setCooldownTimeRemaining(cooldownTimeRemaining);
   }, HUD_THINK_FAST);
 

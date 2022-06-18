@@ -4,8 +4,7 @@ import HealthBar from './HealthBar/HealthBar';
 import ManaBar from './ManaBar/ManaBar';
 import Abilities from './Abilities/Abilities';
 import Styles from './styles.module.css';
-import { isEqual } from 'lodash';
-import { HUD_THINK_FAST, HUD_THINK_SLOW } from '../../../App';
+import { isEqual } from '../../../utils/isEqual';
 
 const CONTAINER_HEIGHT = 500;
 const CONTAINER_WIDTH = 250;

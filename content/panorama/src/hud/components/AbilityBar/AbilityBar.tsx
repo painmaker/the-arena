@@ -3,8 +3,8 @@ import AbilityBarItem from "./AbilityBarItem/AbilityBarItem";
 import { HUD_THINK_FAST } from "../../App";
 import { useInterval } from "../../hooks/useInterval";
 import Styles from './styles.module.css';
-import lodash from 'lodash';
 import SelectedEntityIndexContext from "../../context/SelectedEntityIndexContext";
+import { isEqual } from "../../utils/isEqual";
 
 const AbilityBar = () => {
 
@@ -22,7 +22,7 @@ const AbilityBar = () => {
         .map(abilityNumber => Entities.GetAbility(selectedEntityIndex, abilityNumber))
         .filter(index => index !== -1)
         .filter(index => Abilities.IsDisplayedAbility(index));
-      if (!lodash.isEqual(newAbilities, abilities)) {
+      if (!isEqual(newAbilities, abilities)) {
         setAbilities(newAbilities);
       }
     }
