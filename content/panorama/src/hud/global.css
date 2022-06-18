@@ -89,10 +89,10 @@ ProgressBar {
 		linear,
 		0% 0%,
 		0% 100%,
-		from(#2d1713),
-		color-stop(0.2, #391d18),
-		color-stop(0.5, #3c1e19),
-		to(#2d1713)
+		from(#1f0f0d),
+		color-stop(0.2, #2e1713),
+		color-stop(0.5, #2e1713),
+		to(#1f0f0d)
 	);
 }
 
