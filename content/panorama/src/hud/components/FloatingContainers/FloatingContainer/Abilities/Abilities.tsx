@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useGameEvent } from "react-panorama";
+import useGameEvent from "../../../../hooks/useGameEvent";
 import Ability from "./Ability/Ability";
 import Styles from './styles.module.css';
 

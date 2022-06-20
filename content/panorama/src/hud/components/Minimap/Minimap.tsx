@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useGameEvent } from "react-panorama";
+import useGameEvent from "../../hooks/useGameEvent";
 import GameTime from "./GameTime/GameTime";
 import Styles from "./styles.module.css";
 

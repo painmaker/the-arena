@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
-import { useGameEvent } from "react-panorama";
 import { HUD_THINK_FAST } from "../../../../App";
+import useGameEvent from "../../../../hooks/useGameEvent";
 import { useInterval } from "../../../../hooks/useInterval";
 import { escapeString } from "../../../../utils/EscapeString";
 import Styles from './styles.module.css';

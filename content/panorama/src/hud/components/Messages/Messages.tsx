@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
-import { useGameEvent } from 'react-panorama';
+import useGameEvent from '../../hooks/useGameEvent';
 import Message from './Message/Message';
 import Styles from './styles.module.css';
 

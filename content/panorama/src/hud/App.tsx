@@ -20,8 +20,8 @@ import Messages from './components/Messages/Messages'
 import AbilitiesShop from './components/AbilitiesShop/AbilitiesShop'
 import CharacterDetails from './components/CharacterDetails/CharacterDetails'
 import ItemsShop from './components/ItemsShop/ItemsShop'
-import { useRegisterForUnhandledEvent } from 'react-panorama'
 import { WINDOW } from './data/windows'
+import useRegisterForUnhandledEvent from './hooks/useRegisterForUnhandledEvent'
 
 export const HUD_THINK_FAST = 0.03
 export const HUD_THINK_MEDIUM = 0.1
@@ -97,31 +97,31 @@ const App = () => {
 	return (
 		<React.Fragment>
 			<UseCustomUIContext.Provider value={{ useCustomUI, setUseCustomUI }}>
-				<Panel id={'root'} className={Styles.container} hittest={false}>
+				<Panel className={Styles.container} hittest={false}>
           <ToggleCustomUI />
 					{useCustomUI && (
 						<React.Fragment>
 							<Minimap />
 							<FloatingContainers />
 							<Settings />
-              <Heroes /> 
-							<Messages />
+              {/* <Heroes />  */}
+							{/* <Messages /> */}
 							<SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
-                <AbilitiesShop selectedUnit={selectedEntityIndex} />
-								<CharacterDetails selectedUnit={selectedEntityIndex} />
-								<ItemsShop selectedUnit={selectedEntityIndex} />
+                {/* <AbilitiesShop selectedUnit={selectedEntityIndex} /> */}
+								{/* <CharacterDetails selectedUnit={selectedEntityIndex} /> */}
+								{/* <ItemsShop selectedUnit={selectedEntityIndex} /> */}
                 <Panel className={Styles.rightCornerContainer}>
                   <SelectedEntity />
                   <Buttons />
                 </Panel>
-								<AbilityBar />
-								<Modifiers />
-								<Inventory />
-                <Mana />
-								<Health />
-                <Panel className={Styles.bottomCenterBackground} />
-								<Panel className={Styles.bottomCenterLeftFlare} />
-								<Panel className={Styles.bottomCenterRightFlare} />
+								{/* <AbilityBar /> */}
+								{/* <Modifiers /> */}
+								{/* <Inventory /> */}
+                {/* <Mana /> */}
+								{/* <Health /> */}
+                {/* <Panel className={Styles.bottomCenterBackground} /> */}
+								{/* <Panel className={Styles.bottomCenterLeftFlare} /> */}
+								{/* <Panel className={Styles.bottomCenterRightFlare} /> */}
 							</SelectedEntityIndexContext.Provider>
 						</React.Fragment>
 					)}

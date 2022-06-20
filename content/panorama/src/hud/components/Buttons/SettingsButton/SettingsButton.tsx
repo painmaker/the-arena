@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import Styles from "./styles.module.css";
 import { WINDOW } from "../../../data/windows";
-import { useGameEvent } from "react-panorama";
+import useGameEvent from "../../../hooks/useGameEvent";
 
 type ButtonProps = {
   id: string,

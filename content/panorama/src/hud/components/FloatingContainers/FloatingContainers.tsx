@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useNetTableValues } from "react-panorama";
 import { useInterval } from "../../hooks/useInterval";
 import FloatingContainer from "./FloatingContainer/FloatingContainer";
 import { HUD_THINK_FAST } from "../../App";
 import { isEqual } from "../../utils/isEqual";
+import useNetTableValues from "../../hooks/useNetTableValues";
 
 const MAX_DISTANCE = 4000;
 

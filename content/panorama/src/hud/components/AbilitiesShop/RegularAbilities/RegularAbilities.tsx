@@ -1,5 +1,5 @@
 import React from "react";
-import { useNetTableValues } from "react-panorama";
+import useNetTableValues from "../../../hooks/useNetTableValues";
 import AbilityImage from "../AbilityImage/AbilityImage";
 import Styles from './styles.module.css'
 

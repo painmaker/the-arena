@@ -1,5 +1,5 @@
 import React from "react";
-import { useNetTableValues } from "react-panorama";
+import useNetTableValues from "../../hooks/useNetTableValues";
 import Health from "./Health/Health";
 import Image from "./Image/Image";
 import Mana from "./Mana/Mana";

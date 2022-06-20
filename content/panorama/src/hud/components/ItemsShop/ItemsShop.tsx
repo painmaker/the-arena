@@ -4,11 +4,11 @@ import Gold from "./Gold/Gold";
 import Search from "./Search/Search";
 import { HUD_THINK_SLOW } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
-import { useGameEvent } from "react-panorama";
 import Styles from './styles.module.css';
 import { WINDOW } from "../../data/windows";
 import Items from "./Items/Items";
 import UpgradeTree from "./UpgradeTree/UpgradeTree";
+import useGameEvent from "../../hooks/useGameEvent";
 
 type Props = {
   selectedUnit: EntityIndex,

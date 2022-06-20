@@ -8,8 +8,8 @@ import Avatar from "./Avatar/Avatar";
 import Attack from "./Attack/Attack";
 import { HUD_THINK_SLOW } from "../../App";
 import { useTimeout } from "../../hooks/useTimeout";
-import { useGameEvent } from "react-panorama";
 import { WINDOW } from "../../data/windows";
+import useGameEvent from "../../hooks/useGameEvent";
 
 type Props = {
   selectedUnit: EntityIndex,

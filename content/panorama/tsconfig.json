@@ -3,7 +3,7 @@
     "src",
     "../../game/scripts/vscripts/services/ItemsShopService/items.ts",
     "../../game/scripts/vscripts/services/AbilityShopService/items.ts"
-  ],
+, "src/hud/polyfill"  ],
   "compilerOptions": {
     "target": "es2017",
     "lib": [

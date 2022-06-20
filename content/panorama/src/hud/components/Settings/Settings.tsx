@@ -5,10 +5,10 @@ import MapZoomSlider from "./MapZoomSlider/MapZoomSlider";
 import Divider from "./Divider/Divider";
 import Title from "./Title/Title";
 import { useTimeout } from "../../hooks/useTimeout";
-import { useGameEvent } from "react-panorama";
 import Styles from './styles.module.css';
 import { WINDOW } from "../../data/windows";
 import { HUD_THINK_SLOW } from "../../App";
+import useGameEvent from "../../hooks/useGameEvent";
 
 const Settings = () => {
 

@@ -1,7 +1,8 @@
 import React from "react";
-import { render } from "react-panorama";
 import App from "./App";
-
+import './polyfill/console';
+import './polyfill/timers';
+import { render } from "./reconciler";
 
 render(
   <App />,
