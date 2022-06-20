@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import Level from "./Level/Level";
 import Armor from "./Armor/Armor";
 import Damage from "./Damage/Damage";
@@ -14,17 +14,19 @@ const SelectedEntity = () => {
 
   const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const scenePanel = $('#selected_unit_portrait') as ScenePanel;
-    scenePanel.SetUnit(Entities.GetUnitName(selectedEntityIndex), '', false);
+    if (scenePanel) {
+      scenePanel.SetUnit(Entities.GetUnitName(selectedEntityIndex), '', true);
+    }
   }, [selectedEntityIndex])
 
   return (
     <Panel className={Styles.container} hittest={true}>
       <DOTAScenePanel
-        className={Styles.heroImage}
+        key={selectedEntityIndex}
         id={'selected_unit_portrait'}
-        key={Entities.GetUnitName(selectedEntityIndex)}
+        className={Styles.heroImage}
       />
       <Panel className={Styles.rowContainer}>
         <Panel className={Styles.row1}>

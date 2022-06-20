@@ -97,31 +97,31 @@ const App = () => {
 	return (
 		<React.Fragment>
 			<UseCustomUIContext.Provider value={{ useCustomUI, setUseCustomUI }}>
-				<Panel className={Styles.container} hittest={false}>
+				<Panel id='app' className={Styles.container} hittest={false}>
           <ToggleCustomUI />
 					{useCustomUI && (
 						<React.Fragment>
 							<Minimap />
 							<FloatingContainers />
 							<Settings />
-              {/* <Heroes />  */}
-							{/* <Messages /> */}
+              <Heroes /> 
+							<Messages />
 							<SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
-                {/* <AbilitiesShop selectedUnit={selectedEntityIndex} /> */}
-								{/* <CharacterDetails selectedUnit={selectedEntityIndex} /> */}
-								{/* <ItemsShop selectedUnit={selectedEntityIndex} /> */}
+                <AbilitiesShop selectedUnit={selectedEntityIndex} />
+								<CharacterDetails selectedUnit={selectedEntityIndex} />
+								<ItemsShop selectedUnit={selectedEntityIndex} />
                 <Panel className={Styles.rightCornerContainer}>
                   <SelectedEntity />
                   <Buttons />
                 </Panel>
-								{/* <AbilityBar /> */}
-								{/* <Modifiers /> */}
-								{/* <Inventory /> */}
-                {/* <Mana /> */}
-								{/* <Health /> */}
-                {/* <Panel className={Styles.bottomCenterBackground} /> */}
-								{/* <Panel className={Styles.bottomCenterLeftFlare} /> */}
-								{/* <Panel className={Styles.bottomCenterRightFlare} /> */}
+								<AbilityBar />
+								<Modifiers />
+								<Inventory />
+                <Mana />
+								<Health />
+                <Panel className={Styles.bottomCenterBackground} />
+								<Panel className={Styles.bottomCenterLeftFlare} />
+								<Panel className={Styles.bottomCenterRightFlare} />
 							</SelectedEntityIndexContext.Provider>
 						</React.Fragment>
 					)}

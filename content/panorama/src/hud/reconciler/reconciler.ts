@@ -48,7 +48,7 @@ const removeChild = (parent: InternalPanel, child: InternalPanel) => {
   } else {
     child.SetParent(temporaryPanelHost);
     temporaryPanelHost.RemoveAndDeleteChildren();
-    child.DeleteAsync(0);
+    // child.DeleteAsync(0);
   }
 }
 
@@ -143,7 +143,7 @@ const hostConfig: ReactReconciler.HostConfig<
   },
   unhideTextInstance: () => {},
   clearContainer: (panel) => {
-    $.Msg("clearContainer: " + panel);
+    $.Msg("clearContainer called")
     // panel.RemoveAndDeleteChildren();
   },
   supportsHydration: false,
