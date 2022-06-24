@@ -5,6 +5,7 @@ import ManaBar from './ManaBar/ManaBar';
 import Abilities from './Abilities/Abilities';
 import Styles from './styles.module.css';
 import { isEqual } from '../../../utils/isEqual';
+import { HUD_THINK_FAST } from '../../../App';
 
 const CONTAINER_HEIGHT = 500;
 const CONTAINER_WIDTH = 250;
@@ -53,7 +54,7 @@ const FloatingContainer = (props: Props) => {
       setData(newData);
     }
 
-  })
+  }, HUD_THINK_FAST)
 
   return (
     <Panel

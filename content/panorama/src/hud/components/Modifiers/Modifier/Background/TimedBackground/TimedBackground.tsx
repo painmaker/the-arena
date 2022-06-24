@@ -19,8 +19,8 @@ const TimedBackground = (props: Props) => {
   useInterval(() => {
     const remaining = Math.max(0, Buffs.GetRemainingTime(selectedEntityIndex, modifier));
     const duration = Math.max(0, Buffs.GetDuration(selectedEntityIndex, modifier));
-    const degree = Math.max(0, (remaining / duration) * 360);
-    setDegree(Number.isFinite(degree) ? degree : 0);
+    const degree = Math.floor((remaining / duration) * 360);
+    setDegree(Number.isFinite(degree) && !Number.isNaN(degree) ? degree : 0);
   }, HUD_THINK_FAST)
 
   return (

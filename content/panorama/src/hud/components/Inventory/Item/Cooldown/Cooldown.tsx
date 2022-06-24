@@ -19,8 +19,8 @@ const Cooldown = (props: Props) => {
   useInterval(() => {
     const total = Abilities.GetCooldownLength(item);
     const remaining = Abilities.GetCooldownTimeRemaining(item);
-    const degree = Math.min(0, - (remainingCooldown / total) * 360);
-    setDegree(Number.isFinite(degree) ? degree : 0);
+    const degree = Math.floor((remainingCooldown / total) * -360);
+    setDegree(Number.isFinite(degree) && !Number.isNaN(degree) ? degree : 0);
     setRemainingCooldown(remaining);
   }, HUD_THINK_FAST)
 

@@ -18,12 +18,10 @@ const Level = (props: Props) => {
 
   useInterval(() => {
     if (Entities.IsHero(selectedUnit)) {
-      const currentXp = Entities.GetCurrentXP(selectedUnit);
       const requiredXp = Entities.GetNeededXPToLevel(selectedUnit);
-      const degree = Math.floor(Math.max(0, Math.min(360, currentXp / requiredXp * 360)));
-      setDegree(Number.isNaN(degree) ? 360 : degree);
-    } else {
-      setDegree(360);
+      const currentXp = Entities.GetCurrentXP(selectedUnit);
+      const degree = Math.floor((currentXp / requiredXp) * 360);
+      setDegree(Number.isFinite(degree) && !Number.isNaN(degree) ? degree : 0);
     }
     setLevel(Entities.GetLevel(selectedUnit));
   }, HUD_THINK_MEDIUM);

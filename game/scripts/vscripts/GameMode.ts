@@ -70,6 +70,8 @@ export class GameMode {
     PrecacheUnitByNameSync("npc_dota_hero_drow_ranger", context)
     PrecacheUnitByNameSync("npc_dota_hero_medusa", context)
     PrecacheUnitByNameSync("npc_dota_hero_doom", context)
+    PrecacheUnitByNameSync("npc_dota_hero_lone_druid", context)
+    PrecacheUnitByNameSync("npc_dota_hero_lycan", context)
 
     PrecacheUnitByNameSync("shopkeeper_abilities", context)
     PrecacheUnitByNameSync("npc_dota_creep_goodguys_melee", context)
@@ -167,7 +169,7 @@ export class GameMode {
     GameRules.SetUseCustomHeroXPValues(true);
 
     const gameMode = GameRules.GetGameModeEntity();
-    gameMode.SetCustomGameForceHero("npc_dota_hero_dazzle");
+    gameMode.SetCustomGameForceHero("npc_dota_hero_lina");
     gameMode.SetUnseenFogOfWarEnabled(true);
     gameMode.SetDaynightCycleDisabled(true);
     gameMode.SetAnnouncerDisabled(true);

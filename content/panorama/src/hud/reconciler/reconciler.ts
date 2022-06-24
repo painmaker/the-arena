@@ -7,6 +7,8 @@ import { DefaultEventPriority } from 'react-reconciler/constants';
 
 const appendChild = (parent: InternalPanel, child: InternalPanel) => {
 
+  console.debug('appendChild called');
+
   if (parent.paneltype === 'DropDown') {
     (parent as DropDown).AddOption(child);
     return;
@@ -26,6 +28,8 @@ const appendChild = (parent: InternalPanel, child: InternalPanel) => {
 
 const insertBefore = (parent: InternalPanel, child: InternalPanel, beforeChild: InternalPanel) => {
 
+  console.debug('insertBefore called');
+
   if (parent.paneltype === 'DropDown') {
     (parent as DropDown).AddOption(child);
     (parent as DropDown).AccessDropDownMenu().MoveChildBefore(child, beforeChild);
@@ -43,6 +47,7 @@ const insertBefore = (parent: InternalPanel, child: InternalPanel, beforeChild: 
 }
 
 const removeChild = (parent: InternalPanel, child: InternalPanel) => {
+  console.debug('removeChild called');
   if (parent.paneltype === 'DropDown') {
     (parent as DropDown).RemoveOption(child.id);
   } else {
@@ -69,47 +74,77 @@ const hostConfig: ReactReconciler.HostConfig<
 > = {
   supportsMutation: true,
   supportsPersistence: false,
-  createInstance(type, newProps) {
+  createInstance(type, props) {
 
-    const { initialProps, otherProps } = splitInitialProps(type, newProps);
+    console.debug('createInstance called');
+
+    const { initialProps, otherProps } = splitInitialProps(type, props);
 
     if (type === 'GenericPanel') {
-      type = newProps.type;
+      type = props.type;
     }
 
     const panel = initialProps
-      ? $.CreatePanelWithProperties(type, $.GetContextPanel(), newProps.id || '', initialProps)
-      : $.CreatePanel(type, $.GetContextPanel(), newProps.id || '');
+      ? $.CreatePanelWithProperties(type, $.GetContextPanel(), props.id || '', initialProps)
+      : $.CreatePanel(type, $.GetContextPanel(), props.id || '');
 
     if (panelBaseNames.has(type)) {
       fixPanelBase(panel);
     }
 
-    for (const propName in otherProps) {
-      updateProperty(type, panel, propName, undefined, otherProps[propName]);
+    for (const prop in otherProps) {
+      updateProperty(type, panel, prop, undefined, otherProps[prop]);
     }
 
     return panel;
 
   },
   createTextInstance() { 
+    console.debug('createTextInstance called')
     throw new Error('react-panorama-reconciler does not support text nodes. Use <Label /> element instead.') 
   },
   appendInitialChild: appendChild,
-  finalizeInitialChildren: () => false,
-  prepareUpdate: () => ({}),
-  shouldSetTextContent: () => false,
-  getRootHostContext: () => null,
-  getChildHostContext: (parentHostContext, type, rootContainer) => parentHostContext,
-  getPublicInstance: (instance) => instance,
-  prepareForCommit: (containerInfo) => null,
-  resetAfterCommit: () => {},
-  preparePortalMount: () => {},
+  finalizeInitialChildren: () => {
+    console.debug('finalizeInitialChildren called')
+    return false;
+  },
+  prepareUpdate: () => {
+    console.debug('prepareUpdate called');
+    return {};
+  },
+  shouldSetTextContent: () => {
+    console.debug('shouldSetTextContent called')
+    return false;
+  },
+  getRootHostContext: () => {
+    console.debug('getRootHostContext called')
+    return null;
+  },
+  getChildHostContext: (parentHostContext) => {
+    console.debug('getChildHostContext called')
+    return parentHostContext;
+  },
+  getPublicInstance: (instance) => {
+    console.debug('getPublicInstance called')
+    return instance
+  },
+  prepareForCommit: () => {
+    console.debug('prepareForCommit called')
+    return null;
+  },
+  resetAfterCommit: () => {
+    console.debug('resetAfterCommit called')
+  },
+  preparePortalMount: () => {
+    console.debug('preparePortalMount called')
+  },
   scheduleTimeout: setTimeout,
   cancelTimeout: clearTimeout,
   noTimeout: -1,
   supportsMicrotask: false,
-  // scheduleMicrotask: () => {},
+  scheduleMicrotask: () => {
+    console.debug('scheduleMicrotask called')
+  },
   isPrimaryRenderer: true,
   getCurrentEventPriority: () => DefaultEventPriority,
   appendChild,
@@ -118,10 +153,17 @@ const hostConfig: ReactReconciler.HostConfig<
   insertInContainerBefore: insertBefore,
   removeChild,
   removeChildFromContainer: removeChild,
-  resetTextContent: () => {},
-  commitTextUpdate: () => {},
-  commitMount: () => {},
+  resetTextContent: () => {
+    console.debug('resetTextContent called')
+  },
+  commitTextUpdate: () => {
+    console.debug('commitTextUpdate called')
+  },
+  commitMount: () => {
+    console.debug('commitMount called')
+  },
   commitUpdate(panel, _updatePayload, type, oldProps, newProps, internalHandle) {
+    console.debug('commitUpdate called')
     for (const propName in newProps) {
       const oldValue = oldProps[propName];
       const newValue = newProps[propName];
@@ -136,24 +178,47 @@ const hostConfig: ReactReconciler.HostConfig<
     }
   },
   hideInstance: (panel) => { 
+    console.debug('hideInstance called')
     panel.style.visibility = 'collapse'; 
   },
   unhideInstance: (panel, props) => {
+    console.debug('unhideInstance called')
     panel.style.visibility = 'visible';
   },
-  unhideTextInstance: () => {},
-  clearContainer: (panel) => {
-    $.Msg("clearContainer called")
+  unhideTextInstance: () => {
+    console.debug('unhideTextInstance called')
+    throw new Error('unhideTextInstance not implemented')
+  },
+  clearContainer: (panel: InternalPanel) => {
+    console.debug("clearContainer called")
+    // for (const prop in panel) {
+    //   console.debug(`prop:${prop}`)
+    // }
+    console.debug(`panel.paneltype:${panel.paneltype}`)
+    console.debug(`panel.id:${panel.id}`)
     // panel.RemoveAndDeleteChildren();
   },
   supportsHydration: false,
-  getInstanceFromNode: () => null, 
-  getInstanceFromScope: () => null, 
-  beforeActiveInstanceBlur: () => {},
-  afterActiveInstanceBlur: () => {}, 
-  prepareScopeUpdate: () => {},
-  detachDeletedInstance: () => {},
-  
+  getInstanceFromNode: () => {
+    console.debug('getInstanceFromNode called')
+    return null;
+  }, 
+  getInstanceFromScope: () => {
+    console.debug('getInstanceFromScope called')
+    return null;
+  }, 
+  beforeActiveInstanceBlur: () => {
+    console.debug('beforeActiveInstanceBlur called')
+  },
+  afterActiveInstanceBlur: () => {
+    console.debug('afterActiveInstanceBlur called')
+  }, 
+  prepareScopeUpdate: () => {
+    console.debug('prepareScopeUpdate called')
+  },
+  detachDeletedInstance: () => {
+    console.debug('detachDeletedInstance called')
+  },
 };
 
 export const reconciler = ReactReconciler(hostConfig);

@@ -4,6 +4,8 @@ import { PanelAttributes } from './attribute-types';
 import { panelBaseNames } from './panel-base';
 import { AttributesByPanel, PanelType, PanelTypeByName } from './panels';
 
+const PANORAMA_INVALID_DATE = 2 ** 52;
+
 const enum PropertyType {
   SET,
   SETTER,
@@ -15,25 +17,17 @@ type AttributesMatchingType<TPanel extends PanelBase, TType> = {
   [P in keyof TPanel]: [TType] extends [TPanel[P]] ? P : never;
 }[keyof TPanel];
 
-type PropertyInformation<
-  TName extends PanelType,
-  TAttribute extends keyof AttributesByPanel[TName]
-> = { initial?: boolean | string; throwOnIncomplete?: true } & (
+type PropertyInformation<TPanelName extends PanelType, TAttribute extends keyof AttributesByPanel[TPanelName]> = {
+   initial?: boolean | string; 
+   throwOnIncomplete?: true 
+} & (
   | {
       type: PropertyType.SET;
-      name: AttributesMatchingType<
-        PanelTypeByName<TName>,
-        // TODO:
-        NonNullable<AttributesByPanel[TName][TAttribute]>
-      >;
+      name: AttributesMatchingType< PanelTypeByName<TPanelName>, NonNullable<AttributesByPanel[TPanelName][TAttribute]>>;
     }
   | {
       type: PropertyType.SETTER;
-      name: AttributesMatchingType<
-        PanelTypeByName<TName>,
-        // TODO:
-        (value: NonNullable<AttributesByPanel[TName][TAttribute]>) => void
-      >;
+      name: AttributesMatchingType<PanelTypeByName<TPanelName>, (value: NonNullable<AttributesByPanel[TPanelName][TAttribute]>) => void>;
     }
   | {
       type: PropertyType.INITIAL_ONLY;
@@ -42,9 +36,9 @@ type PropertyInformation<
   | {
       type: PropertyType.CUSTOM;
       update(
-        panel: InternalPanel<PanelTypeByName<TName>>,
-        newValue: AttributesByPanel[TName][TAttribute],
-        oldValue: AttributesByPanel[TName][TAttribute],
+        panel: InternalPanel<PanelTypeByName<TPanelName>>,
+        newValue: AttributesByPanel[TPanelName][TAttribute],
+        oldValue: AttributesByPanel[TPanelName][TAttribute],
         propName: TAttribute,
       ): void;
     }
@@ -57,28 +51,18 @@ const panelPropertyInformation: {
 } = {};
 
 type PanelPropertyInformation<TName extends PanelType> = {
-  [TAttribute in Exclude<
-    keyof AttributesByPanel[TName],
-    keyof PanelAttributes | PanelEvent
-  >]: PropertyInformation<TName, TAttribute>;
+  [TAttribute in Exclude<keyof AttributesByPanel[TName], keyof PanelAttributes | PanelEvent>]: PropertyInformation<TName, TAttribute>;
 };
-function definePanelPropertyInformation<TName extends PanelType>(
-  name: TName,
-  properties: PanelPropertyInformation<TName>,
-) {
+
+const definePanelPropertyInformation = <TName extends PanelType>(name: TName, properties: PanelPropertyInformation<TName>) => {
   panelPropertyInformation[name] = properties as any;
 }
 
-const PANORAMA_INVALID_DATE = 2 ** 52;
 
 const propertiesInformation: {
-  [TAttribute in Exclude<
-    keyof PanelAttributes,
-    'key' | 'ref' | 'children' | PanelEvent
-  >]: PropertyInformation<'Panel', TAttribute>;
+  [TAttribute in Exclude<keyof PanelAttributes, 'key' | 'ref' | 'children' | PanelEvent>]: PropertyInformation<'Panel', TAttribute>;
 } = {
   id: { type: PropertyType.INITIAL_ONLY, initial: false },
-
   enabled: { type: PropertyType.SET, name: 'enabled', initial: true, throwOnIncomplete: true },
   visible: { type: PropertyType.SET, name: 'visible', initial: true, throwOnIncomplete: true },
   hittest: { type: PropertyType.SET, name: 'hittest', initial: true, throwOnIncomplete: true },
@@ -97,34 +81,30 @@ const propertiesInformation: {
     initial: true,
     throwOnIncomplete: true,
   },
-
   dangerouslyCreateChildren: {
     type: PropertyType.CUSTOM,
     update(panel, newValue) {
       throw new Error('attributes.dangerouslyCreateChildren is not implemented.')
     },
   },
-
   dialogVariables: {
     type: PropertyType.CUSTOM,
     update(panel, newValue = {}, oldValue = {}) {
       function unassignDialogVariable(key: string, old: string | number | Date | undefined) {
-        if (old !== undefined) return;
-
+        if (old !== undefined) {
+          return;
+        }
         if (typeof old === 'string') {
           panel.SetDialogVariable(key, `[!s:${key}]`);
         } else if (typeof old === 'number') {
-          // eslint-disable-next-line unicorn/prefer-number-properties
           panel.SetDialogVariableInt(key, NaN);
         } else {
           panel.SetDialogVariableTime(key, PANORAMA_INVALID_DATE);
         }
       }
-
       for (const key in newValue) {
         const value = newValue[key];
         if (value !== oldValue[key]) {
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (value === undefined) {
             unassignDialogVariable(key, oldValue[key]);
           } else if (typeof value === 'string') {
@@ -136,7 +116,6 @@ const propertiesInformation: {
           }
         }
       }
-
       for (const key in oldValue) {
         if (!(key in newValue)) {
           unassignDialogVariable(key, oldValue[key]);
@@ -144,7 +123,6 @@ const propertiesInformation: {
       }
     },
   },
-
   style: {
     type: PropertyType.CUSTOM,
     update(panel, newValue: any = {}, oldValue: any = {}) {
@@ -162,7 +140,6 @@ const propertiesInformation: {
     },
     throwOnIncomplete: true,
   },
-
   className: {
     type: PropertyType.CUSTOM,
     initial: 'class',
@@ -180,7 +157,6 @@ const propertiesInformation: {
       }
     },
   },
-
   draggable: { type: PropertyType.SETTER, name: 'SetDraggable' },
 };
 
@@ -501,6 +477,7 @@ const uiEventPropertyInfo: PropertyInformation<'Panel', any> = {
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (panel._eventHandlers[propName] === undefined) {
+      $.Msg("WHY DO YOU NOT UNREGISTER THIS EVENT?")
       $.RegisterEventHandler(propName.slice(6), panel, (...args) =>
         panel._eventHandlers![propName](...args),
       );
@@ -530,6 +507,7 @@ const panelEventPropertyInfo: PropertyInformation<'Panel', any> = {
 function getPropertyInfo(type: PanelType, propName: string): PropertyInformation<any, any> | undefined {
   
   const propertyInformation = propertiesInformation[propName as keyof typeof propertiesInformation];
+
   if (propertyInformation !== undefined && !(panelBaseNames.has(type) && propertyInformation.type === PropertyType.SET)) {
     return propertyInformation;
   }
@@ -569,14 +547,14 @@ export function splitInitialProps(type: PanelType, props: Record<string, any>) {
 
   let hasInitialProps = false;
 
-  for (const propName in props) {
-    const propertyInformation = getPropertyInfo(type, propName);
+  for (const prop in props) {
+    const propertyInformation = getPropertyInfo(type, prop);
     if (propertyInformation && propertyInformation.initial) {
-      const initialName =  typeof propertyInformation.initial === 'string' ? propertyInformation.initial : propName;
+      const initialName =  typeof propertyInformation.initial === 'string' ? propertyInformation.initial : prop;
+      initialProps[initialName] = props[prop];
       hasInitialProps = true;
-      initialProps[initialName] = props[propName];
-    } else if (propName !== 'id') {
-      otherProps[propName] = props[propName];
+    } else if (prop !== 'id') {
+      otherProps[prop] = props[prop];
     }
   }
 
@@ -602,8 +580,7 @@ export function updateProperty(
   }
 
   if (panelBaseNames.has(type) && propertyInformation.throwOnIncomplete) {
-    throw new Error(`Attribute "${propName}" cannot be ${propertyInformation.initial ? 'changed on' : 'added to'} incomplete ${type} panel type.${propertyInformation.initial ? ' Add a "key" attribute to force re-mount.' : ''}`,
-    );
+    throw new Error(`Attribute "${propName}" cannot be ${propertyInformation.initial ? 'changed on' : 'added to'} incomplete ${type} panel type.${propertyInformation.initial ? ' Add a "key" attribute to force re-mount.' : ''}`);
   }
 
   switch (propertyInformation.type) {

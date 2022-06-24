@@ -1,12 +1,11 @@
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const usePrevious = (value: any) => {
 
   const ref = useRef();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     ref.current = value;
-    return () => ref.current = undefined;
   }, [value]);
 
   return ref.current;

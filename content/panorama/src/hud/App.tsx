@@ -23,7 +23,7 @@ import ItemsShop from './components/ItemsShop/ItemsShop'
 import { WINDOW } from './data/windows'
 import useRegisterForUnhandledEvent from './hooks/useRegisterForUnhandledEvent'
 
-export const HUD_THINK_FAST = 0.03
+export const HUD_THINK_FAST = 1 / 144
 export const HUD_THINK_MEDIUM = 0.1
 export const HUD_THINK_SLOW = 1.0
 
@@ -42,6 +42,8 @@ const getGameUnitSelected = () => {
 }
 
 const App = () => {
+
+    $.Msg("REACT-RENDER: App rendered");
 	
   // const heroes = useNetTableValues('HeroSelectionHeroes').heroes
 	// const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1
@@ -95,40 +97,40 @@ const App = () => {
   }, [])
 
 	return (
-		<React.Fragment>
-			<UseCustomUIContext.Provider value={{ useCustomUI, setUseCustomUI }}>
-				<Panel id='app' className={Styles.container} hittest={false}>
-          <ToggleCustomUI />
-					{useCustomUI && (
-						<React.Fragment>
-							<Minimap />
-							<FloatingContainers />
-							<Settings />
-              <Heroes /> 
-							<Messages />
-							<SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
-                <AbilitiesShop selectedUnit={selectedEntityIndex} />
-								<CharacterDetails selectedUnit={selectedEntityIndex} />
-								<ItemsShop selectedUnit={selectedEntityIndex} />
-                <Panel className={Styles.rightCornerContainer}>
-                  <SelectedEntity />
-                  <Buttons />
-                </Panel>
-								<AbilityBar />
-								<Modifiers />
-								<Inventory />
-                <Mana />
-								<Health />
-                <Panel className={Styles.bottomCenterBackground} />
-								<Panel className={Styles.bottomCenterLeftFlare} />
-								<Panel className={Styles.bottomCenterRightFlare} />
-							</SelectedEntityIndexContext.Provider>
-						</React.Fragment>
-					)}
-				</Panel>
-			</UseCustomUIContext.Provider>
-		</React.Fragment>
+    <Panel className={Styles.container} hittest={false}>
+      <UseCustomUIContext.Provider value={{ useCustomUI, setUseCustomUI }}>
+        <ToggleCustomUI />
+        {useCustomUI && (
+          <React.Fragment>
+            <Label text={'test'} />
+            <Minimap />
+            {/* <FloatingContainers /> */}
+            {/* <Settings /> */}
+            {/* <Heroes />  */}
+            {/* <Messages /> */}
+            <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
+              {/* <AbilitiesShop selectedUnit={selectedEntityIndex} /> */}
+              {/* <CharacterDetails selectedUnit={selectedEntityIndex} /> */}
+              {/* <ItemsShop selectedUnit={selectedEntityIndex} /> */}
+              {/* <Panel className={Styles.rightCornerContainer}> */}
+                {/* <SelectedEntity /> */}
+                {/* <Buttons /> */}
+              {/* </Panel> */}
+              <AbilityBar />
+              {/* <Modifiers /> */}
+              {/* <Inventory /> */}
+              {/* <Mana /> */}
+              {/* <Health /> */}
+              {/* <Panel className={Styles.bottomCenterBackground} /> */}
+              {/* <Panel className={Styles.bottomCenterLeftFlare} /> */}
+              {/* <Panel className={Styles.bottomCenterRightFlare} /> */}
+            </SelectedEntityIndexContext.Provider>
+          </React.Fragment>
+        )}
+     </UseCustomUIContext.Provider>
+    </Panel>
 	)
+
 }
 
 export default App

@@ -1,4 +1,4 @@
-
+const DEBUG = false;
 
 function assert() {
   throw new Error('console.assert is not implemented');
@@ -17,7 +17,9 @@ function log(...args: any[]) {
 }
 
 function debug(...args: any[]) {
-  $.Msg(args);
+  if (DEBUG) {
+    $.Msg(args);
+  }
 }
 
 function info(...args: any[]) {
