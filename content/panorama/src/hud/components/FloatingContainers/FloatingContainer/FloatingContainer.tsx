@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useInterval } from '../../../hooks/useInterval';
 import HealthBar from './HealthBar/HealthBar';
 import ManaBar from './ManaBar/ManaBar';
 import Abilities from './Abilities/Abilities';
 import Styles from './styles.module.css';
 import { HUD_THINK_FAST } from '../../../App';
+import { isEqual } from '../../../utils/isEqual';
 
 const CONTAINER_HEIGHT = 100;
 const CONTAINER_WIDTH = 250;
@@ -13,7 +14,8 @@ type Props = {
   entityIndex: EntityIndex,
 }
 
-const SubComponent = React.memo((props: Props) => {
+const Content = React.memo((props: Props) => {
+  $.Msg("Content Rendered")
   const { entityIndex } = props;
   return (
     <React.Fragment>
@@ -36,9 +38,7 @@ const FloatingContainer = (props: Props) => {
 
   const { entityIndex } = props;
 
-  const [isVisible, setIsVisible] = useState(false);
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
+  const [style, setStyle] = useState<Partial<VCSSStyleDeclaration>>({});
 
   useInterval(() => {
 
@@ -51,19 +51,23 @@ const FloatingContainer = (props: Props) => {
     const screenX = Game.WorldToScreenX(origin[0], origin[1], origin[2] + offset);
     const screenY = Game.WorldToScreenY(origin[0], origin[1], origin[2] + offset);
     
-    const isVisible = GameUI.FindScreenEntities([screenX, screenY]).map(screenEntity => screenEntity.entityIndex).includes(entityIndex);
+    const isVisible = GameUI.FindScreenEntities([ 
+      Game.WorldToScreenX(origin[0], origin[1], origin[2]), 
+      Game.WorldToScreenY(origin[0], origin[1], origin[2])
+    ]).map(screenEntity => screenEntity.entityIndex).includes(entityIndex);
 
-    setX(screenX * scale - (CONTAINER_WIDTH / 2));
-    setY(screenY * scale - CONTAINER_HEIGHT);
-    setIsVisible(isVisible);
+    const newX = (screenX * scale) - (CONTAINER_WIDTH / 2);
+    const newY = (screenY * scale) - CONTAINER_HEIGHT;
+
+    const newStyle: Partial<VCSSStyleDeclaration> = {
+      visibility: isVisible ? 'visible' : 'collapse',
+      transform: `translatex(${newX}px) translatey(${newY}px)`,
+      // position: `${newX}px ${newY}px 0px`,
+    }
+
+    setStyle(oldStyle => isEqual(oldStyle, newStyle) ? oldStyle : newStyle);
 
   }, HUD_THINK_FAST)
-
-  const style: Partial<VCSSStyleDeclaration> = {
-    visibility: isVisible ? 'visible' : 'collapse',
-    transform: `translatex(${x}px) translatey(${y}px)`,
-    // position: `${x}px ${y}px 0px`,
-  }
 
   return (
     <Panel
@@ -71,7 +75,7 @@ const FloatingContainer = (props: Props) => {
       className={Styles.container}
       style={style}
     >
-      <SubComponent entityIndex={entityIndex} />
+      <Content entityIndex={entityIndex} />
     </Panel>
   )
 

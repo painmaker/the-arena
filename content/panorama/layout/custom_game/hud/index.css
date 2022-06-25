@@ -1260,13 +1260,15 @@ ProgressBar {
 }
 
 .QQdkbXyAUS_3z2LgzDdX {
-	font-size: 25px;
+	font-size: 20px;
 	color: white;
 	font-weight: bold;
+  font-family: monospaceNumbersFont;
 	vertical-align: center;
 	horizontal-align: center;
 	text-shadow: 1px 1px 2px 5 #000000;
 	text-overflow: clip;
+  margin-top: -1px;
 }
 
 /*!*****************************************************************************************************************************************************!*\
