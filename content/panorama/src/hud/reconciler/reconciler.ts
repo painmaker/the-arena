@@ -71,7 +71,8 @@ const hostConfig: ReactReconciler.HostConfig<
 	supportsMutation: true,
 	supportsPersistence: false,
 	createInstance(type, props) {
-		$.Msg('createInstance called for type ' + type)
+
+		console.debug('createInstance called for type ' + type)
 
 		const { initialProps, otherProps } = splitInitialProps(type, props)
 
@@ -92,6 +93,7 @@ const hostConfig: ReactReconciler.HostConfig<
 		}
 
 		return panel
+    
 	},
 	createTextInstance() {
 		console.debug('createTextInstance called')

@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { HUD_THINK_FAST } from "../../App";
 import Styles from "./styles.module.css";
 import { useInterval } from "../../hooks/useInterval";
@@ -27,6 +27,15 @@ const Mana = () => {
     setManaRegen(Entities.GetManaThinkRegen(selectedEntityIndex));
   }, HUD_THINK_FAST);
 
+  const onClick = useCallback(() => {
+    if (GameUI.IsAltDown()) {
+      GameEvents.SendCustomGameEventToAllClients("on_mana_alerted", {
+        broadcaster: Players.GetLocalPlayer(),
+        selectedEntityIndex,
+      })
+    }
+  }, [selectedEntityIndex])
+
   return (
     <Panel
       hittest={false}
@@ -38,20 +47,7 @@ const Mana = () => {
         max={maxMana}
         value={mana}
         className={`manaProgressBar`}
-        style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: "0px",
-          horizontalAlign: "center",
-        }}
-        onactivate={() => {
-          if (GameUI.IsAltDown()) {
-            GameEvents.SendCustomGameEventToAllClients("on_mana_alerted", {
-              broadcaster: Players.GetLocalPlayer(),
-              selectedEntityIndex,
-            })
-          }
-        }}
+        onactivate={() => onClick()}
       >
         <DOTAScenePanel
           className={Styles.scene}

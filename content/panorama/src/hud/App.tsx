@@ -44,7 +44,7 @@ const getGameUnitSelected = () => {
 
 const App = () => {
 
-  // $.Msg("REACT-RENDER: App rendered");
+  $.Msg("REACT-RENDER: App rendered");
 	
   // const heroes = useNetTableValues('HeroSelectionHeroes').heroes
 	// const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1
@@ -116,9 +116,9 @@ const App = () => {
                 <SelectedEntity />
                 <Buttons />
               </Panel>
-              <AbilityBar />
-              <Modifiers />
-              <Inventory />
+              {/* <AbilityBar /> */}
+              {/* <Modifiers /> */}
+              {/* <Inventory /> */}
               <Mana />
               <Health />
               <Panel className={Styles.bottomCenterBackground} />

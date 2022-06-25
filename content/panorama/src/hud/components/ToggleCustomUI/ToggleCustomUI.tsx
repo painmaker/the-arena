@@ -10,7 +10,7 @@ const ToggleCustomUI = () => {
 		<ToggleButton 
       className={Styles.btn} 
       selected={useCustomUI} 
-      onactivate={() => setUseCustomUI(!useCustomUI)}
+      onactivate={() => setUseCustomUI(prevUseCustomUI => !prevUseCustomUI)}
     >
 			<Label className={Styles.label} text={'Custom UI'} />
 		</ToggleButton>

@@ -28,11 +28,6 @@ const HealthBar = (props: Props) => {
         max={maxHealth}
         value={health}
         className={Entities.IsEnemy(entityIndex) ? 'healthProgressBarEnemy' : 'healthProgressBar'}
-        style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: "0px",
-        }}
       />
     </Panel>
   );

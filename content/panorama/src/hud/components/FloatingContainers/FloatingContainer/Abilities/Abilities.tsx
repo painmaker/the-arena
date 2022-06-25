@@ -25,19 +25,27 @@ const AbilitiesImpl = (props: Props) => {
   useGameEvent('on_ability_used', (event) => {
     if (entityIndex === event.caster) {
       id.current = id.current + 1;
-      setAbilities(prevState => [...prevState, { name: event.name, isItem: event.isItem === 1, id: id.current }] as IAbility[]);
+      setAbilities(prevState => [
+        ...prevState,
+        { 
+          name: event.name,
+          isItem: event.isItem === 1,
+          id: id.current
+        }
+      ]);
     }
   }, [entityIndex]);
 
   return (
     <Panel hittest={false} className={Styles.container}>
       {abilities.map((ability) => {
+        const { id, name, isItem } = ability;
         return (
           <Ability
-            key={ability.id}
-            id={ability.id}
-            name={ability.name}
-            isItem={ability.isItem}
+            key={id}
+            id={id}
+            name={name}
+            isItem={isItem}
             setAbilities={setAbilities}
           />
         )

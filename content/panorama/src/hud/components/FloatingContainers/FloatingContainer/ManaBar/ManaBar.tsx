@@ -32,11 +32,6 @@ const ManaBar = (props: Props) => {
         max={maxMana}
         value={mana}
         className={'manaProgressBar'}
-        style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: "0px",
-        }}
       />
     </Panel>
   );

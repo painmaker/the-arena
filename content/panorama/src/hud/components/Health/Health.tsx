@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { HUD_THINK_FAST } from "../../App";
 import Styles from "./styles.module.css";
 import { useInterval } from "../../hooks/useInterval";
@@ -28,6 +28,15 @@ const Health = () => {
     }
   }, HUD_THINK_FAST);
 
+  const onClick = useCallback(() => {
+    if (GameUI.IsAltDown()) {
+      GameEvents.SendCustomGameEventToAllClients("on_health_alerted", {
+        broadcaster: Players.GetLocalPlayer(),
+        selectedEntityIndex,
+      })
+    }
+  }, [selectedEntityIndex])
+
   const isEnemy = Entities.IsEnemy(selectedEntityIndex);
 
   return (
@@ -37,20 +46,7 @@ const Health = () => {
         max={maxHealth}
         value={health}
         className={isEnemy ? 'healthProgressBarEnemy' : 'healthProgressBar'}
-        style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: "0px",
-          horizontalAlign: "center",
-        }}
-        onactivate={() => {
-          if (GameUI.IsAltDown()) {
-            GameEvents.SendCustomGameEventToAllClients("on_health_alerted", {
-              broadcaster: Players.GetLocalPlayer(),
-              selectedEntityIndex,
-            })
-          }
-        }}
+        onactivate={() => onClick()}
       >
         <DOTAScenePanel
           id={'HealthBurner'}

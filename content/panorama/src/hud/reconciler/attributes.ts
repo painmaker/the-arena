@@ -504,6 +504,7 @@ const genericPanelPropertyInfo: PropertyInformation<'GenericPanel', string> = {
 const uiEventPropertyInfo: PropertyInformation<'Panel', any> = {
 	type: PropertyType.CUSTOM,
 	update(panel, newValue, _oldValue, propName) {
+    $.Msg('uiEventPropertyInfo.update called')
 		throw new Error('uiEventPropertyInfo.update not implemented')
 		// panel._eventHandlers ??= {}
 		// // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -525,8 +526,6 @@ const panelEventPropertyInfo: PropertyInformation<'Panel', any> = {
 		if (panel._eventHandlers[propName] === undefined) {
 			panel.SetPanelEvent(propName, () => panel._eventHandlers![propName](panel))
 		}
-		$.Msg('Setting eventHandler')
-		$.Msg(Object.keys(panel._eventHandlers).length)
 		panel._eventHandlers[propName] = newValue !== undefined ? newValue : () => {}
 	},
 }
