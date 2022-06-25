@@ -22,10 +22,11 @@ import CharacterDetails from './components/CharacterDetails/CharacterDetails'
 import ItemsShop from './components/ItemsShop/ItemsShop'
 import { WINDOW } from './data/windows'
 import useRegisterForUnhandledEvent from './hooks/useRegisterForUnhandledEvent'
+import Loading from './components/Loading/Loading'
 
 export const HUD_THINK_FAST = 1 / 144
-export const HUD_THINK_MEDIUM = 0.1
-export const HUD_THINK_SLOW = 1.0
+export const HUD_THINK_MEDIUM = 1 / 144 // 0.1
+export const HUD_THINK_SLOW = 1 / 144 // 1.0
 
 const excludedUnits = ['shopkeeper_abilities']
 
@@ -43,7 +44,7 @@ const getGameUnitSelected = () => {
 
 const App = () => {
 
-    $.Msg("REACT-RENDER: App rendered");
+  // $.Msg("REACT-RENDER: App rendered");
 	
   // const heroes = useNetTableValues('HeroSelectionHeroes').heroes
 	// const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1
@@ -97,37 +98,39 @@ const App = () => {
   }, [])
 
 	return (
-    <Panel className={Styles.container} hittest={false}>
-      <UseCustomUIContext.Provider value={{ useCustomUI, setUseCustomUI }}>
-        <ToggleCustomUI />
-        {useCustomUI && (
-          <React.Fragment>
-            <Minimap />
-            <FloatingContainers />
-            <Settings />
-            <Heroes /> 
-            <Messages />
-            <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
-              <AbilitiesShop selectedUnit={selectedEntityIndex} />
-              <CharacterDetails selectedUnit={selectedEntityIndex} />
-              <ItemsShop selectedUnit={selectedEntityIndex} />
-              <Panel className={Styles.rightCornerContainer}>
-                <SelectedEntity />
-                <Buttons />
-              </Panel>
-              <AbilityBar />
-              <Modifiers />
-              <Inventory />
-              <Mana />
-              <Health />
-              <Panel className={Styles.bottomCenterBackground} />
-              <Panel className={Styles.bottomCenterLeftFlare} />
-              <Panel className={Styles.bottomCenterRightFlare} />
-            </SelectedEntityIndexContext.Provider>
-          </React.Fragment>
-        )}
-     </UseCustomUIContext.Provider>
-    </Panel>
+    <Loading>
+      <Panel className={Styles.container} hittest={false}>
+        <UseCustomUIContext.Provider value={{ useCustomUI, setUseCustomUI }}>
+          <ToggleCustomUI />
+          {useCustomUI && (
+            <React.Fragment>
+              <Minimap />
+              <FloatingContainers />
+              <Settings />
+              <Heroes /> 
+              <Messages />
+              <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
+                <AbilitiesShop selectedUnit={selectedEntityIndex} />
+                <CharacterDetails selectedUnit={selectedEntityIndex} />
+                <ItemsShop selectedUnit={selectedEntityIndex} />
+                <Panel className={Styles.rightCornerContainer}>
+                  <SelectedEntity />
+                  <Buttons />
+                </Panel>
+                <AbilityBar />
+                <Modifiers />
+                <Inventory />
+                <Mana />
+                <Health />
+                <Panel className={Styles.bottomCenterBackground} />
+                <Panel className={Styles.bottomCenterLeftFlare} />
+                <Panel className={Styles.bottomCenterRightFlare} />
+              </SelectedEntityIndexContext.Provider>
+            </React.Fragment>
+          )}
+          </UseCustomUIContext.Provider>
+        </Panel>
+    </Loading>
 	)
 
 }

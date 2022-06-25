@@ -15,7 +15,7 @@ const SelectedEntity = () => {
   const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
   useLayoutEffect(() => {
-    const scenePanel = $('#selected_unit_portrait') as ScenePanel;
+    const scenePanel = $('#selected_entity_portrait') as ScenePanel;
     if (scenePanel) {
       scenePanel.SetUnit(Entities.GetUnitName(selectedEntityIndex), '', true);
     }
@@ -24,8 +24,7 @@ const SelectedEntity = () => {
   return (
     <Panel className={Styles.container} hittest={true}>
       <DOTAScenePanel
-        key={selectedEntityIndex}
-        id={'selected_unit_portrait'}
+        id={'selected_entity_portrait'}
         className={Styles.heroImage}
       />
       <Panel className={Styles.rowContainer}>

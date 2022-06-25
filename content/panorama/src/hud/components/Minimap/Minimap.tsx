@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useId } from "react";
 import useGameEvent from "../../hooks/useGameEvent";
 import GameTime from "./GameTime/GameTime";
 import Styles from "./styles.module.css";
@@ -10,7 +10,7 @@ const onClick = () => {
 
 const Minimap = () => {
 
-  // $.Msg("REACT-RENDER: Minimap rendered");
+  $.Msg("REACT-RENDER: Minimap rendered");
 
   const [mapZoom, setMapZoom] = useState(5);
   const [zoneName, setZoneName] = useState('#ZoneName');

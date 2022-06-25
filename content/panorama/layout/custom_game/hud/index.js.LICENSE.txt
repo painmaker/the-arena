@@ -1,11 +1,14 @@
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
+/*!
+ * Check if two objects or arrays are equal
+ * (c) 2021 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * @param  {*}       obj1 The first item
+ * @param  {*}       obj2 The second item
+ * @return {Boolean}       Returns true if they're equal in value
+ */
 
-/** @license React v0.20.2
- * scheduler.production.min.js
+/**
+ * @license React
+ * react-reconciler-constants.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -13,7 +16,8 @@ object-assign
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v0.25.1
+/**
+ * @license React
  * react-reconciler.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -22,26 +26,19 @@ object-assign
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v16.13.1
- * react-is.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-/** @license React v17.0.2
- * react-dom.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-/** @license React v17.0.2
+/**
+ * @license React
  * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @license React
+ * scheduler.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
