@@ -54,7 +54,7 @@ const Health = () => {
       >
         <DOTAScenePanel
           id={'HealthBurner'}
-          className={`${Styles.scene} + SceneLoaded`}
+          className={`${Styles.scene}`}
           style={{
             width: (health / maxHealth) * 100 + "%",
             washColor: isEnemy ? 'red' : 'none',

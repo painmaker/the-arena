@@ -42,7 +42,7 @@ const Image = () => {
   const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
   const [saturation, setSaturation] = useState('1.0');
-  const [washColor, setWashColor] = useState('none');
+  const [washColor, setWashColor] = useState('#303030');
   const [isOnCooldown, setIsOnCooldown] = useState(false);
   const [isActive, setIsActive] = useState(false);
 

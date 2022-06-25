@@ -12,16 +12,16 @@ export * from './attribute-types';
  */
 export function render(element: ReactElement, container: Panel, callback?: () => void) {
 
-  const panel = container as InternalPanel;
+  const _container = container as InternalPanel;
 
-  if (panel._reactPanoramaSymbol !== reactPanoramaSymbol) {
-    panel._reactPanoramaSymbol = reactPanoramaSymbol;
+  if (_container._reactPanoramaSymbol !== reactPanoramaSymbol) {
+    _container._reactPanoramaSymbol = reactPanoramaSymbol;
     // Container was used in the previous reload cycle
-    panel._rootContainer = undefined;
+    _container._rootContainer = undefined;
   }
 
-  panel._rootContainer ??= reconciler.createContainer(
-    panel,
+  _container._rootContainer ??= reconciler.createContainer(
+    _container,
     2, 
     null,
     false,
@@ -33,7 +33,7 @@ export function render(element: ReactElement, container: Panel, callback?: () =>
     null
   );
 
-  reconciler.updateContainer(element, panel._rootContainer, null, callback);
+  reconciler.updateContainer(element, _container._rootContainer, null, callback);
   
 }
 

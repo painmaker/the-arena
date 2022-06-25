@@ -17,7 +17,7 @@ export type InternalPanel<T extends PanelBase = Panel> = T & {
   _econItemStyle?: number;
 };
 
-const DotaHud = (() => {
+export const DotaHud = (() => {
   let panel: Panel | null = $.GetContextPanel();
   while (panel) {
     if (panel.id === 'DotaHud') {

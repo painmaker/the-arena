@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './global.css'
-import Styles from './app.module.css'
+import Styles from './styles.module.css'
 import { UseCustomUIContext } from './context/UseCustomUIContext'
 import ToggleCustomUI from './components/ToggleCustomUI/ToggleCustomUI'
 import { useInterval } from './hooks/useInterval'
@@ -56,7 +56,7 @@ const App = () => {
 		if (!excludedUnits.includes(Entities.GetUnitName(unitToSelect))) {
 			setSelectedEntityIndex(unitToSelect)
 		}
-	})
+	}, HUD_THINK_FAST)
 
 	useEffect(() => {
 		GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !useCustomUI)
@@ -102,28 +102,27 @@ const App = () => {
         <ToggleCustomUI />
         {useCustomUI && (
           <React.Fragment>
-            <Label text={'test'} />
             <Minimap />
-            {/* <FloatingContainers /> */}
-            {/* <Settings /> */}
-            {/* <Heroes />  */}
-            {/* <Messages /> */}
+            <FloatingContainers />
+            <Settings />
+            <Heroes /> 
+            <Messages />
             <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
-              {/* <AbilitiesShop selectedUnit={selectedEntityIndex} /> */}
-              {/* <CharacterDetails selectedUnit={selectedEntityIndex} /> */}
-              {/* <ItemsShop selectedUnit={selectedEntityIndex} /> */}
-              {/* <Panel className={Styles.rightCornerContainer}> */}
-                {/* <SelectedEntity /> */}
-                {/* <Buttons /> */}
-              {/* </Panel> */}
+              <AbilitiesShop selectedUnit={selectedEntityIndex} />
+              <CharacterDetails selectedUnit={selectedEntityIndex} />
+              <ItemsShop selectedUnit={selectedEntityIndex} />
+              <Panel className={Styles.rightCornerContainer}>
+                <SelectedEntity />
+                <Buttons />
+              </Panel>
               <AbilityBar />
-              {/* <Modifiers /> */}
-              {/* <Inventory /> */}
-              {/* <Mana /> */}
-              {/* <Health /> */}
-              {/* <Panel className={Styles.bottomCenterBackground} /> */}
-              {/* <Panel className={Styles.bottomCenterLeftFlare} /> */}
-              {/* <Panel className={Styles.bottomCenterRightFlare} /> */}
+              <Modifiers />
+              <Inventory />
+              <Mana />
+              <Health />
+              <Panel className={Styles.bottomCenterBackground} />
+              <Panel className={Styles.bottomCenterLeftFlare} />
+              <Panel className={Styles.bottomCenterRightFlare} />
             </SelectedEntityIndexContext.Provider>
           </React.Fragment>
         )}
