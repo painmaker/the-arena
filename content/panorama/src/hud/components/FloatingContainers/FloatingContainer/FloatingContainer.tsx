@@ -13,6 +13,23 @@ type Props = {
   entityIndex: EntityIndex,
 }
 
+const SubComponent = React.memo((props: Props) => {
+  const { entityIndex } = props;
+  return (
+    <React.Fragment>
+      <Panel className={Styles.statusBarContainer}>
+        {Entities.GetMaxMana(entityIndex) > 0 && (
+          <ManaBar entityIndex={entityIndex} />
+        )}
+        <HealthBar entityIndex={entityIndex} />
+      </Panel>
+      <Panel className={Styles.abilitiesContainer}>
+        <Abilities entityIndex={entityIndex} />
+      </Panel>
+    </React.Fragment>
+  )
+})
+
 const FloatingContainer = (props: Props) => {
 
   // $.Msg("REACT-RENDER: FloatingContainer rendered");
@@ -34,10 +51,7 @@ const FloatingContainer = (props: Props) => {
     const screenX = Game.WorldToScreenX(origin[0], origin[1], origin[2] + offset);
     const screenY = Game.WorldToScreenY(origin[0], origin[1], origin[2] + offset);
     
-    const isVisible = GameUI.FindScreenEntities([
-      Game.WorldToScreenX(origin[0], origin[1], origin[2]),
-      Game.WorldToScreenY(origin[0], origin[1], origin[2])
-    ]).map(screenEntity => screenEntity.entityIndex).includes(entityIndex);
+    const isVisible = GameUI.FindScreenEntities([screenX, screenY]).map(screenEntity => screenEntity.entityIndex).includes(entityIndex);
 
     setX(screenX * scale - (CONTAINER_WIDTH / 2));
     setY(screenY * scale - CONTAINER_HEIGHT);
@@ -45,28 +59,22 @@ const FloatingContainer = (props: Props) => {
 
   }, HUD_THINK_FAST)
 
+  const style: Partial<VCSSStyleDeclaration> = {
+    visibility: isVisible ? 'visible' : 'collapse',
+    transform: `translatex(${x}px) translatey(${y}px)`,
+    // position: `${x}px ${y}px 0px`,
+  }
+
   return (
     <Panel
       hittest={false}
       className={Styles.container}
-      style={{
-        visibility: isVisible ? 'visible' : 'collapse',
-        transform: `translatex(${x}px) translatey(${y}px)`,
-        // position: `${x}px ${y}px 0px`,
-      }}
+      style={style}
     >
-      <Panel className={Styles.statusBarContainer}>
-        {Entities.GetMaxMana(entityIndex) > 0 && (
-          <ManaBar entityIndex={entityIndex} />
-        )}
-        <HealthBar entityIndex={entityIndex} />
-      </Panel>
-      <Panel className={Styles.abilitiesContainer}>
-        <Abilities entityIndex={entityIndex} />
-      </Panel>
+      <SubComponent entityIndex={entityIndex} />
     </Panel>
   )
 
 }
 
-export default FloatingContainer
+export default React.memo(FloatingContainer)
