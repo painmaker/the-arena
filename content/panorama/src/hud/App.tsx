@@ -99,37 +99,35 @@ const App = () => {
 
 	return (
     <Loading>
-      <Panel className={Styles.container} hittest={false}>
-        <UseCustomUIContext.Provider value={{ useCustomUI, setUseCustomUI }}>
-          <ToggleCustomUI />
-          {useCustomUI && (
-            <React.Fragment>
-              <Minimap />
-              <FloatingContainers />
-              <Settings />
-              <Heroes /> 
-              <Messages />
-              <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
-                <AbilitiesShop selectedUnit={selectedEntityIndex} />
-                <CharacterDetails selectedUnit={selectedEntityIndex} />
-                <ItemsShop selectedUnit={selectedEntityIndex} />
-                <Panel className={Styles.rightCornerContainer}>
-                  <SelectedEntity />
-                  <Buttons />
-                </Panel>
-                <AbilityBar />
-                <Modifiers />
-                <Inventory />
-                <Mana />
-                <Health />
-                <Panel className={Styles.bottomCenterBackground} />
-                <Panel className={Styles.bottomCenterLeftFlare} />
-                <Panel className={Styles.bottomCenterRightFlare} />
-              </SelectedEntityIndexContext.Provider>
-            </React.Fragment>
-          )}
-          </UseCustomUIContext.Provider>
-        </Panel>
+      <UseCustomUIContext.Provider value={{ useCustomUI, setUseCustomUI }}>
+        <ToggleCustomUI />
+        {useCustomUI && (
+          <React.Fragment>
+            <Minimap />
+            <FloatingContainers />
+            <Settings />
+            <Heroes /> 
+            <Messages />
+            <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
+              <AbilitiesShop selectedUnit={selectedEntityIndex} />
+              <CharacterDetails selectedUnit={selectedEntityIndex} />
+              <ItemsShop selectedUnit={selectedEntityIndex} />
+              <Panel className={Styles.rightCornerContainer}>
+                <SelectedEntity />
+                <Buttons />
+              </Panel>
+              <AbilityBar />
+              <Modifiers />
+              <Inventory />
+              <Mana />
+              <Health />
+              <Panel className={Styles.bottomCenterBackground} />
+              <Panel className={Styles.bottomCenterLeftFlare} />
+              <Panel className={Styles.bottomCenterRightFlare} />
+            </SelectedEntityIndexContext.Provider>
+          </React.Fragment>
+        )}
+        </UseCustomUIContext.Provider>
     </Loading>
 	)
 

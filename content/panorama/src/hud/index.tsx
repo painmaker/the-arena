@@ -5,6 +5,8 @@ import './polyfill/timers';
 import { render } from "./reconciler";
 
 render(
-  <App />,
+  <Panel id={'__react__app__root__'} hittest={false}>
+    <App />
+  </Panel>,
   $.GetContextPanel()
 );

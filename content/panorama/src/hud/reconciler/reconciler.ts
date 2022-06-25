@@ -1,5 +1,5 @@
 import ReactReconciler from 'react-reconciler'
-import { InternalPanel, temporaryPanelHost } from './utils'
+import { DotaHud, InternalPanel, temporaryPanelHost } from './utils'
 import { splitInitialProps, updateProperty } from './attributes'
 import { fixPanelBase, panelBaseNames } from './panel-base'
 import { PanelType } from './panels'
@@ -185,12 +185,11 @@ const hostConfig: ReactReconciler.HostConfig<
 	},
 	clearContainer: (panel: InternalPanel) => {
 		console.debug('clearContainer called')
-		// for (const prop in panel) {
-		//   console.debug(`prop:${prop}`)
-		// }
-		console.debug(`panel.paneltype:${panel.paneltype}`)
-		console.debug(`panel.id:${panel.id}`)
-		// panel.RemoveAndDeleteChildren();
+		$.Msg('clearContainer called')
+    const app = DotaHud.FindChild('__react__app__root__');
+    if (app) {
+      app.RemoveAndDeleteChildren();
+    }
 	},
 	supportsHydration: false,
 	getInstanceFromNode: () => {
