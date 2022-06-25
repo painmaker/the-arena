@@ -21,9 +21,7 @@ const FloatingContainers = () => {
       .filter(entity => Entities.IsSelectable(entity))
       .filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < MAX_DISTANCE)
       .sort();
-    if (!isEqual(entityIndexes, newEntityIndexes)) {
-      setEntityIndexes(newEntityIndexes);
-    }
+    setEntityIndexes(oldEntityIndexes => isEqual(oldEntityIndexes, newEntityIndexes) ? oldEntityIndexes : newEntityIndexes);
   }, HUD_THINK_FAST)
 
   return (

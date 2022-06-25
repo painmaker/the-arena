@@ -109,16 +109,16 @@ const App = () => {
             <Heroes /> 
             <Messages />
             <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>
-              <AbilitiesShop selectedUnit={selectedEntityIndex} />
-              <CharacterDetails selectedUnit={selectedEntityIndex} />
-              <ItemsShop selectedUnit={selectedEntityIndex} />
+              {/* <AbilitiesShop selectedUnit={selectedEntityIndex} /> */}
+              {/* <CharacterDetails selectedUnit={selectedEntityIndex} /> */}
+              {/* <ItemsShop selectedUnit={selectedEntityIndex} /> */}
               <Panel className={Styles.rightCornerContainer}>
                 <SelectedEntity />
                 <Buttons />
               </Panel>
-              {/* <AbilityBar /> */}
-              {/* <Modifiers /> */}
-              {/* <Inventory /> */}
+              <AbilityBar />
+              <Modifiers />
+              <Inventory />
               <Mana />
               <Health />
               <Panel className={Styles.bottomCenterBackground} />

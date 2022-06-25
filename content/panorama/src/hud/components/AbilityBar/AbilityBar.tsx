@@ -17,16 +17,12 @@ const AbilityBar = () => {
 
   useInterval(() => {
     const abilityCount = Entities.GetAbilityCount(selectedEntityIndex);
-    if (abilityCount > 0) {
-      const newAbilities = Array.from(Array(abilityCount).keys())
-        .map(abilityNumber => Entities.GetAbility(selectedEntityIndex, abilityNumber))
-        .filter(index => index !== -1)
-        .filter(index => Abilities.IsDisplayedAbility(index));
-      if (!isEqual(newAbilities, abilities)) {
-        setAbilities(newAbilities);
-      }
-    }
     setAbilityPoints(Entities.GetAbilityPoints(selectedEntityIndex));
+    const newAbilities = Array.from(Array(abilityCount).keys())
+      .map(abilityNumber => Entities.GetAbility(selectedEntityIndex, abilityNumber))
+      .filter(index => index !== -1)
+      .filter(index => Abilities.IsDisplayedAbility(index));
+    setAbilities(oldAbilities => isEqual(oldAbilities, newAbilities) ? oldAbilities : newAbilities)
   }, HUD_THINK_FAST);
 
   useEffect(() => {

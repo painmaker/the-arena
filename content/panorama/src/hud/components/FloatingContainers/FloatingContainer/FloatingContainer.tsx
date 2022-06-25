@@ -4,8 +4,8 @@ import HealthBar from './HealthBar/HealthBar';
 import ManaBar from './ManaBar/ManaBar';
 import Abilities from './Abilities/Abilities';
 import Styles from './styles.module.css';
-import { isEqual } from '../../../utils/isEqual';
 import { HUD_THINK_FAST } from '../../../App';
+import { useEffect } from 'react';
 
 const CONTAINER_HEIGHT = 500;
 const CONTAINER_WIDTH = 250;
@@ -14,19 +14,15 @@ type Props = {
   entityIndex: EntityIndex,
 }
 
-type Data = {
-  x: number,
-  y: number,
-  isVisible: boolean,
-}
-
 const FloatingContainer = (props: Props) => {
 
   // $.Msg("REACT-RENDER: FloatingContainer rendered");
 
   const { entityIndex } = props;
 
-  const [data, setData] = useState<Data>({x: 0, y: 0, isVisible: false})
+  const [isVisible, setIsVisible] = useState(false);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
 
   useInterval(() => {
 
@@ -40,19 +36,17 @@ const FloatingContainer = (props: Props) => {
     const screenY = Game.WorldToScreenX(origin[0], origin[1], origin[2] + offset);
     const screenX = Game.WorldToScreenY(origin[0], origin[1], origin[2] + offset);
 
-    const x = scale * Math.min(screenWidth, Math.max(0, screenY)) - (CONTAINER_WIDTH / 2);
-    const y = scale * Math.min(screenHeight, Math.max(0, screenX)) - CONTAINER_HEIGHT;
+    const newX = scale * Math.min(screenWidth, Math.max(0, screenY)) - (CONTAINER_WIDTH / 2);
+    const newY = scale * Math.min(screenHeight, Math.max(0, screenX)) - CONTAINER_HEIGHT;
 
     const isVisible = GameUI.FindScreenEntities([
       Game.WorldToScreenX(origin[0], origin[1], origin[2]),
       Game.WorldToScreenY(origin[0], origin[1], origin[2])
     ]).map(screenEntity => screenEntity.entityIndex).includes(entityIndex);
 
-    const newData = { x, y, isVisible};
-
-    if (!isEqual(data, newData)) {
-      setData(newData);
-    }
+    setX(newX);
+    setY(newY);
+    setIsVisible(isVisible);
 
   }, HUD_THINK_FAST)
 
@@ -61,9 +55,9 @@ const FloatingContainer = (props: Props) => {
       hittest={false}
       className={Styles.container}
       style={{
-        visibility: data.isVisible ? 'visible' : 'collapse',
-        transform: `translatex(${data.x}px) translatey(${data.y}px)`,
-        // position: `${data.x}px ${data.y}px 0px`,
+        visibility: isVisible ? 'visible' : 'collapse',
+        // transform: `translatex(${x}px) translatey(${y}px)`,
+        position: `${x}px ${y}px 0px`,
       }}
     >
       <Panel className={Styles.statusBarContainer}>

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useEffect } from "react";
 import { HUD_THINK_FAST } from "../../App";
 import SelectedEntityIndexContext from "../../context/SelectedEntityIndexContext";
 import { useInterval } from "../../hooks/useInterval";
@@ -27,13 +28,11 @@ const Modifiers = () => {
 
   const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
-  const [modifiers, setModifiers] = useState<BuffID[]>(getModifiers(selectedEntityIndex));
+  const [modifiers, setModifiers] = useState<BuffID[]>(() => getModifiers(selectedEntityIndex));
 
   useInterval(() => {
     const newModifiers = getModifiers(selectedEntityIndex);
-    if (!isEqual(newModifiers, modifiers)) {
-      setModifiers(newModifiers);
-    }
+    setModifiers(oldModifiers => isEqual(oldModifiers, newModifiers) ? oldModifiers : newModifiers);
   }, HUD_THINK_FAST)
 
   return (

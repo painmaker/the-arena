@@ -24,9 +24,7 @@ const Inventory = () => {
   useInterval(() => {
     setHasInventory(Entities.IsInventoryEnabled(selectedEntityIndex))
     const newItems = Array.from(SLOTS).map(slot => ({ slot: slot, item: Entities.GetItemInSlot(selectedEntityIndex, slot) }));
-    if (!isEqual(items, newItems)) {
-      setItems(newItems)
-    }
+    setItems(oldItems => isEqual(oldItems, newItems) ? oldItems : newItems);
   }, HUD_THINK_FAST);
 
   if (!hasInventory) {
