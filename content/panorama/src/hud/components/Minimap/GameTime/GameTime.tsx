@@ -22,6 +22,8 @@ const GameTime = () => {
     setGameTime(Game.GetDOTATime(false, false));
   }, HUD_THINK_SLOW);
 
+  $.Msg(`gameTime:${gameTime}`)
+
   return (
     <Panel className={Styles.container}>
       <Label
