@@ -5,9 +5,8 @@ import ManaBar from './ManaBar/ManaBar';
 import Abilities from './Abilities/Abilities';
 import Styles from './styles.module.css';
 import { HUD_THINK_FAST } from '../../../App';
-import { useEffect } from 'react';
 
-const CONTAINER_HEIGHT = 500;
+const CONTAINER_HEIGHT = 100;
 const CONTAINER_WIDTH = 250;
 
 type Props = {
@@ -26,26 +25,22 @@ const FloatingContainer = (props: Props) => {
 
   useInterval(() => {
 
-    const screenWidth = Game.GetScreenWidth();
     const screenHeight = Game.GetScreenHeight();
     const scale = 1080 / screenHeight;
 
     const origin = Entities.GetAbsOrigin(entityIndex);
     const offset = Entities.GetHealthBarOffset(entityIndex);
 
-    const screenY = Game.WorldToScreenX(origin[0], origin[1], origin[2] + offset);
-    const screenX = Game.WorldToScreenY(origin[0], origin[1], origin[2] + offset);
-
-    const newX = scale * Math.min(screenWidth, Math.max(0, screenY)) - (CONTAINER_WIDTH / 2);
-    const newY = scale * Math.min(screenHeight, Math.max(0, screenX)) - CONTAINER_HEIGHT;
-
+    const screenX = Game.WorldToScreenX(origin[0], origin[1], origin[2] + offset);
+    const screenY = Game.WorldToScreenY(origin[0], origin[1], origin[2] + offset);
+    
     const isVisible = GameUI.FindScreenEntities([
       Game.WorldToScreenX(origin[0], origin[1], origin[2]),
       Game.WorldToScreenY(origin[0], origin[1], origin[2])
     ]).map(screenEntity => screenEntity.entityIndex).includes(entityIndex);
 
-    setX(newX);
-    setY(newY);
+    setX(screenX * scale - (CONTAINER_WIDTH / 2));
+    setY(screenY * scale - CONTAINER_HEIGHT);
     setIsVisible(isVisible);
 
   }, HUD_THINK_FAST)
@@ -56,8 +51,8 @@ const FloatingContainer = (props: Props) => {
       className={Styles.container}
       style={{
         visibility: isVisible ? 'visible' : 'collapse',
-        // transform: `translatex(${x}px) translatey(${y}px)`,
-        position: `${x}px ${y}px 0px`,
+        transform: `translatex(${x}px) translatey(${y}px)`,
+        // position: `${x}px ${y}px 0px`,
       }}
     >
       <Panel className={Styles.statusBarContainer}>

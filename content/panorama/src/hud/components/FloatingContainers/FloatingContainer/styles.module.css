@@ -1,9 +1,10 @@
 .container {
-	height: 500px;
+	height: 75px;
   width: 250px;
 	flow-children: up;
 	z-index: -1;
-  /* transition: position 0.0s ease-in-out 0s, transform 0.0s ease-in-out 0s;   */
+  transition: position 0s linear 0s, transform 0s linear 0s;  
+  /* transition: position 0s ease-in-out 0s, transform 0s ease-in-out 0s;   */
   transition-high-framerate: true;
 }
 

@@ -17,7 +17,7 @@ const Ability = (props: Props) => {
 
   const { id, name, isItem, setAbilities } = props;
 
-  const [posY, setPosY] = useState(75);
+  const [posY, setPosY] = useState(35);
   const [opacity, setOpacity] = useState('1.0');
 
   useInterval(() => {
