@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Level from "./Level/Level";
 import Armor from "./Armor/Armor";
 import Damage from "./Damage/Damage";
@@ -14,7 +14,7 @@ const SelectedEntity = () => {
 
   const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const scenePanel = $('#selected_entity_portrait') as ScenePanel;
     if (scenePanel) {
       scenePanel.SetUnit(Entities.GetUnitName(selectedEntityIndex), '', true);

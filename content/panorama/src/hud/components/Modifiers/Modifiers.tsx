@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useEffect } from "react";
 import { HUD_THINK_FAST } from "../../App";
 import SelectedEntityIndexContext from "../../context/SelectedEntityIndexContext";
 import { useInterval } from "../../hooks/useInterval";
@@ -7,7 +6,7 @@ import { isEqual } from "../../utils/isEqual";
 import Modifier from "./Modifier/Modifier";
 import Styles from './styles.module.css';
 
-const getModifiers = (unit: EntityIndex) => {
+const getModifiers = (unit: EntityIndex): BuffID[] => {
   const modifiers = [];
   for (let i = 0; i < Entities.GetNumBuffs(unit) + 1; i++) {
     const modifier = Entities.GetBuff(unit, i);

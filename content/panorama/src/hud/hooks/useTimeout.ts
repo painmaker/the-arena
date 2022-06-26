@@ -1,10 +1,10 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export const useTimeout = (callback: Function, delay: number = 0) => {
 
   const savedCallback = useRef(callback);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
 

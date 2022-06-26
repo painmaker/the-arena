@@ -4,13 +4,8 @@ import Styles from './styles.module.css'
 import { HUD_THINK_FAST } from '../../App'
 import { useInterval } from '../../hooks/useInterval'
 import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
-import { isEqual } from '../../utils/isEqual'
 
 const SLOTS = [0, 1, 2, 3, 4, 5]
-interface IRowItem {
-  slot: number,
-  item: ItemEntityIndex
-}
 
 const Inventory = () => {
 
@@ -18,13 +13,10 @@ const Inventory = () => {
 
   const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
-  const [items, setItems] = useState<IRowItem[]>([])
   const [hasInventory, setHasInventory] = useState(Entities.IsInventoryEnabled(selectedEntityIndex))
 
   useInterval(() => {
     setHasInventory(Entities.IsInventoryEnabled(selectedEntityIndex))
-    const newItems = Array.from(SLOTS).map(slot => ({ slot: slot, item: Entities.GetItemInSlot(selectedEntityIndex, slot) }));
-    setItems(oldItems => isEqual(oldItems, newItems) ? oldItems : newItems);
   }, HUD_THINK_FAST);
 
   if (!hasInventory) {
@@ -34,16 +26,7 @@ const Inventory = () => {
   return (
     <Panel hittest={false} className={Styles.container}  >
       <Panel className={Styles.items}>
-        {items.map(rowItem => {
-          const { slot, item } = rowItem;
-          return (
-            <Item
-              key={slot + "_" + item}
-              slot={slot}
-              item={item}
-            />
-          )
-        })}
+        {SLOTS.map(slot => <Item key={slot} slot={slot}/>)}
       </Panel>
     </Panel>
   )

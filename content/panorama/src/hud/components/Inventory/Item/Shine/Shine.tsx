@@ -33,7 +33,10 @@ const Shine = (props: Props) => {
   }, [isMuted, wasMuted, isOnCooldown, wasOnCooldown])
 
   return (
-    <Panel id={'inventory_item_shine_panel_' + item} />
+    <Panel
+      key={item}
+      id={'inventory_item_shine_panel_' + item}
+    />
   );
 
 };

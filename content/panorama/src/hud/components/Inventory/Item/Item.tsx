@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useLayoutEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import Keybind from './Keybind/Keybind'
 import Cooldown from './Cooldown/Cooldown'
 import Image from './Image/Image'
@@ -8,11 +8,10 @@ import ManaCost from './ManaCost/ManaCost'
 import Styles from './styles.module.css'
 import Shine from './Shine/Shine'
 import SelectedEntityIndexContext from '../../../context/SelectedEntityIndexContext'
-
-
+import { useInterval } from '../../../hooks/useInterval'
+import { HUD_THINK_FAST } from '../../../App'
 
 type Props =  {
-  item: ItemEntityIndex
   slot: number
 }
 
@@ -22,13 +21,15 @@ const Item = (props: Props) => {
 
   const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
-  const {
-    item,
-    slot,
-  } = props
+  const { slot } = props
 
   const [isDragged, setIsDragged] = useState(false)
   const [isDropTarget, setIsDropTarget] = useState(false)
+  const [item, setItem] = useState(Entities.GetItemInSlot(selectedEntityIndex, slot));
+
+  useInterval(() => {
+    setItem(Entities.GetItemInSlot(selectedEntityIndex, slot))
+  }, HUD_THINK_FAST)
 
   const onDragStart = useCallback((thisPanel: Panel, draggedPanel: any) => {
 
@@ -156,7 +157,7 @@ const Item = (props: Props) => {
     $.DispatchEvent('DOTAHideAbilityTooltip', $('#inventory_item_' + slot))
   }, [slot])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const panel = $('#inventory_item_' + slot)
     if (panel) {
       $.RegisterEventHandler('DragEnter', panel, OnDragEnter)

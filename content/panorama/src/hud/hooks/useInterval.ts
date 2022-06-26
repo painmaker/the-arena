@@ -1,10 +1,11 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { HUD_THINK_FAST } from './../App';
+import { useEffect, useRef } from 'react';
 
-export const useInterval = (callback: Function, delay: number = 0.0) => {
+export const useInterval = (callback: Function, delay: number = HUD_THINK_FAST) => {
 
   const savedCallback = useRef(callback);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
 
