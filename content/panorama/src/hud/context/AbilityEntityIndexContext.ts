@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react'
 
 interface IAbilityEntityIndexContext {
-  abilityEntityIndex: AbilityEntityIndex,
-  setAbilityEntityIndex?: () => void,
+	abilityEntityIndex: AbilityEntityIndex
+	setAbilityEntityIndex?: () => void
 }
 
 const initialState = {
-  abilityEntityIndex: -1 as AbilityEntityIndex,
+	abilityEntityIndex: -1 as AbilityEntityIndex,
 }
 
-const AbilityEntityIndexContext = React.createContext<IAbilityEntityIndexContext>(initialState);
+const AbilityEntityIndexContext = React.createContext<IAbilityEntityIndexContext>(initialState)
 
-export default AbilityEntityIndexContext;
+export default AbilityEntityIndexContext

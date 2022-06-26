@@ -1,37 +1,33 @@
-import React, { useContext, useState } from "react";
-import { HUD_THINK_FAST } from "../../../../App";
-import AbilityEntityIndexContext from "../../../../context/AbilityEntityIndexContext";
-import SelectedEntityIndexContext from "../../../../context/SelectedEntityIndexContext";
-import { useInterval } from "../../../../hooks/useInterval";
-import Styles from './styles.module.css';
+import React, { useContext, useState } from 'react'
+import { HUD_THINK_FAST } from '../../../../App'
+import AbilityEntityIndexContext from '../../../../context/AbilityEntityIndexContext'
+import SelectedEntityIndexContext from '../../../../context/SelectedEntityIndexContext'
+import { useInterval } from '../../../../hooks/useInterval'
+import Styles from './styles.module.css'
 
+function LockoutIcon() {
+	// $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
 
-const LockoutIcon = () => {
+	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)
+	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)
 
-  // $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
+	const [isCastable, setIsCastable] = useState(
+		Abilities.GetCooldownTimeRemaining(abilityEntityIndex) === 0 && Entities.IsSilenced(selectedEntityIndex),
+	)
 
-  const { abilityEntityIndex } = useContext(AbilityEntityIndexContext);
-  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
+	useInterval(() => {
+		setIsCastable(Abilities.GetCooldownTimeRemaining(abilityEntityIndex) === 0 && Entities.IsSilenced(selectedEntityIndex))
+	}, HUD_THINK_FAST)
 
-  const [isCastable, setIsCastable] = useState(Abilities.GetCooldownTimeRemaining(abilityEntityIndex) === 0 && Entities.IsSilenced(selectedEntityIndex));
+	if (!isCastable) {
+		return null
+	}
 
-  useInterval(() => {
-    setIsCastable(Abilities.GetCooldownTimeRemaining(abilityEntityIndex) === 0 && Entities.IsSilenced(selectedEntityIndex));
-  }, HUD_THINK_FAST);
+	return (
+		<Panel className={Styles.container} style={{ backgroundColor: isCastable ? 'rgba(0, 0, 0, 0.9)' : 'none' }}>
+			<Panel className={Styles.icon} />
+		</Panel>
+	)
+}
 
-  if (!isCastable) {
-    return null;
-  }
-
-  return (
-    <Panel
-      className={Styles.container}
-      style={{ backgroundColor: isCastable ? 'rgba(0, 0, 0, 0.9)' : 'none' }}
-    >
-      <Panel className={Styles.icon} />
-    </Panel>
-  );
-
-};
-
-export default React.memo(LockoutIcon);
+export default React.memo(LockoutIcon)

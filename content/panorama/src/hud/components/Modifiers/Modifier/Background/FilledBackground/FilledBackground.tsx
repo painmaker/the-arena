@@ -1,26 +1,24 @@
-import React from 'react';
-import Styles from './styles.module.css';
+import React from 'react'
+import Styles from './styles.module.css'
 
 type Props = {
-  modifier: BuffID,
-  selectedEntityIndex: EntityIndex
+	modifier: BuffID
+	selectedEntityIndex: EntityIndex
 }
 
-const FilledBackground = (props: Props) => {
+function FilledBackground(props: Props) {
+	// $.Msg("REACT-RENDER: Modifiers - FilledBackground rendered");
 
-  // $.Msg("REACT-RENDER: Modifiers - FilledBackground rendered");
+	const { modifier, selectedEntityIndex } = props
 
-  const { modifier, selectedEntityIndex } = props;
-
-  return (
-    <Panel
-      className={Styles.border}
-      style={{
-        washColor: Buffs.IsDebuff(selectedEntityIndex, modifier) ? 'rgba(245, 50, 20, 0.95)' : '#8bdd4f'
-      }}
-    />
-  );
-
+	return (
+		<Panel
+			className={Styles.border}
+			style={{
+				washColor: Buffs.IsDebuff(selectedEntityIndex, modifier) ? 'rgba(245, 50, 20, 0.95)' : '#8bdd4f',
+			}}
+		/>
+	)
 }
 
-export default FilledBackground;
+export default FilledBackground

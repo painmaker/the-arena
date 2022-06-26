@@ -1,15 +1,10 @@
-import React from "react";
-import Styles from './styles.module.css';
+import React from 'react'
+import Styles from './styles.module.css'
 
-const Divider = () => {
+function Divider() {
+	// $.Msg("REACT-RENDER: Settings - Divider rendered");
 
-  // $.Msg("REACT-RENDER: Settings - Divider rendered");
-
-  return (
-    <Panel className={Styles.container} />
-  )
-
+	return <Panel className={Styles.container} />
 }
 
-export default React.memo(Divider);
-
+export default React.memo(Divider)

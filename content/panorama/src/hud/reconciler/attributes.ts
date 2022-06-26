@@ -35,7 +35,12 @@ type PropertyInformation<TPanelName extends PanelType, TAttribute extends keyof 
 	  }
 	| {
 			type: PropertyType.CUSTOM
-			update(panel: InternalPanel<PanelTypeByName<TPanelName>>, newValue: AttributesByPanel[TPanelName][TAttribute], oldValue: AttributesByPanel[TPanelName][TAttribute], propName: TAttribute): void
+			update(
+				panel: InternalPanel<PanelTypeByName<TPanelName>>,
+				newValue: AttributesByPanel[TPanelName][TAttribute],
+				oldValue: AttributesByPanel[TPanelName][TAttribute],
+				propName: TAttribute,
+			): void
 	  }
 )
 
@@ -275,12 +280,19 @@ definePanelPropertyInformation('DOTAHeroMovie', {
 	autoplay: { type: PropertyType.INITIAL_ONLY, initial: true },
 })
 
-const createSceneRotationSetter = <TProp extends 'pitchmin' | 'pitchmax' | 'yawmin' | 'yawmax'>(propName: TProp): PropertyInformation<'DOTAScenePanel', TProp> => ({
+const createSceneRotationSetter = <TProp extends 'pitchmin' | 'pitchmax' | 'yawmin' | 'yawmax'>(
+	propName: TProp,
+): PropertyInformation<'DOTAScenePanel', TProp> => ({
 	type: PropertyType.CUSTOM,
 	update(panel, newValue) {
 		if (panel._rotateParams === undefined) panel._rotateParams = {}
 		panel._rotateParams[propName] = newValue
-		panel.SetRotateParams(panel._rotateParams.yawmin || 0, panel._rotateParams.yawmax || 0, panel._rotateParams.pitchmin || 0, panel._rotateParams.pitchmax || 0)
+		panel.SetRotateParams(
+			panel._rotateParams.yawmin || 0,
+			panel._rotateParams.yawmax || 0,
+			panel._rotateParams.pitchmin || 0,
+			panel._rotateParams.pitchmax || 0,
+		)
 	},
 })
 
@@ -504,7 +516,7 @@ const genericPanelPropertyInfo: PropertyInformation<'GenericPanel', string> = {
 const uiEventPropertyInfo: PropertyInformation<'Panel', any> = {
 	type: PropertyType.CUSTOM,
 	update(panel, newValue, _oldValue, propName) {
-    $.Msg('uiEventPropertyInfo.update called')
+		$.Msg('uiEventPropertyInfo.update called')
 		throw new Error('uiEventPropertyInfo.update not implemented')
 		// panel._eventHandlers ??= {}
 		// // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -595,7 +607,11 @@ export function updateProperty(type: PanelType, panel: InternalPanel, propName: 
 	}
 
 	if (panelBaseNames.has(type) && propertyInformation.throwOnIncomplete) {
-		throw new Error(`Attribute "${propName}" cannot be ${propertyInformation.initial ? 'changed on' : 'added to'} incomplete ${type} panel type.${propertyInformation.initial ? ' Add a "key" attribute to force re-mount.' : ''}`)
+		throw new Error(
+			`Attribute "${propName}" cannot be ${propertyInformation.initial ? 'changed on' : 'added to'} incomplete ${type} panel type.${
+				propertyInformation.initial ? ' Add a "key" attribute to force re-mount.' : ''
+			}`,
+		)
 	}
 
 	switch (propertyInformation.type) {

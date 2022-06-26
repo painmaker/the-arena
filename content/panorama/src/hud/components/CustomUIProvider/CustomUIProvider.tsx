@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { UseCustomUIContext } from '../../context/UseCustomUIContext';
-import ToggleCustomUI from './ToggleCustomUI/ToggleCustomUI';
+import React, { useEffect, useState } from 'react'
+import { UseCustomUIContext } from '../../context/UseCustomUIContext'
+import ToggleCustomUI from './ToggleCustomUI/ToggleCustomUI'
 
 type Props = {
-  children: JSX.Element | JSX.Element[]
+	children: JSX.Element | JSX.Element[]
 }
 
-const CustomUIProvider = (props: Props) => { 
+function CustomUIProvider(props: Props) {
+	const { children } = props
 
-  const { children } = props;
-
-  const [useCustomUI, setUseCustomUI] = useState(true)
+	const [useCustomUI, setUseCustomUI] = useState(true)
 
 	useEffect(() => {
 		GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, !useCustomUI)
@@ -45,17 +44,12 @@ const CustomUIProvider = (props: Props) => {
 		GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !useCustomUI)
 	}, [useCustomUI])
 
-  return (
-    <UseCustomUIContext.Provider value={{ useCustomUI, setUseCustomUI }}>
-      <ToggleCustomUI />
-      { useCustomUI && (
-        <React.Fragment>
-          { children }
-         </React.Fragment>
-      )}      
-    </UseCustomUIContext.Provider>
-  )
-
+	return (
+		<UseCustomUIContext.Provider value={{ useCustomUI, setUseCustomUI }}>
+			<ToggleCustomUI />
+			{useCustomUI && <>{children}</>}
+		</UseCustomUIContext.Provider>
+	)
 }
 
-export default CustomUIProvider;
+export default CustomUIProvider

@@ -1,40 +1,30 @@
-import React, { useState } from 'react';
-import { useTimeout } from '../../hooks/useTimeout';
-import Styles from './styles.module.css';
+import React, { useState } from 'react'
+import { useTimeout } from '../../hooks/useTimeout'
+import Styles from './styles.module.css'
 
 type Props = {
-  children: React.ReactNode
+	children: React.ReactNode
 }
 
-const LOADING_TIME = 1.0;
+const LOADING_TIME = 1.0
 
-const Loading = (props: Props) => {
+function Loading(props: Props) {
+	// $.Msg("REACT-RENDER: Loading rendered");
 
-  // $.Msg("REACT-RENDER: Loading rendered");
+	const [isLoading, setIsLoading] = useState(true)
 
-  const [isLoading, setIsLoading] = useState(true);
+	useTimeout(() => {
+		setIsLoading(false)
+	}, LOADING_TIME)
 
-  useTimeout(() => {
-    setIsLoading(false);
-  }, LOADING_TIME);
+	if (isLoading) {
+		return (
+			<Panel className={Styles.container}>
+				<Label className={Styles.label} text='LOADING...' />
+			</Panel>
+		)
+	}
+	return <>{props.children}</>
+}
 
-  if (isLoading) {
-    return (
-      <Panel className={Styles.container}>
-        <Label
-          className={Styles.label}
-          text={'LOADING...'}
-        />
-      </Panel>
-    )
-  } else {
-    return (
-      <React.Fragment>
-        {props.children}
-      </React.Fragment>
-    )
-  }
-
-};
-
-export default React.memo(Loading);
+export default React.memo(Loading)

@@ -1,13 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import './global.css'
 import Styles from './styles.module.css'
-import { UseCustomUIContext } from './context/UseCustomUIContext'
-import ToggleCustomUI from './components/CustomUIProvider/ToggleCustomUI/ToggleCustomUI'
-import { useInterval } from './hooks/useInterval'
 import FloatingContainers from './components/FloatingContainers/FloatingContainers'
 import Minimap from './components/Minimap/Minimap'
 import Settings from './components/Settings/Settings'
-import SelectedEntityIndexContext from './context/SelectedEntityIndexContext'
 import Buttons from './components/Buttons/Buttons'
 import SelectedEntity from './components/SelectedEntity/SelectedEntity'
 import AbilityBar from './components/AbilityBar/AbilityBar'
@@ -30,47 +26,49 @@ export const HUD_THINK_FAST = 1 / 144
 export const HUD_THINK_MEDIUM = 1 / 144 // 0.1
 export const HUD_THINK_SLOW = 1 / 144 // 1.0
 
-const App = () => {
+function App() {
+	$.Msg('REACT-RENDER: App rendered')
 
-  $.Msg("REACT-RENDER: App rendered");
-	
-  // const heroes = useNetTableValues('HeroSelectionHeroes').heroes
+	// const heroes = useNetTableValues('HeroSelectionHeroes').heroes
 	// const hasPickedHero = Object.values(heroes).find(hero => hero.playerID === Players.GetLocalPlayer())?.picked === 1
 
-	useRegisterForUnhandledEvent('Cancelled', () => {
-    GameEvents.SendEventClientSide('set_window', { window: WINDOW.NONE })
-    Game.EmitSound('ui_topmenu_select')
-  }, [])
-
-	return (
-    <Loading>
-      <CustomUIProvider>
-        <Minimap />
-        <FloatingContainers />
-        <Settings />
-        <Heroes /> 
-        <Messages />
-        <SelectedEntityProvider>
-          <AbilitiesShop />
-          <CharacterDetails />
-          <ItemsShop />
-          <Panel className={Styles.rightCornerContainer}>
-            <SelectedEntity />
-            <Buttons />
-          </Panel>
-          <AbilityBar />
-          <Modifiers />
-          <Inventory />
-          <Mana />
-          <Health />
-          <Panel className={Styles.bottomCenterBackground} />
-          <Panel className={Styles.bottomCenterLeftFlare} />
-          <Panel className={Styles.bottomCenterRightFlare} />
-        </SelectedEntityProvider>
-      </CustomUIProvider>
-    </Loading>
+	useRegisterForUnhandledEvent(
+		'Cancelled',
+		() => {
+			GameEvents.SendEventClientSide('set_window', { window: WINDOW.NONE })
+			Game.EmitSound('ui_topmenu_select')
+		},
+		[],
 	)
 
+	return (
+		<Loading>
+			<CustomUIProvider>
+				<Minimap />
+				<FloatingContainers />
+				<Settings />
+				<Heroes />
+				<Messages />
+				<SelectedEntityProvider>
+					<AbilitiesShop />
+					<CharacterDetails />
+					<ItemsShop />
+					<Panel className={Styles.rightCornerContainer}>
+						<SelectedEntity />
+						<Buttons />
+					</Panel>
+					<AbilityBar />
+					<Modifiers />
+					<Inventory />
+					<Mana />
+					<Health />
+					<Panel className={Styles.bottomCenterBackground} />
+					<Panel className={Styles.bottomCenterLeftFlare} />
+					<Panel className={Styles.bottomCenterRightFlare} />
+				</SelectedEntityProvider>
+			</CustomUIProvider>
+		</Loading>
+	)
 }
 
 export default App

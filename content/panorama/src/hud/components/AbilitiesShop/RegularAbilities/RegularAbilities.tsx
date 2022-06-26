@@ -1,54 +1,36 @@
-import React from "react";
-import useNetTableValues from "../../../hooks/useNetTableValues";
-import AbilityImage from "../AbilityImage/AbilityImage";
+import React from 'react'
+import useNetTableValues from '../../../hooks/useNetTableValues'
+import AbilityImage from '../AbilityImage/AbilityImage'
 import Styles from './styles.module.css'
 
 type Props = {
-  selectedUnit: EntityIndex
-  regularAbilities: ShopAbility[],
-  searchValue: string,
+	selectedUnit: EntityIndex
+	regularAbilities: ShopAbility[]
+	searchValue: string
 }
 
-const RegularAbilities = (props: Props) => {
+function RegularAbilities(props: Props) {
+	// $.Msg("REACT-RENDER: AbilitiesShop - RegularAbilities rendered");
 
-  // $.Msg("REACT-RENDER: AbilitiesShop - RegularAbilities rendered");
+	const { selectedUnit, regularAbilities, searchValue } = props
 
-  const { selectedUnit, regularAbilities, searchValue } = props;
+	const playerOwnerID = Entities.GetPlayerOwnerID(selectedUnit)
+	const nettable = playerOwnerID !== -1 ? Object.values(useNetTableValues('RegularAbilities')[playerOwnerID]) : []
 
-  const playerOwnerID = Entities.GetPlayerOwnerID(selectedUnit);
-  const nettable = playerOwnerID !== -1 ? Object.values(useNetTableValues('RegularAbilities')[playerOwnerID]) : [];
+	return (
+		<Panel className={Styles.container}>
+			<Panel className={Styles.titleContainer}>
+				<Label text='Regular Abilities' className={Styles.title} />
+				<Label text={`${nettable.length} / 5`} className={Styles.abilityCountLabel} />
+				<Label text={`${nettable.length} / 5`} className={Styles.abilityCountLabel} />
+			</Panel>
+			<Panel className={Styles.abilitiesContainer}>
+				{regularAbilities.map(regularAbility => {
+					return <AbilityImage key={regularAbility.name} selectedUnit={selectedUnit} shopAbility={regularAbility} searchValue={searchValue} />
+				})}
+			</Panel>
+		</Panel>
+	)
+}
 
-  return (
-    <Panel className={Styles.container}>
-      <Panel className={Styles.titleContainer}>
-        <Label
-          text={'Regular Abilities'}
-          className={Styles.title}
-        />
-        <Label
-          text={nettable.length + ' / 5'}
-          className={Styles.abilityCountLabel}
-        />
-        <Label
-          text={nettable.length + ' / 5'}
-          className={Styles.abilityCountLabel}
-        />
-      </Panel>
-      <Panel className={Styles.abilitiesContainer}>
-        {regularAbilities.map(regularAbility => {
-          return (
-            <AbilityImage
-              key={regularAbility.name}
-              selectedUnit={selectedUnit}
-              shopAbility={regularAbility}
-              searchValue={searchValue}
-            />
-          )
-        })}
-      </Panel>
-    </Panel>
-  );
-
-};
-
-export default React.memo(RegularAbilities);
+export default React.memo(RegularAbilities)

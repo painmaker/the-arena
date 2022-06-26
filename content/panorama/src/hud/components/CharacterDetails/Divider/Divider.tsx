@@ -1,15 +1,10 @@
-import React from "react";
-import { Styles } from "./Styles";
+import React from 'react'
+import { Styles } from './Styles'
 
-const Divider = () => {
+function Divider() {
+	// $.Msg("REACT-RENDER: Character - Divider rendered");
 
-  // $.Msg("REACT-RENDER: Character - Divider rendered");
+	return <Panel style={Styles.Divider()} />
+}
 
-  return (
-    <Panel style={Styles.Divider()} />
-  );
-
-};
-
-export default React.memo(Divider);
-
+export default React.memo(Divider)

@@ -1,9 +1,9 @@
 import ReactReconciler from 'react-reconciler'
+import { DefaultEventPriority } from 'react-reconciler/constants'
 import { DotaHud, InternalPanel, temporaryPanelHost } from './utils'
 import { splitInitialProps, updateProperty } from './attributes'
 import { fixPanelBase, panelBaseNames } from './panel-base'
 import { PanelType } from './panels'
-import { DefaultEventPriority } from 'react-reconciler/constants'
 
 const appendChild = (parent: InternalPanel, child: InternalPanel) => {
 	console.debug('appendChild called')
@@ -71,8 +71,7 @@ const hostConfig: ReactReconciler.HostConfig<
 	supportsMutation: true,
 	supportsPersistence: false,
 	createInstance(type, props) {
-
-		console.debug('createInstance called for type ' + type)
+		console.debug(`createInstance called for type ${type}`)
 
 		const { initialProps, otherProps } = splitInitialProps(type, props)
 
@@ -93,7 +92,6 @@ const hostConfig: ReactReconciler.HostConfig<
 		}
 
 		return panel
-    
 	},
 	createTextInstance() {
 		console.debug('createTextInstance called')
@@ -188,10 +186,10 @@ const hostConfig: ReactReconciler.HostConfig<
 	clearContainer: (panel: InternalPanel) => {
 		console.debug('clearContainer called')
 		$.Msg('clearContainer called')
-    const app = DotaHud.FindChild('__react__app__root__');
-    if (app) {
-      app.RemoveAndDeleteChildren();
-    }
+		const app = DotaHud.FindChild('__react__app__root__')
+		if (app) {
+			app.RemoveAndDeleteChildren()
+		}
 	},
 	supportsHydration: false,
 	getInstanceFromNode: () => {

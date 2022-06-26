@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react'
 
 interface ISelectedEntityIndexContext {
-  selectedEntityIndex: EntityIndex,
-  setSelectedEntityIndex?: () => void,
+	selectedEntityIndex: EntityIndex
+	setSelectedEntityIndex?: () => void
 }
 
 const initialState = {
-  selectedEntityIndex: Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()),
+	selectedEntityIndex: Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()),
 }
 
-const SelectedEntityIndexContext = React.createContext<ISelectedEntityIndexContext>(initialState);
+const SelectedEntityIndexContext = React.createContext<ISelectedEntityIndexContext>(initialState)
 
-export default SelectedEntityIndexContext;
+export default SelectedEntityIndexContext

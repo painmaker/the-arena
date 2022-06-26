@@ -7,7 +7,7 @@ interface IUseCustomUIContext {
 
 const initialState = {
 	useCustomUI: true,
-  setUseCustomUI: () => ({})
+	setUseCustomUI: () => ({}),
 }
 
 export const UseCustomUIContext = React.createContext<IUseCustomUIContext>(initialState)

@@ -1,23 +1,18 @@
-import React from 'react';
-import Styles from './styles.module.css';
+import React from 'react'
+import Styles from './styles.module.css'
 
 type Props = {
-  activeItem: ItemsShopItem,
+	activeItem: ItemsShopItem
 }
 
-const ActiveItem = (props: Props) => {
+function ActiveItem(props: Props) {
+	const { activeItem } = props
 
-  const { activeItem } = props;
-
-  return (
-    <Panel className={Styles.container}>
-      <DOTAItemImage
-        className={Styles.image}
-        itemname={activeItem.itemname}
-      />
-    </Panel>
-  )
-
+	return (
+		<Panel className={Styles.container}>
+			<DOTAItemImage className={Styles.image} itemname={activeItem.itemname} />
+		</Panel>
+	)
 }
 
-export default ActiveItem;
+export default ActiveItem

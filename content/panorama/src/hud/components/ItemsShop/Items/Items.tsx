@@ -1,44 +1,31 @@
-import React, { Dispatch, SetStateAction } from "react";
-import Item from "./Item/Item";
-import Styles from './styles.module.css';
+import React, { Dispatch, SetStateAction } from 'react'
+import Item from './Item/Item'
+import Styles from './styles.module.css'
 
 type Props = {
-  title: string,
-  items: ItemsShopItem[]
-  selectedUnit: EntityIndex,
-  searchValue: string,
-  setActiveItem: Dispatch<SetStateAction<ItemsShopItem | undefined>>,
-  height: string
+	title: string
+	items: ItemsShopItem[]
+	selectedUnit: EntityIndex
+	searchValue: string
+	setActiveItem: Dispatch<SetStateAction<ItemsShopItem | undefined>>
+	height: string
 }
 
-const Items = (props: Props) => {
+function Items(props: Props) {
+	// $.Msg("REACT-RENDER: ItemsShop - Items rendered");
 
-  // $.Msg("REACT-RENDER: ItemsShop - Items rendered");
+	const { title, items, selectedUnit, searchValue, height, setActiveItem } = props
 
-  const { title, items, selectedUnit, searchValue, height, setActiveItem } = props;
+	return (
+		<Panel className={Styles.container}>
+			<Label className={Styles.title} text={title} />
+			<Panel className={Styles.itemsContainer} style={{ height }}>
+				{items.map(item => (
+					<Item key={item.itemname} item={item} selectedUnit={selectedUnit} searchValue={searchValue} setActiveItem={setActiveItem} />
+				))}
+			</Panel>
+		</Panel>
+	)
+}
 
-  return (
-    <Panel className={Styles.container}>
-      <Label
-        className={Styles.title}
-        text={title}
-      />
-      <Panel
-        className={Styles.itemsContainer}
-        style={{ height: height }}
-      >
-        {items.map(item =>
-          <Item
-            key={item.itemname}
-            item={item}
-            selectedUnit={selectedUnit}
-            searchValue={searchValue}
-            setActiveItem={setActiveItem}
-          />
-        )}
-      </Panel>
-    </Panel>
-  );
-};
-
-export default React.memo(Items);
+export default React.memo(Items)

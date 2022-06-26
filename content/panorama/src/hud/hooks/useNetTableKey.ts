@@ -1,12 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
-const useNetTableKey = <
-  TName extends keyof CustomNetTableDeclarations,
-  T extends CustomNetTableDeclarations[TName],
-  K extends keyof T
->(name: TName, key: K): NetworkedData<T[K]> | null => {
-
-  /*
+const useNetTableKey = <TName extends keyof CustomNetTableDeclarations, T extends CustomNetTableDeclarations[TName], K extends keyof T>(
+	name: TName,
+	key: K,
+): NetworkedData<T[K]> | null => {
+	/*
   const [value, setValue] = useState(() => CustomNetTables.GetTableValue<TName, T, K>(name, key));
 
   useEffect(() => {
@@ -23,9 +21,8 @@ const useNetTableKey = <
   return value;
 
   */
-  
-  return null;
-  
+
+	return null
 }
 
-export default useNetTableKey;
+export default useNetTableKey
