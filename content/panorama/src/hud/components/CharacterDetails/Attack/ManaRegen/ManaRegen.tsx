@@ -7,7 +7,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function ManaRegen(props: Props) {
+const ManaRegen = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - ManaRegen rendered");
 
 	const { selectedUnit } = props

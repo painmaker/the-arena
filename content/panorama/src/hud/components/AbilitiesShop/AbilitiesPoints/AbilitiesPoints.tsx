@@ -8,7 +8,7 @@ type Props = {
 	text: string
 }
 
-function AbilitiesPoints(props: Props) {
+const AbilitiesPoints = (props: Props) => {
 	// $.Msg("REACT-RENDER: AbilitiesShop - AbilitiesPoints rendered");
 
 	const { selectedUnit, text } = props

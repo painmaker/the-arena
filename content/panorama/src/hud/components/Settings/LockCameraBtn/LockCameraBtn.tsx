@@ -6,7 +6,7 @@ type Props = {
 	setIsLocked: Dispatch<SetStateAction<boolean>>
 }
 
-function LockCameraBtn(props: Props) {
+const LockCameraBtn = (props: Props) => {
 	// $.Msg("REACT-RENDER: Settings - LockCameraBtn rendered");
 
 	const { isLocked, setIsLocked } = props

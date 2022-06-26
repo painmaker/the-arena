@@ -2,7 +2,7 @@ import React from 'react'
 import { WINDOW } from '../../../data/windows'
 import Styles from './styles.module.css'
 
-function Title() {
+const Title = () => {
 	// $.Msg("REACT-RENDER: Settings - Title rendered");
 
 	return (

@@ -4,7 +4,7 @@ import AbilityEntityIndexContext from '../../../../context/AbilityEntityIndexCon
 import { useInterval } from '../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
-function Cooldown() {
+const Cooldown = () => {
 	// $.Msg("REACT-RENDER: AbilityBarItem - Cooldown rendered");
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)

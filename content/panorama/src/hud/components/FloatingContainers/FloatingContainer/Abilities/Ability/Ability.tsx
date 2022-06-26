@@ -11,7 +11,7 @@ type Props = {
 	setAbilities: Dispatch<SetStateAction<IAbility[]>>
 }
 
-function Ability(props: Props) {
+const Ability = (props: Props) => {
 	// $.Msg("REACT-RENDER: Ability rendered");
 
 	const { id, name, isItem, setAbilities } = props

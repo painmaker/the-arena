@@ -3,7 +3,7 @@ import Styles from './styles.module.css'
 import { WINDOW } from '../../data/windows'
 import SettingsButton from './SettingsButton/SettingsButton'
 
-function Buttons() {
+const Buttons = () => {
 	// $.Msg("REACT-RENDER: ButtonGroup rendered");
 
 	return (

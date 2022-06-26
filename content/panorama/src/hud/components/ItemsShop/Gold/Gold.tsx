@@ -7,7 +7,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function Gold(props: Props) {
+const Gold = (props: Props) => {
 	// $.Msg("REACT-RENDER: ItemsShop - Gold rendered");
 
 	const { selectedUnit } = props

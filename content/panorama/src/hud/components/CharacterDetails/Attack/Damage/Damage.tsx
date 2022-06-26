@@ -7,7 +7,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function Damage(props: Props) {
+const Damage = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - Damage rendered");
 
 	const { selectedUnit } = props

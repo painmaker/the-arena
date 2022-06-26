@@ -10,7 +10,7 @@ import Items from './Items/Items'
 import useGameEvent from '../../hooks/useGameEvent'
 import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
 
-function ItemsShop() {
+const ItemsShop = () => {
 	// $.Msg("REACT-RENDER: ItemsShop rendered");
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)

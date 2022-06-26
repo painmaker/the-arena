@@ -1,4 +1,4 @@
-export const auras = [
+const auras = [
 	'modifier_item_pipe_aura',
 	'modifier_item_assault_negative_armor',
 	'modifier_item_assault_positive',

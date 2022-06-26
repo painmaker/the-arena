@@ -3,7 +3,7 @@ import useGameEvent from '../../hooks/useGameEvent'
 import GameTime from './GameTime/GameTime'
 import Styles from './styles.module.css'
 
-function Minimap() {
+const Minimap = () => {
 	// $.Msg("REACT-RENDER: Minimap rendered");
 
 	const [mapZoom, setMapZoom] = useState(5)

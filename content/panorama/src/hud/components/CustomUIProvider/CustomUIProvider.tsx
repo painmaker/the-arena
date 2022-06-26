@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { UseCustomUIContext } from '../../context/UseCustomUIContext'
 import ToggleCustomUI from './ToggleCustomUI/ToggleCustomUI'
 
@@ -6,7 +6,7 @@ type Props = {
 	children: JSX.Element | JSX.Element[]
 }
 
-function CustomUIProvider(props: Props) {
+const CustomUIProvider = (props: Props) => {
 	const { children } = props
 
 	const [useCustomUI, setUseCustomUI] = useState(true)
@@ -44,10 +44,14 @@ function CustomUIProvider(props: Props) {
 		GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ELEMENT_COUNT, !useCustomUI)
 	}, [useCustomUI])
 
+	const contextValues = useMemo(() => ({ useCustomUI, setUseCustomUI }), [useCustomUI, setUseCustomUI])
+
 	return (
-		<UseCustomUIContext.Provider value={{ useCustomUI, setUseCustomUI }}>
-			<ToggleCustomUI />
-			{useCustomUI && <>{children}</>}
+		<UseCustomUIContext.Provider value={contextValues}>
+			<>
+				<ToggleCustomUI />
+				{useCustomUI && { children }}
+			</>
 		</UseCustomUIContext.Provider>
 	)
 }

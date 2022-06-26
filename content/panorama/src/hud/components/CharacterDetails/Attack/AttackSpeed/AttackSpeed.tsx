@@ -7,7 +7,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function AttackSpeed(props: Props) {
+const AttackSpeed = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - AttackSpeed rendered");
 
 	const { selectedUnit } = props

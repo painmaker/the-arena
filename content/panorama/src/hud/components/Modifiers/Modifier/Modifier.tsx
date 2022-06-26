@@ -38,7 +38,7 @@ const onMouseOver = (selectedEntityIndex: EntityIndex, modifier: BuffID, isDebuf
 	}
 }
 
-function Modifier(props: Props) {
+const Modifier = (props: Props) => {
 	// $.Msg("REACT-RENDER: Modifier rendered");
 
 	const { modifier, selectedEntityIndex } = props

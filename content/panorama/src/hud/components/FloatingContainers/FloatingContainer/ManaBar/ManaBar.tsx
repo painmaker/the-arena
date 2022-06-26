@@ -7,7 +7,7 @@ type Props = {
 	entityIndex: EntityIndex
 }
 
-function ManaBar(props: Props) {
+const ManaBar = (props: Props) => {
 	// $.Msg("REACT-RENDER: ManaBar rendered");
 
 	const { entityIndex } = props

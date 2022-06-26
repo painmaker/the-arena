@@ -7,7 +7,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function HealthRegen(props: Props) {
+const HealthRegen = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - HealthRegen rendered");
 
 	const { selectedUnit } = props

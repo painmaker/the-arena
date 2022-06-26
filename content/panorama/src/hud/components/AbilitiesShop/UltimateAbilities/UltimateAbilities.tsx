@@ -9,7 +9,7 @@ type Props = {
 	searchValue: string
 }
 
-function UltimateAbilities(props: Props) {
+const UltimateAbilities = (props: Props) => {
 	// $.Msg("REACT-RENDER: AbilitiesShop - UltimateAbilities rendered");
 
 	const { selectedUnit, ultimateAbilities, searchValue } = props

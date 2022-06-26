@@ -7,7 +7,7 @@ type Props = {
 	item: ItemEntityIndex
 }
 
-function Charges(props: Props) {
+const Charges = (props: Props) => {
 	// $.Msg("REACT-RENDER: Inventory - Charges rendered");
 
 	const { item } = props
@@ -20,7 +20,11 @@ function Charges(props: Props) {
 		setCharges(Items.GetCurrentCharges(item))
 	}, HUD_THINK_FAST)
 
-	return <>{shouldDisplayCharges && <Label className={Styles.container} text={charges} />}</>
+	if (!shouldDisplayCharges) {
+		return null
+	}
+
+	return <Label className={Styles.container} text={charges} />
 }
 
 export default React.memo(Charges)

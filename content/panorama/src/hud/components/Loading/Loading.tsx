@@ -3,13 +3,15 @@ import { useTimeout } from '../../hooks/useTimeout'
 import Styles from './styles.module.css'
 
 type Props = {
-	children: React.ReactNode
+	children: JSX.Element | JSX.Element[]
 }
 
 const LOADING_TIME = 1.0
 
-function Loading(props: Props) {
+const Loading = (props: Props) => {
 	// $.Msg("REACT-RENDER: Loading rendered");
+
+	const { children } = props
 
 	const [isLoading, setIsLoading] = useState(true)
 
@@ -24,7 +26,8 @@ function Loading(props: Props) {
 			</Panel>
 		)
 	}
-	return <>{props.children}</>
+
+	return { children }
 }
 
 export default React.memo(Loading)

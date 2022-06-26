@@ -5,7 +5,7 @@ import SelectedEntityIndexContext from '../../../../context/SelectedEntityIndexC
 import { useInterval } from '../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
-function LockoutIcon() {
+const LockoutIcon = () => {
 	// $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)

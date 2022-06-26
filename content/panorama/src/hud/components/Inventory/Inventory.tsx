@@ -5,7 +5,7 @@ import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext
 
 const slots = [0, 1, 2, 3, 4, 5]
 
-function Inventory() {
+const Inventory = () => {
 	// $.Msg('REACT-RENDER: Inventory rendered')
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)

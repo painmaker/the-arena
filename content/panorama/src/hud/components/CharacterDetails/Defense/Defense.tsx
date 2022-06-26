@@ -12,7 +12,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function Defense(props: Props) {
+const Defense = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - Defense rendered");
 
 	const { selectedUnit } = props

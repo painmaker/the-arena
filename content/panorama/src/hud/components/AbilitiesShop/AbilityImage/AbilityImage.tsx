@@ -9,7 +9,7 @@ type Props = {
 	searchValue: string
 }
 
-function AbilityImage(props: Props) {
+const AbilityImage = (props: Props) => {
 	// $.Msg("REACT-RENDER: AbilitiesShop - AbilityImage rendered");
 
 	const { selectedUnit, shopAbility, searchValue } = props

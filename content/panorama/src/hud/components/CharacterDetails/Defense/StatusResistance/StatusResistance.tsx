@@ -7,7 +7,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function StatusResistance(props: Props) {
+const StatusResistance = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - StatusResistance rendered");
 
 	const { selectedUnit } = props

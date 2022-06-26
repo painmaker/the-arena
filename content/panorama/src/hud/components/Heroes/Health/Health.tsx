@@ -7,7 +7,7 @@ type Props = {
 	heroEntityIndex: EntityIndex
 }
 
-function Health(props: Props) {
+const Health = (props: Props) => {
 	// $.Msg("REACT-RENDER: Heroes - Health rendered");
 
 	const { heroEntityIndex } = props

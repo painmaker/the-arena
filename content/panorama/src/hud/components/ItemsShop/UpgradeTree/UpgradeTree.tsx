@@ -6,7 +6,7 @@ type Props = {
 	activeItem: ItemsShopItem
 }
 
-function UpgradeTree(props: Props) {
+const UpgradeTree = (props: Props) => {
 	const { activeItem } = props
 
 	return <Panel className={Styles.container}>{activeItem !== undefined && <ActiveItem activeItem={activeItem} />}</Panel>

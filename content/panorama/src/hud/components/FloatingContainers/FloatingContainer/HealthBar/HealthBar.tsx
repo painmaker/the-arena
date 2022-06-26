@@ -7,7 +7,7 @@ type Props = {
 	entityIndex: EntityIndex
 }
 
-function HealthBar(props: Props) {
+const HealthBar = (props: Props) => {
 	// $.Msg("REACT-RENDER: HealthBar rendered");
 
 	const { entityIndex } = props

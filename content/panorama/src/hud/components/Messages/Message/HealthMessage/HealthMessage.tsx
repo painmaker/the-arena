@@ -1,14 +1,14 @@
 import React from 'react'
 import { toColor } from '../../../../utils/Color'
-import { HealthMessageData } from '../../Messages'
+import { IHealthMessageData } from '../../Messages'
 import Styles from './styles.module.css'
 import ParentStyles from '../styles.module.css'
 
 type Props = {
-	data: HealthMessageData
+	data: IHealthMessageData
 }
 
-function HealthMessage(props: Props) {
+const HealthMessage = (props: Props) => {
 	const { data } = props
 	const { unit, broadcaster } = data
 

@@ -7,7 +7,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function SpellAmplification(props: Props) {
+const SpellAmplification = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - SpellAmplification rendered");
 
 	const { selectedUnit } = props

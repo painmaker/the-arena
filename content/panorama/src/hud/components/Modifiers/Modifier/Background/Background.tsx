@@ -8,7 +8,7 @@ type Props = {
 	isAura: boolean
 }
 
-function Background(props: Props) {
+const Background = (props: Props) => {
 	// $.Msg("REACT-RENDER: Modifiers - Background rendered");
 
 	const { modifier, selectedEntityIndex, isAura } = props

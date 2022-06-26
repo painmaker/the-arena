@@ -4,7 +4,7 @@ import AbilityEntityIndexContext from '../../../../context/AbilityEntityIndexCon
 import { useInterval } from '../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
-function Autocast() {
+const Autocast = () => {
 	// $.Msg("REACT-RENDER: AbilityBarItem - Autocast rendered");
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)

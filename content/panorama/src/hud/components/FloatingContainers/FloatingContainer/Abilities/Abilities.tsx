@@ -13,7 +13,7 @@ export type IAbility = {
 	isItem: boolean
 }
 
-function AbilitiesImpl(props: Props) {
+const AbilitiesImpl = (props: Props) => {
 	// $.Msg("REACT-RENDER: Abilities rendered");
 
 	const { entityIndex } = props

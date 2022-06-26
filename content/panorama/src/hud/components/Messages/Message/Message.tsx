@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react'
 import {
-	Message as IMessage,
-	AbilityMessageData,
+	IMessage,
+	IAbilityMessageData,
 	MessageType,
-	ItemMessageData,
-	ModifierMessageData,
+	IItemMessageData,
+	IModifierMessageData,
 	SetMessagesContext,
-	HealthMessageData,
-	ManaMessageData,
+	IHealthMessageData,
+	IManaMessageData,
 } from '../Messages'
 import Styles from './styles.module.css'
 import AbilityMessage from './AbilityMessage/AbilityMessage'
@@ -21,7 +21,7 @@ type Props = {
 	message: IMessage
 }
 
-function Message(props: Props) {
+const Message = (props: Props) => {
 	const { message } = props
 	const { id, type, data } = message
 
@@ -39,11 +39,11 @@ function Message(props: Props) {
 
 	return (
 		<Panel className={Styles.container} style={{ opacity }}>
-			{type === MessageType.ABILITY && <AbilityMessage data={data as AbilityMessageData} />}
-			{type === MessageType.ITEM && <ItemMessage data={data as ItemMessageData} />}
-			{type === MessageType.MODIFIER && <ModifierMessage data={data as ModifierMessageData} />}
-			{type === MessageType.HEALTH && <HealthMessage data={data as HealthMessageData} />}
-			{type === MessageType.MANA && <ManaMessage data={data as ManaMessageData} />}
+			{type === MessageType.ABILITY && <AbilityMessage data={data as IAbilityMessageData} />}
+			{type === MessageType.ITEM && <ItemMessage data={data as IItemMessageData} />}
+			{type === MessageType.MODIFIER && <ModifierMessage data={data as IModifierMessageData} />}
+			{type === MessageType.HEALTH && <HealthMessage data={data as IHealthMessageData} />}
+			{type === MessageType.MANA && <ManaMessage data={data as IManaMessageData} />}
 		</Panel>
 	)
 }

@@ -8,7 +8,7 @@ import Attributes from './Attributes/Attributes'
 import Styles from './styles.module.css'
 import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
 
-function SelectedEntity() {
+const SelectedEntity = () => {
 	// $.Msg("REACT-RENDER: SelectedEntity rendered");
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)

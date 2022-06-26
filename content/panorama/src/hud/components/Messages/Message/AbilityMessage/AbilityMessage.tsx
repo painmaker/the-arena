@@ -2,10 +2,10 @@ import React from 'react'
 import { toColor } from '../../../../utils/Color'
 import Styles from './styles.module.css'
 import ParentStyles from '../styles.module.css'
-import { AbilityMessageData } from '../../Messages'
+import { IAbilityMessageData } from '../../Messages'
 
 type Props = {
-	data: AbilityMessageData
+	data: IAbilityMessageData
 }
 
 const getText = (ability: AbilityEntityIndex, unit: EntityIndex) => {
@@ -31,7 +31,7 @@ const getText = (ability: AbilityEntityIndex, unit: EntityIndex) => {
 	return `${localizedAbilityName}: Ready - ( Level ${abilityLevel} )`
 }
 
-function AbilityMessage(props: Props) {
+const AbilityMessage = (props: Props) => {
 	const { data } = props
 	const { unit, ability, broadcaster } = data
 

@@ -6,7 +6,7 @@ import Styles from './styles.module.css'
 
 const cpFix = 0.1
 
-function CastPointOverlay() {
+const CastPointOverlay = () => {
 	// $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)

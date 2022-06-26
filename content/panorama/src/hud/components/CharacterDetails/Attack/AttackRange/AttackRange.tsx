@@ -7,7 +7,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function AttackRange(props: Props) {
+const AttackRange = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - AttackRange rendered");
 
 	const { selectedUnit } = props

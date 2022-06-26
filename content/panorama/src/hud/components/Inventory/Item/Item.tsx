@@ -10,13 +10,12 @@ import Shine from './Shine/Shine'
 import SelectedEntityIndexContext from '../../../context/SelectedEntityIndexContext'
 import { useInterval } from '../../../hooks/useInterval'
 import { HUD_THINK_FAST } from '../../../App'
-import useGameEvent from '../../../hooks/useGameEvent'
 
 type Props = {
 	slot: number
 }
 
-function Item(props: Props) {
+const Item = (props: Props) => {
 	// $.Msg("REACT-RENDER: Inventory - Item rendered");
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)
@@ -110,7 +109,7 @@ function Item(props: Props) {
 	)
 
 	const onItemLeftClicked = useCallback(() => {
-		if (item == -1) {
+		if (item === -1) {
 			return
 		}
 		if (GameUI.IsAltDown()) {

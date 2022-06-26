@@ -8,7 +8,7 @@ type Props = {
 	item: ItemEntityIndex
 }
 
-function Shine(props: Props) {
+const Shine = (props: Props) => {
 	// $.Msg("REACT-RENDER: Inventory - Shine rendered");
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)

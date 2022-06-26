@@ -8,7 +8,7 @@ type Props = {
 
 const excludedUnits = ['shopkeeper_abilities']
 
-function SelectedEntityProvider(props: Props) {
+const SelectedEntityProvider = (props: Props) => {
 	$.Msg('REACT-RENDER: SelectedEntityProvider rendered')
 
 	const { children } = props

@@ -12,7 +12,7 @@ import { WINDOW } from '../../data/windows'
 import useGameEvent from '../../hooks/useGameEvent'
 import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
 
-function CharacterDetails() {
+const CharacterDetails = () => {
 	// $.Msg("REACT-RENDER: CharacterDetails rendered");
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)

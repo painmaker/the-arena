@@ -16,7 +16,7 @@ const formatGameTime = (dotaTime: number) => {
 
 const getFormattedGameTime = () => formatGameTime(Math.floor(Game.GetDOTATime(false, false)))
 
-function GameTime() {
+const GameTime = () => {
 	// $.Msg('REACT-RENDER: GameTime rendered')
 
 	const [gameTime, setGameTime] = useState(() => getFormattedGameTime())

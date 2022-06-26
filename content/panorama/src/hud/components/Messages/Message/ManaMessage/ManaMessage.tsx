@@ -1,14 +1,14 @@
 import React from 'react'
 import { toColor } from '../../../../utils/Color'
-import { ManaMessageData } from '../../Messages'
+import { IManaMessageData } from '../../Messages'
 import Styles from './styles.module.css'
 import ParentStyles from '../styles.module.css'
 
 type Props = {
-	data: ManaMessageData
+	data: IManaMessageData
 }
 
-function ManaMessage(props: Props) {
+const ManaMessage = (props: Props) => {
 	const { data } = props
 	const { unit, broadcaster } = data
 

@@ -8,7 +8,7 @@ type Props = {
 	selectedEntityIndex: EntityIndex
 }
 
-function MoveSpeed(props: Props) {
+const MoveSpeed = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - MoveSpeed rendered");
 
 	const { selectedEntityIndex } = props

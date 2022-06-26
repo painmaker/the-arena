@@ -1,51 +1,6 @@
 import { ExoticComponent } from 'react'
 import * as attributes from './attribute-types'
 
-export interface AttributesByPanel {
-	Panel: attributes.PanelAttributes
-	Label: attributes.LabelAttributes
-	Image: attributes.ImageAttributes
-	DOTAAbilityImage: attributes.DOTAAbilityImageAttributes
-	DOTAItemImage: attributes.DOTAItemImageAttributes
-	DOTAHeroImage: attributes.DOTAHeroImageAttributes
-	DOTACountryFlagImage: attributes.DOTACountryFlagImageAttributes
-	DOTALeagueImage: attributes.DOTALeagueImageAttributes
-	EconItemImage: attributes.EconItemImageAttributes
-	AnimatedImageStrip: attributes.AnimatedImageStripAttributes
-	DOTAEmoticon: attributes.DOTAEmoticonAttributes
-	Movie: attributes.MovieAttributes
-	DOTAHeroMovie: attributes.DOTAHeroMovieAttributes
-	DOTAScenePanel: attributes.DOTAScenePanelAttributes
-	DOTAEconItem: attributes.DOTAEconItemAttributes
-	ProgressBar: attributes.ProgressBarAttributes
-	CircularProgressBar: attributes.CircularProgressBarAttributes
-	ProgressBarWithMiddle: attributes.ProgressBarWithMiddleAttributes
-	DOTAUserName: attributes.DOTAUserNameAttributes
-	DOTAUserRichPresence: attributes.DOTAUserRichPresenceAttributes
-	DOTAAvatarImage: attributes.DOTAAvatarImageAttributes
-	Countdown: attributes.CountdownAttributes
-	Button: attributes.PanelAttributes
-	TextButton: attributes.TextButtonAttributes
-	ToggleButton: attributes.ToggleButtonAttributes
-	RadioButton: attributes.RadioButtonAttributes
-	TextEntry: attributes.TextEntryAttributes
-	NumberEntry: attributes.NumberEntryAttributes
-	Slider: attributes.SliderAttributes
-	SlottedSlider: attributes.SlottedSliderAttributes
-	DropDown: attributes.DropDownAttributes
-	ContextMenuScript: attributes.PanelAttributes
-	Carousel: attributes.CarouselAttributes
-	CarouselNav: attributes.CarouselNavAttributes
-	DOTAHUDOverlayMap: attributes.DOTAHUDOverlayMapAttributes
-	DOTAMinimap: attributes.PanelAttributes
-	HTML: attributes.HTMLAttributes
-	CustomLayoutPanel: attributes.CustomLayoutPanelAttributes
-	GenericPanel: attributes.GenericPanelAttributes
-}
-
-export type PanelType = keyof AttributesByPanel
-export type PanelTypeByName<T extends PanelType> = PanoramaPanelNameMap[Extract<T, keyof PanoramaPanelNameMap>]
-
 declare global {
 	var Panel: ExoticComponent<attributes.PanelAttributes>
 	var Label: ExoticComponent<attributes.LabelAttributes>
@@ -100,6 +55,50 @@ declare global {
 	 */
 	var GenericPanel: ExoticComponent<attributes.GenericPanelAttributes>
 }
+export interface AttributesByPanel {
+	Panel: attributes.PanelAttributes
+	Label: attributes.LabelAttributes
+	Image: attributes.ImageAttributes
+	DOTAAbilityImage: attributes.DOTAAbilityImageAttributes
+	DOTAItemImage: attributes.DOTAItemImageAttributes
+	DOTAHeroImage: attributes.DOTAHeroImageAttributes
+	DOTACountryFlagImage: attributes.DOTACountryFlagImageAttributes
+	DOTALeagueImage: attributes.DOTALeagueImageAttributes
+	EconItemImage: attributes.EconItemImageAttributes
+	AnimatedImageStrip: attributes.AnimatedImageStripAttributes
+	DOTAEmoticon: attributes.DOTAEmoticonAttributes
+	Movie: attributes.MovieAttributes
+	DOTAHeroMovie: attributes.DOTAHeroMovieAttributes
+	DOTAScenePanel: attributes.DOTAScenePanelAttributes
+	DOTAEconItem: attributes.DOTAEconItemAttributes
+	ProgressBar: attributes.ProgressBarAttributes
+	CircularProgressBar: attributes.CircularProgressBarAttributes
+	ProgressBarWithMiddle: attributes.ProgressBarWithMiddleAttributes
+	DOTAUserName: attributes.DOTAUserNameAttributes
+	DOTAUserRichPresence: attributes.DOTAUserRichPresenceAttributes
+	DOTAAvatarImage: attributes.DOTAAvatarImageAttributes
+	Countdown: attributes.CountdownAttributes
+	Button: attributes.PanelAttributes
+	TextButton: attributes.TextButtonAttributes
+	ToggleButton: attributes.ToggleButtonAttributes
+	RadioButton: attributes.RadioButtonAttributes
+	TextEntry: attributes.TextEntryAttributes
+	NumberEntry: attributes.NumberEntryAttributes
+	Slider: attributes.SliderAttributes
+	SlottedSlider: attributes.SlottedSliderAttributes
+	DropDown: attributes.DropDownAttributes
+	ContextMenuScript: attributes.PanelAttributes
+	Carousel: attributes.CarouselAttributes
+	CarouselNav: attributes.CarouselNavAttributes
+	DOTAHUDOverlayMap: attributes.DOTAHUDOverlayMapAttributes
+	DOTAMinimap: attributes.PanelAttributes
+	HTML: attributes.HTMLAttributes
+	CustomLayoutPanel: attributes.CustomLayoutPanelAttributes
+	GenericPanel: attributes.GenericPanelAttributes
+}
+
+export type PanelType = keyof AttributesByPanel
+export type PanelTypeByName<T extends PanelType> = PanoramaPanelNameMap[Extract<T, keyof PanoramaPanelNameMap>]
 
 const global: typeof globalThis = new Function('return this')()
 

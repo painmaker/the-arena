@@ -14,7 +14,7 @@ type Props = {
 	selectedEntityIndex: EntityIndex
 }
 
-function Attributes(props: Props) {
+const Attributes = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - Attributes rendered");
 
 	const { selectedEntityIndex } = props
@@ -33,7 +33,7 @@ function Attributes(props: Props) {
 	useInterval(() => {
 		if (Entities.IsHero(selectedEntityIndex)) {
 			const numberOfBuffs = Entities.GetNumBuffs(selectedEntityIndex)
-			for (let i = 0; i < numberOfBuffs; i++) {
+			for (let i = 0; i < numberOfBuffs; i += 1) {
 				const buff = Entities.GetBuff(selectedEntityIndex, i)
 				const name = Buffs.GetName(selectedEntityIndex, buff)
 				if (name === 'modifier_ui_attribute_strength_base') {

@@ -19,7 +19,7 @@ type Props = {
 	abilityEntityIndex: AbilityEntityIndex
 }
 
-function AbilityBarItem(props: Props) {
+const AbilityBarItem = (props: Props) => {
 	// $.Msg("REACT-RENDER: AbilityBar - AbilityBarItem rendered");
 
 	const { abilityEntityIndex } = props

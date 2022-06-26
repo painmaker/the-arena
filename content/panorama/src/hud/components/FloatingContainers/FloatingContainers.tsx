@@ -7,7 +7,7 @@ import useNetTableValues from '../../hooks/useNetTableValues'
 
 const MAX_DISTANCE = 4000
 
-function FloatingContainers() {
+const FloatingContainers = () => {
 	// $.Msg("REACT-RENDER: FloatingContainers rendered");
 
 	const { units } = useNetTableValues('FloatingBarUnits')

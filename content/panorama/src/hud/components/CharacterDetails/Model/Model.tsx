@@ -5,7 +5,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function Model(props: Props) {
+const Model = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - HeroModel rendered");
 
 	const { selectedUnit } = props

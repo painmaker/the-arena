@@ -8,7 +8,7 @@ type Props = {
 	buff: BuffID
 }
 
-function Stacks(props: Props) {
+const Stacks = (props: Props) => {
 	// $.Msg("REACT-RENDER: Stacks rendered");
 
 	const { unit, buff } = props

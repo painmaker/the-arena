@@ -7,7 +7,7 @@ type Props = {
 	item: ItemEntityIndex
 }
 
-function ManaCost(props: Props) {
+const ManaCost = (props: Props) => {
 	// $.Msg("REACT-RENDER: Inventory - ManaCost rendered");
 
 	const { item } = props

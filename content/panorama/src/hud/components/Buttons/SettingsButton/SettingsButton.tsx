@@ -9,7 +9,7 @@ type ButtonProps = {
 	propsWindow: WINDOW
 }
 
-function SettingsButton(props: ButtonProps) {
+const SettingsButton = (props: ButtonProps) => {
 	const { id, imgSrc, propsWindow } = props
 
 	const [eventWindow, setEventWindow] = useState(WINDOW.NONE)

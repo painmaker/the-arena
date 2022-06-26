@@ -10,7 +10,7 @@ import { WINDOW } from '../../data/windows'
 import { HUD_THINK_SLOW } from '../../App'
 import useGameEvent from '../../hooks/useGameEvent'
 
-function Settings() {
+const Settings = () => {
 	// $.Msg("REACT-RENDER: Settings rendered");
 
 	const [mapZoom, setMapZoom] = useState(5)
@@ -51,27 +51,29 @@ function Settings() {
 		}
 	}, [isLocked])
 
+	if (!renderComponent) {
+		return null
+	}
+
+	const style = isOpen ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}
+
 	return (
-		<>
-			{renderComponent && (
-				<Panel onactivate={() => false} className={Styles.container} style={isOpen ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}>
-					<Title />
-					<Divider />
-					<Panel className={Styles.entry}>
-						<CameraZoomSlider cameraZoom={cameraZoom} setCameraZoom={setCameraZoom} />
-					</Panel>
-					<Divider />
-					<Panel className={Styles.entry}>
-						<MapZoomSlider mapZoom={mapZoom} setMapZoom={setMapZoom} />
-					</Panel>
-					<Divider />
-					<Panel className={Styles.entry}>
-						<LockCameraBtn isLocked={isLocked} setIsLocked={setIsLocked} />
-					</Panel>
-					<Divider />
-				</Panel>
-			)}
-		</>
+		<Panel onactivate={() => false} className={Styles.container} style={style}>
+			<Title />
+			<Divider />
+			<Panel className={Styles.entry}>
+				<CameraZoomSlider cameraZoom={cameraZoom} setCameraZoom={setCameraZoom} />
+			</Panel>
+			<Divider />
+			<Panel className={Styles.entry}>
+				<MapZoomSlider mapZoom={mapZoom} setMapZoom={setMapZoom} />
+			</Panel>
+			<Divider />
+			<Panel className={Styles.entry}>
+				<LockCameraBtn isLocked={isLocked} setIsLocked={setIsLocked} />
+			</Panel>
+			<Divider />
+		</Panel>
 	)
 }
 

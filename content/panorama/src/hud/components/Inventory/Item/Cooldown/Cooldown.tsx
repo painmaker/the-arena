@@ -7,7 +7,7 @@ type Props = {
 	item: ItemEntityIndex
 }
 
-function Cooldown(props: Props) {
+const Cooldown = (props: Props) => {
 	// $.Msg("REACT-RENDER: Inventory - Cooldown rendered");
 
 	const { item } = props
@@ -18,8 +18,8 @@ function Cooldown(props: Props) {
 	useInterval(() => {
 		const total = Abilities.GetCooldownLength(item)
 		const remaining = Abilities.GetCooldownTimeRemaining(item)
-		const degree = Math.floor((remainingCooldown / total) * -360)
-		setDegree(Number.isFinite(degree) && !Number.isNaN(degree) ? degree : 0)
+		const newDegree = Math.floor((remainingCooldown / total) * -360)
+		setDegree(Number.isFinite(newDegree) && !Number.isNaN(newDegree) ? newDegree : 0)
 		setRemainingCooldown(remaining)
 	}, HUD_THINK_FAST)
 

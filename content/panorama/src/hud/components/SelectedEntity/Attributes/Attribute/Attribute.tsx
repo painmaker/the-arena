@@ -8,7 +8,7 @@ type Props = {
 	bonus: number | undefined
 }
 
-function Attribute(props: Props) {
+const Attribute = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - Attribute rendered");
 
 	const { imgSrc, isPrimaryAttribute, base, bonus } = props

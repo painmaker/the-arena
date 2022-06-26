@@ -4,7 +4,7 @@ import Styles from './styles.module.css'
 import { useInterval } from '../../hooks/useInterval'
 import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
 
-function Health() {
+const Health = () => {
 	// $.Msg("REACT-RENDER: HealthBar rendered");
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)
@@ -18,7 +18,7 @@ function Health() {
 		setMaxHealth(Entities.GetMaxHealth(selectedEntityIndex))
 		// Hack because panorama API method for health regen is bugged
 		const numberOfBuffs = Entities.GetNumBuffs(selectedEntityIndex)
-		for (let i = 0; i < numberOfBuffs; i++) {
+		for (let i = 0; i < numberOfBuffs; i += 1) {
 			const buff = Entities.GetBuff(selectedEntityIndex, i)
 			const name = Buffs.GetName(selectedEntityIndex, buff)
 			if (name === 'modifier_ui_health_regen') {

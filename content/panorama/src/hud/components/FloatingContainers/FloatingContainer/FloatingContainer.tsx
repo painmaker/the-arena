@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useInterval } from '../../../hooks/useInterval'
 import HealthBar from './HealthBar/HealthBar'
 import ManaBar from './ManaBar/ManaBar'
@@ -30,7 +30,7 @@ const Content = React.memo((props: Props) => {
 	)
 })
 
-function FloatingContainer(props: Props) {
+const FloatingContainer = (props: Props) => {
 	// $.Msg("REACT-RENDER: FloatingContainer rendered");
 
 	const { entityIndex } = props

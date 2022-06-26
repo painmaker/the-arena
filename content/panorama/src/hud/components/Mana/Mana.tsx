@@ -4,7 +4,7 @@ import Styles from './styles.module.css'
 import { useInterval } from '../../hooks/useInterval'
 import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
 
-function Mana() {
+const Mana = () => {
 	// $.Msg("REACT-RENDER: ManaBar rendered");
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)

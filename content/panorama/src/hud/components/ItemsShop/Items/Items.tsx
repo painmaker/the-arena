@@ -11,7 +11,7 @@ type Props = {
 	height: string
 }
 
-function Items(props: Props) {
+const Items = (props: Props) => {
 	// $.Msg("REACT-RENDER: ItemsShop - Items rendered");
 
 	const { title, items, selectedUnit, searchValue, height, setActiveItem } = props

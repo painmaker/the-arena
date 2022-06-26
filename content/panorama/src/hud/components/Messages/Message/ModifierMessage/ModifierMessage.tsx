@@ -1,11 +1,11 @@
 import React from 'react'
 import { toColor } from '../../../../utils/Color'
-import { ModifierMessageData } from '../../Messages'
+import { IModifierMessageData } from '../../Messages'
 import Styles from './styles.module.css'
 import ParentStyles from '../styles.module.css'
 
 type Props = {
-	data: ModifierMessageData
+	data: IModifierMessageData
 }
 
 const getExtraText = (modifier: BuffID, unit: EntityIndex) => {
@@ -16,7 +16,7 @@ const getExtraText = (modifier: BuffID, unit: EntityIndex) => {
 	return ''
 }
 
-function ModifierMessage(props: Props) {
+const ModifierMessage = (props: Props) => {
 	const { data } = props
 	const { unit, modifier, broadcaster } = data
 

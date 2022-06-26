@@ -7,7 +7,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function Evasion(props: Props) {
+const Evasion = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - Evasion rendered");
 
 	const { selectedUnit } = props

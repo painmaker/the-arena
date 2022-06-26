@@ -12,7 +12,7 @@ type Props = {
 	setActiveItem: Dispatch<SetStateAction<ItemsShopItem | undefined>>
 }
 
-function Item(props: Props) {
+const Item = (props: Props) => {
 	// $.Msg("REACT-RENDER: ItemsShop - Item rendered");
 
 	const { item, selectedUnit, searchValue, setActiveItem } = props

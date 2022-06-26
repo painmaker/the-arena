@@ -6,7 +6,7 @@ type Props = {
 	setMapZoom: Dispatch<SetStateAction<number>>
 }
 
-function MapZoomSlider(props: Props) {
+const MapZoomSlider = (props: Props) => {
 	// $.Msg("REACT-RENDER: Settings - MapZoomSlider rendered");
 
 	const { mapZoom, setMapZoom } = props
@@ -14,8 +14,8 @@ function MapZoomSlider(props: Props) {
 	useEffect(() => {
 		// Hack to initalize the slider caret correctly
 		const panel = $('#map_zoom_slider') as any
-		panel.value = props.mapZoom
-	}, [])
+		panel.value = mapZoom
+	}, [mapZoom])
 
 	return (
 		<>

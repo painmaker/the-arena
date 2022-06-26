@@ -7,7 +7,7 @@ type Props = {
 	selectedEntityIndex: EntityIndex
 }
 
-function Level(props: Props) {
+const Level = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - Level rendered");
 
 	const { selectedEntityIndex } = props
@@ -19,8 +19,8 @@ function Level(props: Props) {
 		if (Entities.IsHero(selectedEntityIndex)) {
 			const currentXp = Entities.GetCurrentXP(selectedEntityIndex)
 			const requiredXp = Entities.GetNeededXPToLevel(selectedEntityIndex)
-			const percentage = Math.floor(Math.max(0, Math.min(100, (currentXp / requiredXp) * 100)))
-			setPercentage(percentage || 0)
+			const p = (currentXp / requiredXp) * 100
+			setPercentage(Number.isFinite(p) && !Number.isNaN(p) ? p : 0)
 		} else {
 			setPercentage(100)
 		}

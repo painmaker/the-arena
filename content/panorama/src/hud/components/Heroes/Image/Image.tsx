@@ -44,7 +44,7 @@ const onHeroImageClicked = (heroEntityIndex: EntityIndex, isCameraLocked: boolea
 	}
 }
 
-function ImageImpl(props: Props) {
+const ImageImpl = (props: Props) => {
 	// $.Msg("REACT-RENDER: Heroes - HeroImage rendered");
 
 	const { heroEntityIndex } = props
@@ -84,12 +84,12 @@ function ImageImpl(props: Props) {
 	useInterval(() => {
 		const playerInfo = Game.GetPlayerInfo(Entities.GetPlayerOwnerID(heroEntityIndex))
 		if (playerInfo) {
-			const isDisconnected =
+			const hasDisconnectedConnectionState =
 				playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED ||
 				playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_ABANDONED ||
 				playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_FAILED
-			setIsDisconnected(isDisconnected)
-			if (isDisconnected) {
+			setIsDisconnected(hasDisconnectedConnectionState)
+			if (hasDisconnectedConnectionState) {
 				setWashColor('grey')
 			}
 		}

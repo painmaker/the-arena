@@ -6,7 +6,7 @@ type Props = {
 	selectedEntityIndex: EntityIndex
 }
 
-function FilledBackground(props: Props) {
+const FilledBackground = (props: Props) => {
 	// $.Msg("REACT-RENDER: Modifiers - FilledBackground rendered");
 
 	const { modifier, selectedEntityIndex } = props

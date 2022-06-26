@@ -8,7 +8,7 @@ type Props = {
 	item: ItemEntityIndex
 }
 
-function Image(props: Props) {
+const Image = (props: Props) => {
 	// $.Msg("REACT-RENDER: Inventory - Image rendered");
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)

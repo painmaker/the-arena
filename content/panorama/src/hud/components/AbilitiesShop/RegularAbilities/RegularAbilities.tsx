@@ -9,7 +9,7 @@ type Props = {
 	searchValue: string
 }
 
-function RegularAbilities(props: Props) {
+const RegularAbilities = (props: Props) => {
 	// $.Msg("REACT-RENDER: AbilitiesShop - RegularAbilities rendered");
 
 	const { selectedUnit, regularAbilities, searchValue } = props

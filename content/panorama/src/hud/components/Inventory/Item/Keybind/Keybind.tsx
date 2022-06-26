@@ -7,7 +7,7 @@ type Props = {
 	item: ItemEntityIndex
 }
 
-function Keybind(props: Props) {
+const Keybind = (props: Props) => {
 	// $.Msg("REACT-RENDER: Inventory - Keybind rendered");
 
 	const { item } = props

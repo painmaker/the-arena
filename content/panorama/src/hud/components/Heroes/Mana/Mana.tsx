@@ -7,7 +7,7 @@ type Props = {
 	heroEntityIndex: EntityIndex
 }
 
-function Mana(props: Props) {
+const Mana = (props: Props) => {
 	// $.Msg("REACT-RENDER: Heroes - Mana rendered");
 
 	const { heroEntityIndex } = props

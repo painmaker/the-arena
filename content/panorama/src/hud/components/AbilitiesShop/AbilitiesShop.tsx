@@ -11,7 +11,7 @@ import Styles from './styles.module.css'
 import useGameEvent from '../../hooks/useGameEvent'
 import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
 
-function AbilitiesShop() {
+const AbilitiesShop = () => {
 	// $.Msg("REACT-RENDER: AbilitiesShop rendered");
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)

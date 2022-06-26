@@ -5,7 +5,7 @@ import SelectedEntityIndexContext from '../../../../context/SelectedEntityIndexC
 import { useInterval } from '../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
-function Skillpoints() {
+const Skillpoints = () => {
 	// $.Msg("REACT-RENDER: AbilityBarItem - Skillpoints rendered");
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)

@@ -9,7 +9,7 @@ type Props = {
 /**
  * Requires "Far Z Clip plane" in the "env_fog_controller" entity to be increased to 5000 or more.
  */
-function CameraZoomSlider(props: Props) {
+const CameraZoomSlider = (props: Props) => {
 	// $.Msg("REACT-RENDER: Settings - CameraZoomSlider rendered");
 
 	const { cameraZoom, setCameraZoom } = props

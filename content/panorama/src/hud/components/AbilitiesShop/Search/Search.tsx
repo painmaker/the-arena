@@ -6,7 +6,7 @@ type Props = {
 	setSearchValue: Dispatch<SetStateAction<string>>
 }
 
-function Search(props: Props) {
+const Search = (props: Props) => {
 	// $.Msg("REACT-RENDER: AbilitiesShop - Search rendered");
 
 	const { searchValue, setSearchValue } = props

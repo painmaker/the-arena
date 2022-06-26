@@ -5,7 +5,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function Avatar(props: Props) {
+const Avatar = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - Avatar rendered");
 
 	const { selectedUnit } = props

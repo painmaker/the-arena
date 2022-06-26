@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { UseCustomUIContext } from '../../../context/UseCustomUIContext'
 import Styles from './styles.module.css'
 
-function ToggleCustomUI() {
+const ToggleCustomUI = () => {
 	const { useCustomUI, setUseCustomUI } = useContext(UseCustomUIContext)
 
 	return (

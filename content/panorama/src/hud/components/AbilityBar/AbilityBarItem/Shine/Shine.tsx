@@ -5,7 +5,7 @@ import SelectedEntityIndexContext from '../../../../context/SelectedEntityIndexC
 import { useInterval } from '../../../../hooks/useInterval'
 import usePrevious from '../../../../hooks/usePrevious'
 
-function Shine() {
+const Shine = () => {
 	// $.Msg("REACT-RENDER: Inventory - Shine rendered");
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)

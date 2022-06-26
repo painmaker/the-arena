@@ -9,8 +9,8 @@
 		"dev": "run-p dev:*",
 		"dev:panorama": "node --preserve-symlinks node_modules/webpack/bin/webpack.js --config content/panorama/webpack.config.js --watch",
 		"dev:vscripts": "tstl --project game/scripts/vscripts/tsconfig.json --watch",
-		"lint": "eslint content/panorama/src/hud/**/*",
-		"lint:fix": "eslint content/panorama/src/hud/**/* --fix"
+		"lint": "eslint content/panorama/src/hud/components/**/*",
+		"lint:fix": "eslint content/panorama/src/hud/components/**/* --fix"
 	},
 	"devDependencies": {
 		"@aabao/webpack-panorama": "0.2.1",

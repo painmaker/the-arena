@@ -5,7 +5,7 @@ import SelectedEntityIndexContext from '../../../../context/SelectedEntityIndexC
 import { useInterval } from '../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
-function Keybind() {
+const Keybind = () => {
 	// $.Msg("REACT-RENDER: AbilityBarItem - Keybind rendered");
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)

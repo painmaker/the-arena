@@ -7,7 +7,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function MagicalResistance(props: Props) {
+const MagicalResistance = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - MagicalResistance rendered");
 
 	const { selectedUnit } = props

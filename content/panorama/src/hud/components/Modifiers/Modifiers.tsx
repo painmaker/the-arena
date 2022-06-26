@@ -8,20 +8,16 @@ import Styles from './styles.module.css'
 
 const getModifiers = (unit: EntityIndex): BuffID[] => {
 	const modifiers = []
-	for (let i = 0; i < Entities.GetNumBuffs(unit) + 1; i++) {
+	for (let i = 0; i < Entities.GetNumBuffs(unit) + 1; i += 1) {
 		const modifier = Entities.GetBuff(unit, i)
-		if (modifier == -1) {
-			continue
+		if (modifier !== -1 && !Buffs.IsHidden(unit, modifier)) {
+			modifiers.push(modifier)
 		}
-		if (Buffs.IsHidden(unit, modifier)) {
-			continue
-		}
-		modifiers.push(modifier)
 	}
 	return modifiers.sort((b1, b2) => Buffs.GetCreationTime(unit, b2) - Buffs.GetCreationTime(unit, b1))
 }
 
-function Modifiers() {
+const Modifiers = () => {
 	// $.Msg("REACT-RENDER: Modifiers rendered");
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)

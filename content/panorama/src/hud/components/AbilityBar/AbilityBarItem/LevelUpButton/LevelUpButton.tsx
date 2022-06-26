@@ -5,7 +5,7 @@ import SelectedEntityIndexContext from '../../../../context/SelectedEntityIndexC
 import { useInterval } from '../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
-function LevelUpButton() {
+const LevelUpButton = () => {
 	// $.Msg("REACT-RENDER: AbilityBarItem - LevelUpButton rendered");
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)

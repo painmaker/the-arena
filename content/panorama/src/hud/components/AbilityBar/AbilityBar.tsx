@@ -6,7 +6,7 @@ import Styles from './styles.module.css'
 import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
 import { isEqual } from '../../utils/isEqual'
 
-function AbilityBar() {
+const AbilityBar = () => {
 	// $.Msg("REACT-RENDER: AbilityBar rendered");
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)

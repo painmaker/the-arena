@@ -2,10 +2,10 @@ import React from 'react'
 import { toColor } from '../../../../utils/Color'
 import Styles from './styles.module.css'
 import ParentStyles from '../styles.module.css'
-import { ItemMessageData } from '../../Messages'
+import { IItemMessageData } from '../../Messages'
 
 type Props = {
-	data: ItemMessageData
+	data: IItemMessageData
 }
 
 const getText = (item: ItemEntityIndex, unit: EntityIndex) => {
@@ -27,7 +27,7 @@ const getText = (item: ItemEntityIndex, unit: EntityIndex) => {
 	return `${localizedItemName}: Ready`
 }
 
-function ItemMessage(props: Props) {
+const ItemMessage = (props: Props) => {
 	const { data } = props
 	const { unit, item, broadcaster } = data
 

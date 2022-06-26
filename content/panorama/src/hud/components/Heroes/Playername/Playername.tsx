@@ -6,7 +6,7 @@ interface Props {
 	playerId: PlayerID
 }
 
-function Playername(props: Props) {
+const Playername = (props: Props) => {
 	// $.Msg("REACT-RENDER: Heroes - Playername rendered");
 
 	const { playerId } = props

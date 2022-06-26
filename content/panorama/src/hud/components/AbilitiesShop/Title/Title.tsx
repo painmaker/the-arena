@@ -6,7 +6,7 @@ type Props = {
 	selectedUnit: EntityIndex
 }
 
-function Title(props: Props) {
+const Title = (props: Props) => {
 	// $.Msg("REACT-RENDER: AbilitiesShop - Title rendered");
 
 	const { selectedUnit } = props

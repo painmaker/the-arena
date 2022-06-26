@@ -34,7 +34,7 @@ const getWashColor = (isTrainable: boolean, manaCost: number, unitMana: number, 
 	return 'none'
 }
 
-function Image() {
+const Image = () => {
 	// $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)

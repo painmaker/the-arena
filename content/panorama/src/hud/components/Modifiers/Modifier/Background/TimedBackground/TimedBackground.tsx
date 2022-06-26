@@ -8,7 +8,7 @@ type Props = {
 	selectedEntityIndex: EntityIndex
 }
 
-function TimedBackground(props: Props) {
+const TimedBackground = (props: Props) => {
 	// $.Msg("REACT-RENDER: Modifiers - TimedBackground rendered");
 
 	const { selectedEntityIndex, modifier } = props
@@ -18,8 +18,8 @@ function TimedBackground(props: Props) {
 	useInterval(() => {
 		const remaining = Math.max(0, Buffs.GetRemainingTime(selectedEntityIndex, modifier))
 		const duration = Math.max(0, Buffs.GetDuration(selectedEntityIndex, modifier))
-		const degree = Math.floor((remaining / duration) * 360)
-		setDegree(Number.isFinite(degree) && !Number.isNaN(degree) ? degree : 0)
+		const newDegree = Math.floor((remaining / duration) * 360)
+		setDegree(Number.isFinite(newDegree) && !Number.isNaN(newDegree) ? newDegree : 0)
 	}, HUD_THINK_FAST)
 
 	return (

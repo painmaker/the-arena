@@ -7,7 +7,7 @@ type Props = {
 	selectedEntityIndex: EntityIndex
 }
 
-function Armor(props: Props) {
+const Armor = (props: Props) => {
 	// $.Msg("REACT-RENDER: Character - Armor rendered");
 
 	const { selectedEntityIndex } = props

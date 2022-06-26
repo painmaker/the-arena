@@ -5,7 +5,7 @@ type Props = {
 	activeItem: ItemsShopItem
 }
 
-function ActiveItem(props: Props) {
+const ActiveItem = (props: Props) => {
 	const { activeItem } = props
 
 	return (

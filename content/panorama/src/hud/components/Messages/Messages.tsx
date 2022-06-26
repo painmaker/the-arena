@@ -11,42 +11,42 @@ export enum MessageType {
 	MANA = 'MANA',
 }
 
-export interface Message {
+export interface IMessage {
 	id: number
 	type: MessageType
-	data: AbilityMessageData | ItemMessageData | ModifierMessageData | HealthMessageData | ManaMessageData
+	data: IAbilityMessageData | IItemMessageData | IModifierMessageData | IHealthMessageData | IManaMessageData
 }
 
-export interface AbilityMessageData {
+export interface IAbilityMessageData {
 	broadcaster: PlayerID
 	unit: EntityIndex
 	ability: AbilityEntityIndex
 }
 
-export interface ItemMessageData {
+export interface IItemMessageData {
 	broadcaster: PlayerID
 	unit: EntityIndex
 	item: ItemEntityIndex
 }
 
-export interface ModifierMessageData {
+export interface IModifierMessageData {
 	broadcaster: PlayerID
 	unit: EntityIndex
 	modifier: BuffID
 }
-export interface HealthMessageData {
+export interface IHealthMessageData {
 	broadcaster: PlayerID
 	unit: EntityIndex
 }
-export interface ManaMessageData {
+export interface IManaMessageData {
 	broadcaster: PlayerID
 	unit: EntityIndex
 }
 
-export const SetMessagesContext = React.createContext<Dispatch<SetStateAction<Message[]>>>(() => {})
+export const SetMessagesContext = React.createContext<Dispatch<SetStateAction<IMessage[]>>>(() => {})
 
-function Messages() {
-	const [messages, setMessages] = useState<Message[]>([])
+const Messages = () => {
+	const [messages, setMessages] = useState<IMessage[]>([])
 	const messageID = useRef(Number.MIN_SAFE_INTEGER)
 
 	useGameEvent(

@@ -7,7 +7,7 @@ type Props = {
 	selectedEntityIndex: EntityIndex
 }
 
-function Foreground(props: Props) {
+const Foreground = (props: Props) => {
 	// $.Msg("REACT-RENDER: Modifiers - Foreground rendered");
 
 	const { modifier, selectedEntityIndex } = props

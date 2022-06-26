@@ -4,7 +4,7 @@ import AbilityEntityIndexContext from '../../../../context/AbilityEntityIndexCon
 import { useInterval } from '../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
-function ManaCost() {
+const ManaCost = () => {
 	// $.Msg("REACT-RENDER: AbilityBarItem - ManaCost rendered");
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)

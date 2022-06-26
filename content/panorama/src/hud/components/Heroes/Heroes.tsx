@@ -6,7 +6,7 @@ import Mana from './Mana/Mana'
 import Playername from './Playername/Playername'
 import Styles from './styles.module.css'
 
-function Heroes() {
+const Heroes = () => {
 	// $.Msg("REACT-RENDER: Heroes rendered");
 
 	const pickedHeroes = Object.values(useNetTableValues('HeroSelectionHeroes').heroes).filter(hero => hero.picked === 1)
