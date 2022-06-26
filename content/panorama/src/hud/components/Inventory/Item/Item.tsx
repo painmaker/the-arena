@@ -10,6 +10,7 @@ import Shine from './Shine/Shine'
 import SelectedEntityIndexContext from '../../../context/SelectedEntityIndexContext'
 import { useInterval } from '../../../hooks/useInterval'
 import { HUD_THINK_FAST } from '../../../App'
+import useGameEvent from '../../../hooks/useGameEvent'
 
 type Props =  {
   slot: number
@@ -67,29 +68,28 @@ const Item = (props: Props) => {
   const onDragLeave = useCallback((thisPanel: Panel, draggedPanel: any) => {
     const draggedItem = draggedPanel.Data().item
     if (item === -1 || draggedItem === null || draggedItem === item) {
-      return
+      return;
     }
     setIsDropTarget(false);
   }, [item])
 
   const OnDragEnter = useCallback((thisPanel: Panel, draggedPanel: any) => {
-    const draggedItem = draggedPanel.Data().item
+    const draggedItem = draggedPanel.Data().item;
     if (item === -1 || draggedItem === null || draggedItem === item) {
-      return
+      return;
     }
-    setIsDropTarget(true)
+    setIsDropTarget(true);
   }, [item])
 
   const onDragDrop = useCallback((thisPanel: Panel, draggedPanel: any) => {
-    const draggedItem = draggedPanel.Data().item
+    const draggedItem = draggedPanel.Data().item;
     if (draggedItem === null) {
-      return
+      return;
     }
-    draggedPanel.Data().dragCompleted = true
+    draggedPanel.Data().dragCompleted = true;
     if (draggedItem === item) {
-      return
+      return;
     }
-    // setItemOptionsVisible(false)
     Game.PrepareUnitOrders({
       OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_MOVE_ITEM,
       TargetIndex: slot,
@@ -113,7 +113,7 @@ const Item = (props: Props) => {
       return;
     }
     if (Items.CanBeExecuted(item)) {
-      Abilities.ExecuteAbility(item, selectedEntityIndex, false)
+      Abilities.ExecuteAbility(item, selectedEntityIndex, false);
     }
   }, [item, selectedEntityIndex])
 
@@ -131,14 +131,7 @@ const Item = (props: Props) => {
     const isControllable = Entities.IsControllableByPlayer(selectedEntityIndex, playerId)
 
     if (isControllable) {
-      // if (itemOptionsVisible && itemOptionsItem === item) {
-      //   setItemOptionsVisible(false)
-      // } else {
-      //   setItemOptionsVisible(true)
-      //   setItemOptionsItem(item)
-      //   const position = panel.GetPositionWithinWindow()
-      //   // GameEvents.SendEventClientSide('set_item_options_position', { x: position.x, y: position.y });
-      // }
+      // Do stuff
       Game.EmitSound('ui_topmenu_select')
     } else {
       GameUI.SendCustomHUDError('Item Not Owned By You', 'General.InvalidTarget_Invulnerable')
@@ -148,13 +141,18 @@ const Item = (props: Props) => {
 
   const onMouseOver = useCallback(() => {
     if (item === -1) {
-      return
+      return;
     }
-    $.DispatchEvent('DOTAShowAbilityTooltipForEntityIndex', $('#inventory_item_' + slot), Abilities.GetAbilityName(item), selectedEntityIndex)
+    $.DispatchEvent(
+      'DOTAShowAbilityTooltipForEntityIndex', 
+      $('#inventory_item_' + slot),
+      Abilities.GetAbilityName(item),
+      selectedEntityIndex
+    );
   }, [item, selectedEntityIndex, slot])
 
   const onMouseOut = useCallback(() => {
-    $.DispatchEvent('DOTAHideAbilityTooltip', $('#inventory_item_' + slot))
+    $.DispatchEvent('DOTAHideAbilityTooltip', $('#inventory_item_' + slot));
   }, [slot])
 
   useEffect(() => {
@@ -165,7 +163,6 @@ const Item = (props: Props) => {
       $.RegisterEventHandler('DragLeave', panel, onDragLeave)
       $.RegisterEventHandler('DragStart', panel, onDragStart)
       $.RegisterEventHandler('DragEnd', panel, onDragEnd)
-      panel.SetAcceptsFocus(false)
     }
   }, [slot])
 
