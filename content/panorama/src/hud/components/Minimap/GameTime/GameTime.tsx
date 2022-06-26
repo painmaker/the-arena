@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { formatTime } from '../../../../utils'
 import Styles from './styles.module.css'
 import { HUD_THINK_SLOW } from '../../../App'
-import { useInterval } from '../../../hooks/useInterval'
+import useInterval from '../../../hooks/useInterval'
 
 const formatGameTime = (dotaTime: number) => {
 	const hours = formatTime(Math.floor(dotaTime / 3600))

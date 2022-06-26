@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import AbilityBarItem from './AbilityBarItem/AbilityBarItem'
 import { HUD_THINK_FAST } from '../../App'
-import { useInterval } from '../../hooks/useInterval'
+import useInterval from '../../hooks/useInterval'
 import Styles from './styles.module.css'
 import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
 import { isEqual } from '../../utils/isEqual'

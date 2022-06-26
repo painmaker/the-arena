@@ -8,7 +8,7 @@ import ManaCost from './ManaCost/ManaCost'
 import Styles from './styles.module.css'
 import Shine from './Shine/Shine'
 import SelectedEntityIndexContext from '../../../context/SelectedEntityIndexContext'
-import { useInterval } from '../../../hooks/useInterval'
+import useInterval from '../../../hooks/useInterval'
 import { HUD_THINK_FAST } from '../../../App'
 
 type Props = {

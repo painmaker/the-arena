@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { HUD_THINK_MEDIUM } from '../../../../App'
-import { useInterval } from '../../../../hooks/useInterval'
+import useInterval from '../../../../hooks/useInterval'
 import { Styles as ParentStyles } from '../Styles'
 
 type Props = {

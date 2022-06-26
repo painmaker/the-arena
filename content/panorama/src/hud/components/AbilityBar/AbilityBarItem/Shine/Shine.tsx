@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { HUD_THINK_FAST } from '../../../../App'
 import AbilityEntityIndexContext from '../../../../context/AbilityEntityIndexContext'
 import SelectedEntityIndexContext from '../../../../context/SelectedEntityIndexContext'
-import { useInterval } from '../../../../hooks/useInterval'
+import useInterval from '../../../../hooks/useInterval'
 import usePrevious from '../../../../hooks/usePrevious'
 
 const Shine = () => {

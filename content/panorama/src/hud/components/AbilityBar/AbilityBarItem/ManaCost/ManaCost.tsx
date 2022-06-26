@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { HUD_THINK_FAST } from '../../../../App'
 import AbilityEntityIndexContext from '../../../../context/AbilityEntityIndexContext'
-import { useInterval } from '../../../../hooks/useInterval'
+import useInterval from '../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
 const ManaCost = () => {

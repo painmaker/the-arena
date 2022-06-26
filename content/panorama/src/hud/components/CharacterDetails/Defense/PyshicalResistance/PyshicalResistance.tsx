@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Styles as ParentStyles } from '../Styles'
 import { HUD_THINK_MEDIUM } from '../../../../App'
-import { useInterval } from '../../../../hooks/useInterval'
+import useInterval from '../../../../hooks/useInterval'
 
 type Props = {
 	selectedUnit: EntityIndex

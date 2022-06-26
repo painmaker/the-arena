@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useInterval } from '../../../hooks/useInterval'
+import useInterval from '../../../hooks/useInterval'
 import HealthBar from './HealthBar/HealthBar'
 import ManaBar from './ManaBar/ManaBar'
 import Abilities from './Abilities/Abilities'

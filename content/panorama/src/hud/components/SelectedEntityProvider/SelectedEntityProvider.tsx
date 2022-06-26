@@ -49,7 +49,7 @@ const SelectedEntityProvider = (props: Props) => {
 		[],
 	)
 
-	const contextValue = useMemo(() => ({ selectedEntityIndex }), [])
+	const contextValue = useMemo(() => ({ selectedEntityIndex }), [selectedEntityIndex])
 
 	return <SelectedEntityIndexContext.Provider value={contextValue}>{children}</SelectedEntityIndexContext.Provider>
 }

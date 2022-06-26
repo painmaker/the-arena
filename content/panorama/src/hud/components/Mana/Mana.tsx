@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { HUD_THINK_FAST } from '../../App'
 import Styles from './styles.module.css'
-import { useInterval } from '../../hooks/useInterval'
+import useInterval from '../../hooks/useInterval'
 import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
 
 const Mana = () => {

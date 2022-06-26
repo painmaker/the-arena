@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { HUD_THINK_FAST } from '../../App'
 import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
-import { useInterval } from '../../hooks/useInterval'
+import useInterval from '../../hooks/useInterval'
 import { isEqual } from '../../utils/isEqual'
 import Modifier from './Modifier/Modifier'
 import Styles from './styles.module.css'

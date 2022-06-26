@@ -10,3 +10,8 @@ render(
   </Panel>,
   $.GetContextPanel()
 );
+
+// render(
+//   <Label text='test' />,
+//   $.GetContextPanel()
+// );

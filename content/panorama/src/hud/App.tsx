@@ -21,12 +21,13 @@ import useRegisterForUnhandledEvent from './hooks/useRegisterForUnhandledEvent'
 import Loading from './components/Loading/Loading'
 import SelectedEntityProvider from './components/SelectedEntityProvider/SelectedEntityProvider'
 import CustomUIProvider from './components/CustomUIProvider/CustomUIProvider'
+import Test from './components/Test/Test'
 
 export const HUD_THINK_FAST = 1 / 144
 export const HUD_THINK_MEDIUM = 1 / 144 // 0.1
 export const HUD_THINK_SLOW = 1 / 144 // 1.0
 
-function App() {
+const App = () => {
 	$.Msg('REACT-RENDER: App rendered')
 
 	// const heroes = useNetTableValues('HeroSelectionHeroes').heroes

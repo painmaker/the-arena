@@ -4,7 +4,7 @@ import Styles from './styles.module.css'
 import Background from './Background/Background'
 import Foreground from './Foreground/Foreground'
 import { HUD_THINK_FAST } from '../../../App'
-import { useInterval } from '../../../hooks/useInterval'
+import useInterval from '../../../hooks/useInterval'
 
 type Props = {
 	modifier: BuffID

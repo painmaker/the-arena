@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useInterval } from '../../hooks/useInterval'
+import useInterval from '../../hooks/useInterval'
 import FloatingContainer from './FloatingContainer/FloatingContainer'
 import { HUD_THINK_FAST } from '../../App'
 import { isEqual } from '../../utils/isEqual'

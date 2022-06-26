@@ -1,35 +1,31 @@
-import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { HUD_THINK_FAST } from '../App'
 
 const cancel = (scheduleId: ScheduleID) => {
 	try {
-		// $.Msg(`Canceling schedule with id ${scheduleId}`)
+		$.Msg(`Canceling schedule with id ${scheduleId}`)
 		$.CancelScheduled(scheduleId)
 	} catch (exception) {
-		// $.Msg(`Exception for schedule with id ${scheduleId}: ${exception}`)
+		$.Msg(`Exception for schedule with id ${scheduleId}: ${exception}`)
 	}
 }
 
-export const useInterval = (callback: () => void, delay: number = HUD_THINK_FAST) => {
+const useInterval = (callback: () => void, delay: number = HUD_THINK_FAST) => {
+	const scheduleId = useRef(-1 as ScheduleID)
 	const savedCallback = useRef(callback)
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		savedCallback.current = callback
 	}, [callback])
 
 	useEffect(() => {
-		let scheduleId = -1 as ScheduleID
-
 		const update = () => {
-			// $.Msg(`Update called with scheduleId ${scheduleId}`)
-			cancel(scheduleId)
 			savedCallback.current()
-			scheduleId = $.Schedule(delay, update)
-			// $.Msg(`Set scheduleId to ${scheduleId}`)
+			scheduleId.current = $.Schedule(delay, update)
 		}
-
-		scheduleId = $.Schedule(0, update)
-
-		return () => cancel(scheduleId)
+		update()
+		return () => cancel(scheduleId.current)
 	}, [delay])
 }
+
+export default useInterval
