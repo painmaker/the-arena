@@ -14,8 +14,8 @@ type Props = {
 const onRightClick = (selectedEntityIndex: EntityIndex, modifier: BuffID) => {
   $.Msg(`Modifier: ${Buffs.GetName(selectedEntityIndex, modifier)}`);
   if (GameUI.IsAltDown()) {
-    $('#modifier_' + modifier).RemoveClass('btnClicked');
-    $('#modifier_' + modifier).AddClass('btnClicked');
+    $(`#modifier_${modifier}_${selectedEntityIndex}`).RemoveClass('btnClicked');
+    $(`#modifier_${modifier}_${selectedEntityIndex}`).AddClass('btnClicked');
     GameEvents.SendCustomGameEventToAllClients("on_modifier_alerted", {
       broadcaster: Players.GetLocalPlayer(),
       selectedEntityIndex,
@@ -24,15 +24,15 @@ const onRightClick = (selectedEntityIndex: EntityIndex, modifier: BuffID) => {
   }
 }
 
-const onMouseOut = (modifier: BuffID) => {
-  const thisPanel = $("#modifier_" + modifier);
+const onMouseOut = (selectedEntityIndex: EntityIndex, modifier: BuffID) => {
+  const thisPanel = $(`#modifier_${modifier}_${selectedEntityIndex}`);
   if (thisPanel) {
     $.DispatchEvent("DOTAHideBuffTooltip", thisPanel)
   }
 }
 
 const onMouseOver = (selectedEntityIndex: EntityIndex, modifier: BuffID, isDebuff: boolean) => {
-  const thisPanel = $("#modifier_" + modifier);
+  const thisPanel = $(`#modifier_${modifier}_${selectedEntityIndex}`);
   if (thisPanel) {
     $.DispatchEvent("DOTAShowBuffTooltip", thisPanel, selectedEntityIndex, modifier, isDebuff);
   }
@@ -69,14 +69,14 @@ const Modifier = (props: Props) => {
 
   return (
     <Panel
-      id={'modifier_' + modifier}
+      id={`modifier_${modifier}_${selectedEntityIndex}`}
       style={{
         opacity: show ? "1.0" : "0.5",
         preTransformScale2d: show ? "1.0" : "0.3",
       }}
       className={Styles.container}
       onactivate={() => onRightClick(selectedEntityIndex, modifier)}
-      onmouseout={() => onMouseOut(modifier)}
+      onmouseout={() => onMouseOut(selectedEntityIndex, modifier)}
       onmouseover={() => onMouseOver(selectedEntityIndex, modifier, isDebuff)}
     >
       <Background

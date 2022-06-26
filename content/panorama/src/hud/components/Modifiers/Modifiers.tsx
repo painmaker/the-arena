@@ -38,7 +38,7 @@ const Modifiers = () => {
     <Panel className={Styles.container}>
       {modifiers.map((modifier) =>
         <Modifier
-          key={modifier}
+          key={`${modifier}-${selectedEntityIndex}`}
           modifier={modifier}
           selectedEntityIndex={selectedEntityIndex}
         />
