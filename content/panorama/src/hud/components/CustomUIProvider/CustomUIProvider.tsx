@@ -50,7 +50,12 @@ const CustomUIProvider = (props: Props) => {
 		<UseCustomUIContext.Provider value={contextValues}>
 			<>
 				<ToggleCustomUI />
-				{useCustomUI && { children }}
+				{useCustomUI && (
+					<>
+						{/* eslint-disable-next-line react/jsx-no-useless-fragment */}
+						{children}
+					</>
+				)}
 			</>
 		</UseCustomUIContext.Provider>
 	)

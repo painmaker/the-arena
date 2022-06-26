@@ -16,10 +16,10 @@ const FloatingContainers = () => {
 
 	useInterval(() => {
 		const centerOrigin = Game.ScreenXYToWorld(Game.GetScreenWidth() / 2, Game.GetScreenHeight() / 2)
-		const newEntityIndexes = Object.values(units)
-			.filter(entity => Entities.IsSelectable(entity))
-			.filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity)) < MAX_DISTANCE)
-			.sort()
+		const newEntityIndexes: EntityIndex[] = Object.values(units)
+			.filter(entity => Entities.IsSelectable(entity as EntityIndex))
+			.filter(entity => Game.Length2D(centerOrigin, Entities.GetAbsOrigin(entity as EntityIndex)) < MAX_DISTANCE)
+			.sort() as EntityIndex[]
 		setEntityIndexes(oldEntityIndexes => (isEqual(oldEntityIndexes, newEntityIndexes) ? oldEntityIndexes : newEntityIndexes))
 	}, HUD_THINK_FAST)
 
