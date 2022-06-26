@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Title from "./Title/Title";
 import Search from "./Search/Search";
 import RegularAbilities from "./RegularAbilities/RegularAbilities";
@@ -9,16 +9,13 @@ import { useTimeout } from "../../hooks/useTimeout";
 import { WINDOW } from "../../data/windows";
 import Styles from './styles.module.css';
 import useGameEvent from "../../hooks/useGameEvent";
+import SelectedEntityIndexContext from "../../context/SelectedEntityIndexContext";
 
-type Props = {
-  selectedUnit: EntityIndex,
-}
-
-const AbilitiesShop = (props: Props) => {
+const AbilitiesShop = () => {
 
   // $.Msg("REACT-RENDER: AbilitiesShop rendered");
 
-  const { selectedUnit } = props;
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
   const [searchValue, setSearchValue] = useState('');
   const [regularAbilities, setRegularAbilities] = useState<ShopAbility[]>([]);
@@ -34,13 +31,13 @@ const AbilitiesShop = (props: Props) => {
     if (isOpen) {
       setRegularAbilities([]);
       setUltimateAbilities([]);
-      GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: selectedUnit });
+      GameEvents.SendCustomGameEventToServer("fetch_shop_abilities", { entindex: selectedEntityIndex });
     }
-  }, [selectedUnit, isOpen]);
+  }, [selectedEntityIndex, isOpen]);
 
   useEffect(() => {
     setSearchValue('');
-  }, [selectedUnit]);
+  }, [selectedEntityIndex]);
 
   useGameEvent('set_window', (event) => {
     setIsOpen(event.window === WINDOW.ABILITIES_SHOP);
@@ -88,25 +85,25 @@ const AbilitiesShop = (props: Props) => {
             opacity: isOpen ? "1.0" : "0.0",
           }}
         >
-          <Title selectedUnit={selectedUnit} />
+          <Title selectedUnit={selectedEntityIndex} />
           <Panel className={Styles.topBarContainer}>
             <Search
               searchValue={searchValue}
               setSearchValue={setSearchValue}
             />
             <AbilitiesPoints
-              selectedUnit={selectedUnit}
+              selectedUnit={selectedEntityIndex}
               text={'Ability Points:'}
             />
           </Panel>
           <Panel className={Styles.abilitiesContainer}>
             <RegularAbilities
-              selectedUnit={selectedUnit}
+              selectedUnit={selectedEntityIndex}
               regularAbilities={regularAbilities}
               searchValue={searchValue}
             />
             <UltimateAbilities
-              selectedUnit={selectedUnit}
+              selectedUnit={selectedEntityIndex}
               ultimateAbilities={ultimateAbilities}
               searchValue={searchValue}
             />

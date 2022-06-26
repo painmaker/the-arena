@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Title from "./Title/Title";
 import Gold from "./Gold/Gold";
 import Search from "./Search/Search";
@@ -7,18 +7,14 @@ import { useTimeout } from "../../hooks/useTimeout";
 import Styles from './styles.module.css';
 import { WINDOW } from "../../data/windows";
 import Items from "./Items/Items";
-import UpgradeTree from "./UpgradeTree/UpgradeTree";
 import useGameEvent from "../../hooks/useGameEvent";
+import SelectedEntityIndexContext from "../../context/SelectedEntityIndexContext";
 
-type Props = {
-  selectedUnit: EntityIndex,
-}
-
-const ItemsShop = (props: Props) => {
+const ItemsShop = () => {
 
   // $.Msg("REACT-RENDER: ItemsShop rendered");
 
-  const { selectedUnit } = props;
+  const { selectedEntityIndex } = useContext(SelectedEntityIndexContext);
 
   const [searchValue, setSearchValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -56,17 +52,17 @@ const ItemsShop = (props: Props) => {
             className={Styles.container}
             style={isOpen ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}}
           >
-            <Title selectedUnit={selectedUnit} />
+            <Title selectedUnit={selectedEntityIndex} />
             <Panel className={Styles.topBarContainer}>
               <Search setSearchValue={setSearchValue} />
-              <Gold selectedUnit={selectedUnit} />
+              <Gold selectedUnit={selectedEntityIndex} />
             </Panel>
             <Panel className={Styles.itemsContainer}>
               <Panel className={Styles.itemsColumn}>
                 <Items
                   title={'Consumables'}
                   items={consumables}
-                  selectedUnit={selectedUnit}
+                  selectedUnit={selectedEntityIndex}
                   searchValue={searchValue}
                   setActiveItem={setActiveItem}
                   height={'165px'}
@@ -74,7 +70,7 @@ const ItemsShop = (props: Props) => {
                 <Items
                   title={'Basics'}
                   items={basics}
-                  selectedUnit={selectedUnit}
+                  selectedUnit={selectedEntityIndex}
                   searchValue={searchValue}
                   setActiveItem={setActiveItem}
                   height={'165px'}
@@ -84,7 +80,7 @@ const ItemsShop = (props: Props) => {
                 <Items
                   title={'Upgrades'}
                   items={[]}
-                  selectedUnit={selectedUnit}
+                  selectedUnit={selectedEntityIndex}
                   searchValue={searchValue}
                   setActiveItem={setActiveItem}
                   height={'362px'}

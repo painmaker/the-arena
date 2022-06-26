@@ -295,22 +295,6 @@ ProgressBar {
 	horizontal-align: right;
 }
 
-/*!**************************************************************************************************************************************!*\
-  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/ToggleCustomUI/styles.module.css ***!
-  \**************************************************************************************************************************************/
-.x4Barzs7SlRjDPe45VIq {
-	vertical-align: top;
-	horizontal-align: left;
-	margin-top: 50px;
-	margin-left: 15px;
-}
-
-.OQUKApBlPxfjpwCdZq0s {
-	color: white;
-	font-size: 16px;
-	text-shadow: 1px 1px 2px 2 black;
-	padding-bottom: 3px;
-}
 /*!**********************************************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/FloatingContainers/FloatingContainer/HealthBar/styles.module.css ***!
   \**********************************************************************************************************************************************************************/
@@ -1447,6 +1431,91 @@ ProgressBar {
 	flow-children: right;
 }
 
+/*!****************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Mana/styles.module.css ***!
+  \****************************************************************************************************************************/
+.bfafATpz3SZHGbX5krTm {
+	width: 360px;
+	height: 19px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 50px;
+	border-radius: 3px;
+	background-color: red;
+	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px;
+}
+
+.L18ET7X9ihLS5So_Abtc {
+	height: 100%;
+	hue-rotation: 100deg;
+	opacity: 0.8;
+}
+
+.qGkp7nWIBm8mH6LdRxtm {
+	font-size: 15px;
+	color: white;
+	text-shadow: 1px 1px 0px 2 #000000;
+	vertical-align: middle;
+	horizontal-align: center;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.6;
+}
+
+._iFwHBZcVu7HftIeFawJ {
+	font-size: 14px;
+	color: #83c2fe;
+	margin-top: 0.5px;
+	margin-right: 3px;
+	text-shadow: 2px 2px 0px 1 #00000066;
+	vertical-align: middle;
+	horizontal-align: right;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.8;
+}
+
+/*!******************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Health/styles.module.css ***!
+  \******************************************************************************************************************************/
+.zm38yWXGhrAKrkLCAwfn {
+	width: 360px;
+	height: 19px;
+	vertical-align: bottom;
+	horizontal-align: center;
+	margin-bottom: 72px;
+	border-radius: 3px;
+	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 0px 5px 2px;
+}
+
+.xALbJQMLrWVOMqQ9261N {
+	font-size: 15px;
+	color: white;
+	text-shadow: 1px 1px 0px 2 #000000;
+	vertical-align: middle;
+	horizontal-align: center;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.8;
+}
+
+.FO8iZ8Nkehf2cYCWLnfA {
+	font-size: 14px;
+	margin-top: -0.25px;
+	margin-right: 3px;
+	text-shadow: 1px 1px 2px 2.5 #000000;
+	vertical-align: middle;
+	horizontal-align: right;
+	font-weight: bold;
+	font-family: monospaceNumbersFont;
+	opacity: 0.8;
+}
+
+.Lo9QIpHv_ktpwlUhPIvc {
+	height: 100%;
+	opacity: 0.8;
+}
+
 /*!*************************************************************************************************************************************!*\
   !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/Heroes/Health/styles.module.css ***!
   \*************************************************************************************************************************************/
@@ -2175,3 +2244,19 @@ ProgressBar {
 	font-size: 25px;
 }
 
+/*!*******************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./hud/components/CustomUIProvider/ToggleCustomUI/styles.module.css ***!
+  \*******************************************************************************************************************************************************/
+.Z2gTrWVsEtmXLADzs4Gx {
+	vertical-align: top;
+	horizontal-align: left;
+	margin-top: 50px;
+	margin-left: 15px;
+}
+
+.V5h77TlWWZ86DrotmgDU {
+	color: white;
+	font-size: 16px;
+	text-shadow: 1px 1px 2px 2 black;
+	padding-bottom: 3px;
+}
