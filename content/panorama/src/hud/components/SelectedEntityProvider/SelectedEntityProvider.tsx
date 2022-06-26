@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { HUD_THINK_FAST } from '../../App';
 import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext';
+import useGameEvent from '../../hooks/useGameEvent';
 import { useInterval } from '../../hooks/useInterval';
 
 type Props = {
@@ -29,11 +30,19 @@ const SelectedEntityProvider = (props: Props) => {
     return Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())
   }, [])
 
-  useInterval(() => {
-		const newSelectedEntityIndex = getSelectedEntityIndex()
-    const isExcluded = !excludedUnits.includes(Entities.GetUnitName(selectedEntityIndex))
+  useGameEvent("dota_player_update_query_unit", (event) => {
+    // $.Msg(`dota_player_update_query_unit event: ${JSON.stringify(event)}`)
+    const newSelectedEntityIndex = getSelectedEntityIndex();
+    const isExcluded = excludedUnits.includes(Entities.GetUnitName(newSelectedEntityIndex))
     setSelectedEntityIndex(oldSelectedEntityIndex => isExcluded ? oldSelectedEntityIndex : newSelectedEntityIndex)
-	}, HUD_THINK_FAST)
+  }, []);
+
+  useGameEvent("dota_player_update_selected_unit", (event) => {
+    // $.Msg(`dota_player_update_selected_unit event: ${JSON.stringify(event)}`)
+    const newSelectedEntityIndex = getSelectedEntityIndex();
+    const isExcluded = excludedUnits.includes(Entities.GetUnitName(newSelectedEntityIndex))
+    setSelectedEntityIndex(oldSelectedEntityIndex => isExcluded ? oldSelectedEntityIndex : newSelectedEntityIndex)
+  }, []);
 
   return (
     <SelectedEntityIndexContext.Provider value={{ selectedEntityIndex }}>

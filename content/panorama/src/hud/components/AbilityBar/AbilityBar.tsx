@@ -18,7 +18,7 @@ const AbilityBar = () => {
   useInterval(() => {
     const abilityCount = Entities.GetAbilityCount(selectedEntityIndex);
     setAbilityPoints(Entities.GetAbilityPoints(selectedEntityIndex));
-    const newAbilities = Array.from(Array(abilityCount).keys())
+    const newAbilities = (abilityCount > 0 ? Array.from(Array(abilityCount).keys()) : [])
       .map(abilityNumber => Entities.GetAbility(selectedEntityIndex, abilityNumber))
       .filter(index => index !== -1)
       .filter(index => Abilities.IsDisplayedAbility(index));
