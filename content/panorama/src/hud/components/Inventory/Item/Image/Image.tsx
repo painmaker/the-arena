@@ -28,20 +28,12 @@ const Image = (props: Props) => {
     setIsActive(Abilities.GetLocalPlayerActiveAbility() === item);
   }, HUD_THINK_FAST);
 
-
   return (
     <Panel
       className={Styles.container}
       style={{
         backgroundColor: isActive
-          ? `gradient(
-            linear,
-            50% 0%,
-            35% 100%,
-            from(rgba(255, 255, 255, 0.8)),
-            color-stop(0.5, rgba(50, 50, 50, 0.5)),
-            to(rgb(0, 0, 0))
-          )`
+          ? `gradient(linear, 50% 0%, 35% 100%, from(rgba(255, 255, 255, 0.8)), color-stop(0.5, rgba(50, 50, 50, 0.5)), to(rgb(0, 0, 0)))`
           : "black"
       }}
     >
