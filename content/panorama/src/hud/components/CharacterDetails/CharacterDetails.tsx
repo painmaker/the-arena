@@ -7,10 +7,10 @@ import Level from './Level/Level'
 import Avatar from './Avatar/Avatar'
 import Attack from './Attack/Attack'
 import { HUD_THINK_SLOW } from '../../App'
-import { useTimeout } from '../../hooks/useTimeout'
+import useTimeout from '../../hooks/useTimeout'
 import { WINDOW } from '../../data/windows'
 import useGameEvent from '../../hooks/useGameEvent'
-import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
+import { SelectedEntityIndexContext } from '../../context/SelectedEntityIndexContext'
 
 const CharacterDetails = () => {
 	// $.Msg("REACT-RENDER: CharacterDetails rendered");

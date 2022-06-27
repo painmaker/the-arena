@@ -1,0 +1,9 @@
+.container {
+	flow-children: right;
+}
+
+.label {
+	margin-top: 5px;
+	margin-right: 5px;
+	font-family: monospaceNumbersFont;
+}

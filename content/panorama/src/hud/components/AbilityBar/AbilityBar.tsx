@@ -3,24 +3,34 @@ import AbilityBarItem from './AbilityBarItem/AbilityBarItem'
 import { HUD_THINK_FAST } from '../../App'
 import useInterval from '../../hooks/useInterval'
 import Styles from './styles.module.css'
-import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
 import { isEqual } from '../../utils/isEqual'
+import { SelectedEntityIndexContext } from '../../context/SelectedEntityIndexContext'
+
+const getAbilities = (abilityCount: number, selectedEntityIndex: EntityIndex): AbilityEntityIndex[] => {
+	if (abilityCount <= 0) {
+		return []
+	}
+	return Array.from(Array(abilityCount - 1).keys())
+		.map(abilityNumber => Entities.GetAbility(selectedEntityIndex, abilityNumber))
+		.filter(index => index !== -1)
+		.filter(index => Abilities.IsDisplayedAbility(index))
+		.sort()
+}
 
 const AbilityBar = () => {
 	// $.Msg("REACT-RENDER: AbilityBar rendered");
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)
 
-	const [abilities, setAbilities] = useState<AbilityEntityIndex[]>([])
+	const [abilities, setAbilities] = useState<AbilityEntityIndex[]>(() =>
+		getAbilities(Entities.GetAbilityCount(selectedEntityIndex), selectedEntityIndex),
+	)
 	const [abilityPoints, setAbilityPoints] = useState(0)
 
 	useInterval(() => {
-		const abilityCount = Entities.GetAbilityCount(selectedEntityIndex)
 		setAbilityPoints(Entities.GetAbilityPoints(selectedEntityIndex))
-		const newAbilities = (abilityCount > 0 ? Array.from(Array(abilityCount).keys()) : [])
-			.map(abilityNumber => Entities.GetAbility(selectedEntityIndex, abilityNumber))
-			.filter(index => index !== -1)
-			.filter(index => Abilities.IsDisplayedAbility(index))
+		const abilityCount = Entities.GetAbilityCount(selectedEntityIndex)
+		const newAbilities = getAbilities(abilityCount, selectedEntityIndex)
 		setAbilities(oldAbilities => (isEqual(oldAbilities, newAbilities) ? oldAbilities : newAbilities))
 	}, HUD_THINK_FAST)
 
@@ -43,4 +53,4 @@ const AbilityBar = () => {
 	)
 }
 
-export default React.memo(AbilityBar)
+export default AbilityBar

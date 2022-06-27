@@ -45,4 +45,4 @@ const Minimap = () => {
 	)
 }
 
-export default React.memo(Minimap)
+export default Minimap

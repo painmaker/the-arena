@@ -4,7 +4,7 @@ import LockCameraBtn from './LockCameraBtn/LockCameraBtn'
 import MapZoomSlider from './MapZoomSlider/MapZoomSlider'
 import Divider from './Divider/Divider'
 import Title from './Title/Title'
-import { useTimeout } from '../../hooks/useTimeout'
+import useTimeout from '../../hooks/useTimeout'
 import Styles from './styles.module.css'
 import { WINDOW } from '../../data/windows'
 import { HUD_THINK_SLOW } from '../../App'
@@ -55,7 +55,10 @@ const Settings = () => {
 		return null
 	}
 
-	const style = isOpen ? { transform: 'translateX(-10px)', opacity: '1.0' } : {}
+	const style = {
+		transform: isOpen ? 'translateX(-10px)' : 'translateX(490px)',
+		opacity: isOpen ? '1.0' : '0.0',
+	}
 
 	return (
 		<Panel onactivate={() => false} className={Styles.container} style={style}>
@@ -77,4 +80,4 @@ const Settings = () => {
 	)
 }
 
-export default React.memo(Settings)
+export default Settings

@@ -6,7 +6,7 @@ import MagicResistance from './MagicResistance/MagicResistance'
 import MoveSpeed from './MoveSpeed/MoveSpeed'
 import Attributes from './Attributes/Attributes'
 import Styles from './styles.module.css'
-import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
+import { SelectedEntityIndexContext } from '../../context/SelectedEntityIndexContext'
 
 const SelectedEntity = () => {
 	// $.Msg("REACT-RENDER: SelectedEntity rendered");

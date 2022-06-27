@@ -23,9 +23,9 @@ const SettingsButton = (props: ButtonProps) => {
 	)
 
 	const onClick = useCallback(
-		(id: string, window: WINDOW) => {
-			$(`#${id}`).RemoveClass('btnClicked')
-			$(`#${id}`).AddClass('btnClicked')
+		(inputId: string, window: WINDOW) => {
+			$(`#${inputId}`).RemoveClass('btnClicked')
+			$(`#${inputId}`).AddClass('btnClicked')
 			GameEvents.SendEventClientSide('set_window', { window: eventWindow === window ? WINDOW.NONE : window })
 			Game.EmitSound('ui_topmenu_select')
 		},

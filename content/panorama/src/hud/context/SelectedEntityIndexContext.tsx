@@ -1,6 +1,16 @@
 import React, { useCallback, useMemo, useState } from 'react'
-import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
-import useGameEvent from '../../hooks/useGameEvent'
+import useGameEvent from '../hooks/useGameEvent'
+
+interface ISelectedEntityIndexContext {
+	selectedEntityIndex: EntityIndex
+	setSelectedEntityIndex?: () => void
+}
+
+const initialState = {
+	selectedEntityIndex: Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()),
+}
+
+export const SelectedEntityIndexContext = React.createContext<ISelectedEntityIndexContext>(initialState)
 
 type Props = {
 	children: JSX.Element | JSX.Element[]
@@ -8,7 +18,7 @@ type Props = {
 
 const excludedUnits = ['shopkeeper_abilities']
 
-const SelectedEntityProvider = (props: Props) => {
+export const SelectedEntityProvider = (props: Props) => {
 	$.Msg('REACT-RENDER: SelectedEntityProvider rendered')
 
 	const { children } = props
@@ -53,5 +63,3 @@ const SelectedEntityProvider = (props: Props) => {
 
 	return <SelectedEntityIndexContext.Provider value={contextValue}>{children}</SelectedEntityIndexContext.Provider>
 }
-
-export default SelectedEntityProvider

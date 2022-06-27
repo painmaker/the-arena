@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useTimeout } from '../../hooks/useTimeout'
+import useTimeout from '../../hooks/useTimeout'
 import Styles from './styles.module.css'
 
 type Props = {

@@ -15,7 +15,6 @@ type Props = {
 }
 
 const Content = React.memo((props: Props) => {
-	$.Msg('Content Rendered')
 	const { entityIndex } = props
 	return (
 		<>

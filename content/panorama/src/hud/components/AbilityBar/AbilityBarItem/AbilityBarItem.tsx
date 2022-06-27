@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useCallback, useContext, useMemo, useState } from 'react'
 import Cooldown from './Cooldown/Cooldown'
 import Autocast from './Autocast/Autocast'
 import LockoutIcon from './LockoutIcon/LockoutIcon'
@@ -12,8 +12,8 @@ import { HUD_THINK_FAST } from '../../../App'
 import useInterval from '../../../hooks/useInterval'
 import Styles from './styles.module.css'
 import Shine from './Shine/Shine'
-import SelectedEntityIndexContext from '../../../context/SelectedEntityIndexContext'
-import AbilityEntityIndexContext from '../../../context/AbilityEntityIndexContext'
+import { SelectedEntityIndexContext } from '../../../context/SelectedEntityIndexContext'
+import { AbilityEntityIndexContextProvider } from '../../../context/AbilityEntityIndexContext'
 
 type Props = {
 	abilityEntityIndex: AbilityEntityIndex
@@ -80,16 +80,6 @@ const AbilityBarItem = (props: Props) => {
 		}
 	}, [abilityEntityIndex])
 
-	const getContainerBackgroundImage = useCallback(() => {
-		if (isTrainable) {
-			return 'url("s2r://panorama/images/ability_gold_background_dark_png.vtex")'
-		}
-		if (isPassive) {
-			return 'url("s2r://panorama/images/hud/passive_ability_border_png.vtex")'
-		}
-		return 'url("s2r://panorama/images/hud/active_ability_border_png.vtex")'
-	}, [isTrainable, isPassive])
-
 	const onMouseOut = useCallback(() => {
 		$.DispatchEvent('DOTAHideAbilityTooltip', $(`#ability_${abilityEntityIndex}`))
 	}, [abilityEntityIndex])
@@ -103,20 +93,40 @@ const AbilityBarItem = (props: Props) => {
 		)
 	}, [abilityEntityIndex, selectedEntityIndex])
 
+	const backgroundImage = useMemo(() => {
+		if (isTrainable) {
+			return 'url("s2r://panorama/images/ability_gold_background_dark_png.vtex")'
+		}
+		if (isPassive) {
+			return 'url("s2r://panorama/images/hud/passive_ability_border_png.vtex")'
+		}
+		return 'url("s2r://panorama/images/hud/active_ability_border_png.vtex")'
+	}, [isTrainable, isPassive])
+
+	const foregroundColor = useMemo(() => {
+		if (isActive) {
+			return 'rgba(255, 255, 255, 0.5)'
+		}
+		if (isToggled || isAutoCastEnabled) {
+			return 'rgba(255, 165, 150, 0.5)'
+		}
+		return 'black'
+	}, [isActive, isToggled, isAutoCastEnabled])
+
 	const backgroundStyle = {
 		border: isTrainable ? '1px solid rgba(0, 0, 0, 0.8)' : '0px solid rgba(0, 0, 0, 0.0)',
-		backgroundImage: getContainerBackgroundImage(),
+		backgroundImage,
 	}
 
 	const foregroundStyle = {
 		margin: isPassive && !isTrainable ? '2px' : '4px',
 		padding: isActive || isToggled || isAutoCastEnabled ? '1.5px' : '0px',
-		backgroundColor: isActive ? 'rgba(255, 255, 255, 0.5)' : isToggled || isAutoCastEnabled ? 'rgba(255, 165, 150, 0.5)' : 'black',
+		backgroundColor: foregroundColor,
 	}
 
 	return (
 		<Panel className={Styles.container} id={`ability_${abilityEntityIndex}`}>
-			<AbilityEntityIndexContext.Provider value={{ abilityEntityIndex }}>
+			<AbilityEntityIndexContextProvider abilityEntityIndex={abilityEntityIndex}>
 				<LevelUpButton />
 				<Panel
 					onactivate={() => onLeftClick()}
@@ -138,9 +148,9 @@ const AbilityBarItem = (props: Props) => {
 					</Panel>
 				</Panel>
 				<Skillpoints />
-			</AbilityEntityIndexContext.Provider>
+			</AbilityEntityIndexContextProvider>
 		</Panel>
 	)
 }
 
-export default React.memo(AbilityBarItem)
+export default AbilityBarItem

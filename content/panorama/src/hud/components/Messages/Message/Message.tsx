@@ -13,7 +13,7 @@ import Styles from './styles.module.css'
 import AbilityMessage from './AbilityMessage/AbilityMessage'
 import ItemMessage from './ItemMessage/ItemMessage'
 import ModifierMessage from './ModifierMessage/ModifierMessage'
-import { useTimeout } from '../../../hooks/useTimeout'
+import useTimeout from '../../../hooks/useTimeout'
 import HealthMessage from './HealthMessage/HealthMessage'
 import ManaMessage from './ManaMessage/ManaMessage'
 

@@ -36,4 +36,4 @@ const GameTime = () => {
 	)
 }
 
-export default React.memo(GameTime)
+export default GameTime

@@ -25,7 +25,6 @@ const MapZoomSlider = (props: Props) => {
 					id='map_zoom_slider'
 					className='HorizontalSlider'
 					direction='horizontal'
-					value={mapZoom}
 					min={3}
 					max={10}
 					onvaluechanged={e => setMapZoom(Math.round(e.value))}

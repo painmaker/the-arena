@@ -62,3 +62,5 @@ export function isEqual(obj1: any, obj2: any) {
 	if (type === 'function') return areFunctionsEqual()
 	return arePrimativesEqual()
 }
+
+export default isEqual

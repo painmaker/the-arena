@@ -1,15 +1,6 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 
-const cancel = (scheduleId: ScheduleID) => {
-	try {
-		// $.Msg(`Canceling schedule with id ${scheduleId}`)
-		$.CancelScheduled(scheduleId)
-	} catch (exception) {
-		// $.Msg(`Exception for schedule with id ${scheduleId}: ${exception}`)
-	}
-}
-
-export const useTimeout = (callback: () => void, delay: number = 0) => {
+const useTimeout = (callback: () => void, delay: number = 0) => {
 	const savedCallback = useRef(callback)
 
 	useLayoutEffect(() => {
@@ -21,6 +12,15 @@ export const useTimeout = (callback: () => void, delay: number = 0) => {
 			// $.Msg(`useTimeout called with scheduleId ${scheduleId}`)
 			savedCallback.current()
 		})
-		return () => cancel(scheduleId)
+		return () => {
+			try {
+				// $.Msg(`Canceling schedule with id ${scheduleId}`)
+				$.CancelScheduled(scheduleId)
+			} catch (exception) {
+				// $.Msg(`Exception for schedule with id ${scheduleId}: ${exception}`)
+			}
+		}
 	}, [delay])
 }
+
+export default useTimeout

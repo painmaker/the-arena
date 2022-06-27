@@ -4,7 +4,6 @@ import Styles from './styles.module.css'
 
 const Title = () => {
 	// $.Msg("REACT-RENDER: Settings - Title rendered");
-
 	return (
 		<Panel className={Styles.container}>
 			<Label
@@ -24,4 +23,4 @@ const Title = () => {
 	)
 }
 
-export default React.memo(Title)
+export default Title

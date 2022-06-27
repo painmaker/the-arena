@@ -5,11 +5,11 @@ import RegularAbilities from './RegularAbilities/RegularAbilities'
 import UltimateAbilities from './UltimateAbilities/UltimateAbilities'
 import AbilitiesPoints from './AbilitiesPoints/AbilitiesPoints'
 import { HUD_THINK_SLOW } from '../../App'
-import { useTimeout } from '../../hooks/useTimeout'
+import useTimeout from '../../hooks/useTimeout'
 import { WINDOW } from '../../data/windows'
 import Styles from './styles.module.css'
 import useGameEvent from '../../hooks/useGameEvent'
-import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
+import { SelectedEntityIndexContext } from '../../context/SelectedEntityIndexContext'
 
 const AbilitiesShop = () => {
 	// $.Msg("REACT-RENDER: AbilitiesShop rendered");

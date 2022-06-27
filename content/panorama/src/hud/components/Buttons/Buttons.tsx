@@ -1,7 +1,7 @@
 import React from 'react'
-import Styles from './styles.module.css'
 import { WINDOW } from '../../data/windows'
 import SettingsButton from './SettingsButton/SettingsButton'
+import Styles from './styles.module.css'
 
 const Buttons = () => {
 	// $.Msg("REACT-RENDER: ButtonGroup rendered");

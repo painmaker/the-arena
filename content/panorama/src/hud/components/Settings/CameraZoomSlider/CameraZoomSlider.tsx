@@ -28,7 +28,6 @@ const CameraZoomSlider = (props: Props) => {
 					id='camera_zoom_slider'
 					className='HorizontalSlider'
 					direction='horizontal'
-					value={cameraZoom}
 					min={800}
 					max={2000}
 					onvaluechanged={event => setCameraZoom(Math.round(event.value))}

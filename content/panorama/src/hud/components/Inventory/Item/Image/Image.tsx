@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { HUD_THINK_FAST } from '../../../../App'
-import SelectedEntityIndexContext from '../../../../context/SelectedEntityIndexContext'
+import { SelectedEntityIndexContext } from '../../../../context/SelectedEntityIndexContext'
 import useInterval from '../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 

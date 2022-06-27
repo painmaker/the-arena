@@ -3,12 +3,12 @@ import Title from './Title/Title'
 import Gold from './Gold/Gold'
 import Search from './Search/Search'
 import { HUD_THINK_SLOW } from '../../App'
-import { useTimeout } from '../../hooks/useTimeout'
+import useTimeout from '../../hooks/useTimeout'
 import Styles from './styles.module.css'
 import { WINDOW } from '../../data/windows'
 import Items from './Items/Items'
 import useGameEvent from '../../hooks/useGameEvent'
-import SelectedEntityIndexContext from '../../context/SelectedEntityIndexContext'
+import { SelectedEntityIndexContext } from '../../context/SelectedEntityIndexContext'
 
 const ItemsShop = () => {
 	// $.Msg("REACT-RENDER: ItemsShop rendered");

@@ -19,9 +19,9 @@ import ItemsShop from './components/ItemsShop/ItemsShop'
 import { WINDOW } from './data/windows'
 import useRegisterForUnhandledEvent from './hooks/useRegisterForUnhandledEvent'
 import Loading from './components/Loading/Loading'
-import SelectedEntityProvider from './components/SelectedEntityProvider/SelectedEntityProvider'
-import CustomUIProvider from './components/CustomUIProvider/CustomUIProvider'
 import Test from './components/Test/Test'
+import CustomUIProvider from './context/CustomUIContext'
+import SelectedEntityProvider from './context/SelectedEntityIndexContext'
 
 export const HUD_THINK_FAST = 1 / 144
 export const HUD_THINK_MEDIUM = 1 / 144 // 0.1
@@ -45,27 +45,302 @@ const App = () => {
 	return (
 		<Loading>
 			<CustomUIProvider>
+				<Panel style={{ flowChildren: 'right' }}>
+					<Panel style={{ flowChildren: 'down' }}>
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+					</Panel>
+					<Panel style={{ flowChildren: 'down' }}>
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+					</Panel>
+					<Panel style={{ flowChildren: 'down' }}>
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+					</Panel>
+					<Panel style={{ flowChildren: 'down' }}>
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+					</Panel>
+					<Panel style={{ flowChildren: 'down' }}>
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+					</Panel>
+					<Panel style={{ flowChildren: 'down' }}>
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+					</Panel>
+					<Panel style={{ flowChildren: 'down' }}>
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+						<Test />
+					</Panel>
+				</Panel>
 				<Minimap />
 				<FloatingContainers />
-				<Settings />
-				<Heroes />
-				<Messages />
+				{/* <Heroes /> */}
+				{/* <Messages /> */}
+				{/* <Settings /> */}
 				<SelectedEntityProvider>
-					<AbilitiesShop />
-					<CharacterDetails />
-					<ItemsShop />
-					<Panel className={Styles.rightCornerContainer}>
-						<SelectedEntity />
-						<Buttons />
-					</Panel>
+					{/* <AbilitiesShop /> */}
+					{/* <CharacterDetails /> */}
+					{/* <ItemsShop /> */}
+					{/* <Panel className={Styles.rightCornerContainer}> */}
+					{/* <SelectedEntity /> */}
+					{/* <Buttons /> */}
+					{/* </Panel> */}
 					<AbilityBar />
-					<Modifiers />
-					<Inventory />
+					{/* <Modifiers /> */}
+					{/* <Inventory /> */}
 					<Mana />
 					<Health />
-					<Panel className={Styles.bottomCenterBackground} />
-					<Panel className={Styles.bottomCenterLeftFlare} />
-					<Panel className={Styles.bottomCenterRightFlare} />
+					{/* <Panel className={Styles.bottomCenterBackground} /> */}
+					{/* <Panel className={Styles.bottomCenterLeftFlare} /> */}
+					{/* <Panel className={Styles.bottomCenterRightFlare} /> */}
 				</SelectedEntityProvider>
 			</CustomUIProvider>
 		</Loading>

@@ -7,7 +7,7 @@ import ManaCost from './ManaCost/ManaCost'
 
 import Styles from './styles.module.css'
 import Shine from './Shine/Shine'
-import SelectedEntityIndexContext from '../../../context/SelectedEntityIndexContext'
+import { SelectedEntityIndexContext } from '../../../context/SelectedEntityIndexContext'
 import useInterval from '../../../hooks/useInterval'
 import { HUD_THINK_FAST } from '../../../App'
 
@@ -15,8 +15,9 @@ type Props = {
 	slot: number
 }
 
+/* eslint-disable no-param-reassign */
 const Item = (props: Props) => {
-	// $.Msg("REACT-RENDER: Inventory - Item rendered");
+	$.Msg('REACT-RENDER: Inventory - Item rendered')
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)
 
@@ -162,12 +163,16 @@ const Item = (props: Props) => {
 	useEffect(() => {
 		const panel = $(`#inventory_item_${slot}`)
 		if (panel) {
+			// panel.SetPanelEvent('DragEnter', OnDragEnter)
+			// TODO : Unregister these?
 			$.RegisterEventHandler('DragEnter', panel, OnDragEnter)
 			$.RegisterEventHandler('DragDrop', panel, onDragDrop)
 			$.RegisterEventHandler('DragLeave', panel, onDragLeave)
 			$.RegisterEventHandler('DragStart', panel, onDragStart)
 			$.RegisterEventHandler('DragEnd', panel, onDragEnd)
 		}
+		// panel.ClearPanelEvent()
+		$.Msg(`Register event handlers for panel with id ${panel?.id}`)
 	}, [slot])
 
 	return (
