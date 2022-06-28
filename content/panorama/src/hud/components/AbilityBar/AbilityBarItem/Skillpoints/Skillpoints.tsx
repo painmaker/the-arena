@@ -16,12 +16,11 @@ const Skillpoints = () => {
 	const [isUpgradeable, setIsUpgradeable] = useState(false)
 
 	useInterval(() => {
+		const canBeUpgraded = Abilities.CanAbilityBeUpgraded(abilityEntityIndex) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED
+		const hasAbilityPoints = Entities.GetAbilityPoints(selectedEntityIndex) > 0
 		setAbilityLevel(Abilities.GetLevel(abilityEntityIndex))
 		setMaxAbilityLevel(Abilities.GetMaxLevel(abilityEntityIndex))
-		setIsUpgradeable(
-			Entities.GetAbilityPoints(selectedEntityIndex) > 0 &&
-				Abilities.CanAbilityBeUpgraded(abilityEntityIndex) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED,
-		)
+		setIsUpgradeable(hasAbilityPoints && canBeUpgraded)
 	}, HUD_THINK_FAST)
 
 	return (

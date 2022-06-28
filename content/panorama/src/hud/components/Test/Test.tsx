@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { HUD_THINK_FAST } from '../../App'
 import useInterval from '../../hooks/useInterval'
 import Styles from './styles.module.css'
 
-const SubComponent1 = () => {
+const SubComponent1 = React.memo(({ parentCount }: { parentCount: number }) => {
+	const p = useRef(parentCount)
 	const [count, setCount] = useState(0)
+
+	useEffect(() => {
+		p.current = parentCount
+	}, [parentCount])
 
 	useInterval(() => {
 		setCount(prevCount => prevCount - 1)
@@ -15,7 +20,7 @@ const SubComponent1 = () => {
 	}
 
 	return <Label className={Styles.label} text={`count: ${count}`} />
-}
+})
 
 const Test = () => {
 	const [count, setCount] = useState(0)
@@ -24,10 +29,18 @@ const Test = () => {
 		setCount(prevCount => prevCount + 1)
 	}, HUD_THINK_FAST)
 
+	const style = useMemo(() => ({ color: count % 2 === 0 ? 'red' : 'orange' }), [count])
+
+	const onClick = useCallback(() => {
+		$.Msg(`count: ${count}`)
+	}, [count])
+
 	return (
 		<Panel className={Styles.container}>
-			<Label className={Styles.label} text={`count: ${count}`} />
-			<SubComponent1 />
+			<Button onactivate={() => onClick()}>
+				<Label className={Styles.label} text={`count: ${count}`} style={style} />
+			</Button>
+			<SubComponent1 parentCount={count} />
 		</Panel>
 	)
 }

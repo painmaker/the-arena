@@ -17,7 +17,7 @@ const useTimeout = (callback: () => void, delay: number = 0) => {
 				// $.Msg(`Canceling schedule with id ${scheduleId}`)
 				$.CancelScheduled(scheduleId)
 			} catch (exception) {
-				// $.Msg(`Exception for schedule with id ${scheduleId}: ${exception}`)
+				$.Msg(`Exception for schedule with id ${scheduleId}: ${exception}`)
 			}
 		}
 	}, [delay])

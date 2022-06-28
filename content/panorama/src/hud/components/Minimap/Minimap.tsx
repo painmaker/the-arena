@@ -14,7 +14,7 @@ const Minimap = () => {
 		event => {
 			setZoneName(event.zoneName)
 		},
-		[],
+		[setZoneName],
 	)
 
 	useGameEvent(
@@ -22,7 +22,7 @@ const Minimap = () => {
 		event => {
 			setMapZoom(event.mapZoom)
 		},
-		[],
+		[setMapZoom],
 	)
 
 	return (

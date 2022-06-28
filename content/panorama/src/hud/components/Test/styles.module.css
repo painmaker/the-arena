@@ -3,7 +3,9 @@
 }
 
 .label {
-	margin-top: 5px;
-	margin-right: 5px;
+	margin-top: 2px;
+	margin-right: 2px;
 	font-family: monospaceNumbersFont;
+	font-size: 4px;
+	opacity: 0.1;
 }

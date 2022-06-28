@@ -5,8 +5,12 @@ import { SelectedEntityIndexContext } from '../../../../context/SelectedEntityIn
 import useInterval from '../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
+const onClick = (abilityEntityIndex: AbilityEntityIndex) => {
+	Abilities.AttemptToUpgrade(abilityEntityIndex)
+}
+
 const LevelUpButton = () => {
-	// $.Msg("REACT-RENDER: AbilityBarItem - LevelUpButton rendered");
+	// $.Msg("REACT-RENDER: LevelUpButton rendered");
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)
@@ -18,8 +22,7 @@ const LevelUpButton = () => {
 		const isControllable = Entities.IsControllableByPlayer(selectedEntityIndex, Players.GetLocalPlayer())
 		const hasAbilityPoints = Entities.GetAbilityPoints(selectedEntityIndex) > 0
 		const isMaxLevel = Abilities.GetLevel(abilityEntityIndex) === Abilities.GetMaxLevel(abilityEntityIndex)
-		const isAbilityUpgradeable = isUpgradeable && isControllable && hasAbilityPoints && !isMaxLevel
-		setIsAbilityUpgradeable(isAbilityUpgradeable)
+		setIsAbilityUpgradeable(isUpgradeable && isControllable && hasAbilityPoints && !isMaxLevel)
 	}, HUD_THINK_FAST)
 
 	return (
@@ -27,8 +30,8 @@ const LevelUpButton = () => {
 			{isAbilityUpgradeable && (
 				<>
 					<DOTAScenePanel map='scenes/hud/levelupburst' className={Styles.particleScene} />
-					<Panel onactivate={() => Abilities.AttemptToUpgrade(abilityEntityIndex)} className={Styles.buttonBackground}>
-						<Panel className={Styles.icon} />
+					<Panel onactivate={() => onClick(abilityEntityIndex)} className={Styles.buttonBackground}>
+						<Image className={Styles.icon} />
 					</Panel>
 				</>
 			)}
@@ -36,4 +39,4 @@ const LevelUpButton = () => {
 	)
 }
 
-export default React.memo(LevelUpButton)
+export default LevelUpButton

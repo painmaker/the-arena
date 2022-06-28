@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import useGameEvent from '../../../../hooks/useGameEvent'
 import Ability from './Ability/Ability'
 import Styles from './styles.module.css'
@@ -19,24 +19,22 @@ const AbilitiesImpl = (props: Props) => {
 	const { entityIndex } = props
 
 	const [abilities, setAbilities] = useState<IAbility[]>([])
-	const id = useRef(Number.MIN_SAFE_INTEGER)
 
 	useGameEvent(
 		'on_ability_used',
 		event => {
 			if (entityIndex === event.caster) {
-				id.current += 1
 				setAbilities(prevState => [
 					...prevState,
 					{
+						id: prevState.length,
 						name: event.name,
 						isItem: event.isItem === 1,
-						id: id.current,
 					},
 				])
 			}
 		},
-		[entityIndex],
+		[entityIndex, setAbilities],
 	)
 
 	return (

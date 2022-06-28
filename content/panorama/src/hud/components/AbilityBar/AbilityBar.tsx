@@ -12,26 +12,26 @@ const getAbilities = (abilityCount: number, selectedEntityIndex: EntityIndex): A
 	}
 	return Array.from(Array(abilityCount - 1).keys())
 		.map(abilityNumber => Entities.GetAbility(selectedEntityIndex, abilityNumber))
-		.filter(index => index !== -1)
-		.filter(index => Abilities.IsDisplayedAbility(index))
+		.filter(abilityEntityIndex => abilityEntityIndex !== -1)
+		.filter(abilityEntityIndex => Abilities.IsDisplayedAbility(abilityEntityIndex))
 		.sort()
 }
 
 const AbilityBar = () => {
-	// $.Msg("REACT-RENDER: AbilityBar rendered");
+	$.Msg('REACT-RENDER: AbilityBar rendered')
 
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)
 
-	const [abilities, setAbilities] = useState<AbilityEntityIndex[]>(() =>
+	const [abilityEntityIndexes, setAbilityEntityIndexes] = useState<AbilityEntityIndex[]>(() =>
 		getAbilities(Entities.GetAbilityCount(selectedEntityIndex), selectedEntityIndex),
 	)
 	const [abilityPoints, setAbilityPoints] = useState(0)
 
 	useInterval(() => {
-		setAbilityPoints(Entities.GetAbilityPoints(selectedEntityIndex))
 		const abilityCount = Entities.GetAbilityCount(selectedEntityIndex)
 		const newAbilities = getAbilities(abilityCount, selectedEntityIndex)
-		setAbilities(oldAbilities => (isEqual(oldAbilities, newAbilities) ? oldAbilities : newAbilities))
+		setAbilityPoints(Entities.GetAbilityPoints(selectedEntityIndex))
+		setAbilityEntityIndexes(oldAbilities => (isEqual(oldAbilities, newAbilities) ? oldAbilities : newAbilities))
 	}, HUD_THINK_FAST)
 
 	useEffect(() => {
@@ -40,14 +40,14 @@ const AbilityBar = () => {
 		}
 	}, [abilityPoints])
 
-	if (abilities.length === 0) {
+	if (abilityEntityIndexes.length === 0) {
 		return null
 	}
 
 	return (
 		<Panel className={Styles.container}>
-			{abilities.map(ability => (
-				<AbilityBarItem key={ability} abilityEntityIndex={ability} />
+			{abilityEntityIndexes.map(abilityEntityIndex => (
+				<AbilityBarItem key={abilityEntityIndex} abilityEntityIndex={abilityEntityIndex} />
 			))}
 		</Panel>
 	)

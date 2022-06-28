@@ -1,17 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { HUD_THINK_FAST } from '../App'
 
-const cancel = (scheduleId: ScheduleID) => {
-	try {
-		$.Msg(`Canceling schedule with id ${scheduleId}`)
-		$.CancelScheduled(scheduleId)
-	} catch (exception) {
-		$.Msg(`Exception for schedule with id ${scheduleId}: ${exception}`)
-	}
-}
-
 const useInterval = (callback: () => void, delay: number = HUD_THINK_FAST) => {
-	const scheduleId = useRef(-1 as ScheduleID)
 	const savedCallback = useRef(callback)
 
 	useEffect(() => {
@@ -19,12 +9,23 @@ const useInterval = (callback: () => void, delay: number = HUD_THINK_FAST) => {
 	}, [callback])
 
 	useEffect(() => {
+		let scheduleId: ScheduleID | null = null
 		const update = () => {
+			scheduleId = null
 			savedCallback.current()
-			scheduleId.current = $.Schedule(delay, update)
+			scheduleId = $.Schedule(delay, update)
 		}
 		update()
-		return () => cancel(scheduleId.current)
+		return () => {
+			if (scheduleId !== null) {
+				try {
+					// $.Msg(`Canceling schedule with id ${id}`)
+					$.CancelScheduled(scheduleId)
+				} catch (exception) {
+					$.Msg(`Exception for schedule with id ${scheduleId}: ${exception}`)
+				}
+			}
+		}
 	}, [delay])
 }
 
