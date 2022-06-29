@@ -28,10 +28,12 @@ export const AbilityEntityIndexContextProvider = (props: Props) => {
 
 	return (
 		<AbilityEntityIndexContext.Provider value={contextValue}>
-			<>
-				{/* eslint-disable-next-line react/jsx-no-useless-fragment */}
-				{children}
-			</>
+			{abilityEntityIndex !== -1 && (
+				<>
+					{/* eslint-disable-next-line react/jsx-no-useless-fragment */}
+					{children}
+				</>
+			)}
 		</AbilityEntityIndexContext.Provider>
 	)
 }

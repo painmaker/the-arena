@@ -10,7 +10,7 @@ const getAbilities = (abilityCount: number, selectedEntityIndex: EntityIndex): A
 	if (abilityCount <= 0) {
 		return []
 	}
-	return Array.from(Array(abilityCount - 1).keys())
+	return Array.from(Array(abilityCount).keys())
 		.map(abilityNumber => Entities.GetAbility(selectedEntityIndex, abilityNumber))
 		.filter(abilityEntityIndex => abilityEntityIndex !== -1)
 		.filter(abilityEntityIndex => Abilities.IsDisplayedAbility(abilityEntityIndex))
@@ -25,7 +25,7 @@ const AbilityBar = () => {
 	const [abilityEntityIndexes, setAbilityEntityIndexes] = useState<AbilityEntityIndex[]>(() =>
 		getAbilities(Entities.GetAbilityCount(selectedEntityIndex), selectedEntityIndex),
 	)
-	const [abilityPoints, setAbilityPoints] = useState(0)
+	const [abilityPoints, setAbilityPoints] = useState(Entities.GetAbilityPoints(selectedEntityIndex))
 
 	useInterval(() => {
 		const abilityCount = Entities.GetAbilityCount(selectedEntityIndex)

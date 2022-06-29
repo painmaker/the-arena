@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react'
-import { HUD_THINK_FAST } from '../../../../App'
-import { AbilityEntityIndexContext } from '../../../../context/AbilityEntityIndexContext'
-import { SelectedEntityIndexContext } from '../../../../context/SelectedEntityIndexContext'
-import useInterval from '../../../../hooks/useInterval'
+import { HUD_THINK_FAST } from '../../../../../App'
+import { AbilityEntityIndexContext } from '../../../../../context/AbilityEntityIndexContext'
+import { SelectedEntityIndexContext } from '../../../../../context/SelectedEntityIndexContext'
+import useInterval from '../../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
 const Keybind = () => {
-	// $.Msg("REACT-RENDER: AbilityBarItem - Keybind rendered");
+	$.Msg('REACT-RENDER: Keybind rendered')
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)

@@ -31,4 +31,4 @@ const Loading = (props: Props) => {
 	return <>{children}</>
 }
 
-export default React.memo(Loading)
+export default Loading

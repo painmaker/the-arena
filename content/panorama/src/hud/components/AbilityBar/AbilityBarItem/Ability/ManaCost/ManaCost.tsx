@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react'
-import { HUD_THINK_FAST } from '../../../../App'
-import { AbilityEntityIndexContext } from '../../../../context/AbilityEntityIndexContext'
-import useInterval from '../../../../hooks/useInterval'
+import { HUD_THINK_FAST } from '../../../../../App'
+import { AbilityEntityIndexContext } from '../../../../../context/AbilityEntityIndexContext'
+import useInterval from '../../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
 const ManaCost = () => {
-	// $.Msg("REACT-RENDER: AbilityBarItem - ManaCost rendered");
+	$.Msg('REACT-RENDER: ManaCost rendered')
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)
 
-	const [manaCost, setManaCost] = useState(0)
+	const [manaCost, setManaCost] = useState(Abilities.GetManaCost(abilityEntityIndex))
 
 	useInterval(() => {
 		setManaCost(Abilities.GetManaCost(abilityEntityIndex))
@@ -26,4 +26,4 @@ const ManaCost = () => {
 	)
 }
 
-export default React.memo(ManaCost)
+export default ManaCost

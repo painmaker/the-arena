@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react'
-import { HUD_THINK_FAST } from '../../../../App'
-import { AbilityEntityIndexContext } from '../../../../context/AbilityEntityIndexContext'
-import useInterval from '../../../../hooks/useInterval'
+import { HUD_THINK_FAST } from '../../../../../App'
+import { AbilityEntityIndexContext } from '../../../../../context/AbilityEntityIndexContext'
+import useInterval from '../../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
 const Autocast = () => {
-	// $.Msg("REACT-RENDER: AbilityBarItem - Autocast rendered");
+	$.Msg('REACT-RENDER: Autocast rendered')
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)
 
-	const [show, setShow] = useState(false)
+	const [show, setShow] = useState(Abilities.GetAutoCastState(abilityEntityIndex) || Abilities.GetToggleState(abilityEntityIndex))
 
 	useInterval(() => {
 		setShow(Abilities.GetAutoCastState(abilityEntityIndex) || Abilities.GetToggleState(abilityEntityIndex))
@@ -26,4 +26,4 @@ const Autocast = () => {
 	)
 }
 
-export default React.memo(Autocast)
+export default Autocast

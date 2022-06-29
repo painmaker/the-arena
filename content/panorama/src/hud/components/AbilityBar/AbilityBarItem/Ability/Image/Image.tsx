@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
-import { HUD_THINK_FAST } from '../../../../App'
-import { AbilityEntityIndexContext } from '../../../../context/AbilityEntityIndexContext'
-import { SelectedEntityIndexContext } from '../../../../context/SelectedEntityIndexContext'
-import useInterval from '../../../../hooks/useInterval'
+import { HUD_THINK_FAST } from '../../../../../App'
+import { AbilityEntityIndexContext } from '../../../../../context/AbilityEntityIndexContext'
+import { SelectedEntityIndexContext } from '../../../../../context/SelectedEntityIndexContext'
+import useInterval from '../../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
 const getSaturation = (isTrainable: boolean, level: number, manaCost: number, unitMana: number): string => {
@@ -35,7 +35,7 @@ const getWashColor = (isTrainable: boolean, manaCost: number, unitMana: number, 
 }
 
 const Image = () => {
-	// $.Msg("REACT-RENDER: AbilityBarItem - AbilityImage rendered");
+	$.Msg('REACT-RENDER: Image rendered')
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)
@@ -61,25 +61,18 @@ const Image = () => {
 		setIsOnCooldown(cooldownRemaining > 0)
 	}, HUD_THINK_FAST)
 
+	const containerStyle = {
+		border: isActive ? '1px solid rgba(0, 0, 0, 1)' : '0px solid rgba(0, 0, 0, 0.0)',
+		padding: isOnCooldown ? '1px' : '0px',
+	}
+
+	const imageStyle = { washColor, saturation }
+
 	return (
-		<Panel
-			className={Styles.container}
-			style={{
-				border: isActive ? '1px solid rgba(0, 0, 0, 1)' : '0px solid rgba(0, 0, 0, 0.0)',
-				padding: isOnCooldown ? '1px' : '0px',
-			}}
-		>
-			<DOTAAbilityImage
-				scaling='stretch'
-				className={Styles.image}
-				style={{
-					washColor,
-					saturation,
-				}}
-				contextEntityIndex={abilityEntityIndex}
-			/>
+		<Panel className={Styles.container} style={containerStyle}>
+			<DOTAAbilityImage scaling='stretch' className={Styles.image} style={imageStyle} contextEntityIndex={abilityEntityIndex} />
 		</Panel>
 	)
 }
 
-export default React.memo(Image)
+export default Image

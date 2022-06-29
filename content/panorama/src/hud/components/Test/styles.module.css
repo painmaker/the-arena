@@ -6,6 +6,7 @@
 	margin-top: 2px;
 	margin-right: 2px;
 	font-family: monospaceNumbersFont;
-	font-size: 4px;
-	opacity: 0.1;
+	font-size: 18px;
+	opacity: 0.5;
+	color: rgb(228, 189, 118);
 }

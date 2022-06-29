@@ -6,7 +6,7 @@ import useInterval from '../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
 const Skillpoints = () => {
-	// $.Msg("REACT-RENDER: AbilityBarItem - Skillpoints rendered");
+	$.Msg('REACT-RENDER: Skillpoints rendered')
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)
@@ -25,24 +25,22 @@ const Skillpoints = () => {
 
 	return (
 		<Panel className={Styles.container}>
-			{Array.from({ length: maxAbilityLevel }, (_, index) => index + 1).map(index => {
-				return (
-					<Panel key={`${abilityEntityIndex}_level_${index}`} className={Styles.column} style={{ width: `${100 / maxAbilityLevel}%` }}>
-						<Panel
-							className={Styles.skillpoint}
-							style={{
-								backgroundColor: abilityLevel >= index ? 'orange' : 'black',
-								boxShadow:
-									isUpgradeable && index === abilityLevel + 1
-										? 'fill rgba(255, 174, 0, 0.6) 0px 0px 2px 1px'
-										: 'fill rgba(0, 0, 0, 0.4) 0px 0px 2px 0.5px',
-							}}
-						/>
-					</Panel>
-				)
-			})}
+			{Array.from(Array(maxAbilityLevel).keys())
+				.map(index => index + 1)
+				.map(shiftedIndex => {
+					const backgroundColor = abilityLevel >= shiftedIndex ? 'orange' : 'black'
+					const boxShadow =
+						isUpgradeable && shiftedIndex === abilityLevel + 1
+							? 'fill rgba(255, 174, 0, 0.6) 0px 0px 2px 1px'
+							: 'fill rgba(0, 0, 0, 0.4) 0px 0px 2px 0.5px'
+					return (
+						<Panel key={`${abilityEntityIndex}_level_${shiftedIndex}`} className={Styles.column} style={{ width: `${100 / maxAbilityLevel}%` }}>
+							<Panel className={Styles.skillpoint} style={{ backgroundColor, boxShadow }} />
+						</Panel>
+					)
+				})}
 		</Panel>
 	)
 }
 
-export default React.memo(Skillpoints)
+export default Skillpoints

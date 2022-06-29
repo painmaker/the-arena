@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react'
-import { HUD_THINK_FAST } from '../../../../App'
-import { AbilityEntityIndexContext } from '../../../../context/AbilityEntityIndexContext'
-import { SelectedEntityIndexContext } from '../../../../context/SelectedEntityIndexContext'
-import useInterval from '../../../../hooks/useInterval'
+import { HUD_THINK_FAST } from '../../../../../App'
+import { AbilityEntityIndexContext } from '../../../../../context/AbilityEntityIndexContext'
+import { SelectedEntityIndexContext } from '../../../../../context/SelectedEntityIndexContext'
+import useInterval from '../../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
 const LockoutIcon = () => {
-	// $.Msg("REACT-RENDER: AbilityBarItem - LockoutIcon rendered");
+	$.Msg('REACT-RENDER: LockoutIcon rendered')
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)
@@ -30,4 +30,4 @@ const LockoutIcon = () => {
 	)
 }
 
-export default React.memo(LockoutIcon)
+export default LockoutIcon

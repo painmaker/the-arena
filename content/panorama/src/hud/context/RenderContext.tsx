@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
-import ToggleCustomUI from '../components/ToggleButton/ToggleCustomUI'
+import ToggleCustomUI from '../components/ToggleCustomUI/ToggleCustomUI'
 
 interface IRenderContext {
 	visible: boolean
@@ -22,7 +22,7 @@ export const RenderContextProvider = (props: Props) => {
 
 	const { children } = props
 
-	const [visible, setVisible] = useState(false)
+	const [visible, setVisible] = useState(true)
 
 	useEffect(() => {}, [visible])
 	const contextValues = useMemo(

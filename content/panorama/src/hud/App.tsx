@@ -19,7 +19,7 @@ import ItemsShop from './components/ItemsShop/ItemsShop'
 import { WINDOW } from './data/windows'
 import useRegisterForUnhandledEvent from './hooks/useRegisterForUnhandledEvent'
 import Loading from './components/Loading/Loading'
-import Test from './components/Test/Test'
+import TestContainer from './components/Test/Test'
 import { SelectedEntityProvider } from './context/SelectedEntityIndexContext'
 import { RenderContextProvider } from './context/RenderContext'
 
@@ -76,307 +76,268 @@ const App = () => {
 	}, [])
 
 	return (
-		<Loading>
-			<Panel style={{ flowChildren: 'right' }}>
-				<Panel style={{ flowChildren: 'down' }}>
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-				</Panel>
-				<Panel style={{ flowChildren: 'down' }}>
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-				</Panel>
-				<Panel style={{ flowChildren: 'down' }}>
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-				</Panel>
-				<Panel style={{ flowChildren: 'down' }}>
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-				</Panel>
-				<Panel style={{ flowChildren: 'down' }}>
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-				</Panel>
-				<Panel style={{ flowChildren: 'down' }}>
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-				</Panel>
-				<Panel style={{ flowChildren: 'down' }}>
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-					<Test />
-				</Panel>
-			</Panel>
+		<>
 			<Minimap />
 			<FloatingContainers />
+			{/* <Heroes /> */}
+			{/* <Messages /> */}
+			{/* <Settings /> */}
 			<RenderContextProvider>
-				<Heroes />
-				<Messages />
-				<Settings />
 				<SelectedEntityProvider>
-					<AbilitiesShop />
-					<CharacterDetails />
-					<ItemsShop />
-					<Panel className={Styles.rightCornerContainer}>
-						<SelectedEntity />
-						<Buttons />
+					<Panel style={{ flowChildren: 'right', backgroundColor: 'none' }}>
+						<Panel style={{ flowChildren: 'down' }}>
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+						</Panel>
+						<Panel style={{ flowChildren: 'down' }}>
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+						</Panel>
+						<Panel style={{ flowChildren: 'down' }}>
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+						</Panel>
+						<Panel style={{ flowChildren: 'down' }}>
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+						</Panel>
+						<Panel style={{ flowChildren: 'down' }}>
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+						</Panel>
+						<Panel style={{ flowChildren: 'down' }}>
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+							<TestContainer />
+						</Panel>
 					</Panel>
 					<AbilityBar />
-					<Health />
-					<Mana />
-					<Inventory />
-					<Modifiers />
-					<Panel className={Styles.bottomCenterBackground} />
-					<Panel className={Styles.bottomCenterLeftFlare} />
-					<Panel className={Styles.bottomCenterRightFlare} />
 				</SelectedEntityProvider>
+				{/* <AbilitiesShop /> */}
+				{/* <CharacterDetails /> */}
+				{/* <ItemsShop /> */}
+				{/* <Panel className={Styles.rightCornerContainer}> */}
+				{/* <SelectedEntity /> */}
+				{/* <Buttons /> */}
+				{/* </Panel> */}
+				{/* <Health /> */}
+				{/* <Mana /> */}
+				{/* <Inventory /> */}
+				{/* <Modifiers /> */}
+				{/* <Panel className={Styles.bottomCenterBackground} /> */}
+				{/* <Panel className={Styles.bottomCenterLeftFlare} /> */}
+				{/* <Panel className={Styles.bottomCenterRightFlare} /> */}
 			</RenderContextProvider>
-		</Loading>
+		</>
 	)
 }
 

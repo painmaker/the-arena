@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { HUD_THINK_FAST } from '../../../../App'
-import { AbilityEntityIndexContext } from '../../../../context/AbilityEntityIndexContext'
-import useInterval from '../../../../hooks/useInterval'
+import { HUD_THINK_FAST } from '../../../../../App'
+import { AbilityEntityIndexContext } from '../../../../../context/AbilityEntityIndexContext'
+import useInterval from '../../../../../hooks/useInterval'
 import Styles from './styles.module.css'
 
 const cpFix = 0.1
 
 const CastPointOverlay = () => {
-	// $.Msg("REACT-RENDER: AbilityBarItem - CastPointOveraly rendered");
+	$.Msg('REACT-RENDER: CastPointOveraly rendered')
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)
 
@@ -26,16 +26,16 @@ const CastPointOverlay = () => {
 	}, [isInAbilityPhase, castPoint])
 
 	useInterval(() => {
-		const castPoint = Math.max(cpFix, Abilities.GetCastPoint(abilityEntityIndex) - cpFix)
+		const newCastPoint = Math.max(cpFix, Abilities.GetCastPoint(abilityEntityIndex) - cpFix)
 		if (endTime !== undefined) {
 			const gameTimeDifference = Math.min(endTime, endTime - Game.GetGameTime())
-			const degree = 360 - Math.floor((gameTimeDifference / castPoint) * 360)
-			setDegree(Number.isFinite(degree) && !Number.isNaN(degree) ? degree : 0)
+			const newDegree = 360 - Math.floor((gameTimeDifference / newCastPoint) * 360)
+			setDegree(Number.isFinite(newDegree) && !Number.isNaN(newDegree) ? newDegree : 0)
 		} else {
 			setDegree(0)
 		}
 		setIsInAbilityPhase(Abilities.IsInAbilityPhase(abilityEntityIndex))
-		setCastPoint(castPoint)
+		setCastPoint(newCastPoint)
 	}, HUD_THINK_FAST)
 
 	if (degree === 0) {
@@ -45,4 +45,4 @@ const CastPointOverlay = () => {
 	return <Panel className={Styles.container} style={{ clip: `radial(50% 50%, 360deg, ${-degree}deg)` }} />
 }
 
-export default React.memo(CastPointOverlay)
+export default CastPointOverlay

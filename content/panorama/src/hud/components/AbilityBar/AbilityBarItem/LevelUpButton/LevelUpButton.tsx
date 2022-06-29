@@ -10,7 +10,7 @@ const onClick = (abilityEntityIndex: AbilityEntityIndex) => {
 }
 
 const LevelUpButton = () => {
-	// $.Msg("REACT-RENDER: LevelUpButton rendered");
+	$.Msg('REACT-RENDER: LevelUpButton rendered')
 
 	const { abilityEntityIndex } = useContext(AbilityEntityIndexContext)
 	const { selectedEntityIndex } = useContext(SelectedEntityIndexContext)
