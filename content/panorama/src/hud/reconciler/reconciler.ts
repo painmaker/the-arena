@@ -49,7 +49,7 @@ const removeChild = (parent: InternalPanel, child: InternalPanel) => {
 	if (parent.paneltype === 'DropDown') {
 		;(parent as DropDown).RemoveOption(child.id)
 	} else {
-		child.DeleteAsync(0)
+		child.RemoveAndDeleteChildren()
 		// child.SetParent(temporaryPanelHost)
 		// temporaryPanelHost.RemoveAndDeleteChildren()
 	}
@@ -179,6 +179,9 @@ const hostConfig: ReactReconciler.HostConfig<
 	},
 	clearContainer: (panel: InternalPanel) => {
 		console.debug('clearContainer called')
+		// panel.Children().forEach(element => {
+		// 	element.RemoveAndDeleteChildren()
+		// })
 	},
 	supportsHydration: false,
 	getInstanceFromNode: () => {

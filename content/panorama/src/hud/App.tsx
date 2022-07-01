@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import './global.css'
 import TestContainer from './components/Test/Test'
+import { RenderContextProvider } from './context/RenderContext'
 
 export const HUD_THINK_FAST = 1 / 144
 export const HUD_THINK_MEDIUM = 1 / 144 // 0.1
@@ -293,8 +294,8 @@ const App = () => {
 
 	return (
 		<>
-			<TestContainer />
 			{/* <RenderContextProvider> */}
+			<TestWrapper />
 			{/* <Minimap /> */}
 			{/* <FloatingContainers /> */}
 			{/* <Heroes /> */}
