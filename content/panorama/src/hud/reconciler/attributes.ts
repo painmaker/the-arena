@@ -626,5 +626,7 @@ export function updateProperty(type: PanelType, panel: InternalPanel, propName: 
 		case PropertyType.CUSTOM:
 			propertyInformation.update(panel, newValue, oldValue, propName)
 			break
+		default:
+			throw new Error(`Error: ${propertyInformation}`)
 	}
 }

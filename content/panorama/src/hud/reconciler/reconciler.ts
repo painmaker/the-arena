@@ -1,9 +1,11 @@
 import ReactReconciler from 'react-reconciler'
 import { DefaultEventPriority } from 'react-reconciler/constants'
-import { DotaHud, InternalPanel, temporaryPanelHost } from './utils'
+import { InternalPanel } from './utils'
 import { splitInitialProps, updateProperty } from './attributes'
-import { fixPanelBase, panelBaseNames } from './panel-base'
 import { PanelType } from './panels'
+
+const rootHostContext = {}
+const childHostContext = {}
 
 const appendChild = (parent: InternalPanel, child: InternalPanel) => {
 	console.debug('appendChild called')
@@ -47,9 +49,9 @@ const removeChild = (parent: InternalPanel, child: InternalPanel) => {
 	if (parent.paneltype === 'DropDown') {
 		;(parent as DropDown).RemoveOption(child.id)
 	} else {
-		child.SetParent(temporaryPanelHost)
-		temporaryPanelHost.RemoveAndDeleteChildren()
-		// child.DeleteAsync(0);
+		child.DeleteAsync(0)
+		// child.SetParent(temporaryPanelHost)
+		// temporaryPanelHost.RemoveAndDeleteChildren()
 	}
 }
 
@@ -70,26 +72,18 @@ const hostConfig: ReactReconciler.HostConfig<
 > = {
 	supportsMutation: true,
 	supportsPersistence: false,
-	createInstance(type, props) {
-		console.debug(`createInstance called for type ${type}`)
+	createInstance(type, props, rootContainer) {
+		const newType = type === 'GenericPanel' ? props.type : type
 
-		const { initialProps, otherProps } = splitInitialProps(type, props)
-
-		if (type === 'GenericPanel') {
-			type = props.type
-		}
+		const { initialProps, otherProps } = splitInitialProps(newType, props)
 
 		const panel = initialProps
-			? $.CreatePanelWithProperties(type, $.GetContextPanel(), props.id || '', initialProps)
-			: $.CreatePanel(type, $.GetContextPanel(), props.id || '')
+			? $.CreatePanelWithProperties(newType, rootContainer, props.id || '', initialProps)
+			: $.CreatePanel(newType, rootContainer, props.id || '')
 
-		if (panelBaseNames.has(type)) {
-			fixPanelBase(panel)
-		}
-
-		for (const prop in otherProps) {
-			updateProperty(type, panel, prop, undefined, otherProps[prop])
-		}
+		Object.keys(otherProps).forEach(prop => {
+			updateProperty(newType, panel, prop, undefined, otherProps[prop])
+		})
 
 		return panel
 	},
@@ -112,11 +106,11 @@ const hostConfig: ReactReconciler.HostConfig<
 	},
 	getRootHostContext: () => {
 		console.debug('getRootHostContext called')
-		return null
+		return rootHostContext
 	},
 	getChildHostContext: parentHostContext => {
 		console.debug('getChildHostContext called')
-		return parentHostContext
+		return childHostContext
 	},
 	getPublicInstance: instance => {
 		console.debug('getPublicInstance called')
@@ -185,11 +179,6 @@ const hostConfig: ReactReconciler.HostConfig<
 	},
 	clearContainer: (panel: InternalPanel) => {
 		console.debug('clearContainer called')
-		$.Msg('clearContainer called')
-		const app = DotaHud.FindChild('__react__app__root__')
-		if (app) {
-			app.RemoveAndDeleteChildren()
-		}
 	},
 	supportsHydration: false,
 	getInstanceFromNode: () => {
@@ -214,4 +203,5 @@ const hostConfig: ReactReconciler.HostConfig<
 	},
 }
 
-export const reconciler = ReactReconciler(hostConfig)
+const reconciler = ReactReconciler(hostConfig)
+export default reconciler

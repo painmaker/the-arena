@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode, ReactPortal } from 'react';
 import { InternalPanel, reactPanoramaSymbol } from './utils';
 import './panels';
-import { reconciler } from './reconciler';
+import reconciler from './reconciler';
 
 export * from './attribute-types';
 

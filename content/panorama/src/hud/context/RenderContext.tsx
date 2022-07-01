@@ -25,6 +25,7 @@ export const RenderContextProvider = (props: Props) => {
 	const [visible, setVisible] = useState(true)
 
 	useEffect(() => {}, [visible])
+
 	const contextValues = useMemo(
 		() => ({
 			visible,

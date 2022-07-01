@@ -1,4 +1,4 @@
-const DEBUG = false
+const DEBUG = true
 
 function assert() {
 	throw new Error('console.assert is not implemented')
